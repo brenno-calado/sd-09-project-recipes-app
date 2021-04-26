@@ -13,21 +13,17 @@ function Header() {
   };
 
   const buttonLink = () => (
-    <div>
-      <Link to="/perfil">
-        <button data-testid="profile-top-btn" type="button">
-          <img src={ ProfileLogo } alt="profile" />
-        </button>
-      </Link>
-    </div>
+    <Link to="/perfil">
+      <button data-testid="profile-top-btn" type="button">
+        <img src={ ProfileLogo } alt="profile" />
+      </button>
+    </Link>
   );
 
   const buttonClick = () => (
-    <span>
-      <button data-testid="search-top-btn" type="button" onClick={ handleClick }>
-        <img src={ SerchLogo } alt="search" />
-      </button>
-    </span>
+    <button data-testid="search-top-btn" type="button" onClick={ handleClick }>
+      <img src={ SerchLogo } alt="search" />
+    </button>
   );
 
   return (
