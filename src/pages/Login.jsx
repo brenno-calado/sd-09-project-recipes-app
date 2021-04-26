@@ -10,7 +10,7 @@ function Login() {
   }
 
   function validatePassword() {
-    const passwordValidator = /[\S]{6,}/;
+    const passwordValidator = /[\S]{7,}/;
     return passwordValidator.test(password);
   }
 
