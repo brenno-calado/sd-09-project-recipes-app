@@ -1705,7 +1705,7 @@ A rota `/explorar/bebidas/area` não deve estar disponível, retornando um erro 
   - Redireciona para a rota correta.
   ```
 ### 87 - Redirecione a pessoa usuária que, ao clicar no botão de "Sair", o `localStorage` deve ser limpo e a rota deve mudar para a tela de login
-
+  
   O que será verificado:
   ```
   - Limpa todas as chaves da localStorage;
