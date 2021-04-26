@@ -2,7 +2,9 @@ import React from 'react';
 
 function BottomNav() {
   return (
-    <h1>BottomNav</h1>
+    <nav data-testid="footer">
+      <h1>BottomNav</h1>
+    </nav>
   );
 }
 
