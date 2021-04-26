@@ -2,13 +2,14 @@ import React from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function Explore() {
+function ExploreFoodArea() {
   return (
     <div>
-      <Header page="Explore" search />
+      <Header page="Explorar Origem" search />
+      ExploreFoodArea
       <Footer />
     </div>
   );
 }
 
-export default Explore;
+export default ExploreFoodArea;
