@@ -1,0 +1,12 @@
+.headerContainer{
+  background-color: white;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: auto;
+  padding: 10px;
+}
+
+.buttons {
+  display: flex;
+  align-items: flex-end;
+}
