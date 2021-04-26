@@ -24,12 +24,12 @@ class Login extends Component {
   }
 
   checkMail(email) {
-    const emailRegex = /^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/;
+    const emailRegex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]/i;
     return emailRegex.test(email);
   }
 
   checkPassword(password) {
-    const min = 6;
+    const min = 7;
     if (password.length >= min) {
       return true;
     }
@@ -41,9 +41,8 @@ class Login extends Component {
   }
 
   createLocalStorage() {
-    const { email, password } = this.state;
-    const user = { email: [email], password: [password] };
-    localStorage.setItem('user', JSON.stringify({ user }));
+    const { email } = this.state;
+    localStorage.setItem('user', JSON.stringify({ email }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
   }
