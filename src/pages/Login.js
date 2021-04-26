@@ -1,36 +1,45 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import rockGlass from '../images/rockGlass.svg';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-   const handleClick = () => {
+  const handleClick = () => {
     const user = {
-      email: email,
-    }
+      email,
+    };
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify(user));
-   }
+  };
 
-    const validateFields = () => {
+  const validateFields = () => {
     const PASS_LENGTH = 6;
     const regexCheck = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i;
 
     return regexCheck.test(email) && password.length > PASS_LENGTH;
-  }
+  };
 
   return (
-    <>
+    <div className="meals">
+      <span className="logo">TRYBE</span>
+      <object
+        className="rocksGlass"
+        type="image/svg+xml"
+        data={ rockGlass }
+      >
+        Glass
+      </object>
       <label htmlFor="email-user">
-        Email: 
+        Email:
         <input
           id="email-user"
           type="text"
           data-testid="email-input"
-          onChange={ ({ target: { value: valueEmail }}) =>  (
-            setEmail(valueEmail) )}
+          onChange={ ({ target: { value: valueEmail } }) => (
+            setEmail(valueEmail)) }
         />
       </label>
       <label htmlFor="password-user">
@@ -39,8 +48,8 @@ export default function Login() {
           id="password-user"
           type="password"
           data-testid="password-input"
-          onChange={ ({ target: { value: valuePassword }}) =>  (
-            setPassword(valuePassword) )}
+          onChange={ ({ target: { value: valuePassword } }) => (
+            setPassword(valuePassword)) }
         />
       </label>
       <Link to="/comidas">
@@ -53,6 +62,6 @@ export default function Login() {
           Login
         </button>
       </Link>
-    </>
+    </div>
   );
 }
