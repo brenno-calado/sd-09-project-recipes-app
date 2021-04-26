@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
+import exploreIcon from '../images/exploreIcon.svg';
 
 function BottomNav() {
   return (
@@ -11,6 +12,13 @@ function BottomNav() {
           src={ drinkIcon }
           alt="Icone de Drink"
           data-testid="drinks-bottom-btn"
+        />
+      </Link>
+      <Link to="/explorar">
+        <img
+          src={ exploreIcon }
+          alt="Icone de Explorar"
+          data-testid="explore-bottom-btn"
         />
       </Link>
     </nav>
