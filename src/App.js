@@ -1,10 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import './App.css';
+import { connect } from 'react-redux';
 import rockGlass from './images/rockGlass.svg';
+import actionTeste from './Redux/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  // const { dispatchTeste } = props;
   return (
     <BrowserRouter>
       <div className="meals">
@@ -16,6 +19,9 @@ function App() {
         >
           Glass
         </object>
+        {/* <button type="button" onClick={ () => dispatchTeste('xablau') }>
+        Teste
+      </button> */}
       </div>
       <Switch>
         <Route path="/comidas" />
@@ -39,4 +45,8 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchTeste: (frase) => dispatch(actionTeste(frase)),
+});
+
+export default connect(null, mapDispatchToProps)(App);
