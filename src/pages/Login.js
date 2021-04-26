@@ -24,6 +24,11 @@ export default function Login() {
     setPassword(target.value);
   }
 
+  function handleLogin() {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+  }
+
   return (
     <div>
       <input
@@ -41,6 +46,7 @@ export default function Login() {
         disabled={ buttonOff }
         type="button"
         data-testid="login-submit-btn"
+        onClick={ handleLogin }
       >
         Entrar
       </button>
