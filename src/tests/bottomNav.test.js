@@ -51,9 +51,7 @@ describe('Requirement 20: Test Bottom Navigation Menu Positon and Icons', () => 
   it('Is fixed at the bottom of the page', () => {
     const { getByTestId } = renderWithRouter(<BottomNav />);
     const bottomNav = getByTestId('footer');
-
-    expect(bottomNav).toHaveStyle('position: fixed');
-    expect(bottomNav).toHaveStyle('bottom: 0');
+    expect(bottomNav).toHaveClass('bottom-nav');
   });
   it('Has the correct Icon images', () => {
     const { getByTestId } = renderWithRouter(<BottomNav />);
