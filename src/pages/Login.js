@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -44,14 +45,18 @@ export default function Login() {
         min="6"
         data-testid="password-input"
       />
-      <button
-        disabled={ buttonOff }
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleLogin }
-      >
-        Entrar
-      </button>
+
+      <Link to="/comidas">
+        <button
+          disabled={ buttonOff }
+          type="button"
+          data-testid="login-submit-btn"
+          onClick={ handleLogin }
+        >
+          Entrar
+        </button>
+      </Link>
+
     </div>
   );
 }
