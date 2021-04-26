@@ -3,7 +3,23 @@ import React, { useState } from 'react';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoginValid, setIsLoginValid] = useState(false);
+
+  function validateEmail() {
+    const emailValidator = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
+    return emailValidator.test(email);
+  }
+
+  function validatePassword() {
+    const passwordValidator = /[\S]{6,}/;
+    return passwordValidator.test(password);
+  }
+
+  function validateLogin() {
+    let validation = true;
+    if (!validateEmail()) validation = false;
+    if (!validatePassword()) validation = false;
+    return validation;
+  }
 
   function handleEmailInput({ target: { value } }) {
     setEmail(value);
@@ -40,7 +56,6 @@ function Login() {
   }
 
   function handleLoginButton() {
-    setIsLoginValid(false);
   }
 
   function renderLoginButton() {
@@ -48,7 +63,7 @@ function Login() {
       <button
         data-testid="login-submit-btn"
         type="button"
-        disabled={ !isLoginValid }
+        disabled={ !validateLogin() }
         onClick={ handleLoginButton }
       >
         Entrar
