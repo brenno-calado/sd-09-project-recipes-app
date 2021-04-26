@@ -1,6 +1,6 @@
-padroes gerais
+PADRÕES GERAIS
 
-Padrões de PR
+Padrões de Pull Request:
 main-group-18/branch
 
 [FEAT][Requisito 01][Descrição]
@@ -8,7 +8,9 @@ main-group-18/branch
 [TEST]
 [REFACTOR]
 [STYLE]
+
 ---
+
 REDUX - npm install --save redux react-redux redux-thunk redux-devtools-extension
 CONTEXT
 bootstrap
@@ -16,7 +18,9 @@ reactstrap
 google fonts
 font awesome
 
-PASTAS
+---
+
+PASTAS:
 pages
 -> css
 images
@@ -28,3 +32,9 @@ services
 tests
 -> utils
 
+---
+
+Componentes:
+
+<Header /> - Header do app
+<Menu /> - Menu inferior
