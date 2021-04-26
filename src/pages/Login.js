@@ -37,6 +37,8 @@ const Login = () => {
     localStorage.setItem('user', JSON.stringify({ email: user.email }));
   };
 
+  const { email, password } = user;
+
   return (
     <div>
       <label htmlFor="email">
@@ -47,6 +49,7 @@ const Login = () => {
           id="email"
           type="text"
           onChange={ handleChange }
+          value={ email }
         />
       </label>
       <label htmlFor="password">
@@ -57,6 +60,7 @@ const Login = () => {
           id="password"
           type="password"
           onChange={ handleChange }
+          value={ password }
         />
       </label>
       <Link to="/comidas">
