@@ -1,12 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <BrowserRouter>
+    <div>
       <div className="meals">
         <span className="logo">TRYBE</span>
         <object
@@ -35,7 +35,7 @@ function App() {
         <Route path="/receitas-favoritas" />
         <Route exact path="/" />
       </Switch>
-    </BrowserRouter>
+    </div>
   );
 }
 
