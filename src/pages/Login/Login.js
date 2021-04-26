@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { savesUserData as savesUserAction } from '../../actions/userActions';
 
 const Login = (props) => {
@@ -31,6 +32,9 @@ const Login = (props) => {
   const handleClick = () => {
     const { savesUserData } = props;
     savesUserData(user);
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
   };
 
   return (
@@ -51,14 +55,16 @@ const Login = (props) => {
         placeholder="Senha"
         onChange={ handleChange }
       />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ isDisabled }
-        onClick={ () => handleClick() }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ isDisabled }
+          onClick={ () => handleClick() }
+        >
+          Entrar
+        </button>
+      </Link>
     </>
   );
 };
