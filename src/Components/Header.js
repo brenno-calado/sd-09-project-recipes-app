@@ -1,4 +1,4 @@
-immort React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -15,13 +15,14 @@ function Header() {
                 />
             </Link>
             <span data-testid='page-title'>Comidas</span>
-            <Link>
-                <img
-                    src={ searchIcon }
-                    alt='Search-Bar'
-                    data-testid='search-top-btn'
-                />
-            </Link>
+              <button
+                src={ searchIcon }
+                alt='Search-Bar'
+                data-testid='search-top-btn'
+                onClick={}
+              />
+
         </header>
+
     )
 }
