@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import './BottomNav.css';
 
 function BottomNav() {
   return (
-    <nav data-testid="footer">
-      <h1>BottomNav</h1>
+    <nav className="bottom-nav" data-testid="footer">
       <Link to="/bebidas">
         <img
           src={ drinkIcon }
