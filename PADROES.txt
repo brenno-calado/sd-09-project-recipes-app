@@ -1,0 +1,30 @@
+padroes gerais
+
+Padrões de PR
+main-group-18/branch
+
+[FEAT][Requisito 01][Descrição]
+[FIX]
+[TEST]
+[REFACTOR]
+[STYLE]
+---
+REDUX - npm install --save redux react-redux redux-thunk redux-devtools-extension
+CONTEXT
+bootstrap
+reactstrap
+google fonts
+font awesome
+
+PASTAS
+pages
+-> css
+images
+components
+-> css
+redux
+context
+services
+tests
+-> utils
+
