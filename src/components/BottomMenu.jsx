@@ -8,22 +8,25 @@ import mealIcon from '../images/mealIcon.svg';
 function BottomMenu() {
   return (
     <div className="bottom-menu" data-testid="footer">
-      <Link to="/bebidas" data-testid="drinks-bottom-btn">
+      <Link to="/bebidas">
         <img
           alt="drinks buttom"
           src={ drinkIcon }
+          data-testid="drinks-bottom-btn"
         />
       </Link>
-      <Link to="/explorar" data-testid="explore-bottom-btn">
+      <Link to="/explorar">
         <img
           alt="search buttom"
           src={ exploreIcon }
+          data-testid="explore-bottom-btn"
         />
       </Link>
-      <Link to="/comidas" data-testid="food-bottom-btn">
+      <Link to="/comidas">
         <img
           alt="meal buttom"
           src={ mealIcon }
+          data-testid="food-bottom-btn"
         />
       </Link>
     </div>
