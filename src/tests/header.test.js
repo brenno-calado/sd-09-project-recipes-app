@@ -12,9 +12,9 @@ describe('Testa componente SearchBar', () => {
     const inputTextSearch = getByLabelText(/Buscar por:/i);
 
     expect(inputTextSearch).toBeInTheDocument();
-    expect(getByLabelText(/Ingredient/i)).toBeInTheDocument();
-    expect(getByLabelText(/Name/i)).toBeInTheDocument();
-    expect(getByLabelText(/First Letter/i)).toBeInTheDocument();
+    expect(getByLabelText(/Ingrediente/i)).toBeInTheDocument();
+    expect(getByLabelText(/Nome/i)).toBeInTheDocument();
+    expect(getByLabelText(/Primeira letra/i)).toBeInTheDocument();
     expect(getByTestId(/exec-search-btn/i)).toBeInTheDocument();
   });
 
@@ -22,8 +22,8 @@ describe('Testa componente SearchBar', () => {
     const { getByLabelText } = renderWithRouter(<App />);
 
     const inputTextSearch = getByLabelText(/Buscar por:/i);
-    const inputRadioIndredient = getByLabelText(/Ingredient/i);
-    const inputRadioNameSearch = getByLabelText(/Name/i);
+    const inputRadioIndredient = getByLabelText(/Ingrediente/i);
+    const inputRadioNameSearch = getByLabelText(/Nome/i);
 
     userEvent.type(inputTextSearch, 'hamburguer');
     expect(inputTextSearch).toHaveValue('hamburguer');
