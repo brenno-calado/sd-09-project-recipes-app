@@ -6,7 +6,7 @@ import Login from './pages/Login/Login';
 function App() {
   return (
     <Switch>
-      <Route exact path="/" component={ Login }/>
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }
