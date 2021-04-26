@@ -3,6 +3,8 @@ import userEvent from '@testing-library/user-event';
 import renderWithRouter from './renderWithRouter';
 import Login from '../pages/Login';
 
+const USER_EMAIL = 'email@pessoa.com.br';
+
 describe('Testa a página de Login', () => {
   describe('Verifica se os elementos foram criados', () => {
     test('Verifica se existe o input de email', () => {
@@ -35,8 +37,8 @@ describe('Testa a página de Login', () => {
 
       const emailInput = getByTestId(/email-input/i);
       expect(emailInput).toHaveTextContent('');
-      userEvent.type(getByTestId('email-input'), 'email@pessoa.com.br');
-      expect(getByTestId('email-input')).toHaveValue('email@pessoa.com.br');
+      userEvent.type(getByTestId('email-input'), USER_EMAIL);
+      expect(getByTestId('email-input')).toHaveValue(USER_EMAIL);
 
       const passwordInput = getByTestId(/password-input/i);
       expect(passwordInput).toHaveTextContent('');
@@ -49,7 +51,7 @@ describe('Testa a página de Login', () => {
       expect(pathname).toBe('/comidas');
 
       const user = JSON.parse(localStorage.getItem('user'));
-      expect(user.email).toBe('email@pessoa.com.br');
+      expect(user.email).toBe(USER_EMAIL);
     });
   });
 });
