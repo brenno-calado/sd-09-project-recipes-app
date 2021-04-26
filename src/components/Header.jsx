@@ -12,22 +12,30 @@ function Header() {
     setXablau(!xablau);
   };
 
+  const buttonLink = () => (
+    <div>
+      <Link to="/perfil">
+        <button data-testid="profile-top-btn" type="button">
+          <img src={ ProfileLogo } alt="profile" />
+        </button>
+      </Link>
+    </div>
+  );
+
+  const buttonClick = () => (
+    <span>
+      <button data-testid="search-top-btn" type="button" onClick={ handleClick }>
+        <img src={ SerchLogo } alt="search" />
+      </button>
+    </span>
+  );
+
   return (
     <>
       <div className="header-content">
-        <div>
-          <Link to="/perfil">
-            <button data-testid="profile-top-btn" type="button">
-              <img src={ ProfileLogo } alt="profile" />
-            </button>
-          </Link>
-        </div>
+        { buttonLink() }
         <p data-testid="page-title">Comidas</p>
-        <span>
-          <button data-testid="search-top-btn" type="button" onClick={ handleClick }>
-            <img src={ SerchLogo } alt="search" />
-          </button>
-        </span>
+        { buttonClick() }
       </div>
       <div>
         { xablau ? <SearchBar /> : null }
