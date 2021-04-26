@@ -2,7 +2,7 @@ import React from 'react';
 import Header from '../../common/components/Header';
 
 const Recipes = () => (
-  <Header />
+  <Header title="Comidas" />
 );
 
 export default Recipes;
