@@ -1,4 +1,4 @@
-.headerContainer{
+.headerContainer {
   background-color: white;
   display: flex;
   justify-content: space-evenly;
@@ -7,6 +7,6 @@
 }
 
 .buttons {
-  display: flex;
   align-items: flex-end;
+  display: flex;
 }
