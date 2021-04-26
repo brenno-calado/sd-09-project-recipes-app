@@ -47,7 +47,7 @@ function Login() {
         <button
           data-testid="login-submit-btn"
           type="button"
-          disabled={ validation }
+          disabled={ validation() }
           onClick={ setStorage }
         >
           Entrar
