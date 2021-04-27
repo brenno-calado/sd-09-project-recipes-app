@@ -3,6 +3,10 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
+import DetalhesComida from './pages/DetalhesComida';
+import DetalhesBebida from './pages/DetalhesBebida';
+import ProcessoComida from './pages/ProcessoComida';
+import ProcessoBebida from './pages/ProcessoBebida';
 
 function App() {
   return (
@@ -18,7 +22,7 @@ function App() {
         {/* Placeholder do id */}
         <Route path="/comidas/id-da-receita/in-progress" component={ ProcessoComida } />
         {/* Placeholder do id */}
-        <Route path="/bebidas/id-da-receita/in-progress" component={ processoBebida } />
+        <Route path="/bebidas/id-da-receita/in-progress" component={ ProcessoBebida } />
         <Route path="/explorar" component={ Explorar } />
         <Route path="/explorar/comidas" component={ ExplorarComidas } />
         <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
