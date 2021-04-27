@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
+import { shape } from 'prop-types';
 
 const RecipeContext = createContext();
 
@@ -17,6 +18,10 @@ export function RecipeContextProvider({ children }) {
     </RecipeContext.Provider>
   );
 }
+
+RecipeContextProvider.propTypes = {
+  children: shape().isRequired,
+};
 
 export function useRecipeContext() {
   return useContext(RecipeContext);
