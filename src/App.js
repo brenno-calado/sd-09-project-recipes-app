@@ -1,11 +1,11 @@
 import React from 'react';
-import './App.css';
+// import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import MainFood from './Pages/MainFood';
 import MainDrink from './Pages/MainDrink';
 import Profile from './Pages/Profile';
 // import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 
 function App() {

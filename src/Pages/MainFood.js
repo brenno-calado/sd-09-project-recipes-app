@@ -1,10 +1,14 @@
-import React from 'react';
 import Header from '../Components/Header';
+import React, { Component } from 'react';
+import FoodCards from '../Components/FoodCards';
 
-class MainFood extends React.Component {
+class MainFood extends Component {
   render() {
     return (
-      <Header name="Comidas" />
+      <>
+        <Header name="Comidas" />
+        <FoodCards />
+      </>
     );
   }
 }
