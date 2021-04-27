@@ -4,15 +4,15 @@
 }
 
 input {
-  border: 1px solid #000000;
+  border: 1px solid black;
   border-radius: 6px;
   font-size: 30px;
   margin: 0;
 }
 
 .inputs {
-  margin: auto;
   display: flex;
+  margin: auto;
   flex-direction: column;
   width: 60%;
 }
@@ -24,8 +24,8 @@ input {
 }
 
 .bnt_login {
-  background-color: #6CE34F;
-  margin-top: 50px;
+  background-color: #6ce34f;
   height: 88px;
+  margin-top: 50px;
   width: 60%;
 }
