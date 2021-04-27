@@ -6,8 +6,10 @@ import HeaderSearchBar from './HeaderSearchBar';
 import searchIcon from '../images/searchIcon.svg';
 
 const headerStyle = {
+  margin: 'auto',
   position: 'fixed',
   top: '0px',
+
 };
 
 export default function Header(props) {

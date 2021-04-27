@@ -14,13 +14,13 @@ const RecipesProvider = ({ children }) => {
     fetchFoodsAPI().then((meals) => {
       setRecipesFoods(meals);
     });
-  }, [recipesFoods]);
+  }, []);
 
   useEffect(() => {
     fetchDrinksAPI().then((drinks) => {
       setRecipesDrinks(drinks);
     });
-  }, [recipesDrinks]);
+  }, []);
 
   // passar o context
   const context = {

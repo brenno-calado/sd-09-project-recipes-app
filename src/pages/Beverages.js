@@ -3,6 +3,20 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import myContext from '../context/myContext';
 
+const imgStyle = {
+  maxWidth: '150x',
+  maxHeight: '150px',
+  margin: 'auto',
+};
+
+// a tela é 360 x 640
+const containerStyle = {
+  overflowY: 'scroll',
+  maxWidth: '300px',
+  maxHeight: '300px',
+  marginTop: '100px',
+};
+
 export default function Beverages() {
   const { recipesDrinks } = useContext(myContext);
   const MAX_LENGTH_RECIPES = 12;
@@ -11,16 +25,19 @@ export default function Beverages() {
   return (
     <div>
       <Header title="Bebidas" />
-      {recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-        <div key={ idDrink } data-testid={ `${index}-recipe-card` }>
-          <img
-            src={ strDrinkThumb }
-            alt={ strDrink }
-            data-testid={ `${index}-card-img` }
-          />
-          <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-        </div>
-      ))}
+      <div style={ containerStyle }>
+        {recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
+          <div key={ idDrink } data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ strDrinkThumb }
+              alt={ strDrink }
+              data-testid={ `${index}-card-img` }
+              style={ imgStyle }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
+          </div>
+        ))}
+      </div>
       <Footer />
     </div>
   );
