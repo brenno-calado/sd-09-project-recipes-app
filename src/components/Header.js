@@ -14,19 +14,31 @@ const Header = ({ title }) => {
     showSearchBar
       ? setShowSearchBar(false)
       : setShowSearchBar(true)
-  );
+    );
+
+    const titles = [
+      'Explorar',
+      'Explorar Comidas',
+      'Explorar Ingredientes',
+      'Explorar Bebidas',
+      'Receitas Feitas',
+      'Receitas Favoritas',
+      'Perfil',
+    ];
 
   return (
     <nav>
-      <Link data-testid="profile-top-btn" to="/perfil">
-        <img src={ profileIcon } alt="profile icon" />
+      <Link to="/perfil">
+        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile icon" />
       </Link>
 
       <h1 data-testid="page-title">{title}</h1>
 
-      <Button data-testid="search-top-btn" onClick={ handleClick }>
-        <img src={ searchIcon } alt="search icon" />
-      </Button>
+      { !titles.includes(title) &&
+      <Button onClick={ handleClick }>
+        <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
+      </Button> }
+
       { showSearchBar && <SearchBar /> }
     </nav>
   );
