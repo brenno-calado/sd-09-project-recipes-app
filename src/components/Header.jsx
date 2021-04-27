@@ -29,7 +29,7 @@ function Header({ page, search }) {
           <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
         </button>
       )}
-      { searchBar && <SearchBar /> }
+      { searchBar && <SearchBar page={ page } /> }
     </div>
   );
 }
