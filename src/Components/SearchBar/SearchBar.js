@@ -54,6 +54,7 @@ function SearchBar({ page }) {
     <div className="search-bar-container">
       <input
         type="text"
+        className="search-input"
         data-testid="search-input"
         onChange={ handleSearch }
       />
