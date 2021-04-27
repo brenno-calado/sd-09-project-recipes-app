@@ -4,7 +4,9 @@ import * as S from './styled';
 function Login() {
   return (
     <S.Container>
-      <S.Button color="green">Button</S.Button>
+      <S.Form>
+        <input type="text" placeholder="Digite seu nome" />
+      </S.Form>
     </S.Container>
   );
 }
