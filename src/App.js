@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import actionTeste from './Redux/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Foods from './pages/Foods';
-import Details from './pages/Details';
 import InProgress from './pages/InProgress';
 import Beverages from './pages/Beverages';
 import Ingredients from './pages/Ingredients';
@@ -17,23 +16,24 @@ import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
+import Details from './pages/Details';
 
 function App() {
   // const { dispatchTeste } = props;
   return (
     <Switch>
-      <Route path="/comidas" component={ Foods } />
-      <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
       <Route
         path="/comidas/:id/in-progress"
         render={ (props) => <InProgress { ...props } /> }
       />
-      <Route path="/bebidas" component={ Beverages } />
+      <Route
+        path="/bebidas/:id/in-progress"
+        render={ (props) => <InProgress { ...props } /> }
+      />
+      <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
       <Route path="/bebidas/:id" render={ (props) => <InProgress { ...props } /> } />
-      <Route path="/bebidas/:id/in-progress" Ingredients />
-      <Route path="/explorar" component={ Explore } />
-      <Route path="/explorar/bebidas" component={ ExploreBeverages } />
-      <Route path="/explorar/comidas" component={ ExploreFoods } />
+      <Route path="/comidas" component={ Foods } />
+      <Route path="/bebidas" component={ Beverages } />
       <Route
         path="/explorar/bebidas/ingredientes"
         render={ (props) => <Ingredients { ...props } /> }
@@ -43,6 +43,9 @@ function App() {
         render={ (props) => <Ingredients { ...props } /> }
       />
       <Route path="/explorar/comidas/area" component={ Areas } />
+      <Route path="/explorar/bebidas" component={ ExploreBeverages } />
+      <Route path="/explorar/comidas" component={ ExploreFoods } />
+      <Route path="/explorar" component={ Explore } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ Done } />
       <Route path="/receitas-favoritas" component={ Favorites } />

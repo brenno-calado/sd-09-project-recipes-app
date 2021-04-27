@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Favorites() {
   return (
     <div>
-      Explore foods
+      <Header title="Explorar Comidas" />
     </div>
   );
 }
