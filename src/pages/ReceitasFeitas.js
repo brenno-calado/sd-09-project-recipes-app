@@ -3,7 +3,7 @@ import Header from '../components/Header';
 
 function Perfil() {
   return (
-    <Header title="Perfil" searchIcon={ false } />
+    <Header title="Receitas Feitas" searchIcon={ false } />
   );
 }
 

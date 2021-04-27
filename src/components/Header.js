@@ -5,7 +5,7 @@ import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-const Header = ({ title }) => {
+const Header = ({ title, searchIcon }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const toogleSearchBar = () => {
@@ -22,13 +22,16 @@ const Header = ({ title }) => {
         />
       </Link>
       <h1 data-testid="page-title">{title}</h1>
-      <button type="button" onClick={ toogleSearchBar }>
-        <img
-          data-testid="search-top-btn"
-          src={ search }
-          alt="Search Icon"
-        />
-      </button>
+      {searchIcon && (
+        <button type="button" onClick={ toogleSearchBar }>
+          <img
+            data-testid="search-top-btn"
+            src={ search }
+            alt="Search Icon"
+          />
+        </button>
+      )}
+
       { showSearchBar && <SearchBar /> }
     </>
   );
@@ -36,6 +39,7 @@ const Header = ({ title }) => {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
+  searchIcon: PropTypes.bool.isRequired,
 };
 
 export default Header;
