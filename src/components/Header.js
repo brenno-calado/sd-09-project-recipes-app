@@ -3,10 +3,57 @@ import { Link, useLocation } from 'react-router-dom';
 import ProfileImage from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
+const exploreTitle = (pathName, title) => {
+  let valueReturn;
+
+  if (pathName[3] === 'ingredientes') {
+    valueReturn = `${title} Ingredientes`;
+  } else {
+    switch (pathName[2]) {
+    case 'bebidas':
+      valueReturn = `${title} Bebidas`;
+      break;
+    default:
+      if (pathName[3] === 'area') {
+        valueReturn = `${title} Origem`;
+      } else {
+        valueReturn = `${title} Comidas`;
+      }
+    }
+  }
+  return valueReturn;
+};
+
 const Header = () => {
-  const pathname = useLocation().pathname.split('/');
-  const headerTitle = pathname[1].charAt(0).toUpperCase()
-  + pathname[1].slice(1);
+  const pathName = useLocation().pathname.split('/');
+  let headerTitle;
+  const tempTitle = pathName[1].charAt(0).toUpperCase() + pathName[1].slice(1);
+  let renderSearch = true;
+
+  if (pathName[1] === 'explorar') {
+    renderSearch = false;
+    headerTitle = exploreTitle(pathName, tempTitle);
+  } else {
+    headerTitle = tempTitle;
+  }
+
+  if (pathName[3] === 'area') {
+    renderSearch = true;
+  }
+
+  if (pathName[1] === 'perfil') {
+    renderSearch = false;
+  }
+
+  if (pathName[1] === 'receitas-feitas') {
+    renderSearch = false;
+    headerTitle += 'Receitas Feitas';
+  }
+
+  if (pathName[1] === 'receitas-favoritas') {
+    renderSearch = false;
+    headerTitle += 'Receitas Favoritas';
+  }
   return (
     <header>
       <div>
@@ -23,13 +70,15 @@ const Header = () => {
       >
         { headerTitle }
       </h1>
-      <div>
-        <img
-          src={ SearchIcon }
-          alt="profileIcon"
-          data-testid="search-top-btn"
-        />
-      </div>
+      { renderSearch && (
+        <div>
+          <img
+            src={ SearchIcon }
+            alt="profileIcon"
+            data-testid="search-top-btn"
+          />
+        </div>
+      )}
     </header>
   );
 };

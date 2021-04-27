@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const ExplorerFood = () => (
-  <h1>Explora Comida</h1>
+  <Header />
 );
 
 export default ExplorerFood;

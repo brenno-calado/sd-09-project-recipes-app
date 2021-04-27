@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Profile = () => (
-  <h1>Perfil</h1>
+  <Header />
 );
 
 export default Profile;

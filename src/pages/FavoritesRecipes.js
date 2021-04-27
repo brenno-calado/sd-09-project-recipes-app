@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const FavoritesRecipes = () => (
-  <h1>Receitas Feitas</h1>
+  <Header />
 );
 
 export default FavoritesRecipes;

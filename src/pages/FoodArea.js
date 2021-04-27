@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const FoodArea = () => (
-  <h1>Comida por Area</h1>
+  <Header />
 );
 
 export default FoodArea;

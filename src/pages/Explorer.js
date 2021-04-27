@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const Explorer = () => (
-  <h1>Explora</h1>
+  <Header />
 );
 
 export default Explorer;

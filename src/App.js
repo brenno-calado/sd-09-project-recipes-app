@@ -24,12 +24,12 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas/:id-da-receita/in-progress" component={ FoodInProgress } />
-        <Route path="/comidas/:id-da-receita" component={ DisplayFood } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/comidas/:id" component={ DisplayFood } />
         <Route path="/comidas" component={ FoodRecipes } />
         <Route path="/perfil" component={ Profile } />
-        <Route path="/bebidas/:id-da-receita" component={ DrinkInProgress } />
-        <Route path="/bebidas/:id-da-receita" component={ DisplayDrink } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/bebidas/:id" component={ DisplayDrink } />
         <Route path="/bebidas" component={ DrinkRecipes } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
         <Route path="/explorar/comidas/area" component={ FoodArea } />
