@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router';
+import { useRecipeContext } from '../contexts/recipeContext';
 
 function Login() {
+  const { handleLocalStorage } = useRecipeContext();
+
   const [userData, setUserData] = useState({
     emailInput: '',
     passwordInput: '',
   });
   const [isDataValid, setIsDataValid] = useState(true);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   function handleInputChange({ target }) {
     const { name, value } = target;
     setUserData({ ...userData, [name]: value });
+  }
+
+  function userEmailLocalStorage() {
+    const { emailInput } = userData;
+    const email = { email: emailInput };
+    localStorage.setItem('user', JSON.stringify(email));
+    setShouldRedirect(true);
   }
 
   useEffect(() => {
@@ -23,6 +35,8 @@ function Login() {
       setIsDataValid(true);
     }
   }, [userData]);
+
+  if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
     <form>
@@ -54,6 +68,7 @@ function Login() {
         id="login-submit-btn"
         name="login-submit-btn"
         disabled={ isDataValid }
+        onClick={ () => { handleLocalStorage(); userEmailLocalStorage(); } }
       >
         Entrar
       </button>
