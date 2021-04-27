@@ -1,0 +1,7 @@
+.footer-menu {
+  bottom: 0px;
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  width: 100vw;
+}
