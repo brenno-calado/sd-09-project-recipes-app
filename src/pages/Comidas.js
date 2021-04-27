@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { AppContext } from '../context/AppContext';
 
 function Comidas() {
@@ -20,6 +21,7 @@ function Comidas() {
           <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
         </div>
       )) }
+      <Footer />
     </>
   );
 }
