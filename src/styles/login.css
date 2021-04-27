@@ -12,8 +12,8 @@ input {
 
 .inputs {
   display: flex;
-  margin: auto;
   flex-direction: column;
+  margin: auto;
   width: 60%;
 }
 
