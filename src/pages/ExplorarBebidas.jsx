@@ -1,66 +1,51 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/recipes.css';
 
-class ExplorarBebidas extends Component {
-  constructor() {
-    super();
+function ExplorarBebidas() {
+  const [byIngredients, setByIngredients] = useState(false);
+  const [surpriseMe, setSurpriseMe] = useState(false);
 
-    this.state = {
-      byIngredients: false,
-      surpriseMe: false,
-    };
-
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
-
-  handleRedirect({ target: { name } }) {
-    this.setState({
-      [name]: true,
-    });
-  }
-
-  render() {
-    const { byIngredients, surpriseMe } = this.state;
-
-    if (byIngredients) {
-      return (
-        <Redirect to="/explorar/bebidas/ingredientes" />
-      );
+  function handleRedirect({ target: { name } }) {
+    if (name === 'byIngredients') {
+      setByIngredients(true);
+    } else if (name === 'surpriseMe') {
+      setSurpriseMe(true);
     }
-
-    if (surpriseMe) {
-      return (
-        <Redirect to="/" /> // Redirecionar para a tela de detalhes
-      );
-    }
-
-    return (
-      <>
-        <Header textProp="Explorar Bebidas" />
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          name="byIngredients"
-          onClick={ this.handleRedirect }
-        >
-          Por Ingredientes
-        </button>
-
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          name="surpriseMe"
-          onClick={ this.handleRedirect }
-        >
-          Me Surpreenda!
-        </button>
-        <Footer />
-      </>
-    );
   }
+
+  return (
+    <>
+      { byIngredients ? <Redirect to="/explorar/bebidas/ingredientes" /> : null }
+
+      {/* Redirecionar para a tela de detalhes */}
+      { surpriseMe ? <Redirect to="/" /> : null }
+
+      <Header textProp="Explorar Bebidas" />
+
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+        name="byIngredients"
+        onClick={ handleRedirect }
+      >
+        Por Ingredientes
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        name="surpriseMe"
+        onClick={ handleRedirect }
+      >
+        Me Surpreenda!
+      </button>
+
+      <Footer />
+    </>
+  );
 }
 
 export default ExplorarBebidas;

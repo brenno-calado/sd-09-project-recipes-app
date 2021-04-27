@@ -1,66 +1,50 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/recipes.css';
 
-class Explorar extends Component {
-  constructor() {
-    super();
+function Explorar() {
+  const [toFood, setToFood] = useState(false);
+  const [toDrinks, setToDrinks] = useState(false);
 
-    this.state = {
-      toFood: false,
-      toDrinks: false,
-    };
-
-    this.handleRedirect = this.handleRedirect.bind(this);
-  }
-
-  handleRedirect({ target: { name } }) {
-    this.setState({
-      [name]: true,
-    });
-  }
-
-  render() {
-    const { toFood, toDrinks } = this.state;
-
-    if (toFood) {
-      return (
-        <Redirect to="/explorar/comidas" />
-      );
+  function handleRedirect({ target: { name } }) {
+    if (name === 'toFood') {
+      setToFood(true);
+    } else if (name === 'toDrinks') {
+      setToDrinks(true);
     }
-
-    if (toDrinks) {
-      return (
-        <Redirect to="/explorar/bebidas" />
-      );
-    }
-
-    return (
-      <>
-        <Header textProp="Explorar" />
-        <button
-          type="button"
-          data-testid="explore-food"
-          name="toFood"
-          onClick={ this.handleRedirect }
-        >
-          Explorar Comidas
-        </button>
-
-        <button
-          type="button"
-          data-testid="explore-drinks"
-          name="toDrinks"
-          onClick={ this.handleRedirect }
-        >
-          Explorar Bebidas
-        </button>
-        <Footer />
-      </>
-    );
   }
+
+  return (
+    <>
+      { toFood ? <Redirect to="/explorar/comidas" /> : null }
+
+      { toDrinks ? <Redirect to="/explorar/bebidas" /> : null }
+
+      <Header textProp="Explorar" />
+
+      <button
+        type="button"
+        data-testid="explore-food"
+        name="toFood"
+        onClick={ handleRedirect }
+      >
+        Explorar Comidas
+      </button>
+
+      <button
+        type="button"
+        data-testid="explore-drinks"
+        name="toDrinks"
+        onClick={ handleRedirect }
+      >
+        Explorar Bebidas
+      </button>
+
+      <Footer />
+    </>
+  );
 }
 
 export default Explorar;

@@ -27,7 +27,7 @@ function App() {
         {/* <Route path="/bebidas/id-da-receita/in-progress" component={ processoBebida } /> */}
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
-        <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarComidasIng } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
         <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />

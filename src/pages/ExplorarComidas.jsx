@@ -1,82 +1,65 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/recipes.css';
 
-class ExplorarComidas extends Component {
-  constructor() {
-    super();
+function ExplorarComidas() {
+  const [byIngredients, setByIngredients] = useState(false);
+  const [byArea, setByArea] = useState(false);
+  const [surpriseMe, setSurpriseMe] = useState(false);
 
-    this.state = {
-      byIngredients: false,
-      byArea: false,
-      surpriseMe: false,
-    };
-
-    this.handleRedirect = this.handleRedirect.bind(this);
+  function handleRedirect({ target: { name } }) {
+    if (name === 'byIngredients') {
+      setByIngredients(true);
+    } else if (name === 'byArea') {
+      setByArea(true);
+    } else if (name === 'surpriseMe') {
+      setSurpriseMe(true);
+    }
   }
 
-  handleRedirect({ target: { name } }) {
-    this.setState({
-      [name]: true,
-    });
-  }
+  return (
+    <>
+      { byIngredients ? <Redirect to="/explorar/comidas/ingredientes" /> : null }
 
-  render() {
-    const { byIngredients, byArea, surpriseMe } = this.state;
+      { byArea ? <Redirect to="/explorar/comidas/area" /> : null }
 
-    if (byIngredients) {
-      return (
-        <Redirect to="/explorar/comidas/ingredientes" />
-      );
-    }
+      {/* Redirecionar para a tela de detalhes */}
+      { surpriseMe ? <Redirect to="/" /> : null }
 
-    if (byArea) {
-      return (
-        <Redirect to="/explorar/comidas/area" />
-      );
-    }
+      <Header textProp="Explorar Comidas" />
 
-    if (surpriseMe) {
-      return (
-        <Redirect to="/" /> // Redirecionar para a tela de detalhes
-      );
-    }
+      <button
+        type="button"
+        data-testid="explore-by-ingredient"
+        name="byIngredients"
+        onClick={ handleRedirect }
+      >
+        Por Ingredientes
+      </button>
 
-    return (
-      <>
-        <Header textProp="Explorar Comidas" />
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-          name="byIngredients"
-          onClick={ this.handleRedirect }
-        >
-          Por Ingredientes
-        </button>
+      <button
+        type="button"
+        data-testid="explore-by-area"
+        name="byArea"
+        onClick={ handleRedirect }
+      >
+        Por Local de Origem
+      </button>
 
-        <button
-          type="button"
-          data-testid="explore-by-area"
-          name="byArea"
-          onClick={ this.handleRedirect }
-        >
-          Por Local de Origem
-        </button>
+      <button
+        type="button"
+        data-testid="explore-surprise"
+        name="surpriseMe"
+        onClick={ handleRedirect }
+      >
+        Me Surpreenda!
+      </button>
 
-        <button
-          type="button"
-          data-testid="explore-surprise"
-          name="surpriseMe"
-          onClick={ this.handleRedirect }
-        >
-          Me Surpreenda!
-        </button>
-        <Footer />
-      </>
-    );
-  }
+      <Footer />
+    </>
+  );
 }
 
 export default ExplorarComidas;
