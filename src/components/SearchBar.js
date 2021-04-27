@@ -3,7 +3,7 @@ import { Context } from '../context/Context';
 import { fecthForName, fetchForFirstLetter, fetchForIngredients } from '../services/api';
 
 function SearchBar() {
-  const INITIAL_STATE = { search: '', searchBy: '', isFirstLetter: false };
+  const INITIAL_STATE = { search: '', searchBy: '' };
   const [state, setState] = useState(INITIAL_STATE);
 
   const { setSearchResult } = useContext(Context);
@@ -14,6 +14,9 @@ function SearchBar() {
 
   const handleSearch = async () => {
     const { search, searchBy } = state;
+    if (searchBy === 'firstLetter' && search.length > 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
     if (searchBy === 'name') setSearchResult(await fecthForName(search));
     if (searchBy === 'ingredient') setSearchResult(await fetchForIngredients(search));
     if (searchBy === 'firstLetter') setSearchResult(await fetchForFirstLetter(search));
@@ -23,7 +26,6 @@ function SearchBar() {
     <input
       data-testid={ testid }
       id={ value }
-      // maxLength={ 1 }
       name={ name }
       value={ value }
       type={ type }
