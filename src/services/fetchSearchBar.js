@@ -6,7 +6,6 @@ export const fetchFood = async (query, value) => {
   try {
     const response = await fetch(`${ENDPOINT}${query}=${value}`);
     const obj = await response.json();
-    console.log(obj);
     return obj;
   } catch (error) {
     console.log(error);
@@ -21,7 +20,6 @@ export const fetchDrink = async (query, value) => {
   try {
     const response = await fetch(`${ENDPOINT}${query}=${value}`);
     const obj = await response.json();
-    console.log(obj);
     return obj;
   } catch (error) {
     console.log(error);

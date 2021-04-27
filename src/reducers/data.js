@@ -2,7 +2,7 @@ import { IS_FETCHING, IS_RESOLVED, IS_REJECTED } from '../actions/searchBar';
 
 const INITIAL_STATE = {
   data: [],
-  loading: false,
+  loading: true,
   error: '',
 };
 
