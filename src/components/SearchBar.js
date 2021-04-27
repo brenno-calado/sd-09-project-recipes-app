@@ -1,20 +1,32 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { Context } from '../context/Context';
+import { fecthForName, fetchForFirstLetter, fetchForIngredients } from '../services/api';
 
 function SearchBar() {
-  const [state, setState] = useState({});
+  const INITIAL_STATE = { search: '', searchBy: '', isFirstLetter: false };
+  const [state, setState] = useState(INITIAL_STATE);
+
+  const { setSearchResult } = useContext(Context);
 
   const handleChange = ({ target: { name, value } }) => {
-    setState({ ...state, [name]: value });
+    setState({
+      ...state,
+      [name]: value,
+    });
   };
 
-  const handleSearch = () => {
-    console.log('pesquisando');
+  const handleSearch = async () => {
+    const { search, searchBy } = state;
+    if (searchBy === 'name') setSearchResult(await fecthForName(search));
+    if (searchBy === 'ingredient') setSearchResult(await fetchForIngredients(search));
+    if (searchBy === 'firstLetter') setSearchResult(await fetchForFirstLetter(search));
   };
 
   const createInput = (testid, name, type, value) => (
     <input
       data-testid={ testid }
       id={ value }
+      maxLength={ 1 }
       name={ name }
       value={ value }
       type={ type }
