@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
-import SearchBar from './SearchBar';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
+import {
+  comidaOrigem,
+  bebidasPorIngredientes,
+  comidasPorIngredientes,
+  explorarBebidas,
+  explorarComidas,
+  receitasFeitas,
+  receitasFavoritas,
+  bebidas,
+  comidas,
+  perfil,
+  explorar,
+} from './ComplementHeader';
 
 function Header({ props }) {
-  const [xablau, setXablau] = useState(false);
+  const [isSearchBar, setSerachBar] = useState(false);
 
   const handleClick = () => {
-    setXablau(!xablau);
+    setSerachBar(!isSearchBar);
   };
 
   const buttonLink = () => (
@@ -33,174 +45,39 @@ function Header({ props }) {
     />
   );
 
-  const comidas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Comidas</p>
-        { buttonClick() }
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const explorar = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const perfil = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Perfil</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const bebidas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Bebidas</p>
-        { buttonClick() }
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const receitasFavoritas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Receitas Favoritas</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const receitasFeitas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Receitas Feitas</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const explorarComidas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar Comidas</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const explorarBebidas = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar Bebidas</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const comidasPorIngredientes = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar Ingredientes</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const bebidasPorIngredientes = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar Ingredientes</p>
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
-  const comidaOrigem = () => (
-    <>
-      <div className="header-content">
-        { buttonLink() }
-        <p data-testid="page-title">Explorar Origem</p>
-        { buttonClick() }
-      </div>
-      <div>
-        { xablau ? <SearchBar /> : null }
-      </div>
-    </>
-  );
-
   switch (props.match.path) {
   case '/comidas':
-    return comidas();
+    return comidas(buttonLink, buttonClick, isSearchBar);
 
   case '/explorar':
-    return explorar();
+    return explorar(buttonLink);
 
   case '/bebidas':
-    return bebidas();
+    return bebidas(buttonLink);
 
   case '/perfil':
-    return perfil();
+    return perfil(buttonLink, buttonClick, isSearchBar);
 
   case '/receitas-favoritas':
-    return receitasFavoritas();
+    return receitasFavoritas(buttonLink);
 
   case '/receitas-feitas':
-    return receitasFeitas();
+    return receitasFeitas(buttonLink);
 
   case '/explorar/comidas':
-    return explorarComidas();
+    return explorarComidas(buttonLink);
 
   case '/explorar/bebidas':
-    return explorarBebidas();
+    return explorarBebidas(buttonLink);
 
   case '/explorar/comidas/ingredientes':
-    return comidasPorIngredientes();
+    return comidasPorIngredientes(buttonLink);
 
   case '/explorar/bebidas/ingredientes':
-    return bebidasPorIngredientes();
+    return bebidasPorIngredientes(buttonLink);
 
   case '/explorar/comidas/area':
-    return comidaOrigem();
+    return comidaOrigem(buttonLink, buttonClick, isSearchBar);
 
   default:
     break;
