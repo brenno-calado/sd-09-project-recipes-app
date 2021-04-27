@@ -1,13 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Perfil() {
+  const { email } = props;
   return (
     <div>
       <Header page="Perfil" />
-      <p data-testid="profile-email"> Email</p>
+      <p data-testid="profile-email">
+        {email}
+      </p>
       <button
         type="button"
         data-testid="profile-done-btn"
@@ -41,5 +45,9 @@ function Perfil() {
     </div>
   );
 }
+
+Perfil.propTypes = {
+  email: PropTypes.string.isRequired,
+};
 
 export default Perfil;
