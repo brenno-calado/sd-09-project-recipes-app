@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Login() {
   const [button, setButton] = useState(true);
@@ -17,6 +18,15 @@ function Login() {
 
   const [password, setPassword] = useState('');
 
+  const [redirect, setRedirect] = useState(false);
+
+  const submitForm = () => {
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
+    localStorage.setItem('user', JSON.stringify({ email }));
+    setRedirect(true);
+  };
+
   const handleChange = ({ target: { value, name } }) => {
     validateInputs(email, password);
     switch (name) {
@@ -29,6 +39,10 @@ function Login() {
     }
   };
 
+  if (redirect) {
+    return <Redirect to="/comidas" />;
+  }
+
   return (
     <form>
       <input
@@ -37,7 +51,7 @@ function Login() {
         name="email"
         value={ email }
         onChange={ handleChange }
-        // autoComplete="off"
+        autoComplete="off"
         data-testid="email-input"
       />
       <input
@@ -51,6 +65,7 @@ function Login() {
       <button
         type="button"
         data-testid="login-submit-btn"
+        onClick={ submitForm }
         disabled={ button }
       >
         Entrar
