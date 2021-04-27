@@ -1,4 +1,4 @@
-const getFoodResults = async (radioButton, searchInput) => {
+export const getFoodResults = async (radioButton, searchInput) => {
   let type = 'i';
   let searchParameter = 'filter';
   if (radioButton === 'ingredientRadio') {
@@ -14,8 +14,18 @@ const getFoodResults = async (radioButton, searchInput) => {
     searchParameter = 'search';
   }
   const url = `https://www.themealdb.com/api/json/v1/1/${searchParameter}.php?${type}=${searchInput}`;
-  const result = await fetch(url).then((response) => response.json());
-  return result;
+  const { meals } = await fetch(url).then((response) => response.json());
+  return meals;
 };
 
-export default getFoodResults;
+export const getFoods = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const { meals } = await fetch(url).then((response) => response.json());
+  return meals;
+};
+
+export const getDrinks = async () => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const { drinks } = await fetch(url).then((response) => response.json());
+  return drinks;
+};
