@@ -12,7 +12,7 @@ class App extends React.Component {
       <BrowserRouter>
         <div className="meals">
           <Switch>
-            <Route exact path="/" component={ Header } />
+            <Route exact path="/" render={ Header } />
             <Route path="/perfil" component={ Profile } />
           </Switch>
         </div>
