@@ -21,6 +21,8 @@ const Header = (props) => {
     </button>
   );
 
+  const { value } = props;
+
   return (
     <>
       <header
@@ -49,7 +51,7 @@ const Header = (props) => {
         </div>
       </header>
       <div>
-        {displaySearchBar && <SearchBar />}
+        {displaySearchBar && <SearchBar value={ value } />}
       </div>
     </>
   );
@@ -58,6 +60,7 @@ const Header = (props) => {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   isSearchEnable: PropTypes.bool.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default Header;

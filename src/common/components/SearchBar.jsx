@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { fetchMealIngredientAPI, fetchMealLetterAPI,
   fetchMealNameAPI } from '../../services/fetchMealAPI';
-import { saveMeals } from '../../actions/userActions';
+import { fetchDrinkIngredientAPI, fetchDrinkLetterAPI,
+  fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
+import { saveMeals, saveDrinks } from '../../actions/userActions';
 
 const SearchBar = (props) => {
   const [filter, setFilter] = useState('');
@@ -23,7 +25,7 @@ const SearchBar = (props) => {
     alert('Sua busca deve conter somente 1 (um) caracter');
   };
 
-  const handleSearch = async () => {
+  const filterMeals = async () => {
     const { dispatchMeals } = props;
     let meals = [];
     if (filter === 'firstLetter' && inputText.length > 1) {
@@ -39,6 +41,42 @@ const SearchBar = (props) => {
       meals = await fetchMealLetterAPI(inputText);
     }
     dispatchMeals(meals);
+  };
+
+  const filterDrinks = async () => {
+    const { dispatchDrinks } = props;
+    let drinks = [];
+    if (filter === 'firstLetter' && inputText.length > 1) {
+      return displayAlert();
+    }
+    if (filter === 'ingredient') {
+      drinks = await fetchDrinkIngredientAPI(inputText);
+    }
+    if (filter === 'name') {
+      drinks = await fetchDrinkNameAPI(inputText);
+    }
+    if (filter === 'firstLetter') {
+      drinks = await fetchDrinkLetterAPI(inputText);
+    }
+    dispatchDrinks(drinks);
+  };
+
+  const handleSearch = () => {
+    const { value } = props;
+    console.log(value);
+    switch (value) {
+    case 'comidas':
+      return filterMeals();
+    case 'bebidas':
+      return filterDrinks();
+    default:
+    }
+    // if (value === 'comidas') {
+    //   filterMeals();
+    // }
+    // if (value === 'bebidas') {
+    //   filterDrinks();
+    // }
   };
 
   return (
@@ -97,10 +135,13 @@ const SearchBar = (props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchMeals: (meals) => dispatch(saveMeals(meals)),
+  dispatchDrinks: (drinks) => dispatch(saveDrinks(drinks)),
 });
 
 SearchBar.propTypes = {
+  value: PropTypes.string.isRequired,
   dispatchMeals: PropTypes.func.isRequired,
+  dispatchDrinks: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(SearchBar);

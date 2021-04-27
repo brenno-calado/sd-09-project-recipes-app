@@ -1,4 +1,4 @@
-import { TOGGLE_SEARCH_BAR, SAVE_MEALS } from '../actions/userActions';
+import { TOGGLE_SEARCH_BAR, SAVE_MEALS, SAVE_DRINKS } from '../actions/userActions';
 
 const INITIAL_STATE = {
   isEnabled: true,
@@ -16,6 +16,11 @@ function userReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       meals: payload,
+    };
+  case SAVE_DRINKS:
+    return {
+      ...state,
+      drinks: payload,
     };
   default:
     return state;
