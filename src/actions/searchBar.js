@@ -28,7 +28,6 @@ export const searchBarFetch = (obj) => async (dispatch) => {
     }
     const response = await fetchFood(obj.query, obj.searchValue);
     dispatch(isResolved(response.meals));
-    return;
   } catch (error) {
     dispatch(isRejected(error));
   }
