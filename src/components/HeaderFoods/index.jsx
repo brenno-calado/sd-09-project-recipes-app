@@ -4,14 +4,12 @@ import { shape, boolean } from 'prop-types';
 import styles from './headerFoods.module.css';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
+import { useRecipeContext } from '../../contexts/recipeContext';
 
 function HeaderFoods({ children, hasSearchBar }) {
-  const [isSearchBar, setIsSearchBar] = useState(false);
+  const { handleChangeSearchBar } = useRecipeContext();
   const [redirect, setRedirect] = useState(false);
 
-  function handleChangeSearchBar() {
-    setIsSearchBar(!isSearchBar);
-  }
   function shouldRedirect() {
     setRedirect(true);
   }
@@ -24,20 +22,9 @@ function HeaderFoods({ children, hasSearchBar }) {
 
       <div data-testid="page-title">{children}</div>
       {hasSearchBar && (
-        <>
-          <button onClick={ handleChangeSearchBar } type="button">
-            <img data-testid="search-top-btn" src={ searchIcon } alt="Pesquisar" />
-          </button>
-          {isSearchBar && (
-            <label htmlFor="searchBtn">
-              <input
-                data-testid="search-input"
-                type="text"
-                id="searchBtn"
-              />
-            </label>
-          )}
-        </>
+        <button onClick={ handleChangeSearchBar } type="button">
+          <img data-testid="search-top-btn" src={ searchIcon } alt="Pesquisar" />
+        </button>
       )}
     </header>
   );
