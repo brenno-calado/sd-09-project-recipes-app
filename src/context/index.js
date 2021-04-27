@@ -1,4 +1,5 @@
 import RecipesContext from './RecipesContext';
 import LoginContext from './LoginContext';
+import ScreenContext from './ScreenContext';
 
-export { RecipesContext, LoginContext };
+export { RecipesContext, LoginContext, ScreenContext };
