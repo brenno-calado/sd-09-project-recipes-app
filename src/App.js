@@ -35,8 +35,16 @@ function App() {
         <Route path="/explorar" exact component={ Explore } />
         <Route path="/explorar/comidas" exact component={ ExploreFoods } />
         <Route path="/explorar/bebidas" exact component={ ExploreDrinks } />
-        <Route path="/explorar/comidas/ingredientes" exact component={ FoodsByIngredient } />
-        <Route path="/explorar/bebidas/ingredientes" exact component={ DrinksByIngredient } />
+        <Route
+          path="/explorar/comidas/ingredientes"
+          exact
+          component={ FoodsByIngredient }
+        />
+        <Route
+          path="/explorar/bebidas/ingredientes"
+          exact
+          component={ DrinksByIngredient }
+        />
         <Route path="/explorar/comidas/area" exact component={ ExploreOriginFood } />
         <Route path="/perfil" exact component={ Profile } />
         <Route path="/receitas-feitas" exact component={ RecipesMade } />
