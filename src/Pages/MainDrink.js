@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../Components/Header/index';
 
-class MainFood extends React.Component {
+class MainDrink extends React.Component {
   render() {
     return (
-      <Header name="Comidas" />
+      <Header name="Bebidas" />
     );
   }
 }
 
-export default MainFood;
+export default MainDrink;
