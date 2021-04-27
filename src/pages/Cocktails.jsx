@@ -3,31 +3,21 @@ import Loading from '../components/Loading';
 import Recipes from '../components/Recipes';
 import SearchBar from '../components/SearchBar';
 import RecipesContext from '../contexts/RecipesContext';
+import Header from '../components/Header';
 
-function Bebidas() {
+function Cocktails() {
   const {
-    showSearchBar,
     toggledSearchBar,
     isLoading,
   } = useContext(RecipesContext);
 
-  const header = () => (
-    <button
-      data-testid="search-top-btn"
-      type="button"
-      onClick={ showSearchBar }
-    >
-      Header
-    </button>
-  );
-
   return (
     <section>
-      {header()}
+      <Header page="Bebidas" />
       {toggledSearchBar && <SearchBar category="cocktail" />}
       {isLoading ? <Loading /> : <Recipes />}
     </section>
   );
 }
 
-export default Bebidas;
+export default Cocktails;

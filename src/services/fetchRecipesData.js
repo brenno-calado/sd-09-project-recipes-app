@@ -16,7 +16,6 @@ const checkSearchType = (type, text, category) => {
 const fetchRecipesData = async (type, text, category) => {
   try {
     const ENDPOINT = checkSearchType(type, text, category);
-    console.log(ENDPOINT);
 
     if (ENDPOINT === ERROR) throw ERROR;
 

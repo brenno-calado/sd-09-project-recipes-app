@@ -1,0 +1,12 @@
+.header-content {
+  background: gainsboro;
+  display: flex;
+  font-size: xx-large;
+  justify-content: space-between;
+  padding: 10px 10px 0;
+}
+
+button {
+  background: none;
+  border: none;
+}
