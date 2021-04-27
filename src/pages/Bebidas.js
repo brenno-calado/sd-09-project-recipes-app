@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Bebidas() {
   return (
-    <p>Página de Bebidas</p>
+    <Header title="Bebidas" searchIcon />
   );
 }
 

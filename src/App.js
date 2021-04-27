@@ -4,11 +4,17 @@ import {
   Bebidas,
   Comidas,
   Explorar,
+  ExplorarBebidas,
+  ExplorarBebidasIngredientes,
+  ExplorarComidas,
+  ExplorarComidasArea,
+  ExplorarComidasIngredientes,
   Login,
   Perfil,
+  ReceitasFavoritas,
+  ReceitasFeitas,
 } from './pages';
 import './App.css';
-// import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => (
@@ -19,33 +25,23 @@ const App = () => (
     {/* <Route path="/bebidas/:id/in-progress" component={ ProgressoBebidas } /> */}
     {/* <Route path="/bebidas/:id" component={ DetalhesBebida } /> */}
     <Route path="/bebidas" component={ Bebidas } />
-    {/* <Route
+    <Route
       path="/explorar/comidas/ingredientes"
       component={ ExplorarComidasIngredientes }
-    /> */}
-    {/* <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } /> */}
-    {/* <Route path="/explorar/comidas" component={ ExplorarComidas } /> */}
-    {/* <Route
+    />
+    <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
+    <Route path="/explorar/comidas" component={ ExplorarComidas } />
+    <Route
       path="/explorar/bebibas/ingredientes"
       component={ ExplorarBebidasIngredientes }
-    /> */}
-    {/* <Route path="/explorar/bebidas" component={ ExplorarBebidas } /> */}
+    />
+    <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
     <Route path="/explorar" component={ Explorar } />
     <Route path="/perfil" component={ Perfil } />
-    {/* <Route path="/receitas-feitas" component={ ReceitasFeitas } /> */}
-    {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
+    <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+    <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
     <Route exact path="/" component={ Login } />
   </Switch>
-  // <div className="meals">
-  //   <span className="logo">TRYBE</span>
-  //   <object
-  //     className="rocksGlass"
-  //     type="image/svg+xml"
-  //     data={ rockGlass }
-  //   >
-  //     Glass
-  //   </object>
-  // </div>
 );
 
 export default App;
