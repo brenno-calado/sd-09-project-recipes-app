@@ -6,6 +6,7 @@ import mealIcon from '../images/mealIcon.svg';
 
 const footerStyle = {
   bottom: '0px',
+  margin: 'auto',
   position: 'fixed',
 };
 
