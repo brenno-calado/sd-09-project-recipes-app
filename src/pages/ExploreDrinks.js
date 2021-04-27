@@ -1,14 +1,9 @@
 import React from 'react';
 
-const ExploreDrinks = () => {
-  const test = 'test';
-  return (
-    <main className="explore-drinks">
-      <p>
-        Check Drinks -
-        { test }
-      </p>
-    </main>
-  );
-};
+const ExploreDrinks = () => (
+  <div>
+    ExploreDrinks
+  </div>
+);
+
 export default ExploreDrinks;

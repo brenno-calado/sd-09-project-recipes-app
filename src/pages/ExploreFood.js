@@ -1,14 +1,9 @@
 import React from 'react';
 
-const ExploreFood = () => {
-  const test = 'test';
-  return (
-    <main className="explore-food">
-      <p>
-        Check Foods -
-        { test }
-      </p>
-    </main>
-  );
-};
+const ExploreFood = () => (
+  <div>
+    ExploreFood
+  </div>
+);
+
 export default ExploreFood;
