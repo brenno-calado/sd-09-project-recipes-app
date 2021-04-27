@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Login = () => (
-  <div>
+  <div data-testid="page-title">
     Login
   </div>
 );

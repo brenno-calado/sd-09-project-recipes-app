@@ -1,7 +1,10 @@
 PADRÕES GERAIS
 
 Padrões de Pull Request:
-main-group-18/branch
+
+group-18-branch
+
+Padrão de commit:
 
 [FEAT][Requisito 01][Descrição]
 [FIX]
@@ -30,7 +33,7 @@ redux
 context
 services
 tests
--> utils
+-> helpers
 
 ---
 
@@ -38,3 +41,14 @@ Componentes:
 
 <Header /> - Header do app
 <Menu /> - Menu inferior
+
+---
+
+Testes: 
+
+- Modo de usar os helpers:
+
+// renderWithRedux(
+//   renderWithRouter(['/Exemplo']),   <= deixar vazio se for usar a Home
+//   { Reducer1: {}, Reducer2 [] },     <= Criar um "mock" do estado inicial
+// );

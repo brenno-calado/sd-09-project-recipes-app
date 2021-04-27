@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Header from '../components/Header';
+
 const Profile = () => (
   <div>
-    Profile
+    <Header title="Perfil" />
   </div>
 );
 

@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Header from '../components/Header';
+
 const ExploreArea = () => (
   <div>
-    ExploreArea
+    <Header title="Explorar Origem" />
   </div>
 );
 
