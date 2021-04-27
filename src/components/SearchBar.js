@@ -9,10 +9,7 @@ function SearchBar() {
   const { setSearchResult } = useContext(Context);
 
   const handleChange = ({ target: { name, value } }) => {
-    setState({
-      ...state,
-      [name]: value,
-    });
+    setState({ ...state, [name]: value });
   };
 
   const handleSearch = async () => {
@@ -26,7 +23,7 @@ function SearchBar() {
     <input
       data-testid={ testid }
       id={ value }
-      maxLength={ 1 }
+      // maxLength={ 1 }
       name={ name }
       value={ value }
       type={ type }

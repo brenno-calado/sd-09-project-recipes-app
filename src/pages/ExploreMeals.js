@@ -9,7 +9,7 @@ function ExploreMeals() {
 
   return (
     <section>
-      <Header title="Explorar Comidas" search />
+      <Header title="Explorar Comidas" />
 
       <Link to="/explorar/comidas/ingredientes">
         { createButton('explore-by-ingredient', 'Por Ingredientes') }

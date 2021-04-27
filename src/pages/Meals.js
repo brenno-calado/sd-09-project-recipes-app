@@ -1,11 +1,10 @@
 import React from 'react';
-import { Header, SearchBar, Footer } from '../components';
+import { Header, Footer } from '../components';
 
 function Meals() {
   return (
     <section>
       <Header title="Comidas" search />
-      <SearchBar />
       <Footer />
     </section>
   );
