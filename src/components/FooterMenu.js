@@ -23,21 +23,21 @@ class FooterMenu extends Component {
       >
         <button type="button" onClick={ () => push('/bebidas') }>
           <img
-            alt="Go to drinks page"
+            alt="Vai para a página de bebidas"
             data-testid="drinks-bottom-btn"
             src={ drinkIcon }
           />
         </button>
         <button type="button" onClick={ () => push('/explorar') }>
           <img
-            alt="Go to explore page"
+            alt="Vai para a página de explorar"
             data-testid="explore-bottom-btn"
             src={ exploreIcon }
           />
         </button>
         <button type="button" onClick={ () => push('/comidas') }>
           <img
-            alt="Go to food page"
+            alt="Vai para a página de comidas"
             data-testid="food-bottom-btn"
             src={ mealIcon }
           />
