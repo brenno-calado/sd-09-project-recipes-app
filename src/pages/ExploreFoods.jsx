@@ -1,8 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
+import Header from '../components/Header';
 
-function MainDrinks() {
+function ExploreFoods() {
   return (
     <div>
       <Header />
@@ -11,4 +11,4 @@ function MainDrinks() {
   );
 }
 
-export default MainDrinks;
+export default ExploreFoods;
