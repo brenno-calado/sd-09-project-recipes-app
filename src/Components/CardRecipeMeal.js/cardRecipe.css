@@ -1,0 +1,8 @@
+.card-recipe-container {
+  display: flex;
+  margin: 1rem;
+}
+
+.card-recipe-container img {
+  width: 5rem;
+}

@@ -1,0 +1,12 @@
+.search-bar-container {
+  margin: 1rem;
+}
+
+.search-bar-container input[type=text] {
+  width: 100%;
+}
+
+.search-bar-container button {
+  padding: 3px;
+  width: 5rem;
+}

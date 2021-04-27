@@ -1,17 +1,17 @@
 import React, { useContext } from 'react';
-import CardRecipeMeal from '../../Components/CardRecipeMeal.js/CardRecipeMeal';
+import CardRecipeDrink from '../../Components/CardRecipeDrink.js/CardRecipeDrink';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import { RecipeContext } from '../../Context';
 
-function MealsScreen() {
+function DrinksScreen() {
   const { recipies } = useContext(RecipeContext);
   return (
     <div>
-      <h1>Pagina de comidas</h1>
-      <SearchBar page="comidas" />
+      <h1>Pagina de bebidas</h1>
+      <SearchBar page="bebidas" />
       {(recipies.length > 1) && recipies
         .map((recipe, index) => (index < '12')
-        && <CardRecipeMeal
+        && <CardRecipeDrink
           recipe={ recipe }
           data-testid={ `${index}-recipe-card` }
           index={ index }
@@ -20,4 +20,4 @@ function MealsScreen() {
   );
 }
 
-export default MealsScreen;
+export default DrinksScreen;
