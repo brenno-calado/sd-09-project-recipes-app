@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import myContext from '../context/myContext';
 
 export default function Foods() {
@@ -16,6 +17,7 @@ export default function Foods() {
           <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
         </div>
       ))}
+      <Footer />
     </div>
   );
 }
