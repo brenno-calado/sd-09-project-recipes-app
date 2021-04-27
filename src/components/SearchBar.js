@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchBar = () => (
   <div>
-    Barra de Busca
+    <input type="text" data-testid="search-input" />
   </div>
 );
 
