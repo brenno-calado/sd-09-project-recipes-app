@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchFoodsAPI from '../services/SearchFoodsAPI';
 import SearchDrinksAPI from '../services/SearchDrinksAPI';
+import myContext from '../context/myContext';
 
 export default function HeaderSearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [myChoice, setMyChoice] = useState('');
   const history = useHistory();
+
+  const { setRecipesDrinks, setRecipesFoods } = useContext(myContext);
 
   const clickSearchButton = async () => {
     const { pathname } = history.location;
@@ -20,6 +23,7 @@ export default function HeaderSearchBar() {
         history.push(`/bebidas/${recipes[0].idDrink}`);
       }
       console.log(recipes);
+      setRecipesDrinks(recipes);
     }
 
     if (pathname === '/comidas') {
@@ -32,6 +36,7 @@ export default function HeaderSearchBar() {
         history.push(`/comidas/${recipes[0].idMeal}`);
       }
       console.log(recipes);
+      setRecipesFoods(recipes);
     }
   };
 
