@@ -5,7 +5,7 @@ import { arrayOf, bool } from 'prop-types';
 import RecipeItemDrinks from './RecipeItemDrinks';
 import RecipeItemFoods from './RecipeItemFoods';
 
-function RecipesList({ recipes, loading, path }) {
+function RecipesList({ recipes, loading, path, isFilter }) {
   if (loading) return <h2>Loading</h2>;
   if (!recipes) {
     window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -33,7 +33,7 @@ function RecipesList({ recipes, loading, path }) {
 
   return (
     <div>
-      { recipes.length === 1
+      { (recipes.length === 1 && !isFilter)
       && <Redirect to={ `${path}/${recipes[0][`id${pageID}`]}` } /> }
       { path === '/comidas' ? renderFoods() : renderDrinks() }
     </div>
@@ -44,6 +44,7 @@ const mapStateToProps = (state) => ({
   recipes: state.setData.data,
   loading: state.setData.loading,
   page: state.setPage.page,
+  isFilter: state.setData.isFilter,
 });
 
 RecipesList.propTypes = {
