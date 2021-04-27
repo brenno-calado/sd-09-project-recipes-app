@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { savePath } from '../redux/actions';
 import Header from '../components/Header';
@@ -17,10 +18,15 @@ function Meals({ pathnameDispatcher, location }) {
       <RecipeList />
     </div>
   );
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   pathnameDispatcher: (pathname) => dispatch(savePath(pathname)),
 });
+
+Meals.propTypes = {
+  pathnameDispatcher: PropTypes.func.isRequired,
+  location: PropTypes.string.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Meals);
