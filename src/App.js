@@ -2,7 +2,7 @@ import React from 'react';
 // import './App.css';
 import { Route, Switch } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './components/Login';
+import Login from './pages/Login';
 import FoodMainPage from './pages/FoodMainPage';
 import DrinkMainPage from './pages/DrinkMainPage';
 import FoodDetails from './pages/FoodDetails';
