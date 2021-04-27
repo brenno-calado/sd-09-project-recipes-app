@@ -15,8 +15,8 @@ export default function ScreenProvider({ children }) {
       toggleSearchBar() {
         setSearchBarView(!searchBarView);
       },
-      switchCategory(category) {
-        setCategory(category);
+      switchCategory(selectedCategory) {
+        setCategory(selectedCategory);
       },
     },
   };
