@@ -1,14 +1,14 @@
 import React from 'react';
 import { Header, SearchBar, Footer } from '../components';
 
-function Meals() {
+function Drinks() {
   return (
     <section>
-      <Header title="Comidas" search />
+      <Header title="Bebidas" search />
       <SearchBar />
       <Footer />
     </section>
   );
 }
 
-export default Meals;
+export default Drinks;
