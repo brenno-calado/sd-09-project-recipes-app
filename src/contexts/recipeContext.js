@@ -6,14 +6,25 @@ const RecipeContext = createContext();
 export function RecipeContextProvider({ children }) {
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
+  const [isSearchBar, setIsSearchBar] = useState(false);
+
+  function handleChangeSearchBar() {
+    setIsSearchBar(!isSearchBar);
+  }
 
   function handleLocalStorage() {
     localStorage.setItem('mealsToken', mealsToken);
     localStorage.setItem('cocktailsToken', cocktailsToken);
   }
 
+  const context = {
+    handleLocalStorage,
+    handleChangeSearchBar,
+    isSearchBar,
+  };
+
   return (
-    <RecipeContext.Provider value={ { handleLocalStorage } }>
+    <RecipeContext.Provider value={ context }>
       {children}
     </RecipeContext.Provider>
   );
