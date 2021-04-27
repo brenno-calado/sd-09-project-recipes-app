@@ -1,11 +1,10 @@
 import React from 'react';
-import { Header, Footer } from '../components';
+import { Header } from '../components';
 
 function FavoriteRecipes() {
   return (
     <section>
       <Header title="Receitas Favoritas" />
-      <Footer />
     </section>
   );
 }
