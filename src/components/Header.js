@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-const INITIAL_STATE = { search: '', shouldSearch: false };
+const INITIAL_STATE = { shouldSearch: false };
 
 function Header({ title, search }) {
   const [state, setState] = useState(INITIAL_STATE);
@@ -15,7 +15,7 @@ function Header({ title, search }) {
     <img data-testid={ testid } src={ src } alt={ alt } />
   );
 
-  const handleClick = () => {
+  const toggleSearch = () => {
     setState({ ...state, shouldSearch: !state.shouldSearch });
   };
 
@@ -28,12 +28,11 @@ function Header({ title, search }) {
       <h1 data-testid="page-title">{ title }</h1>
 
       { search && (
-        <button type="button" onClick={ handleClick }>
+        <button type="button" onClick={ toggleSearch }>
           { renderImage('search-top-btn', searchIcon, 'search icon')}
         </button>)}
 
-      { state.shouldSearch
-        && <SearchBar /> }
+      { search && state.shouldSearch ? <SearchBar /> : null }
     </header>
   );
 }
