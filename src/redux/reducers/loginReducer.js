@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   isFetching: false,
   data: [],
   error: '',
+  isFetched: false,
 };
 
 function loginReducer(state = INITIAL_STATE, action) {
@@ -23,18 +24,22 @@ function loginReducer(state = INITIAL_STATE, action) {
     return ({
       ...state,
       isFetching: true,
+      isFetched: false,
     });
   case SUCCESS_FETCH:
     return ({
       ...state,
-      data: [...action.data.meals],
+      data: [...action.data],
       isFetching: false,
+      isFetched: true,
     });
   case FAILURE_FETCH:
     return ({
       ...state,
+      data: [],
       error: action.error,
       isFetching: false,
+      isFetched: true,
     });
   default:
     return state;

@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-      <Route path="/bebidas" component={ Cocktails } />
+        <Route path="/bebidas" component={ Cocktails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/" component={ Login } />
