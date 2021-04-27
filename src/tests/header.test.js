@@ -16,6 +16,7 @@ describe('13 - Implemente os elementos da barra de busca', () => {
     expect(getByTestId('exec-search-btn')).toBeInTheDocument();
   });
 });
+
 describe('14 -  implemente 3 radio buttons: Ingrediente, Nome e Primeira letra', () => {
   it('Inputs devem receber valor, e apenas um input radio deve ser selecionado', () => {
     const { getByLabelText } = renderWithRouter(<App />);
@@ -57,5 +58,11 @@ describe('14 -  implemente 3 radio buttons: Ingrediente, Nome e Primeira letra',
 
     expect(addMock()).toBe('called');
     expect(addMock).toHaveBeenCalled();
+  });
+});
+
+describe('15 - Busque na API corretamente, referente a página bebidas/comidas', () => {
+  it('Verifica em qual pagina está e faz requisição', () => {
+    '';
   });
 });
