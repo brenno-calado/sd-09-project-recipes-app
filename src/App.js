@@ -9,8 +9,8 @@ import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import FoodInProgress from './pages/FoodInProgress';
 import DrinkInProgress from './pages/DrinkInProgress';
-import Explore from './pages/Explore';
 import ExploreFood from './pages/ExploreFood';
+import Explore from './pages/Explore';
 import ExploreDrink from './pages/ExploreDrink';
 import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinkIngredients from './pages/ExploreDrinkIngredients';
@@ -40,8 +40,8 @@ function App() {
         />
         <Route path="/explorar/comidas" component={ ExploreFood } />
         <Route path="/explorar/bebidas" component={ ExploreDrink } />
-        <Route path="/explorar" component={ Explore } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/explorar" component={ Explore } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/perfil" component={ Perfil } />
         <Route path="/" component={ Login } />
