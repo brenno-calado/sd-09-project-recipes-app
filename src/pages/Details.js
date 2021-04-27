@@ -2,7 +2,9 @@ import React from 'react';
 
 function Details() {
   return (
-    <div>Pagina de detalhes</div>
+    <section>
+      <h3>PAGINA DE DETALHES</h3>
+    </section>
   );
 }
 
