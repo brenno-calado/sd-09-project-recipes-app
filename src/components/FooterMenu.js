@@ -18,6 +18,7 @@ class FooterMenu extends Component {
             display: 'flex',
             flexWrap: 'nowrap',
             justifyContent: 'space-between',
+            backgroundColor: 'gray',
             width: '100%' }
         }
       >
