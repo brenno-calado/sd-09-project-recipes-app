@@ -2,7 +2,6 @@ import React from 'react';
 import { object, number } from 'prop-types';
 
 function RecipeItemDrink({ recipe, index }) {
-  console.log(recipe);
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <img
