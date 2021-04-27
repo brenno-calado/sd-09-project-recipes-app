@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function RecipesMades() {
+function DoneRecipes() {
   return (
     <div>
       <Header />
@@ -9,4 +9,4 @@ function RecipesMades() {
   );
 }
 
-export default RecipesMades;
+export default DoneRecipes;
