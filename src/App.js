@@ -1,20 +1,14 @@
 import React from 'react';
+import { ContextProvider } from './contexts/Context';
+import { Route } from 'react-router-dom';
+import Header from './components/Header.jsx';
 import './styles/App.css';
-import rockGlass from './images/rockGlass.svg';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="meals">
-      <span className="logo">TRYBE</span>
-      <object
-        className="rocksGlass"
-        type="image/svg+xml"
-        data={ rockGlass }
-      >
-        Glass
-      </object>
-    </div>
+    <ContextProvider>
+      <Route path="/header" component={ Header } />
+    </ContextProvider>
   );
 }
 
