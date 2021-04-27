@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 function Foods() {
+  const { showSearchBar } = useContext(RecipesContext);
   return (
     <div>
-      <Header />
+      <Header showSearchButton="true" />
+      { showSearchBar && <SearchBar /> }
     </div>
   );
 }
