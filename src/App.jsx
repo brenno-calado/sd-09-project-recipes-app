@@ -2,7 +2,15 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Login, MainDrinks, MainFoods, Profile, Explore } from './pages';
+import {
+  Login,
+  MainDrinks,
+  MainFoods,
+  Profile,
+  Explore,
+  DoneRecipes,
+  FavoriteRecipes,
+} from './pages';
 
 function App() {
   return (
@@ -13,6 +21,8 @@ function App() {
         <Route path="/bebidas" component={ MainDrinks } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/explorar" component={ Explore } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
       </Switch>
     </BrowserRouter>
   );
