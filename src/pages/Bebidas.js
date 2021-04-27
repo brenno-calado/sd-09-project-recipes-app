@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { AppContext } from '../context/AppContext';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Bebidas() {
   const { drinks, drinkCategories } = useContext(AppContext);
@@ -28,6 +29,7 @@ function Bebidas() {
           <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
         </div>
       )) }
+      <Footer />
     </>
   );
 }
