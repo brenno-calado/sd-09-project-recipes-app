@@ -1,9 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import '../Styles/Profile.css';
 
 class Profile extends React.Component {
   render() {
+    const LogOut = () => {
+      const { history } = this.props;
+      localStorage.clear();
+      history.push('/');
+    };
+
+    const { email } = this.props;
     return (
       <div className="profileContainer">
         <header className="headerContainer">
@@ -15,7 +24,10 @@ class Profile extends React.Component {
           <span data-testid="page-title">Perfil</span>
         </header>
         <main>
-          <span data-testid="profile-email">email</span>
+          <span data-testid="profile-email">
+            email:
+            { email }
+          </span>
           <div className="buttons">
             <button
               type="button"
@@ -32,6 +44,7 @@ class Profile extends React.Component {
             <button
               type="button"
               data-testid="profile-logout-btn"
+              onClick={ LogOut }
             >
               Sair
             </button>
@@ -42,4 +55,11 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+Profile.propTypes = {
+  email: PropTypes.string.isRequired,
+  history: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({ email: state.User.email });
+
+export default connect(mapStateToProps, null)(Profile);

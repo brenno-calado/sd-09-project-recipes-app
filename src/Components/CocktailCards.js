@@ -1,16 +1,19 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
-class CocktailCards extends Component {
-  constructor(props) {
-    super(props);
-    this.createCards = this.createCards.bind(this);
+function CocktailCards({ cocktails, getCocktails }) {
+  async function callCocktail() {
+    await getCocktails();
   }
 
-  createCards() {
-    const { cocktails } = this.props;
+  useEffect(() => {
+    callCocktail();
+  }, []);
+
+  function createCards() {
     const magicNumber = 11;
     return cocktails.map(
       (cocktail, index) => (index <= magicNumber
@@ -22,22 +25,24 @@ class CocktailCards extends Component {
       ),
     );
   }
-
-  render() {
-    return (
-      <div className="cardContainer">
-        { this.createCards() }
-      </div>
-    );
-  }
+  return (
+    <div className="cardContainer">
+      { cocktails ? createCards() : <div />}
+    </div>
+  );
 }
 
 CocktailCards.propTypes = {
   cocktails: PropTypes.shape({
     map: PropTypes.func.isRequired,
   }).isRequired,
+  getCocktails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ cocktails: state.cocktails.cocktails });
 
-export default connect(mapStateToProps)(CocktailCards);
+const mapDispatchToProps = (dispatch) => (
+  { getCocktails: () => dispatch(requestApiCocktails()) }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CocktailCards);
