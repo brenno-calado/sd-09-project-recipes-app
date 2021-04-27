@@ -1,12 +1,17 @@
-import React, { createContext, useEffect } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { node } from 'prop-types';
 
 const Context = createContext();
 
 const Provider = ({ children }) => {
+  const [searchResult, setSearchResult] = useState([]);
+
   useEffect(() => {}, []);
 
-  const contextValue = {};
+  const contextValue = {
+    setSearchResult,
+    searchResult,
+  };
 
   return (
     <Context.Provider value={ contextValue }>

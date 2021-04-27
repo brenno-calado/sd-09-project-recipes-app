@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
+import SearchBar from './SearchBar';
 
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -9,10 +10,6 @@ const INITIAL_STATE = { search: '', shouldSearch: false };
 
 function Header({ title, search }) {
   const [state, setState] = useState(INITIAL_STATE);
-
-  const handleChange = ({ target: { value } }) => {
-    setState({ ...state, search: value });
-  };
 
   const renderImage = (testid, src, alt) => (
     <img data-testid={ testid } src={ src } alt={ alt } />
@@ -36,7 +33,7 @@ function Header({ title, search }) {
         </button>)}
 
       { state.shouldSearch
-        && <input type="text" data-testid="search-input" onChange={ handleChange } /> }
+        && <SearchBar /> }
     </header>
   );
 }
