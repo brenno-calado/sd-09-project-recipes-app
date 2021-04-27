@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { randomFoodAPI } from '../services/fetchFoodsAPI';
 
 const ExploreButtonsFoods = () => {
   const [myMeal, setMyMeal] = useState([]);
 
+  const loadRandomMeal = async () => {
+    const myRandomMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+      .then((response) => response.json())
+      .then((meal) => meal.meals[0]);
+    setMyMeal(myRandomMeal);
+  };
+
   useEffect(() => {
-    randomFoodAPI()
-      .then((meal) => {
-        setMyMeal(meal);
-      });
-    console.log(myMeal);
+    loadRandomMeal();
   }, []);
 
   return (
