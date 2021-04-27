@@ -10,6 +10,14 @@ function SearchBar({ page, setRecipes }) {
     setSearch({ ...search, [name]: value });
   };
 
+  const handleClick = () => {
+    if (search.query === 'f' && search.searchValue.length > 1) {
+      window.alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      setRecipes(search);
+    }
+  };
+
   return (
     <div>
       <h3>SearchBar</h3>
@@ -56,7 +64,7 @@ function SearchBar({ page, setRecipes }) {
       <button
         type="button"
         data-testid="exec-search-btn"
-        onClick={ () => setRecipes(search) }
+        onClick={ handleClick }
       >
         Procurar
       </button>
