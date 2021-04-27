@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import BottomMenu from '../components/BottomMenu';
 
 function Login() {
   const history = useHistory();
@@ -49,7 +48,6 @@ function Login() {
           Entrar
         </button>
       </form>
-      <BottomMenu />
     </div>
   );
 }
