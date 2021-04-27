@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 import Switch from 'react-bootstrap/esm/Switch';
 import { RecipeContextProvider } from './contexts/recipeContext';
 import Login from './pages/Login';
@@ -28,10 +28,10 @@ function App() {
         <Route path="/" exact component={ Login } />
         <Route path="/comidas" exact component={ Foods } />
         <Route path="/bebidas" exact component={ Drinks } />
-        <Route path="/comidas/id:" component={ FoodRecipe } />
-        <Route path="/bebidas/id:" component={ DrinksRecipe } />
-        <Route path="/comidas/id:/in-progress" component={ FoodRecipeInProgress } />
-        <Route path="/bebidas/id:/in-progress" component={ DrinkRecipeInProgress } />
+        <Route path="/comidas/:id" render={ (props) => <FoodRecipe { ...props } /> } />
+        <Route path="/bebidas/:id" component={ DrinksRecipe } />
+        <Route path="/comidas/:id/in-progress" component={ FoodRecipeInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkRecipeInProgress } />
         <Route path="/explorar" exact component={ Explore } />
         <Route path="/explorar/comidas" exact component={ ExploreFoods } />
         <Route path="/explorar/bebidas" exact component={ ExploreDrinks } />

@@ -1,8 +1,9 @@
 import React from 'react';
 
-function FoodRecipe() {
+function FoodRecipe(props) {
+  
   return (
-    <h1>Detalhes da receita</h1>
+    <h1>Detalhes da receita{props.match.params.id}</h1>
   );
 }
 
