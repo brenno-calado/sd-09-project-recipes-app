@@ -14,7 +14,7 @@ import ExploreFoods from './pages/ExploreFoods';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipesDone from './pages/RecipesDone';
 import ExploreOrigin from './pages/ExploreOrigin';
-import ExploreBeveragesIngredients from './pages/ExploreBeverageIngredients';
+import ExploreBeveragesIngredients from './pages/ExploreBeveragesIngredients';
 import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
 
 function App() {

@@ -5,6 +5,11 @@ import profileIcon from '../images/profileIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
 import searchIcon from '../images/searchIcon.svg';
 
+const headerStyle = {
+  position: 'fixed',
+  top: '0px',
+};
+
 export default function Header(props) {
   const { title } = props;
   const [searchButton, setSearchButton] = useState(false);
@@ -15,7 +20,7 @@ export default function Header(props) {
   };
 
   return (
-    <header>
+    <header style={ headerStyle }>
       <Link to="/perfil">
         <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
       </Link>
