@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { fetchMeal, fetchDrink } from '../services/api';
 
 const defaultSearchFilters = {
   inputSearch: '',
@@ -13,7 +14,6 @@ function SearchBar() {
   function handleChange({ target }) {
     const obj = { ...searchFilters };
     obj[target.name] = target.value;
-    console.log(obj);
     setSearchFilters(obj);
   }
 
@@ -22,6 +22,15 @@ function SearchBar() {
     obj.inputSearch = searchFilters.inputSearch;
     obj[target.value] = target.checked;
     setSearchFilters(obj);
+  }
+
+  async function handleSearch() {
+    // verificar em qual pagina está (meal or drink)
+    const meal = await fetchMeal(searchFilters);
+    console.log(meal);
+
+    const drink = await fetchDrink(searchFilters);
+    console.log(drink);
   }
 
   return (
@@ -71,7 +80,9 @@ function SearchBar() {
           onChange={ handleChangeCheck }
         />
       </label>
-      <button data-testid="exec-search-btn" type="button">Busca</button>
+      <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
+        Busca
+      </button>
     </div>
   );
 }
