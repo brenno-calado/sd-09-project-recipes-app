@@ -5,6 +5,7 @@ const Explore = () => {
   return (
     <>
       <h1>Explorar</h1>
+      <p></p>
       <BottomMenu />
     </>
   );
