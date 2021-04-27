@@ -14,8 +14,8 @@ export const getFoodResults = async (radioButton, searchInput) => {
     searchParameter = 'search';
   }
   const url = `https://www.themealdb.com/api/json/v1/1/${searchParameter}.php?${type}=${searchInput}`;
-  const result = await fetch(url).then((response) => response.json());
-  return result;
+  const { meals } = await fetch(url).then((response) => response.json());
+  return meals;
 };
 
 export const getFoods = async () => {
