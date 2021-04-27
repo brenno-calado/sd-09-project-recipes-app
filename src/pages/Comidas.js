@@ -3,12 +3,21 @@ import Header from '../components/Header';
 import { AppContext } from '../context/AppContext';
 
 function Comidas() {
-  const { foods } = useContext(AppContext);
+  const { foods, foodCategories } = useContext(AppContext);
   if (!foods) return <p>Carregando...</p>;
 
   return (
     <>
       <Header title="Comidas" searchIcon />
+      { foodCategories && foodCategories.map(({ strCategory }) => (
+        <button
+          data-testid={ `${strCategory}-category-filter` }
+          key={ strCategory }
+          type="button"
+        >
+          {strCategory}
+        </button>
+      )) }
       { foods && foods.map((food, index) => (
         <div data-testid={ `${index}-recipe-card` } key={ food.idMeal }>
           <img
