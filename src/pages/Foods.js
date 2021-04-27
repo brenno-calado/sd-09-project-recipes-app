@@ -3,7 +3,9 @@ import HeaderFoods from '../components/HeaderFoods';
 
 function Foods() {
   return (
-    <HeaderFoods />
+    <HeaderFoods hasSearchBar>
+      <h1 data-testid="page-title">Comidas</h1>
+    </HeaderFoods>
   );
 }
 
