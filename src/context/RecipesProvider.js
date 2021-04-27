@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import myContext from './myContext';
-import fetchFoodsAPI from '../services/fetchFoodsAPI';
-import fetchDrinksAPI from '../services/fetchDrinksAPI';
+import { fetchFoodsAPI } from '../services/fetchFoodsAPI';
+import { fetchDrinksAPI } from '../services/fetchDrinksAPI';
 
 const RecipesProvider = ({ children }) => {
   // passar os states

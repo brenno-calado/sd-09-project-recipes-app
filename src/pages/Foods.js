@@ -12,7 +12,7 @@ const imgStyle = {
 // a tela é 360 x 640
 const containerStyle = {
   overflowY: 'scroll',
-  maxWidth: '300px',
+  width: '300px',
   maxHeight: '300px',
   marginTop: '100px',
 };
