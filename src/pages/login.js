@@ -1,24 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Container, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { loginUser } from '../actions';
+import { setItemLocalStorage } from '../services/servicesLocalStorage';
 import key from '../images/keyIcon.svg';
 
 export default function Login() {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
-  const [buttonOff, setButtonOff] = useState(true);
+  const [buttonStatus, setButtonStatus] = useState(true);
+  const [redirectLogin, setRedirect] = useState(false);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const { email, password } = loginData;
+  const validateLoginData = ({ email, password }) => {
     const validateEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
     const passwordLenght = password.length;
     const minPassword = 6;
 
-    if (validateEmail.test(email) && passwordLenght > minPassword) {
-      setButtonOff(false);
+    if (validateEmail.test(email) && passwordLenght >= minPassword) {
+      setButtonStatus(false);
     } else {
-      setButtonOff(true);
+      setButtonStatus(true);
     }
-  }, [loginData]);
+  };
+
+  useEffect(() => {
+    validateLoginData(loginData);
+  }, [loginData, buttonStatus]);
 
   const handleChange = ({ target: { name, value } }) => {
     setLoginData({
@@ -27,15 +35,31 @@ export default function Login() {
     });
   };
 
+  const loginRedirectUser = () => {
+    const { email } = loginData;
+    dispatch(loginUser(email));
+
+    setRedirect(true);
+
+    setItemLocalStorage('mealsToken', 1);
+    setItemLocalStorage('cocktailsToken', 1);
+    setItemLocalStorage('user', { email });
+  };
+
+  if (redirectLogin) return <Redirect to="/mainPage" />;
+
   return (
-    <Container fluid>
+    <Container fluid className="login-wrapper">
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
         </InputGroup.Prepend>
         <FormControl
-          placeholder="Username"
+          type="text"
+          data-testid="email-input"
+          placeholder="User email"
           aria-label="Username"
+          name="email"
           aria-describedby="basic-addon1"
           value={ loginData.name }
           onChange={ handleChange }
@@ -54,23 +78,25 @@ export default function Login() {
           </InputGroup.Text>
         </InputGroup.Prepend>
         <FormControl
+          type="password"
+          data-testid="password-input"
           placeholder="Password"
           aria-label="Password"
           aria-describedby="basic-addon1"
+          name="password"
           value={ loginData.password }
           onChange={ handleChange }
         />
       </InputGroup>
-      <Link to="/mainPage">
-        <Button
-          variant="primary"
-          disabled={ buttonOff }
-          type="button"
-          data-testid="login-submit-btn"
-        >
-          Login
-        </Button>
-      </Link>
+      <Button
+        variant="primary"
+        disabled={ buttonStatus }
+        type="button"
+        onClick={ loginRedirectUser }
+        data-testid="login-submit-btn"
+      >
+        Login
+      </Button>
     </Container>
   );
 }
