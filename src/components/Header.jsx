@@ -7,8 +7,12 @@ class Header extends Component {
     const { textProp } = this.props;
     return (
       <header className="header">
-        <img src={ profileIcon } alt="Foto do perfil do usuário" />
-        <span className="span">{ textProp }</span>
+        <img
+          src={ profileIcon }
+          alt="Foto do perfil do usuário"
+          data-testid="profile-top-btn"
+        />
+        <span className="span" data-testid="page-title">{ textProp }</span>
       </header>
     );
   }

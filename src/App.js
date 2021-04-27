@@ -22,9 +22,13 @@ function App() {
         {/* Placeholder do id */}
         {/* <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } /> */}
         {/* Placeholder do id */}
-        {/* <Route path="/comidas/id-da-receita/in-progress" component={ ProcessoComida } /> */}
+        {/* <Route
+          path="/comidas/id-da-receita/in-progress"
+          component={ ProcessoComida } /> */}
         {/* Placeholder do id */}
-        {/* <Route path="/bebidas/id-da-receita/in-progress" component={ processoBebida } /> */}
+        {/* <Route
+          path="/bebidas/id-da-receita/in-progress"
+          component={ processoBebida } /> */}
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
