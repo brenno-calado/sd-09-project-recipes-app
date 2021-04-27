@@ -28,6 +28,11 @@ function Login() {
     } setPasswordIsValid(false);
   };
 
+  const populateStorage = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
+
   return (
     <main>
       <Container fluid>
@@ -59,6 +64,7 @@ function Login() {
             type="submit"
             data-testid="login-submit-btn"
             disabled={ emailIsValid && passwordIsValid ? '' : true }
+            onClick={ populateStorage }
           >
             Entrar
           </Button>
