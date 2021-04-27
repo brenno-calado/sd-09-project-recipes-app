@@ -5,8 +5,12 @@ function Login() {
     email: '',
     password: '',
   });
-  const [disable, setDisable ] = useState(true);
+  const [disable, setDisable] = useState(true);
   const [errors, setErrors] = useState({});
+  const [tokens, setToken] = useState({
+    mealsToken: 1,
+    cocktailsToken: 1,
+  });
 
   const handleChange = (event) => {
     setForm({
@@ -30,6 +34,14 @@ function Login() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setErrors(validate());
+  };
+
+  const localStorage = () => {
+    if (handleSubmit) {
+      const submitTokens = localStorage.getItem(tokens);
+      console.log(submitTokens);
+      return submitTokens;
+    }
   };
 
   return (
@@ -60,7 +72,14 @@ function Login() {
           />
         </label>
         <br />
-        <button type="button" onClick={ handleSubmit } disabled={ disable } data-testid="login-submit-btn">Entrar</button>
+        <button
+          type="button"
+          onClick={ handleSubmit }
+          disabled={ disable }
+          data-testid="login-submit-btn"
+        >
+          Entrar
+        </button>
       </form>
     </div>
   );
