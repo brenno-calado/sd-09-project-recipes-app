@@ -6,14 +6,15 @@ const INITIAL_STATE = { shouldRedirect: false };
 
 function Profile() {
   const [state, setState] = useState(INITIAL_STATE);
-  const createButton = (testid, name, onClick) => (
-    <button data-testid={ testid } type="button" onClick={ onClick }>{ name }</button>
-  );
 
   const handleLogout = () => {
     localStorage.clear();
     setState({ ...state, shouldRedirect: true });
   };
+
+  const createButton = (testid, name, onClick) => (
+    <button data-testid={ testid } type="button" onClick={ onClick }>{ name }</button>
+  );
 
   if (state.shouldRedirect) return <Redirect to="/" />;
 

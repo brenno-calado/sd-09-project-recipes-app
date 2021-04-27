@@ -9,10 +9,7 @@ function SearchBar() {
   const { setSearchResult } = useContext(Context);
 
   const handleChange = ({ target: { name, value } }) => {
-    setState({
-      ...state,
-      [name]: value,
-    });
+    setState({ ...state, [name]: value });
   };
 
   const handleSearch = async () => {
