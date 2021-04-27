@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import Header from '../components/Header';
 import HeaderSearchBar from '../components/HeaderSearchBar';
+import searchIcon from '../images/searchIcon.svg';
 
-export default function Bebidas() {
+export default function Beverages() {
   const [searchButton, setSearchButton] = useState(false);
 
   const handleClickSearchButton = () => {
@@ -10,15 +12,16 @@ export default function Bebidas() {
 
   return (
     <div>
-      <p>Esta é a pagina de bebidas.</p>
-      <button
-        type="button"
+      <Header title="Bebidas" />
+      <input
+        src={ searchIcon }
+        type="image"
         data-testid="search-top-btn"
         onClick={ handleClickSearchButton }
-      >
-        Search
-      </button>
+        alt=""
+      />
       {searchButton ? <HeaderSearchBar /> : null}
+      <p>Esta é a pagina de bebidas.</p>
     </div>
   );
 }
