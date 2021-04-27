@@ -1,0 +1,16 @@
+.footer {
+  background-color: lavender;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+/* https://www.w3schools.com/howto/howto_css_fixed_footer.asp */
