@@ -4,7 +4,7 @@ import { Route } from 'react-router';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Switch from 'react-bootstrap/esm/Switch';
 import Login from './Pages/Login/Login';
-import MealsScreen from './Pages/mealsScreen/MealsScreen';
+import MealsScreen from './Pages/MealsScreen/MealsScreen';
 import DrinksScreen from './Pages/DrinkScreen/DrinksScreen';
 
 function App() {

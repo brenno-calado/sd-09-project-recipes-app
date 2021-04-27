@@ -7,11 +7,11 @@ import './searchBar.css';
 import { RecipeContext } from '../../Context';
 
 function SearchBar({ page }) {
-  const [inputSearch, setInputSearch] = useState();
+  const [inputSearch, setInputSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
   const [redirect, setRedirect] = useState(false);
   const [recipeId, setRecipeId] = useState('');
-  const { setRecipies } = useContext(RecipeContext);
+  const { setRecipies, setTypeRecipies } = useContext(RecipeContext);
 
   function handleSearch({ target: { value } }) {
     setInputSearch(value);
@@ -22,6 +22,7 @@ function SearchBar({ page }) {
   }
 
   function handleRecipies(recipies) {
+    setTypeRecipies(page);
     if (recipies && recipies.length > 1) {
       setRecipies(recipies);
     }

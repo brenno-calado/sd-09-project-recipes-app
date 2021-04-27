@@ -1,7 +1,11 @@
 const searchMealForIngredient = async (ingredient) => {
-  const fetchApi = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
-  const resp = await fetchApi.json();
-  return resp;
+  try {
+    const fetchApi = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+    const resp = await fetchApi.json();
+    return resp;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const searchMealForName = async (name) => {
