@@ -12,7 +12,7 @@ const Header = (props) => {
     <button
       data-testid="search-top-btn"
       type="button"
-      onClick={ () => setDisplaySearchBar(!displaySearchBar)}
+      onClick={ () => setDisplaySearchBar(!displaySearchBar) }
     >
       <img
         src={ SearchIcon }
