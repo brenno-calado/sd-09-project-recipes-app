@@ -3,22 +3,23 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
+import Login from './pages/Login';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
-import DetalhesComida from './pages/DetalhesComida';
-import DetalhesBebida from './pages/DetalhesBebida';
-import ProcessoComida from './pages/ProcessoComida';
+// import DetalhesComida from './pages/DetalhesComida';
+// import DetalhesBebida from './pages/DetalhesBebida';
+// import ProcessoComida from './pages/ProcessoComida';
 import ProcessoBebida from './pages/ProcessoBebida';
 
 function App() {
   return (
     <main className="main">
       <Switch>
-        {/* <Route path="/" component={ Login } /> */}
+        <Route path="/" component={ Login } />
         {/* <Route path="/comidas" component={ PrincipalComidas } /> */}
         {/* <Route path="/bebidas" component={ PrincipalBebidas } /> */}
         {/* Placeholder do id */}
