@@ -11,19 +11,18 @@ function BottomMenu() {
       <Link to="/bebidas">
         <button
           type="button"
-          data-testid="drinks-bottom-btn"
         >
-          <img src={ drinkIcon } alt="drinksIcon" />
+          <img src={ drinkIcon } alt="drinksIcon" data-testid="drinks-bottom-btn" />
         </button>
       </Link>
       <Link to="/explorar">
-        <button type="button" data-testid="explore-bottom-btn">
-          <img src={ exploreIcon } alt="exploreIcon" />
+        <button type="button">
+          <img src={ exploreIcon } alt="exploreIcon" data-testid="explore-bottom-btn" />
         </button>
       </Link>
       <Link to="/comidas">
-        <button type="button" data-testid="food-bottom-btn">
-          <img src={ mealIcon } alt="foodIcon" />
+        <button type="button">
+          <img src={ mealIcon } alt="foodIcon" data-testid="food-bottom-btn" />
         </button>
       </Link>
     </footer>
