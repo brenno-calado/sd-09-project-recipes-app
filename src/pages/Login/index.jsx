@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import * as S from './styled';
 import foodBackground from '../../images/foodbackground.png';
 import validationLogin from '../../validations/loginValidation';
 import { context } from '../../context';
 
 function Login() {
+  const [shouldRedirect, setShouldRedirect] = useState(false);
   const { authLogin, setAuthLogin,
     formValidation, setFormValidation } = useContext(context);
 
@@ -16,6 +18,7 @@ function Login() {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email: authLogin.email }));
+    setShouldRedirect(true);
   };
 
   const validation = async () => {
@@ -26,6 +29,8 @@ function Login() {
   useEffect(() => {
     validation();
   });
+
+  if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
     <S.Container>

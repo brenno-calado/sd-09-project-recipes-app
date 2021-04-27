@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import { Provider } from './context';
 import Layout from './components/Layout';
+import Foods from './pages/Foods';
 
 export default function App() {
   return (
@@ -11,8 +12,8 @@ export default function App() {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ Login } />
-            {/* <Route path="/comidas" component={ Foods } />
-            <Route path="/bebidas" component={ Drinks } />
+            <Route path="/comidas" component={ Foods } />
+            {/* <Route path="/bebidas" component={ Drinks } />
             <Route path="/comidas/:id" component={ FoodDetails } />
             <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
             <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
