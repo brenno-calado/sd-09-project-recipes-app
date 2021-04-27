@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
 
-class Comidas extends React.Component {
+class Bebidas extends React.Component {
   render() {
     const searchIcon = true;
     return (
-      <Header title="Comidas" searchIcon={ searchIcon } />
+      <Header title="Bebidas" searchIcon={ searchIcon } />
     );
   }
 }
 
-export default Comidas;
+export default Bebidas;
