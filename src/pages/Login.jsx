@@ -7,7 +7,7 @@ function Login() {
   const [verify, setVerify] = useState(true);
   const [redirect, setRedirect] = useState(false);
   const seven = 7;
-  const validEmailRegex = /^[\w.]+@[a-z]+.\w{2,3}$/g.test(email);
+  const validEmailRegex = /\S+@\S+\.\S+/.test(email);
 
   useEffect(() => {
     if (validEmailRegex && password.length >= seven) {
@@ -20,6 +20,8 @@ function Login() {
   useEffect(() => {
     if (redirect) {
       localStorage.setItem('user', JSON.stringify({ email }));
+      localStorage.setItem('mealsToken', JSON.stringify(1));
+      localStorage.setItem('cocktailsToken', JSON.stringify(1));
     }
   }, [redirect, email]);
 
