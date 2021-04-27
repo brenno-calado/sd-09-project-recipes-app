@@ -5,7 +5,7 @@ import Profile from './Profile';
 import Explore from './Explore';
 import ExploreFoods from './ExploreFoods';
 import ExploreDrinks from './ExploreDrinks';
-import RecipesMades from './RecipesMades';
+import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
 
 export {
@@ -16,6 +16,6 @@ export {
   Explore,
   ExploreFoods,
   ExploreDrinks,
-  RecipesMades,
+  DoneRecipes,
   FavoriteRecipes,
 };
