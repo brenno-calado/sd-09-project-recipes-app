@@ -7,23 +7,27 @@ function ExplorarComidasArea() {
   return (
     <>
       <Header textProp="Explorar Origem" />
+
       <select className="select" data-testid="explore-by-area-dropdown">
         <option>Brasil</option>
         <option>Canada</option>
         <option>Praga</option>
       </select>
+
       <button
         type="button"
         data-testid="explore-food"
       >
         Chelsea Buns
       </button>
+
       <button
         type="button"
         data-testid="explore-drinks"
       >
         Chelsea Buns
       </button>
+
       <Footer />
     </>
   );

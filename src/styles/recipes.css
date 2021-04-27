@@ -23,7 +23,7 @@
   width: 360px;
 }
 
-img {
+.img {
   width: 9%;
 }
 
@@ -67,4 +67,10 @@ button:active {
   padding: 4px;
   position: absolute;
   width: 360px;
+}
+
+/* Tela de perfil */
+.email {
+  font-size: 30px;
+  margin: 42px 23px;
 }

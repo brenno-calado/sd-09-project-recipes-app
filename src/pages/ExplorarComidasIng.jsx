@@ -7,18 +7,21 @@ function ExplorarComidasIng() {
   return (
     <>
       <Header textProp="Explorar Ingredientes" />
+
       <button
         type="button"
         data-testid="explore-food"
       >
         Lime
       </button>
+
       <button
         type="button"
         data-testid="explore-drinks"
       >
         Sugar
       </button>
+
       <Footer />
     </>
   );

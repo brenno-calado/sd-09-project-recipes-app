@@ -4,7 +4,7 @@ class ProcessoComida extends React.Component {
   render() {
     return (
       <div>
-        <img data-testid="recipe-photo" src={ image } alt="imagem da comida" />
+        {/* <img data-testid="recipe-photo" src={ image } alt="imagem da comida" /> */}
         <h1 data-testid="recipe-title">Titulo</h1>
         <button data-testid="share-btn" type="button">
           <img src="../images/shareIcon.svg" alt="Share" />
