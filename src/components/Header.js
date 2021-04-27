@@ -10,34 +10,41 @@ import searchIcon from '../images/searchIcon.svg';
 const Header = ({ title }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
 
-  const handleClick = () => (
-    showSearchBar
-      ? setShowSearchBar(false)
-      : setShowSearchBar(true)
-    );
+  const handleClick = () => (showSearchBar
+    ? setShowSearchBar(false)
+    : setShowSearchBar(true));
 
-    const titles = [
-      'Explorar',
-      'Explorar Comidas',
-      'Explorar Ingredientes',
-      'Explorar Bebidas',
-      'Receitas Feitas',
-      'Receitas Favoritas',
-      'Perfil',
-    ];
+  const titles = [
+    'Explorar',
+    'Explorar Comidas',
+    'Explorar Ingredientes',
+    'Explorar Bebidas',
+    'Receitas Feitas',
+    'Receitas Favoritas',
+    'Perfil',
+  ];
 
   return (
     <nav>
       <Link to="/perfil">
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="profile icon" />
+        <img
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="profile icon"
+        />
       </Link>
 
-      <h1 data-testid="page-title">{title}</h1>
+      <h1 data-testid="page-title">{ title }</h1>
 
-      { !titles.includes(title) &&
-      <Button onClick={ handleClick }>
-        <img data-testid="search-top-btn" src={ searchIcon } alt="search icon" />
-      </Button> }
+      { !titles.includes(title) && (
+        <Button onClick={ handleClick }>
+          <img
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="search icon"
+          />
+        </Button>
+      ) }
 
       { showSearchBar && <SearchBar /> }
     </nav>
