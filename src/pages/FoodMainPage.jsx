@@ -5,14 +5,18 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesList from '../components/RecipesList';
 import { searchBarFetch } from '../actions/searchBar';
+import { filtersFetch } from '../actions/filters';
+import Filters from '../components/Filters';
 
-function FoodMainPage({ match, setRecipes }) {
+function FoodMainPage({ match, setRecipes, setFilters }) {
   useEffect(() => {
     setRecipes({ searchValue: '', query: 's', page: 'Comidas' });
-  }, [setRecipes]);
+    setFilters('Comidas');
+  }, [setRecipes, setFilters]);
   return (
     <div>
       <Header page="Comidas" search />
+      <Filters />
       <RecipesList path={ match.path } />
       <Footer />
     </div>
@@ -21,6 +25,7 @@ function FoodMainPage({ match, setRecipes }) {
 
 const mapDispatchToProps = (dispatch) => ({
   setRecipes: (search) => dispatch(searchBarFetch(search)),
+  setFilters: (page) => dispatch(filtersFetch(page)),
 });
 
 FoodMainPage.propTypes = {
