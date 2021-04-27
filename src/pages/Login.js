@@ -40,7 +40,7 @@ const Login = () => {
           type="button"
           disabled={
             !(user.email.match(/[\w.-]+@[\w-]+\.[\w-.]+/gi)
-            && user.password.length >= six)
+            && user.password.length > six)
           }
           onClick={ addUser(user) }
         >

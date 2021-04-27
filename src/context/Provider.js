@@ -7,6 +7,9 @@ const Provider = ({ children }) => {
 
   const addUser = (userData) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+    localStorage.setItem('mealsToken', JSON.stringify(1));
+    localStorage.setItem('cocktailsToken', JSON.stringify(1));
   };
   console.log(user);
 
