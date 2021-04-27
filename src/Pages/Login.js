@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addUser } from '../redux/actions/user';
+import { addUser, requestApiCocktails, requestApiMeals } from '../redux/actions';
 
 class Login extends Component {
   constructor(props) {
@@ -47,11 +47,13 @@ class Login extends Component {
     localStorage.setItem('cocktailsToken', 1);
   }
 
-  clickHandler() {
-    const { history, addUserInfo } = this.props;
+  async clickHandler() {
+    const { history, addUserInfo, getCocktails, getMeals } = this.props;
     const { email, password } = this.state;
     addUserInfo(email, password);
     this.createLocalStorage();
+    await getCocktails();
+    await getMeals();
     if (this.validate()) history.push('/comidas');
   }
 
@@ -91,6 +93,8 @@ class Login extends Component {
 
 Login.propTypes = {
   addUserInfo: PropTypes.func.isRequired,
+  getMeals: PropTypes.func.isRequired,
+  getCocktails: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
@@ -98,6 +102,8 @@ Login.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   addUserInfo: (email, password) => dispatch(addUser(email, password)),
+  getMeals: () => dispatch(requestApiMeals()),
+  getCocktails: () => dispatch(requestApiCocktails()),
 });
 
 export default connect(null, mapDispatchToProps)(Login);
