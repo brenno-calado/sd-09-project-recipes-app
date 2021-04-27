@@ -1,0 +1,16 @@
+.Header {
+  align-items: center;
+  background-color: #c4c4c4;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+.Header h3 {
+  margin: 0;
+}
+
+.Header button {
+  background-color: #c4c4c4;
+  border: none;
+}
