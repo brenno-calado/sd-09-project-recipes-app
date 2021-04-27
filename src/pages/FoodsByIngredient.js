@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderFoods from '../components/HeaderFoods';
+import BottomMenu from '../components/BottomMenu';
 
 function FoodsByIngredient() {
   return (
@@ -9,6 +10,7 @@ function FoodsByIngredient() {
       </HeaderFoods>
       \
       <h1>Comidas por ingrediente</h1>
+      <BottomMenu />
     </>
   );
 }

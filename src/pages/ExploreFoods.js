@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderFoods from '../components/HeaderFoods';
+import BottomMenu from '../components/BottomMenu';
 
 function ExploreFoods() {
   return (
@@ -8,6 +9,7 @@ function ExploreFoods() {
         <h1 data-testid="page-title">Explorar Comidas</h1>
       </HeaderFoods>
       <h1>Explorar Comidas</h1>
+      <BottomMenu />
     </>
   );
 }
