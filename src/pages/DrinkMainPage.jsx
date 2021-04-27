@@ -16,7 +16,7 @@ function DrinkMainPage({ match, setRecipes, setFilters }) {
   return (
     <div>
       <Header page="Bebidas" search />
-      <Filters />
+      <Filters path={ match.path } />
       <RecipesList path={ match.path } />
       <Footer />
     </div>

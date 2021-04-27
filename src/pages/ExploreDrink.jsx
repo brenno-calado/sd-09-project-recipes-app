@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import Footer from '../components/Footer';
 import getRandom from '../services/randomFetch';
+import Header from '../components/Header';
 
 function ExploreDrink() {
   const [randomNumber, setRandom] = useState('');
@@ -13,8 +14,7 @@ function ExploreDrink() {
 
   useEffect(() => {
     const randomFetch = async () => {
-      const randomSetup = await getRandom('random', 'Drinks');
-      console.log(randomSetup.drinks[0].idDrink);
+      const randomSetup = await getRandom('Drinks');
       setRandom(randomSetup.drinks[0].idDrink);
     };
     randomFetch();
@@ -26,6 +26,7 @@ function ExploreDrink() {
 
   return (
     <div>
+      <Header page="Explorar Bebidas" />
       <Link to="/explorar/bebidas/ingredientes">
         <button data-testid="explore-by-ingredient" type="button">
           Por Ingredientes

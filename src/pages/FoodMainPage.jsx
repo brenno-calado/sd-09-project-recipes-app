@@ -16,7 +16,7 @@ function FoodMainPage({ match, setRecipes, setFilters }) {
   return (
     <div>
       <Header page="Comidas" search />
-      <Filters />
+      <Filters path={ match.path } />
       <RecipesList path={ match.path } />
       <Footer />
     </div>
