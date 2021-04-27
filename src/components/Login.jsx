@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import setLocalStorage from '../services/localStorage';
 
 function Login() {
@@ -42,14 +43,16 @@ function Login() {
           onChange={ (event) => setPassword(event.target.value) }
         />
       </label>
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ validation() }
-        onClick={ setStorage }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ validation() }
+          onClick={ setStorage }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
