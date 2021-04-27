@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fetchMeal, fetchDrink } from '../services/api';
+import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 
 const defaultSearchFilters = {
   inputSearch: '',
@@ -10,6 +11,7 @@ const defaultSearchFilters = {
 
 function SearchBar() {
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
+  const { meals, setMeals, drinks, setDrinks } = useContext(MealsAndDrinkContext);
 
   function handleChange({ target }) {
     const obj = { ...searchFilters };
@@ -25,12 +27,17 @@ function SearchBar() {
   }
 
   async function handleSearch() {
-    // verificar em qual pagina está (meal or drink)
-    const meal = await fetchMeal(searchFilters);
-    console.log(meal);
+    // verificar em qual pagina está e assim fazer o fetch correto (meal or drink)
+    const mealList = await fetchMeal(searchFilters);
+    setMeals(mealList);
 
-    const drink = await fetchDrink(searchFilters);
-    console.log(drink);
+    const drinkList = await fetchDrink(searchFilters);
+    setDrinks(drinkList);
+  }
+
+  function handleLog() {
+    console.log(meals);
+    console.log(drinks);
   }
 
   return (
@@ -82,6 +89,9 @@ function SearchBar() {
       </label>
       <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
         Busca
+      </button>
+      <button type="button" onClick={ handleLog }>
+        CONSOLOGAR LISTAS
       </button>
     </div>
   );
