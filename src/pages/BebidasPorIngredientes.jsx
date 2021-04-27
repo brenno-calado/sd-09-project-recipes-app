@@ -2,12 +2,9 @@ import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
 
-function BebidasPorIngredientes(props) {
+function BebidasPorIngredientes() {
   return (
-    <>
-      <Header props={ props } />
-      BebidasPorIngredientes
-    </>
+    <Header page="Explorar Ingredientes" hasSearchButton={ false } />
   );
 }
 

@@ -2,12 +2,9 @@ import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
 
-function ReceitasFavoritas(props) {
+function ReceitasFavoritas() {
   return (
-    <>
-      <Header props={ props } />
-      receitasFavoritas
-    </>
+    <Header page="Receitas Favoritas" hasSearchButton={ false } />
   );
 }
 

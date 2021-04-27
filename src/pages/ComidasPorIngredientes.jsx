@@ -2,12 +2,9 @@ import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
 
-function ComidasPorIngredientes(props) {
+function ComidasPorIngredientes() {
   return (
-    <>
-      <Header props={ props } />
-      ComidasPorIngredientes
-    </>
+    <Header page="Explorar Ingredientes" hasSearchButton={ false } />
   );
 }
 

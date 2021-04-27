@@ -1,12 +1,9 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Perfil(props) {
+function Perfil() {
   return (
-    <div>
-      <Header props={ props } />
-      Perfil
-    </div>
+    <Header page="Perfil" hasSearchButton={ false } />
   );
 }
 

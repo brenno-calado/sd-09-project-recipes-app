@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import '../styles/Header.css';
 import { Link } from 'react-router-dom';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
-import {
-  comidaOrigem,
-  bebidasPorIngredientes,
-  comidasPorIngredientes,
-  explorarBebidas,
-  explorarComidas,
-  receitasFeitas,
-  receitasFavoritas,
-  bebidas,
-  comidas,
-  perfil,
-  explorar,
-} from './ComplementHeader';
+import RecipesContext from '../contexts/RecipesContext';
 
-function Header({ props }) {
-  const [isSearchBar, setSerachBar] = useState(false);
+function Header({ page, hasSearchButton = true }) {
+  const {
+    showSearchBar,
+    setToggledSearchButton,
+    toggledProfileButton,
+    toggledSearchButton,
+  } = useContext(RecipesContext);
 
-  const handleClick = () => {
-    setSerachBar(!isSearchBar);
-  };
+  useEffect(() => { // ComponentDidMount
+    if (!hasSearchButton) {
+      setToggledSearchButton(false);
+    } else {
+      setToggledSearchButton(true);
+    }
+  }, []);
 
-  const buttonLink = () => (
+  const profileButton = () => (
     <Link to="/perfil">
       <input
         data-testid="profile-top-btn"
@@ -35,53 +33,28 @@ function Header({ props }) {
     </Link>
   );
 
-  const buttonClick = () => (
+  const searchButton = () => (
     <input
       data-testid="search-top-btn"
       type="image"
       src={ searchIcon }
       alt="searchIcon"
-      onClick={ handleClick }
+      onClick={ showSearchBar }
     />
   );
 
-  switch (props.match.path) {
-  case '/comidas':
-    return comidas(buttonLink, buttonClick, isSearchBar);
-
-  case '/explorar':
-    return explorar(buttonLink);
-
-  case '/bebidas':
-    return bebidas(buttonLink);
-
-  case '/perfil':
-    return perfil(buttonLink, buttonClick, isSearchBar);
-
-  case '/receitas-favoritas':
-    return receitasFavoritas(buttonLink);
-
-  case '/receitas-feitas':
-    return receitasFeitas(buttonLink);
-
-  case '/explorar/comidas':
-    return explorarComidas(buttonLink);
-
-  case '/explorar/bebidas':
-    return explorarBebidas(buttonLink);
-
-  case '/explorar/comidas/ingredientes':
-    return comidasPorIngredientes(buttonLink);
-
-  case '/explorar/bebidas/ingredientes':
-    return bebidasPorIngredientes(buttonLink);
-
-  case '/explorar/comidas/area':
-    return comidaOrigem(buttonLink, buttonClick, isSearchBar);
-
-  default:
-    break;
-  }
+  return (
+    <>
+      <h4 data-testid="page-title">{page}</h4>
+      { toggledProfileButton && profileButton() }
+      { toggledSearchButton && searchButton() }
+    </>
+  );
 }
+
+Header.propTypes = {
+  page: PropTypes.string,
+  hasSearchButton: PropTypes.bool,
+}.isRequired;
 
 export default Header;

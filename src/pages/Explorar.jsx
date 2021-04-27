@@ -1,11 +1,10 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function Explorar(props) {
+function Explorar() {
   return (
     <div>
-      <Header props={ props } />
-      Explorar
+      <Header page="Explorar" hasSearchButton={ false } />
     </div>
   );
 }
