@@ -1,55 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
-import { getMealById } from '../actions/MealById';
+import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
 
 function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
   const [recipe, setRecipe] = useState(null);
   const [ingredientToMeasure, setIngredientToMeasure] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  function mapIngredientToMeasure(selectedRecipe) {
-    const regexIngredient = new RegExp(/strIngredient/, 'g');
-    const regexMeasure = new RegExp(/strMeasure/, 'g');
-    let indexCountIngredient = 0;
-    let indexCountMeasure = 0;
-    const ingredientArray = [];
-    const measureArray = [];
-    const mapIngredientToMeasureArray = [];
-    Object.entries(selectedRecipe).map((item) => {
-      const object = {};
-      const [key, value] = item;
-
-      if (key.match(regexIngredient)) {
-        object.value = value;
-        object.index = indexCountIngredient;
-        ingredientArray.push(object);
-        indexCountIngredient += 1;
-      }
-      if (key.match(regexMeasure)) {
-        object.value = value;
-        object.index = indexCountMeasure;
-        measureArray.push(object);
-        indexCountMeasure += 1;
-      }
-      return null;
-    });
-    ingredientArray.map((ingredient) => {
-      const object = {};
-      measureArray.map((measure) => {
-        if (ingredient.index === measure.index) {
-          object.index = ingredient.index;
-          object.ingredient = ingredient.value;
-          object.measure = measure.value;
-          mapIngredientToMeasureArray.push(object);
-        }
-        return null;
-      });
-      return null;
-    });
-    console.log(mapIngredientToMeasureArray);
-    setIngredientToMeasure(mapIngredientToMeasureArray);
-  }
   useEffect(() => {
     const recipeID = match.params.id;
     if (!recipe) {
@@ -59,7 +17,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
     setRecipe(selectedRecipe);
     setLoading(false);
     if (selectedRecipe) {
-      mapIngredientToMeasure(selectedRecipe);
+      setIngredientToMeasure(mapIngredientToMeasure(selectedRecipe));
     }
     if (!selectedRecipe) {
       history.push({

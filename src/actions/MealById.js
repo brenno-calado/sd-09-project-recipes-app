@@ -28,3 +28,44 @@ export const getMealById = (ID) => async (dispatch) => {
     dispatch(isRejected(error));
   }
 };
+export function mapIngredientToMeasure(selectedRecipe) {
+  const regexIngredient = new RegExp(/strIngredient/, 'g');
+  const regexMeasure = new RegExp(/strMeasure/, 'g');
+  let indexCountIngredient = 0;
+  let indexCountMeasure = 0;
+  const ingredientArray = [];
+  const measureArray = [];
+  const mapIngredientToMeasureArray = [];
+  Object.entries(selectedRecipe).map((item) => {
+    const object = {};
+    const [key, value] = item;
+
+    if (key.match(regexIngredient)) {
+      object.value = value;
+      object.index = indexCountIngredient;
+      ingredientArray.push(object);
+      indexCountIngredient += 1;
+    }
+    if (key.match(regexMeasure)) {
+      object.value = value;
+      object.index = indexCountMeasure;
+      measureArray.push(object);
+      indexCountMeasure += 1;
+    }
+    return null;
+  });
+  ingredientArray.map((ingredient) => {
+    const object = {};
+    measureArray.map((measure) => {
+      if (ingredient.index === measure.index) {
+        object.index = ingredient.index;
+        object.ingredient = ingredient.value;
+        object.measure = measure.value;
+        mapIngredientToMeasureArray.push(object);
+      }
+      return null;
+    });
+    return null;
+  });
+  return mapIngredientToMeasureArray;
+}
