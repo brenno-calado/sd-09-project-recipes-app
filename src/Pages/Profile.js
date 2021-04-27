@@ -5,7 +5,7 @@ import '../Styles/Profile.css';
 class Profile extends React.Component {
   render() {
     return (
-      <div>
+      <div className="profileContainer">
         <header className="headerContainer">
           <img
             src={ profileIcon }
