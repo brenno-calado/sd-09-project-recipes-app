@@ -7,6 +7,8 @@ const context = createContext();
 function Provider({ children }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [authLogin, setAuthLogin] = useState({});
+  const [formValidation, setFormValidation] = useState(false);
 
   useEffect(() => {
     fetchApi('food', 'letters', 'l');
@@ -17,6 +19,10 @@ function Provider({ children }) {
     setData,
     isLoading,
     setLoading,
+    authLogin,
+    setAuthLogin,
+    formValidation,
+    setFormValidation,
   };
 
   return (
