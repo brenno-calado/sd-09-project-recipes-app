@@ -66,3 +66,18 @@
     transform: rotate(-10deg);
   }
 }
+
+/* perfil footer */
+#optionsPerfil {
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+#optionsPerfil img {
+  flex: auto;
+  padding: 20px;
+  max-height: 100px;
+}
+
