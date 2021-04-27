@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { string } from 'prop-types';
+import { Redirect } from 'react-router';
 import DrinksApi from '../../services/DrinkApi';
 import MealsApi from '../../services/MealApi';
 import './searchBar.css';
 import { RecipeContext } from '../../Context';
-import { Redirect } from 'react-router';
 
 function SearchBar({ page }) {
   const [inputSearch, setInputSearch] = useState();
@@ -28,8 +28,7 @@ function SearchBar({ page }) {
     if (recipies && recipies.length === 1 && page === 'bebidas') {
       setRecipeId(recipies[0].idDrink);
       setRedirect(true);
-    }
-    if (recipies && recipies.length === 1 && page === 'comidas') {
+    } else if (recipies && recipies.length === 1 && page === 'comidas') {
       setRecipeId(recipies[0].idMeal);
       setRedirect(true);
     }

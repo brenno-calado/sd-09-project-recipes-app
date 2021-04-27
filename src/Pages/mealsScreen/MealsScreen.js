@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import CardRecipeMeal from '../../Components/CardRecipeMeal.js/CardRecipeMeal';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import { RecipeContext } from '../../Context';
+import Footer from '../../Components/Footer/Footer';
 
 function MealsScreen() {
   const { recipies } = useContext(RecipeContext);
@@ -16,6 +17,7 @@ function MealsScreen() {
           data-testid={ `${index}-recipe-card` }
           index={ index }
         />)}
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import CardRecipeDrink from '../../Components/CardRecipeDrink.js/CardRecipeDrink';
+import Footer from '../../Components/Footer/Footer';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import { RecipeContext } from '../../Context';
 
@@ -16,6 +17,7 @@ function DrinksScreen() {
           data-testid={ `${index}-recipe-card` }
           index={ index }
         />)}
+      <Footer />
     </div>
   );
 }
