@@ -3,7 +3,6 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Foods from './pages/Foods';
-import Details from './pages/Details';
 import InProgress from './pages/InProgress';
 import Beverages from './pages/Beverages';
 import Ingredients from './pages/Ingredients';
@@ -14,6 +13,7 @@ import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
+import Details from './pages/Details';
 
 function App() {
   // const { dispatchTeste } = props;

@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import searchBar from './searchBar';
 
 // const testeReducer = (state = { resultado: 'false' }, action) => {
 //   switch (action.type) {
@@ -9,6 +10,6 @@ import { combineReducers } from 'redux';
 //   }
 // };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({ searchBar });
 
 export default rootReducer;

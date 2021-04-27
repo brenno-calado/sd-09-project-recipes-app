@@ -1,3 +1,5 @@
-//  const actionTeste = (frase) => ({ type: 'Teste', frase });
+import { SEARCH } from './actionTypes';
 
-//  export default actionTeste;
+const searchBar = () => ({ type: SEARCH });
+
+export default searchBar;
