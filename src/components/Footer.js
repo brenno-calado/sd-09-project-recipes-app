@@ -9,7 +9,7 @@ function footer() {
   // const [foods, setFoods] = useState('');
 
   return (
-    <footer id="optionsPerfil" data-testid="footer">
+    <footer className="optionsPerfil" data-testid="footer">
       <Link to="/bebidas">
         <img src={ drinkIcon } alt="Bebidas" data-testid="drinks-bottom-btn" />
       </Link>
