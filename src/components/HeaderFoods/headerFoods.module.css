@@ -1,0 +1,7 @@
+.headerContainer {
+  align-items: center;
+  background-color: rgb(216, 216, 216);
+  display: flex;
+  justify-content: space-between;
+  margin-left: -35px;
+}
