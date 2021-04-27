@@ -1,32 +1,37 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ProfileImage from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
-const Header = () => (
-  <header>
-    <div>
-      <Link to="/perfil">
+const Header = () => {
+  const pathname = useLocation().pathname.split('/');
+  const headerTitle = pathname[1].charAt(0).toUpperCase()
+  + pathname[1].slice(1);
+  return (
+    <header>
+      <div>
+        <Link to="/perfil">
+          <img
+            src={ ProfileImage }
+            alt="profileIcon"
+            data-testid="profile-top-btn"
+          />
+        </Link>
+      </div>
+      <h1
+        data-testid="page-title"
+      >
+        { headerTitle }
+      </h1>
+      <div>
         <img
-          src={ ProfileImage }
+          src={ SearchIcon }
           alt="profileIcon"
-          data-testid="profile-top-btn"
+          data-testid="search-top-btn"
         />
-      </Link>
-    </div>
-    <h1
-      data-testid="page-title"
-    >
-      Comidas
-    </h1>
-    <div>
-      <img
-        src={ SearchIcon }
-        alt="profileIcon"
-        data-testid="search-top-btn"
-      />
-    </div>
-  </header>
-);
+      </div>
+    </header>
+  );
+};
 
 export default Header;

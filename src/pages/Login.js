@@ -8,7 +8,7 @@ const Login = () => {
   });
 
   const addUser = () => {
-    localStorage.setItem('user', JSON.stringify(user.email));
+    localStorage.setItem('user', JSON.stringify({ email: user.email }));
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
   };
