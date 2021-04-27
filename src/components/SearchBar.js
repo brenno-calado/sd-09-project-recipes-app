@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { AppContext } from '../context/AppContext';
-import getFoodResults from '../services';
+import { getFoodResults } from '../services';
 
 const SearchBar = () => {
   const baseSearchBar = {
