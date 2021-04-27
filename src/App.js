@@ -28,7 +28,7 @@ export default function App() {
               component={ ExploreDrinksIncredients }
             />
             <Route path="/explorar/comidas/area" component={ ExploreFoodArea } />
-            <Route path="/perfil" component={ perfil } />
+            <Route path="/perfil" component={ profile } />
             <Route path="/receitas-feitas" component={ doneRecipes } />
             <Route path="/receitas-favoritas" component={ favoriteRecipes } /> */}
           </Switch>

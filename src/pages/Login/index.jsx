@@ -12,6 +12,12 @@ function Login() {
     setAuthLogin({ ...authLogin, [name]: value });
   };
 
+  const handleSubmit = () => {
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email: authLogin.email }));
+  };
+
   const validation = async () => {
     const validate = await validationLogin.isValid(authLogin);
     setFormValidation(validate);
@@ -43,6 +49,7 @@ function Login() {
           type="button"
           data-testid="login-submit-btn"
           disabled={ !formValidation }
+          onClick={ handleSubmit }
         >
           entrar
         </button>
