@@ -19,9 +19,10 @@ const fetching = () => ({
   type: FETCHING,
 });
 
-const sucessFetch = (data) => ({
+const sucessFetch = (data, recipeType) => ({
   type: SUCCESS_FETCH,
   data,
+  recipeType,
 });
 
 const failureFetch = (error) => ({
@@ -34,17 +35,17 @@ export function mealsThunk(typeSearch, textSearch) {
     dispatch(fetching());
     if (typeSearch === 'ingredient-search') {
       return fetchByIngredient(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'meals')))
         .catch((error) => dispatch(failureFetch(error)));
     }
     if (typeSearch === 'name-search') {
       return fetchByName(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'meals')))
         .catch((error) => dispatch(failureFetch(error)));
     }
     if (typeSearch === 'first-letter-search') {
       return fetchByFirstLetter(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'meals')))
         .catch((error) => dispatch(failureFetch(error)));
     }
   };
@@ -55,17 +56,17 @@ export function cocktailsThunk(typeSearch, textSearch) {
     dispatch(fetching());
     if (typeSearch === 'ingredient-search') {
       return cocktailsByIngredient(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'cocktails')))
         .catch((error) => dispatch(failureFetch(error)));
     }
     if (typeSearch === 'name-search') {
       return cocktailsByName(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'cocktails')))
         .catch((error) => dispatch(failureFetch(error)));
     }
     if (typeSearch === 'first-letter-search') {
       return cocktailsByFirstLetter(textSearch)
-        .then((data) => dispatch(sucessFetch(data)))
+        .then((data) => dispatch(sucessFetch(data, 'cocktails')))
         .catch((error) => dispatch(failureFetch(error)));
     }
   };

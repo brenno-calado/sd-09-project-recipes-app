@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { savePath } from '../redux/actions/index';
 
 const verifyInputs = (user, setDisable) => {
   const { email, password } = user;
@@ -13,7 +10,7 @@ const verifyInputs = (user, setDisable) => {
   if (!isValid) setDisable(true);
 };
 
-const Login = ({ pathnameDispatcher }) => {
+const Login = () => {
   const object = {
     email: '',
     password: '',
@@ -38,7 +35,6 @@ const Login = ({ pathnameDispatcher }) => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
     localStorage.setItem('user', JSON.stringify({ email: user.email }));
-    pathnameDispatcher('/comidas');
   };
 
   const { email, password } = user;
@@ -81,12 +77,4 @@ const Login = ({ pathnameDispatcher }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  pathnameDispatcher: (pathname) => dispatch(savePath(pathname)),
-});
-
-Login.propTypes = {
-  pathnameDispatcher: PropTypes.func.isRequired,
-};
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

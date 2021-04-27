@@ -11,6 +11,7 @@ const INITIAL_STATE = {
   data: [],
   error: '',
   isFetched: false,
+  recipeType: '',
 };
 
 function loginReducer(state = INITIAL_STATE, action) {
@@ -30,6 +31,7 @@ function loginReducer(state = INITIAL_STATE, action) {
     return ({
       ...state,
       data: [...action.data],
+      recipeType: action.recipeType,
       isFetching: false,
       isFetched: true,
     });
