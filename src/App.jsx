@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Login, MainDrinks, MainFoods, Profile, Explore, ExploreFoods, ExploreDrinks, RecipesMades, FavoriteRecipes } from './pages';
+import { Login, MainDrinks, MainFoods, Profile, Explore, ExploreFoods,
+  ExploreDrinks, RecipesMades, FavoriteRecipes } from './pages';
 
 function App() {
   return (

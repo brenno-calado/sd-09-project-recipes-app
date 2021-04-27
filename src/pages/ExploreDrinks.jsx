@@ -3,7 +3,7 @@ import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 
 function ExploreFoods() {
-  return(
+  return (
     <div>
       <Header />
       <BottomMenu />
