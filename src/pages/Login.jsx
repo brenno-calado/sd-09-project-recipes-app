@@ -42,8 +42,7 @@ const Login = () => {
   };
 
   const renderLoginInputs = () => (
-    <form>
-      <h1>Login</h1>
+    <form className="bd-highlight container">
       <input
         type="text"
         name="email"
@@ -51,6 +50,7 @@ const Login = () => {
         onChange={ handleChange }
         data-testid="email-input"
         placeholder="Email"
+        className="form-control col mb-4"
       />
       <input
         type="password"
@@ -59,6 +59,7 @@ const Login = () => {
         onChange={ handleChange }
         data-testid="password-input"
         placeholder="Senha"
+        className="form-control col mb-4"
       />
       <Link to="/comidas">
         <button
@@ -66,6 +67,7 @@ const Login = () => {
           data-testid="login-submit-btn"
           disabled={ isDisabled }
           onClick={ handleClick }
+          className="btn btn-secondary col"
         >
           Entrar
         </button>
@@ -75,6 +77,7 @@ const Login = () => {
 
   return (
     <>
+      <h1 className="text-center mb-4">Login</h1>
       {renderLoginInputs()}
     </>
   );
