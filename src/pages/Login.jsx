@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -56,18 +57,23 @@ function Login() {
   }
 
   function handleLoginButton() {
+    localStorage.setItem('mealsToken', '1');
+    localStorage.setItem('cocktailsToken', '1');
+    localStorage.setItem('user', JSON.stringify({ email }));
   }
 
   function renderLoginButton() {
     return (
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ !validateLogin() }
-        onClick={ handleLoginButton }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ !validateLogin() }
+          onClick={ handleLoginButton }
+        >
+          Entrar
+        </button>
+      </Link>
     );
   }
 
