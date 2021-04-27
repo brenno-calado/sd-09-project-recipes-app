@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import { Provider } from './context';
+import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
+import Profile from './pages/Profile';
 import Layout from './components/Layout';
 
 export default function App() {
@@ -27,10 +30,10 @@ export default function App() {
               path="/explorar/bebidas/ingredientes"
               component={ ExploreDrinksIncredients }
             />
-            <Route path="/explorar/comidas/area" component={ ExploreFoodArea } />
-            <Route path="/perfil" component={ profile } />
-            <Route path="/receitas-feitas" component={ doneRecipes } />
-            <Route path="/receitas-favoritas" component={ favoriteRecipes } /> */}
+            <Route path="/explorar/comidas/area" component={ ExploreFoodArea } /> */}
+            <Route path="/perfil" component={ Profile } />
+            <Route path="/receitas-feitas" component={ DoneRecipes } />
+            <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
           </Switch>
         </BrowserRouter>
       </Provider>
