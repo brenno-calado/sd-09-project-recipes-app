@@ -1,5 +1,5 @@
-import Header from '../Components/Header';
 import React, { Component } from 'react';
+import Header from '../Components/Header';
 import FoodCards from '../Components/FoodCards';
 
 class MainFood extends Component {
