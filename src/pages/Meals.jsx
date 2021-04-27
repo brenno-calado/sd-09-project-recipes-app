@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const Meals = () => {
+function Meals() {
   return (
     <div>
       <Header />

@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mealsThunk, cocktailsThunk } from '../redux/actions';
+import { Redirect } from 'react-router';
 
-const SearchBar = ({ pathname, mealsThunkDispatcher, cocktailsThunkDispatcher }) => {
+const SearchBar = ({
+  pathname, mealsThunkDispatcher, cocktailsThunkDispatcher, data,
+}) => {
   const [textSearch, setTextSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
+  const [redirect, setRedirect] = useState(false);
+  const [redirectPath, setRedirectPath] = useState('');
 
   const handleClick = () => {
     if (pathname === '/comidas') {
@@ -16,8 +21,26 @@ const SearchBar = ({ pathname, mealsThunkDispatcher, cocktailsThunkDispatcher })
     }
   };
 
+  const verifyPath = () => {
+    if (pathname === '/comidas') {
+      setRedirectPath(`/bebidas/${data[0].idMeal}`);
+      setRedirect(true);
+    }
+    if (pathname === '/bebidas') {
+      setRedirectPath(`/bebidas/${data[0].idDrink}`);
+      setRedirect(true);
+    }
+  };
+
+  useEffect(() => {
+    if (data.length === 1) {
+      verifyPath();
+    }
+  }, [data]);
+
   return (
     <div>
+      { redirect && <Redirect to={ redirectPath } /> }
       <label htmlFor="search">
         Search
         <input
@@ -76,6 +99,7 @@ const SearchBar = ({ pathname, mealsThunkDispatcher, cocktailsThunkDispatcher })
 
 const mapStateToProps = (state) => ({
   pathname: state.loginReducer.pathname,
+  data: state.loginReducer.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -89,6 +113,7 @@ SearchBar.propTypes = {
   pathname: PropTypes.string.isRequired,
   mealsThunkDispatcher: PropTypes.func.isRequired,
   cocktailsThunkDispatcher: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

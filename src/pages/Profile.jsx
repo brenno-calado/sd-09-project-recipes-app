@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Profile = () => {
+function Profile() {
   return (
     <div>
       <h1>Perfil</h1>
