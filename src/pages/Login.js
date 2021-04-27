@@ -1,13 +1,18 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
 
 const Login = () => {
-  const { addUser } = useContext(RecipesContext);
   const [user, setUser] = useState({
     email: '',
     password: '',
   });
+
+  const addUser = () => {
+    localStorage.setItem('user', JSON.stringify(user.email));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
+  console.log(user);
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
@@ -42,7 +47,7 @@ const Login = () => {
             !(user.email.match(/[\w.-]+@[\w-]+\.[\w-.]+/gi)
             && user.password.length > six)
           }
-          onClick={ addUser(user) }
+          onClick={ addUser }
         >
           Entrar
         </button>
