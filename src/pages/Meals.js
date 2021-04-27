@@ -1,8 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-const Meals = ({ location }) => {
-  const { pathname } = location;
+const Meals = () => {
   return (
     <div>
       <Header />

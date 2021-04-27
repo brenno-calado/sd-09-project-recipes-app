@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { savePath } from '../redux/actions/index';
@@ -83,5 +84,9 @@ const Login = ({ pathnameDispatcher }) => {
 const mapDispatchToProps = (dispatch) => ({
   pathnameDispatcher: (pathname) => dispatch(savePath(pathname)),
 });
+
+Login.propTypes = {
+  pathnameDispatcher: PropTypes.func.isRequired,
+};
 
 export default connect(null, mapDispatchToProps)(Login);
