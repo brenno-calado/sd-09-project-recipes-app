@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function Areas() {
   return (
     <div>
-      <Header title="Explorar Origem" search />
+      <Header title="Explorar Origem" searchBtn />
     </div>
   );
 }

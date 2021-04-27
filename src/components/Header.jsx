@@ -1,29 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { string, bool } from 'prop-types';
+import searchBar from '../Redux/actions';
 import './Header.css';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
-function Header({ title, search = false }) {
-  // const handleProfileClick = () => (<Redirect to="/perfil" />);
-
-  const handleSearchClick = ({ target }) => {
-    console.log(target);
-  };
-
+function Header(props) {
+  const { title, searchBtn = false, search, showSearchBar } = props;
   const renderSearchButton = () => (
     <button
       type="button"
       data-testid="search-top-btn"
       src="../images/searchIcon.svg"
-      onClick={ handleSearchClick }
+      onClick={ showSearchBar }
     >
       <img src={ searchIcon } alt="search" />
     </button>
   );
 
-  return (
+  const renderHeader = () => (
     <header className="Header">
       <Link to="/perfil">
         <button
@@ -35,14 +33,29 @@ function Header({ title, search = false }) {
         </button>
       </Link>
       <h3 data-testid="page-title">{ title }</h3>
-      {search && renderSearchButton()}
+      {searchBtn && renderSearchButton()}
     </header>
+  );
+
+  return (
+    <div>
+      {renderHeader()}
+      {search && <SearchBar />}
+    </div>
   );
 }
 
+const mapStateToProps = (state) => ({
+  search: state.searchBar.search,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  showSearchBar: () => dispatch(searchBar()),
+});
+
 Header.propTypes = {
   title: string,
-  search: bool,
+  searchBtn: bool,
 }.isRequired;
 
-export default Header;
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
