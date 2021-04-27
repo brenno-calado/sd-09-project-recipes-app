@@ -2,13 +2,13 @@ import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
 
-function Comidas(props) {
+function ReceitasFeitas(props) {
   return (
     <>
       <Header props={ props } />
-      oi
+      ReceitasFeitas
     </>
   );
 }
 
-export default Comidas;
+export default ReceitasFeitas;

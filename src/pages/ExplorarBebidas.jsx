@@ -2,13 +2,13 @@ import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
 
-function Comidas(props) {
+function ExplorarBebidas(props) {
   return (
     <>
       <Header props={ props } />
-      oi
+      ExplorarBebidas
     </>
   );
 }
 
-export default Comidas;
+export default ExplorarBebidas;
