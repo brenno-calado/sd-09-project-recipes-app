@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Comidas from './pages/Comidas';
 import Perfil from './pages/Perfil';
 import Bebidas from './pages/Bebidas';
 import Explorar from './pages/Explorar';
@@ -13,6 +12,7 @@ import ExplorarIngredientesBebida from './pages/ExplorarIngredientesBebida';
 import ExplorarComidasPorOrigem from './pages/ExplorarComidasPorOrigem';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Comidas from './pages/Meals';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';

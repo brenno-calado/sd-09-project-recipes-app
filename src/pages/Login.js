@@ -37,7 +37,7 @@ class Login extends React.Component {
     const { email, password, redirect } = this.state;
     return ((redirect) ? (<Redirect to="/comidas" />)
       : (
-        <form ref={ this.formRef } onSubmit={ this.onSubmit.bind(this) }>
+        <form onSubmit={ this.onSubmit.bind(this) }>
           <label htmlFor="email-input">
             Digite aqui o seu email
             <input
