@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Login from './pages/login';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Login from './pages/login';
 
 function App() {
   return (
