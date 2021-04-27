@@ -1,23 +1,18 @@
 import React, { useState } from 'react';
-import { fetchByIngredient, fetchByName, fetchByFirstLetter } from '../services/mealsAPI';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { mealsThunk, cocktailsThunk } from '../redux/actions';
 
-const SearchBar = () => {
+const SearchBar = ({ pathname, mealsThunkDispatcher, cocktailsThunkDispatcher }) => {
   const [textSearch, setTextSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
 
   const handleClick = () => {
-    if (radioSearch === 'ingredient-search') {
-      fetchByIngredient(textSearch);
+    if (pathname === '/comidas') {
+      mealsThunkDispatcher(radioSearch, textSearch);
     }
-    if (radioSearch === 'name-search') {
-      fetchByName(textSearch);
-    }
-    if (radioSearch === 'first-letter-search') {
-      if (textSearch.length === 1) {
-        fetchByFirstLetter(textSearch);
-      } else {
-        alert('Sua busca deve conter somente 1 (um) caracter');
-      }
+    if (pathname === '/bebidas') {
+      cocktailsThunkDispatcher(radioSearch, textSearch);
     }
   };
 
@@ -79,4 +74,21 @@ const SearchBar = () => {
   );
 };
 
-export default SearchBar;
+const mapStateToProps = (state) => ({
+  pathname: state.loginReducer.pathname,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  mealsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(mealsThunk(radioSearch, textSearch)),
+  cocktailsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(cocktailsThunk(radioSearch, textSearch)),
+});
+
+SearchBar.propTypes = {
+  pathname: PropTypes.string.isRequired,
+  mealsThunkDispatcher: PropTypes.func.isRequired,
+  cocktailsThunkDispatcher: PropTypes.func.isRequired,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
