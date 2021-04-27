@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import { connect } from 'react-redux';
-// import rockGlass from './images/rockGlass.svg';
 import actionTeste from './Redux/actions';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Foods from './pages/Foods';
@@ -47,7 +46,6 @@ function App() {
       <Route path="/receitas-feitas" component={ Done } />
       <Route path="/receitas-favoritas" component={ Favorites } />
       <Route exact path="/" />
-    </Switch>
   );
 }
 
