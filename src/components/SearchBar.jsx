@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { searchRecipe } from '../actions';
+import RecipesContext from '../contexts/RecipesContext';
 
 const SEARCH_INITIAL_STATE = {
   searchType: '',
   searchText: '',
 };
 
-function SearchBar() {
+function SearchBar({ dispatchSearch, category }) {
   const [search, setSearch] = useState(SEARCH_INITIAL_STATE);
+  const { setLoading } = useContext(RecipesContext);
 
   const handleChange = ({ target: { name, value } }) => (
     setSearch({ ...search, [name]: value })
   );
+
+  const searchRecipes = async () => {
+    if (search.searchType === 'Primeira Letra' && search.searchText.length !== 1) {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    setLoading(true);
+    await dispatchSearch(search.searchType, search.searchText, category);
+    setLoading(false);
+  };
 
   const renderRadios = () => (
     <>
@@ -42,15 +56,13 @@ function SearchBar() {
           type="radio"
           name="searchType"
           id="letter"
-          value="Letra"
+          value="Primeira Letra"
           onChange={ handleChange }
         />
-        {' Letra'}
+        {' Primeira Letra'}
       </label>
     </>
   );
-
-  console.log(search);
 
   return (
     <section>
@@ -64,6 +76,7 @@ function SearchBar() {
       <button
         data-testid="exec-search-btn"
         type="button"
+        onClick={ searchRecipes }
       >
         Pesquisar
       </button>
@@ -71,4 +84,14 @@ function SearchBar() {
   );
 }
 
-export default SearchBar;
+SearchBar.propTypes = {
+  dispatchSearch: PropTypes.func,
+}.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (type, text, category) => (
+    dispatch(searchRecipe(type, text, category))
+  ),
+});
+
+export default connect(null, mapDispatchToProps)(SearchBar);
