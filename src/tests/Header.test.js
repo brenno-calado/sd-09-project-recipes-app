@@ -1,15 +1,16 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+// import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import RenderWithRouter from '../Common/RenderWithRouter';
 import Header from '../Common/Components/Header';
+import App from '../App';
 
 // criar testes para o componente header
 
 describe('Testando componente Header', () => {
   it(`9 - Implemente os elementos do header na tela principal de receitas,
   respeitando os atributos descritos no protótipo`, () => {
-    const { getByTestId } = render(<Header />);
+    const { getByTestId } = RenderWithRouter(<Header />);
     expect(getByTestId('profile-top-btn')).toBeInTheDocument();
     expect(getByTestId('search-top-btn')).toBeInTheDocument();
     expect(getByTestId('page-title')).toBeInTheDocument();
@@ -23,9 +24,9 @@ describe('Testando componente Header', () => {
 
   it(`11 - Redirecione a pessoa usuária para a tela
     de perfil ao clicar no botão de perfil`, () => {
-    const { getByTestId, findByText } = RenderWithRouter(<Header />);
+    const { getByTestId, getByText } = RenderWithRouter(<App />);
     userEvent.click(getByTestId('profile-top-btn'));
-    expect(findByText('Profile')).toBeInTheDocument();
+    expect(getByText('Profile')).toBeInTheDocument();
   });
 
   it(`12 - Desenvolva o botão de busca que, ao ser clicado, a barra de busca deve aparecer
