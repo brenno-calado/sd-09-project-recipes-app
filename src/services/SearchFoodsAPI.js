@@ -2,7 +2,7 @@
 // const URLName = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 // const URLFirstLetter = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 
-const ingredientAPI = async (term) => {
+export const ingredientAPI = async (term) => {
   const myRecipes = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${term}`)
     .then((response) => response.json())
     .then((myMeals) => myMeals.meals);
