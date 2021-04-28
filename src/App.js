@@ -11,41 +11,49 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
 import DetalhesComida from './pages/DetalhesComida';
 import DetalhesBebida from './pages/DetalhesBebida';
+import Perfil from './pages/Perfil';
+import PrincipalComidas from './pages/PrincipalComidas';
+import PrincipalBebidas from './pages/PrincipalBebidas';
 import ProcessoComida from './pages/ProcessoComida';
 import ProcessoBebida from './pages/ProcessoBebida';
+import Login from './pages/Login';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 
 function App() {
   return (
     <main className="main">
       <Switch>
-        {/* <Route path="/" component={ Login } /> */}
-        {/* <Route path="/comidas" component={ PrincipalComidas } /> */}
-        {/* <Route path="/bebidas" component={ PrincipalBebidas } /> */}
+        <Route exact path="/" component={ Login } />
+        <Route exact path="/comidas" component={ PrincipalComidas } />
+        <Route exact path="/bebidas" component={ PrincipalBebidas } />
         {/* Placeholder do id */}
-        {/* <Route path="/comidas/id-da-receita" component={ DetalhesComida } /> */}
+        <Route exact path="/comidas/id-da-receita" component={ DetalhesComida } />
         {/* Placeholder do id */}
-        {/* <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } /> */}
+        <Route exact path="/bebidas/id-da-receita" component={ DetalhesBebida } />
         {/* Placeholder do id */}
-        {/* <Route
+        <Route
           path="/comidas/id-da-receita/in-progress"
-          component={ ProcessoComida } /> */}
+          component={ ProcessoComida }
+        />
         {/* Placeholder do id */}
-        {/* <Route
+        <Route
           path="/bebidas/id-da-receita/in-progress"
-          component={ processoBebida } /> */}
+          component={ ProcessoBebida }
+        />
         <Route exact path="/explorar" component={ Explorar } />
         <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
         <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route path="/bebidas/id-da-receita/in-progress" component={ ProcessoBebida } />
-        <Route path="/explorar" component={ Explorar } />
-        <Route path="/explorar/comidas" component={ ExplorarComidas } />
-        <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
+        <Route exact path="/explorar" component={ Explorar } />
+        <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+        <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarComidasIng } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
         <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
-        {/* <Route path="/perfil" component={ Perfil } /> */}
-        {/* <Route path="/receitas-feitas" component={ ReceitasFeitas } /> */}
-        {/* <Route path="/receitas-favoritas" component={ ReceitasFavoritas } /> */}
+        <Route path="/perfil" component={ Perfil } />
+        <Route path="/receitas-feitas" component={ ReceitasFeitas } />
+        <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       </Switch>
     </main>
   );
