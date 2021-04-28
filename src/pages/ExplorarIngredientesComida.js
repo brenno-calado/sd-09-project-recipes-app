@@ -5,7 +5,7 @@ class ExplorarIngredientesComida extends Component {
   render() {
     const searchIcon = false;
     return (
-      <Header title="Explorar Comidas" searchIcon={ searchIcon } />
+      <Header title="Explorar Ingredientes" searchIcon={ searchIcon } />
     );
   }
 }

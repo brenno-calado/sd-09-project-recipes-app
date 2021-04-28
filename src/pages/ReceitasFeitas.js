@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
 class ReceitasFeitas extends Component {
   render() {
-    return <h2>Receitas feitas</h2>;
+    const searchIcon = false;
+    return (
+      <Header title="Receitas Feitas" searchIcon={ searchIcon } />
+    );
   }
 }
 
