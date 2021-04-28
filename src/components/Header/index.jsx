@@ -1,31 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import HeaderStyle from './styled';
+import * as S from './styled';
 import ProfileIcon from '../../images/profileIcon.svg';
-import SearchBar from '../SearchBar/SearchBar';
+import SearchIcon from '../../images/searchIcon.svg';
+import SearchFilters from '../SearchFilters';
 
-function Header({ title, canFind }) {
+export default function Header({ title, canFind }) {
+  const [searchFilters, setSearchFilters] = useState(false);
+
+  const handleFilters = () => {
+    setSearchFilters(!searchFilters);
+  };
+
   return (
     <>
-      <HeaderStyle>
+      <S.Header>
         <Link to="/perfil">
-          <img data-testid="profile-top-btn" src={ ProfileIcon } alt="profile-button" />
+          <S.ProfileImg
+            data-testid="profile-top-btn"
+            src={ ProfileIcon }
+            alt="profile-button"
+          />
         </Link>
         <span data-testid="page-title">{title}</span>
-      </HeaderStyle>
-      {canFind && <SearchBar />}
+        {
+          canFind
+          && (
+            <S.SearchButton
+              onClick={ handleFilters }
+              bgColor={ searchFilters ? '#82fa3d' : '#c3fff2' }
+            >
+              <img src={ SearchIcon } alt="search-icon" />
+            </S.SearchButton>
+          )
+        }
+      </S.Header>
+      { searchFilters && <SearchFilters /> }
     </>
   );
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  canFind: PropTypes.bool,
+  canFind: PropTypes.bool.isRequired,
 };
-
-Header.defaultProps = {
-  canFind: false,
-};
-
-export default Header;
