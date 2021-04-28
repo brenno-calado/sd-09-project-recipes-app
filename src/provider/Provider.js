@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import recipesContext from '../context/recipesContext';
 
 function Provider({ children }) {
