@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import RecipesContext from '../../context/RecipesContext';
 import { fetchMealIngredientAPI, fetchMealLetterAPI,
   fetchMealNameAPI } from '../../services/fetchMealAPI';
 import { fetchDrinkIngredientAPI, fetchDrinkLetterAPI,
@@ -8,57 +10,94 @@ import { fetchDrinkIngredientAPI, fetchDrinkLetterAPI,
 import { saveMeals, saveDrinks } from '../../actions/userActions';
 
 const SearchBar = (props) => {
-  const [filter, setFilter] = useState('');
-  const [inputText, setInputText] = useState('');
+  const {
+    inputText,
+    filter,
+    handleClick,
+    handleChange,
+    displayAlert,
+    verifyMealsQuantity,
+    verifyDrinksQuantity,
+    shouldRedirect,
+    setShouldRedirect,
+    // handleSearch,
+    itShouldRedirect,
+  } = useContext(RecipesContext);
 
-  const handleClick = (e) => {
-    const { target } = e;
-    setFilter(target.value);
-  };
+  const { meals, drinks } = props;
 
-  const handleChange = (e) => {
-    const { target } = e;
-    setInputText(target.value);
-  };
+  // verifyMealsQuantity(meals);
+  // verifyDrinksQuantity(drinks);
+  // itShouldRedirect(drinks, meals);
 
-  const displayAlert = () => {
-    alert('Sua busca deve conter somente 1 (um) caracter');
-  };
+  useEffect(() => {
+    if (shouldRedirect.meals) {
+      const { idMeal } = meals[0];
+      // setShouldRedirect({ meals: false });
+      window.location.replace(`/comidas/${idMeal}`);
+    }
+    if (shouldRedirect.drinks) {
+      const { idDrink } = drinks[0];
+      // setShouldRedirect({ drinks: false });
+      console.log(idDrink);
+      window.location.replace(`/bebidas/${idDrink}`);
+    }
+  }, [meals, drinks, shouldRedirect]);
 
   const filterMeals = async () => {
     const { dispatchMeals } = props;
-    let meals = [];
+    let comidas = [];
     if (filter === 'firstLetter' && inputText.length > 1) {
-      return displayAlert();
+      displayAlert();
+    } else if (filter === 'ingredient') {
+      comidas = await fetchMealIngredientAPI(inputText);
+    } else if (filter === 'name') {
+      comidas = await fetchMealNameAPI(inputText);
+    } else if (filter === 'firstLetter') {
+      comidas = await fetchMealLetterAPI(inputText);
     }
-    if (filter === 'ingredient') {
-      meals = await fetchMealIngredientAPI(inputText);
+    if (comidas) {
+      const { meals: rango } = comidas;
+      if (!rango) {
+        return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
     }
-    if (filter === 'name') {
-      meals = await fetchMealNameAPI(inputText);
-    }
-    if (filter === 'firstLetter') {
-      meals = await fetchMealLetterAPI(inputText);
-    }
-    dispatchMeals(meals);
+    dispatchMeals(comidas.meals);
+    verifyMealsQuantity(meals);
+    // if (shouldRedirect.meals) {
+    //   const { idMeal } = meals[0];
+    //   // setShouldRedirect({ meals: false });
+    //   return <Redirect to={ `/comidas/${idMeal}` } />;
+    //   // window.location.replace(`/comidas/${idMeal}`);
+    // }
   };
 
   const filterDrinks = async () => {
     const { dispatchDrinks } = props;
-    let drinks = [];
+    let bebidas = [];
     if (filter === 'firstLetter' && inputText.length > 1) {
-      return displayAlert();
+      displayAlert();
+    } else if (filter === 'ingredient') {
+      bebidas = await fetchDrinkIngredientAPI(inputText);
+    } else if (filter === 'name') {
+      bebidas = await fetchDrinkNameAPI(inputText);
+    } else if (filter === 'firstLetter') {
+      bebidas = await fetchDrinkLetterAPI(inputText);
     }
-    if (filter === 'ingredient') {
-      drinks = await fetchDrinkIngredientAPI(inputText);
+    if (bebidas) {
+      const { drinks: golo } = bebidas;
+      if (!golo) {
+        return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      }
     }
-    if (filter === 'name') {
-      drinks = await fetchDrinkNameAPI(inputText);
-    }
-    if (filter === 'firstLetter') {
-      drinks = await fetchDrinkLetterAPI(inputText);
-    }
-    dispatchDrinks(drinks);
+    dispatchDrinks(bebidas.drinks);
+    verifyDrinksQuantity(drinks);
+    // if (shouldRedirect.drinks) {
+    //   const { idDrink } = drinks[0];
+    //   // setShouldRedirect({ drinks: false });
+    //   console.log(idDrink);
+    //   window.location.replace(`/bebidas/${idDrink}`);
+    // }
   };
 
   const handleSearch = () => {
@@ -71,13 +110,14 @@ const SearchBar = (props) => {
       return filterDrinks();
     default:
     }
-    // if (value === 'comidas') {
-    //   filterMeals();
-    // }
-    // if (value === 'bebidas') {
-    //   filterDrinks();
-    // }
   };
+
+  // if (shouldRedirect.meals) {
+  //   const { idMeal } = meals[0];
+  //   // setShouldRedirect({ meals: false });
+  //   return <Redirect to={ `/comidas/${idMeal}` } />;
+  //   // window.location.replace(`/comidas/${idMeal}`);
+  // }
 
   return (
     <div>
@@ -133,6 +173,11 @@ const SearchBar = (props) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  meals: state.searchReducer.meals,
+  drinks: state.searchReducer.drinks,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   dispatchMeals: (meals) => dispatch(saveMeals(meals)),
   dispatchDrinks: (drinks) => dispatch(saveDrinks(drinks)),
@@ -142,6 +187,8 @@ SearchBar.propTypes = {
   value: PropTypes.string.isRequired,
   dispatchMeals: PropTypes.func.isRequired,
   dispatchDrinks: PropTypes.func.isRequired,
+  meals: PropTypes.arrayOf({}).isRequired,
+  drinks: PropTypes.arrayOf({}).isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(SearchBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
