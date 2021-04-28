@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../styles/recipes.css';
+// import '../styles/recipes.css';
 
 function ExplorarComidas() {
   const [byIngredients, setByIngredients] = useState(false);
