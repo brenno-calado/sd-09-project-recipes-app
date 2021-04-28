@@ -1,0 +1,88 @@
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
+
+function Login() {
+  const [state, setState] = useState({
+    login: '',
+    isLoginValid: false,
+    password: '',
+    isPasswordValid: false,
+  });
+
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+
+  const verifyLogin = () => {
+    const validLogin = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
+    if (validLogin.test(state.login)) {
+      setState({
+        ...state,
+        isLoginValid: true,
+      });
+    }
+  };
+
+  const verifyPassword = () => {
+    const minLength = 6;
+    if (state.password.length > minLength) {
+      setState({
+        ...state,
+        isPasswordValid: true,
+      });
+    }
+  };
+
+  const handleChange = ({ target: { name, value } }) => {
+    setState({
+      ...state,
+      [name]: value,
+    });
+  };
+
+  const handleClick = () => {
+    const magicNumber = 1;
+    const userData = {
+      email: state.login,
+    };
+    localStorage.setItem('mealsToken', magicNumber);
+    localStorage.setItem('cocktailsToken', magicNumber);
+    localStorage.setItem('user', JSON.stringify(userData));
+    setShouldRedirect(true);
+  };
+
+  return (
+    <div>
+      <form>
+        Login
+        <input
+          type="text"
+          data-testid="email-input"
+          placeholder="Email"
+          name="login"
+          onChange={ handleChange }
+          onKeyUp={ verifyLogin }
+          value={ state.login }
+        />
+        <input
+          type="text"
+          data-testid="password-input"
+          placeholder="Senha"
+          name="password"
+          onChange={ handleChange }
+          onKeyUp={ verifyPassword }
+          value={ state.password }
+        />
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !state.isLoginValid || !state.isPasswordValid }
+          onClick={ handleClick }
+        >
+          Entrar
+        </button>
+      </form>
+      {shouldRedirect ? <Redirect to="/comidas" /> : null}
+    </div>
+  );
+}
+
+export default Login;
