@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ExploreFoodIncredients() {
+export default function FoodDetails() {
   return (
     <>
     </>
