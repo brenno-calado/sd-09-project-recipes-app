@@ -17,4 +17,5 @@
 .Footer button {
   background-color: #c4c4c4;
   border: none;
+  outline: none;
 }

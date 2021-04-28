@@ -14,6 +14,7 @@ import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
 import Details from './pages/Details';
+// import Recipes from './pages/Recipes';
 
 function App() {
   // const { dispatchTeste } = props;
@@ -25,9 +26,11 @@ function App() {
       />
       <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
       <Route path="/comidas" component={ Foods } />
+      {/* <Route path="/comidas" component={ Recipes } /> */}
       <Route path="/bebidas/:id/in-progress" Ingredients />
       <Route path="/bebidas/:id" render={ (props) => <InProgress { ...props } /> } />
       <Route path="/bebidas" component={ Beverages } />
+      {/* <Route path="/bebidas" component={ Recipes } /> */}
       <Route path="/explorar/comidas/area" component={ Areas } />
       <Route
         path="/explorar/comidas/ingredientes"
