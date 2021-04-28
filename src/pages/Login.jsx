@@ -7,15 +7,15 @@ import Container from 'react-bootstrap/Container';
 function Login() {
   const [emailIsValid, setEmailIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
   // Email validation source: https://www.kindacode.com/article/live-email-validation-in-react-with-regex/
   const validateEmail = (e) => {
     const emailRegex = /\S+@\S+\.\S+/;
-    const email = e.target.value;
-    setUserEmail(email);
-    if (emailRegex.test(email)) {
+    const userEmail = e.target.value;
+    setEmail(userEmail);
+    if (emailRegex.test(userEmail)) {
       return setEmailIsValid(true);
     } setEmailIsValid(false);
   };
@@ -32,8 +32,8 @@ function Login() {
   const populateStorage = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    const storeEmail = { email: { userEmail } };
-    localStorage.setItem('user', storeEmail);
+    const storeEmail = { email };
+    localStorage.setItem('user', JSON.stringify(storeEmail));
   };
 
   const handleClick = () => {
@@ -50,7 +50,7 @@ function Login() {
             <Form.Control
               type="email"
               name="email"
-              value={ userEmail }
+              value={ email }
               onChange={ validateEmail }
               placeholder="Insira seu email"
               data-testid="email-input"
