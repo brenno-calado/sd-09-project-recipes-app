@@ -34,7 +34,7 @@ export function RecipeContextProvider({ children }) {
     handleFetchDrinkClick,
     recipesData,
   };
-  console.log(recipesData);
+
   return (
     <RecipeContext.Provider value={ context }>
       {children}
