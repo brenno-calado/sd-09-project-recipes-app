@@ -25,6 +25,7 @@ function App() {
       <Route path="/receitas-feitas" component={} />
       <Route path="/receitas-favoritas" component={} /> */}
       <Route path="/" component={ Login } />
+      
     </Switch>
   );
 }
