@@ -13,6 +13,7 @@ import {
   Perfil,
   ReceitasFavoritas,
   ReceitasFeitas,
+  DetalhesBebida,
 } from './pages';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +24,7 @@ const App = () => (
     {/* <Route path="/comidas/:id" component={ DetalhesComida } /> */}
     <Route path="/comidas" component={ Comidas } />
     {/* <Route path="/bebidas/:id/in-progress" component={ ProgressoBebidas } /> */}
-    {/* <Route path="/bebidas/:id" component={ DetalhesBebida } /> */}
+    <Route path="/bebidas/:id" component={ DetalhesBebida } />
     <Route path="/bebidas" component={ Bebidas } />
     <Route
       path="/explorar/comidas/ingredientes"

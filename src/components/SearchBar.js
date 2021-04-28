@@ -94,10 +94,10 @@ const SearchBar = ({ title }) => {
       </button>
       <br />
       { showAlertLetterRadio
-        ? <alert>Sua busca deve conter somente 1 (um) caracter</alert> : null}
+        ? alert('Sua busca deve conter somente 1 (um) caracter') : null}
       <br />
       { noResultsApi === 'null'
-        ? <alert>Sinto muito, não encontramos nenhuma receita para esses filtros.</alert>
+        ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
         : null}
     </form>
   );

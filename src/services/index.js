@@ -81,3 +81,9 @@ export const getDrinksFromCategory = async (category) => {
   const { drinks } = await fetch(url).then((response) => response.json());
   return drinks.slice(0, maxDrinksNumber);
 };
+
+export const getDrinkIdDetails = async (id) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { drinks } = await fetch(url).then((response) => response.json());
+  return drinks[0];
+};
