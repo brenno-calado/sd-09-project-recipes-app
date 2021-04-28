@@ -1,13 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { string } from 'prop-types';
+import RecipesContext from '../Provider/RecipesContext';
 
 function RecipeCategoriesFilters({ type }) {
+  const {
+    selectedFoodsCategory,
+    setSelectedFoodsCategory,
+    selectedDrinksCategory,
+    setSelectedDrinksCategory,
+  } = useContext(RecipesContext);
+  const [categories, setCategories] = useState([]);
+  const [fetchingCategories, setFetchingCategories] = useState(true);
+
+  const selectedCategory = type === 'meals'
+    ? selectedFoodsCategory
+    : selectedDrinksCategory;
+
+  const setSelectedCategory = type === 'meals'
+    ? setSelectedFoodsCategory
+    : setSelectedDrinksCategory;
+
   const endpoint = type === 'meals'
     ? 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'
     : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
-
-  const [categories, setCategories] = useState([]);
-  const [fetchingCategories, setFetchingCategories] = useState(true);
 
   useEffect(() => {
     async function fetchRecipeCategories() {
@@ -15,15 +30,20 @@ function RecipeCategoriesFilters({ type }) {
         const fetchResponse = await fetch(endpoint);
         const jsonResponse = await fetchResponse.json();
         const categoriesToBeShow = 5;
-        setCategories(jsonResponse[type].slice(0, categoriesToBeShow));
+        const apiCategories = jsonResponse[type].slice(0, categoriesToBeShow);
+        setCategories([{ strCategory: 'All' }, ...apiCategories]);
         setFetchingCategories(false);
-        console.log('test');
       } catch (error) {
         console.error(error);
       }
     }
     fetchRecipeCategories();
   }, [endpoint, type]);
+
+  function handleCategoryFilterClick({ target: { value } }) {
+    const category = selectedCategory === value ? 'All' : value;
+    setSelectedCategory(category);
+  }
 
   if (fetchingCategories) return <p>Loading Filters...</p>;
   return (
@@ -33,6 +53,8 @@ function RecipeCategoriesFilters({ type }) {
           type="button"
           data-testid={ `${category.strCategory}-category-filter` }
           key={ `${category.strCategory}-category-filter` }
+          value={ category.strCategory }
+          onClick={ handleCategoryFilterClick }
         >
           { category.strCategory }
         </button>

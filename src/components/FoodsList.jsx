@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import FoodCard from './FoodCard';
+import RecipeCard from './RecipeCard';
 import RecipesContext from '../Provider/RecipesContext';
 
 function FoodsList() {
@@ -10,7 +10,12 @@ function FoodsList() {
     <div>
       {visibleFoods.map(
         (food, index) => (
-          <FoodCard key={ food.idMeal } food={ food } index={ index } />
+          <RecipeCard
+            key={ food.idMeal }
+            recipe={ food }
+            index={ index }
+            recipeType="meals"
+          />
         ),
       )}
     </div>
