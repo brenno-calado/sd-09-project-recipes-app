@@ -3,10 +3,10 @@ import { shape } from 'prop-types';
 import { ScreenContext } from '../../context';
 
 export default function ScreenProvider({ children }) {
-  const [category, setCategory] = useState('meals');
+  const [category, setCategory] = useState('comidas');
   const [searchBarView, setSearchBarView] = useState(false);
 
-  value = {
+  const value = {
     values: {
       category,
       searchBarView,
@@ -15,8 +15,8 @@ export default function ScreenProvider({ children }) {
       toggleSearchBar() {
         setSearchBarView(!searchBarView);
       },
-      switchCategory(category) {
-        setCategory(category);
+      switchCategory(selectedCategory) {
+        setCategory(selectedCategory);
       },
     },
   };

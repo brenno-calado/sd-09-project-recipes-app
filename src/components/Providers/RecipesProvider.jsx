@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 
 export default function RecipesProvider({ children }) {
+  const [recipesResult, setRecipesResult] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState({
@@ -11,11 +12,13 @@ export default function RecipesProvider({ children }) {
 
   const value = {
     values: {
+      recipesResult,
       doneRecipes,
       favoriteRecipes,
       inProgressRecipes,
     },
     actions: {
+      setRecipesResult,
       addRecipeToDone(recipeObj) {
         setDoneRecipes([...doneRecipes, recipeObj]);
       },
@@ -29,10 +32,10 @@ export default function RecipesProvider({ children }) {
   };
 
   useEffect(() => {
-    Object.keys(values.value).forEach((key) => (
-      localStorage.setItem(key, values.value[key])
+    Object.keys(value.values).forEach((key) => (
+      localStorage.setItem(key, value.values[key])
     ));
-  }, [doneRecipes, favoriteRecipes, inProgressRecipes]);
+  }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   return (
     <RecipesContext.Provider value={ value }>
