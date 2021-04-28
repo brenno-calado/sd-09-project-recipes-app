@@ -12,6 +12,7 @@ const RecipesProvider = ({ children }) => {
   const [recipesFoods, setRecipesFoods] = useState([]);
   const [recipesDrinks, setRecipesDrinks] = useState([]);
   const [foodIngredients, setFoodIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [foodAreas, setFoodAreas] = useState([]);
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
