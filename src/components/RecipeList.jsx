@@ -75,6 +75,8 @@ const mapDispatchToProps = (dispatch) => ({
 RecipeList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   recipeType: PropTypes.string.isRequired,
+  mealsThunkDispatcher: PropTypes.func.isRequired,
+  cocktailsThunkDispatcher: PropTypes.func.isRequired,
 };
 
 RecipeList.defaultProps = {

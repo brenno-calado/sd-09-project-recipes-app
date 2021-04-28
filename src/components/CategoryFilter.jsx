@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -18,9 +18,7 @@ function CategoryFilter({
   isFetchedCategories,
   isFetched,
 }) {
-  // const [teste, setTeste] = useState(false);
-
-  const teste = () => {
+  const fetchByCategory = () => {
     if (recipeType === 'meals') {
       mealsCategoryDispatcher();
     }
@@ -30,14 +28,10 @@ function CategoryFilter({
   };
 
   useEffect(() => {
-    console.log(isFetchedCategories);
     if (!isFetchedCategories) {
-      console.log('entrou');
-      teste();
+      fetchByCategory();
     }
   }, [isFetched]);
-
-  // useEffect(() => {  },[data]);
 
   const handleClick = ({ target: { value } }) => {
     if (recipeType === 'meals') {
@@ -91,6 +85,8 @@ CategoryFilter.propTypes = {
   cocktailsCategoryDispatcher: PropTypes.func.isRequired,
   fetchMealsByCategory: PropTypes.func.isRequired,
   fetchCocktailsByCategory: PropTypes.func.isRequired,
+  isFetchedCategories: PropTypes.bool.isRequired,
+  isFetched: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryFilter);

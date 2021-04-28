@@ -73,7 +73,7 @@ export function mealsThunk(typeSearch, textSearch) {
 export function cocktailsThunk(typeSearch, textSearch) {
   return (dispatch) => {
     dispatch(fetching());
-    if(typeSearch === '') {
+    if (typeSearch === '') {
       return fetchInitialCocktails()
         .then((data) => dispatch(sucessFetch(data)))
         .catch((error) => dispatch(failureFetch(error)));
