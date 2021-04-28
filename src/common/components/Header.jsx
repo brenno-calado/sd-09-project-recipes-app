@@ -10,11 +10,11 @@ const Header = (props) => {
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
   const createSearchButton = () => (
     <button
-      data-testid="search-top-btn"
-      type="button"
-      onClick={ () => setDisplaySearchBar(!displaySearchBar) }
+    type="button"
+    onClick={ () => setDisplaySearchBar(!displaySearchBar) }
     >
       <img
+        data-testid="search-top-btn"
         src={ SearchIcon }
         alt="profileIcon"
       />
@@ -30,6 +30,7 @@ const Header = (props) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          padding: '0 2rem',
         } }
       >
         <div>
