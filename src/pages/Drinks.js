@@ -9,7 +9,7 @@ function Drinks() {
 
   return (
     <div>
-      <Header />
+      <Header title="Bebidas" />
       {pathname === '/bebidas' ? <Footer /> : null}
     </div>
   );

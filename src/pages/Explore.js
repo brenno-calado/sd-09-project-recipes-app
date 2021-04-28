@@ -21,7 +21,7 @@ function Explore() {
 
   return (
     <div>
-      <Header />
+      <Header title="Explorar" />
       { pathname === '/explorar' ? (
         <div>
           <button
