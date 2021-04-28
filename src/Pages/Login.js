@@ -39,7 +39,7 @@ export default function Login() {
   const saveTokens = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
-    localStorage.setItem('user', JSON.stringify(loginForm.email));
+    localStorage.setItem('user', JSON.stringify({ email: loginForm.email }));
   };
 
   const handleLoginButtonClick = () => {
