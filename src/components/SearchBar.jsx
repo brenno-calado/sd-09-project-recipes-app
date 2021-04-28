@@ -26,7 +26,6 @@ function SearchBar(props) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     const url = `${endPoint}${filter}${word}`;
-    console.log(url);
     fetchSearchItems(url);
   };
 
@@ -77,6 +76,7 @@ function SearchBar(props) {
         type="text"
         data-testid="search-input"
         name="word"
+        value={ search.word }
         onChange={ handleChange }
       />
       {renderRadioButtons()}

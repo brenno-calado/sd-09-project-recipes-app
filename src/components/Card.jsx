@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
+import { objectOf, number } from 'prop-types';
 import './Card.css';
 
 function Card({ item, index }) {
@@ -13,5 +14,10 @@ function Card({ item, index }) {
     </div>
   );
 }
+
+Card.propTypes = {
+  item: objectOf(),
+  index: number,
+}.isRequired;
 
 export default Card;
