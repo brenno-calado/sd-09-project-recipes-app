@@ -18,6 +18,7 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreFoodArea from './pages/ExploreFoodArea';
+import NotFound from './pages/NotFound';
 
 export default function App() {
   return (
@@ -27,9 +28,6 @@ export default function App() {
           <Switch>
             <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
             <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
-            <Route path="/explorar" component={ Explore } />
-            <Route path="/explorar/comidas" component={ ExploreFood } />
-            <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route
               path="/explorar/comidas/ingredientes"
               component={ ExploreFoodIngredients }
@@ -39,10 +37,13 @@ export default function App() {
               component={ ExploreDrinksIngredients }
             />
             <Route path="/explorar/comidas/area" component={ ExploreFoodArea } />
+            <Route path="/explorar/comidas" component={ ExploreFood } />
+            <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/comidas/:id" component={ FoodDetails } />
             <Route path="/bebidas/:id" component={ DrinkDetails } />
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
+            <Route path="/explorar" component={ Explore } />
             <Route path="/explorar" component={ Explore } />
             <Route path="/comidas" component={ Foods } />
             <Route path="/bebidas" component={ Drinks } />
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="/receitas-feitas" component={ DoneRecipes } />
             <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
             <Route exact path="/" component={ Login } />
+            <Route component={ NotFound } />
           </Switch>
         </BrowserRouter>
       </Provider>

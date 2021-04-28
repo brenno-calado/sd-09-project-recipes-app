@@ -31,7 +31,11 @@ export default function Header({ title, canFind }) {
               onClick={ handleFilters }
               bgColor={ searchFilters ? '#82fa3d' : '#c3fff2' }
             >
-              <img src={ SearchIcon } alt="search-icon" />
+              <img
+                src={ SearchIcon }
+                alt="search-icon"
+                data-testid="search-top-btn"
+              />
             </S.SearchButton>
           )
         }
@@ -43,5 +47,9 @@ export default function Header({ title, canFind }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  canFind: PropTypes.bool.isRequired,
+  canFind: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  canFind: false,
 };
