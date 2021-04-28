@@ -19,7 +19,7 @@ function Foods() {
 
   return (
     <>
-      <HeaderFoods hasSearchBar>
+      <HeaderFoods hassearchbar>
         <h1 data-testid="page-title">Comidas</h1>
       </HeaderFoods>
       <SearchBar>

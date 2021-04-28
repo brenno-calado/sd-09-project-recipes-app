@@ -5,7 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 function Explore() {
   return (
     <>
-      <HeaderFoods hasSearchBar={ false }>
+      <HeaderFoods hassearchbar={ false }>
         <h1 data-testid="page-title">Explorar</h1>
       </HeaderFoods>
       <h1>Explorar</h1>
