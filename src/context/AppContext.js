@@ -54,8 +54,6 @@ const AppProvider = ({ children }) => {
     drinkCategories,
     setFoodApiResults,
     setDrinksApiResults,
-    foodApiResults,
-    drinksApiResults,
   };
   return (
     <AppContext.Provider value={ context }>
