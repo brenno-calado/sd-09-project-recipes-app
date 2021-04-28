@@ -23,7 +23,7 @@ function RecipeCard(props) {
 RecipeCard.propTypes = {
   image: PropTypes.string.isRequired,
   recipeName: PropTypes.string.isRequired,
-  index: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default RecipeCard;
