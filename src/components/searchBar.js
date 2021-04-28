@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   FormControl,
@@ -7,37 +7,58 @@ import {
   ToggleButtonGroup,
 } from 'react-bootstrap';
 
-export default function SearchBar() {
+export default function SearchBar(location) {
+  const [searchText, setSearchText] = useState('');
+  const [searchOption, setSearchOption] = useState('');
+
+  const handleTyping = ({ target }) => {
+    setSearchText(target.value);
+  };
+
+  const handleOptions = ({ target }) => {
+    setSearchOption(target.value);
+  };
+
+  console.log(location);
+
   return (
     <form className="form-group margin-10">
       <InputGroup className="mb-3">
-        <FormControl data-testid="search-input" size="lg" placeholder="Digite aqui" />
+        <FormControl
+          data-testid="search-input"
+          value={ searchText }
+          onChange={ handleTyping }
+          placeholder="Buscar Receita"
+        />
       </InputGroup>
 
       <ToggleButtonGroup type="radio" name="search-options" className="mb-3" size="sm">
         <ToggleButton
           variant="outline-primary"
           data-testid="ingredient-search-radio"
+          onChange={ handleOptions }
           value="Ingrediente"
         >
-          Pesquisar por
+          Buscar pelo
           ingrediente
         </ToggleButton>
         <ToggleButton
           variant="outline-primary"
           data-testid="name-search-radio"
+          onChange={ handleOptions }
           value="Nome"
         >
-          Pesquisar por
+          Buscar pelo
           nome
         </ToggleButton>
         <ToggleButton
           variant="outline-primary"
           data-testid="first-letter-search-radio"
+          onChange={ handleOptions }
           value="Primeira"
         >
-          Pesquisar pela
-          Primeira letra
+          Buscar pela
+          primeira letra
         </ToggleButton>
       </ToggleButtonGroup>
       <Button data-testid="exec-search-btn" variant="primary" block>Buscar</Button>

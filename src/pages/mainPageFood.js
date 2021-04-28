@@ -6,7 +6,7 @@ export default function MainPageFood() {
   return (
     <div data-testid="search-top-btn">
       MainPageFood
-      <SearchBar />
+      <SearchBar location="comidas" />
     </div>
   );
 }
