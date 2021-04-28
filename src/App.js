@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import PrincipalComidas from './pages/PrincipalComidas';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarComidasIng from './pages/ExplorarComidasIng';
@@ -20,7 +21,7 @@ function App() {
     <main className="main">
       <Switch>
         <Route path="/" component={ Login } />
-        {/* <Route path="/comidas" component={ PrincipalComidas } /> */}
+        <Route path="/comidas" component={ PrincipalComidas } />
         {/* <Route path="/bebidas" component={ PrincipalBebidas } /> */}
         {/* Placeholder do id */}
         {/* <Route path="/comidas/id-da-receita" component={ DetalhesComida } /> */}

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 
 import '../styles/login.css';
 
@@ -9,10 +10,12 @@ class Login extends Component {
     this.state = {
       emailValidated: false,
       passWordValidated: false,
+      redirect: false,
     };
 
     this.handlerEmail = this.handlerEmail.bind(this);
     this.handlerPassWord = this.handlerPassWord.bind(this);
+    this.buttonClick = this.buttonClick.bind(this);
   }
 
   handlerEmail({ target: { value } }) {
@@ -22,6 +25,7 @@ class Login extends Component {
 
     this.setState({
       emailValidated: isvalid,
+      email: value,
     });
   }
 
@@ -39,9 +43,30 @@ class Login extends Component {
     });
   }
 
-  render() {
+  buttonClick(email) {
+    const defaultTokenValue = 1;
+    const emailUser = { email };
     const { emailValidated, passWordValidated } = this.state;
+
+    if (emailValidated && passWordValidated) {
+      console.log(emailValidated);
+      localStorage.setItem('mealsToken', defaultTokenValue);
+      localStorage.setItem('cocktailsToken', defaultTokenValue);
+      localStorage.setItem('user', JSON.stringify(emailUser));
+
+      this.setState({
+        redirect: true,
+      });
+    }
+  }
+
+  render() {
+    const { email, emailValidated, passWordValidated, redirect } = this.state;
     const buttonIsDisabled = !(emailValidated && passWordValidated);
+
+    if (redirect) {
+      return <Redirect to="/comidas" />;
+    }
 
     return (
       <div className="content">
@@ -64,13 +89,17 @@ class Login extends Component {
             type="text"
           />
         </div>
-        <input
+        <button
           className="bnt_login"
           data-testid="login-submit-btn"
           disabled={ buttonIsDisabled }
+          onClick={ () => {
+            this.buttonClick(email);
+          } }
           type="submit"
-          value="Entrar"
-        />
+        >
+          Entrar
+        </button>
       </div>
     );
   }
