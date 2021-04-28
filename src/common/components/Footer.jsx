@@ -4,9 +4,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-const Footer = (props) => {
-  const classes = useStyles(props);
-
+function Footer() {
   return (
     <footer
       data-testid="footer"
@@ -36,7 +34,6 @@ const Footer = (props) => {
         </Link>
       </button>
       <button
-        className={ classes.button }
         type="button"
         style={ {
           backgroundColor: 'transparent',
@@ -53,7 +50,6 @@ const Footer = (props) => {
       </button>
       <button
         type="button"
-        className={ classes.button }
         style={ {
           backgroundColor: 'transparent',
           borderColor: 'transparent',
@@ -69,6 +65,6 @@ const Footer = (props) => {
       </button>
     </footer>
   );
-};
+}
 
 export default Footer;
