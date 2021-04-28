@@ -18,10 +18,12 @@ import ExploreFoodArea from './pages/ExploreFoodArea';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import Header from './components/Header/Header';
 
 export default function App() {
   return (
     <Switch>
+      <Header />
       <Route exact path="/" component={ Login } />
       <Route path="/comidas" component={ Food } />
       <Route path="/bebidas" component={ Drinks } />
