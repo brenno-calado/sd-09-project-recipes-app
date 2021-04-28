@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -7,9 +7,12 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Drinks() {
-  const { handleFetchDrinkClick, recipesData } = useRecipeContext();
-  console.log(recipesData);
+  const { handleFetchDrinkClick, recipesData, handleFetchRecipes } = useRecipeContext();
   const twelve = 12;
+
+  useEffect(() => {
+    handleFetchRecipes('thecocktaildb');
+  }, []);
 
   function header() {
     return (

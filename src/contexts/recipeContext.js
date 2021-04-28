@@ -9,7 +9,8 @@ export function RecipeContextProvider({ children }) {
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
-    getInputValue] = useClickFetch();
+    getInputValue,
+    handleFetchRecipes] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -33,6 +34,7 @@ export function RecipeContextProvider({ children }) {
     handleFetchFoodClick,
     handleFetchDrinkClick,
     recipesData,
+    handleFetchRecipes,
   };
   console.log(recipesData);
   return (

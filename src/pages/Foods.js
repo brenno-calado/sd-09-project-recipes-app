@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -7,8 +7,13 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
-  const { handleFetchFoodClick, recipesData } = useRecipeContext();
+  const { handleFetchFoodClick, recipesData, handleFetchRecipes } = useRecipeContext();
   const twelve = 12;
+
+  useEffect(() => {
+    handleFetchRecipes('themealdb');
+  }, []);
+
   function header() {
     return (
       <>

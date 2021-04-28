@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  getRecipes,
   getRecipeByIngredient,
   getRecipeByName,
   getRecipeByFirstLetter,
@@ -57,12 +58,19 @@ function useClickFetch() {
       setRecipesData(apiData);
     }
   }
+
+  async function handleFetchRecipes(type) {
+    const apiData = await getRecipes(type);
+    setRecipesData(apiData);
+  }
+
   return [
     recipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
     getInputValue,
+    handleFetchRecipes,
   ];
 }
 
