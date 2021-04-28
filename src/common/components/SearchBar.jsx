@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchMealIngredientAPI, fetchMealLetterAPI,
   fetchMealNameAPI } from '../../services/fetchMealAPI';
@@ -18,31 +17,23 @@ const SearchBar = (props) => {
     displayAlert,
     verifyMealsQuantity,
     verifyDrinksQuantity,
-    shouldRedirect,
-    setShouldRedirect,
+    shouldRedirect: { meals: redirectMeal, drinks: redirectDrink },
+    // setShouldRedirect,
     // handleSearch,
-    itShouldRedirect,
+    // itShouldRedirect,
   } = useContext(RecipesContext);
 
   const { meals, drinks } = props;
-
-  // verifyMealsQuantity(meals);
-  // verifyDrinksQuantity(drinks);
-  // itShouldRedirect(drinks, meals);
-
   useEffect(() => {
-    if (shouldRedirect.meals) {
+    if (redirectMeal) {
       const { idMeal } = meals[0];
-      // setShouldRedirect({ meals: false });
       window.location.replace(`/comidas/${idMeal}`);
     }
-    if (shouldRedirect.drinks) {
+    if (redirectDrink) {
       const { idDrink } = drinks[0];
-      // setShouldRedirect({ drinks: false });
-      console.log(idDrink);
       window.location.replace(`/bebidas/${idDrink}`);
     }
-  }, [meals, drinks, shouldRedirect]);
+  }, [redirectMeal, redirectDrink, meals, drinks]);
 
   const filterMeals = async () => {
     const { dispatchMeals } = props;
@@ -63,13 +54,7 @@ const SearchBar = (props) => {
       }
     }
     dispatchMeals(comidas.meals);
-    verifyMealsQuantity(meals);
-    // if (shouldRedirect.meals) {
-    //   const { idMeal } = meals[0];
-    //   // setShouldRedirect({ meals: false });
-    //   return <Redirect to={ `/comidas/${idMeal}` } />;
-    //   // window.location.replace(`/comidas/${idMeal}`);
-    // }
+    verifyMealsQuantity(comidas.meals);
   };
 
   const filterDrinks = async () => {
@@ -91,18 +76,11 @@ const SearchBar = (props) => {
       }
     }
     dispatchDrinks(bebidas.drinks);
-    verifyDrinksQuantity(drinks);
-    // if (shouldRedirect.drinks) {
-    //   const { idDrink } = drinks[0];
-    //   // setShouldRedirect({ drinks: false });
-    //   console.log(idDrink);
-    //   window.location.replace(`/bebidas/${idDrink}`);
-    // }
+    verifyDrinksQuantity(bebidas.drinks);
   };
 
   const handleSearch = () => {
     const { value } = props;
-    console.log(value);
     switch (value) {
     case 'comidas':
       return filterMeals();
@@ -111,13 +89,6 @@ const SearchBar = (props) => {
     default:
     }
   };
-
-  // if (shouldRedirect.meals) {
-  //   const { idMeal } = meals[0];
-  //   // setShouldRedirect({ meals: false });
-  //   return <Redirect to={ `/comidas/${idMeal}` } />;
-  //   // window.location.replace(`/comidas/${idMeal}`);
-  // }
 
   return (
     <div>
@@ -187,8 +158,8 @@ SearchBar.propTypes = {
   value: PropTypes.string.isRequired,
   dispatchMeals: PropTypes.func.isRequired,
   dispatchDrinks: PropTypes.func.isRequired,
-  meals: PropTypes.arrayOf({}).isRequired,
-  drinks: PropTypes.arrayOf({}).isRequired,
+  meals: PropTypes.arrayOf(PropTypes.object).isRequired,
+  drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

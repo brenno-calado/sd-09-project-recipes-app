@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function Provider(props) {
@@ -20,29 +21,16 @@ function Provider(props) {
     alert('Sua busca deve conter somente 1 (um) caracter');
   };
 
-  const verifyMealsQuantity = (meals) => {
-    if (meals && meals.length === 1) {
-      setShouldRedirect({ meals: true });
+  const verifyMealsQuantity = (rangos) => {
+    if (rangos && rangos.length === 1) {
+      setShouldRedirect({ meals: true, drinks: false });
+      console.log('mehals');
     }
   };
-  const verifyDrinksQuantity = (drinks) => {
-    if (drinks && drinks.length === 1) {
-      setShouldRedirect({ drinks: true });
-    }
-  };
-
-  const itShouldRedirect = (drinks, meals) => {
-    if (shouldRedirect.meals) {
-      const { idMeal } = meals[0];
-      setShouldRedirect({ meals: false });
-      window.location.replace(`/comidas/${idMeal}`);
-    }
-
-    if (shouldRedirect.drinks) {
-      const { idDrink } = drinks[0];
-      setShouldRedirect({ drinks: false });
-      console.log(idDrink);
-      window.location.replace(`/bebidas/${idDrink}`);
+  const verifyDrinksQuantity = (golos) => {
+    if (golos && golos.length === 1) {
+      setShouldRedirect({ meals: false, drinks: true });
+      console.log('golos');
     }
   };
 
@@ -70,7 +58,7 @@ function Provider(props) {
     verifyMealsQuantity,
     verifyDrinksQuantity,
     handleSearch,
-    itShouldRedirect,
+    // itShouldRedirect,
   };
 
   const { children } = props;
@@ -80,5 +68,9 @@ function Provider(props) {
     </RecipesContext.Provider>
   );
 }
+
+Provider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Provider;
