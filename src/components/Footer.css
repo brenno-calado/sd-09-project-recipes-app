@@ -1,6 +1,6 @@
-.footer{
-  margin: auto;
-  width: 100%;
+.footer {
   bottom: 0;
+  margin: auto;
   position: fixed;
+  width: 100%;
 }
