@@ -5,6 +5,7 @@ import FooterMenu from '../components/FooterMenu';
 import { fetchMealsApi, fetchMealsCategories } from '../services';
 import '../App.css';
 import MealCards from '../components/MealCards';
+import Header from '../components/Header';
 
 export default function Foods() {
   const [data, getData] = useState([]);
@@ -39,6 +40,7 @@ export default function Foods() {
   return (
     <>
       { loading ? <h1>Loading...</h1> : MealCards(category, data)}
+      <Header pageName="Comidas" />
       <FooterMenu />
     </>
   );

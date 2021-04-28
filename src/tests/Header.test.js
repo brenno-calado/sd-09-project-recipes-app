@@ -12,11 +12,13 @@ describe('Testando componente Header', () => {
     expect(getByTestId('page-title')).toBeInTheDocument();
   });
 
-  // it(`10 - Implemente um ícone para a tela de perfil,
-  // um título e um ícone para a busca, caso exista no protótipo`, () => {
-  //   const { getByRole } = RenderWithRouter(<App/>);
-  //   expect(getByRole('link', { data-testid: ''}))
-  // });
+  it(`10 - Implemente um ícone para a tela de perfil,
+  um título e um ícone para a busca, caso exista no protótipo`, () => {
+    const { getByAltText, getByText } = RenderWithRouter(<Header pageName="Comidas" />);
+    expect(getByAltText('profile-icon')).toBeInTheDocument();
+    expect(getByAltText('search-icon')).toBeInTheDocument();
+    expect(getByText('Comidas')).toBeInTheDocument();
+  });
 
   it(`11 - Redirecione a pessoa usuária para a tela
     de perfil ao clicar no botão de perfil`, () => {

@@ -1,5 +1,11 @@
 import React from 'react';
+import Header from '../components/Header';
 
 export default function Drinks() {
-  return (<h1>Drinks</h1>);
+  return (
+    <>
+      <Header pageName="Bebidas" />
+      <h1>Drinks</h1>
+    </>
+  );
 }
