@@ -69,3 +69,27 @@ export async function getDrinkByFirstLetter(firstLetter) {
     return error.message;
   }
 }
+
+export async function getFoodDetailsById(id) {
+  const promise = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export async function getDrinkDetailsById(id) {
+  const promise = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
