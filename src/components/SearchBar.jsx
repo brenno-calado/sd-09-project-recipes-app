@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function SearchBar({ path }) {
+function SearchBar({ path }, setSearchResult) {
   const [filter, setFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -12,11 +12,11 @@ function SearchBar({ path }) {
     if (filter === 'f' && searchText.length > 1) {
       return window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const searchURL = path === '/comidas' ? `${foodSearchURL}${filter}=${searchText}`
+    const searchURL = path.includes('comida') ? `${foodSearchURL}${filter}=${searchText}`
       : `${drinkSearchURL}${filter}=${searchText}`;
     const fetchSearch = await fetch(searchURL);
     const search = await fetchSearch.json();
-    return search;
+    setSearchResult(search);
   };
 
   return (
