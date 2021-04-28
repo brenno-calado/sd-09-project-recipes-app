@@ -19,21 +19,21 @@ describe('Testing <Profile /> functionality', () => {
   afterEach(() => jest.clearAllMocks());
 
   it('should have an element with the user email', () => {
-    const { getByTestId } = renderWithRouter(<Profile />);
+    const { getByTestId } = renderWithRouter(<Profile />, '/perfil');
     const userEmail = getByTestId('profile-email');
     const expectEmail = 'alguem@email.com';
     expect(userEmail.textContent).toContain(expectEmail);
   });
 
   it('should clear localStorage after clicking on "Sair" button', () => {
-    const { getByTestId } = renderWithRouter(<Profile />);
+    const { getByTestId } = renderWithRouter(<Profile />, '/perfil');
     const exitButton = getByTestId('profile-logout-btn');
     userEvent.click(exitButton);
     expect(localStorage.getItem('user')).toBeNull();
   });
 
   it('should have a navigation link with the path "/receitas-feitas"', () => {
-    const { history } = renderWithRouter(<Profile />);
+    const { history } = renderWithRouter(<Profile />, '/perfil');
     const doneButton = screen.getByTestId('profile-done-btn');
     userEvent.click(doneButton);
     const { location: { pathname } } = history;
@@ -41,7 +41,7 @@ describe('Testing <Profile /> functionality', () => {
   });
 
   it('should have a navigation link with the path "/receitas-favoritas"', () => {
-    const { getByTestId, history } = renderWithRouter(<Profile />);
+    const { getByTestId, history } = renderWithRouter(<Profile />, '/perfil');
     const favoriteButton = getByTestId('profile-favorite-btn');
     userEvent.click(favoriteButton);
     const { location: { pathname } } = history;
@@ -49,7 +49,7 @@ describe('Testing <Profile /> functionality', () => {
   });
 
   it('should have a navigation link with the path "/"', () => {
-    const { getByTestId, history } = renderWithRouter(<Profile />);
+    const { getByTestId, history } = renderWithRouter(<Profile />, '/perfil');
     const logoutBtn = getByTestId('profile-logout-btn');
     userEvent.click(logoutBtn);
     const { location: { pathname } } = history;

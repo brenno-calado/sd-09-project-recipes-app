@@ -1,22 +1,11 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router';
+import { fireEvent } from '@testing-library/react';
 import Header from '../components/Header';
-import RecipesAppProvider from '../context/RecipesAppProvider';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testing <Header /> functionality', () => {
   it('should contain one link, two buttons and one heading', () => {
-    const history = createMemoryHistory();
-    history.push('/comidas');
-    const { getAllByRole } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
-
+    const { getAllByRole } = renderWithRouter(<Header />, '/comidas');
     const link = getAllByRole('link');
     const imgs = getAllByRole('img');
     const btn = getAllByRole('button');
@@ -29,15 +18,7 @@ describe('Testing <Header /> functionality', () => {
   });
 
   it('should have a navigation link with the path "/perfil"', () => {
-    const history = createMemoryHistory();
-    history.push('/comidas');
-    const { getByRole } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
+    const { getByRole, history } = renderWithRouter(<Header />, '/comidas');
     const profileLink = getByRole('link');
     fireEvent.click(profileLink);
     const { location: { pathname } } = history;
@@ -45,15 +26,7 @@ describe('Testing <Header /> functionality', () => {
   });
 
   it('should have a button thats show an input', () => {
-    const history = createMemoryHistory();
-    history.push('/comidas');
-    const { getByRole, queryByTestId } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
+    const { getByRole, queryByTestId } = renderWithRouter(<Header />, '/comidas');
     let input = queryByTestId('search-input');
     expect(input).toBe(null);
 
@@ -64,45 +37,21 @@ describe('Testing <Header /> functionality', () => {
   });
 
   it('must display the pathname as a title', () => {
-    const history = createMemoryHistory();
-    history.push('/explorar/bebidas');
-    const { queryByRole } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
+    const { queryByRole } = renderWithRouter(<Header />, '/explorar/bebidas');
 
     const title = queryByRole('heading', { level: 1, name: 'Explorar Bebidas' });
     expect(title).not.toBe(null);
   });
 
   it('must remove "/" from title', () => {
-    const history = createMemoryHistory();
-    history.push('/bebidas/');
-    const { queryByRole } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
+    const { queryByRole } = renderWithRouter(<Header />, '/bebidas/');
 
     const title = queryByRole('heading', { level: 1, name: 'Bebidas' });
     expect(title).not.toBe(null);
   });
 
   it('should replace "area" from url with "Origem"', () => {
-    const history = createMemoryHistory();
-    history.push('/explorar/comidas/area');
-    const { queryByRole } = render(
-      <RecipesAppProvider>
-        <Router history={ history }>
-          <Header />
-        </Router>
-      </RecipesAppProvider>,
-    );
+    const { queryByRole } = renderWithRouter(<Header />, '/explorar/comidas/area');
 
     const title = queryByRole('heading', { level: 1, name: 'Explorar Origem' });
     expect(title).not.toBe(null);

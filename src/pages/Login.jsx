@@ -41,7 +41,7 @@ function Login() {
           onChange={ handlePassChange }
         />
         <button
-          type="submit"
+          type="button"
           disabled={ !(validEmail && validPass) }
           data-testid="login-submit-btn"
           onClick={ handleSubmit }
