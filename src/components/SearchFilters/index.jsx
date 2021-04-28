@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Filters from './styled';
-import SearchIcon from '../../images/searchIcon.svg';
 
-function SearchBar() {
-  const [isSearching, setIsSearching] = useState(false);
-
-  const renderFilters = () => (
+export default function SearchFilters() {
+  return (
     <Filters>
       <label htmlFor="name">
         Termo
@@ -15,8 +12,8 @@ function SearchBar() {
           id="name"
         />
       </label>
+      <br />
       <label htmlFor="ingredient">
-        Ingrediente
         <input
           type="radio"
           data-testid="ingredient-search-radio"
@@ -24,9 +21,9 @@ function SearchBar() {
           name="filter"
           value="ingredient"
         />
+        Ingrediente
       </label>
       <label htmlFor="name">
-        Nome
         <input
           type="radio"
           data-testid="name-search-radio"
@@ -34,9 +31,9 @@ function SearchBar() {
           name="filter"
           value="name"
         />
+        Nome
       </label>
       <label htmlFor="first-letter">
-        Primeira Letra
         <input
           type="radio"
           data-testid="first-letter-search-radio"
@@ -44,31 +41,12 @@ function SearchBar() {
           name="filter"
           value="letters"
         />
+        Primeira Letra
       </label>
+      <br />
       <button type="button" data-testid="exec-search-btn">
         Buscar
       </button>
     </Filters>
   );
-  return (
-    <>
-      <div>
-        <button
-          type="button"
-          onClick={ () => {
-            setIsSearching(!isSearching);
-          } }
-        >
-          <img
-            data-testid="search-top-btn"
-            src={ SearchIcon }
-            alt="search-button"
-          />
-        </button>
-      </div>
-      {isSearching && renderFilters()}
-    </>
-  );
 }
-
-export default SearchBar;
