@@ -31,8 +31,6 @@ export const getDrinkById = (ID) => async (dispatch) => {
 
     const responseRecommended = await fetchRecommendedDrinkById(responseDrink
       .drinks[0].strCategory);
-    console.log(responseRecommended);
-    console.log(responseDrink);
     dispatch(isResolved(responseDrink.drinks[0]));
     dispatch(isResolvedRecommendedFoods(responseRecommended));
     return null;

@@ -13,7 +13,6 @@ function DrinkDetails({
   useEffect(() => {
     const recipeID = match.params.id;
     if (!recipe) {
-      console.log(recipeID);
       getDrinkByIdDispatch(recipeID);
     }
     const selectedRecipe = recipes;
@@ -65,7 +64,7 @@ function DrinkDetails({
           ))}
         {/* // O texto de instruções
         deve possuir o atributo data-testid="instructions"; */}
-        <p>{recipe.strInstructions}</p>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
         {/* // O vídeo, presente somente na tela
       de comidas, deve possuir o atributo data-testid="video"; */}
         <a
@@ -77,7 +76,7 @@ function DrinkDetails({
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
-        <button type="button">Iniciar receita</button>
+        <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
         {recommendedFoods.slice(0, MAX_SLICE).map((item) => (

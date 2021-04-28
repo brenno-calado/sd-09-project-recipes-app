@@ -61,7 +61,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
           ))}
         {/* // O texto de instruções
         deve possuir o atributo data-testid="instructions"; */}
-        <p>{recipe.strInstructions}</p>
+        <p data-testid="instructions">{recipe.strInstructions}</p>
         {/* // O vídeo, presente somente na tela
       de comidas, deve possuir o atributo data-testid="video"; */}
         <a
@@ -73,7 +73,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
-        <button type="button">Iniciar receita</button>
+        <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
         {recommendedFoods.map((item) => (
