@@ -18,7 +18,9 @@ export default function Login() {
   };
 
   const emailValidator = (userEmail) => {
-    const validator = userEmail.match(/^([\w.-]+)@([\w-]+)((.(\w){2,3})+)$/);
+    const RegExp = /^[\S.]+@[a-z]+\.\w{2,3}$/g;
+    const validator = userEmail
+      .match(RegExp);
     if (validator !== null) {
       return true;
     }
@@ -26,7 +28,7 @@ export default function Login() {
 
   const passwordValidator = (userPassword) => {
     const minimumPasswordLength = 6;
-    if (userPassword.length >= minimumPasswordLength) {
+    if (userPassword.length > minimumPasswordLength) {
       return true;
     }
   };
