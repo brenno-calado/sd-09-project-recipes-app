@@ -12,7 +12,7 @@ function MealDetails({ match: { params: { id } } }) {
     setLoading(false);
   }
 
-  useEffect(() => fetchRecipe(), [])
+  useEffect(() => fetchRecipe(), []);
 
   function renderRecipePhoto() {
     return (
@@ -55,6 +55,7 @@ function MealDetails({ match: { params: { id } } }) {
   function renderShareButton() {
     return (
       <button
+        type="button"
         data-testid="share-btn"
       >
         Compartilhar
@@ -65,6 +66,7 @@ function MealDetails({ match: { params: { id } } }) {
   function renderFavoriteButton() {
     return (
       <button
+        type="button"
         data-testid="favorite-btn"
       >
         Favoritar
@@ -75,8 +77,7 @@ function MealDetails({ match: { params: { id } } }) {
   function filterIngredients() {
     const recipeKeys = Object.keys(recipe);
     const recipeIngredientKeys = recipeKeys.filter((propriety) => (
-      propriety.includes('strIngredient'))
-    );
+      propriety.includes('strIngredient')));
     return recipeIngredientKeys.filter((ingredientKey) => (
       recipe[ingredientKey] !== null && recipe[ingredientKey] !== ''
     )).map((ingredintsKeys) => (
@@ -169,5 +170,11 @@ function MealDetails({ match: { params: { id } } }) {
     </div>
   );
 }
+
+MealDetails.propTypes = {
+  match: PropTypes.object,
+  params: PropTypes.object,
+  id: PropTypes.string,
+}.isRequired
 
 export default MealDetails;
