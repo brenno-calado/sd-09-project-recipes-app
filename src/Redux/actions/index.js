@@ -1,11 +1,9 @@
-import { SEARCH, REQ_SEARCH, SET_SEARCH } from './actionTypes';
+import { REQ_SEARCH, SET_SEARCH } from './actionTypes';
 import fetchSearchBar from '../../services';
 
-export const searchBar = () => ({ type: SEARCH });
+export const reqSearch = () => ({ type: REQ_SEARCH });
 
-const reqSearch = () => ({ type: REQ_SEARCH });
-
-const setSearch = (items) => ({ type: SET_SEARCH, items });
+export const setSearch = (items) => ({ type: SET_SEARCH, items });
 
 export const fetchSearch = (url) => {
   return async (dispatch) => {
