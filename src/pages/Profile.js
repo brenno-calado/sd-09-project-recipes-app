@@ -7,6 +7,8 @@ const INITIAL_STATE = { shouldRedirect: false };
 function Profile() {
   const [state, setState] = useState(INITIAL_STATE);
 
+  const email = localStorage.user && JSON.parse(localStorage.user).email;
+
   const handleLogout = () => {
     localStorage.clear();
     setState({ ...state, shouldRedirect: true });
@@ -22,7 +24,7 @@ function Profile() {
     <section>
       <Header title="Perfil" />
 
-      <p data-testid="profile-email">{ JSON.parse(localStorage.user).email }</p>
+      <p data-testid="profile-email">{ email }</p>
 
       <Link to="/receitas-feitas">
         { createButton('profile-done-btn', 'Receitas Feitas') }

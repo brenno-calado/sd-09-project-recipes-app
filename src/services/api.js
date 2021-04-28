@@ -42,3 +42,12 @@ export const fetchCategories = async (isMeal) => {
   const categories = await response.json();
   return categories;
 };
+
+export const fetchRecipeDetails = async (id, isMeal) => {
+  const mealsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const url = isMeal ? mealsURL : drinksURL;
+  const response = await fetch(url);
+  const details = await response.json();
+  return isMeal ? details.meals[0] : details.drinks[0];
+};

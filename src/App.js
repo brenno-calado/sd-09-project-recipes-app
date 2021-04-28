@@ -4,7 +4,6 @@ import {
   Login,
   Meals,
   Drinks,
-  Details,
   Explore,
   ExploreMeals,
   ExploreDrinks,
@@ -16,6 +15,8 @@ import {
   MealsByArea,
   MealsInProgress,
   DrinksInProgress,
+  MealsDetails,
+  DrinksDetails,
 } from './pages';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
@@ -27,8 +28,8 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas/:id/in-progress" component={ MealsInProgress } />
       <Route exact path="/bebidas/:id/in-progress" component={ DrinksInProgress } />
-      <Route exact path="/comidas/:id" component={ Details } />
-      <Route exact path="/bebidas/:id" component={ Details } />
+      <Route exact path="/comidas/:id" component={ MealsDetails } />
+      <Route exact path="/bebidas/:id" component={ DrinksDetails } />
       <Route path="/comidas" component={ Meals } />
       <Route path="/bebidas" component={ Drinks } />
       <Route path="/explorar/comidas/ingredientes" component={ MealsByIngredients } />
