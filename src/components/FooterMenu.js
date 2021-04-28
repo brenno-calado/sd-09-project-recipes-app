@@ -9,23 +9,28 @@ export default function FooterMenu() {
   return (
     <footer className="footer-bar" data-testid="footer">
       <Link to="/bebidas">
-        {/* <button
-          type="button"
-          data-testid="drinks-bottom-btn"
-        > */}
         <img
           src={ drinkIcon }
           alt="drinks"
           className="footer-icons"
           data-testid="drinks-bottom-btn"
         />
-        {/* </button> */}
       </Link>
       <Link to="/explorar">
-        <img src={ exploreIcon } alt="explore" data-testid="explore-bottom-btn" />
+        <img
+          src={ exploreIcon }
+          alt="explore"
+          className="footer-icons"
+          data-testid="explore-bottom-btn"
+        />
       </Link>
       <Link to="/comidas">
-        <img src={ mealIcon } alt="meals" data-testid="food-bottom-btn" />
+        <img
+          src={ mealIcon }
+          alt="meals"
+          className="footer-icons"
+          data-testid="food-bottom-btn"
+        />
       </Link>
     </footer>
   );
