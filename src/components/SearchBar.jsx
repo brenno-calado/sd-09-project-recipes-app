@@ -7,13 +7,12 @@ import './SearchBar.css';
 
 function SearchBar(props) {
   const location = useLocation();
-  const endPoint = ((location.pathname === '/comidas')
-    ? 'https://www.themealdb.com/api/json/v1/1/'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/');
   const [search, setSearch] = useState({
-    endPoint,
+    endPoint: ((location.pathname === '/comidas')
+      ? 'https://www.themealdb.com/api/json/v1/1/'
+      : 'https://www.thecocktaildb.com/api/json/v1/1/'),
     word: '',
-    radio: 'filter.php?i=',
+    filter: 'filter.php?i=',
   });
 
   const handleChange = ({ target: { name, value } }) => {
@@ -22,11 +21,12 @@ function SearchBar(props) {
 
   const handleClick = () => {
     const { fetchSearchItems } = props;
-    const { endPoint, word, radio } = search;
-    if (word.length >= 2 && radio === 'search.php?f=') {
+    const { endPoint, word, filter } = search;
+    if (word.length >= 2 && filter === 'search.php?f=') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const url = `${endPoint}${radio}${word}`;
+    const url = `${endPoint}${filter}${word}`;
+    console.log(url);
     fetchSearchItems(url);
   };
 
@@ -35,36 +35,36 @@ function SearchBar(props) {
       <label htmlFor="ingredient-search-radio">
         <input
           type="radio"
-          name="radio"
+          name="filter"
           value="filter.php?i="
           data-testid="ingredient-search-radio"
           id="ingredient-search-radio"
           onChange={ handleChange }
-          checked={ search.radio === 'filter.php?i=' }
+          checked={ search.filter === 'filter.php?i=' }
         />
         Ingredientes
       </label>
       <label htmlFor="name-search-radio">
         <input
           type="radio"
-          name="radio"
+          name="filter"
           value="search.php?s="
           data-testid="name-search-radio"
           id="name-search-radio"
           onChange={ handleChange }
-          checked={ search.radio === 'search.php?s=' }
+          checked={ search.filter === 'search.php?s=' }
         />
         Nome
       </label>
       <label htmlFor="first-letter-search-radio">
         <input
           type="radio"
-          name="radio"
+          name="filter"
           value="search.php?f="
           data-testid="first-letter-search-radio"
           id="first-letter-search-radio"
           onChange={ handleChange }
-          checked={ search.radio === 'search.php?f=' }
+          checked={ search.filter === 'search.php?f=' }
         />
         Primeira letra
       </label>
