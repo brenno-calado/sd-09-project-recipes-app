@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-// import header
-// importe footer
+import Header from '../../components/Header';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class Profile extends React.Component {
         { (toHome) ? <Redirect to="/" /> : '' }
         { (toDone) ? <Redirect to="/receitas-feitas" /> : '' }
         { (toFavorite) ? <Redirect to="/receitas-favoritas" /> : '' }
-        {/* <header /> */}
+        <Header title="Perfil" />
         <h3
           data-testid="profile-email"
         >
