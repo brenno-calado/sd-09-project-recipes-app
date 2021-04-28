@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 
-function SearchBar({ path }, setSearchResult) {
+function SearchBar(path, setSearchResult) {
   const [filter, setFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -71,9 +70,5 @@ function SearchBar({ path }, setSearchResult) {
     </div>
   );
 }
-
-SearchBar.propTypes = {
-  path: PropTypes.string.isRequired,
-};
 
 export default SearchBar;
