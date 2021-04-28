@@ -20,8 +20,8 @@ function App() {
         <Route path="/perfil" component={ UserProfile } />
         <Route path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/bebidas/:id" component={ DrinksDetails } />
-        <Route path="/explorar" component={ Explorer } />  
-    </Switch>
+        <Route path="/explorar" component={ Explorer } />
+      </Switch>
     </Provider>
   );
 }

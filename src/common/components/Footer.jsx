@@ -1,17 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-
-const useStyles = makeStyles(() => ({
-
-  button: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-  },
-}));
 
 const Footer = (props) => {
   const classes = useStyles(props);
@@ -30,7 +21,10 @@ const Footer = (props) => {
       } }
     >
       <button
-        className={ classes.button }
+        style={ {
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+        } }
         type="button"
       >
         <Link to="/bebidas">
@@ -44,6 +38,10 @@ const Footer = (props) => {
       <button
         className={ classes.button }
         type="button"
+        style={ {
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+        } }
       >
         <Link to="/explorar">
           <img
@@ -56,6 +54,10 @@ const Footer = (props) => {
       <button
         type="button"
         className={ classes.button }
+        style={ {
+          backgroundColor: 'transparent',
+          borderColor: 'transparent',
+        } }
       >
         <Link to="/comidas">
           <img
