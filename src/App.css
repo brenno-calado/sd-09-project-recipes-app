@@ -32,10 +32,10 @@
 .header-bar {
   align-items: center;
   background-color: #747373;
-  top: 0;
   display: flex;
   justify-content: space-around;
   position: fixed;
+  top: 0;
   width: 100%;
 }
 
