@@ -21,7 +21,8 @@ function MainDrinks() {
       <div className="main-drinks-container">
         { (showCards) && recipes.map((drink, index) => ((index < CARDS_LIMIT) && (
           <div
-            className="drink-card" data-testid={ `${index}-recipe-card` }
+            className="drink-card"
+            data-testid={ `${index}-recipe-card` }
             key={ `${index}-recipe-card` }
           >
             <img

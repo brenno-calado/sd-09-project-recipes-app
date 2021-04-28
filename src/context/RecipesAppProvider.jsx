@@ -33,7 +33,6 @@ function RecipesAppProvider({ children }) {
     }
     if ((apiResponse === null) || (apiResponse === undefined)) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-      return;
     } else if (apiResponse.length === 1) {
       setRedirect(true);
     } else {
