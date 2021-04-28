@@ -4,10 +4,11 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
+import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
   const { handleFetchFoodClick, recipesData } = useRecipeContext();
-
+  const twelve = 12;
   function header() {
     return (
       <>
@@ -24,6 +25,20 @@ function Foods() {
           </button>
         </SearchBar>
         <BottomMenu />
+        {recipesData.meals && (
+          recipesData.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
+            index < twelve && (
+              <RecipeCard
+                key={ idMeal }
+                image={ strMealThumb }
+                name={ strMeal }
+                recipeCArdId={ `${index}-recipe-card` }
+                cardImageId={ `${index}-card-img` }
+                cardNameId={ `${index}-card-name` }
+              />
+            )
+          ))
+        )}
       </>
     );
   }
