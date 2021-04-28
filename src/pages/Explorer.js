@@ -1,8 +1,10 @@
 import React from 'react';
 
+import Header from '../components/Header';
+
 const Explorer = () => (
   <div>
-    Explorer
+    <Header title="Explorar" />
   </div>
 );
 
