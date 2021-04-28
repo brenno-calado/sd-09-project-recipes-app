@@ -10,7 +10,11 @@ function Header(props) {
   const { textProp } = props;
 
   function searchBtn() {
-    if (textProp === 'Comidas' || textProp === 'Bebidas' || textProp === 'Explorar Origem') {
+    if (
+      textProp === 'Comidas'
+      || textProp === 'Bebidas'
+      || textProp === 'Explorar Origem'
+    ) {
       return (
         <button
           type="button"
