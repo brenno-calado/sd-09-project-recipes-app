@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { filteredFetch } from '../actions/filterList';
+import { searchBarFetch } from '../actions/searchBar';
 
-function Filters({ filters, path, setFiltered }) {
+function Filters({ filters, path, setFiltered, setRecipes }) {
+  const [buttons, setButtons] = useState({});
   if (!filters) return <h3>Loading</h3>;
+
+  const type = path === '/bebidas' ? 'Bebidas' : 'Comidas';
+
+  const handleClick = (name, category) => {
+    if (!buttons[name]) {
+      setButtons({ [name]: true });
+      setFiltered(category, path);
+    } else {
+      setButtons({});
+      setRecipes({ searchValue: '', query: 's', page: type });
+    }
+  };
 
   const FILTER_LIMIT = 5;
 
   return (
     <div>
       <h4>Filtros</h4>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setRecipes({ searchValue: '', query: 's', page: type }) }
+      >
+        All
+      </button>
       { filters.map(({ strCategory }, index) => index < FILTER_LIMIT && (
         <button
           type="button"
           key={ strCategory }
-          onClick={ () => setFiltered(strCategory, path) }
+          name={ strCategory }
+          onClick={ ({ target }) => handleClick(target.name, strCategory) }
           data-testid={ `${strCategory}-category-filter` }
         >
           { strCategory }
@@ -31,6 +53,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setFiltered: (filter, path) => dispatch(filteredFetch(filter, path)),
+  setRecipes: (obj) => dispatch(searchBarFetch(obj)),
 });
 
 Filters.propTypes = {

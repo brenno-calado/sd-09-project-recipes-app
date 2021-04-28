@@ -1,16 +1,19 @@
 import React from 'react';
 import { object, number } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function RecipeItemDrink({ recipe, index }) {
   return (
-    <div data-testid={ `${index}-recipe-card` }>
-      <img
-        src={ recipe.strDrinkThumb }
-        alt="Recipe"
-        data-testid={ `${index}-card-img` }
-      />
-      <h2 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h2>
-    </div>
+    <Link to={ `/bebidas/${recipe.idDrink}` }>
+      <div data-testid={ `${index}-recipe-card` }>
+        <img
+          src={ recipe.strDrinkThumb }
+          alt="Recipe"
+          data-testid={ `${index}-card-img` }
+        />
+        <h2 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h2>
+      </div>
+    </Link>
   );
 }
 
