@@ -5,7 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 function Profile() {
   return (
     <>
-      <HeaderFoods hasSearchBar={ false }>
+      <HeaderFoods hassearchbar={ false }>
         <h1 data-testid="page-title">Perfil</h1>
       </HeaderFoods>
       <h1>Perfil</h1>

@@ -5,8 +5,8 @@ import { RecipeContextProvider } from './contexts/recipeContext';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
-import FoodRecipe from './pages/FoodRecipe';
-import DrinksRecipe from './pages/DrinksRecipe';
+import FoodRecipeDetails from './pages/FoodRecipeDetails';
+import DrinkRecipeDetails from './pages/DrinkRecipeDetails';
 import FoodRecipeInProgress from './pages/FoodRecipeInProgress';
 import DrinkRecipeInProgress from './pages/DrinkRecipeInProgress';
 import Explore from './pages/Explore';
@@ -28,8 +28,14 @@ function App() {
         <Route path="/" exact component={ Login } />
         <Route path="/comidas" exact component={ Foods } />
         <Route path="/bebidas" exact component={ Drinks } />
-        <Route path="/comidas/:id" render={ (props) => <FoodRecipe { ...props } /> } />
-        <Route path="/bebidas/:id" component={ DrinksRecipe } />
+        <Route
+          path="/comidas/:id"
+          render={ (props) => <FoodRecipeDetails { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id"
+          render={ (props) => <DrinkRecipeDetails { ...props } /> }
+        />
         <Route path="/comidas/:id/in-progress" component={ FoodRecipeInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkRecipeInProgress } />
         <Route path="/explorar" exact component={ Explore } />

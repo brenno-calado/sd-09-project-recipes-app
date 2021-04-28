@@ -5,7 +5,7 @@ import BottomMenu from '../components/BottomMenu';
 function DrinksByIngredient() {
   return (
     <>
-      <HeaderFoods hasSearchBar={ false }>
+      <HeaderFoods hassearchbar={ false }>
         <h1 data-testid="page-title">Explorar Ingredientes</h1>
       </HeaderFoods>
       <h1>Bebidas por ingrediente</h1>
