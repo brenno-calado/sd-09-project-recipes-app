@@ -13,6 +13,7 @@ import {
   fetchByFirstLetter,
   fetchMealsCategories,
   fetchInitialMeals,
+  fetchMealsByCategory,
 } from '../../services/mealsAPI';
 import {
   cocktailsByIngredient,
@@ -20,6 +21,7 @@ import {
   cocktailsByFirstLetter,
   fetchCocktailsCategories,
   fetchInitialCocktails,
+  fetchCocktailsByCategory,
 } from '../../services/cocktailsAPI';
 
 export const savePath = (pathname, recipeType) => ({
@@ -123,5 +125,23 @@ export function cocktailsCategoriesThunk() {
     return fetchCocktailsCategories()
       .then((data) => dispatch(successCategories(data)))
       .catch((error) => dispatch(failureCategories(error)));
+  };
+}
+
+export function mealsByCategoriesThunk(category) {
+  return (dispatch) => {
+    dispatch(fetchingCategories());
+    return fetchMealsByCategory(category)
+      .then((data) => dispatch(sucessFetch(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+export function cocktailsByCategoriesThunk(category) {
+  return (dispatch) => {
+    dispatch(fetchingCategories());
+    return fetchCocktailsByCategory(category)
+      .then((data) => dispatch(sucessFetch(data)))
+      .catch((error) => dispatch(failureFetch(error)));
   };
 }

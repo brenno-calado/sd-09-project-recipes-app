@@ -32,3 +32,10 @@ export const fetchInitialCocktails = () => {
     .then((response) => response.json())
     .then((data) => data.drinks);
 };
+
+export const fetchCocktailsByCategory = (category) => {
+  const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};

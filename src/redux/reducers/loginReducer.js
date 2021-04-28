@@ -17,6 +17,7 @@ const INITIAL_STATE = {
   recipeType: '',
   isFetchingCategories: false,
   categories: [],
+  isFetchedCategories: false,
 };
 
 const magicNumber = 5;
@@ -59,11 +60,13 @@ function loginReducer(state = INITIAL_STATE, action) {
     return ({
       ...state,
       categories: action.data.slice(0, magicNumber),
+      isFetchedCategories: true,
     });
   case FAILURE_CATEGORIES:
     return ({
       ...state,
       error: action.error,
+      isFetchedCategories: true,
     });
   default:
     return state;

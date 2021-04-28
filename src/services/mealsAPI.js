@@ -32,3 +32,10 @@ export const fetchInitialMeals = () => {
     .then((response) => response.json())
     .then((data) => data.meals);
 };
+
+export const fetchMealsByCategory = (category) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};
