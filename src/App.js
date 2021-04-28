@@ -8,6 +8,7 @@ import Login from './Pages/Login';
 import Foods from './Pages/Foods';
 import Drinks from './Pages/Drinks';
 import Explore from './Pages/Explore';
+import Header from './components/Header';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/explorar" component={ Explore } />
         </Switch>
       </div>
+      <Header />
       <FooterMenu />
     </>
   );

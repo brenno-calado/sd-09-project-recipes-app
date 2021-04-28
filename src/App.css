@@ -29,7 +29,7 @@
   max-height: 80vh;
 }
 
-.header {
+.header-bar {
   align-items: center;
   background-color: #747373;
   top: 0;
@@ -37,6 +37,10 @@
   justify-content: space-around;
   position: fixed;
   width: 100%;
+}
+
+.header-icons {
+  margin: 20%;
 }
 
 .recipe-details {
