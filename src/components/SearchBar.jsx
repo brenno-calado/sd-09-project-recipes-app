@@ -11,7 +11,7 @@ const defaultSearchFilters = {
 
 function SearchBar() {
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
-  const { meals, setMeals, drinks, setDrinks } = useContext(MealsAndDrinkContext);
+  const { meals, setMeals, drinks, setDrinks, page } = useContext(MealsAndDrinkContext);
 
   function handleChange({ target }) {
     const obj = { ...searchFilters };
@@ -27,12 +27,14 @@ function SearchBar() {
   }
 
   async function handleSearch() {
-    // verificar em qual pagina está e assim fazer o fetch correto (meal or drink)
-    const mealList = await fetchMeal(searchFilters);
-    setMeals(mealList);
-
-    const drinkList = await fetchDrink(searchFilters);
-    setDrinks(drinkList);
+    if (page === 'comidas') {
+      const mealList = await fetchMeal(searchFilters);
+      setMeals(mealList);
+    }
+    if (page === 'bebidas') {
+      const drinkList = await fetchDrink(searchFilters);
+      setDrinks(drinkList);
+    }
   }
 
   function handleLog() {
