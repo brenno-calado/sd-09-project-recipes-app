@@ -1,8 +1,12 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 
 function Login() {
   return (
-    <h1>Login page</h1>
+    <div>
+      <h1>Login page</h1>
+      <SearchBar />
+    </div>
   );
 }
 
