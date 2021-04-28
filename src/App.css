@@ -32,13 +32,12 @@
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
 
 @keyframes shake {
-
   0% {
     transform: rotate(5deg);
   }
@@ -53,7 +52,6 @@
 }
 
 @keyframes clink {
-
   0% {
     transform: rotate(-10deg);
   }
@@ -73,11 +71,18 @@
   display: flex;
   flex-wrap: wrap;
   position: fixed;
+  text-align: center;
   width: 100%;
 }
 
-.optionsPerfil img {
+.optionsPerfil a {
   flex: auto;
   max-height: 100px;
   padding: 20px;
+}
+
+.pageExplore {
+  box-shadow: 1px 1px 1px black;
+  margin: 30px;
+  padding: 20px 10px;
 }
