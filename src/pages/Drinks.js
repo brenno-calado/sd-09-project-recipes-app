@@ -7,16 +7,17 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Drinks() {
-  const { handleFetchDrinkClick, recipesData } = useRecipeContext();
+  const { handleFetchDrinkClick, recipesData, handleFetchRecipes } = useRecipeContext();
   const twelve = 12;
-  console.log(recipesData.drinks);
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
     || recipesData.drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+    handleFetchRecipes('thecocktaildb');
   }, [recipesData]);
+
   function header() {
     return (
       <>

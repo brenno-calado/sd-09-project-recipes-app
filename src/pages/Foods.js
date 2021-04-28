@@ -7,7 +7,7 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
-  const { handleFetchFoodClick, recipesData } = useRecipeContext();
+  const { handleFetchFoodClick, recipesData, handleFetchRecipes } = useRecipeContext();
   const twelve = 12;
 
   useEffect(() => {
@@ -15,6 +15,7 @@ function Foods() {
     || recipesData.meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+    handleFetchRecipes('themealdb');
   }, [recipesData]);
 
   function header() {

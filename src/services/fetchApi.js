@@ -1,3 +1,9 @@
+export async function getRecipes(type) {
+  const promise = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=`);
+  const data = await promise.json();
+  return data;
+}
+
 export async function getRecipeByIngredient(ingredient) {
   const promise = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   try {
