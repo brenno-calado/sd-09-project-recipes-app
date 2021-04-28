@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer/Footer';
 
@@ -8,6 +8,5 @@ export default function Foods() {
       <Header title="Comidas" canFind />
       Comidas
       <Footer />
-    </h1>)
+    </h1>);
 }
- 

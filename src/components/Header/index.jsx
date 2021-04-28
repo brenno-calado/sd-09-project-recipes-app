@@ -5,7 +5,7 @@ import HeaderStyle from './styled';
 import ProfileIcon from '../../images/profileIcon.svg';
 import SearchBar from '../SearchBar/SearchBar';
 
-function Header({ title = 'teste', canFind = false }) {
+function Header({ title, canFind }) {
   return (
     <>
       <HeaderStyle>
@@ -22,6 +22,10 @@ function Header({ title = 'teste', canFind = false }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   canFind: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  canFind: false,
 };
 
 export default Header;
