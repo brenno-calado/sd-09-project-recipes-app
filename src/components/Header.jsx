@@ -28,7 +28,10 @@ function refineTitle(title) {
 function Header() {
   const { handleClickShowSearchButton, showSearchBar } = useContext(RecipesAppContext);
   const location = useLocation();
-  const title = refineTitle(location.pathname.slice(1));
+  let title = '';
+  if (location.pathname !== '/') {
+    title = refineTitle(location.pathname.slice(1));
+  }
   return (
     <div>
       <header className="header-container">

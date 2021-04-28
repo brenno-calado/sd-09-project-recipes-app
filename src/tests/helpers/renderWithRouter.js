@@ -2,11 +2,20 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
+import RecipesAppProvider from '../../context/RecipesAppProvider';
 
-const renderWithRouter = (component) => {
+const renderWithRouter = (component, route = '/') => {
   const history = createMemoryHistory();
+  history.push(route);
   return ({
-    ...render(<Router history={ history }>{component}</Router>), history,
+    ...render(
+      <RecipesAppProvider>
+        <Router history={ history }>
+          {component}
+        </Router>
+      </RecipesAppProvider>,
+    ),
+    history,
   });
 };
 
