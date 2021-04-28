@@ -20,7 +20,10 @@ function MainDrinks() {
       { (redirect) && <Redirect to={ `/bebidas/${recipes[0].idDrink}` } /> }
       <div className="main-drinks-container">
         { (showCards) && recipes.map((drink, index) => ((index < CARDS_LIMIT) && (
-          <div className="drink-card" data-testid={ `${index}-recipe-card` }>
+          <div
+            className="drink-card" data-testid={ `${index}-recipe-card` }
+            key={ `${index}-recipe-card` }
+          >
             <img
               src={ drink.strDrinkThumb }
               data-testid={ `${index}-card-img` }

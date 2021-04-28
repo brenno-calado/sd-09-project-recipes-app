@@ -20,7 +20,11 @@ function MainFoods() {
       { (redirect) && <Redirect to={ `/comidas/${recipes[0].idMeal}` } /> }
       <div className="main-foods-container">
         { (showCards) && recipes.map((meal, index) => ((index < CARDS_LIMIT) && (
-          <div className="food-card" data-testid={ `${index}-recipe-card` }>
+          <div
+            className="food-card"
+            data-testid={ `${index}-recipe-card` }
+            key={ `${index}-recipe-card` }
+          >
             <img
               src={ meal.strMealThumb }
               data-testid={ `${index}-card-img` }
