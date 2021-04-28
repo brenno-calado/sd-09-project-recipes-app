@@ -5,10 +5,10 @@ import BottomMenu from '../components/BottomMenu';
 function ExploreDrinks() {
   return (
     <>
-      <HeaderFoods>
+      <HeaderFoods hasSearchBar={ false }>
         <h1 hasSearchBar={ false } data-testid="page-title">Explorar Bebidas</h1>
       </HeaderFoods>
-      <h1>Explorar IBebidas</h1>
+      <h1>Explorar Bebidas</h1>
       <BottomMenu />
     </>
   );
