@@ -17,9 +17,6 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoodIncredients from './pages/ExploreFoodIncredients';
 import ExploreDrinksIncredients from './pages/ExploreDrinksIncredients';
 import ExploreFoodArea from './pages/ExploreFoodArea';
-import Profile from './pages/Profile';
-import DoneRecipes from './pages/DoneRecipes';
-import FavoriteRecipes from './pages/FavoriteRecipes';
 
 export default function App() {
   return (
