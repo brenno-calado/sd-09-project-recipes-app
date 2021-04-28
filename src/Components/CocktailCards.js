@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
-class CocktailCards extends Component {
-  constructor(props) {
-    super(props);
-    this.createCards = this.createCards.bind(this);
+class CocktailCards extends React.Component {
+  componentDidMount() {
+    const callCocktail = async () => {
+      const { getCocktails } = this.props;
+      await getCocktails();
+    };
+    callCocktail();
   }
 
   createCards() {
@@ -24,9 +28,10 @@ class CocktailCards extends Component {
   }
 
   render() {
+    const { cocktails } = this.props;
     return (
       <div className="cardContainer">
-        { this.createCards() }
+        {cocktails ? this.createCards() : <div />}
       </div>
     );
   }
@@ -36,8 +41,13 @@ CocktailCards.propTypes = {
   cocktails: PropTypes.shape({
     map: PropTypes.func.isRequired,
   }).isRequired,
+  getCocktails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ cocktails: state.cocktails.cocktails });
 
-export default connect(mapStateToProps)(CocktailCards);
+const mapDispatchToProps = (dispatch) => (
+  { getCocktails: () => dispatch(requestApiCocktails()) }
+);
+
+export default connect(mapStateToProps, mapDispatchToProps)(CocktailCards);

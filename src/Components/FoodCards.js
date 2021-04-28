@@ -1,12 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { requestApiMeals } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
-class FoodCards extends Component {
-  constructor(props) {
-    super(props);
-    this.createCards = this.createCards.bind(this);
+class FoodCards extends React.Component {
+  componentDidMount() {
+    const callMeal = async () => {
+      const { getMeals } = this.props;
+      await getMeals();
+    };
+    callMeal();
   }
 
   createCards() {
@@ -15,18 +19,27 @@ class FoodCards extends Component {
     return meals.map(
       (meal, index) => (index <= magicNumber
       && (
-        <div key={ index }>
-          <img src={ meal.strMealThumb } alt="meal" className="foodCards" />
-          <p>{meal.strMeal}</p>
+        <div
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+        >
+          <img
+            src={ meal.strMealThumb }
+            alt="meal"
+            data-testid={ `${index}-card-img` }
+            className="foodCards"
+          />
+          <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
         </div>)
       ),
     );
   }
 
   render() {
+    const { meals } = this.props;
     return (
       <div className="cardContainer">
-        { this.createCards() }
+        { meals ? this.createCards() : <div />}
       </div>
     );
   }
@@ -36,8 +49,13 @@ FoodCards.propTypes = {
   meals: PropTypes.shape({
     map: PropTypes.func.isRequired,
   }).isRequired,
+  getMeals: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({ meals: state.meals.meals });
 
-export default connect(mapStateToProps)(FoodCards);
+const mapDispatchToProps = (dispatch) => ({
+  getMeals: () => dispatch(requestApiMeals()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FoodCards);
