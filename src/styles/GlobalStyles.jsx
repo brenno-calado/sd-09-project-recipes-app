@@ -12,6 +12,11 @@ const GlobalStyles = createGlobalStyle`
   button, input {
     outline: none;
   }
+
+  .Footer {
+    position: fixed;
+    bottom: 0px;
+  }
 `;
 
 export default GlobalStyles;

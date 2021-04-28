@@ -27,6 +27,9 @@ export default function App() {
           <Switch>
             <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
             <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
+            <Route path="/explorar" component={ Explore } />
+            <Route path="/explorar/comidas" component={ ExploreFood } />
+            <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route
               path="/explorar/comidas/ingredientes"
               component={ ExploreFoodIngredients }

@@ -21,7 +21,7 @@ function Header({ title = 'teste', canFind = false }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  canFind: PropTypes.bool.isRequired,
+  canFind: PropTypes.bool,
 };
 
 export default Header;
