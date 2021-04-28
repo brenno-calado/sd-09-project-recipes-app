@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoginContext } from '../context';
-import './styles/ButtonGreen.css';
+import '../styles/ButtonGreen.css';
 
 function Login() {
   const [form, setForm] = useState({
@@ -20,7 +20,7 @@ function Login() {
   };
 
   const validate = () => {
-    const emailValidated = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email);
+    const emailValidated = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email);
     const passwordValidated = /[0-9a-zA-Z$*&@#]{7}/.test(form.password);
     if (emailValidated && passwordValidated) {
       return (setDisable(false));
