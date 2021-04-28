@@ -1,4 +1,4 @@
-import { FETCH_RECIPES } from '../actions';
+import { FETCH_RECIPES, CLEAR_LIST } from '../actions';
 
 const INITIAL_STATE = {
   recipesType: '',
@@ -11,6 +11,11 @@ const recipes = (state = INITIAL_STATE, { type, recipesList, recipesType }) => {
     return {
       ...state,
       recipesType,
+      recipesList,
+    };
+  case CLEAR_LIST:
+    return {
+      ...state,
       recipesList,
     };
   default:

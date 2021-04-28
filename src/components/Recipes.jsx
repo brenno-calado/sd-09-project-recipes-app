@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { useLocation } from 'react-router-dom';
+import { searchRecipe } from '../actions';
 import '../styles/Recipes.css';
 
 const TWELVE = 12;
 
-function Recipes({ recipesList, recipesType }) {
+function Recipes({ recipesList, recipesType, dispatchSearch }) {
+  const category = useLocation().pathname;
+  useEffect(() => {
+    if (category === '/comidas' && recipesList.length < 1) {
+      dispatchSearch(null, null, 'meal');
+      console.log('entrou no if 1');
+    }
+    if (category === '/bebidas' && recipesList.length < 1) {
+      dispatchSearch(null, null, 'cocktail');
+      console.log('entrou no if 2');
+    }
+  }, [category, dispatchSearch, recipesList]);
   if (!recipesList) {
     return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
@@ -64,11 +77,18 @@ function Recipes({ recipesList, recipesType }) {
 
 Recipes.propTypes = {
   recipes: PropTypes.arrayOf(Object),
+  dispatchSearch: PropTypes.func,
 }.isRequired;
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchSearch: (type, text, category) => (
+    dispatch(searchRecipe(type, text, category))
+  ),
+});
 
 const mapStateToProps = ({ recipes: { recipesType, recipesList } }) => ({
   recipesType,
   recipesList,
 });
 
-export default connect(mapStateToProps)(Recipes);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

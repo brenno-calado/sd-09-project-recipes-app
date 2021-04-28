@@ -9,7 +9,7 @@ const checkSearchType = (type, text, category) => {
   case 'Primeira Letra':
     return `https://www.the${category}db.com/api/json/v1/1/search.php?f=${text}`;
   default:
-    return ERROR;
+    return `https://www.the${category}db.com/api/json/v1/1/search.php?s=`;
   }
 };
 
