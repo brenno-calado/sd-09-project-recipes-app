@@ -19,7 +19,7 @@ export default function SearchBar(location) {
     setSearchOption(target.value);
   };
 
-  console.log(location);
+  console.log([location, searchOption]);
 
   return (
     <form className="form-group margin-10">
