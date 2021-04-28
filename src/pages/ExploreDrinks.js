@@ -1,39 +1,51 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
+import { getRandomDrink } from '../services/DrinksAPI';
 
-const requestDrink = () => {
-  const drink = 'drink from endpoint';
-  return drink;
-};
+const ExploreDrinks = () => {
+  const [drink, setDrink] = useState();
+  const [redirect, setRedirect] = useState(false);
 
-const ExploreDrinks = () => (
-  <div>
-    <Header title="Explorar Bebidas" />
-    <br />
-    <div className="buttons">
-      <Link to="/explorar/bebidas/ingredientes">
+  const getDrink = async () => {
+    const ramdomDrink = await getRandomDrink();
+    setDrink(ramdomDrink.drinks[0]);
+    setRedirect(true);
+  };
+
+  if (redirect && drink !== undefined) {
+    console.log(drink.idDrink);
+    return <Redirect to={ `/bebidas/${drink.idDrink}` } />;
+  }
+
+  return (
+    <div>
+      <Header title="Explorar Bebidas" />
+      <br />
+      <div className="buttons">
+        <Link to="/explorar/bebidas/ingredientes">
+          <Button
+            block
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </Button>
+        </Link>
+        <br />
         <Button
           block
-          data-testid="explore-by-ingredient"
+          data-testid="explore-surprise"
+          onClick={ () => getDrink() }
         >
-          Por Ingredientes
+          Me Surpreenda!
         </Button>
-      </Link>
+      </div>
       <br />
-      <Button
-        block
-        data-testid="explore-surprise"
-        onClick={ () => requestDrink() }
-      >
-        Me Surpreenda!
-      </Button>
+      <Menu />
     </div>
-    <br />
-    <Menu />
-  </div>
-);
+  );
+};
 export default ExploreDrinks;
