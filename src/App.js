@@ -17,6 +17,8 @@ import ProcessoBebida from './pages/ProcessoBebida';
 import TelaDePerfil from './pages/TelaDePerfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import PrincipalComidas from './pages/PrincipalComidas';
+import PrincipalBebidas from './pages/PrincipalBebidas';
 
 function App() {
   return (
@@ -24,8 +26,8 @@ function App() {
       <main className="main">
         <Switch>
           {/* <Route path="/" component={ Login } /> */}
-          {/* <Route path="/comidas" component={ PrincipalComidas } /> */}
-          {/* <Route path="/bebidas" component={ PrincipalBebidas } /> */}
+          <Route path="/comidas" component={ PrincipalComidas } />
+          <Route path="/bebidas" component={ PrincipalBebidas } />
           {/* Placeholder do id */}
           <Route path="/comidas/id-da-receita" component={ DetalhesComida } />
           {/* Placeholder do id */}

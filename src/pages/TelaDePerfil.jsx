@@ -9,8 +9,8 @@ function ProfileScreen() {
   const [favorite, setFavorite] = useState(false);
   const [logout, setLogout] = useState(false);
 
-  // retirar o useEffect depois que a funcionalidade de salvar no localStorage
-  // estiver funcionando  :)
+  // retirar o useEffect depois que a funcionalidade
+  // de salvar no localStorage estiver funcionando  :)
   useEffect(() => {
     localStorage.setItem('user', 'mcsWittho@gmail.com');
   }, []);
