@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+import '../App.css';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
 
-  async function fetchRecipe() {
-    const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const fetchResponse = await fetch(endpoint);
-    const jsonRecipe = await fetchResponse.json();
-    setRecipe(jsonRecipe.drinks[0]);
-    setLoading(false);
-  }
-
-  useEffect(() => fetchRecipe(), []);
+  useEffect(() => {
+    async function fetchRecipe() {
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonRecipe = await fetchResponse.json();
+      setRecipe(jsonRecipe.drinks[0]);
+      setLoading(false);
+    }
+    fetchRecipe();
+  }, [id]);
 
   function renderRecipePhoto() {
     return (
       <img
+        className="recipe-image"
         src={ recipe.strDrinkThumb }
-        style={ { width: 300 } } // tirar depois
         data-testid="recipe-photo"
         alt="Foto do prato"
         tagName="IMG"
@@ -82,19 +86,18 @@ function DrinkDetails({ match: { params: { id } } }) {
       recipe[ingredientKey] !== null && recipe[ingredientKey] !== ''
     )).map((ingredintsKeys) => (
       recipe[ingredintsKeys]
-    ))
+    ));
   }
 
   function filterMeasures() {
     const measureKeys = Object.keys(recipe);
     const measureIngredientKeys = measureKeys.filter((propriety) => (
-      propriety.includes('strMeasure'))
-    );
+      propriety.includes('strMeasure')));
     return measureIngredientKeys.filter((measureKey) => (
       recipe[measureKey] !== null && recipe[measureKey] !== ''
     )).map((measureKey) => (
       recipe[measureKey]
-    ))
+    ));
   }
 
   function renderRecipeIngredients() {
@@ -104,16 +107,14 @@ function DrinkDetails({ match: { params: { id } } }) {
       <div>
         <h4>Lista de Ingredientes</h4>
         <ul>
-          { ingredientsList.map((ingredient, index) => {
-            return (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ ingredient }
-              >
-                { `${ ingredient } (${measureList[index] ? measureList[index] : '' })` }
-              </li>
-            );
-          }) }
+          { ingredientsList.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient }
+            >
+              { `${ingredient} (${measureList[index] ? measureList[index] : ''})` }
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -137,15 +138,14 @@ function DrinkDetails({ match: { params: { id } } }) {
     return (
       <div
         data-testid="0-recomendation-card"
-      >
-
-      </div>
+      />
     );
   }
 
   function renderStartRecipeButton() {
     return (
       <button
+        type="button"
         data-testid="start-recipe-btn"
       >
         Iniciar receita
@@ -153,7 +153,7 @@ function DrinkDetails({ match: { params: { id } } }) {
     );
   }
 
-  if (loading) return <h1>Loading...</h1>
+  if (loading) return <h1>Loading...</h1>;
   return (
     <div>
       { renderRecipePhoto() }
@@ -165,8 +165,6 @@ function DrinkDetails({ match: { params: { id } } }) {
       { renderRecipeInstructions() }
       { renderRecomendedRecipes() }
       { renderStartRecipeButton() }
-
-      
     </div>
   );
 }
@@ -175,6 +173,6 @@ DrinkDetails.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
-}.isRequired
+}.isRequired;
 
 export default DrinkDetails;

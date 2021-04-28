@@ -1,25 +1,28 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+
+import '../App.css';
 
 function MealDetails({ match: { params: { id } } }) {
-
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
-  
-  async function fetchRecipe() {
-    const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    const fetchResponse = await fetch(endpoint);
-    const jsonRecipe = await fetchResponse.json();
-    setRecipe(jsonRecipe.meals[0]);
-    setLoading(false);
-  }
 
-  useEffect(() => fetchRecipe(), [])
+  useEffect(() => {
+    async function fetchRecipe() {
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonRecipe = await fetchResponse.json();
+      setRecipe(jsonRecipe.meals[0]);
+      setLoading(false);
+    }
+    fetchRecipe();
+  }, [id]);
 
   function renderRecipePhoto() {
     return (
       <img
+        className="recipe-image"
         src={ recipe.strMealThumb }
-        style={ { width: 300 } } // tirar depois
         data-testid="recipe-photo"
         alt="Foto do prato"
         tagName="IMG"
@@ -56,6 +59,7 @@ function MealDetails({ match: { params: { id } } }) {
   function renderShareButton() {
     return (
       <button
+        type="button"
         data-testid="share-btn"
       >
         Compartilhar
@@ -66,6 +70,7 @@ function MealDetails({ match: { params: { id } } }) {
   function renderFavoriteButton() {
     return (
       <button
+        type="button"
         data-testid="favorite-btn"
       >
         Favoritar
@@ -76,25 +81,23 @@ function MealDetails({ match: { params: { id } } }) {
   function filterIngredients() {
     const recipeKeys = Object.keys(recipe);
     const recipeIngredientKeys = recipeKeys.filter((propriety) => (
-      propriety.includes('strIngredient'))
-    );
+      propriety.includes('strIngredient')));
     return recipeIngredientKeys.filter((ingredientKey) => (
       recipe[ingredientKey] !== '' && recipe[ingredientKey] !== null
     )).map((ingredintsKeys) => (
       recipe[ingredintsKeys]
-    ))
+    ));
   }
 
   function filterMeasures() {
     const measureKeys = Object.keys(recipe);
     const measureIngredientKeys = measureKeys.filter((propriety) => (
-      propriety.includes('strMeasure'))
-    );
+      propriety.includes('strMeasure')));
     return measureIngredientKeys.filter((measureKey) => (
       recipe[measureKey] !== '' && recipe[measureKey] !== null
     )).map((measureKey) => (
       recipe[measureKey]
-    ))
+    ));
   }
 
   function renderRecipeIngredients() {
@@ -104,16 +107,14 @@ function MealDetails({ match: { params: { id } } }) {
       <div>
         <h4>Lista de Ingredientes</h4>
         <ul>
-          { ingredientsList.map((ingredient, index) => {
-            return (
-              <li
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ ingredient }
-              >
-                { `${ ingredient } (${ measureList[index] })` }
-              </li>
-            );
-          }) }
+          { ingredientsList.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient }
+            >
+              { `${ingredient} (${measureList[index]})` }
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -136,6 +137,7 @@ function MealDetails({ match: { params: { id } } }) {
   function renderRecipeVideo() {
     return (
       <iframe
+        title="video"
         width="300"
         height="300"
         src={ recipe.strYoutube }
@@ -144,19 +146,18 @@ function MealDetails({ match: { params: { id } } }) {
     );
   }
 
-function renderRecomendedRecipes() {
-  return (
-    <div
-      data-testid="0-recomendation-card"
-    >
-
-    </div>
-  );
-}
+  function renderRecomendedRecipes() {
+    return (
+      <div
+        data-testid="0-recomendation-card"
+      />
+    );
+  }
 
   function renderStartRecipeButton() {
     return (
       <button
+        type="button"
         data-testid="start-recipe-btn"
       >
         Iniciar receita
@@ -164,7 +165,7 @@ function renderRecomendedRecipes() {
     );
   }
 
-  if (loading) return <h1>Loading...</h1>
+  if (loading) return <h1>Loading...</h1>;
   return (
     <div>
       { renderRecipePhoto() }
@@ -177,8 +178,6 @@ function renderRecomendedRecipes() {
       { renderRecipeVideo() }
       { renderRecomendedRecipes() }
       { renderStartRecipeButton() }
-
-      
     </div>
   );
 }
@@ -187,6 +186,6 @@ MealDetails.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
-}.isRequired
+}.isRequired;
 
 export default MealDetails;
