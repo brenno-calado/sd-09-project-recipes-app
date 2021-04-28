@@ -5,6 +5,7 @@ import fetchFoodsAPI from '../services/fetchFoodsAPI';
 import fetchDrinksAPI from '../services/fetchDrinksAPI';
 import fetchFoodIngredientsAPI from '../services/fetchFoodIngredientsAPI';
 import fetchDrinkIngredientsAPI from '../services/fetchDrinkIngredientsAPI';
+import fetchFoodAreaAPI from '../services/fetchFoodsAreaAPI';
 
 const RecipesProvider = ({ children }) => {
   // passar os states
@@ -12,6 +13,7 @@ const RecipesProvider = ({ children }) => {
   const [recipesDrinks, setRecipesDrinks] = useState([]);
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [foodAreas, setFoodAreas] = useState([]);
 
   // passar as funcoes
   useEffect(() => {
@@ -38,6 +40,12 @@ const RecipesProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    fetchFoodAreaAPI().then((myAreas) => {
+      setFoodAreas(myAreas);
+    });
+  }, []);
+
   // passar o context
   const context = {
     recipesFoods,
@@ -46,6 +54,7 @@ const RecipesProvider = ({ children }) => {
     setRecipesDrinks,
     foodIngredients,
     drinkIngredients,
+    foodAreas,
   };
 
   // return
