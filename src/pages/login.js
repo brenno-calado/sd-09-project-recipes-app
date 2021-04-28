@@ -50,6 +50,7 @@ export default function Login() {
 
   return (
     <Container fluid className="login-wrapper">
+      <h1>Login</h1>
       <InputGroup className="mb-3">
         <InputGroup.Prepend>
           <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
@@ -89,6 +90,7 @@ export default function Login() {
         />
       </InputGroup>
       <Button
+        block
         variant="primary"
         disabled={ buttonStatus }
         type="button"
