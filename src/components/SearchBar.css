@@ -1,0 +1,17 @@
+.SearchBar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+}
+
+.radio-buttons {
+  align-items: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.radio-buttons label {
+  padding: 4px;
+  margin: 0;
+}

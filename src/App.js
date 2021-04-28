@@ -14,31 +14,27 @@ import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
 import Details from './pages/Details';
-// import Recipes from './pages/Recipes';
 
 function App() {
-  // const { dispatchTeste } = props;
   return (
     <Switch>
       <Route
         path="/comidas/:id/in-progress"
-        render={ (props) => <InProgress { ...props } /> }
+        component={ InProgress }
       />
-      <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
+      <Route path="/comidas/:id" component={ Details } />
       <Route path="/comidas" component={ Foods } />
-      {/* <Route path="/comidas" component={ Recipes } /> */}
-      <Route path="/bebidas/:id/in-progress" Ingredients />
-      <Route path="/bebidas/:id" render={ (props) => <InProgress { ...props } /> } />
+      <Route path="/bebidas/:id/in-progress" component={ InProgress } />
+      <Route path="/bebidas/:id" component={ Details } />
       <Route path="/bebidas" component={ Beverages } />
-      {/* <Route path="/bebidas" component={ Recipes } /> */}
       <Route path="/explorar/comidas/area" component={ Areas } />
       <Route
         path="/explorar/comidas/ingredientes"
-        render={ (props) => <Ingredients { ...props } /> }
+        component={ Ingredients }
       />
       <Route
         path="/explorar/bebidas/ingredientes"
-        render={ (props) => <Ingredients { ...props } /> }
+        component={ Ingredients }
       />
       <Route path="/explorar/comidas" component={ ExploreFoods } />
       <Route path="/explorar/bebidas" component={ ExploreBeverages } />
