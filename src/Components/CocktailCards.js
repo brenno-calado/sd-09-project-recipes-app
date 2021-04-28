@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
-function CocktailCards({ cocktails, getCocktails }) {
-  async function callCocktail() {
-    await getCocktails();
+class CocktailCards extends React.Component {
+  componentDidMount() {
+    const callCocktail = async () => {
+      const { getCocktails } = this.props;
+      await getCocktails();
+    };
+    callCocktail();
   }
 
-  useEffect(() => {
-    callCocktail();
-  }, []);
-
-  function createCards() {
+  createCards() {
+    const { cocktails } = this.props;
     const magicNumber = 11;
     return cocktails.map(
       (cocktail, index) => (index <= magicNumber
@@ -25,11 +26,15 @@ function CocktailCards({ cocktails, getCocktails }) {
       ),
     );
   }
-  return (
-    <div className="cardContainer">
-      { cocktails ? createCards() : <div />}
-    </div>
-  );
+
+  render() {
+    const { cocktails } = this.props;
+    return (
+      <div className="cardContainer">
+        {cocktails ? this.createCards() : <div />}
+      </div>
+    );
+  }
 }
 
 CocktailCards.propTypes = {
