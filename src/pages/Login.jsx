@@ -24,7 +24,7 @@ function Login() {
     const password = e.target.value;
     const minPasswordLength = 6;
     setUserPassword(password);
-    if (password.length >= minPasswordLength) {
+    if (password.length > minPasswordLength) {
       return setPasswordIsValid(true);
     } setPasswordIsValid(false);
   };
