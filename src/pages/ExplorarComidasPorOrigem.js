@@ -5,7 +5,7 @@ class ExplorarComidasPorOrigem extends Component {
   render() {
     const searchIcon = true;
     return (
-      <Header title="Explorar Comidas" searchIcon={ searchIcon } />
+      <Header title="Explorar Origem" searchIcon={ searchIcon } />
     );
   }
 }
