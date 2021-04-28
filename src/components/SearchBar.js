@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { fatchRecipesAction } from '../actions';
+import { fetchRecipesAction } from '../actions';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -31,7 +31,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { fatchRecipes } = this.props;
+    const { fetchRecipes } = this.props;
     const { radioSearchInput, searchInputValue } = this.state;
     return (
       <div>
@@ -73,7 +73,7 @@ class SearchBar extends React.Component {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => fatchRecipes(radioSearchInput, searchInputValue) }
+          onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
         >
           Buscar
         </button>
@@ -83,13 +83,13 @@ class SearchBar extends React.Component {
 }
 
 const mapDispatchToProps = (dispach) => ({
-  fatchRecipes: (filter, searchInputValue) => dispach(
-    fatchRecipesAction(filter, searchInputValue),
+  fetchRecipes: (filter, searchInputValue) => dispach(
+    fetchRecipesAction(filter, searchInputValue),
   ),
 });
 
 SearchBar.propTypes = {
-  fatchRecipes: func,
+  fetchRecipes: func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(SearchBar);
