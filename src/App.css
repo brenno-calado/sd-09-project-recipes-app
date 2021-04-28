@@ -67,12 +67,6 @@
   }
 }
 
-/* Styles background */
-
-body {
-  background: rgb(227, 238, 228);
-}
-
 /* Styles header */
 
 .header-component {
@@ -85,7 +79,6 @@ body {
 /* Styles Recipe card */
 
 .recipe-card-container {
-  background: rgb(227, 238, 228);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
