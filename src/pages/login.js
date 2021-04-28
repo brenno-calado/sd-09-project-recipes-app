@@ -17,7 +17,7 @@ export default function Login() {
     const passwordLenght = password.length;
     const minPassword = 6;
 
-    if (validateEmail.test(email) && passwordLenght >= minPassword) {
+    if (validateEmail.test(email) && passwordLenght > minPassword) {
       setButtonStatus(false);
     } else {
       setButtonStatus(true);
@@ -46,7 +46,7 @@ export default function Login() {
     setItemLocalStorage('user', { email });
   };
 
-  if (redirectLogin) return <Redirect to="/mainPage" />;
+  if (redirectLogin) return <Redirect to="/comidas" />;
 
   return (
     <Container fluid className="login-wrapper">
