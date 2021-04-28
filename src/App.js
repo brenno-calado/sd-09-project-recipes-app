@@ -24,7 +24,7 @@ function App() {
         render={ (props) => <InProgress { ...props } /> }
       />
       <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
-      <Route path="/comidas" component={ Foods } />
+      <Route path="/comidas" render={ (props) => <Foods { ...props } /> } />
       <Route path="/bebidas/:id/in-progress" Ingredients />
       <Route path="/bebidas/:id" render={ (props) => <InProgress { ...props } /> } />
       <Route path="/bebidas" component={ Beverages } />
