@@ -8,36 +8,41 @@ function Perfil() {
     <div>
       <Header page="Perfil" />
       <p data-testid="profile-email">
-        Email
+        {localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).email}
       </p>
-      <button
-        type="button"
-        data-testid="profile-done-btn"
+      <Link
+        to="/receitas-feitas"
       >
-        <Link
-          to="/receitas-feitas"
+        <button
+          type="button"
+          data-testid="profile-done-btn"
         >
           Receitas Feitas
-        </Link>
-      </button>
+        </button>
+      </Link>
 
-      <button
-        type="button"
-        data-testid="profile-favorite-btn"
+      <Link
+        to="/receitas-favoritas"
       >
-        <Link
-          to="/receitas-favoritas"
+        <button
+          type="button"
+          data-testid="profile-favorite-btn"
         >
           Receitas Favoritas
-        </Link>
-      </button>
+        </button>
+      </Link>
 
-      <button
-        type="button"
-        data-testid="profile-logout-btn"
+      <Link
+        to="/"
       >
-        Sair
-      </button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ () => localStorage.clear() }
+        >
+          Sair
+        </button>
+      </Link>
       Perfil
       <Footer />
     </div>
