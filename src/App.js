@@ -2,17 +2,17 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Perfil from './pages/Perfil';
+import Perfil from './pages/Profile';
 import Bebidas from './pages/Drinks';
-import Explorar from './pages/Explorar';
-import ExplorarComidas from './pages/ExplorarComidas';
-import ExplorarBebidas from './pages/ExplorarBebidas';
-import ExplorarIngredientesComida from './pages/ExplorarIngredientesComida';
-import ExplorarIngredientesBebida from './pages/ExplorarIngredientesBebida';
-import ExplorarComidasPorOrigem from './pages/ExplorarComidasPorOrigem';
-import ReceitasFeitas from './pages/ReceitasFeitas';
-import ReceitasFavoritas from './pages/ReceitasFavoritas';
-import Comidas from './pages/Meals';
+import Explorar from './pages/Explore';
+import ExplorarComidas from './pages/ExploreMeals';
+import ExplorarBebidas from './pages/ExploreDrinks';
+import ExplorarIngredientesComida from './pages/ExploreMealsByIngredients';
+import ExplorarIngredientesBebida from './pages/ExploreDrinksByIngredients';
+import ExplorarComidasPorOrigem from './pages/ExploreMealsByOrigin';
+import ReceitasFeitas from './pages/RecipesMade';
+import ReceitasFavoritas from './pages/FavoriteRecipes';
+import Meals from './pages/Meals';
 import Details from './components/Details';
 
 import './App.css';
@@ -36,7 +36,7 @@ function App() {
       <Route path="/bebidas/:id" render={ (props) => <Details { ...props } /> } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
-      <Route path="/comidas" component={ Comidas } />
+      <Route path="/comidas" component={ Meals } />
       <Route path="/perfil" component={ Perfil } />
       <Route path="/bebidas" component={ Bebidas } />
       <Route path="/explorar" component={ Explorar } />
