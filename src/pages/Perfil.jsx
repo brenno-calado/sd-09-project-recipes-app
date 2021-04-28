@@ -8,7 +8,7 @@ function Perfil() {
     <div>
       <Header page="Perfil" />
       <p data-testid="profile-email">
-        {JSON.parse(localStorage.getItem('user')).email}
+        {localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).email}
       </p>
       <Link
         to="/receitas-feitas"
