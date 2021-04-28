@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../context/Context';
-import { fecthByCategory, fetchCategories } from '../services/api';
+import { fecthByCategory, fetchCategories, fecthForName } from '../services/api';
 
 function DrinksCategories() {
   const { setSearchResult } = useContext(Context);
   const [categories, setCategories] = useState([]);
+  const [toggleClick, setToggleClick] = useState({});
   const maxArrayLength = 5;
 
   const getCategories = async () => {
@@ -16,8 +17,11 @@ function DrinksCategories() {
     getCategories();
   }, []);
 
-  const handleClick = async ({ target: { value } }) => {
-    setSearchResult(await fecthByCategory(value, false));
+  const handleClick = async ({ target: { value, name } }) => {
+    if (toggleClick[name] || name === 'All') {
+      setSearchResult(await fecthForName('', false));
+    } else setSearchResult(await fecthByCategory(value, false));
+    setToggleClick({ [name]: !toggleClick[name] });
   };
 
   const createButton = (name) => (
@@ -26,6 +30,7 @@ function DrinksCategories() {
       key={ name }
       type="button"
       value={ name }
+      name={ name }
       onClick={ handleClick }
     >
       { name }
@@ -34,7 +39,15 @@ function DrinksCategories() {
 
   return (
     <section>
-      <button type="button" value="" onClick={ handleClick }>All</button>
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        value=""
+        name="All"
+        onClick={ handleClick }
+      >
+        All
+      </button>
       { !categories.length ? null
         : categories.map(({ strCategory }, index) => (
           index < maxArrayLength ? createButton(strCategory) : false

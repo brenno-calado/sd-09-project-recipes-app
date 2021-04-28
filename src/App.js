@@ -17,7 +17,7 @@ import {
   MealsInProgress,
   DrinksInProgress,
 } from './pages';
-// import './App.css';
+import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 

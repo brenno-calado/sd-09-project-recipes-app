@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 function DrinksComponent({ data: { drinks } }) {
   if (drinks === null) {
@@ -12,16 +12,18 @@ function DrinksComponent({ data: { drinks } }) {
 
   return (
     <main>
-      { drinks.map(({ strDrink, strDrinkThumb }, index) => (
+      { drinks.map(({ strDrink, strDrinkThumb, idDrink }, index) => (
         index < maxArrayLength ? (
-          <button data-testid={ `${index}-recipe-card` } type="button" key={ strDrink }>
-            <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ strDrinkThumb }
-              alt={ strDrink }
-            />
-          </button>
+          <Link to={ `/bebidas/${idDrink}` } key={ idDrink }>
+            <button data-testid={ `${index}-recipe-card` } type="button">
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ strDrinkThumb }
+                alt={ strDrink }
+              />
+              <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
+            </button>
+          </Link>
         ) : false
       )) }
     </main>
