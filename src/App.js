@@ -7,7 +7,6 @@ import Drinks from './pages/Drinks/Drinks';
 import UserProfile from './pages/UserProfile/UserProfile';
 import Explorer from './pages/Explorer/Explorer';
 
-
 function App() {
   return (
     <Switch>

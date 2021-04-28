@@ -1,11 +1,9 @@
 import React from 'react';
 import Footer from '../../common/components/Footer';
 
-const Explorer = (props) => {
+function Explorer() {
   return (
-    <>
-      <Footer />
-    </>
+    <Footer />
   );
 }
 

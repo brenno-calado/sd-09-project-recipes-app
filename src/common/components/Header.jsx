@@ -10,8 +10,8 @@ const Header = (props) => {
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
   const createSearchButton = () => (
     <button
-    type="button"
-    onClick={ () => setDisplaySearchBar(!displaySearchBar) }
+      type="button"
+      onClick={ () => setDisplaySearchBar(!displaySearchBar) }
     >
       <img
         data-testid="search-top-btn"
