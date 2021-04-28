@@ -1,14 +1,14 @@
-const MEAL_DB_BASE = 'www.themealdb.com/api/json/v1/1/';
+const MEAL_DB_BASE = 'https://www.themealdb.com/api/json/v1/1/';
 
-const getMeals = async () => {
+const getMealsByName = async (name) => {
   try {
-    const mealDBRequest = await fetch(`${MEAL_DB_BASE}search.php?s=Arrabiata`);
+    const mealDBRequest = await fetch(`${MEAL_DB_BASE}search.php?s=${name}`);
     const respJson = await mealDBRequest.json();
     console.log('fetch', respJson);
     return respJson;
   } catch (error) {
-    console.log(error);
+    console.log('Deu ruim...', error);
   }
 };
 
-export default getMeals;
+export default getMealsByName;

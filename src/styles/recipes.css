@@ -41,7 +41,7 @@
   width: 337px;
 }
 
-button {
+.button {
   border: none;
   border-radius: 10px;
   box-shadow: 3px 6px 5px rgba(0, 0, 0, 0.2);
@@ -54,8 +54,19 @@ button {
   width: 327px;
 }
 
-button:active {
+.button:active {
   background-color: var(--gray-btn-hover);
+}
+
+.small-button {
+  background-color: var(--gray);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+  height: 45px;
+  outline: none;
+  transition: 160ms;
+  width: 102px;
 }
 
 .footer {
@@ -65,7 +76,7 @@ button:active {
   height: 58px;
   justify-content: space-between;
   padding: 4px;
-  position: absolute;
+  position: fixed;
   width: 360px;
 }
 
@@ -73,4 +84,11 @@ button:active {
 .email {
   font-size: 30px;
   margin: 42px 23px;
+}
+
+/* Tela deReceitas Feitas */
+.btn-group-done {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
 }

@@ -15,6 +15,7 @@ function ExplorarComidasArea() {
       </select>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-food"
       >
@@ -22,6 +23,7 @@ function ExplorarComidasArea() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-drinks"
       >

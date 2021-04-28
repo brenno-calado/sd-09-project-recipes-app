@@ -19,13 +19,14 @@ import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import PrincipalComidas from './pages/PrincipalComidas';
 import PrincipalBebidas from './pages/PrincipalBebidas';
+import Login from './pages/Login';
 
 function App() {
   return (
     <MealProvider>
       <main className="main">
         <Switch>
-          {/* <Route path="/" component={ Login } /> */}
+          <Route exact path="/" component={ Login } />
           <Route path="/comidas" component={ PrincipalComidas } />
           <Route path="/bebidas" component={ PrincipalBebidas } />
           {/* Placeholder do id */}
@@ -46,7 +47,8 @@ function App() {
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
           <Route
-            exactpath="/explorar/comidas/ingredientes"
+            exact
+            path="/explorar/comidas/ingredientes"
             component={ ExplorarComidasIng }
           />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />

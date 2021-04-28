@@ -9,6 +9,7 @@ function ExplorarComidasIng() {
       <Header textProp="Explorar Ingredientes" />
 
       <button
+        className="button"
         type="button"
         data-testid="explore-food"
       >
@@ -16,6 +17,7 @@ function ExplorarComidasIng() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-drinks"
       >

@@ -41,6 +41,7 @@ function ProfileScreen() {
       </p>
 
       <button
+        className="button"
         type="button"
         data-testid="profile-done-btn"
         name="done"
@@ -50,6 +51,7 @@ function ProfileScreen() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="profile-favorite-btn"
         name="favorite"
@@ -59,6 +61,7 @@ function ProfileScreen() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="profile-logout-btn"
         name="logout"

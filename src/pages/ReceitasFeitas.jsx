@@ -6,7 +6,35 @@ function ReceitasFeitas() {
   return (
     <>
       <Header textProp="Receitas Feitas" />
-      <h1>Receitas Feitas</h1>
+      <div className="btn-group-done">
+        <button
+          className="small-button"
+          type="button"
+          data-testid="filter-by-all-btn"
+          onClick={ () => {} }
+        >
+          All
+        </button>
+
+        <button
+          className="small-button"
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ () => {} }
+        >
+          Food
+        </button>
+
+        <button
+          className="small-button"
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ () => {} }
+        >
+          Drinks
+        </button>
+
+      </div>
     </>
   );
 }
