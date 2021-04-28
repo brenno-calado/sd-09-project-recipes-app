@@ -1,0 +1,16 @@
+.main-drinks-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.drink-card {
+  height: 150px;
+  margin: 15px;
+  width: 150px;
+}
+
+.drink-card > img {
+  height: 120px;
+  width: 150px;
+}
