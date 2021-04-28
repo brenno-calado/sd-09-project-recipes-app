@@ -49,7 +49,6 @@ const Header = () => {
     renderSearch = false;
     headerTitle += 'Receitas Feitas';
   }
-
   if (pathName[1] === 'receitas-favoritas') {
     renderSearch = false;
     headerTitle += 'Receitas Favoritas';
