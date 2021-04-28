@@ -8,6 +8,7 @@ function Login() {
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
 
   // Email validation source: https://www.kindacode.com/article/live-email-validation-in-react-with-regex/
   const validateEmail = (e) => {
@@ -31,6 +32,13 @@ function Login() {
   const populateStorage = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
+    const storeEmail = { email: { userEmail } };
+    localStorage.setItem('user', storeEmail);
+  };
+
+  const handleClick = () => {
+    populateStorage();
+    setLoggedIn(true);
   };
 
   return (
@@ -64,7 +72,7 @@ function Login() {
             type="submit"
             data-testid="login-submit-btn"
             disabled={ emailIsValid && passwordIsValid ? '' : true }
-            onClick={ populateStorage }
+            onClick={ handleClick }
           >
             Entrar
           </Button>
