@@ -1,9 +1,10 @@
 import React from 'react';
+import Header from '../Components/Header';
 
 class ExploreFoodByIng extends React.Component {
   render() {
     return (
-      <div>teste</div>
+      <div><Header name="Explorar Ingredientes" /></div>
     );
   }
 }
