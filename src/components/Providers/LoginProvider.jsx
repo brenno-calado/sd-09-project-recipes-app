@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
-import { values } from 'lodash';
 import { LoginContext } from '../../context';
 
 export default function LoginProvider({ children }) {
-  const [mealsToken, setMealstoken] = useState('');
+  const [mealsToken, setMealsToken] = useState('');
   const [cocktailsToken, setCocktailsToken] = useState('');
-  const [email, setEmail] = useState('');
+  const [user, setUser] = useState({ email: '' });
 
   const value = {
     values: {
       mealsToken,
       cocktailsToken,
-      email,
+      user,
     },
     actions: {
-      submitLogin(userEmail) {
-        setMealstoken(1);
+      submitLogin(email) {
+        setMealsToken(1);
         setCocktailsToken(1);
-        setEmail(userEmail);
+        setUser({ email });
       },
     },
   };
 
   useEffect(() => {
-    Object.keys(values.value).forEach((key) => (
-      localStorage.setItem(key, values.value[key])
+    Object.keys(value.values).forEach((key) => (
+      localStorage.setItem(key, JSON.stringify(value.values[key]))
     ));
-  }, [email]);
+  }, [user, value.values]);
 
   return (
     <LoginContext.Provider value={ value }>

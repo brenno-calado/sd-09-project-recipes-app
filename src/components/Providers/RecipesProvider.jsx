@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 
@@ -29,10 +29,10 @@ export default function RecipesProvider({ children }) {
   };
 
   useEffect(() => {
-    Object.keys(values.value).forEach((key) => (
-      localStorage.setItem(key, values.value[key])
+    Object.keys(value.values).forEach((key) => (
+      localStorage.setItem(key, value.values[key])
     ));
-  }, [doneRecipes, favoriteRecipes, inProgressRecipes]);
+  }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   return (
     <RecipesContext.Provider value={ value }>
