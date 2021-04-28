@@ -31,15 +31,17 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { fatchRecipes } = this.props;
+    const { fatchRecipes, searchInput } = this.props;
     const { radioSearchInput, searchInputValue } = this.state;
     return (
       <div>
-        <input
-          data-testid="search-input"
-          placeholder="Buscar"
-          onChange={ this.inputTextHandleChange }
-        />
+        {searchInput && (
+          <input
+            data-testid="search-input"
+            placeholder="Buscar"
+            onChange={ this.inputTextHandleChange }
+          />
+        )}
         <label htmlFor="ingredient-search-radio">
           <input
             id="ingredient"
