@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchSearch } from '../Redux/actions';
 import './SearchBar.css';
 
 function SearchBar(props) {
-  const { foods = true } = props; // talvez seja necessário trocar a logica para a seleção da api
+  const location = useLocation();
+  const endPoint = ((location.pathname === '/comidas')
+    ? 'https://www.themealdb.com/api/json/v1/1/'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/');
   const [search, setSearch] = useState({
-    urlToUse: (foods) ? 'https://www.themealdb.com/api/json/v1/1/' : 'https://www.thecocktaildb.com/api/json/v1/1/',
+    endPoint,
     word: '',
     radio: 'filter.php?i=',
   });
@@ -18,11 +22,11 @@ function SearchBar(props) {
 
   const handleClick = () => {
     const { fetchSearchItems } = props;
-    const { urlToUse, word, radio } = search;
+    const { endPoint, word, radio } = search;
     if (word.length >= 2 && radio === 'search.php?f=') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const url = `${urlToUse}${radio}${word}`;
+    const url = `${endPoint}${radio}${word}`;
     fetchSearchItems(url);
   };
 

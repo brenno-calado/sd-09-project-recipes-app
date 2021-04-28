@@ -7,9 +7,10 @@ import './Header.css';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import Loading from './Loading';
 
 function Header(props) {
-  const { title, searchBtn = false, search, showSearchBar } = props;
+  const { title, searchBtn = false, search, showSearchBar, loading } = props;
   const renderSearchButton = () => (
     <button
       type="button"
@@ -41,12 +42,14 @@ function Header(props) {
     <div>
       {renderHeader()}
       {search && <SearchBar />}
+      {loading && <Loading />}
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
   search: state.searchBar.search,
+  loading: state.searchBar.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({

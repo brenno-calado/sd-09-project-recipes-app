@@ -1,4 +1,5 @@
 import React from 'react';
+import rockGlass from '../images/rockGlass.svg';
 
 function Loading() {
   return (

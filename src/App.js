@@ -16,7 +16,6 @@ import ExploreFoods from './pages/ExploreFoods';
 import Details from './pages/Details';
 
 function App() {
-  // const { dispatchTeste } = props;
   return (
     <Switch>
       <Route
