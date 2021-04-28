@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import myContext from '../context/myContext';
-import fetchFoodsAPI from '../services/fetchFoodsAPI';
+import { fetchFoodsAPI } from '../services/fetchFoodsAPI';
 
 const imgStyle = {
   maxWidth: '150x',
