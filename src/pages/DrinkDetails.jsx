@@ -80,7 +80,7 @@ function DrinkDetails({
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
         {recommendedFoods.slice(0, MAX_SLICE).map((item) => (
-          <div key={ `${item.index}` } className={ `${item.index}-recomendation-card` }>
+          <div key={ `${item.index}` } data-testid={ `${item.index}-recomendation-card` }>
             <a href={ `/comidas/${item.idDrink}` }>
               <img src={ `${item.strDrinkThumb}` } alt="" />
               <h2>{item.strDrink}</h2>

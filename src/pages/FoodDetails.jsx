@@ -77,7 +77,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
         {recommendedFoods.map((item) => (
-          <div key={ `${item.index}` } className={ `${item.index}-recomendation-card` }>
+          <div key={ `${item.index}` } data-testid={ `${item.index}-recomendation-card` }>
             <a href={ `/comidas/${item.idMeal}` }>
               <img src={ `${item.strMealThumb}` } alt="" />
               <h2>{item.strMeal}</h2>
