@@ -6,7 +6,7 @@ import SearchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 const Header = (props) => {
-  const { title, isSearchEnable = true } = props;
+  const { title, isSearchEnable } = props;
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
   const createSearchButton = () => (
     <button
@@ -58,9 +58,13 @@ const Header = (props) => {
   );
 };
 
+Header.defaultProps = {
+  isSearchEnable: true,
+};
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  isSearchEnable: PropTypes.bool.isRequired,
+  isSearchEnable: PropTypes.bool,
   value: PropTypes.string.isRequired,
 };
 
