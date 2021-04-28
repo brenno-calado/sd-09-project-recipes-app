@@ -6,7 +6,7 @@ export default function ScreenProvider({ children }) {
   const [category, setCategory] = useState('meals');
   const [searchBarView, setSearchBarView] = useState(false);
 
-  value = {
+  const value = {
     values: {
       category,
       searchBarView,

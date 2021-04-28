@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { LoginContext } from '../context';
+import './styles/ButtonGreen.css';
 
 function Login() {
   const [form, setForm] = useState({
@@ -6,11 +9,8 @@ function Login() {
     password: '',
   });
   const [disable, setDisable] = useState(true);
-  const [errors, setErrors] = useState({});
-  const [tokens, setToken] = useState({
-    mealsToken: 1,
-    cocktailsToken: 1,
-  });
+  const { actions } = useContext(LoginContext);
+  const history = useHistory();
 
   const handleChange = (event) => {
     setForm({
@@ -20,8 +20,8 @@ function Login() {
   };
 
   const validate = () => {
-    const emailValidated = /^[\S.]+@[a-z]+.\w{2,3}$/g.test(form.email);
-    const passwordValidated = /[0-9a-zA-Z$*&@#]{6}/.test(form.password);
+    const emailValidated = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email);
+    const passwordValidated = /[0-9a-zA-Z$*&@#]{7}/.test(form.password);
     if (emailValidated && passwordValidated) {
       return (setDisable(false));
     } return (setDisable(true));
@@ -33,15 +33,8 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrors(validate());
-  };
-
-  const localStorage = () => {
-    if (handleSubmit) {
-      const submitTokens = localStorage.getItem(tokens);
-      console.log(submitTokens);
-      return submitTokens;
-    }
+    actions.submitLogin(form.email);
+    history.push('/comidas');
   };
 
   return (
@@ -73,12 +66,15 @@ function Login() {
         </label>
         <br />
         <button
+          className="button-green"
           type="button"
           onClick={ handleSubmit }
           disabled={ disable }
           data-testid="login-submit-btn"
         >
+
           Entrar
+
         </button>
       </form>
     </div>
