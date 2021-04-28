@@ -1,11 +1,11 @@
 import React from 'react';
 import Footer from '../components/Footer';
 
-const Foods = () => (
+const DrinkByIngredients = () => (
   <div>
-    <span>Foods</span>
+    <span>DrinkByIngredients</span>
     <Footer />
   </div>
 );
 
-export default Foods;
+export default DrinkByIngredients;
