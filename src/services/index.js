@@ -67,3 +67,17 @@ export const getDrinkCategories = async () => {
   const { drinks } = await fetch(url).then((response) => response.json());
   return drinks;
 };
+
+export const getFoodsFromCategory = async (category) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+  const maxMealsNumber = 12;
+  const { meals } = await fetch(url).then((response) => response.json());
+  return meals.slice(0, maxMealsNumber);
+};
+
+export const getDrinksFromCategory = async (category) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+  const maxDrinksNumber = 12;
+  const { drinks } = await fetch(url).then((response) => response.json());
+  return drinks.slice(0, maxDrinksNumber);
+};
