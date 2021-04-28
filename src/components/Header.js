@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import iconProfile from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -28,7 +29,7 @@ function Header(props) {
         <button
           type="button"
           data-testid="search-top-btn"
-          onClick={ () => setShowSearchBar(showSearchBar === true ? false : true) }
+          onClick={ () => setShowSearchBar(!showSearchBar) }
         >
           <img src={ searchIcon } alt="icon-search" />
         </button>
@@ -36,5 +37,9 @@ function Header(props) {
     </header>
   );
 }
+
+Header.propTypes = {
+  showSearchButton: PropTypes.bool.isRequired,
+};
 
 export default Header;
