@@ -10,9 +10,9 @@ function Header({ page, search }) {
   const [searchBar, setSearchBar] = useState(false);
   const handleSearch = () => {
     if (searchBar) {
-      setSearhBar(false);
+      setSearchBar(false);
     } else {
-      setSearhBar(true);
+      setSearchBar(true);
     }
   };
 
