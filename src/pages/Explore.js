@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
+import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Explore() {
@@ -21,7 +23,6 @@ function Explore() {
   return (
     <div>
       <Header />
-
       { pathname === '/explorar' ? (
         <div>
           <button
@@ -41,6 +42,7 @@ function Explore() {
             Explorar Bebidas
           </button>
         </div>) : null }
+      <Footer />
     </div>
   );
 }
