@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -8,31 +8,34 @@ import BottomMenu from '../components/BottomMenu';
 function Foods() {
   const { handleFetchFoodClick, recipesData } = useRecipeContext();
 
-  useEffect(() => {
-    if (recipesData.length === 1) {
-      console.log('objeto', recipesData.meals[0].idMeal);
-      const oneItem = recipesData.meals.map(({ idMeal }) => idMeal);
-      console.log('one', oneItem);
-      return (<Redirect to="/comidas/1" />);
-    }
-  }, [recipesData]);
+  function header() {
+    return (
+      <>
+        <HeaderFoods hassearchbar>
+          <h1 data-testid="page-title">Comidas</h1>
+        </HeaderFoods>
+        <SearchBar>
+          <button
+            onClick={ handleFetchFoodClick }
+            data-testid="exec-search-btn"
+            type="button"
+          >
+            Buscar
+          </button>
+        </SearchBar>
+        <BottomMenu />
+      </>
+    );
+  }
+
+  if (recipesData.meals) {
+    const mealId = recipesData.meals.map(({ idMeal }) => idMeal);
+    return recipesData.meals.length === 1 ? (<Redirect to={ `/comidas/${mealId}` } />)
+      : header();
+  }
 
   return (
-    <>
-      <HeaderFoods hassearchbar>
-        <h1 data-testid="page-title">Comidas</h1>
-      </HeaderFoods>
-      <SearchBar>
-        <button
-          onClick={ handleFetchFoodClick }
-          data-testid="exec-search-btn"
-          type="button"
-        >
-          Buscar
-        </button>
-      </SearchBar>
-      <BottomMenu />
-    </>
+    header()
   );
 }
 
