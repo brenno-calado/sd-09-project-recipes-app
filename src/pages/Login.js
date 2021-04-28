@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import fetchDrinks from '../services/api';
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
@@ -15,6 +16,7 @@ export default function Login() {
     } else {
       setButtonOff(true);
     }
+    fetchDrinks().then(response => console.log(response))
   }, [password, userEmail]);
 
   function handleChangeEmail({ target }) {
@@ -56,7 +58,7 @@ export default function Login() {
           Entrar
         </button>
       </Link>
-
+      
     </div>
   );
 }
