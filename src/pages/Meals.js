@@ -15,7 +15,7 @@ class Comidas extends React.Component {
         <SearchBar />
         {recipes.length === 1
           && <Redirect to={ `${pathName}/${recipes[0][idType]}` } /> }
-        {recipes.map((meal) => (
+        {recipes.map((meal, index) => (
           <RecipeMealCard key={ meal[idType] } meal={ meal } index={ index } />))}
       </div>
     );
