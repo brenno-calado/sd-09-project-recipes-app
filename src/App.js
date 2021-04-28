@@ -3,17 +3,20 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/comidas" />
-        <Route exact path="/">
-          <Login />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <MealsAndDrinkProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/comidas" />
+          <Route exact path="/">
+            <Login />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </MealsAndDrinkProvider>
   );
 }
 
