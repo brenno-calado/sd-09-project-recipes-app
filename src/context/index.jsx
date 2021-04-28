@@ -11,7 +11,7 @@ function Provider({ children }) {
   const [formValidation, setFormValidation] = useState(false);
 
   useEffect(() => {
-    fetchApi('food', 'letters', 'l');
+    fetchApi('food', 'details', '52843');
   }, []);
 
   const value = {

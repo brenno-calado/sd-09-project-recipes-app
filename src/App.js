@@ -39,7 +39,10 @@ export default function App() {
             <Route path="/explorar/comidas/area" component={ ExploreFoodArea } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
-            <Route path="/comidas/:id" component={ FoodDetails } />
+            <Route
+              path="/comidas/:id"
+              render={ (props) => <FoodDetails { ...props } /> }
+            />
             <Route path="/bebidas/:id" component={ DrinkDetails } />
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
