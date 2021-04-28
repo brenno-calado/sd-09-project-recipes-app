@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -8,7 +9,6 @@ function Login() {
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
 
   // Email validation source: https://www.kindacode.com/article/live-email-validation-in-react-with-regex/
   const validateEmail = (e) => {
@@ -38,7 +38,6 @@ function Login() {
 
   const handleClick = () => {
     populateStorage();
-    setLoggedIn(true);
   };
 
   return (
@@ -68,14 +67,16 @@ function Login() {
               data-testid="password-input"
             />
           </Form.Group>
-          <Button
-            type="submit"
-            data-testid="login-submit-btn"
-            disabled={ emailIsValid && passwordIsValid ? '' : true }
-            onClick={ handleClick }
-          >
-            Entrar
-          </Button>
+          <Link to="/comidas">
+            <Button
+              type="submit"
+              data-testid="login-submit-btn"
+              disabled={ emailIsValid && passwordIsValid ? '' : true }
+              onClick={ handleClick }
+            >
+              Entrar
+            </Button>
+          </Link>
         </Form>
       </Container>
     </main>
