@@ -8,7 +8,7 @@ class Header extends React.Component {
   render() {
     const { title, searchIcon } = this.props;
     return (
-      <header>
+      <header className="header-component">
         <Link to="/perfil">
           <img
             src={ profileIcon }

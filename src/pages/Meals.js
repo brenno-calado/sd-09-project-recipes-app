@@ -11,10 +11,12 @@ class Comidas extends React.Component {
     const searchIcon = true;
     return (
       <div>
-        <SearchBar />
-        {recipes.meals && recipes.meals.map((meal) => (
-          <RecipeCard key={ meal.idMeal } meal={ meal } />))}
         <Header title="Comidas" searchIcon={ searchIcon } />
+        <SearchBar />
+        <div className="recipe-card-container">
+          {recipes.meals && recipes.meals.map((meal) => (
+            <RecipeCard key={ meal.idMeal } meal={ meal } />))}
+        </div>
       </div>
     );
   }

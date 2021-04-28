@@ -66,3 +66,48 @@
     transform: rotate(-10deg);
   }
 }
+
+/* Styles background */
+
+body {
+  background: rgb(227, 238, 228);
+}
+
+/* Styles header */
+
+.header-component {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+/* Styles Recipe card */
+
+.recipe-card-container {
+  background: rgb(227, 238, 228);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+.recipe-card {
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  width: 135px;
+}
+
+.recipe-card img {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+}
+
+.recipe-card p {
+  margin: 0;
+  padding: 10px;
+}

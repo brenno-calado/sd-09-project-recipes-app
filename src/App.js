@@ -2,16 +2,16 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Perfil from './pages/Perfil';
-import Bebidas from './pages/Bebidas';
-import Explorar from './pages/Explorar';
-import ExplorarComidas from './pages/ExplorarComidas';
-import ExplorarBebidas from './pages/ExplorarBebidas';
-import ExplorarIngredientesComida from './pages/ExplorarIngredientesComida';
-import ExplorarIngredientesBebida from './pages/ExplorarIngredientesBebida';
-import ExplorarComidasPorOrigem from './pages/ExplorarComidasPorOrigem';
-import ReceitasFeitas from './pages/ReceitasFeitas';
-import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Perfil from './pages/Profile';
+import Bebidas from './pages/Drinks';
+import Explorar from './pages/Explore';
+import ExplorarComidas from './pages/ExploreMeals';
+import ExplorarBebidas from './pages/ExploreDrinks';
+import ExplorarIngredientesComida from './pages/ExploreMealsByIngredients';
+import ExplorarIngredientesBebida from './pages/ExploreDrinksByIngredients';
+import ExplorarComidasPorOrigem from './pages/ExploreMealsByOrigin';
+import ReceitasFeitas from './pages/RecipesMade';
+import ReceitasFavoritas from './pages/FavoriteRecipes';
 import Comidas from './pages/Meals';
 
 import './App.css';
@@ -34,7 +34,7 @@ function App() {
       />
       <Route
         exact
-        path="/explorar/bebidas/ingredientes"
+        path="/explorar/Drinks/ingredientes"
         component={ ExplorarIngredientesBebida }
       />
       <Route exact path="/explorar/comidas/area" component={ ExplorarComidasPorOrigem } />

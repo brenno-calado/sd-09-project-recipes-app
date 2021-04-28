@@ -5,7 +5,7 @@ class RecipeCard extends React.Component {
   render() {
     const { meal } = this.props;
     return (
-      <div>
+      <div className="recipe-card">
         <img src={ meal.strMealThumb } alt={ meal.strMeal } />
         <p>{meal.strMeal}</p>
       </div>
