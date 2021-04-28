@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import myContext from './myContext';
-import { fetchFoodsAPI, fetchFoodsCategoryAPI } from '../services/fetchFoodsAPI';
-import { fetchDrinksAPI, fetchDrinksCategoryAPI } from '../services/fetchDrinksAPI';
+import { fetchFoodsAPI, fetchFoodsCategoriesAPI } from '../services/fetchFoodsAPI';
+import { fetchDrinksAPI, fetchDrinksCategoriesAPI } from '../services/fetchDrinksAPI';
 import fetchFoodIngredientsAPI from '../services/fetchFoodIngredientsAPI';
 import fetchDrinkIngredientsAPI from '../services/fetchDrinkIngredientsAPI';
 import fetchFoodAreaAPI from '../services/fetchFoodsAreaAPI';
@@ -47,15 +47,15 @@ const RecipesProvider = ({ children }) => {
       setFoodAreas(myAreas);
     });
   }, []);
-
-  useEffect(() => {
-    fetchFoodsCategoryAPI().then((categoriesFood) => {
+    
+ useEffect(() => {
+    fetchFoodsCategoriesAPI().then((categoriesFood) => {
       setFoodCategories(categoriesFood);
     });
   }, []);
 
   useEffect(() => {
-    fetchDrinksCategoryAPI().then((categoriesDrink) => {
+    fetchDrinksCategoriesAPI().then((categoriesDrink) => {
       setDrinkCategories(categoriesDrink);
     });
   }, []);
