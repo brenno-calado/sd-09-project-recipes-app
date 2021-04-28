@@ -1,15 +1,29 @@
-import { SEARCH, RECIPES_LIST } from './actionTypes';
-import fetchRecipes from '../../services/fetchRecipes';
+import {
+  REQ_SEARCH,
+  SET_SEARCH,
+  NOT_FOUND,
+  RESET_NOT_FOUND,
+  RECIPES_LIST,
+} from './actionTypes';
+import fetchSearchBar from '../../services';
 
-export const searchBar = () => ({ type: SEARCH });
-
-const getRecipesAction = (recipes, listType) => ({
+export const getRecipesAction = (recipes) => ({
   type: RECIPES_LIST,
   recipes,
-  listType,
 });
 
-export const getRecipesThunk = (endpoit, listType) => async (dispatch) => {
-  const recipesList = await fetchRecipes(endpoit, listType);
-  dispatch(getRecipesAction(recipesList, listType));
+export const reqSearch = () => ({ type: REQ_SEARCH });
+
+export const setSearch = (items) => ({ type: SET_SEARCH, items });
+
+export const resetNotFound = () => ({ type: RESET_NOT_FOUND });
+
+export const notFound = () => ({ type: NOT_FOUND });
+
+export const fetchSearch = (url) => async (dispatch) => {
+  dispatch(reqSearch());
+  const items = await fetchSearchBar(url);
+  if (!items) return dispatch(notFound());
+  dispatch(setSearch(items));
+  return dispatch(resetNotFound());
 };

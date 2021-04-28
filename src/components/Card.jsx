@@ -1,17 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { objectOf, number } from 'prop-types';
+import './Card.css';
 
-function Card({ thumbSource, title, index }) {
+function Card({ item, index }) {
+  const location = useLocation();
+  const name = (location.pathname === '/comidas') ? 'strMeal' : 'strDrink';
+  const thumb = (location.pathname === '/comidas') ? 'strMealThumb' : 'strDrinkThumb';
   return (
-    <div className="card" data-testid={ `${index}-recipe-card` }>
-      <img src={ thumbSource } alt="thumb" data-testid={ `${index}-card-img` } />
-      <p data-testid={ `${index}-card-name` }>{title}</p>
+    <div data-testid={ `${index}-recipe-card` } className="Card">
+      <img src={ item[thumb] } alt="item" data-testid={ `${index}-card-img` } />
+      <p data-testid={ `${index}-card-name` }>{item[name]}</p>
     </div>
   );
 }
 
 Card.propTypes = {
-  thumbSource: PropTypes.string,
+  item: objectOf(),
+  index: number,
 }.isRequired;
 
 export default Card;

@@ -1,43 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
+import Cards from '../components/Cards';
 import Footer from '../components/Footer';
-import Card from '../components/Card';
 import { fetchMeals } from '../services/fetchRecipes';
 import './Styles/Recipes.css';
+import { getRecipesAction } from '../Redux/actions';
 
-function Foods() {
-  const [listOfMeals, setListOfMeals] = useState([]);
-
+function Foods({ getRecipes, recipes }) {
   const fetchListOfMeals = async () => {
     const data = await fetchMeals();
-    setListOfMeals(data);
+    getRecipes(data);
   };
 
   useEffect(() => {
     fetchListOfMeals();
   }, []);
 
-  const recipesQuantity = 12;
-  const preparedRecipesList = () => listOfMeals
-    .map((recipe, index) => (
-      <Card
-        key={ index }
-        index={ index }
-        thumbSource={
-          recipe.strMealThumb
-        }
-        title={ recipe.strMeal }
-      />
-    ))
-    .slice(0, recipesQuantity);
-
   return (
     <div id="Recipes">
       <Header title="Explorar Comidas" searchBtn />
-      <div className="card-list">{preparedRecipesList()}</div>
+      <Cards items={ recipes } idType="idMeal" />
       <Footer />
     </div>
   );
 }
 
-export default Foods;
+const mapStateToProps = (state) => ({
+  recipes: state.recipesList.list,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getRecipes: (data) => dispatch(getRecipesAction(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foods);
