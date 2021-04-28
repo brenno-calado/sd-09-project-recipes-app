@@ -6,7 +6,7 @@ import Menu from '../components/Menu';
 
 const Explorer = () => (
   <main className="main-explorer">
-    <Header />
+    <Header title="Explorar" />
     <Link to="/explorar/comidas">
       <Button data-testid="explore-food">
         Explorar Comidas

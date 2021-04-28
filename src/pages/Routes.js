@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-
 import Food from './Food';
 import Login from './Login';
 import Drinks from './Drinks';
