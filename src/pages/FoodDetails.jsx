@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
 import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
 
-function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
+function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommendedFoods }) {
   const [recipe, setRecipe] = useState(null);
   const [ingredientToMeasure, setIngredientToMeasure] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,6 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
       });
     }
   }, [match, recipe, recipes, history, getMealByIdDispatch]);
-
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -77,9 +76,15 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
         <button type="button">Iniciar receita</button>
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
-        <div data-testid="recomendation-card">
-          receitas recomendadas
-        </div>
+        {recommendedFoods.map((item) => (
+          <div key={ `${item.index}` } className={ `${item.index}-recomendation-card` }>
+            <a href={ `/comidas/${item.idMeal}` }>
+              <img src={ `${item.strMealThumb}` } alt="" />
+              <h2>{item.strMeal}</h2>
+
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -87,6 +92,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch }) {
 
 const mapStateToProps = (state) => ({
   recipes: state.setData.data,
+  recommendedFoods: state.setData.recommendedFoods,
   loading: state.setData.loading,
 });
 const mapDispatchToProps = (dispatch) => ({

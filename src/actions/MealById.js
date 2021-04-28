@@ -1,7 +1,8 @@
-import { fetchMealById } from '../services/fetchMealById';
+import { fetchMealById, fetchRecommendedMealById } from '../services/fetchMealById';
 
 export const IS_FETCHING = 'IS_FETCHING';
 export const IS_RESOLVED = 'IS_RESOLVED';
+export const IS_RESOLVED_RECOMMENDED_FOODS = 'IS_RESOLVED_RECOMMENDED_FOODS';
 export const IS_REJECTED = 'IS_REJECTED';
 
 const isFetching = () => ({
@@ -18,12 +19,21 @@ const isResolved = (data) => ({
   data,
 });
 
+const isResolvedRecommendedFoods = (data) => ({
+  type: IS_RESOLVED_RECOMMENDED_FOODS,
+  data,
+});
+
 export const getMealById = (ID) => async (dispatch) => {
   dispatch(isFetching());
   try {
-    const response = await fetchMealById(ID);
-    dispatch(isResolved(response.meals[0]));
-    return;
+    const responseMeal = await fetchMealById(ID);
+
+    const responseRecommended = await fetchRecommendedMealById(responseMeal
+      .meals[0].strCategory);
+    dispatch(isResolved(responseMeal.meals[0]));
+    dispatch(isResolvedRecommendedFoods(responseRecommended));
+    return null;
   } catch (error) {
     dispatch(isRejected(error));
   }
