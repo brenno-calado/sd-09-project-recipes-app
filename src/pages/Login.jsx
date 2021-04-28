@@ -34,7 +34,7 @@ class Login extends Component {
     const minCaracter = 6;
     let isValid = false;
 
-    if (password >= minCaracter) {
+    if (password > minCaracter) {
       isValid = true;
     }
 
