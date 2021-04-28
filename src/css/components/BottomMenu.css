@@ -1,0 +1,9 @@
+.footer {
+  background-color: lightgray;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  position: fixed;
+  width: 100%;
+}

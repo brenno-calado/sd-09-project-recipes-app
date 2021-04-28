@@ -1,10 +1,14 @@
 import React from 'react';
 import '../styles/Header.css';
 import Header from '../components/Header';
+import BottomMenu from '../components/BottomMenu';
 
 function ExplorarBebidas() {
   return (
-    <Header page="Explorar Bebidas" hasSearchButton={ false } />
+    <div>
+      <Header page="Explorar Bebidas" hasSearchButton={ false } />
+      <BottomMenu />
+    </div>
   );
 }
 

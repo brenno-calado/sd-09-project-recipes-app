@@ -20,7 +20,7 @@ function Header({ page, hasSearchButton = true }) {
     } else {
       setToggledSearchButton(true);
     }
-  }, []);
+  });
 
   const profileButton = () => (
     <Link to="/perfil">
