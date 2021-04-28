@@ -6,7 +6,7 @@ function SearchBar() {
       <input
         type="text"
         data-testid="search-input"
-        plceholder="Buscar Receita"
+        placeholder="Buscar Receita"
       />
       <label htmlFor="ingredient-radio">
         <input
