@@ -1,29 +1,25 @@
-@media screen  {
-    
-}
-
 .login {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: 100vh;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .login h2 {
-    margin-top: 50px;
-    margin-bottom: 30px;
+  margin-bottom: 30px;
+  margin-top: 50px;
 }
 
 form {
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
 }
 
-form input{
-    margin-bottom: 15px;
+form input {
+  margin-bottom: 15px;
 }
 
 form button {
-    margin-top: 20px;
+  margin-top: 20px;
 }
