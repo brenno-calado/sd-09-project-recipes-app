@@ -6,7 +6,7 @@ import Header from '../../common/components/Header';
 import RecipeCard from '../../common/components/RecipeCard';
 
 const Recipes = (props) => {
-  const { meals } = props;
+  const { meals, history } = props;
   const cardsLimit = 12;
   function renderRecipeCards() {
     return meals
@@ -17,8 +17,8 @@ const Recipes = (props) => {
 
   return (
     <div>
-      <Header title="Comidas" value="comidas" />
-      { renderRecipeCards() }
+      <Header title="Comidas" value="comidas" history={ history } />
+      { meals.length > 1 && renderRecipeCards() }
     </div>
   );
 };
@@ -29,6 +29,7 @@ const mapStateToProps = (state) => ({
 
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
 export default connect(mapStateToProps)(Recipes);

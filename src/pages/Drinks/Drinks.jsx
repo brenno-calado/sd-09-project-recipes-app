@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import Header from '../../common/components/Header';
 import RecipeCard from '../../common/components/RecipeCard';
 
 const Drinks = (props) => {
-  const { drinks } = props;
+  const { drinks, history } = props;
   const cardsLimit = 12;
   function renderDrinkCards() {
     return drinks
@@ -17,8 +16,8 @@ const Drinks = (props) => {
 
   return (
     <div>
-      <Header title="Bebidas" value="bebidas" />
-      { renderDrinkCards() }
+      <Header title="Bebidas" value="bebidas" history={ history } />
+      { drinks.length > 1 && renderDrinkCards() }
     </div>
   );
 };
@@ -29,6 +28,7 @@ const mapStateToProps = (state) => ({
 
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.string).isRequired,
+  history: PropTypes.shape({}).isRequired,
 };
 
 export default connect(mapStateToProps)(Drinks);

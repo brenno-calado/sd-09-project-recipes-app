@@ -23,17 +23,17 @@ const SearchBar = (props) => {
     // itShouldRedirect,
   } = useContext(RecipesContext);
 
-  const { meals, drinks } = props;
+  const { meals, drinks, history } = props;
   useEffect(() => {
     if (redirectMeal) {
       const { idMeal } = meals[0];
-      window.location.replace(`/comidas/${idMeal}`);
+      history.push(`/comidas/${idMeal}`);
     }
     if (redirectDrink) {
       const { idDrink } = drinks[0];
-      window.location.replace(`/bebidas/${idDrink}`);
+      history.push(`/bebidas/${idDrink}`);
     }
-  }, [redirectMeal, redirectDrink, meals, drinks]);
+  }, [redirectMeal, redirectDrink, meals, drinks, history]);
 
   const filterMeals = async () => {
     const { dispatchMeals } = props;
@@ -160,6 +160,9 @@ SearchBar.propTypes = {
   dispatchDrinks: PropTypes.func.isRequired,
   meals: PropTypes.arrayOf(PropTypes.object).isRequired,
   drinks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
