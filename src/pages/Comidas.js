@@ -28,7 +28,7 @@ function Comidas() {
       <Header title="Comidas" searchIcon />
       <button
         type="button"
-        onClick={ () => setFoodApiResults([]) }
+        onClick={ () => { setFoodApiResults([]); setClicked([]); } }
       >
         All
       </button>

@@ -29,7 +29,7 @@ function Bebidas() {
       <Header title="Bebidas" searchIcon />
       <button
         type="button"
-        onClick={ () => setDrinksApiResults([]) }
+        onClick={ () => { setDrinksApiResults([]); setClicked({}); } }
       >
         All
       </button>
