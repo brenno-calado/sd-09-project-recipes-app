@@ -32,7 +32,7 @@ export default function RecipesProvider({ children }) {
     Object.keys(value.values).forEach((key) => (
       localStorage.setItem(key, value.values[key])
     ));
-  }, [doneRecipes, favoriteRecipes, inProgressRecipes]);
+  }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   return (
     <RecipesContext.Provider value={ value }>

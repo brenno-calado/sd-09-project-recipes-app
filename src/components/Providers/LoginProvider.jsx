@@ -26,7 +26,7 @@ export default function LoginProvider({ children }) {
     Object.keys(value.values).forEach((key) => (
       localStorage.setItem(key, JSON.stringify(value.values[key]))
     ));
-  }, [user]);
+  }, [user, value.values]);
 
   return (
     <LoginContext.Provider value={ value }>

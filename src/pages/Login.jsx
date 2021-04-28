@@ -19,16 +19,14 @@ function Login() {
     });
   };
 
-  const validate = () => {
+  useEffect(() => {
     const emailValidated = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email);
     const passwordValidated = /[0-9a-zA-Z$*&@#]{7}/.test(form.password);
     if (emailValidated && passwordValidated) {
-      return (setDisable(false));
-    } return (setDisable(true));
-  };
-
-  useEffect(() => {
-    validate();
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
   }, [form]);
 
   const handleSubmit = (event) => {
