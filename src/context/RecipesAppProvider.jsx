@@ -31,8 +31,9 @@ function RecipesAppProvider({ children }) {
       apiResponse = await fetchCocktailApi(inputs);
       setCocktailRecipes({ recipes: apiResponse });
     }
-    if (apiResponse === null) {
+    if ((apiResponse === null) || (apiResponse === undefined)) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return;
     } else if (apiResponse.length === 1) {
       setRedirect(true);
     } else {
