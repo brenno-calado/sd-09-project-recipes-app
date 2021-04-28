@@ -4,6 +4,7 @@ import Recipes from '../components/Recipes';
 import SearchBar from '../components/SearchBar';
 import RecipesContext from '../contexts/RecipesContext';
 import Header from '../components/Header';
+import BottomMenu from '../components/BottomMenu';
 
 function Meals() {
   const {
@@ -16,6 +17,7 @@ function Meals() {
       <Header page="Comidas" />
       {toggledSearchBar && <SearchBar category="meal" />}
       {isLoading ? <Loading /> : <Recipes /> }
+      <BottomMenu />
     </section>
   );
 }
