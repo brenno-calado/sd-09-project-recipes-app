@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function Login() {
-  const [email, setEmail] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonOff, setButtonOff] = useState(true);
 
@@ -10,15 +10,15 @@ export default function Login() {
     const validateEmail = /^[\w.]+@[a-z]+\.\w{2,3}$/g;
     const passwordLength = password.length;
     const minPasswordLength = 6;
-    if (validateEmail.test(email) && passwordLength > minPasswordLength) {
+    if (validateEmail.test(userEmail) && passwordLength > minPasswordLength) {
       setButtonOff(false);
     } else {
       setButtonOff(true);
     }
-  }, [password, email]);
+  }, [password, userEmail]);
 
   function handleChangeEmail({ target }) {
-    setEmail(target.value);
+    setUserEmail(target.value);
   }
 
   function handleChangePassword({ target }) {
@@ -28,7 +28,7 @@ export default function Login() {
   function handleLogin() {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
-    const user = { email };
+    const user = { email: userEmail };
     localStorage.setItem('user', JSON.stringify(user));
   }
 
