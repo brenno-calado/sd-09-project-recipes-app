@@ -15,7 +15,33 @@ export const getFoodResults = async (radioButton, searchInput) => {
   }
   const url = `https://www.themealdb.com/api/json/v1/1/${searchParameter}.php?${type}=${searchInput}`;
   const { meals } = await fetch(url).then((response) => response.json());
+  const maxMealsNumber = 12;
+  if (meals === null) return 'null';
+  if (meals.length >= maxMealsNumber) return meals.slice(0, maxMealsNumber);
   return meals;
+};
+
+export const getDrinkResults = async (radioButton, searchInput) => {
+  let type = 'i';
+  let searchParameter = 'filter';
+  if (radioButton === 'ingredientRadio') {
+    type = 'i';
+    searchParameter = 'filter';
+  }
+  if (radioButton === 'nameRadio') {
+    type = 's';
+    searchParameter = 'search';
+  }
+  if (radioButton === 'firstLetterRadio') {
+    type = 'f';
+    searchParameter = 'search';
+  }
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/${searchParameter}.php?${type}=${searchInput}`;
+  const { drinks } = await fetch(url).then((response) => response.json());
+  const maxDrinksNumber = 12;
+  if (drinks === null) return 'null';
+  if (drinks.length >= maxDrinksNumber) return drinks.slice(0, maxDrinksNumber);
+  return drinks;
 };
 
 export const getFoods = async () => {

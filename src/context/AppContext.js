@@ -42,8 +42,10 @@ const AppProvider = ({ children }) => {
     fetchDrinkCategories();
   }, []);
 
-  const foods = foodApiResults.length ? foodApiResults : foodsArray;
-  const drinks = drinksApiResults.length ? drinksApiResults : drinksArray;
+  const foods = foodApiResults.length && foodApiResults !== 'null'
+    ? foodApiResults : foodsArray;
+  const drinks = drinksApiResults.length && drinksApiResults !== 'null'
+    ? drinksApiResults : drinksArray;
 
   const context = {
     foods,
@@ -52,6 +54,8 @@ const AppProvider = ({ children }) => {
     drinkCategories,
     setFoodApiResults,
     setDrinksApiResults,
+    foodApiResults,
+    drinksApiResults,
   };
   return (
     <AppContext.Provider value={ context }>

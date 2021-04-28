@@ -32,7 +32,7 @@ const Header = ({ title, searchIcon }) => {
         </button>
       )}
 
-      { showSearchBar && <SearchBar /> }
+      { showSearchBar && <SearchBar title={ title } /> }
     </>
   );
 };
