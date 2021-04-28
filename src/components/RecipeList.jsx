@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { mealsThunk, cocktailsThunk } from '../redux/actions';
 
-function RecipeList({ data, recipeType }) {
+function RecipeList({
+  data, recipeType, mealsThunkDispatcher, cocktailsThunkDispatcher,
+}) {
   const [recipes, setRecipes] = useState([]);
 
   const verifyRecipes = useCallback(() => {
@@ -14,6 +17,15 @@ function RecipeList({ data, recipeType }) {
   useEffect(() => {
     verifyRecipes();
   }, [data, verifyRecipes]);
+
+  useEffect(() => {
+    if (recipeType === 'meals') {
+      mealsThunkDispatcher('', '');
+    }
+    if (recipeType === 'cocktails') {
+      cocktailsThunkDispatcher('', '');
+    }
+  }, [recipeType]);
 
   const mealsCards = (
     recipes.map((recipe, index) => (
@@ -53,6 +65,13 @@ const mapStateToProps = (state) => ({
   recipeType: state.loginReducer.recipeType,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  mealsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(mealsThunk(radioSearch, textSearch)),
+  cocktailsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(cocktailsThunk(radioSearch, textSearch)),
+});
+
 RecipeList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
   recipeType: PropTypes.string.isRequired,
@@ -62,4 +81,4 @@ RecipeList.defaultProps = {
   data: [],
 };
 
-export default connect(mapStateToProps)(RecipeList);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);

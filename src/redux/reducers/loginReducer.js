@@ -3,6 +3,9 @@ import {
   FETCHING,
   SUCCESS_FETCH,
   FAILURE_FETCH,
+  FETCHING_CATEGORIES,
+  SUCCESS_CATEGORIES,
+  FAILURE_CATEGORIES,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -12,7 +15,11 @@ const INITIAL_STATE = {
   error: '',
   isFetched: false,
   recipeType: '',
+  isFetchingCategories: false,
+  categories: [],
 };
+
+const magicNumber = 5;
 
 function loginReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
@@ -20,6 +27,7 @@ function loginReducer(state = INITIAL_STATE, action) {
     return {
       ...state,
       pathname: action.pathname,
+      recipeType: action.recipeType,
     };
   case FETCHING:
     return ({
@@ -31,7 +39,6 @@ function loginReducer(state = INITIAL_STATE, action) {
     return ({
       ...state,
       data: [...action.data],
-      recipeType: action.recipeType,
       isFetching: false,
       isFetched: true,
     });
@@ -42,6 +49,21 @@ function loginReducer(state = INITIAL_STATE, action) {
       error: action.error,
       isFetching: false,
       isFetched: true,
+    });
+  case FETCHING_CATEGORIES:
+    return ({
+      ...state,
+      isFetchingCategories: true,
+    });
+  case SUCCESS_CATEGORIES:
+    return ({
+      ...state,
+      categories: action.data.slice(0, magicNumber),
+    });
+  case FAILURE_CATEGORIES:
+    return ({
+      ...state,
+      error: action.error,
     });
   default:
     return state;
