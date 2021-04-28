@@ -7,6 +7,7 @@ import Card from '../components/Card';
 import './Styles/Recipes.css';
 
 function Recipes({ recipesList: { listType, list } }) {
+  const recipesQuantity = 12;
   const preparedRecipesList = () => list
     .map((recipe, index) => (
       <Card
@@ -18,7 +19,7 @@ function Recipes({ recipesList: { listType, list } }) {
         title={ listType === 'drinks' ? recipe.strDrink : recipe.strMeal }
       />
     ))
-    .slice(0, 12);
+    .slice(0, recipesQuantity);
 
   return (
     <div id="Recipes">
