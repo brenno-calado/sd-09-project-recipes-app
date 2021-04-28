@@ -12,13 +12,13 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
 import DetalhesComida from './pages/DetalhesComida';
 import DetalhesBebida from './pages/DetalhesBebida';
-import ProcessoComida from './pages/ProcessoComida';
-import ProcessoBebida from './pages/ProcessoBebida';
-import TelaDePerfil from './pages/TelaDePerfil';
-import ReceitasFeitas from './pages/ReceitasFeitas';
-import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import Perfil from './pages/Perfil';
 import PrincipalComidas from './pages/PrincipalComidas';
 import PrincipalBebidas from './pages/PrincipalBebidas';
+import ProcessoComida from './pages/ProcessoComida';
+import ProcessoBebida from './pages/ProcessoBebida';
+import ReceitasFeitas from './pages/ReceitasFeitas';
+import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Login from './pages/Login';
 
 function App() {
@@ -53,7 +53,7 @@ function App() {
           />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
-          <Route path="/perfil" component={ TelaDePerfil } />
+          <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
         </Switch>

@@ -21,10 +21,10 @@ class DetalhesBebida extends React.Component {
         <p data-testid="instructions">
           Instruções
         </p>
-        <video data-testid="video" width="320" height="240" controls muted>
-          <source src="" type="video/mp4" />
+        {/* <video data-testid="video" width="320" height="240" controls muted>
+          <source src={ video } type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
         {/* Receitas Recomendadas devera ser um componente separado. */}
         <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
       </div>

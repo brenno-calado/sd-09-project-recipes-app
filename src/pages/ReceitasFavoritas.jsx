@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 import '../styles/recipes.css';
 
 function ReceitasFavoritas() {
@@ -8,7 +7,6 @@ function ReceitasFavoritas() {
     <>
       <Header textProp="Receitas Favoritas" />
       <h1>Receitas Favoritas</h1>
-      <Footer />
     </>
   );
 }
