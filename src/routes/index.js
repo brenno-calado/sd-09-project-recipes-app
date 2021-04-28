@@ -6,12 +6,14 @@ import {
 
 import paths from './paths';
 import Login from '../pages/Login';
+import Foods from '../pages/Foods';
 
-const { LOGIN } = paths;
+const { LOGIN, FOODS } = paths;
 
 const Routes = () => (
   <Switch>
     <Route exact path={ LOGIN } component={ Login } />
+    <Route exact path={ FOODS } component={ Foods } />
   </Switch>
 );
 
