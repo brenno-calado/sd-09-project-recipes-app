@@ -1,8 +1,10 @@
 import React from 'react';
 
-export default function FavoriteRecipes() {
+function FavoriteRecipes() {
   return (
-    <>
-    </>
+    <h1>Pronto</h1>
   );
 }
+
+export default FavoriteRecipes;
+
