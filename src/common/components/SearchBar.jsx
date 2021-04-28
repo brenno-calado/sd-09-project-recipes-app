@@ -9,7 +9,6 @@ import { fetchDrinkIngredientAPI, fetchDrinkLetterAPI,
 import { saveMeals, saveDrinks } from '../../actions/userActions';
 
 const SearchBar = (props) => {
-  console.log(props.history)
   const {
     inputText,
     filter,
