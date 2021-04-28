@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -9,6 +9,14 @@ import RecipeCard from '../components/RecepiCard';
 function Foods() {
   const { handleFetchFoodClick, recipesData } = useRecipeContext();
   const twelve = 12;
+
+  useEffect(() => {
+    if (recipesData === 'Unexpected end of JSON input'
+    || recipesData.meals === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  }, [recipesData]);
+
   function header() {
     return (
       <>
@@ -17,7 +25,7 @@ function Foods() {
         </HeaderFoods>
         <SearchBar>
           <button
-            onClick={ handleFetchFoodClick }
+            onClick={ () => { handleFetchFoodClick(); } }
             data-testid="exec-search-btn"
             type="button"
           >
