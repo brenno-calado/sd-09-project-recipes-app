@@ -1,0 +1,17 @@
+.header-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #C4C4C4;
+}
+
+button {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
