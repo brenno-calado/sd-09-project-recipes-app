@@ -1,16 +1,15 @@
 import React from 'react';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
-import Buttons from '../components/ExploreButtons';
 
-function ExploreFoods() {
+function ExploreFoodsByOrigin() {
   return (
     <div>
       <Header />
       <BottomMenu />
-      <Buttons />
+      <h3>Origem de comidas</h3>
     </div>
   );
 }
 
-export default ExploreFoods;
+export default ExploreFoodsByOrigin;
