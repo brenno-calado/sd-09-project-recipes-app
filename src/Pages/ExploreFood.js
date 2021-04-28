@@ -1,9 +1,12 @@
 import React from 'react';
+import Footer from '../Components/Footer';
 
 class ExploreFood extends React.Component {
   render() {
     return (
-      <div></div>
+      <div>
+        <Footer />
+      </div>
     );
   }
 }

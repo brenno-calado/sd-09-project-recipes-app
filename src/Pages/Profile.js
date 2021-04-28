@@ -1,6 +1,7 @@
 import React from 'react';
 import profileIcon from '../images/profileIcon.svg';
 import '../Styles/Profile.css';
+import Footer from '../Components/Footer';
 
 class Profile extends React.Component {
   render() {
@@ -37,6 +38,7 @@ class Profile extends React.Component {
             </button>
           </div>
         </main>
+        <Footer />
       </div>
     );
   }
