@@ -10,11 +10,11 @@ class Details extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-
+  state,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  dispatch,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);
