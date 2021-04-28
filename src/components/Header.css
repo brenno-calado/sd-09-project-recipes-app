@@ -1,0 +1,6 @@
+.header {
+  border-bottom: 1px #464646 solid;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import iconProfile from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import './Header.css';
 
 function Header(props) {
   const history = useHistory();
@@ -16,7 +17,7 @@ function Header(props) {
   };
 
   return (
-    <header>
+    <header className="header">
       <button
         type="button"
         data-testid="profile-top-btn"
