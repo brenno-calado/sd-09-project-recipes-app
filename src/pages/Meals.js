@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { objectOf, string } from 'prop-types';
-// import SearchBar from '../components/SearchBar';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 
@@ -12,7 +11,6 @@ class Comidas extends React.Component {
     return (
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
-        {/* <SearchBar /> */}
         <div className="recipe-card-container">
           {recipes.meals && recipes.meals.map((meal) => (
             <RecipeCard key={ meal.idMeal } meal={ meal } />))}
