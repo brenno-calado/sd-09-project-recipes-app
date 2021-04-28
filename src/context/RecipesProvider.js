@@ -47,8 +47,8 @@ const RecipesProvider = ({ children }) => {
       setFoodAreas(myAreas);
     });
   }, []);
-    
- useEffect(() => {
+
+  useEffect(() => {
     fetchFoodsCategoriesAPI().then((categoriesFood) => {
       setFoodCategories(categoriesFood);
     });
