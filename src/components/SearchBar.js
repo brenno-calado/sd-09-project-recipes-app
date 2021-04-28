@@ -40,7 +40,7 @@ class SearchBar extends React.Component {
           placeholder="Buscar"
           onChange={ this.inputTextHandleChange }
         />
-        <label htmlFor="ingredient-search-radio">
+        <label htmlFor="ingredient">
           <input
             id="ingredient"
             type="radio"
@@ -50,7 +50,7 @@ class SearchBar extends React.Component {
           />
           Ingrediente
         </label>
-        <label htmlFor="name-search-radio">
+        <label htmlFor="name">
           <input
             id="name"
             type="radio"
@@ -60,7 +60,7 @@ class SearchBar extends React.Component {
           />
           Nome
         </label>
-        <label htmlFor="first-letter-search-radio">
+        <label htmlFor="first-letter">
           <input
             id="first-letter"
             type="radio"
