@@ -1,40 +1,49 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+// import { Redirect } from 'react-router';
 import { AppContext } from '../context/AppContext';
-import { getFoodResults } from '../services';
+import { getDrinkResults, getFoodResults } from '../services';
 
-const SearchBar = () => {
+const SearchBar = ({ title }) => {
   const baseSearchBar = {
     searchInput: '',
     radioOn: '',
   };
 
   const [searchState, setSearchState] = useState(baseSearchBar);
-  const { setFoodApiResults } = useContext(AppContext);
+  const [showAlertLetterRadio, setShowAlertLetter] = useState(false);
+  const [noResultsApi, setNoResults] = useState(1);
+  // const [pathToGo, setPath] = useState(null);
+  const { setFoodApiResults,
+    setDrinksApiResults } = useContext(AppContext);
 
   const handleClick = async () => {
     const { searchInput, radioOn } = searchState;
-    const results = await getFoodResults(radioOn, searchInput);
-    setFoodApiResults(results);
-    console.log(results);
+    let results;
+    const shouldAlert = searchInput.length > 1 && radioOn === 'firstLetterRadio';
+    if (shouldAlert) setShowAlertLetter(true); else setShowAlertLetter(false);
+    if (title === 'Comidas' && !shouldAlert) {
+      results = await getFoodResults(radioOn, searchInput);
+      setFoodApiResults(results);
+      setNoResults(results);
+    }
+    if (title === 'Bebidas' && !shouldAlert) {
+      results = await getDrinkResults(radioOn, searchInput);
+      setDrinksApiResults(results);
+      setNoResults(results);
+    }
   };
 
   const handleChange = ({ target: { value, name } }) => {
     if (name === 'searchInput') setSearchState({ ...searchState, searchInput: value });
-    // if (name === 'ingredientRadio') {
-    //   setSearchState({ ...searchState, ingredientRadio: !searchState.ingredientRadio });
-    // }
-    // if (name === 'nameRadio') {
-    //   setSearchState({ ...searchState, : !searchState.nameRadio });
-    // }
-    // if (name === 'firstLetterRadio') {
-    //   setSearchState({ ...searchState, firstLetterRadio: !searchState.firstLetterRadio });
-    // }
   };
 
   const handleRadio = ({ target: { value } }) => {
     setSearchState({ ...searchState, radioOn: value });
   };
   const { searchInput, radioOn } = searchState;
+
+  // if (pathToGo !== null) return <Redirect to={ pathToGo } />;
   return (
     <form>
       <input
@@ -83,8 +92,19 @@ const SearchBar = () => {
       >
         Buscar
       </button>
+      <br />
+      { showAlertLetterRadio
+        ? <alert>Sua busca deve conter somente 1 (um) caracter</alert> : null}
+      <br />
+      { noResultsApi === 'null'
+        ? <alert>Sinto muito, não encontramos nenhuma receita para esses filtros.</alert>
+        : null}
     </form>
   );
+};
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 export default SearchBar;
