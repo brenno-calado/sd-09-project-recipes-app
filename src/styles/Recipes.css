@@ -1,0 +1,19 @@
+.card {
+  box-shadow: 1px 1px 4px rgb(241, 241, 241);
+  width: 45%;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 6px rgb(172, 172, 172);
+}
+
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.text-content {
+  text-align: center;
+  width: 70%;
+}

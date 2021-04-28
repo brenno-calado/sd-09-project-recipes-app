@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import '../styles/Recipes.css';
 
 const TWELVE = 12;
 
@@ -16,38 +17,49 @@ function Recipes({ recipesList, recipesType }) {
       : <Redirect to={ `/bebidas/${recipesList[0].idDrink}` } />;
   }
 
-  return recipesType === 'meal'
-    ? recipesList.map((recipe, index) => (
-      index < TWELVE && (
-        <div
-          data-testid={ `${index}-recipe-card` }
-          key={ recipe.idMeal }
-        >
-          <span data-testid={ `${index}-card-name` }>{recipe.strMeal}</span>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ recipe.strMealThumb }
-            alt={ recipe.srtMeal }
-            width="100px"
-            height="100px"
-          />
-        </div>)))
+  return (
+    <div className="card-content">
+      {recipesType === 'meal'
+        ? recipesList.map((recipe, index) => (
+          index < TWELVE && (
+            <div
+              className="card align-items-center m-2 flex-wrap"
+              data-testid={ `${index}-recipe-card` }
+              key={ recipe.idMeal }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ recipe.strMealThumb }
+                alt={ recipe.srtMeal }
+                width="100px"
+                height="100px"
+              />
+              <span data-testid={ `${index}-card-name` } className="text-content">
+                {recipe.strMeal}
+              </span>
+            </div>)))
 
-    : recipesList.map((recipe, index) => (
-      index < TWELVE && (
-        <div
-          data-testid={ `${index}-recipe-card` }
-          key={ recipe.idDrink }
-        >
-          <span data-testid={ `${index}-card-name` }>{recipe.strDrink}</span>
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ recipe.strDrinkThumb }
-            alt={ recipe.strDrink }
-            width="100px"
-            height="100px"
-          />
-        </div>)));
+        : recipesList.map((recipe, index) => (
+          index < TWELVE && (
+            <div
+              className="card align-items-center m-2 flex-wrap"
+              data-testid={ `${index}-recipe-card` }
+              key={ recipe.idDrink }
+            >
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ recipe.strDrinkThumb }
+                alt={ recipe.strDrink }
+                width="100px"
+                height="100px"
+              />
+              <span className="card-title" data-testid={ `${index}-card-name` }>
+                {recipe.strDrink}
+              </span>
+            </div>)))}
+
+    </div>
+  );
 }
 
 Recipes.propTypes = {

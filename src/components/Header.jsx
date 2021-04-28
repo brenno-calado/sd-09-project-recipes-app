@@ -25,6 +25,7 @@ function Header({ page, hasSearchButton = true }) {
   const profileButton = () => (
     <Link to="/perfil">
       <input
+        // className="btn btn-primary btn-lg"
         data-testid="profile-top-btn"
         type="image"
         src={ profileIcon }
@@ -35,6 +36,7 @@ function Header({ page, hasSearchButton = true }) {
 
   const searchButton = () => (
     <input
+      // className="btn btn-success btn-lg"
       data-testid="search-top-btn"
       type="image"
       src={ searchIcon }
@@ -44,11 +46,11 @@ function Header({ page, hasSearchButton = true }) {
   );
 
   return (
-    <>
-      <h4 data-testid="page-title">{page}</h4>
+    <div className="d-flex justify-content-between align-items-center alert alert-dark">
       { toggledProfileButton && profileButton() }
+      <h4 data-testid="page-title">{page}</h4>
       { toggledSearchButton && searchButton() }
-    </>
+    </div>
   );
 }
 

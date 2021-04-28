@@ -66,20 +66,27 @@ function SearchBar({ dispatchSearch, category }) {
 
   return (
     <section>
-      <input
-        data-testid="search-input"
-        type="text"
-        name="searchText"
-        onChange={ handleChange }
-      />
-      { renderRadios()}
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-        onClick={ searchRecipes }
-      >
-        Pesquisar
-      </button>
+      <div className="d-flex align-items-center input-group">
+        <input
+          className="ml-2 p-1 form-control"
+          data-testid="search-input"
+          type="text"
+          name="searchText"
+          onChange={ handleChange }
+        />
+        <button
+          className="btn btn-secondary col-4 mr-2"
+          id="button-addon2"
+          data-testid="exec-search-btn"
+          type="button"
+          onClick={ searchRecipes }
+        >
+          Pesquisar
+        </button>
+      </div>
+      <div className="d-flex flex-row justify-content-around mt-3">
+        { renderRadios() }
+      </div>
     </section>
   );
 }
