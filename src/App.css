@@ -1,3 +1,7 @@
+body {
+  margin-top: 2em;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -29,10 +33,10 @@
 }
 */
 
-.meals > .logo {
+.meals>.logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
-  font-family: Montserrat , sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 3em;
   font-weight: 900;
 }
