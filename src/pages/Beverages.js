@@ -18,13 +18,25 @@ const containerStyle = {
 };
 
 export default function Beverages() {
-  const { recipesDrinks } = useContext(myContext);
+  const { recipesDrinks, drinkCategories } = useContext(myContext);
   const MAX_LENGTH_RECIPES = 12;
   const recipes = recipesDrinks.slice(0, MAX_LENGTH_RECIPES);
+
+  const MAX_LENGTH_CATEGORIES = 5;
+  const categories = drinkCategories.slice(0, MAX_LENGTH_CATEGORIES);
 
   return (
     <div>
       <Header title="Bebidas" />
+      {categories.map(({ strCategory }) => (
+        <button
+          type="button"
+          key={ strCategory }
+          data-testid={ `${strCategory}-category-filter` }
+        >
+          { strCategory }
+        </button>
+      ))}
       <div style={ containerStyle }>
         {recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           <div key={ idDrink } data-testid={ `${index}-recipe-card` }>

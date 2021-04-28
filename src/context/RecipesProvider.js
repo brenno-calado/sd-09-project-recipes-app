@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import myContext from './myContext';
-import fetchFoodsAPI from '../services/fetchFoodsAPI';
-import fetchDrinksAPI from '../services/fetchDrinksAPI';
+import { fetchFoodsAPI, fetchFoodsCategoryAPI } from '../services/fetchFoodsAPI';
+import { fetchDrinksAPI, fetchDrinksCategoryAPI } from '../services/fetchDrinksAPI';
 import fetchFoodIngredientsAPI from '../services/fetchFoodIngredientsAPI';
 import fetchDrinkIngredientsAPI from '../services/fetchDrinkIngredientsAPI';
 
@@ -12,6 +12,8 @@ const RecipesProvider = ({ children }) => {
   const [recipesDrinks, setRecipesDrinks] = useState([]);
   const [foodIngredients, setFoodIngredients] = useState([]);
   const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [foodCategories, setFoodCategories] = useState([]);
+  const [drinkCategories, setDrinkCategories] = useState([]);
 
   // passar as funcoes
   useEffect(() => {
@@ -38,6 +40,18 @@ const RecipesProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    fetchFoodsCategoryAPI().then((categoriesFood) => {
+      setFoodCategories(categoriesFood);
+    });
+  }, []);
+
+  useEffect(() => {
+    fetchDrinksCategoryAPI().then((categoriesDrink) => {
+      setDrinkCategories(categoriesDrink);
+    });
+  }, []);
+
   // passar o context
   const context = {
     recipesFoods,
@@ -46,6 +60,8 @@ const RecipesProvider = ({ children }) => {
     setRecipesDrinks,
     foodIngredients,
     drinkIngredients,
+    foodCategories,
+    drinkCategories,
   };
 
   // return
