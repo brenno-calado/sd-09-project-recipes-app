@@ -1,8 +1,13 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 function DrinksComponent({ data: { drinks } }) {
+  if (drinks === null) {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
   if (!drinks) return <div>Loading...</div>;
+  if (drinks.length === 1) return <Redirect to={ `bebidas/${drinks[0].idDrink}` } />;
   const maxArrayLength = 12;
 
   return (

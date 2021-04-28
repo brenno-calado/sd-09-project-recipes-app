@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react';
+import { bool } from 'prop-types';
 import { Context } from '../context/Context';
 import { fecthForName, fetchForFirstLetter, fetchForIngredients } from '../services/api';
 
-function SearchBar() {
+function SearchBar({ isMeal }) {
   const INITIAL_STATE = { search: '', searchBy: '' };
   const [state, setState] = useState(INITIAL_STATE);
 
@@ -17,9 +18,13 @@ function SearchBar() {
     if (searchBy === 'firstLetter' && search.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    if (searchBy === 'name') setSearchResult(await fecthForName(search));
-    if (searchBy === 'ingredient') setSearchResult(await fetchForIngredients(search));
-    if (searchBy === 'firstLetter') setSearchResult(await fetchForFirstLetter(search));
+    if (searchBy === 'name') setSearchResult(await fecthForName(search, isMeal));
+    if (searchBy === 'ingredient') {
+      setSearchResult(await fetchForIngredients(search, isMeal));
+    }
+    if (searchBy === 'firstLetter') {
+      setSearchResult(await fetchForFirstLetter(search, isMeal));
+    }
   };
 
   const createInput = (testid, name, type, value) => (
@@ -58,5 +63,9 @@ function SearchBar() {
     </section>
   );
 }
+
+SearchBar.propTypes = {
+  isMeal: bool.isRequired,
+};
 
 export default SearchBar;
