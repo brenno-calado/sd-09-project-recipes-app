@@ -16,17 +16,28 @@ const searchDrinkForFirstLetter = async (letter) => {
   return resp;
 };
 
+const textAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 const DrinksApi = async (inputSearch, typeSearch) => {
   if (typeSearch === 'ingredient') {
     const result = await searchDrinkForIngredient(inputSearch);
+    if (result.drinks === null) {
+      alert(textAlert);
+    }
     return result;
   }
   if (typeSearch === 'name') {
     const result = await searchDrinkForName(inputSearch);
+    if (result.drinks === null) {
+      alert(textAlert);
+    }
     return result;
   }
   if (typeSearch === 'first-letter') {
     const result = await searchDrinkForFirstLetter(inputSearch);
+    if (result.drinks === null) {
+      alert(textAlert);
+    }
     return result;
   }
 };

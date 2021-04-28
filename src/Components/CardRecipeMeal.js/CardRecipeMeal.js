@@ -4,7 +4,7 @@ import './cardRecipe.css';
 
 function CardRecipeMeal({ recipe, index }) {
   return (
-    <div className="card-recipe-container">
+    <div className="card-recipe-container" data-testid={ `${index}-recipe-card` }>
       <img
         src={ recipe.strMealThumb }
         alt={ `imagen de ${recipe.strMeal}` }

@@ -20,17 +20,28 @@ const searchMealForFirstLetter = async (letter) => {
   return resp;
 };
 
+const textAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
 const MealsApi = async (inputSearch, typeSearch) => {
   if (typeSearch === 'ingredient') {
     const result = await searchMealForIngredient(inputSearch);
+    if (result.meals === null) {
+      alert(textAlert);
+    }
     return result;
   }
   if (typeSearch === 'name') {
     const result = await searchMealForName(inputSearch);
+    if (result.meals === null) {
+      alert(textAlert);
+    }
     return result;
   }
   if (typeSearch === 'first-letter') {
     const result = await searchMealForFirstLetter(inputSearch);
+    if (result.meals === null) {
+      alert(textAlert);
+    }
     return result;
   }
 };

@@ -1,0 +1,20 @@
+.food-or-drink-container header{
+  align-items: center;
+  background-color: #bebebe;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+}
+
+.food-or-drink-container section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 80vh;
+}
+
+.food-or-drink-container section button {
+  margin: 0.5rem;
+  padding: 7px 10px;
+}

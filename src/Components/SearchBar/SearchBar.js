@@ -8,7 +8,7 @@ import { RecipeContext } from '../../Context';
 
 function SearchBar({ page }) {
   const [inputSearch, setInputSearch] = useState('');
-  const [radioSearch, setRadioSearch] = useState();
+  const [radioSearch, setRadioSearch] = useState('ingredient');
   const [redirect, setRedirect] = useState(false);
   const [recipeId, setRecipeId] = useState('');
   const { setRecipies, setTypeRecipies } = useContext(RecipeContext);

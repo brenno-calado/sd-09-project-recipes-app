@@ -1,0 +1,8 @@
+.main-header-container {
+  align-items: center;
+  background-color: #bebebe;
+  display: flex;
+  height: 50px;
+  justify-content: space-between;
+  width: 100vw;
+}
