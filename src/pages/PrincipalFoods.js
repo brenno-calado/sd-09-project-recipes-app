@@ -1,11 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import recipesContext from '../context/recipesContext';
 import { fetchFoods } from '../services/fetchAPI';
 
 function PrincipalFoods() {
-  const { recipes, setRecipes } = useContext(recipesContext);
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
