@@ -1,0 +1,16 @@
+.Card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  width: 45vw;
+}
+
+.Card img {
+  width: 35vw;
+}
+
+.Card p {
+  margin: 0;
+}
