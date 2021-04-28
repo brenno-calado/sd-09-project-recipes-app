@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const INITIAL_STATE = {
@@ -74,14 +75,16 @@ export default function Login() {
           />
         </label>
       </form>
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ !submitValidator() }
-        onClick={ handleLoginButtonClick }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ !submitValidator() }
+          onClick={ handleLoginButtonClick }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
