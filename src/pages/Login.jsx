@@ -64,16 +64,18 @@ function Login() {
 
   function renderLoginButton() {
     return (
-      <Link to="/comidas">
+      <Link to="/comidas" htmlFor="button">
         <button
           data-testid="login-submit-btn"
           type="button"
+          id="button"
           disabled={ !validateLogin() }
           onClick={ handleLoginButton }
         >
           Entrar
         </button>
       </Link>
+
     );
   }
 
