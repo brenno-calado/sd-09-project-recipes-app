@@ -74,10 +74,17 @@
   flex-wrap: wrap;
   position: fixed;
   width: 100%;
+  text-align: center;
 }
 
-.optionsPerfil img {
+.optionsPerfil a {
   flex: auto;
   max-height: 100px;
   padding: 20px;
+}
+
+.pageExplore {
+  box-shadow: 1px 1px 1px black;
+  margin: 30px;
+  padding: 20px 10px;
 }
