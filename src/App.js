@@ -8,7 +8,10 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={ Login } />
+        <Route path="/comidas" />
+        <Route exact path="/">
+          <Login />
+        </Route>
       </Switch>
     </BrowserRouter>
   );
