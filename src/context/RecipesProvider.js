@@ -5,13 +5,14 @@ import { fetchFoodsAPI, fetchFoodsCategoryAPI } from '../services/fetchFoodsAPI'
 import { fetchDrinksAPI, fetchDrinksCategoryAPI } from '../services/fetchDrinksAPI';
 import fetchFoodIngredientsAPI from '../services/fetchFoodIngredientsAPI';
 import fetchDrinkIngredientsAPI from '../services/fetchDrinkIngredientsAPI';
+import fetchFoodAreaAPI from '../services/fetchFoodsAreaAPI';
 
 const RecipesProvider = ({ children }) => {
   // passar os states
   const [recipesFoods, setRecipesFoods] = useState([]);
   const [recipesDrinks, setRecipesDrinks] = useState([]);
   const [foodIngredients, setFoodIngredients] = useState([]);
-  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [foodAreas, setFoodAreas] = useState([]);
   const [foodCategories, setFoodCategories] = useState([]);
   const [drinkCategories, setDrinkCategories] = useState([]);
 
@@ -41,6 +42,12 @@ const RecipesProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
+    fetchFoodAreaAPI().then((myAreas) => {
+      setFoodAreas(myAreas);
+    });
+  }, []);
+
+  useEffect(() => {
     fetchFoodsCategoryAPI().then((categoriesFood) => {
       setFoodCategories(categoriesFood);
     });
@@ -60,6 +67,7 @@ const RecipesProvider = ({ children }) => {
     setRecipesDrinks,
     foodIngredients,
     drinkIngredients,
+    foodAreas,
     foodCategories,
     drinkCategories,
   };
