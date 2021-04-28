@@ -1,3 +1,17 @@
+.footer-bar {
+  align-items: center;
+  background-color: #747373;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100%;
+}
+
+.footer-icons {
+  margin: 20%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

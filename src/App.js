@@ -1,30 +1,36 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-// import rockGlass from './images/rockGlass.svg';
+import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './Common/Components/Header';
-import Profile from './Pages/Profile';
-import MealRecipeDetails from './Pages/RecipeDetails';
-import testRecipeDetailsObj from './Common/testRecipeDetailsObj';
+import FooterMenu from './components/FooterMenu';
+import Login from './Pages/Login';
+import Foods from './Pages/Foods';
+import Drinks from './Pages/Drinks';
+import Explore from './Pages/Explore';
 
-class App extends React.Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <div className="meals">
-          <Switch>
-            <Route exact path="/" render={ () => <Header pageName="Receita" /> } />
-            <Route path="/perfil" component={ Profile } />
-            <Route
-              path="/mealrecipedetails"
-              render={ () => <MealRecipeDetails recipe={ testRecipeDetailsObj } /> }
-            />
-          </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
+function App() {
+  return (
+    <>
+      <div className="meals">
+        <span className="logo">TRYBE</span>
+        <object
+          className="rocksGlass"
+          type="image/svg+xml"
+          data={ rockGlass }
+        >
+          Glass
+        </object>
+        <Switch>
+          <Route exact path="/" component={ Login } />
+          <Route path="/comidas" component={ Foods } />
+          <Route path="/bebidas" component={ Drinks } />
+          <Route path="/explorar" component={ Explore } />
+        </Switch>
+      </div>
+      <FooterMenu />
+    </>
+  );
 }
 
 export default App;
