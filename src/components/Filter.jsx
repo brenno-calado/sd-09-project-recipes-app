@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Filters() {
+function Filter() {
   return (
     <div>
-      Filtros
+      Filtro
     </div>
   );
 }
 
-export default Filters;
+export default Filter;
