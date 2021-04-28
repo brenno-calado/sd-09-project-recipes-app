@@ -1,8 +1,9 @@
 import React from 'react';
+import './SearchBar.css';
 
 function SearchBar() {
   const renderRadioButtons = () => (
-    <div>
+    <div className="radio-buttons">
       <label htmlFor="ingredient-search-radio">
         <input
           type="radio"
@@ -34,7 +35,7 @@ function SearchBar() {
   );
 
   return (
-    <div>
+    <div className="SearchBar">
       <input type="text" data-testid="search-input" />
       {renderRadioButtons()}
       <button type="button" data-testid="exec-search-btn">Buscar</button>
