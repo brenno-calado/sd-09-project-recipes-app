@@ -44,7 +44,7 @@ class SearchBar extends React.Component {
         )}
         <label htmlFor="ingredient-search-radio">
           <input
-            id="ingredient"
+            id="ingredient-search-radio"
             type="radio"
             data-testid="ingredient-search-radio"
             name="radioSearchInput"
@@ -54,7 +54,7 @@ class SearchBar extends React.Component {
         </label>
         <label htmlFor="name-search-radio">
           <input
-            id="name"
+            id="name-search-radio"
             type="radio"
             data-testid="name-search-radio"
             name="radioSearchInput"
@@ -64,7 +64,7 @@ class SearchBar extends React.Component {
         </label>
         <label htmlFor="first-letter-search-radio">
           <input
-            id="first-letter"
+            id="first-letter-search-radio"
             type="radio"
             data-testid="first-letter-search-radio"
             name="radioSearchInput"

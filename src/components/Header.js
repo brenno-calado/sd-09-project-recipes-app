@@ -25,17 +25,17 @@ class Header extends React.Component {
     const { title, searchIcon } = this.props;
     const { searchInput } = this.state;
     return (
-      <header className="header-component">
-        <Link to="/perfil">
-          <img
-            src={ profileIcon }
-            data-testid="profile-top-btn"
-            alt="profile button"
-          />
-        </Link>
-        <h2 data-testid="page-title">{title}</h2>
-        {searchIcon && (
-          <>
+      <header>
+        <div className="header-component">
+          <Link to="/perfil">
+            <img
+              src={ profileIcon }
+              data-testid="profile-top-btn"
+              alt="profile button"
+            />
+          </Link>
+          <h2 data-testid="page-title">{title}</h2>
+          {searchIcon && (
             <button
               type="button"
               onClick={ this.showSearchInput }
@@ -46,9 +46,9 @@ class Header extends React.Component {
                 alt="search button"
               />
             </button>
-            <SearchBar searchInput={ searchInput } />
-          </>
-        )}
+          )}
+        </div>
+        <SearchBar searchInput={ searchInput } />
       </header>
     );
   }
