@@ -14,6 +14,7 @@ import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
 import Details from './pages/Details';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -42,7 +43,7 @@ function App() {
       <Route path="/receitas-favoritas" component={ Favorites } />
       <Route path="/receitas-feitas" component={ Done } />
       <Route path="/perfil" component={ Profile } />
-      <Route exact path="/" />
+      <Route exact path="/" component={ Login } />
     </Switch>
   );
 }
