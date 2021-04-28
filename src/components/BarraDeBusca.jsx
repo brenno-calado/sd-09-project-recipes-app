@@ -24,7 +24,6 @@ export default function BarraDeBusca() {
   async function submitSearch() {
     const { searchInput, criteria } = searchInfo;
     const recipes = await getRecipes(category, searchInput, criteria);
-    console.log(recipes);
     setRecipesResult(recipes);
     if (!Array.isArray(recipes)) {
       alert(recipes.message);
@@ -34,10 +33,6 @@ export default function BarraDeBusca() {
       const idKey = Object.keys(recipes[0]).filter((key) => key.startsWith('id'));
       history.push(`/${category}/${recipes[0][idKey]}`);
     }
-    setSearchInfo({
-      searchInput: '',
-      criteria: '',
-    });
   }
 
   return (

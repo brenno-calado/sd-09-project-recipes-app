@@ -18,7 +18,6 @@ export default {
   },
 
   async fetchByFirstLetter(firstLetter) {
-    console.log('xablau');
     try {
       if (firstLetter.length > 1) {
         throw new Error('Sua busca deve conter somente 1 (um) caracter');

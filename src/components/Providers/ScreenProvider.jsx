@@ -3,7 +3,7 @@ import { shape } from 'prop-types';
 import { ScreenContext } from '../../context';
 
 export default function ScreenProvider({ children }) {
-  const [category, setCategory] = useState('comidas');
+  const [category, setCategory] = useState('bebidas');
   const [searchBarView, setSearchBarView] = useState(false);
 
   const value = {
