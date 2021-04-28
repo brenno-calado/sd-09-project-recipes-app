@@ -12,8 +12,8 @@
 
 form {
   display: flex;
-  padding: 5px;
   flex-direction: column;
+  padding: 5px;
 }
 
 form input {
