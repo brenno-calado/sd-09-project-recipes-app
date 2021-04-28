@@ -25,14 +25,14 @@ button:disabled {
   background-repeat: no-repeat;
   border: none;
   cursor: pointer;
-  overflow: hidden;
   outline: none;
+  overflow: hidden;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
   background-color: rgb(204, 203, 203);
-  padding: 10px;
+  display: flex;
   font-size: 1.8em;
+  justify-content: space-between;
+  padding: 10px;
 }

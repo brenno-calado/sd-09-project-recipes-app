@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppContext from '../context/AppContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header() {
-  const { header: { page, search } } = useContext(AppContext);
+  const page = '';
+  const search = true;
   const [searchBar, setSearchBar] = useState(false);
   return (
     <div>
