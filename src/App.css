@@ -68,9 +68,9 @@
 }
 
 .footer-style {
+  bottom: 0;
   display: flex;
   justify-content: space-between;
-  bottom: 0;
   position: fixed;
   width: 100%;
 }
