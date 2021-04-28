@@ -32,7 +32,8 @@ function Header({ title, search }) {
           { renderImage('search-top-btn', searchIcon, 'search icon')}
         </button>)}
 
-      { search && state.shouldSearch ? <SearchBar /> : null }
+      { search && state.shouldSearch
+        ? <SearchBar isMeal={ title === 'Comidas' } /> : null }
     </header>
   );
 }
