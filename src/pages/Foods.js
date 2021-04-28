@@ -3,10 +3,11 @@ import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
+import BottomMenu from '../components/BottomMenu';
 
 function Foods() {
   const { handleFetchFoodClick, recipesData } = useRecipeContext();
-  
+
   useEffect(() => {
     if (recipesData.length === 1) {
       console.log('objeto', recipesData.meals[0].idMeal);
@@ -14,7 +15,7 @@ function Foods() {
       console.log('one', oneItem);
       return (<Redirect to="/comidas/1" />);
     }
-  }, [recipesData]) 
+  }, [recipesData]);
 
   return (
     <>
@@ -30,6 +31,7 @@ function Foods() {
           Buscar
         </button>
       </SearchBar>
+      <BottomMenu />
     </>
   );
 }

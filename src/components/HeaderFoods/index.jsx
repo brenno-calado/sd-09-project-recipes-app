@@ -12,6 +12,7 @@ function HeaderFoods({ children, hasSearchBar }) {
 
   function shouldRedirect() {
     setRedirect(true);
+    console.log('deubom');
   }
   if (redirect) return <Redirect to="/perfil" />;
   return (

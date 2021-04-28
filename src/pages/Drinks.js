@@ -2,6 +2,7 @@ import React from 'react';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
+import BottomMenu from '../components/BottomMenu';
 
 function Drinks() {
   const { handleFetchDrinkClick } = useRecipeContext();
@@ -19,6 +20,7 @@ function Drinks() {
           Buscar
         </button>
       </SearchBar>
+      <BottomMenu />
     </>
   );
 }
