@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function Perfil() {
   const { email } = JSON.parse(localStorage.getItem('user'));
-
+  const clearLocalStorage = () => {
+    localStorage.clear();
+  };
   return (
     <div>
       <span data-testid="profile-email">
@@ -29,7 +31,7 @@ export default function Perfil() {
         <button
           type="button"
           data-testid="profile-logout-btn"
-          onClick={ localStorage.clear() }
+          onClick={ clearLocalStorage }
         >
           Sair
         </button>
