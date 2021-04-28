@@ -4,8 +4,6 @@ function MealDetails({ match: { params: { id } } }) {
 
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => fetchRecipe(), [])
   
   async function fetchRecipe() {
     const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -14,6 +12,8 @@ function MealDetails({ match: { params: { id } } }) {
     setRecipe(jsonRecipe.meals[0]);
     setLoading(false);
   }
+
+  useEffect(() => fetchRecipe(), [])
 
   function renderRecipePhoto() {
     return (
@@ -182,5 +182,11 @@ function renderRecomendedRecipes() {
     </div>
   );
 }
+
+MealDetails.propTypes = {
+  match: PropTypes.object,
+  params: PropTypes.object,
+  id: PropTypes.string,
+}.isRequired
 
 export default MealDetails;

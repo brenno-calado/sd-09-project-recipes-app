@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function MealDetails({ match: { params: { id } } }) {
+function DrinkDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -171,10 +171,10 @@ function MealDetails({ match: { params: { id } } }) {
   );
 }
 
-MealDetails.propTypes = {
+DrinkDetails.propTypes = {
   match: PropTypes.object,
   params: PropTypes.object,
   id: PropTypes.string,
 }.isRequired
 
-export default MealDetails;
+export default DrinkDetails;
