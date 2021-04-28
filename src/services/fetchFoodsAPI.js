@@ -4,8 +4,14 @@ export const fetchFoodsAPI = async () => {
   return myRecipes.meals;
 };
 
-export const fetchFoodsCategoryAPI = async () => {
+export const fetchFoodsCategoriesAPI = async () => {
   const myRecipes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
     .then((data) => data.json());
   return myRecipes.meals;
+};
+
+export const fetchFoodsCategoryAPI = async (category) => {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((data) => data.json());
+  return request.meals;
 };
