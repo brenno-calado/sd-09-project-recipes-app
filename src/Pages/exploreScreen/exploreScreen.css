@@ -1,4 +1,4 @@
-.explore-main-container header{
+.explore-main-container header {
   align-items: center;
   background-color: #bebebe;
   display: flex;
@@ -10,8 +10,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 80vh;
+  justify-content: center;
 }
 
 .explore-main-container section button {
