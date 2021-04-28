@@ -1,6 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
+import MealDetails from './pages/MealDetails';
+import DrinkDetails from './pages/DrinkDetails';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,13 +10,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Switch>
-      <Route path="/" component={ Login } />
+      <Route exact path="/" component={ Login } />
+      <Route path="/comidas/:id" component={ MealDetails } />
+      <Route path="/bebidas/:id" component={ DrinkDetails } />
       {/* <Route path="/comidas" component={} />
       <Route path="/bebidas" component={} />
       <Route path="/comidas/:id/in-progress" component={} />
       <Route path="/bebidas/:id/in-progress" component={} />
-      <Route path="/comidas/:id" component={} />
-      <Route path="/bebidas/:id" component={} />
       <Route path="/explorar/comidas/ingredientes" component={} />
       <Route path="/explorar/bebidas/ingredientes" component={} />
       <Route path="/explorar/comidas" component={} />
