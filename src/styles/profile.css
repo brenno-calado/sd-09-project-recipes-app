@@ -1,20 +1,20 @@
 .container-profile {
-  width: 20em;
   background-color: lavender;
   border-radius: 1em;
-  text-align: center;
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   margin: auto;
   padding: 0 2em 3em;
+  text-align: center;
+  width: 20em;
 }
 
 .profile-icon {
-  padding: 3em 0;
-  margin: 10px;
-  width: 4em;
   height: 4em;
+  margin: 10px;
+  padding: 3em 0;
+  width: 4em;
 }
 
 .email {
@@ -24,23 +24,23 @@
 
 .recipe-buttons {
   align-items: center;
-  border: solid 1px;
   background-color: blue;
-  color: white;
+  border: solid 1px;
   border-radius: 5px;
+  color: white;
   cursor: pointer;
   display: flex;
+  height: 4em;
   justify-content: center;
   margin: 1.5em 0.5em;
-  width: 40%;
-  height: 4em;
-  transition-duration: 0.4s;
   text-transform: uppercase;
+  transition-duration: 0.4s;
+  width: 40%;
 }
 
 .recipe-buttons:hover {
-  transition-duration: 0.5s;
   background-color: darkblue;
+  transition-duration: 0.5s;
 }
 
 .leave-button {
@@ -48,12 +48,11 @@
   border: solid red 1px;
   border-radius: 4px;
   cursor: pointer;
-  text-align: center;
-  padding: 0.5em 2em;
-  overflow: hidden;
-  transition-duration: 0.5s;
   opacity: 0.6;
+  padding: 0.5em 2em;
+  text-align: center;
   text-transform: uppercase;
+  transition-duration: 0.5s;
 }
 
 .leave-button:hover {
