@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { shape, boolean } from 'prop-types';
+import { shape, bool } from 'prop-types';
 import styles from './headerFoods.module.css';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
@@ -33,11 +33,11 @@ function HeaderFoods({ children, hasSearchBar }) {
 
 HeaderFoods.propTypes = {
   children: shape(),
-  hasSearchBar: boolean,
+  hasSearchBar: bool,
 };
 
 HeaderFoods.defaultProps = {
   children: [],
-  hasSearchBar: boolean,
+  hasSearchBar: bool,
 };
 export default HeaderFoods;
