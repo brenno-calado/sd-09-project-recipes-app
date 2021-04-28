@@ -14,7 +14,7 @@ function Cocktails({ pathnameDispatcher, location }) {
 
   return (
     <div>
-      <h1 data-testid="page-title">Cocktails</h1>
+      <h1 data-testid="page-title">Bebidas</h1>
       <Header />
       <RecipeList />
       <Footer />

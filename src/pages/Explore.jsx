@@ -1,10 +1,13 @@
 import React from 'react';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const Explore = () => (
-  <h1>
-    Explorar
+  <div>
+    <h1 data-testid="page-title">Explorar</h1>
+    <Header />
     <Footer />
-  </h1>);
+  </div>
+);
 
 export default Explore;
