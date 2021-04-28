@@ -11,8 +11,12 @@ function Foods() {
   const twelve = 12;
 
   useEffect(() => {
+    if (recipesData === 'Unexpected end of JSON input'
+    || recipesData.meals === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     handleFetchRecipes('themealdb');
-  }, []);
+  }, [recipesData]);
 
   function header() {
     return (
@@ -22,7 +26,7 @@ function Foods() {
         </HeaderFoods>
         <SearchBar>
           <button
-            onClick={ handleFetchFoodClick }
+            onClick={ () => { handleFetchFoodClick(); } }
             data-testid="exec-search-btn"
             type="button"
           >

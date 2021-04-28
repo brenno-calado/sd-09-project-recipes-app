@@ -11,8 +11,12 @@ function Drinks() {
   const twelve = 12;
 
   useEffect(() => {
+    if (recipesData === 'Unexpected end of JSON input'
+    || recipesData.drinks === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     handleFetchRecipes('thecocktaildb');
-  }, []);
+  }, [recipesData]);
 
   function header() {
     return (
@@ -22,7 +26,7 @@ function Drinks() {
         </HeaderFoods>
         <SearchBar>
           <button
-            onClick={ handleFetchDrinkClick }
+            onClick={ () => { handleFetchDrinkClick(); } }
             data-testid="exec-search-btn"
             type="button"
           >
