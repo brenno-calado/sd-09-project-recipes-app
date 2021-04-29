@@ -6,12 +6,18 @@ import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
 class CocktailCards extends React.Component {
+  constructor(props) {
+    super(props);
+    this.callCocktail = this.callCocktail.bind(this);
+  }
+
   componentDidMount() {
-    const callCocktail = async () => {
-      const { getCocktails } = this.props;
-      await getCocktails();
-    };
-    callCocktail();
+    this.callCocktail();
+  }
+
+  async callCocktail() {
+    const { getCocktails } = this.props;
+    await getCocktails();
   }
 
   createCards() {
@@ -41,10 +47,10 @@ class CocktailCards extends React.Component {
   }
 
   render() {
-    const { cocktails } = this.props;
+    const { cocktails, loading } = this.props;
     return (
       <div className="cardContainer">
-        {cocktails ? this.createCards() : <div />}
+        {cocktails ? this.createCards() : <div>{loading}</div>}
       </div>
     );
   }
@@ -55,9 +61,12 @@ CocktailCards.propTypes = {
     map: PropTypes.func.isRequired,
   }).isRequired,
   getCocktails: PropTypes.func.isRequired,
+  loading: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({ cocktails: state.cocktails.cocktails });
+const mapStateToProps = (state) => ({
+  cocktails: state.cocktails.cocktails,
+  loading: state.cocktails.loading });
 
 const mapDispatchToProps = (dispatch) => (
   { getCocktails: () => dispatch(requestApiCocktails()) }
