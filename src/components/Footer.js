@@ -8,25 +8,19 @@ import mealIcon from '../images/mealIcon.svg';
 import './Footer.css';
 
 function Footer() {
-  const { isFetchIngredient, setIsFetchIngredient } = useContext(Context);
-
   const renderImage = (testid, src, alt) => (
     <img data-testid={ testid } src={ src } alt={ alt } />
   );
 
-  const handleClick = () => {
-    setIsFetchIngredient({ ...isFetchIngredient, toggleIngredient: false });
-  };
-
   return (
     <footer className="footer" data-testid="footer">
-      <Link to="/bebidas" onClick={ handleClick }>
+      <Link to="/bebidas">
         { renderImage('drinks-bottom-btn', drinkIcon, 'drink-icon') }
       </Link>
       <Link to="/explorar">
         { renderImage('explore-bottom-btn', exploreIcon, 'explore-icon') }
       </Link>
-      <Link to="/comidas" onClick={ handleClick }>
+      <Link to="/comidas">
         { renderImage('food-bottom-btn', mealIcon, 'meal-icon') }
       </Link>
     </footer>
