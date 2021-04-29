@@ -1,23 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { object } from 'prop-types';
 import '../App.css';
+import { connect } from 'react-redux';
+import { handleChecks } from '../actions/checks';
 
-function RecipeList({ item }) {
+function RecipeList({ item, sendChecks, type, query }) {
+  const INITIAL_STATE = () => {
+    const obj = {};
+    const max = true;
+    let index = 1;
+    while (max) {
+      if (!item[`strIngredient${index}`]) return obj;
+      obj[`strIngredient${index}`] = false;
+      index += 1;
+    }
+  };
+  const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+  const alreadyExists = JSON.parse(
+    localStorage.getItem('inProgressRecipes'),
+  )[type][item[`id${query}`]] || false;
+
   const [checkboxes, setCheckboxes] = useState(
-    JSON.parse(localStorage.getItem('checks')) || {},
+    alreadyExists || INITIAL_STATE(),
   );
 
-  const handleChanges = async ({ target }) => {
+  const handleChanges = ({ target }) => {
     setCheckboxes({ ...checkboxes, [target.name]: target.checked });
+    sendChecks({ ...checkboxes, [target.name]: target.checked });
   };
 
   useEffect(() => {
-    localStorage.setItem('checks', JSON.stringify(checkboxes));
-  }, [checkboxes]);
+    const obj = {
+      ...local,
+      [type]: {
+        ...local[type],
+        [item[`id${query}`]]: checkboxes,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+  }, [checkboxes, item, type, local, query]);
 
   const setList = () => {
-    const max = true;
     const ingredients = [];
+    const max = true;
     let index = 1;
     while (max) {
       if (!item[`strIngredient${index}`]) return ingredients;
@@ -49,8 +75,12 @@ function RecipeList({ item }) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  sendChecks: (checks) => dispatch(handleChecks(checks)),
+});
+
 RecipeList.propTypes = {
   item: object,
 }.isRequired;
 
-export default RecipeList;
+export default connect(null, mapDispatchToProps)(RecipeList);
