@@ -1,0 +1,62 @@
+.container-profile {
+  background-color: lavender;
+  border-radius: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  padding: 0 2em 3em;
+  text-align: center;
+  width: 20em;
+}
+
+.profile-icon {
+  height: 4em;
+  margin: 10px;
+  padding: 3em 0;
+  width: 4em;
+}
+
+.email {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.recipe-buttons {
+  align-items: center;
+  background-color: blue;
+  border: solid 1px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 4em;
+  justify-content: center;
+  margin: 1.5em 0.5em;
+  text-transform: uppercase;
+  transition-duration: 0.4s;
+  width: 40%;
+}
+
+.recipe-buttons:hover {
+  background-color: darkblue;
+  transition-duration: 0.5s;
+}
+
+.leave-button {
+  background-color: lavender;
+  border: solid red 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  opacity: 0.6;
+  padding: 0.5em 2em;
+  text-align: center;
+  text-transform: uppercase;
+  transition-duration: 0.5s;
+}
+
+.leave-button:hover {
+  background-image: linear-gradient(chocolate, red);
+  color: white;
+  opacity: 1;
+}

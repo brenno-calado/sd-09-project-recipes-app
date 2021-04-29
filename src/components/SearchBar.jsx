@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import { functionFood, functionDrink } from '../services/functions';
 import Cards from './Cards';
+import recipesContext from '../context/recipesContext';
 
 function SearchBar() {
-  const [data, setData] = useState('');
+  const { data, setData } = useContext(recipesContext);
+  const { recipes, setRecipes } = useContext(recipesContext);
   const [searchValue, setSearchValue] = useState('');
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [localRedirect, setLocalRedirect] = useState('');
   const [shouldCards, setShouldCards] = useState(false);
-  const [recipes, setRecipes] = useState([]);
   const { pathname } = useLocation();
 
   async function getData() {

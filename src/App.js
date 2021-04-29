@@ -17,6 +17,7 @@ import ProcessDrinks from './pages/ProcessDrinks';
 import ProcessFoods from './pages/ProcessFoods';
 import FoodsDetails from './pages/FoodsDetails';
 import DrinksDetails from './pages/DrinksDetails';
+import './App.css';
 
 function App() {
   return (
