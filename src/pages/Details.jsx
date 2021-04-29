@@ -8,7 +8,7 @@ function Details({
   mealsById,
   cocktailsById,
   recipeType,
-  // recipe,
+  recipe,
 }) {
   useEffect(() => {
     if (recipeType === 'meals') {
@@ -19,14 +19,13 @@ function Details({
     }
   }, []);
 
-  console.log(id);
-  console.log(recipeType);
+  console.log(recipe);
 
   return (
     <section>
-      <h1>Detalhes</h1>
+      <h1>Detalhes da Receita</h1>
       <img
-        src=""
+        src={ recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt="current recipe"
         data-testid="recipe-photo"
       />
@@ -47,7 +46,9 @@ function Details({
         </button>
       </div>
       <div>
-        <p data-testid="recipe-title">Title</p>
+        <p data-testid="recipe-title">
+          { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
+        </p>
         <p data-testid="recipe-category">Texto da categoria</p>
       </div>
       <div>
