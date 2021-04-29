@@ -13,8 +13,8 @@ function Cards({ notFound, items, idType, notFoundReset }) {
   if (items.length > maxItemsToshow) items = items.slice(0, maxItemsToshow);
 
   const alertNotFound = () => {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     notFoundReset();
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   };
 
   return (

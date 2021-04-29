@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Cards from '../components/Cards';
 import Footer from '../components/Footer';
@@ -8,14 +9,9 @@ import './Styles/Recipes.css';
 import { getRecipesAction } from '../Redux/actions';
 
 function Foods({ getRecipes, recipes }) {
-  const fetchListOfMeals = async () => {
-    const data = await fetchMeals();
-    getRecipes(data);
-  };
-
   useEffect(() => {
-    fetchListOfMeals();
-  }, []);
+    fetchMeals().then((data) => getRecipes(data));
+  }, [getRecipes]);
 
   return (
     <div id="Recipes">
@@ -33,5 +29,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getRecipes: (data) => dispatch(getRecipesAction(data)),
 });
+
+Foods.propTypes = {
+  getRecipes: PropTypes.func,
+  recipes: PropTypes.arrayOf({}),
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foods);
