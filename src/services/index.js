@@ -16,6 +16,18 @@ const fetchMealByIngredients = async () => {
   return mealIngredients.meals;
 };
 
+const fetchMealByFilter = async (url) => {
+  const response = await fetch(url);
+  const mealFilter = await response.json();
+  return mealFilter.meals;
+};
+
+const fetchDrinkByFilter = async (url) => {
+  const response = await fetch(url);
+  const drinkFilter = await response.json();
+  return drinkFilter.drinks;
+};
+
 const getIngredientsImg = (ingredientName) => {
   const imgUrl = `https://www.themealdb.com/images/ingredients/${ingredientName}.png`;
   return imgUrl;
@@ -40,6 +52,8 @@ const fetchApi = {
   getIngredientsImg,
   fetchDrinkCategories,
   fetchDrinkByIngredients,
+  fetchMealByFilter,
+  fetchDrinkByFilter,
 };
 
 export default fetchApi;
