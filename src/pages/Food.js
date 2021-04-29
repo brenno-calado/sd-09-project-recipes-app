@@ -70,6 +70,8 @@ const Food = () => {
               key={ meal.idMeal }
               recipeName={ meal.strMeal }
               recipeImage={ meal.strMealThumb }
+              type="comidas"
+              id={ meal.idMeal }
               index={ index }
             />
           ))}

@@ -73,6 +73,8 @@ const Drinks = () => {
               key={ drink.idDrink }
               recipeName={ drink.strDrink }
               recipeImage={ drink.strDrinkThumb }
+              type="bebidas"
+              id={ drink.idDrink }
               index={ index }
             />
           ))}
