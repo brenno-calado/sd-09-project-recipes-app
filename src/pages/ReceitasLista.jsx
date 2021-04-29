@@ -7,7 +7,6 @@ function ReceitasLista() {
       <Header />
       <h1> ReceitasLista </h1>
     </>
-    
   );
 }
 

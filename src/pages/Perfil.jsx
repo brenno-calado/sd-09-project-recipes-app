@@ -7,7 +7,6 @@ function Perfil() {
       <Header />
       <h1> Perfil </h1>
     </>
-   
   );
 }
 
