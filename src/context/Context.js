@@ -5,10 +5,13 @@ const Context = createContext();
 
 const Provider = ({ children }) => {
   const [searchResult, setSearchResult] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
 
   const contextValue = {
     setSearchResult,
     searchResult,
+    isSearch,
+    setIsSearch,
   };
 
   return (

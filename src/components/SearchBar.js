@@ -7,7 +7,7 @@ function SearchBar({ isMeal }) {
   const INITIAL_STATE = { search: '', searchBy: '' };
   const [state, setState] = useState(INITIAL_STATE);
 
-  const { setSearchResult } = useContext(Context);
+  const { setSearchResult, setIsSearch } = useContext(Context);
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
@@ -15,6 +15,7 @@ function SearchBar({ isMeal }) {
 
   const handleSearch = async () => {
     const { search, searchBy } = state;
+    setIsSearch(true);
     if (searchBy === 'firstLetter' && search.length > 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
