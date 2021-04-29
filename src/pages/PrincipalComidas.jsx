@@ -1,14 +1,16 @@
 import React from 'react';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
+import '../styles/recipes.css';
 
-class PrincipalComidas extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header textProp="Comidas" />
-        <span>Placeholder</span>
-      </div>);
-  }
+function PrincipalComidas() {
+  return (
+    <>
+      <Header textProp="Comidas" />
+      <h1>Comidas</h1>
+      <Footer />
+    </>
+  );
 }
 
 export default PrincipalComidas;
