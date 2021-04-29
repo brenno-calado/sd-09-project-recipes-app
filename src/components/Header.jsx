@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import profileImg from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
 
+const [showSearchBar, setShowSearchBar] = useState(false);
+
+const changeSearchBarStatus = () => setShowSearchBar(!showSearchBar);
 function renderButton() {
   return (
-    <button data-testid="search-top-btn" type="button" src={ searchImg }>
+    <button
+      data-testid="search-top-btn"
+      type="button"
+      src={ searchImg }
+      onChange={ changeSearchBarStatus() }
+    >
       <img alt="SearchImage" src={ searchImg } />
     </button>
   );
