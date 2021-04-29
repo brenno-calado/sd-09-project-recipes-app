@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExplorarArea() {
   return (
-    <h1> ExplorarArea </h1>
+    <>
+      <Header />
+      <h1> ExplorarArea </h1>
+    </>
   );
 }
 
