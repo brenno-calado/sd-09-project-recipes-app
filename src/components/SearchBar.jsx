@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import fetchApi from '../services/index';
 import MyContext from '../context/context';
-import { useLocation } from 'react-router';
+import { useLocation, useHistory } from 'react-router';
 
 function SearchBar() {
   const [ input, setInput ] = useState({
@@ -9,18 +9,28 @@ function SearchBar() {
     text: '',
   });
 
-  const { setSearchFilter } = useContext(MyContext);
+  const { setSearchFilter, searchFilter } = useContext(MyContext);
   const { pathname } = useLocation();
+  const history = useHistory();
 
   const handleChange = ({target:{value, name}}) => {
     setInput({...input, [name]: value});
+  }
+  
+  const redirectToDetailsById = () => {
+    if (searchFilter.length === 1 && pathname === '/comidas') {
+      history.push(`/comidas/${searchFilter[0].idMeal}`);
+    } else if(searchFilter.length === 1 && pathname === '/bebidas') {
+      history.push(`/bebidas/${searchFilter[0].idDrink}`);
+    } else {
+      return;
+    };
   }
 
   const handleClick = async () => {
     const filter = input.text;
     let url = '';
     let apiResult = '';
-    console.log(pathname);
     switch(input.radio) {
       case 'firstletter':
         if(input.text.length > 1) {
@@ -60,6 +70,10 @@ function SearchBar() {
     }
   }
   
+  useEffect(() => {
+    redirectToDetailsById();
+  },[searchFilter,redirectToDetailsById]);
+
   return (
     <div className="search-bar-container">
     <input type="text" name="text" data-testid="search-input" onChange={(e)=> handleChange(e)} />
