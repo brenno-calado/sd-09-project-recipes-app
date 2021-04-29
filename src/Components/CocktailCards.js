@@ -19,9 +19,17 @@ class CocktailCards extends React.Component {
     return cocktails.map(
       (cocktail, index) => (index <= magicNumber
       && (
-        <div key={ index }>
-          <img src={ cocktail.strDrinkThumb } alt="cocktails" className="foodCards" />
-          <p>{cocktail.strDrink}</p>
+        <div
+          key={ index }
+          data-testid={ `${index}-recipe-card` }
+        >
+          <img
+            src={ cocktail.strDrinkThumb }
+            alt="cocktails"
+            data-testid={ `${index}-card-img` }
+            className="foodCards"
+          />
+          <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
         </div>)
       ),
     );
