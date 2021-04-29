@@ -2,6 +2,7 @@ import fetchRecipes from '../service/recepiesApi';
 import fetchDetails from '../service/fetchDetails';
 import fetchDefaultApi from '../service/defautFetchApi';
 import categoriesfetchApi from '../service/categoriesFetchApi';
+import fetchRecipeByCategory from '../service/fetchRecipeByCategory';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
@@ -54,3 +55,16 @@ export const fetchDrinkRecipeDetails = (id) => (dispatch) => (
       type: 'STORE_DRINK_RECIPE_DETAILS',
       recipeDetails: recipesApiReponse,
     })));
+
+export const fetchRecipesByCategoryAction = (category) => (dispatch) => {
+  fetchRecipeByCategory(category)
+    .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
+};
+
+export const setIsCategoryToTrueAction = () => ({
+  type: 'SET_ISCATEGORY_TO_TRUE',
+});
+
+export const setIsCategoryToFalseAction = () => ({
+  type: 'SET_ISCATEGORY_TO_FALSE',
+});

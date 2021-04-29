@@ -1,12 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { array } from 'prop-types';
-import { categoriesfetchApiAction } from '../actions';
+import {
+  fetchRecipesByCategoryAction,
+  categoriesfetchApiAction,
+  setIsCategoryToTrueAction,
+} from '../actions';
 
 class CategoriesList extends React.Component {
   componentDidMount() {
     const { categoriesFetchApi } = this.props;
     categoriesFetchApi();
+  }
+
+  handleClick(categorie) {
+    const { fetchRepiciesByCategory, setIsCategoryToTrue } = this.props;
+    fetchRepiciesByCategory(categorie);
+    setIsCategoryToTrue();
   }
 
   render() {
@@ -21,6 +31,7 @@ class CategoriesList extends React.Component {
             type="button"
             key={ categorie.strCategory }
             data-testid={ `${categorie.strCategory}-category-filter` }
+            onClick={ () => this.handleClick(categorie.strCategory) }
           >
             {categorie.strCategory}
           </button>))}
@@ -35,6 +46,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispach) => ({
   categoriesFetchApi: () => dispach(categoriesfetchApiAction()),
+  fetchRepiciesByCategory: (categorie) => (
+    dispach(fetchRecipesByCategoryAction(categorie))),
+  setIsCategoryToTrue: () => dispach(setIsCategoryToTrueAction()),
 });
 
 CategoriesList.propTypes = {

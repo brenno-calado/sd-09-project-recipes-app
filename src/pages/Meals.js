@@ -15,7 +15,7 @@ class Meals extends React.Component {
   }
 
   render() {
-    const { recipes, isLoading } = this.props;
+    const { recipes, isLoading, isCategory } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
@@ -29,7 +29,7 @@ class Meals extends React.Component {
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
         <CategoriesList />
-        {itens && itens.length === 1
+        {itens && !isCategory && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((meal, index) => (
           <RecipeMealCard key={ meal[idType] } meal={ meal } index={ index } />))}
@@ -41,6 +41,7 @@ class Meals extends React.Component {
 const mapStateToProps = (state) => ({
   recipes: state.searchInputReducer.recipes,
   isLoading: state.searchInputReducer.isLoading,
+  isCategory: state.searchInputReducer.isCategory,
 });
 
 const mapDispatchToProps = (dispach) => ({
