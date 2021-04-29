@@ -6,8 +6,6 @@ import Footer from '../components/Footer';
 import getPageTitle from '../services/pageTitles';
 import paths from '../routes/paths';
 
-const userEmail = JSON.parse(localStorage.getItem('user')).email;
-
 const {
   DONE_RECIPES,
   FAVORITE_RECIPES,
@@ -15,18 +13,18 @@ const {
 } = paths;
 
 const Profile = ({ match: { path } }) => {
+  const userEmail = JSON.parse(localStorage.getItem('user')) || '';
   const history = useHistory();
   const handleQuit = () => {
     localStorage.clear();
     history.push(LOGIN);
   };
-  console.log(typeof userEmail);
 
   return (
     <>
       <Header title={ getPageTitle(path) } />
       <section>
-        <p data-testid="profile-email">{userEmail}</p>
+        <p data-testid="profile-email">{userEmail.email}</p>
         <button
           type="button"
           data-testid="profile-done-btn"
