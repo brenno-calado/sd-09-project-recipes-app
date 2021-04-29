@@ -38,6 +38,9 @@ footer {
   text-decoration: none solid black;
 }
 
+.doneImage {
+  width: 100%;
+}
 
 .meals > .logo {
   animation: shake 1.5s infinite ease;
