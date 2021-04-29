@@ -44,7 +44,7 @@ function App() {
           component={ ExploreFoodsByIngredients }
         />
         <Route exact path="/explorar/comidas/area" component={ ExploreFoodsByLocal } />
-        <Route exact path="/perfil" component={ Perfil } />
+        <Route exact path="/perfil" component={ Profile } />
         <Route exact path="/receitas-feitas" component={ recipesDone } />
         <Route exact path="/receitas-favoritas" component={ recipesFavorites } />
       </Provider>
