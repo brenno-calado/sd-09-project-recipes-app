@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 
 function Food({ match }) {
   return (
     <div>
-      <button type="button" data-testid="search-top-btn">click</button>
-      {SearchBar(match)}
+      <Header title="Comidas" match={ match } />
     </div>
   );
 }
