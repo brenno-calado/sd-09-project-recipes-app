@@ -1,11 +1,11 @@
 import React from 'react';
-import BarraDeBusca from '../components/BarraDeBusca';
+import Header from '../components/Header';
 
 function ReceitasPrincipal() {
   return (
     <>
       <h1> ReceitasPrincipal </h1>
-      <BarraDeBusca />
+      <Header />
     </>
   );
 }
