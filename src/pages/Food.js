@@ -6,7 +6,7 @@ import {
   getFoodAll,
   getFoodByCategory,
   getFoodsCategories,
-} from '../services/foodAPI.js';
+} from '../services/foodAPI';
 import RecipeCard from '../components/RecipeCard';
 import FilterButtons from '../components/FilterButtons';
 
