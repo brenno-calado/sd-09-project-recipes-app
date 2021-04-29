@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
+import { useParams } from 'react-router';
 import { saveFilterDataAction } from '../redux/actions';
 
 function SearchBar() {

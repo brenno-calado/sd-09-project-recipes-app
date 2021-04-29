@@ -1,5 +1,11 @@
 import React from 'react';
+import SearchBar from '../components/SearchBar';
 
 export default function Drinks() {
-  return (<h1>Drinks</h1>);
+  return (
+    <div>
+      <h1>Drinks</h1>
+      <SearchBar />
+    </div>
+  );
 }
