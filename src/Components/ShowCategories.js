@@ -1,21 +1,45 @@
-import React, { useState } from 'react';
-import { fetchMealCategories, fetchCocktailsCategories } from '../services/ApiRequest';
+import React, { useCallback, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import {
+  fetchMealCategories,
+  fetchCocktailsCategories,
+} from '../services/ApiRequest';
 
 function ShowCategories({ name }) {
-  // const [categories, setCategories] = useState([]);
-  // async function callApi() {
-  //   const categoriesCall = await fetchMealCategories;
-  //   setCategories(categoriesCall);
-  // }
-  // console.log(categories);
+  const [categories, setCategories] = useState([]);
+  const getCategories = useCallback(async (apiRequest) => {
+    const getmealsCategory = await apiRequest();
+    if (name === 'Comidas') setCategories(getmealsCategory.meals);
+    else setCategories(getmealsCategory.drinks);
+  }, [name]);
+  useEffect(() => {
+    if (name === 'Comidas') getCategories(fetchMealCategories);
+    else getCategories(fetchCocktailsCategories);
+  }, [getCategories, name]);
+  const numberOfCategories = 5;
+  console.log(categories);
+
   return (
     <div>
-      {name === 'Comidas'
-        ? console.log('')
-        : console.log(categories)
-      }
+      {!categories
+        ? <div>letter</div>
+        : categories.map(
+          (category, index) => (index < numberOfCategories
+            && (
+              <span
+                type="button"
+                data-testid={ `${category.strCategory}-category-filter` }
+              >
+                {category.strCategory}
+              </span>)
+          ),
+        )}
     </div>
   );
 }
+
+ShowCategories.propTypes = {
+  name: PropTypes.string.isRequired,
+};
 
 export default ShowCategories;
