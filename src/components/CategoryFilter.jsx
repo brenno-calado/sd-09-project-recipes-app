@@ -84,7 +84,6 @@ function CategoryFilter({
           </button>
         )
       }
-
     </section>
   );
 }
