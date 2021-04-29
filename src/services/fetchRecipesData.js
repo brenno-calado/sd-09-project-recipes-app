@@ -8,6 +8,10 @@ const checkSearchType = (type, text, category) => {
     return `https://www.the${category}db.com/api/json/v1/1/search.php?s=${text}`;
   case 'Primeira Letra':
     return `https://www.the${category}db.com/api/json/v1/1/search.php?f=${text}`;
+  case 'drink':
+    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${text}`;
+  case 'meal':
+    return `https://www.themealdb.com/api/json/v1/1/filter.php?c=${text}`;
   default:
     return `https://www.the${category}db.com/api/json/v1/1/search.php?s=`;
   }
@@ -23,6 +27,7 @@ const fetchRecipesData = async (type, text, category) => {
       .then((response) => response.json());
 
     const foodType = category === 'meal' ? 'meals' : 'drinks';
+    console.log(foodType);
     return output[foodType];
   } catch (error) {
     console.log(error);

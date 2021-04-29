@@ -8,23 +8,21 @@ import '../styles/Recipes.css';
 
 const TWELVE = 12;
 
-function Recipes({ recipesList, recipesType, dispatchSearch }) {
+function Recipes({ recipesList, recipesType, dispatchSearch, redirect }) {
   const category = useLocation().pathname;
   useEffect(() => {
     if (category === '/comidas' && recipesList.length < 1) {
       dispatchSearch(null, null, 'meal');
-      console.log('entrou no if 1');
     }
     if (category === '/bebidas' && recipesList.length < 1) {
       dispatchSearch(null, null, 'cocktail');
-      console.log('entrou no if 2');
     }
   }, [category, dispatchSearch, recipesList]);
   if (!recipesList) {
     return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
-  if (recipesList.length === 1) {
+  if (recipesList.length === 1 && redirect) {
     return recipesType === 'meal'
       ? <Redirect to={ `/comidas/${recipesList[0].idMeal}` } />
       : <Redirect to={ `/bebidas/${recipesList[0].idDrink}` } />;
@@ -86,9 +84,10 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-const mapStateToProps = ({ recipes: { recipesType, recipesList } }) => ({
+const mapStateToProps = ({ recipes: { recipesType, recipesList, redirect } }) => ({
   recipesType,
   recipesList,
+  redirect,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
