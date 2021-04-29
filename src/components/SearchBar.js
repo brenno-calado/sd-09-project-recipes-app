@@ -13,7 +13,6 @@ export default function SearchBar({ isMealsPage }) {
   const handleChange = ({ target }) => {
     setInputValue(target.value);
   };
-  console.log(inputValue);
 
   const radioClick = ({ target }) => {
     setRadioValue(target.value);
