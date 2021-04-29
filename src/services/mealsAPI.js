@@ -8,7 +8,6 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_NAME}${name}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        console.log(recipesJSON);
         return recipesJSON.meals;
       }
       throw new Error('Falha ao buscar receitas por nome =(');
@@ -37,7 +36,6 @@ export default {
     try {
       const recipesHTTP = await fetch(`${MEAL_BY_INGREDIENT}${ingredient}`);
       if (recipesHTTP.ok) {
-        console.log(recipesHTTP);
         const recipesJSON = await recipesHTTP.json();
         return recipesJSON.meals;
       }

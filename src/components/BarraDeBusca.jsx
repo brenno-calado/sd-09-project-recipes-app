@@ -25,14 +25,17 @@ export default function BarraDeBusca() {
     const { searchInput, criteria } = searchInfo;
     const category = pathname.includes('comidas') ? 'comidas' : 'bebidas';
     const recipes = await getRecipes(category, searchInput, criteria);
-    setRecipesResult(recipes);
-    if (!Array.isArray(recipes)) {
-      alert(recipes.message);
-    } else if (!recipes.length) {
+    console.log(typeof recipes);
+    if (!recipes) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else if (recipes.length === 1) {
-      const idKey = Object.keys(recipes[0]).filter((key) => key.startsWith('id'));
-      history.push(`/${category}/${recipes[0][idKey]}`);
+    } else if (!Array.isArray(recipes)) {
+      alert(recipes.message);
+    } else {
+      setRecipesResult(recipes);
+      if (recipes.length === 1) {
+        const idKey = Object.keys(recipes[0]).filter((key) => key.startsWith('id'));
+        history.push(`/${category}/${recipes[0][idKey]}`);
+      }
     }
   }
 

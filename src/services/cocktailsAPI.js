@@ -1,6 +1,6 @@
 const COCKTAIL_BY_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 const COCKTAIL_BY_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
-const COCKTAIL_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?i=';
+const COCKTAIL_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 
 export default {
   async fetchByName(name) {
@@ -37,7 +37,7 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_INGREDIENT}${ingredient}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.ingredients;
+        return recipesJSON.drinks;
       }
       throw new Error('Falha ao buscar receitas por ingrediente =(');
     } catch (error) {
