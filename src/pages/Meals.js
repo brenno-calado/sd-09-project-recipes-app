@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { objectOf, string } from 'prop-types';
-import SearchBar from '../components/SearchBar';
+import { Redirect } from 'react-router-dom';
+
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
-import { Redirect } from 'react-router-dom';
 import RecipeMealCard from '../components/RecipeMealCard';
 
-class Comidas extends React.Component {
+class Meals extends React.Component {
   render() {
     const { recipes } = this.props;
     const searchIcon = true;
@@ -18,6 +18,10 @@ class Comidas extends React.Component {
     return (
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
+        <div className="recipe-card-container">
+          {recipes.meals && recipes.meals.map((meal) => (
+            <RecipeCard key={ meal.idMeal } meal={ meal } />))}
+        </div>
         {itens.length === 1
           && <Redirect to={ `${pathName}/${recipes[0][idType]}` } /> }
         {itens.map((meal, index) => (
@@ -31,9 +35,9 @@ const mapStateToProps = (state) => ({
   recipes: state.searchInputReducer.recipes,
 });
 
-Comidas.propTypes = {
+Meals.propTypes = {
   recipes: objectOf,
   searchIcon: string,
 }.isRequired;
 
-export default connect(mapStateToProps)(Comidas);
+export default connect(mapStateToProps)(Meals);
