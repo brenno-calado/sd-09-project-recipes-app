@@ -5,6 +5,7 @@ import { savePath } from '../redux/actions';
 import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
 import CategoryFilter from '../components/CategoryFilter';
+import Footer from '../components/Footer';
 
 function Cocktails({ pathnameDispatcher, location }) {
   useEffect(() => {
@@ -19,10 +20,11 @@ function Cocktails({ pathnameDispatcher, location }) {
 
   return (
     <div>
-      <h1 data-testid="page-title">Cocktails</h1>
+      <h1 data-testid="page-title">Bebidas</h1>
       <Header />
       <CategoryFilter />
       <RecipeList />
+      <Footer />
     </div>
   );
 }
