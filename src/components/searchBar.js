@@ -52,7 +52,6 @@ export default function SearchBar({ type }) {
       if (type === 'food') {
         dispatch(searchRecipes(searchResult.meals));
       } else {
-        console.log(searchResult.drinks);
         dispatch(searchDrink(searchResult.drinks));
       }
     } catch (err) {
@@ -79,7 +78,7 @@ export default function SearchBar({ type }) {
         defaultValue="getNameByValue"
       >
         <ToggleButton
-          variant="outline-primary"
+          variant="outline-secondary"
           data-testid="ingredient-search-radio"
           onChange={ handleOptions }
           value="getIngredientByValue"
@@ -88,7 +87,7 @@ export default function SearchBar({ type }) {
           ingrediente
         </ToggleButton>
         <ToggleButton
-          variant="outline-primary"
+          variant="outline-secondary"
           data-testid="name-search-radio"
           onChange={ handleOptions }
           value="getNameByValue"
@@ -97,7 +96,7 @@ export default function SearchBar({ type }) {
           nome
         </ToggleButton>
         <ToggleButton
-          variant="outline-primary"
+          variant="outline-secondary"
           data-testid="first-letter-search-radio"
           onChange={ handleOptions }
           value="getFirstLetterByValue"
@@ -108,7 +107,7 @@ export default function SearchBar({ type }) {
       </ToggleButtonGroup>
       <Button
         data-testid="exec-search-btn"
-        variant="primary"
+        variant="secondary"
         onClick={ handleSearch }
         block
       >

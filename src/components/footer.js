@@ -10,11 +10,7 @@ function Footer() {
   return (
     <footer
       data-testid="footer"
-      style={ {
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-      } }
+      className="footer-wrapper"
     >
       <Link to="/bebidas">
         <img

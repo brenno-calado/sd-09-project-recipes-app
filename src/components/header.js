@@ -17,11 +17,7 @@ function Header({ page, search: { searchBtn, searchFor } }) {
   return (
     <>
       <header
-        style={ {
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        } }
+        className="header-Display header-wrapper"
       >
         <Link to="/perfil">
           <img
@@ -32,13 +28,13 @@ function Header({ page, search: { searchBtn, searchFor } }) {
         </Link>
         <h1 data-testid="page-title">{ page }</h1>
         { searchBtn && (
-          <button type="button" onClick={ handleSearch }>
+          <button type="button" onClick={ handleSearch } className="header-searchBttn">
             <img src={ searchIcon } alt="procurar" data-testid="search-top-btn" />
           </button>
         )}
       </header>
       <Collapse in={ searchBar }>
-        <div id="example-collapse-text">
+        <div id="example-collapse-text" className="search-bar-wrapper">
           { searchBar && <SearchBar type={ searchFor } /> }
         </div>
       </Collapse>

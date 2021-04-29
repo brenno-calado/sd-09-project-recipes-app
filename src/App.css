@@ -9,3 +9,40 @@
 .margin-10 {
   margin: 10px;
 }
+
+.header-wrapper, .footer-wrapper {
+  background-color: #ccc;
+  padding: 0.25rem;
+  height: 60px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+
+.footer-wrapper {
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-Display {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-searchBttn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.search-bar-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 2%;
+  position: absolute;
+  top: 58px;
+}
