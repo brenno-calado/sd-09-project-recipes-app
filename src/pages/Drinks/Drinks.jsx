@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
 import RecipeCard from '../../common/components/RecipeCard';
 
@@ -18,6 +19,7 @@ const Drinks = (props) => {
     <div>
       <Header title="Bebidas" value="bebidas" history={ history } />
       { drinks.length > 1 && renderDrinkCards() }
+     <Footer />
     </div>
   );
 };

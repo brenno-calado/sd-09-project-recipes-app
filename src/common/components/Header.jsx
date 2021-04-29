@@ -30,6 +30,7 @@ const Header = (props) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          padding: '0 2rem',
         } }
       >
         <div>
