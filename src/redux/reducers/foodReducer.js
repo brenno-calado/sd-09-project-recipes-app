@@ -11,6 +11,7 @@ const foodReducer = (state = INITIAL_STATE, action) => {
       ...state,
       meals: action.data,
     };
+
   default:
     return state;
   }
