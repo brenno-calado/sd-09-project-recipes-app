@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Header from '../components/header'
+import Header from '../components/header';
 import Footer from '../components/footer';
 
 export default function MainPageFood() {
   return (
     <>
       <Header page="Perfil" />
-      <main>
-        <Link to="/myRecipes">
+      <main className="perfil">
+        <Link to="/receitas-feitas">
           <btn data-testid="profile-done-btn">Receitas Feitas</btn>
         </Link>
-        <Link to="/favoriteRecipes">
+        <Link to="/receitas-favoritas">
           <btn testid="profile-favorite-btn">Receitas Favoritas</btn>
         </Link>
-        <Link to="/mainPage">
+        <Link to="/">
           <brn data-testid="profile-logout-btn">Sair</brn>
         </Link>
       </main>
