@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { string } from 'prop-types';
 import {
   Button,
   FormControl,
@@ -6,8 +7,9 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from 'react-bootstrap';
+import getFoodsAndDrinks from '../services/servicesAPI';
 
-export default function SearchBar(location) {
+export default function SearchBar({ type }) {
   const [searchText, setSearchText] = useState('');
   const [searchOption, setSearchOption] = useState('');
 
@@ -19,7 +21,37 @@ export default function SearchBar(location) {
     setSearchOption(target.value);
   };
 
-  console.log([location, searchOption]);
+  const getSearchStringClearBar = () => {
+    const myString = (
+      searchOption === 'getFirstLetterByValue' ? searchText[0] : searchText);
+    console.log(myString);
+
+    setSearchText('');
+    console.log(myString);
+
+    return myString;
+  };
+
+  const handleSearch = async () => {
+    if (searchText.length === 0) {
+      return alert('Sua busca deve conter texto');
+    }
+    if (searchText.length > 1 && searchOption === 'getFirstLetterByValue') {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+
+    const mySearchString = getSearchStringClearBar();
+
+    try {
+      // fazer o dispatch
+      const searchResult = await getFoodsAndDrinks(type, searchOption, mySearchString);
+      // fazer o dispatch
+      console.log(searchResult);
+    } catch (err) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      console.log(err);
+    }
+  };
 
   return (
     <form className="form-group margin-10">
@@ -36,7 +68,7 @@ export default function SearchBar(location) {
           variant="outline-primary"
           data-testid="ingredient-search-radio"
           onChange={ handleOptions }
-          value="Ingrediente"
+          value="getIngredientByValue"
         >
           Buscar pelo
           ingrediente
@@ -45,7 +77,7 @@ export default function SearchBar(location) {
           variant="outline-primary"
           data-testid="name-search-radio"
           onChange={ handleOptions }
-          value="Nome"
+          value="getNameByValue"
         >
           Buscar pelo
           nome
@@ -54,13 +86,24 @@ export default function SearchBar(location) {
           variant="outline-primary"
           data-testid="first-letter-search-radio"
           onChange={ handleOptions }
-          value="Primeira"
+          value="getFirstLetterByValue"
         >
           Buscar pela
           primeira letra
         </ToggleButton>
       </ToggleButtonGroup>
-      <Button data-testid="exec-search-btn" variant="primary" block>Buscar</Button>
+      <Button
+        data-testid="exec-search-btn"
+        variant="primary"
+        onClick={ handleSearch }
+        block
+      >
+        Buscar
+      </Button>
     </form>
   );
 }
+
+SearchBar.propTypes = {
+  type: string.isRequired,
+};

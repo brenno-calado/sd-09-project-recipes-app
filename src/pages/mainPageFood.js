@@ -6,7 +6,7 @@ import Footer from '../components/footer';
 export default function MainPageFood() {
   return (
     <>
-      <Header page="Comidas" search="true" />
+      <Header page="Comidas" search={ { searchBtn: true, searchFor: 'food' } } />
       <Footer />
     </>
   );

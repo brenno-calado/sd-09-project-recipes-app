@@ -9,12 +9,14 @@ export default async function getFoodsAndDrinks(type, param, value) {
     getOrigin: 'list.php?a=list', // só para FOOD (Tela explorar, FOOD com 3 botões e DRINK com 2)
     getRandom: 'random.php', // redireciona para a receita escolhida pelo ramdom (Tela de detalhe da Receita)
 
-    getIngredientByValue: `search.php?i=${value}`,
+    getIngredientByValue: `filter.php?i=${value}`,
     getNameByValue: `search.php?s=${value}`,
     getFirstLetterByValue: `search.php?f=${value}`,
   };
 
-  const endpoint = `https://www.${type === 'food' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${objectParams[params]}`;
+  const endpoint = `https://www.${type === 'food' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${objectParams[param]}`;
+
+  console.log(endpoint);
 
   const request = await fetch(endpoint);
   const data = await request.json();

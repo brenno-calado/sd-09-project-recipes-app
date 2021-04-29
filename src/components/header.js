@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { bool, string } from 'prop-types';
+import { string, shape, bool } from 'prop-types';
 import { Collapse } from 'react-bootstrap';
 
 import SearchBar from './searchBar';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 
-function Header({ page, search }) {
+function Header({ page, search: { searchBtn, searchFor } }) {
   const [searchBar, setSearchBar] = useState(false);
 
   const handleSearch = () => {
     setSearchBar(!searchBar);
   };
-  console.log(typeof search);
+
   return (
     <>
       <header
@@ -31,7 +31,7 @@ function Header({ page, search }) {
           />
         </Link>
         <h1 data-testid="page-title">{ page }</h1>
-        { search && (
+        { searchBtn && (
           <button type="button" onClick={ handleSearch }>
             <img src={ searchIcon } alt="procurar" data-testid="search-top-btn" />
           </button>
@@ -39,7 +39,7 @@ function Header({ page, search }) {
       </header>
       <Collapse in={ searchBar }>
         <div id="example-collapse-text">
-          { searchBar && <SearchBar /> }
+          { searchBar && <SearchBar type={ searchFor } /> }
         </div>
       </Collapse>
     </>
@@ -48,11 +48,17 @@ function Header({ page, search }) {
 
 Header.propTypes = {
   page: string.isRequired,
-  search: bool,
+  search: shape({
+    searchBtn: bool,
+    searchFor: string,
+  }),
 };
 
 Header.defaultProps = {
-  search: false,
+  search: {
+    searchBtn: false,
+    searchFor: 'food',
+  },
 };
 
 export default Header;

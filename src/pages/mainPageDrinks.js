@@ -5,7 +5,7 @@ import Header from '../components/header';
 export default function MainPageDrink() {
   return (
     <>
-      <Header page="Bebidas" search="true" />
+      <Header page="Bebidas" search={ { searchBtn: true, searchFor: 'drink' } } />
       <Footer />
     </>
   );
