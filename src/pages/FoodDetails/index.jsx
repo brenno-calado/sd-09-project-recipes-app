@@ -11,26 +11,40 @@ export default function FoodDetails({ match: { params } }) {
     fetchApi('food', 'details', id).then((res) => setDetails(res.meals[0]));
   }, [id]);
 
+  const ingredientsArray = details && Object.keys(details)
+    .filter((ingredientKey) => ingredientKey.includes('strIngredient'))
+    .map((strIngredients) => details[strIngredients])
+    .filter((ingredient) => ingredient);
+
   return (
     <section>
       <img
-        src={ details ? details.strMealThumb : '' }
+        src={ details && details.strMealThumb }
         alt="recipe"
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title"> recipe title </h1>
+
       <section>
-        <button type="button" data-testid="share-btn">share</button>
-        <button type="button" data-testid="favorite-btn">favorite</button>
+        <h1 data-testid="recipe-title">{ details && details.strMeal }</h1>
+        <div>
+          <button type="button" data-testid="share-btn">share</button>
+          <button type="button" data-testid="favorite-btn">favorite</button>
+        </div>
       </section>
-      <p data-testid="recipe-category">category text</p>
+      <h3 data-testid="recipe-category">{ details && details.strCategory }</h3>
       <ul>
-        {/* <li data-testid={ `${index}-ingredient-name-and-measure` }>
-        ingredients list</li> */}
+        <h4>Ingredients:</h4>
+        {
+          details && ingredientsArray.map((item, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              { item }
+            </li>
+          ))
+        }
       </ul>
-      <p data-testid="instructions">{ details ? details.strInstructions : '' }</p>
+      <p data-testid="instructions">{ details && details.strInstructions}</p>
       <iframe
-        src={ details ? details.strYoutube : '' }
+        src={ details && details.strYoutube }
         data-testid="video"
         title="video"
       />
@@ -41,8 +55,12 @@ export default function FoodDetails({ match: { params } }) {
 }
 
 FoodDetails.propTypes = {
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.string),
   }).isRequired,
+};
+
+FoodDetails.defaultProps = {
+  id: '52832',
 };
