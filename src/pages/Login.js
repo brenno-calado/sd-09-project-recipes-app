@@ -41,8 +41,8 @@ const Login = () => {
   return (
     <div>
       Login
-      <input data-testid="email-input" onChange={ validateEmail } />
-      <input data-testid="password-input" onChange={ validatePassword } />
+      <input type="email" data-testid="email-input" onChange={ validateEmail } />
+      <input type="password" data-testid="password-input" onChange={ validatePassword } />
       <Link to="/comidas">
         <button
           type="button"
