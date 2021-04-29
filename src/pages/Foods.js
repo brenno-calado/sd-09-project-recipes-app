@@ -6,10 +6,10 @@ import SearchBar from '../components/SearchBar';
 function Foods() {
   const { showSearchBar } = useContext(RecipesContext);
   return (
-    <div>
-      <Header showSearchButton />
+    <>
+      <Header showSearchButton getTitleValue />
       { showSearchBar && <SearchBar /> }
-    </div>
+    </>
   );
 }
 

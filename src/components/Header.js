@@ -23,6 +23,7 @@ function Header() {
     <header>
       <button
         type="button"
+        src={ iconProfile }
         data-testid="profile-top-btn"
         onClick={ handleClick }
       >
@@ -32,6 +33,7 @@ function Header() {
       { showSearchButton ? (
         <button
           type="button"
+          src={ searchIcon }
           data-testid="search-top-btn"
           onClick={ () => setShowSearchBar(!showSearchBar) }
         >
