@@ -9,10 +9,6 @@ import SearchBar from '../SearchBar';
 function Header({ title, match }) {
   const [search, setSearch] = useState(false);
 
-  const handleSearch = () => (
-    search ? setSearch(false) : setSearch(true)
-  );
-
   const renderButtonSearch = () => {
     if (!match) return;
 
