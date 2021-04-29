@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { savePath } from '../redux/actions';
 import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
+import Footer from '../components/Footer';
 
 function Meals({ pathnameDispatcher, location }) {
   useEffect(() => {
@@ -16,6 +17,7 @@ function Meals({ pathnameDispatcher, location }) {
       <h1 data-testid="page-title">Comidas</h1>
       <Header />
       <RecipeList />
+      <Footer />
     </div>
   );
 }
