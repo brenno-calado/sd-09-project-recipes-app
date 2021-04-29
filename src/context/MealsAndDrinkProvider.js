@@ -5,7 +5,7 @@ import MealsAndDrinkContext from './MealsAndDrinkContext';
 function MealsAndDrinkProvider({ children }) {
   const [meals, setMeals] = useState([]);
   const [drinks, setDrinks] = useState([]);
-  const [page, setPage] = useState('comidas');
+  const [page, setPage] = useState('bebidas');
 
   const context = {
     meals, setMeals, drinks, setDrinks, page, setPage };

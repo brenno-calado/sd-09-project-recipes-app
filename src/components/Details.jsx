@@ -1,32 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Details({ recipe }) {
-  console.log(recipe);
+function Details({ recipe, page }) {
   function getIngredientsLiElements() {
     const maxIngredients = 20;
     const ingredientsList = [];
     for (let index = 1; index < maxIngredients; index += 1) {
-      ingredientsList[index] = (
-        <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-          {recipe[`strIngredient${index}`]}
-        </li>
-      );
+      if (recipe[`strIngredient${index}`]) {
+        ingredientsList[index] = (
+          <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+            {`${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`}
+          </li>
+        );
+      }
     }
     return ingredientsList
-      .filter((ingr) => ingr.props.children !== null && ingr.props.children !== '');
+      .filter((ingr) => ingr.props.children !== null
+        && ingr.props.children !== ''
+        && ingr.props.children !== undefined);
   }
 
-  function getYouTubeId() {
+  function getYouTubeLink() {
     const magicNum = 32;
-    return recipe.strYoutube.substr(magicNum);
+    const ytId = recipe.strYoutube.substr(magicNum);
+    const path = `https://www.youtube.com/embed/${ytId}`;
+    return path;
   }
 
   return (
     <div>
-      <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
+      { page === 'comidas' ? (
+        <h2 data-testid="recipe-title" className="detail-img">{recipe.strMeal}</h2>)
+        : (<h2 data-testid="recipe-title" className="detail-img">{recipe.strDrink}</h2>)}
       <p data-testid="recipe-category">{recipe.strCategory}</p>
-      <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />
+      {
+        page === 'comidas' ? (
+          <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />)
+          : (<img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />)
+      }
       <br />
       <button data-testid="share-btn" type="button">Share</button>
       <button data-testid="favorite-btn" type="button">Favorite it</button>
@@ -42,19 +53,20 @@ function Details({ recipe }) {
       </div>
       <section>
         <h2>Recomended Recipes</h2>
+        {/* O card de receitas recomendadas deve possuir o */}
+        {/* atributo data-testid="${index}-recomendation-card" */}
       </section>
-      <iframe
-        title="video"
-        id={ getYouTubeId() }
-        type="text/html"
-        width="640"
-        height="360"
-        src={ recipe.strYoutube }
-      />
-      {/* <p>O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";</p>
-      {/* O vídeo, presente somente na tela de comidas, deve possuir o atributo data-testid="video";
-O card de receitas recomendadas deve possuir o atributo data-testid="${index}-recomendation-card";
-O botão de iniciar receita deve possuir o atributo data-testid="start-recipe-btn"; */}
+      { page === 'comidas' && (
+        <iframe
+          title="video"
+          width="700"
+          height="500"
+          src={ getYouTubeLink() }
+          allow="autoplay; encrypted-media"
+        />
+      )}
+      <br />
+      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
     </div>
   );
 }

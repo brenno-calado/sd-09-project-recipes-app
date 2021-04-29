@@ -32,7 +32,7 @@ function RecipeDetails() {
     <section>
       <h1>RECIPE DETAILS</h1>
       <div>
-        {!details ? <p>loading</p> : <Details recipe={ details } />}
+        {!details ? <p>loading</p> : <Details recipe={ details } page={ page } />}
       </div>
     </section>
   );
