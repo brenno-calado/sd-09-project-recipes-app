@@ -17,7 +17,6 @@ export default function SearchBar({ isMealsPage }) {
   const radioClick = ({ target }) => {
     setRadioValue(target.value);
   };
-  console.log(radioValue);
 
   const searchDrinks = async () => {
     if (radioValue === 'ingredient') {
