@@ -20,6 +20,25 @@ const AppProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem('favoritesId')) || {},
   );
+  const [doneRecipes, setDoneRecipes] = useState(
+    JSON.parse(localStorage.getItem('doneRecipes')) || [],
+  );
+
+  // const inProgressRecipesObject = {
+  //   cocktails: {},
+  //   meals: {},
+  // };
+  // const [inProgressRecipes, setInProgressRecipes] = useState(inProgressRecipesObject);
+
+  // const setLocalStorageInProgress = (type, id, ingredientsArray) => {
+  //   if (type === 'Meal') {
+  //     setInProgressRecipes({ ...inProgressRecipes, meals: { [id]: ingredientsArray } });
+  //   }
+  //   if (type === 'Drink') {
+  //     setInProgressRecipes({ ...inProgressRecipes,
+  //       cocktails: { [id]: ingredientsArray } });
+  //   }
+  // };
 
   const fetchFoods = async () => {
     const response = await getFoods();
@@ -66,6 +85,14 @@ const AppProvider = ({ children }) => {
     setFavoriteRecipes(favoriteRecipes.filter((recipe) => recipe.id !== id));
   };
 
+  const finishRecipe = (recipe) => {
+    setDoneRecipes([...doneRecipes, recipe]);
+  };
+
+  useEffect(() => {
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }, [doneRecipes]);
+
   useEffect(() => {
     localStorage.setItem('favoritesId', JSON.stringify(favorites));
   }, [favorites]);
@@ -99,6 +126,7 @@ const AppProvider = ({ children }) => {
     removeFromFavorite,
     addToFavorites,
     removeFromTheFavorites,
+    finishRecipe,
   };
   return (
     <AppContext.Provider value={ context }>
