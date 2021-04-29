@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import iconProfile from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -9,7 +9,7 @@ import './Header.css';
 function Header(props) {
   const history = useHistory();
   const { setTitle, setShowSearchBar, showSearchBar } = useContext(RecipesContext);
-  const { showSearchButton, title } = props;
+  const { title, showSearchButton } = props;
 
   const handleClick = () => {
     history.push('/perfil');
@@ -20,9 +20,9 @@ function Header(props) {
     <header className="header">
       <button
         type="button"
+        src={ iconProfile }
         data-testid="profile-top-btn"
         onClick={ handleClick }
-        src={ iconProfile }
       >
         <img src={ iconProfile } alt="icon-profile" />
       </button>
@@ -30,9 +30,9 @@ function Header(props) {
       { showSearchButton ? (
         <button
           type="button"
+          src={ searchIcon }
           data-testid="search-top-btn"
           onClick={ () => setShowSearchBar(!showSearchBar) }
-          src={ searchIcon }
         >
           <img src={ searchIcon } alt="icon-search" />
         </button>
