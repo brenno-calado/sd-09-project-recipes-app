@@ -14,12 +14,10 @@ export default async function getFoodsAndDrinks(type, param, value) {
     getFirstLetterByValue: `search.php?f=${value}`,
   };
 
-  const endpoint = `https://www.${type === 'food' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${objectParams[params]}`;
+  const endpoint = `https://www.${type === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${objectParams[param]}`;
 
   const request = await fetch(endpoint);
   const data = await request.json();
 
-  return data;
+  return type === 'meals' ? data.meals : data.drinks;
 }
-
-// Função para imagem
