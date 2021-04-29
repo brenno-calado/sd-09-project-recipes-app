@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExplorarTipo() {
   return (
-    <h1> ExplorarTipo </h1>
+    <>
+      <Header />
+      <h1>Explorar Tipo</h1>
+    </>
   );
 }
 
