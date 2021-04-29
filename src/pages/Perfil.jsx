@@ -1,8 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function Perfil() {
   return (
-    <h1> Perfil </h1>
+    <>
+      <Header />
+      <h1> Perfil </h1>
+    </>
   );
 }
 
