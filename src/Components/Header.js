@@ -11,7 +11,6 @@ function Header({ name }) {
   const location = useLocation().pathname;
   const regex = /\d/g;
   const result = regex.test(location);
-  console.log(result);
 
   function renderSearchBar() {
     if (showSearchBar) setShowSearchBar(false);
