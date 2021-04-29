@@ -1,0 +1,17 @@
+.container-card {
+  align-items: center;
+  border-radius: 15px;
+  border-style: outset;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 5px;
+  width: 160px;
+
+}
+
+.img-card {
+  border-radius: 15px;
+  width: 155px;
+  margin-bottom: 20px;
+}
