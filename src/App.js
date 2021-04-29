@@ -2,8 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Login from './pages/login';
-import MainPageFood from './pages/mainPageFood';
-import MainPageDrinks from './pages/mainPageDrinks';
+import MainPage from './pages/mainPage';
 import FoodDetails from './pages/foodDetails';
 import DrinkDetails from './pages/drinkDetails';
 import FoodInProcess from './pages/foodInProcess';
@@ -26,8 +25,9 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route exact path="/comidas" component={ MainPageFood } />
-      <Route exact path="/bebidas" component={ MainPageDrinks } />
+      <Route path="/comidas" component={ MainPage } />
+      <Route path="/bebidas" component={ MainPage } />
+      <Route path="/bebidas/:cetegoria" component={ MainPage } />
       <Route exact path="/comidas/:id" component={ FoodDetails } />
       <Route exact path="/bebidas/:id" component={ DrinkDetails } />
       <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />

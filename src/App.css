@@ -1,3 +1,49 @@
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+/* Components */
+.header-wrapper, .footer-wrapper {
+  background-color: #ccc;
+  height: 2rem;
+  padding: 0.25rem;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: 10;
+}
+
+.footer-wrapper {
+  bottom: 0;
+}
+
+/* Cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0.25rem;
+}
+
+.card {
+  margin: 0.25rem;
+  width: calc(50% - 0.5rem);
+}
+
+/* Categories */
+.nav {
+  background-color: #fff;
+  box-shadow: 0 -2px 5px 3px #999;
+}
+
+.nav-item {
+  margin: 0.25rem;
+}
+
+
+/* Pages */
+
+/* Login */
+
 .login-wrapper {
   align-items: center;
   display: flex;
@@ -8,6 +54,28 @@
 
 .margin-10 {
   margin: 10px;
+}
+/* mainPage */
+
+.mainPage-wrapper {
+  padding: 2rem 0;
+}
+
+.meals {
+  align-items: center;
+  background: #0fa36b;
+  color: #464646;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
 }
 
 .header-wrapper, .footer-wrapper {
