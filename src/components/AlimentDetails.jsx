@@ -3,6 +3,8 @@ import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipeButton from './RecipeButton';
 import Recomendations from './Recomendations';
+import ShareButton from './ShareButton';
+import FavoriteRecipes from './FavoriteRecipes';
 import { getIngredients } from '../services/functions';
 import '../styles/alimentDetails.css';
 
@@ -16,8 +18,8 @@ function AlimentDetails({ data, recomendation }) {
       <div>
         <img src={ strMealThumb } alt="imagem" data-testid="recipe-photo" />
         <h3 data-testid="recipe-title">{ strMeal }</h3>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <ShareButton />
+        <FavoriteRecipes data={ data[0] } path={ pathname } />
         <p data-testid="recipe-category">{ strCategory }</p>
         <ul>
           { ingredients.map((ingredient, index) => (
@@ -59,8 +61,8 @@ function AlimentDetails({ data, recomendation }) {
         strAlcoholic === 'Alcoholic'
           ? <p data-testid="recipe-category">Alcoholic</p> : <br />
       }
-      <button type="button" data-testid="share-btn">Compartilhar</button>
-      <button type="button" data-testid="favorite-btn">Favoritar</button>
+      <ShareButton />
+      <FavoriteRecipes data={ data[0] } path={ pathname } />
       <ul>
         { ingredients.map((ingredient, index) => (
           <li key={ ingredient }>

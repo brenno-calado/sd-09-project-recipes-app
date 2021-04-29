@@ -9,7 +9,6 @@ function RecipeButton({ path, ingredients }) {
   function createLocalStorage() {
     const inProgressRecipes = 'inProgressRecipes';
     if (localStorage[inProgressRecipes] === undefined) {
-      console.log('teste');
       const obj = {
         cocktails: {
         },
@@ -21,7 +20,6 @@ function RecipeButton({ path, ingredients }) {
   }
 
   function alimentProgress() {
-    // createLocalStorage();
     const ingredient = ingredients.map((i) => i[1]);
     if (path.includes('/comidas')) {
       const id = path.slice(numberSlice);
