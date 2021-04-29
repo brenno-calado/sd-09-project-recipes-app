@@ -51,7 +51,6 @@ function CategoryFilter({
         fetchCocktailsByCategory(value);
       }
     }
-
     setPreviousCategory(value);
   };
 
@@ -74,14 +73,16 @@ function CategoryFilter({
       }
       {
         isFetchedCategories
-        && <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ handleClick }
-          value="all"
-        >
-          All
-        </button>
+        && (
+          <button
+            type="button"
+            data-testid="All-category-filter"
+            onClick={ handleClick }
+            value="all"
+          >
+            All
+          </button>
+        )
       }
 
     </section>
