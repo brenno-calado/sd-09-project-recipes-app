@@ -29,6 +29,7 @@ function ShowCategories({ name }) {
               <span
                 type="button"
                 data-testid={ `${category.strCategory}-category-filter` }
+                key={ category.strCategory }
               >
                 {category.strCategory}
               </span>)
