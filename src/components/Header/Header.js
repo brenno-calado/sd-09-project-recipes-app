@@ -8,7 +8,7 @@ import searchIcon from '../../images/searchIcon.svg';
 function Header({ title, isSearch }) {
   return (
     <header>
-      <Link to="/perfil">
+      <Link to="/Profile">
         <img src={ profileIcon } alt="Profile Icon" data-testid="profile-top-btn" />
       </Link>
       <h1 data-testid="page-title">{ title }</h1>
