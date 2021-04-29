@@ -59,8 +59,6 @@ export default function SearchBar({ isMealsPage }) {
     return searchDrinks();
   };
 
-  console.log(searchItemList);
-
   return (
     <div>
       <input data-testid="search-input" type="text" onChange={ handleChange } />
