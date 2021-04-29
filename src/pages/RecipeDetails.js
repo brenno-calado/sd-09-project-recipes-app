@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Footer from '../components/Footer';
 
 const RecipeDetails = ({ match: { path } }) => {
   // const isFoodsPage = path.includes('comida');
   // const isDrinksPage = path.includes('bebidas');
   console.log(path);
 
-  return (<div>Process</div>);
+  return (
+    <Footer />
+  );
 };
 
 export default RecipeDetails;
