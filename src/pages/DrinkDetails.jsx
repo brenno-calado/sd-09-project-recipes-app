@@ -39,6 +39,12 @@ function DrinkDetails({
         <img src={ `${recipe.strDrinkThumb}` } alt="recipe" data-testid="recipe-photo" />
         <ShareAndFavo match={ match } recipe={ recipe } />
         <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+        {recipe.strAlcoholic === 'Alcoholic' && (
+          <h2
+            data-testid="recipe-category"
+          >
+            {recipe.strAlcoholic}
+          </h2>)}
         {ingredientToMeasure
           .map((item) => item.ingredient && (
             <ul
