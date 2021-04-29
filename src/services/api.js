@@ -47,3 +47,15 @@ export async function fetchDrink(filters) {
   }
   return response;
 }
+
+export async function fetchOneMeal(id) {
+  const req = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const { meals } = await req.json();
+  return meals;
+}
+
+export async function fetchOneDrink(id) {
+  const req = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const { drinks } = await req.json();
+  return drinks;
+}

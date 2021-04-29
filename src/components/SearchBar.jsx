@@ -11,7 +11,7 @@ const defaultSearchFilters = {
 
 function SearchBar() {
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
-  const { meals, setMeals, drinks, setDrinks, page } = useContext(MealsAndDrinkContext);
+  const { setMeals, setDrinks, page } = useContext(MealsAndDrinkContext);
 
   function handleChange({ target }) {
     const obj = { ...searchFilters };
@@ -35,11 +35,6 @@ function SearchBar() {
       const drinkList = await fetchDrink(searchFilters);
       setDrinks(drinkList);
     }
-  }
-
-  function handleLog() {
-    console.log(meals);
-    console.log(drinks);
   }
 
   return (
@@ -91,9 +86,6 @@ function SearchBar() {
       </label>
       <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
         Busca
-      </button>
-      <button type="button" onClick={ handleLog }>
-        CONSOLOGAR LISTAS
       </button>
     </div>
   );
