@@ -22,7 +22,6 @@ function Drinks() {
   useEffect(() => {
     async function cardMount(categoryType) {
       if (categoryType) {
-        console.log('com parametros');
         isFetching(true);
 
         const number12 = 12;
@@ -57,7 +56,6 @@ function Drinks() {
   }, [categoryBtn, dispatch]);
 
   async function categoryCheck(param) {
-    console.log(`chamou função category ${param}`);
     getCategory(param);
   }
 
