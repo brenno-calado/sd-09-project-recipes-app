@@ -7,7 +7,6 @@ function Drinks({ match }) {
   return (
     <div>
       <Header title="Bebidas" match={ match } />
-      {SearchBar(match)}
     </div>
   );
 }
