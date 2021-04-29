@@ -18,6 +18,12 @@ export {
   addUser,
 };
 
+export const IS_LOADING = 'IS_LOADING';
+export const isLoading = (loading) => ({
+  type: IS_LOADING,
+  loading,
+});
+
 export const requestApiMeals = () => async (dispatch) => {
   dispatch(requestMeals());
   try {
@@ -28,30 +34,30 @@ export const requestApiMeals = () => async (dispatch) => {
   }
 };
 
-export const requestApiMealsbyName = () => async (dispatch) => {
+export const requestApiMealsbyName = (input) => async (dispatch) => {
   dispatch(requestMeals());
   try {
-    const response = await fetchMealsAPIbyName();
+    const response = await fetchMealsAPIbyName(input);
     return dispatch(requestMeals(response.meals));
   } catch (error) {
     return console.log(error);
   }
 };
 
-export const requestApiMealsbyLetter = () => async (dispatch) => {
+export const requestApiMealsbyLetter = (input) => async (dispatch) => {
   dispatch(requestMeals());
   try {
-    const response = await fetchMealsAPIbyLetter();
+    const response = await fetchMealsAPIbyLetter(input);
     return dispatch(requestMeals(response.meals));
   } catch (error) {
     return console.log(error);
   }
 };
 
-export const requestApiMealsIngredient = () => async (dispatch) => {
+export const requestApiMealsIngredient = (input) => async (dispatch) => {
   dispatch(requestMeals());
   try {
-    const response = await fetchMealsAPIbyIngredient();
+    const response = await fetchMealsAPIbyIngredient(input);
     return dispatch(requestMeals(response.meals));
   } catch (error) {
     return console.log(error);
@@ -68,34 +74,32 @@ export const requestApiCocktails = () => async (dispatch) => {
   }
 };
 
-export const requestApiCocktailsbyName = () => async (dispatch) => {
+export const requestApiCocktailsbyName = (input) => async (dispatch) => {
   dispatch(requestCocktails());
   try {
-    const response = await fetchCocktailAPIbyName();
+    const response = await fetchCocktailAPIbyName(input);
     return dispatch(requestCocktails(response.drinks));
   } catch (error) {
     return console.log(error);
   }
 };
 
-export const requestApiCocktailsbyLetter = () => async (dispatch) => {
+export const requestApiCocktailsbyLetter = (input) => async (dispatch) => {
   dispatch(requestCocktails());
   try {
-    const response = await fetchCocktailAPIbyLetter();
+    const response = await fetchCocktailAPIbyLetter(input);
     return dispatch(requestCocktails(response.drinks));
   } catch (error) {
     return console.log(error);
   }
 };
 
-export const requestApiCocktailsbyIngredient = () => async (dispatch) => {
+export const requestApiCocktailsbyIngredient = (input) => async (dispatch) => {
   dispatch(requestCocktails());
   try {
-    const response = await fetchCocktailAPIbyIngredient();
+    const response = await fetchCocktailAPIbyIngredient(input);
     return dispatch(requestCocktails(response.drinks));
   } catch (error) {
     return console.log(error);
   }
 };
-
-
