@@ -16,14 +16,14 @@ function Provider({ children }) {
     setData,
     drinks,
     setDrinks,
-    foods,
-    setFoods,
     isLoading,
     setLoading,
     authLogin,
     setAuthLogin,
     formValidation,
     setFormValidation,
+    foods,
+    setFoods,
   };
 
   return (
