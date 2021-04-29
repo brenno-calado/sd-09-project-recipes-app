@@ -1,7 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import Filters from './styled';
 
-export default function SearchFilters() {
+const initialState = {
+  searchTerm: '',
+  option: '',
+};
+
+export default function SearchFilters({ setFilter }) {
+  const [options, setOptions] = useState(initialState);
+
+  const handleNewFilterOption = ({ target: { value: option } }) => {
+    setOptions((prevState) => ({ ...prevState, option }));
+  };
+
+  const handleNewFilterSearchTerm = ({ target: { value: searchTerm } }) => {
+    setOptions((prevState) => ({ ...prevState, searchTerm }));
+  };
+
   return (
     <Filters>
       <label htmlFor="name">
@@ -9,7 +25,8 @@ export default function SearchFilters() {
         <input
           type="text"
           data-testid="search-input"
-          id="name"
+          value={ options.searchTerm }
+          onChange={ handleNewFilterSearchTerm }
         />
       </label>
       <br />
@@ -17,8 +34,8 @@ export default function SearchFilters() {
         <input
           type="radio"
           data-testid="ingredient-search-radio"
-          id="ingredient"
-          name="filter"
+          checked={ options.option === 'ingredient' }
+          onChange={ handleNewFilterOption }
           value="ingredient"
         />
         Ingrediente
@@ -27,8 +44,8 @@ export default function SearchFilters() {
         <input
           type="radio"
           data-testid="name-search-radio"
-          id="name"
-          name="filter"
+          checked={ options.option === 'name' }
+          onChange={ handleNewFilterOption }
           value="name"
         />
         Nome
@@ -37,16 +54,24 @@ export default function SearchFilters() {
         <input
           type="radio"
           data-testid="first-letter-search-radio"
-          id="first-letter"
-          name="filter"
+          checked={ options.option === 'letters' }
+          onChange={ handleNewFilterOption }
           value="letters"
         />
         Primeira Letra
       </label>
       <br />
-      <button type="button" data-testid="exec-search-btn">
+      <button
+        onClick={ () => setFilter({ ...options }) }
+        type="button"
+        data-testid="exec-search-btn"
+      >
         Buscar
       </button>
     </Filters>
   );
 }
+
+SearchFilters.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};
