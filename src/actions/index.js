@@ -1,5 +1,6 @@
 import fetchRecipes from '../service/recepiesApi';
 import fetchDetails from '../service/fetchDetails';
+import fetchDefaultApi from '../service/defautFetchApi';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
@@ -19,6 +20,15 @@ export const fetchRecipesAction = (filter, searchInputValue) => (dispach) => {
       .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
   }
 };
+
+export const defaultFetchApiAction = () => (dispach) => {
+  fetchDefaultApi()
+    .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
+};
+
+export const setIsLoading = () => ({
+  type: 'SET_ISLOADING',
+});
 
 export const fetchFoodRecipeDetails = (id) => (dispatch) => (
   fetchDetails('food', id)
