@@ -11,6 +11,8 @@ import Perfil from './Perfil';
 import ReceitasFavoritas from './ReceitasFavoritas';
 import ReceitasFeitas from './ReceitasFeitas';
 import DetalhesBebida from './DetalhesBebida';
+import ProgressoBebidas from './ProgressoBebidas';
+import ProgressoComidas from './ProgressoComidas';
 
 export {
   Bebidas,
@@ -26,4 +28,6 @@ export {
   ReceitasFavoritas,
   ReceitasFeitas,
   DetalhesBebida,
+  ProgressoBebidas,
+  ProgressoComidas,
 };
