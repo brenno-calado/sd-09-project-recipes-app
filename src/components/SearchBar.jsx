@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import fetchApi from '../services/index';
 import MyContext from '../context/context';
+import { useLocation } from 'react-router';
 
 function SearchBar() {
   const [ input, setInput ] = useState({
@@ -9,7 +10,7 @@ function SearchBar() {
   });
 
   const { setSearchFilter } = useContext(MyContext);
- 
+  const { pathname } = useLocation();
 
   const handleChange = ({target:{value, name}}) => {
     setInput({...input, [name]: value});
@@ -19,23 +20,39 @@ function SearchBar() {
     const filter = input.text;
     let url = '';
     let apiResult = '';
+    console.log(pathname);
     switch(input.radio) {
       case 'firstletter':
         if(input.text.length > 1) {
           alert('Sua busca deve conter somente 1 (um) caracter');
         } 
-        url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${filter[0]}`;
-        apiResult = await fetchApi.fetchMealFilter(url);
+        if(pathname === '/comidas') {
+          url = `https://www.themealdb.com/api/json/v1/1/search.php?f=${filter[0]}`;
+          apiResult = await fetchApi.fetchMealByFilter(url);
+        } else if(pathname === '/bebidas') {
+          url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${filter[0]}`;
+          apiResult = await fetchApi.fetchDrinkByFilter(url);
+        }
         setSearchFilter(apiResult);
         return url;
       case 'ingredients':
-        url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter}`;
-        apiResult = await fetchApi.fetchMealFilter(url);
+        if(pathname === '/comidas') {
+          url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${filter}`;
+          apiResult = await fetchApi.fetchMealByFilter(url);
+        } else if(pathname === '/bebidas') {
+          url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filter}`;
+          apiResult = await fetchApi.fetchDrinkByFilter(url);
+        }
         setSearchFilter(apiResult);
         return url;
       case 'name':
-        url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filter}`;
-        apiResult = await fetchApi.fetchMealFilter(url);
+        if(pathname === '/comidas') {
+          url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${filter}`;
+          apiResult = await fetchApi.fetchMealByFilter(url);
+        } else if(pathname === '/bebidas') {
+          url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter}`;
+          apiResult = await fetchApi.fetchDrinkByFilter(url);
+        }
         setSearchFilter(apiResult);
         return url;
       default:
