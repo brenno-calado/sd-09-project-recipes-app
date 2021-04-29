@@ -16,7 +16,8 @@ import DrinkIngredients from './pages/DrinkIngredients';
 import FoodArea from './pages/FoodArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
-import RecipesDetails from './pages/RecipeDetails';
+import MealDetails from './pages/MealDetails';
+import DrinkDetails from './pages/DrinkDetails';
 
 const App = () => (
   <Provider>
@@ -24,11 +25,11 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-        <Route path="/comidas/:id" component={ RecipesDetails } />
+        <Route path="/comidas/:id" component={ MealDetails } />
         <Route path="/comidas" component={ FoodRecipes } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        <Route path="/bebidas/:id" component={ RecipesDetails } />
+        <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/bebidas" component={ DrinkRecipes } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
         <Route path="/explorar/comidas/area" component={ FoodArea } />
