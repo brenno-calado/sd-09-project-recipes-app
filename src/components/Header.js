@@ -8,8 +8,8 @@ import './Header.css';
 
 function Header(props) {
   const history = useHistory();
-  const { title, setTitle, setShowSearchBar, showSearchBar } = useContext(RecipesContext);
-  const { showSearchButton } = props;
+  const { setTitle, setShowSearchBar, showSearchBar } = useContext(RecipesContext);
+  const { showSearchButton, title } = props;
 
   const handleClick = () => {
     history.push('/perfil');
@@ -22,6 +22,7 @@ function Header(props) {
         type="button"
         data-testid="profile-top-btn"
         onClick={ handleClick }
+        src={ iconProfile }
       >
         <img src={ iconProfile } alt="icon-profile" />
       </button>
@@ -31,6 +32,7 @@ function Header(props) {
           type="button"
           data-testid="search-top-btn"
           onClick={ () => setShowSearchBar(!showSearchBar) }
+          src={ searchIcon }
         >
           <img src={ searchIcon } alt="icon-search" />
         </button>
@@ -41,6 +43,7 @@ function Header(props) {
 
 Header.propTypes = {
   showSearchButton: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default Header;

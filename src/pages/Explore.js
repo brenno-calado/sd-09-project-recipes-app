@@ -1,27 +1,23 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Explore() {
   const history = useHistory();
   const { pathname } = history.location;
-  const { setTitle } = useContext(RecipesContext);
 
   const handleClickExploreFoods = () => {
     history.push('/explorar/comidas');
-    setTitle('Explorar Comidas');
   };
 
   const handleClickExploreDrinks = () => {
     history.push('/explorar/bebidas');
-    setTitle('Explorar Bebidas');
   };
 
   return (
     <div>
-      <Header />
+      <Header title="Explorar" />
       { pathname === '/explorar' ? (
         <div>
           <button

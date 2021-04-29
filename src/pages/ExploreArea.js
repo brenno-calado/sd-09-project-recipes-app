@@ -8,8 +8,7 @@ function ExploreArea() {
   const { showSearchBar } = useContext(RecipesContext);
   return (
     <div>
-      <h1>Explorar Area</h1>
-      <Header showSearchButton="true" />
+      <Header showSearchButton="true" title="Explorar Origem" />
       { showSearchBar && <SearchBar /> }
       <Footer />
     </div>

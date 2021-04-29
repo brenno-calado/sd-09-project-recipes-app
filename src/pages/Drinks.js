@@ -9,8 +9,12 @@ function Drinks() {
 
   return (
     <div>
-      <h1>Bebidas</h1>
-      <Header />
+      { pathname === '/bebidas' ? (
+        <Header
+          showSearchButton="true"
+          title="Bebidas"
+        />
+      ) : null }
       {pathname === '/bebidas' ? <Footer /> : null}
     </div>
   );

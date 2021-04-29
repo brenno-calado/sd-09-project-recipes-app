@@ -16,7 +16,6 @@ function ExploreFoods() {
   return (
     <div>
       <h1>Por Ingredientes</h1>
-      <Header />
       <button
         type="button"
         data-testid="explore-by-ingredient"
@@ -37,6 +36,7 @@ function ExploreFoods() {
       >
         Me Surpreenda!
       </button>
+      <Header title="Explorar Comidas" />
       <Footer />
     </div>
   );

@@ -26,7 +26,7 @@ function ExploreDrinks() {
         Me Surpreenda!
       </button>
 
-      <Header />
+      <Header title="Explorar Bebidas" />
       <Footer />
     </div>
   );

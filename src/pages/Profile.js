@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { getStorage } from '../helpers/index';
+import RecipesContext from '../context/RecipesContext';
 
 function Profile() {
+  const { setTitle } = useContext(RecipesContext);
   const history = useHistory();
 
   const handleClick = ({ target: { name } }) => {
     if (name === '/') {
       localStorage.clear();
     }
-    history.push(name);
+    if (name === '/receitas-feitas') {
+      history.push(name);
+      setTitle('Receitas Feitas');
+    }
+    if (name === '/receitas-favoritas') {
+      history.push(name);
+      setTitle('Receitas Favoritas');
+    }
   };
 
   return (
     <div>
-      <Header />
+      <Header title="Perfil" />
       <div data-testid="profile-email">{getStorage('user')}</div>
       <button
         name="/receitas-feitas"

@@ -1,13 +1,14 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
-function FavoriteRecipes() {
+function ExploreDrinksAndIngredients() {
   return (
     <div>
-      <h1>Favorites Recipes</h1>
-      <Header />
+      <Header title="Explorar Ingredientes" />
+      <Footer />
     </div>
   );
 }
 
-export default FavoriteRecipes;
+export default ExploreDrinksAndIngredients;

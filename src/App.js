@@ -7,8 +7,8 @@ import {
   Home, Foods, Drinks, FoodsDetails, DrinksDetails,
   FoodsInProgress, DrinksInProgress, Explore, ExploreFoods,
   ExploreDrinks, ExploreFoodsAndIngredients, ExploreArea, Profile,
-  DoneRecipes, ExploreDrinksAndIngredients,
-  FavoriteRecipes, NotFound } from './pages/index';
+  DoneRecipes, FavoriteRecipes, NotFound, ExploreDrinksAndIngredients,
+} from './pages/index';
 
 function App() {
   return (
@@ -28,9 +28,6 @@ function App() {
             path="/bebidas/{id-da-receita}/in-progress"
             component={ DrinksInProgress }
           />
-          <Route path="/explorar" component={ Explore } />
-          <Route path="/explorar/comidas" component={ ExploreFoods } />
-          <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExploreFoodsAndIngredients }
@@ -40,6 +37,9 @@ function App() {
             component={ ExploreDrinksAndIngredients }
           />
           <Route path="/explorar/comidas/area" component={ ExploreArea } />
+          <Route path="/explorar/comidas" component={ ExploreFoods } />
+          <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route path="/explorar" component={ Explore } />
           <Route path="/perfil" component={ Profile } />
           <Route path="/receitas-feitas" component={ DoneRecipes } />
           <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
