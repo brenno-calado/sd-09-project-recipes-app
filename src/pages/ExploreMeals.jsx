@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function ExploreFoods() {
+export default function ExploreMeals() {
   const searchIcon = false;
   return (
     <div>

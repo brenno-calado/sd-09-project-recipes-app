@@ -5,7 +5,7 @@ import {
   SearchMealByIngredient,
   SearchMealByName,
   SearchMealByFirstLetter,
-} from '../Services/API.js';
+} from '../Services/API';
 
 function SearchBarMeals() {
   const {

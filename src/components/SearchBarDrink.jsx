@@ -5,7 +5,7 @@ import {
   SearchCocktailByIngredient,
   SearchCocktailByName,
   SearchCocktailByFirstLetter,
-} from '../Services/API.js';
+} from '../Services/API';
 
 function SearchBarDrink() {
   const {
