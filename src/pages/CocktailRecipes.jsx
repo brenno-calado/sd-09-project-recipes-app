@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 
 const CocktailRecipes = () => {
   const [cocktailRecipes, setCocktailRecipes] = useState([]);
   const [cocktailCategories, setCocktailCategories] = useState([]);
-  const [activeFilter, setActiveFilterStatus] = useState(false);
+  const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
 
   const getDefaultRecipes = () => {
     fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
@@ -18,15 +19,12 @@ const CocktailRecipes = () => {
   };
 
   const getRecipesById = (id) => {
-    fetch('www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail')
+    fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${id}`)
       .then((response) => {
-        console.log(response);
         response.json()
           .then((data) => {
-            console.log(data);
             setCocktailRecipes(data.drinks);
-          })
-          .catch((err) => console.log(err));
+          });
       });
   };
 
@@ -45,18 +43,33 @@ const CocktailRecipes = () => {
   const maxIndexCategories = 4;
 
   const handleFilter = (value) => {
-    if (activeFilter) {
+    const { active, filter } = activeFilter;
+
+    if (active && filter === value) {
       getDefaultRecipes();
-      setActiveFilterStatus(false);
+      setActiveFilter({
+        active: false,
+        filter: '',
+      });
     } else {
       getRecipesById(value);
-      setActiveFilterStatus(true);
+      setActiveFilter({
+        active: true,
+        filter: value,
+      });
     }
   };
 
   return (
     <div>
       <h1>Receitas</h1>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ getDefaultRecipes }
+      >
+        All
+      </button>
       { cocktailCategories.length > 0
         && cocktailCategories.map(({ strCategory }, index) => {
           if (index > maxIndexCategories) return;
@@ -77,12 +90,17 @@ const CocktailRecipes = () => {
             return;
           }
           return (
-            <RecipeCard
+            <Link
+              to={ `/bebidas/${recipe.idDrink}` }
               key={ recipe.strDrink }
-              img={ recipe.strDrinkThumb }
-              title={ recipe.strDrink }
-              index={ index }
-            />
+            >
+              <RecipeCard
+                img={ recipe.strDrinkThumb }
+                title={ recipe.strDrink }
+                index={ index }
+              />
+            </Link>
+
           );
         })}
     </div>

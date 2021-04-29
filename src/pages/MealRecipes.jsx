@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 
 const MealRecipes = () => {
   const [mealRecipes, setMealRecipes] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
+  const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
 
-  useEffect(() => {
+  const getDefaultRecipes = () => {
     fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
       .then((response) => {
         response.json()
@@ -13,6 +15,39 @@ const MealRecipes = () => {
             setMealRecipes(data.meals);
           });
       });
+  };
+
+  const getRecipesById = (id) => {
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${id}`)
+      .then((response) => {
+        console.log(response);
+        response.json()
+          .then((data) => {
+            setMealRecipes(data.meals);
+          });
+      });
+  };
+
+  const handleFilter = (value) => {
+    const { active, filter } = activeFilter;
+
+    if (active && filter === value) {
+      getDefaultRecipes();
+      setActiveFilter({
+        active: false,
+        filter: '',
+      });
+    } else {
+      getRecipesById(value);
+      setActiveFilter({
+        active: true,
+        filter: value,
+      });
+    }
+  };
+
+  useEffect(() => {
+    getDefaultRecipes();
     fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
       .then((response) => {
         response.json()
@@ -27,11 +62,20 @@ const MealRecipes = () => {
 
   return (
     <div>
+      <h1>Receitas</h1>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ getDefaultRecipes }
+      >
+        All
+      </button>
       { mealCategories.length > 0
         && mealCategories.map(({ strCategory }, index) => {
           if (index > maxIndexCategories) return;
           return (
             <button
+              onClick={ () => handleFilter(strCategory) }
               data-testid={ `${strCategory}-category-filter` }
               type="button"
               key={ strCategory }
@@ -40,17 +84,20 @@ const MealRecipes = () => {
             </button>
           );
         }) }
-      <h1>Receitas</h1>
       { mealRecipes.length > 0
         && mealRecipes.map((recipe, index) => {
           if (index > maxIndexRecipes) return;
           return (
-            <RecipeCard
+            <Link
+              to={ `/comidas/${recipe.idMeal}` }
               key={ recipe.strMeal }
-              img={ recipe.strMealThumb }
-              title={ recipe.strMeal }
-              index={ index }
-            />
+            >
+              <RecipeCard
+                img={ recipe.strMealThumb }
+                title={ recipe.strMeal }
+                index={ index }
+              />
+            </Link>
           );
         })}
     </div>
