@@ -11,7 +11,12 @@ function Foods() {
   const { pathname } = history.location;
   return (
     <div>
-      <Header showSearchButton="true" />
+      { pathname === '/comidas' ? (
+        <Header
+          showSearchButton="true"
+          title="Comidas"
+        />
+      ) : null }
       { showSearchBar && <SearchBar /> }
       {pathname === '/comidas' ? <Footer /> : null}
     </div>

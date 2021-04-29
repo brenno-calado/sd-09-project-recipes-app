@@ -9,6 +9,7 @@ export { default as ExploreArea } from './ExploreArea';
 export { default as ExploreDrinks } from './ExploreDrinks';
 export { default as ExploreFoods } from './ExploreFoods';
 export { default as ExploreFoodsAndIngredients } from './ExploreFoodsAndIngredients';
+export { default as ExploreDrinksAndIngredients } from './ExploreDrinksAndIngredients';
 export { default as FavoriteRecipes } from './FavoriteRecipes';
 export { default as FoodsInProgress } from './FoodsInProgress';
 export { default as Profile } from './Profile';
