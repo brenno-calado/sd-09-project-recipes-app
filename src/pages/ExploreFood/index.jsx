@@ -1,7 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import fetchApi from '../../services/index';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+
+let id = 0;
+
+async function randomId() {
+  const fetchRandon = await fetchApi('food', 'random', '');
+  id = (fetchRandon.meals[0].idMeal);
+}
 
 function exploreFoodsIngredient() {
   return (
@@ -20,8 +28,12 @@ function exploreFoodsArea() {
 }
 
 function exploreFoodsSurprise() {
+  // trocarar para um id aleatoraio apos a tela de detalhes pronta to={ `/movies/${id}` }
+  randomId();
+  console.log(id);
+
   return (
-    <Link to="/explorar/comidas">
+    <Link to="/explorar/comidas"/* to={ `/movies/${id}` */>
       <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
     </Link>
   );
