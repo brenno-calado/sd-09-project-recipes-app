@@ -1,28 +1,42 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import { fetchMealNameAPI } from '../../services/fetchMealAPI';
+import { fetchFilteredByCategory, fetchMealCategory, fetchMealNameAPI } from '../../services/fetchMealAPI';
 import { saveMeals } from '../../actions/userActions';
 import RenderRecipeCards from '../../common/components/RenderRecipeCards';
+import GenericCategoryButton from '../../common/components/buttons/GenericCategoryButton';
 
 const Recipes = (props) => {
   const { meals, history } = props;
+  const [mealCategoryList, setMealCategoryList] = useState();
 
   async function fetchData() {
     const { dispatchMeals } = props;
     await fetchMealNameAPI('').then((response) => dispatchMeals(response));
+    await fetchMealCategory().then((r) => setMealCategoryList(r));
   }
+
+  // if (mealCategoryList) console.log(mealCategoryList.meals);
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  function filterByCategory(category) {
+    console.log(fetchFilteredByCategory(category));
+  };
+
   if (meals) {
     return (
       <>
         <Header title="Comidas" value="comidas" history={ history } />
+        {/* {
+          mealCategoryList && mealCategoryList.meals
+            .slice(0,5)
+            .map((meal) => <GenericCategoryButton buttonLabel={ meal.strCategory } action={ filterByCategory } /> )
+        } */}
         <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
         <Footer />
       </>
