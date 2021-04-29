@@ -71,7 +71,7 @@
 .header-component {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 15px;
 }
 
