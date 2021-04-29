@@ -5,8 +5,8 @@
 /* Components */
 .header-wrapper, .footer-wrapper {
   background-color: #ccc;
-  height: 2rem;
   padding: 0.25rem;
+  height: 60px;
   position: fixed;
   text-align: center;
   width: 100%;
@@ -15,6 +15,41 @@
 
 .footer-wrapper {
   bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-Display {
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-searchBttn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+/* Accordion Card */
+.accordion {
+  margin: 0;
+}
+
+.accordion .card {
+  background-color: #ccc;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.accordion .card-body {
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 10px;
 }
 
 /* Cards */
@@ -52,14 +87,7 @@
   justify-content: center;
 }
 
-.margin-10 {
-  margin: 10px;
-}
 /* mainPage */
-
-.mainPage-wrapper {
-  padding: 2rem 0;
-}
 
 .meals {
   align-items: center;
@@ -73,44 +101,4 @@
   width: 100%;
 }
 
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
-}
-
-.header-wrapper, .footer-wrapper {
-  background-color: #ccc;
-  padding: 0.25rem;
-  height: 60px;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-  z-index: 10;
-}
-
-.footer-wrapper {
-  bottom: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-Display {
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-searchBttn {
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-
-.search-bar-wrapper {
-  border: 1px solid #ccc;
-  border-radius: 2%;
-  position: absolute;
-  top: 58px;
-}
+/* generic rules */

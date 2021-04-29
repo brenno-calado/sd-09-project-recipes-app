@@ -8,7 +8,7 @@ import {
   ToggleButtonGroup,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { searchRecipes, searchDrink } from '../actions';
+import { searchMeals, searchDrinks } from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
 export default function SearchBar({ type }) {
@@ -49,10 +49,10 @@ export default function SearchBar({ type }) {
         throw new Error('Nothing found');
       }
 
-      if (type === 'food') {
-        dispatch(searchRecipes(searchResult.meals));
+      if (type === 'meals') {
+        dispatch(searchMeals(searchResult.meals));
       } else {
-        dispatch(searchDrink(searchResult.drinks));
+        dispatch(searchDrinks(searchResult.drinks));
       }
     } catch (err) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -61,7 +61,7 @@ export default function SearchBar({ type }) {
   };
 
   return (
-    <form className="form-group margin-10">
+    <form className="form-group">
       <InputGroup className="mb-3">
         <FormControl
           data-testid="search-input"

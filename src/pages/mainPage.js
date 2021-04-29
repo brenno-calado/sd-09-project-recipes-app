@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { categoriesDrinks, categoriesMeals, listDrinks, listMeals } from '../actions';
+import getFoodsAndDrinks from '../services/servicesAPI';
+
+import Header from '../components/header';
+import Footer from '../components/footer';
 import CardContainer from '../components/cardContainer';
 import Categories from '../components/categories';
-import getFoodsAndDrinks from '../services/servicesAPI';
 
 export default function MainPageFood() {
   const { pathname } = window.location;
@@ -27,7 +30,7 @@ export default function MainPageFood() {
     };
 
     dispatchFetchs();
-  }, []);
+  }, [dispatch]);
 
   const recipesData = useSelector((state) => {
     if (pathname === '/comidas') return state.recipesReducer.meals;
@@ -39,6 +42,8 @@ export default function MainPageFood() {
     if (pathname === '/bebidas') return state.recipesReducer.categoriesDrinks;
   });
 
+  const searchFor = () => (pathname === '/comidas' ? 'meals' : 'drinks');
+
   useEffect(() => {
     setRecipes(recipesData);
     setCategories(categoriesData);
@@ -46,12 +51,15 @@ export default function MainPageFood() {
 
   return (
     <>
-      <header className="header-wrapper">{pathname.replace('/', '')}</header>
+      <Header
+        page={ pathname.replace('/', '').charAt(0).toUpperCase() + pathname.slice(2) }
+        search={ { searchBtn: true, searchFor: searchFor() } }
+      />
       <main className="mainPage-wrapper">
         <Categories categories={ categories } path={ pathname } />
         <CardContainer recipes={ recipes } path={ pathname } />
       </main>
-      <footer className="footer-wrapper">Footer</footer>
+      <Footer />
     </>
   );
 }

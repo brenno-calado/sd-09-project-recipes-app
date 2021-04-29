@@ -25,11 +25,10 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ MainPage } />
-      <Route path="/bebidas" component={ MainPage } />
-      <Route path="/bebidas/:cetegoria" component={ MainPage } />
-      <Route exact path="/comidas/:id" component={ FoodDetails } />
-      <Route exact path="/bebidas/:id" component={ DrinkDetails } />
+      <Route exact path="/comidas" component={ MainPage } />
+      <Route exact path="/bebidas" component={ MainPage } />
+      <Route path="/comidas/:id" component={ FoodDetails } />
+      <Route path="/bebidas/:id" component={ DrinkDetails } />
       <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
       <Route exact path="/explorar" component={ Explore } />

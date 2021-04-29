@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { string, shape, bool } from 'prop-types';
-import { Collapse } from 'react-bootstrap';
+import Accordion from 'react-bootstrap/Accordion';
 
+import { Card } from 'react-bootstrap';
 import SearchBar from './searchBar';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
@@ -14,10 +15,10 @@ function Header({ page, search: { searchBtn, searchFor } }) {
     setSearchBar(!searchBar);
   };
 
-  return (
-    <>
+  const returnCardHeader = () => (
+    <Card.Header>
       <header
-        className="header-Display header-wrapper"
+        className="header-Display"
       >
         <Link to="/perfil">
           <img
@@ -28,17 +29,35 @@ function Header({ page, search: { searchBtn, searchFor } }) {
         </Link>
         <h1 data-testid="page-title">{ page }</h1>
         { searchBtn && (
-          <button type="button" onClick={ handleSearch } className="header-searchBttn">
-            <img src={ searchIcon } alt="procurar" data-testid="search-top-btn" />
-          </button>
+          <Accordion.Toggle
+            as="button"
+            onClick={ handleSearch }
+            variant="link"
+            eventKey="0"
+            className="header-searchBttn"
+          >
+            <img
+              src={ searchIcon }
+              alt="procurar"
+              data-testid="search-top-btn"
+            />
+          </Accordion.Toggle>
         )}
       </header>
-      <Collapse in={ searchBar }>
-        <div id="example-collapse-text" className="search-bar-wrapper">
-          { searchBar && <SearchBar type={ searchFor } /> }
-        </div>
-      </Collapse>
-    </>
+    </Card.Header>
+  );
+
+  return (
+    <Accordion>
+      <Card>
+        {returnCardHeader()}
+        <Accordion.Collapse eventKey="0">
+          <Card.Body>
+            { searchBar && <SearchBar type={ searchFor } /> }
+          </Card.Body>
+        </Accordion.Collapse>
+      </Card>
+    </Accordion>
   );
 }
 
