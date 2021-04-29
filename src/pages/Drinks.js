@@ -1,15 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
-import SearchBar from '../components/SearchBar';
-import RecipesContext from '../context/RecipesContext';
 
 function Drinks() {
-  const { showSearchBar } = useContext(RecipesContext);
+  const history = useHistory();
+  const { pathname } = history.location;
+
   return (
-    <>
-      <Header showSearchButton />
-      { showSearchBar && <SearchBar /> }
-    </>
+    <div>
+      { pathname === '/bebidas' ? (
+        <Header
+          showSearchButton="true"
+          title="Bebidas"
+        />
+      ) : null }
+      {pathname === '/bebidas' ? <Footer /> : null}
+    </div>
   );
 }
 
