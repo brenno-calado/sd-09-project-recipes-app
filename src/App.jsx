@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login, MainDrinks, MainFoods, Profile, Explore, ExploreFoods,
-  ExploreDrinks, DoneRecipes, FavoriteRecipes } from './pages';
+  ExploreDrinks, DoneRecipes, FavoriteRecipes, RecipeDetails } from './pages';
 import RecipesAppProvider from './context/RecipesAppProvider';
 import FoodsByIngredients from './pages/ExploreFoodsByIngredients';
 import DrinksByIngredient from './pages/ExploreDrinksByIngredients';
@@ -26,6 +26,7 @@ function App() {
           <Route path="/explorar/comidas/area" component={ ExploreFoodsByOrigin } />
           <Route path="/receitas-feitas" component={ DoneRecipes } />
           <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+          <Route exact path="/comidas/:id" component={ RecipeDetails } />
         </Switch>
       </BrowserRouter>
     </RecipesAppProvider>

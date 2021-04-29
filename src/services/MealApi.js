@@ -27,3 +27,15 @@ export async function fetchMealsByCategory(category) {
     .then((data) => data.json());
   return apiResponse.meals;
 }
+
+export async function fetchMealsWithId(id) {
+  const apiResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((data) => data.json());
+  return apiResponse.meals;
+}
+
+export async function fetchMealRecomendation() {
+  const apiResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((data) => data.json());
+  return apiResponse.meals;
+}
