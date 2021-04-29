@@ -4,7 +4,17 @@ class index extends Component {
   render() {
     return (
       <div>
-        Perfil
+        <header>Perfil</header>
+        <h1 data-testid="email-input">userEmail</h1>
+        <button type="button" data-testid="profile-done-btn">
+          Receitas Feitas
+        </button>
+        <button type="button" data-testid="profile-favorite-btn">
+          Receitas Favoritas
+        </button>
+        <button type="button" data-testid="profile-logout-btn">
+          Sair
+        </button>
       </div>
     );
   }
