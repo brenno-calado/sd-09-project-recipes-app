@@ -1,23 +1,30 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import paths from '../routes/paths';
 
-const Header = ({ activeSearch = false, title }) => (
-  <header>
-    <img
-      src={ ProfileIcon }
-      data-testid="profile-top-btn"
-      alt="profile icon"
-    />
-    <h2 data-testid="page-title">{ title }</h2>
-    { activeSearch && <img
-      src={ SearchIcon }
-      data-testid="search-top-btn"
-      alt="search icon"
-    /> }
-  </header>
-);
+const Header = ({ activeSearch = false, title }) => {
+  const history = useHistory();
+  return (
+    <header>
+      <button type="button" onClick={ () => history.push(paths.PROFILE_PAGE) }>
+        <img
+          data-testid="profile-top-btn"
+          src={ ProfileIcon }
+          alt="profile icon"
+        />
+      </button>
+      <h2 data-testid="page-title">{ title }</h2>
+      { activeSearch && <img
+        src={ SearchIcon }
+        data-testid="search-top-btn"
+        alt="search icon"
+      /> }
+    </header>
+  );
+};
 
 export default Header;
 
