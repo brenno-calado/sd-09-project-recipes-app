@@ -16,6 +16,11 @@ export default function FoodDetails({ match: { params } }) {
     .map((strIngredients) => details[strIngredients])
     .filter((ingredient) => ingredient);
 
+  const measureArray = details && Object.keys(details)
+    .filter((measureKey) => measureKey.includes('strMeasure'))
+    .map((strMeasures) => details[strMeasures])
+    .filter((measure) => measure);
+
   return (
     <section>
       <img
@@ -37,7 +42,9 @@ export default function FoodDetails({ match: { params } }) {
         {
           details && ingredientsArray.map((item, index) => (
             <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-              { item }
+              { measureArray[index] }
+              &nbsp;
+              <strong>{ item }</strong>
             </li>
           ))
         }
