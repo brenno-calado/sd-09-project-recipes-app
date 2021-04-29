@@ -14,11 +14,26 @@ function SearchBar() {
     setSearchState({ ...searchState, radioButton: id });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const { search, radioButton } = searchState;
     const { pathname } = history.location;
     const route = pathname.substr(1);
-    getFilteredRecipes(route, search, radioButton);
+    const recipes = await getFilteredRecipes(route, search, radioButton);
+
+    switch (route) {
+    case 'comidas':
+      if (recipes.meals.length === 1) {
+        history.push(`/comidas/${recipes.meals[0].idMeal}`);
+      }
+      break;
+    case 'bebidas':
+      if (recipes.drinks.length === 1) {
+        history.push(`/bebidas/${recipes.drinks[0].idDrink}`);
+      }
+      break;
+    default:
+      return undefined;
+    }
   };
 
   return (

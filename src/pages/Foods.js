@@ -13,7 +13,7 @@ function Foods() {
     <div>
       { pathname === '/comidas' ? (
         <Header
-          showSearchButton="true"
+          showSearchButton
           title="Comidas"
         />
       ) : null }
