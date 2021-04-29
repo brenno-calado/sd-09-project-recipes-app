@@ -13,15 +13,21 @@ function ExploreFoods() {
     history.push('/explorar/comidas/area');
   };
 
+  const handleClickToSurpriseMe = () => {
+    history.push('/explorar/https://www.themealdb.com/api/json/v1/1/random.php');
+  };
+
   return (
     <div>
-      <h1>Por Ingredientes</h1>
+      <Header title="Explorar Comidas" />
+      <br />
+      <br />
       <button
         type="button"
         data-testid="explore-by-ingredient"
         onClick={ handleClickToIngredients }
       >
-        Por Ingredients
+        Por Ingredientes
       </button>
       <button
         type="button"
@@ -33,10 +39,10 @@ function ExploreFoods() {
       <button
         type="button"
         data-testid="explore-surprise"
+        onClick={ handleClickToSurpriseMe }
       >
         Me Surpreenda!
       </button>
-      <Header title="Explorar Comidas" />
       <Footer />
     </div>
   );

@@ -7,7 +7,7 @@ function ExploreDrinks() {
   const history = useHistory();
 
   const handleClickToIngredients = () => {
-    history.push('/explorar/comidas/ingredientes');
+    history.push('/explorar/bebidas/ingredientes');
   };
 
   return (
