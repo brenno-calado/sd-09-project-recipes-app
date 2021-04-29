@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeDetails } from '../services/api';
+import { MealsRecomendations } from '../components';
 
 function DrinksDetails() {
   const { id } = useParams();
@@ -17,7 +18,7 @@ function DrinksDetails() {
   const { strDrinkThumb, strDrink, strInstructions, strYoutube, strAlcoholic } = data;
 
   return (
-    <section>
+    <section className="recipe-details">
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="recipe" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
       <button data-testid="share-btn" type="button">Compartilhar</button>
@@ -44,9 +45,14 @@ function DrinksDetails() {
         allowFullScreen
       />
       <p data-testid="instructions">{strInstructions}</p>
-      <span data-testid="0-recomendation-card">Card de Recomendaçoes</span>
-      <span data-testid="1-recomendation-card">Card de Recomendaçoes</span>
-      <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="btn-initial"
+      >
+        Iniciar Receita
+      </button>
+      <MealsRecomendations />
     </section>
   );
 }
