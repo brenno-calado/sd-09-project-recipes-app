@@ -33,7 +33,7 @@ class Login extends Component {
   render() {
     const { email, password } = this.state;
     const patternEmail = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
-    const minPassLength = 6;
+    const minPassLength = 7;
     return (
       <div>
         Login
