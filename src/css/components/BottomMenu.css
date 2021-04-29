@@ -7,3 +7,8 @@
   position: fixed;
   width: 100%;
 }
+
+.btn-footer {
+  background-color: lightgray;
+  border: none;
+}

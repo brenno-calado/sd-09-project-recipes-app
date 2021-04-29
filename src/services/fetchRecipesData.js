@@ -8,8 +8,12 @@ const checkSearchType = (type, text, category) => {
     return `https://www.the${category}db.com/api/json/v1/1/search.php?s=${text}`;
   case 'Primeira Letra':
     return `https://www.the${category}db.com/api/json/v1/1/search.php?f=${text}`;
+  case 'drink':
+    return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${text}`;
+  case 'meal':
+    return `https://www.themealdb.com/api/json/v1/1/filter.php?c=${text}`;
   default:
-    return ERROR;
+    return `https://www.the${category}db.com/api/json/v1/1/search.php?s=`;
   }
 };
 
