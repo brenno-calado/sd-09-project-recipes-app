@@ -7,8 +7,7 @@ import FoodMainPage from './pages/FoodMainPage';
 import DrinkMainPage from './pages/DrinkMainPage';
 import FoodDetails from './pages/FoodDetails';
 import DrinkDetails from './pages/DrinkDetails';
-import FoodInProgress from './pages/FoodInProgress';
-import DrinkInProgress from './pages/DrinkInProgress';
+import RecipeInProgress from './pages/RecipeInProgress';
 import ExploreFood from './pages/ExploreFood';
 import Explore from './pages/Explore';
 import ExploreDrink from './pages/ExploreDrink';
@@ -23,8 +22,8 @@ function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/comidas/:id" component={ FoodDetails } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/comidas" component={ FoodMainPage } />

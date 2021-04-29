@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
 import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
+import ShareAndFavo from '../components/ShareAndFavo';
 
 function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommendedFoods }) {
   const [recipe, setRecipe] = useState(null);
@@ -26,26 +27,16 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
     }
   }, [match, recipe, recipes, history, getMealByIdDispatch]);
   const MAX_SLICE_YOUTUBE = 11;
+
   return loading ? (
     <div>Loading...</div>
   ) : (
     <div>
       <div>
-        {/* // O título deve possuir o atributo data-testid="recipe-title"; */}
         <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
-        {/* // A foto deve possuir o atributo data-testid="recipe-photo"; */}
         <img src={ `${recipe.strMealThumb}` } alt="recipe" data-testid="recipe-photo" />
-        {/* // O botão de compartilhar deve
-        possuir o atributo data-testid="share-btn"; */}
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        {/* // O botão de favoritar
-      deve possuir o atributo data-testid="favorite-btn"; */}
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
-        {/* O texto da categoria
-        deve possuir o atributo data-testid="recipe-category"; */}
+        <ShareAndFavo match={ match } recipe={ recipe } />
         <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
-        {/* // Os ingredientes
-      devem possuir o atributo data-testid="${index}-ingredient-name-and-measure"; */}
         {ingredientToMeasure
           .map((item) => item.ingredient && (
             <ul
@@ -68,6 +59,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
         { recipe.strYoutube && (<iframe
           width="560"
           height="315"
+          data-testid="video"
           src={ `https://www.youtube.com/embed/${recipe.strYoutube
             .slice(recipe
               .strYoutube.length - MAX_SLICE_YOUTUBE, recipe.strYoutube.length)}` }
