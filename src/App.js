@@ -27,9 +27,12 @@ function App() {
       <Route path="/explorar" component={ Explore } />
       {/* <Route path="/bebidas/{id-da-receita}/in-progress" render={ (drink-id) => <DrinkProgress {...drink-id} /> }/>
       <Route path="/comidas/{id-da-receita}/in-progress" render={ (recipe-id) => <FoodProgress {...recipe-id} /> } />
-      <Route path="/bebidas:{id-bebida}" render={ (drink-id) => <DrinkDetails {...drink-id} /> } />
-      <Route path="/comidas/:{id-receita}"
-      render={ (recipe-id) => <FoodDetails {...recipe-id} /> }/> */}
+      <Route path="/bebidas:{id-bebida}" render={ (drink-id) => <DrinkDetails {...drink-id} /> } /> */}
+      {/* <Route
+        exact
+        path="/comidas/:id-receita"
+        render={ (recipeid) => <FoodDetails { ...recipeid } /> }
+      /> */}
       <Route path="/bebidas" component={ MainDrink } />
       <Route path="/comidas" component={ MainFood } />
       <Route exact path="/" component={ Login } />
