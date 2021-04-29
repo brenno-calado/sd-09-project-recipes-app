@@ -1,7 +1,7 @@
 .list-drink-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   margin-bottom: 50px;
 }
 
