@@ -25,14 +25,12 @@ function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/comidas" component={ MainPage } />
-      <Route path="/bebidas" component={ MainPage } />
-      <Route path="/bebidas/{categoria}" component={ MainPage } />
-
-      <Route exact path="/comidas/{id-da-receita}" component={ FoodDetails } />
-      <Route exact path="/bebidas/{id-da-receita}" component={ DrinkDetails } />
-      <Route path="/comidas/{id-da-receita}/in-progress" component={ FoodInProcess } />
-      <Route path="/bebidas/{id-da-receita}/in-progress" component={ DrinkInProcess } />
+      <Route exact path="/comidas" component={ MainPage } />
+      <Route exact path="/bebidas" component={ MainPage } />
+      <Route path="/comidas/:id" component={ FoodDetails } />
+      <Route path="/bebidas/:id" component={ DrinkDetails } />
+      <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />
+      <Route path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFood } />
       <Route exact path="/explorar/bebidas" component={ ExploreDrink } />
