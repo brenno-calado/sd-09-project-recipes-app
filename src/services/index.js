@@ -53,7 +53,7 @@ const fetchApi = {
   fetchDrinkCategories,
   fetchDrinkByIngredients,
   fetchMealByFilter,
-  fetchDrinkByFilter
+  fetchDrinkByFilter,
 };
 
 export default fetchApi;
