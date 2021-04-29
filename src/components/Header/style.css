@@ -1,0 +1,17 @@
+header {
+  align-items: center;
+  background: #c4c4c4;
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  padding: 0;
+}
+
