@@ -39,3 +39,10 @@ export const fetchMealsByCategory = (category) => {
     .then((response) => response.json())
     .then((data) => data.meals);
 };
+
+export const fetchMealsById = (id) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};

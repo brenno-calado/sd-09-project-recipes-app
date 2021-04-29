@@ -6,6 +6,7 @@ import {
   FETCHING_CATEGORIES,
   SUCCESS_CATEGORIES,
   FAILURE_CATEGORIES,
+  SUCCESS_RECIPE,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -14,6 +15,7 @@ import {
   fetchMealsCategories,
   fetchInitialMeals,
   fetchMealsByCategory,
+  fetchMealsById,
 } from '../../services/mealsAPI';
 import {
   cocktailsByIngredient,
@@ -22,6 +24,7 @@ import {
   fetchCocktailsCategories,
   fetchInitialCocktails,
   fetchCocktailsByCategory,
+  fetchCocktailsById,
 } from '../../services/cocktailsAPI';
 
 export const savePath = (pathname, recipeType) => ({
@@ -142,6 +145,29 @@ export function cocktailsByCategoriesThunk(category) {
     dispatch(fetchingCategories());
     return fetchCocktailsByCategory(category)
       .then((data) => dispatch(sucessFetch(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+const successRecipe = (data) => ({
+  type: SUCCESS_RECIPE,
+  data,
+});
+
+export function mealsByIdThunk(id) {
+  return (dispatch) => {
+    dispatch(fetching());
+    return fetchMealsById(id)
+      .then((data) => dispatch(successRecipe(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+export function cocktailsByIdThunk(id) {
+  return (dispatch) => {
+    dispatch(fetching());
+    return fetchCocktailsById(id)
+      .then((data) => dispatch(successRecipe(data)))
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
