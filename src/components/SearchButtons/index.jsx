@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import PropTypes, { string } from 'prop-types';
 import fetchApi from '../../services';
 import { context } from '../../context';
 
-function CategoriesButtons(props) {
-  const { setFoods } = useContext(context);
+function CategoriesButtons() {
+  const { setFoods, categories } = useContext(context);
   const lengthOfList = 12;
 
   const handleClick = ({ target }) => {
@@ -15,8 +14,6 @@ function CategoriesButtons(props) {
     });
   };
 
-  const { categories } = props;
-  console.log(categories);
   return (
     <>
       {
@@ -35,9 +32,5 @@ function CategoriesButtons(props) {
     </>
   );
 }
-
-CategoriesButtons.propTypes = {
-  categories: PropTypes.arrayOf(string).isRequired,
-};
 
 export default CategoriesButtons;
