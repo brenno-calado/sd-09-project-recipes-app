@@ -75,7 +75,7 @@ function ExploreRecipes({ match: { url } }) {
 }
 
 ExploreRecipes.propTypes = {
-  recipeType: string,
+  url: string,
 }.isRequired;
 
 export default ExploreRecipes;
