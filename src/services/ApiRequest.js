@@ -10,6 +10,18 @@ export async function fetchCocktailAPI() {
   return cocktails;
 }
 
+export async function fetchMealDetailsAPI(id) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const cocktails = await response.json();
+  return cocktails;
+}
+
+export async function fetchDrinkDetailsAPI(id) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  const cocktails = await response.json();
+  return cocktails;
+}
+
 export async function fetchMealCategories() {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
   const mealCategories = await response.json();

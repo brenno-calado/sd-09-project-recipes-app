@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
@@ -23,13 +24,17 @@ class CocktailCards extends React.Component {
           key={ index }
           data-testid={ `${index}-recipe-card` }
         >
-          <img
-            src={ cocktail.strDrinkThumb }
-            alt="cocktails"
-            data-testid={ `${index}-card-img` }
-            className="foodCards"
-          />
-          <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
+          <Link
+            to={ `/bebidas/${cocktail.idDrink}` }
+          >
+            <img
+              src={ cocktail.strDrinkThumb }
+              alt="cocktails"
+              data-testid={ `${index}-card-img` }
+              className="foodCards"
+            />
+            <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
+          </Link>
         </div>)
       ),
     );

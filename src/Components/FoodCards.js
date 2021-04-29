@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiMeals } from '../redux/actions';
 import '../Styles/FoodCards.css';
@@ -33,6 +33,7 @@ class FoodCards extends React.Component {
               className="foodCards"
             />
             <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+            Detalhes
           </Link>
         </div>)
       ),

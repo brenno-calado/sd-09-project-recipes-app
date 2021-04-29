@@ -12,6 +12,8 @@ import ExploreFoodByIng from './Pages/ExploreFoodByIng';
 import ExploreDrink from './Pages/ExploreDrink';
 import ExploreFood from './Pages/ExploreFood';
 import Explore from './Pages/ Explore';
+import DetailsFood from './Pages/Details+css/DetailsFood';
+import DetailsDrinks from './Pages/Details+css/DetailsDrinks';
 
 function App() {
   return (
@@ -25,14 +27,24 @@ function App() {
       <Route path="/explorar/bebidas" component={ ExploreDrink } />
       <Route path="/explorar/comidas" component={ ExploreFood } />
       <Route path="/explorar" component={ Explore } />
-      {/* <Route path="/bebidas/{id-da-receita}/in-progress" render={ (drink-id) => <DrinkProgress {...drink-id} /> }/>
-      <Route path="/comidas/{id-da-receita}/in-progress" render={ (recipe-id) => <FoodProgress {...recipe-id} /> } />
-      <Route path="/bebidas:{id-bebida}" render={ (drink-id) => <DrinkDetails {...drink-id} /> } /> */}
       {/* <Route
-        exact
-        path="/comidas/:id-receita"
-        render={ (recipeid) => <FoodDetails { ...recipeid } /> }
+        path="/bebidas/{id-da-receita}/in-progress"
+        render={ (drink-id) => <DrinkProgress {...drink-id} /> }
+      />
+      <Route
+        path="/comidas/{id-da-receita}/in-progress"
+        render={ (recipe-id) => <FoodProgress {...recipe-id} /> }
       /> */}
+      <Route
+        path="/bebidas:{id-bebida}"
+        render={ (drinkid) => <DetailsDrinks { ...drinkid } /> }
+      />
+      <Route
+        path="/comidas/:{id-receita}"
+        render={ (recipeid) => <DetailsFood { ...recipeid } /> }
+      />
+      <Route path="/comidas/:id/" component={ DetailsFood } />
+      <Route path="/bebidas/:id/" component={ DetailsDrinks } />
       <Route path="/bebidas" component={ MainDrink } />
       <Route path="/comidas" component={ MainFood } />
       <Route exact path="/" component={ Login } />
