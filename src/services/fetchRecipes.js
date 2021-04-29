@@ -24,4 +24,14 @@ export const fetchBeverages = async () => {
   return recipesList;
 };
 
+export const fetchRecipeDetails = async (idType, id) => {
+  const url = (idType === 'idMeal')
+    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const request = await fetch(url);
+  const response = await request.json();
+  const type = Object.keys(response);
+  return response[type][0];
+};
+
 export default fetchRecipes;

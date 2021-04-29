@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { fetchRecipeDetails } from '../services/fetchRecipes';
+import { useLocation } from 'react-router';
 
-function Details() {
+function Details({ match: { params: { id } } }) {
+  const [recipe, setRecipe] = useState({});
+  const { pathname } = useLocation();
+  const idType = (pathname.includes('comida')) ? 'idMeal' : 'idDrink';
+  console.log(pathname);
+  useEffect(() => {
+    fetchRecipeDetails(idType, id)
+      .then((data) => setRecipe(data));
+  }, [id, idType]);
   return (
     <div>
-      <img src="https://www.themealdb.com/images/media/meals/58oia61564916529.jpg" alt="Recope image" data-testid="recipe-photo"/>
+      <img src={ recipe.strMealThumb } alt={ recipe.strMeal } data-testid="recipe-photo" />
       <div>
         <h1 data-testid="recipe-title">Title</h1>
         <button type="button" data-testid="share-btn">
