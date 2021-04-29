@@ -1,11 +1,13 @@
 import React from 'react';
 import Header from '../components/Header';
 
-export default function Explore() {
+function Profile() {
   return (
     <div>
-      <Header pageName="Explorar" />
-      <h1>Explore</h1>
+      <Header pageName="Perfil" />
+      <h1>Profile</h1>
     </div>
   );
 }
+
+export default Profile;
