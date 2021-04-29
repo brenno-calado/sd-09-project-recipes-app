@@ -10,7 +10,21 @@ import { MyContext } from '../MyContext';
 function Header() {
   const { showBar, clickShowBar } = useContext(MyContext);
   const { pathname } = useLocation();
-  const title = pathname.slice(1);
+  // const title = pathname.slice(1);
+  let title = '';
+  switch (pathname) {
+  case '/comidas':
+    title = 'Comidas';
+    break;
+  case '/bebidas':
+    title = 'Bebidas';
+    break;
+  case '/perfil':
+    title = 'Perfil';
+    break;
+  default:
+    break;
+  }
 
   return (
     <div className="container">

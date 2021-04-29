@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 export default function Perfil() {
   const { email } = JSON.parse(localStorage.getItem('user'));
@@ -8,6 +9,7 @@ export default function Perfil() {
   };
   return (
     <div>
+      <Header />
       <span data-testid="profile-email">
         { email }
       </span>
