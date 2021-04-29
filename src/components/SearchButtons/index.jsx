@@ -6,7 +6,7 @@ import { context } from '../../context';
 function CategoriesButtons(props) {
   const { type } = props;
   const {
-    setFoods, setDrinks, categories,
+    setFoods, setDrinks, setToggleButton, categories,
   } = useContext(context);
   const lengthOfList = 12;
 
@@ -16,6 +16,9 @@ function CategoriesButtons(props) {
         const fetchFoods = res.meals
           .filter((food) => res.meals.indexOf(food) < lengthOfList);
         setFoods(fetchFoods);
+        const teste = {};
+        fetchFoods.forEach((food) => teste[food] = false);
+        setToggleButton(teste);
       });
     }
 
