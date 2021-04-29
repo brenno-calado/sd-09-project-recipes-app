@@ -10,8 +10,6 @@ function Foods() {
   const { handleFetchFoodClick, recipesData } = useRecipeContext();
   const twelve = 12;
 
-  console.log(recipesData)
-
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
     || recipesData.meals === null) {

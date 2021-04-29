@@ -18,12 +18,33 @@ function FoodRecipeDetails(props) {
       });
   }, [id]);
 
-  console.log(apiData);
-  if (apiData) {
-    const test = apiData.meals.map((item, index) => {
-      return Object.entries(item)
-    })
-    console.log(test);
+  function ingredientList() {
+    const newArrayOfApiData = apiData.meals.map((meal) => (
+      Object.entries(meal)));
+
+    const recipeItems = [];
+    let number = 1;
+    newArrayOfApiData[0].forEach((item) => {
+      if (item[0] === `strIngredient${number}` && item[1] !== null) {
+        const ingredient = item[1];
+        newArrayOfApiData[0].forEach((item2) => {
+          if (item2[0] === `strMeasure${number}` && item2[1] !== '') {
+            const measure = item2[1];
+            recipeItems.push([ingredient, ': ', measure]);
+          }
+        });
+        number += 1;
+      }
+    });
+
+    return recipeItems.map((item, index) => (
+      <li
+        data-testid={ `${index}-ingredient-name-and-measure` }
+        key={ item }
+      >
+        { item }
+      </li>
+    ));
   }
 
   function renderDetails() {
@@ -36,20 +57,22 @@ function FoodRecipeDetails(props) {
           strCategory,
           strInstructions,
           idMeal,
-        }, index) => (
+        }) => (
           <CardDetails
+            shouldVideoApear
             key={ idMeal }
             image={ strMealThumb }
             title={ strMeal }
             video={ strYoutube }
             categoryText={ strCategory }
             instructions={ strInstructions }
-            // ingredient={}
-            ingredientId={ '0-ingredient-name-and-measure' }
-            recommendedId={'0-recomendation-card'}
-            // recomendedImage={}
-            // recomendedTitle={}
-          />
+            recommendedId="0-recomendation-card"
+            // recommendedImage={}
+            // recommendedTitle={}
+          >
+            { apiData && ingredientList()}
+
+          </CardDetails>
         ))
       )
     );
@@ -73,12 +96,3 @@ FoodRecipeDetails.defaultProps = {
 };
 
 export default FoodRecipeDetails;
-
-// sabemos que o número de strIngredient[#] é = o número de strMeasure[#], então:
-// let quantidade = #;
-// for (index = 0; index <= #; index += 1) {
-//   if(strIngredient[#] !== '') {
-//     <li>`${strIngredient[quantidade]} - ${strMeasure[quantidade]}</li>
-//   quantidade = quantidade + 1
-//   }
-// }

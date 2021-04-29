@@ -1,9 +1,9 @@
-import { string } from 'prop-types';
+import { string, arrayOf, shape, bool } from 'prop-types';
 import React from 'react';
 
 function CardDetails({
-  image, title, video, categoryText, instructions,
-  ingredient, recommendedId, ingredientId, recomendedImage, recomendedTitle }) {
+  image, title, video, categoryText, instructions, shouldVideoApear,
+  recommendedId, recommendedImage, recommendedTitle, children, isAlcoholic }) {
   return (
     <li>
       <img
@@ -12,6 +12,7 @@ function CardDetails({
         alt={ title }
       />
       <h2 data-testid="recipe-title">{ title }</h2>
+      {!shouldVideoApear && <p data-testid="recipe-category">{isAlcoholic}</p>}
       <button
         data-testid="share-btn"
         type="button"
@@ -26,23 +27,25 @@ function CardDetails({
       </button>
       <p data-testid="recipe-category">{ categoryText }</p>
 
-      <ul data-testid={ ingredientId }>
-        <li>{ ingredient }</li>
+      <ul>
+        {children}
       </ul>
 
       <p data-testid="instructions">{ instructions }</p>
 
-      <iframe
-        title={ title }
-        width="300"
-        height="300"
-        src={ video }
-        data-testid="video"
-      />
+      { shouldVideoApear && (
+        <iframe
+          title={ title }
+          width="300"
+          height="300"
+          src={ video }
+          data-testid="video"
+        />
+      )}
 
       <div data-testid={ recommendedId }>
-        <img src={ recomendedImage } alt={ recomendedTitle } />
-        <p>{ recomendedTitle }</p>
+        <img src={ recommendedImage } alt={ recommendedTitle } />
+        <p>{ recommendedTitle }</p>
       </div>
 
       <button
@@ -59,26 +62,28 @@ CardDetails.propTypes = {
   image: string,
   title: string,
   categoryText: string,
-  ingredient: string,
   video: string,
   instructions: string,
   recommendedId: string,
-  recomendedImage: string,
-  recomendedTitle: string,
-  ingredientId: string,
+  recommendedImage: string,
+  recommendedTitle: string,
+  isAlcoholic: string,
+  children: arrayOf(shape()),
+  shouldVideoApear: bool,
 };
 
 CardDetails.defaultProps = {
   image: '',
   title: '',
   categoryText: '',
-  ingredient: '',
   video: '',
   instructions: '',
   recommendedId: '',
-  recomendedImage: '',
-  recomendedTitle: '',
-  ingredientId: '',
+  recommendedImage: '',
+  recommendedTitle: '',
+  isAlcoholic: '',
+  children: [{}],
+  shouldVideoApear: bool,
 };
 
 export default CardDetails;
