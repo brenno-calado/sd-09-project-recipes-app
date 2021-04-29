@@ -4,12 +4,23 @@ import fetchApi from '../../services';
 
 export default function FoodDetails({ match: { params } }) {
   const [details, setDetails] = useState(null);
+  const [recomendation, setRecomendation] = useState(null);
 
   const { id } = params;
+
+  const recomendationDefaultLength = 6;
 
   useEffect(() => {
     fetchApi('food', 'details', id).then((res) => setDetails(res.meals[0]));
   }, [id]);
+
+  useEffect(() => {
+    fetchApi('cocktail', 'name', '').then((res) => {
+      const recomentation = res.drinks
+        .filter((drink) => res.drinks.indexOf(drink) < recomendationDefaultLength);
+      setRecomendation(recomentation);
+    });
+  }, []);
 
   const ingredientsArray = details && Object.keys(details)
     .filter((ingredientKey) => ingredientKey.includes('strIngredient'))
@@ -55,7 +66,15 @@ export default function FoodDetails({ match: { params } }) {
         data-testid="video"
         title="video"
       />
-      {/* <section data-testid={ `${index}-recomendation-card` }>Card</section> */}
+      <section>
+        {
+          recomendation && recomendation.map((recipe, index) => (
+            <section key={ index } data-testid={ `${index}-recomendation-card` }>
+              <img src={ recipe.strDrinkThumb } alt="" />
+            </section>
+          ))
+        }
+      </section>
       <button type="button" data-testid="start-recipe-btn">start</button>
     </section>
   );
