@@ -33,5 +33,4 @@ Recipes.propTypes = {
   history: PropTypes.shape({}).isRequired,
 };
 
-
 export default connect(mapStateToProps)(Recipes);
