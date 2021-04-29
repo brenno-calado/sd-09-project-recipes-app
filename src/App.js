@@ -16,8 +16,10 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ FoodsMainPage } />
       <Route exact path="/bebidas" component={ DrinksMainPage } />
+      <Route path="/perfil" component={ Profile } />
       <Route path="/comidas/:id" component={ MealDetails } />
       <Route path="/bebidas/:id" component={ DrinkDetails } />
+    
       {/* <Route path="/comidas/:id/in-progress" component={} />
       <Route path="/bebidas/:id/in-progress" component={} />
       <Route path="/explorar/comidas/ingredientes" component={} />
@@ -26,7 +28,6 @@ function App() {
       <Route path="/explorar/bebidas" component={} />
       <Route path="/explorar/comidas/area" component={} />
       <Route path="/explorar" component={} />
-      <Route path="/perfil" component={} />
       <Route path="/receitas-feitas" component={} />
       <Route path="/receitas-favoritas" component={} /> */}
 
