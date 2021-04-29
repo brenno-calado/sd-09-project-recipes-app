@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { searchRecipe } from '../actions';
 import '../styles/Recipes.css';
 
@@ -33,41 +33,45 @@ function Recipes({ recipesList, recipesType, dispatchSearch, redirect }) {
       {recipesType === 'meal'
         ? recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <div
-              className="card align-items-center m-2 flex-wrap"
-              data-testid={ `${index}-recipe-card` }
-              key={ recipe.idMeal }
-            >
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ recipe.strMealThumb }
-                alt={ recipe.srtMeal }
-                width="100px"
-                height="100px"
-              />
-              <span data-testid={ `${index}-card-name` } className="text-content">
-                {recipe.strMeal}
-              </span>
-            </div>)))
+            <Link to={ `/comidas/${recipe.idMeal}` }>
+              <div
+                className="card align-items-center m-2 flex-wrap"
+                data-testid={ `${index}-recipe-card` }
+                key={ recipe.idMeal }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ recipe.strMealThumb }
+                  alt={ recipe.srtMeal }
+                  width="100px"
+                  height="100px"
+                />
+                <span data-testid={ `${index}-card-name` } className="text-content">
+                  {recipe.strMeal}
+                </span>
+              </div>
+            </Link>)))
 
         : recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <div
-              className="card align-items-center m-2 flex-wrap"
-              data-testid={ `${index}-recipe-card` }
-              key={ recipe.idDrink }
-            >
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ recipe.strDrinkThumb }
-                alt={ recipe.strDrink }
-                width="100px"
-                height="100px"
-              />
-              <span className="card-title" data-testid={ `${index}-card-name` }>
-                {recipe.strDrink}
-              </span>
-            </div>)))}
+            <Link to={ `/bebidas/${recipe.idDrink}` }>
+              <div
+                className="card align-items-center m-2 flex-wrap"
+                data-testid={ `${index}-recipe-card` }
+                key={ recipe.idDrink }
+              >
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ recipe.strDrinkThumb }
+                  alt={ recipe.strDrink }
+                  width="100px"
+                  height="100px"
+                />
+                <span className="card-title" data-testid={ `${index}-card-name` }>
+                  {recipe.strDrink}
+                </span>
+              </div>
+            </Link>)))}
 
     </div>
   );

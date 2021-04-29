@@ -13,6 +13,7 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ComidasPorIngredientes from './pages/ComidasPorIngredientes';
 import BebidasPorIngredientes from './pages/BebidasPorIngredientes';
 import ComidaOrigem from './pages/ComidaOrigem';
+import RecipeDetails from './pages/RecipeDetails';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,12 +24,12 @@ function App() {
         <Route
           exact
           path="/comidas/:id"
-          render={ (props) => <Meals { ...props } /> }
+          render={ (props) => <RecipeDetails { ...props } /> }
         />
         <Route
           exact
           path="/bebidas/:id"
-          render={ (props) => <Cocktails { ...props } /> }
+          render={ (props) => <RecipeDetails { ...props } /> }
         />
         <Route exact path="/comidas" component={ Meals } />
         <Route exact path="/bebidas" component={ Cocktails } />

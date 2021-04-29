@@ -27,7 +27,6 @@ const fetchRecipesData = async (type, text, category) => {
       .then((response) => response.json());
 
     const foodType = category === 'meal' ? 'meals' : 'drinks';
-    console.log(foodType);
     return output[foodType];
   } catch (error) {
     console.log(error);
