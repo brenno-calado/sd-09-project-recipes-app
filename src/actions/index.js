@@ -26,6 +26,10 @@ export const defaultFetchApiAction = () => (dispach) => {
     .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
 };
 
+export const setIsLoading = () => ({
+  type: 'SET_ISLOADING',
+});
+
 export const fetchFoodRecipeDetails = (id) => (dispatch) => (
   fetchDetails('food', id)
     .then((recipesApiReponse) => dispatch({

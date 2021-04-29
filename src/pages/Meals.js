@@ -4,11 +4,12 @@ import { objectOf, string } from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipeMealCard from '../components/RecipeMealCard';
-import { defaultFetchApiAction } from '../actions';
+import { defaultFetchApiAction, setIsLoading } from '../actions';
 
 class Meals extends React.Component {
   componentDidMount() {
-    const { defaultFetchApi } = this.props;
+    const { defaultFetchApi, setIsLoadingToTrue } = this.props;
+    setIsLoadingToTrue();
     defaultFetchApi();
   }
 
@@ -19,7 +20,7 @@ class Meals extends React.Component {
     const mxmItens = 12;
     const itens = recipes && recipes.filter((_, index) => index < mxmItens);
     const idType = (pathName === '/comidas') ? 'idMeal' : 'idDrink';
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading === true) return <p>Loading...</p>;
     if (recipes === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -42,6 +43,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispach) => ({
   defaultFetchApi: () => dispach(defaultFetchApiAction()),
+  setIsLoadingToTrue: () => dispach(setIsLoading()),
 });
 
 Meals.propTypes = {
