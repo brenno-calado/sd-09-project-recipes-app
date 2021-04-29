@@ -34,35 +34,33 @@ function ReceitasFeitas() {
         <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </section>
       {
-        localData.map((recipe) => {
-          return (
-            <div key="1">
-              <div>
-                <img
-                  src={ recipe.img }
-                  alt=""
-                  data-testid={ `${index}-horizontal-image` }
-                />
-              </div>
-              <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
-              <h1 data-testid={ `${index}-horizontal-name` }>
-                { recipe.recipeName }
-              </h1>
-              <p data-testid={ `${index}-horizontal-done-date` }>
-                { recipe.date }
-              </p>
-              <button
-                type="button"
-                onClick={ () => navigator.clipboard.writeText(recipe.link) }
-                data-testid={ `${index}-horizontal-share-btn` }
-              >
-                <img src={ shareIcon } alt="compartilhar" />
-              </button>
-              <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag1 }</p>
-              <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag2 }</p>
+        localData.map((recipe) => (
+          <div key="1">
+            <div>
+              <img
+                src={ recipe.img }
+                alt=""
+                data-testid={ `${index}-horizontal-image` }
+              />
             </div>
-          );
-        })
+            <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
+            <h1 data-testid={ `${index}-horizontal-name` }>
+              { recipe.recipeName }
+            </h1>
+            <p data-testid={ `${index}-horizontal-done-date` }>
+              { recipe.date }
+            </p>
+            <button
+              type="button"
+              onClick={ () => navigator.clipboard.writeText(recipe.link) }
+              data-testid={ `${index}-horizontal-share-btn` }
+            >
+              <img src={ shareIcon } alt="compartilhar" />
+            </button>
+            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag1 }</p>
+            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag2 }</p>
+          </div>
+        ))
       }
     </div>
 
