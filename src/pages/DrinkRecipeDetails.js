@@ -107,7 +107,7 @@ function DrinkRecipeDetails(props) {
                           src={ strMealThumb }
                           alt={ strMeal }
                         />
-                        <p>{ strMeal }</p>
+                        <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
                       </div>
                     </Slide>
                   )

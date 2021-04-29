@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+} from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
 import { getFoodDetailsById, getRecommendedDrink } from '../services/fetchApi';
 import styles from './recipeDetails.module.css';
@@ -80,25 +83,43 @@ function FoodRecipeDetails(props) {
               instructions={ strInstructions }
             >
               { apiData && ingredientList()}
-
             </CardDetails>
           ))
         )}
         <div className={ styles.scrollingWrapper }>
-          {recommendedDrink && (
-            recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-              index < six && (
-                <div
-                  className={ styles.details }
-                  key={ idDrink }
-                  data-testid={ `${index}-recomendation-card` }
-                >
-                  <img width="300px" src={ strDrinkThumb } alt={ strDrink } />
-                  <p>{ strDrink }</p>
-                </div>
-              )
-            ))
-          )}
+          <CarouselProvider
+            naturalSlideWidth={ 10 }
+            naturalSlideHeight={ 10 }
+            totalSlides={ 6 }
+            infinite
+            visibleSlides={ 2 }
+          >
+            <Slider>
+              {recommendedDrink && (
+                recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+                  index < six && (
+                    <Slide index={ index }>
+                      <div
+                        key={ idDrink }
+                        data-testid={ `${index}-recomendation-card` }
+                      >
+                        <img
+                          className={ styles.details }
+                          src={ strDrinkThumb }
+                          alt={ strDrink }
+                        />
+                        <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
+                      </div>
+                    </Slide>
+                  )
+                ))
+              )}
+            </Slider>
+            <ButtonBack>Back</ButtonBack>
+            <ButtonNext>Next</ButtonNext>
+
+          </CarouselProvider>
+
         </div>
         <button
           data-testid="start-recipe-btn"
