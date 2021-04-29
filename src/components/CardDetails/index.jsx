@@ -2,8 +2,8 @@ import { string, arrayOf, shape, bool } from 'prop-types';
 import React from 'react';
 
 function CardDetails({
-  image, title, video, categoryText, instructions, shouldVideoApear,
-  recommendedId, recommendedImage, recommendedTitle, children, isAlcoholic }) {
+  image, title, video, categoryText, instructions,
+  shouldVideoApear, children, isAlcoholic }) {
   return (
     <li>
       <img
@@ -42,18 +42,6 @@ function CardDetails({
           data-testid="video"
         />
       )}
-
-      <div data-testid={ recommendedId }>
-        <img src={ recommendedImage } alt={ recommendedTitle } />
-        <p>{ recommendedTitle }</p>
-      </div>
-
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-      >
-        Iniciar receita
-      </button>
     </li>
   );
 }
@@ -64,9 +52,6 @@ CardDetails.propTypes = {
   categoryText: string,
   video: string,
   instructions: string,
-  recommendedId: string,
-  recommendedImage: string,
-  recommendedTitle: string,
   isAlcoholic: string,
   children: arrayOf(shape()),
   shouldVideoApear: bool,
@@ -78,9 +63,6 @@ CardDetails.defaultProps = {
   categoryText: '',
   video: '',
   instructions: '',
-  recommendedId: '',
-  recommendedImage: '',
-  recommendedTitle: '',
   isAlcoholic: '',
   children: [{}],
   shouldVideoApear: bool,

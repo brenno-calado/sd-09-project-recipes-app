@@ -93,3 +93,27 @@ export async function getDrinkDetailsById(id) {
     return error.message;
   }
 }
+
+export async function getRecommendedDrink() {
+  const promise = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export async function getRecommendedFood() {
+  const promise = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}

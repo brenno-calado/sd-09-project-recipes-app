@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import CardDetails from '../components/CardDetails/index';
-import { getDrinkDetailsById } from '../services/fetchApi';
+import { getDrinkDetailsById, getRecommendedDrink } from '../services/fetchApi';
 
 function DrinkRecipeDetails(props) {
   const { match } = props;
@@ -9,6 +9,17 @@ function DrinkRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
+  const [recommendedDrink, setRecommendedDrink] = useState();
+  const six = 6;
+
+  useEffect(() => {
+    getRecommendedDrink()
+      .then((result) => {
+        setRecommendedDrink(result);
+      });
+  }, []);
+
+  console.log('recomendações', recommendedDrink);
 
   useEffect(() => {
     getDrinkDetailsById(id)
@@ -52,32 +63,46 @@ function DrinkRecipeDetails(props) {
 
   function renderDetails() {
     return (
-      apiData.drinks && (
-        apiData.drinks.map(({
-          strDrinkThumb,
-          strDrink,
-          strCategory,
-          strInstructions,
-          idDrink,
-          strAlcoholic,
-        }) => (
-          <CardDetails
-            shouldVideoApear={ false }
-            key={ idDrink }
-            image={ strDrinkThumb }
-            title={ strDrink }
-            isAlcoholic={ strAlcoholic }
-            categoryText={ strCategory }
-            instructions={ strInstructions }
-            recommendedId="0-recomendation-card"
-            // recomendedImage={}
-            // recomendedTitle={}
-          >
-            {apiData && ingredientList()}
-
-          </CardDetails>
-        ))
-      )
+      <>
+        { apiData.drinks && (
+          apiData.drinks.map(({
+            strDrinkThumb,
+            strDrink,
+            strCategory,
+            strInstructions,
+            idDrink,
+            strAlcoholic,
+          }) => (
+            <CardDetails
+              shouldVideoApear={ false }
+              key={ idDrink }
+              image={ strDrinkThumb }
+              title={ strDrink }
+              isAlcoholic={ strAlcoholic }
+              categoryText={ strCategory }
+              instructions={ strInstructions }
+            >
+              {apiData && ingredientList()}
+            </CardDetails>
+          ))
+        )}
+        {recommendedDrink && (
+          recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+            index < six && (
+              <div key={ idDrink } data-testid={ `${index}-recomendation-card` }>
+                <img src={ strDrinkThumb } alt={ strDrink } />
+                <p>{ strDrink }</p>
+              </div>
+            )
+          ))
+        )}
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Iniciar receita
+        </button>
+      </>
     );
   }
 
