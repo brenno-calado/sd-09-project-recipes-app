@@ -89,11 +89,11 @@ function CategoryFilter({
 }
 
 const mapStateToProps = (state) => ({
-  recipeType: state.loginReducer.recipeType,
-  categories: state.loginReducer.categories,
-  isFetchingCategories: state.loginReducer.isFetchingCategories,
-  isFetchedCategories: state.loginReducer.isFetchedCategories,
-  isFetched: state.loginReducer.isFetched,
+  recipeType: state.recipesReducer.recipeType,
+  categories: state.recipesReducer.categories,
+  isFetchingCategories: state.recipesReducer.isFetchingCategories,
+  isFetchedCategories: state.recipesReducer.isFetchedCategories,
+  isFetched: state.recipesReducer.isFetched,
 });
 
 const mapDispatchToProps = (dispatch) => ({

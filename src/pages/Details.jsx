@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactPlayer from 'react-player';
 import { mealsByIdThunk, cocktailsByIdThunk } from '../redux/actions';
+import RecommendedRecipes from '../components/RecommendedRecipes';
 
 function Details({
   match: { params: { id } },
@@ -10,6 +12,21 @@ function Details({
   recipeType,
   recipe,
 }) {
+  const [ingredients, setIngredients] = useState([]);
+
+  const getIngredients = () => {
+    const chave = 'strIngredient';
+    const valor = 'strMeasure';
+    const arrayKeys = Object.keys(recipe);
+    const ingredientKeys = arrayKeys.filter((key) => key.includes(chave));
+    const measureKeys = arrayKeys.filter((key) => key.includes(valor));
+    const obj = {};
+    for (let index = 0; index < ingredientKeys.length; index += 1) {
+      obj[recipe[ingredientKeys[index]]] = recipe[measureKeys[index]];
+    }
+    setIngredients(Object.entries(obj));
+  };
+
   useEffect(() => {
     if (recipeType === 'meals') {
       mealsById(id);
@@ -19,7 +36,7 @@ function Details({
     }
   }, []);
 
-  console.log(recipe);
+  useEffect(() => { getIngredients(); }, [recipe]);
 
   return (
     <section>
@@ -49,17 +66,38 @@ function Details({
         <p data-testid="recipe-title">
           { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
         </p>
-        <p data-testid="recipe-category">Texto da categoria</p>
+        <p data-testid="recipe-category">{ recipe.strCategory }</p>
       </div>
       <div>
-        ingredients
+        <ul>
+          {
+            recipe.length !== 0 && ingredients !== undefined
+            && ingredients.map((ingredient, index) => {
+              if (ingredient[0] === '') {
+                return;
+              }
+              return (
+                <li
+                  key={ ingredient }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  { `${ingredient[0]}: ${ingredient[1]}` }
+                </li>
+              );
+            })
+          }
+        </ul>
       </div>
       <div>
-        <p data-testid="instructions">texto de instruções</p>
-        <div>Video</div>
+        <p data-testid="instructions">{ recipe.strInstructions }</p>
+        <div>
+          { recipeType === 'meals' && (
+            <ReactPlayer data-testid="video" url={ recipe.strYoutube } />
+          ) }
+        </div>
       </div>
       <div>
-        receitas recomendadas
+        <RecommendedRecipes />
       </div>
       <button
         type="button"
@@ -73,8 +111,8 @@ function Details({
 }
 
 const mapStateToProps = (state) => ({
-  recipe: state.loginReducer.recipe,
-  recipeType: state.loginReducer.recipeType,
+  recipe: state.recipeDetailsReducer.recipe,
+  recipeType: state.recipesReducer.recipeType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

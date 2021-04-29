@@ -7,6 +7,7 @@ import {
   SUCCESS_CATEGORIES,
   FAILURE_CATEGORIES,
   SUCCESS_RECIPE,
+  SUCCESS_RECOMMENDED,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -168,6 +169,29 @@ export function cocktailsByIdThunk(id) {
     dispatch(fetching());
     return fetchCocktailsById(id)
       .then((data) => dispatch(successRecipe(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+const successRecommended = (data) => ({
+  type: SUCCESS_RECOMMENDED,
+  data,
+});
+
+export function mealsRecommendedThunk() {
+  return (dispatch) => {
+    dispatch(fetching());
+    return fetchInitialMeals()
+      .then((data) => dispatch(successRecommended(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+export function cocktailsRecommendedThunk() {
+  return (dispatch) => {
+    dispatch(fetching());
+    return fetchInitialCocktails()
+      .then((data) => dispatch(successRecommended(data)))
       .catch((error) => dispatch(failureFetch(error)));
   };
 }

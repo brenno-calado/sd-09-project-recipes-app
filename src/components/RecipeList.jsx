@@ -66,8 +66,8 @@ function RecipeList({
 }
 
 const mapStateToProps = (state) => ({
-  data: state.loginReducer.data,
-  recipeType: state.loginReducer.recipeType,
+  data: state.recipesReducer.data,
+  recipeType: state.recipesReducer.recipeType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
