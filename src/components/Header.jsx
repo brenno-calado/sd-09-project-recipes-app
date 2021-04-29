@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import RecipesAppContext from '../context/RecipesAppContext';
 import SearchBar from './SearchBar';
@@ -26,12 +26,17 @@ function refineTitle(title) {
 }
 
 function Header() {
-  const { handleClickShowSearchButton, showSearchBar } = useContext(RecipesAppContext);
+  const { showSearchBar, setShowSearchBar } = useContext(RecipesAppContext);
   const location = useLocation();
   let title = '';
   if (location.pathname !== '/') {
     title = refineTitle(location.pathname.slice(1));
   }
+
+  useEffect(() => () => {
+    setShowSearchBar(false);
+  }, [setShowSearchBar]);
+
   return (
     <div>
       <header className="header-container">
@@ -42,7 +47,7 @@ function Header() {
         { ((title === 'Perfil')
           || ((title.includes('Explorar') && !(title.includes('Origem'))))
           || (title.includes('Receitas'))) ? (<div />) : (
-            <button type="button" onClick={ handleClickShowSearchButton }>
+            <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
               <img src={ searchIcon } alt="search" data-testid="search-top-btn" />
             </button>
           ) }
