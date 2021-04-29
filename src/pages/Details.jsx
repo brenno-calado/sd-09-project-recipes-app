@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { toggleCouldRedirectAction } from '../Redux/actions';
 
-function Details() {
+function Details({ toggleCouldRedirect }) {
+  useEffect(() => {
+    toggleCouldRedirect(false);
+  });
+
   return (
     <div>
       Detalhes
@@ -8,4 +15,12 @@ function Details() {
   );
 }
 
-export default Details;
+const mapDispatchToProps = (dispatch) => ({
+  toggleCouldRedirect: (bool) => dispatch(toggleCouldRedirectAction(bool)),
+});
+
+Details.propTypes = {
+  toggleCouldRedirect: PropTypes.func,
+}.isRequired;
+
+export default connect(null, mapDispatchToProps)(Details);

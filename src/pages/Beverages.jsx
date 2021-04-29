@@ -7,6 +7,7 @@ import Footer from '../components/Footer';
 import { fetchBeverages } from '../services/fetchRecipes';
 import './Styles/Recipes.css';
 import { getRecipesAction } from '../Redux/actions';
+import Filters from '../components/Filters';
 
 function Beverages({ getRecipes, recipes }) {
   useEffect(() => {
@@ -16,6 +17,7 @@ function Beverages({ getRecipes, recipes }) {
   return (
     <div id="Recipes">
       <Header title="Explorar Bebidas" searchBtn />
+      <Filters type="Drinks" />
       <Cards items={ recipes } idType="idDrink" />
       <Footer />
     </div>

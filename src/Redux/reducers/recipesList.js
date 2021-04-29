@@ -12,12 +12,12 @@ const INITIAL_STATE = {
   notFound: false,
 };
 
-const recipesList = (state = INITIAL_STATE, action) => {
-  switch (action.type) {
+const recipesList = (state = INITIAL_STATE, { type, recipes, items }) => {
+  switch (type) {
   case RECIPES_LIST:
     return {
       ...state,
-      list: action.recipes,
+      list: recipes,
     };
   case REQ_SEARCH:
     return {
@@ -28,7 +28,7 @@ const recipesList = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       isLoading: false,
-      list: (action.items) ? action.items : [],
+      list: items || [],
     };
   case NOT_FOUND:
     return {

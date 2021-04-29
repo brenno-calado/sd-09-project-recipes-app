@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { func } from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchSearch } from '../Redux/actions';
+import { fetchSearch, toggleCouldRedirectAction } from '../Redux/actions';
 import './SearchBar.css';
 
 function SearchBar(props) {
@@ -20,13 +20,14 @@ function SearchBar(props) {
   };
 
   const handleClick = () => {
-    const { fetchSearchItems } = props;
+    const { fetchSearchItems, toggleCouldRedirect } = props;
     const { endPoint, word, filter } = search;
     if (word.length >= 2 && filter === 'search.php?f=') {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
     const url = `${endPoint}${filter}${word}`;
     fetchSearchItems(url);
+    toggleCouldRedirect(true);
   };
 
   const renderRadioButtons = () => (
@@ -93,6 +94,7 @@ function SearchBar(props) {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSearchItems: (url) => dispatch(fetchSearch(url)),
+  toggleCouldRedirect: (bool) => dispatch(toggleCouldRedirectAction(bool)),
 });
 
 SearchBar.propTypes = {

@@ -6,7 +6,7 @@ import { resetNotFound } from '../Redux/actions';
 import Card from './Card';
 import './Cards.css';
 
-function Cards({ notFound, items, idType, notFoundReset }) {
+function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
   const location = useLocation();
   // const idType = (location.pathname === '/comidas') ? 'idMeal' : 'idDrink';
   const maxItemsToshow = 12;
@@ -21,11 +21,11 @@ function Cards({ notFound, items, idType, notFoundReset }) {
     <div className="Cards">
       {notFound && alertNotFound()}
       {items.length === 0 && <p>Faça uma busca</p>}
-      {items.length === 1 && <Redirect
+      {items.length === 1 && couldRedirect ? <Redirect
         to={ `${location.pathname}/${items[0][idType]}` }
-      />}
+      /> : null}
       {items.map((item, index) => (
-        <Card item={ item } index={ index } key={ item.idType } />
+        <Card item={ item } index={ index } key={ index } />
       ))}
     </div>
   );
@@ -34,6 +34,7 @@ function Cards({ notFound, items, idType, notFoundReset }) {
 const mapStateToProps = (state) => ({
   // items: state.searchBar.items,
   notFound: state.recipesList.notFound,
+  couldRedirect: state.couldRedirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({
