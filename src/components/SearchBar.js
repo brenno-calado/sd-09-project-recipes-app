@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { getMealsByFirstLetter, getMealsByIngredient,
   getMealsByName } from '../services/apiMeals';
 import { getDrinksByFirstLetter, getDrinksByIngredient,
   getDrinksByName } from '../services/apiDrinks';
+import { RecipiesContext } from '../context/RecipiesContext';
 
 export default function SearchBar({ isMealsPage }) {
+  const { searchMealsList, setSearchMealsList,
+    searchDrinksList, setSearchDrinksList } = useContext(RecipiesContext);
+
   const [inputValue, setInputValue] = useState('');
   const [radioValue, setRadioValue] = useState('');
-  const [searchItemList, setSearchItemList] = useState([]);
+
+  const history = useHistory();
 
   const handleChange = ({ target }) => {
     setInputValue(target.value);
@@ -20,43 +26,55 @@ export default function SearchBar({ isMealsPage }) {
 
   const searchDrinks = async () => {
     if (radioValue === 'ingredient') {
-      const ingredient = await getDrinksByIngredient(inputValue, 'thecoktal/fdvc=?');
-      setSearchItemList(ingredient);
+      const ingredient = await getDrinksByIngredient(inputValue);
+      setSearchDrinksList(ingredient);
     }
     if (radioValue === 'name') {
       const drinkName = await getDrinksByName(inputValue);
-      setSearchItemList(drinkName);
+      setSearchDrinksList(drinkName);
     }
     if (radioValue === 'first-letter') {
       if (inputValue.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
       const drinkName = await getDrinksByFirstLetter(inputValue);
-      setSearchItemList(drinkName);
+      setSearchDrinksList(drinkName);
     }
   };
 
   const searchMeals = async () => {
     if (radioValue === 'ingredient') {
       const ingredient = await getMealsByIngredient(inputValue);
-      setSearchItemList(ingredient);
+      setSearchMealsList(ingredient);
     }
     if (radioValue === 'name') {
       const mealskName = await getMealsByName(inputValue);
-      setSearchItemList(mealskName);
+      setSearchMealsList(mealskName);
     }
     if (radioValue === 'first-letter') {
       if (inputValue.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
       const mealskName = await getMealsByFirstLetter(inputValue);
-      setSearchItemList(mealskName);
+      setSearchMealsList(mealskName);
     }
   };
+
+  console.log(searchMealsList);
+  console.log(searchDrinksList);
 
   const handleClickSearch = () => {
     if (isMealsPage) return searchMeals();
     return searchDrinks();
+  };
+
+  const redirectDetails = () => {
+    if (searchMealsList.length === 1) {
+      return history.push(`/comidas/${searchMealsList[0].idMeal}`);
+    }
+    if (searchDrinksList.length === 1) {
+      return history.push(`/bebidas/${searchDrinksList[0].idDrink}`);
+    }
   };
 
   return (
@@ -105,6 +123,7 @@ export default function SearchBar({ isMealsPage }) {
         >
           Buscar
         </button>
+        {redirectDetails()}
       </div>
     </div>
   );
@@ -112,4 +131,7 @@ export default function SearchBar({ isMealsPage }) {
 
 SearchBar.propTypes = {
   isMealsPage: PropTypes.bool.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
