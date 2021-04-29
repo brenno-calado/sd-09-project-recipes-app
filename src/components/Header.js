@@ -75,12 +75,9 @@ const Header = () => {
       </h1>
       { renderSearch && (
         <div>
-          <img
-            src={ SearchIcon }
-            alt="profileIcon"
-            data-testid="search-top-btn"
-            onClick={ statusSearchBar }
-          />
+          <button type="button" onClick={ statusSearchBar }>
+            <img data-testid="search-top-btn" src={ SearchIcon } alt="profileIcon" />
+          </button>
         </div>
       )}
       { status && (<SearchBar />)}
