@@ -4,16 +4,16 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import getPageTitle from '../services/pageTitles';
 
-const Profile = ({ match: { path } }) => (
+const Main = ({ match: { path } }) => (
   <>
-    <Header title={ getPageTitle(path) } />
+    <Header activeSearch title={ getPageTitle(path) } />
     <Footer />
   </>
 );
 
-export default Profile;
+export default Main;
 
-Profile.propTypes = {
+Main.propTypes = {
   match: PropTypes.shape({
     path: PropTypes.string,
   }).isRequired,

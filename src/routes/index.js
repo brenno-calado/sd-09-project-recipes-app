@@ -6,17 +6,13 @@ import {
 
 import paths from './paths';
 import Login from '../pages/Login';
-import Foods from '../pages/Foods';
-import Drinks from '../pages/Drinks';
+import Main from '../pages/Main';
 import Explore from '../pages/Explore';
-import ExploreFood from '../pages/ExploreFood';
-import ExploreDrink from '../pages/ExploreDrink';
-import FoodByIngredients from '../pages/FoodByIngredients';
-import DrinkByIngredients from '../pages/DrinkByIngredients';
-import FoodByArea from '../pages/FoodByArea';
 import Profile from '../pages/Profile';
+import RecipeList from '../pages/RecipeList';
 
-const { LOGIN,
+const {
+  LOGIN,
   FOODS,
   DRINKS,
   EXPLORE,
@@ -25,20 +21,25 @@ const { LOGIN,
   FOOD_BY_INGREDIENTS,
   DRINK_BY_INGREDIENTS,
   FOOD_BY_AREA,
-  PROFILE_PAGE } = paths;
+  PROFILE_PAGE,
+  DONE_RECIPES,
+  FAVORITE_RECIPES,
+} = paths;
 
 const Routes = () => (
   <Switch>
     <Route exact path={ LOGIN } component={ Login } />
-    <Route exact path={ FOODS } component={ Foods } />
-    <Route exact path={ DRINKS } component={ Drinks } />
+    <Route exact path={ FOODS } component={ Main } />
+    <Route exact path={ DRINKS } component={ Main } />
     <Route exact path={ EXPLORE } component={ Explore } />
-    <Route exact path={ EXPLORE_FOOD } component={ ExploreFood } />
-    <Route exact path={ EXPLORE_DRINK } component={ ExploreDrink } />
-    <Route exact path={ FOOD_BY_INGREDIENTS } component={ FoodByIngredients } />
-    <Route exact path={ DRINK_BY_INGREDIENTS } component={ DrinkByIngredients } />
-    <Route exact path={ FOOD_BY_AREA } component={ FoodByArea } />
+    <Route exact path={ EXPLORE_FOOD } component={ Explore } />
+    <Route exact path={ EXPLORE_DRINK } component={ Explore } />
+    <Route exact path={ FOOD_BY_INGREDIENTS } component={ Explore } />
+    <Route exact path={ DRINK_BY_INGREDIENTS } component={ Explore } />
+    <Route exact path={ FOOD_BY_AREA } component={ Main } />
     <Route exact path={ PROFILE_PAGE } component={ Profile } />
+    <Route exact path={ DONE_RECIPES } component={ RecipeList } />
+    <Route exact path={ FAVORITE_RECIPES } component={ RecipeList } />
   </Switch>
 );
 
