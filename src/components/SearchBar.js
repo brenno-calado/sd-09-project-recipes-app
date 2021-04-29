@@ -10,6 +10,7 @@ export default function SearchBar({ isMealsPage }) {
   const [radioValue, setRadioValue] = useState('');
   const [searchItemList, setSearchItemList] = useState([]);
 
+  console.log(searchItemList);
   const handleChange = ({ target }) => {
     setInputValue(target.value);
   };
