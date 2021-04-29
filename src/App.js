@@ -12,8 +12,8 @@ import ExploreFoodByIng from './Pages/ExploreFoodByIng';
 import ExploreDrink from './Pages/ExploreDrink';
 import ExploreFood from './Pages/ExploreFood';
 import Explore from './Pages/ Explore';
-import DetailsFood from './Pages/DetailsFood';
-import DetailsDrinks from './Pages/DetailsDrinks';
+import DetailsFood from './Pages/Details+css/DetailsFood';
+import DetailsDrinks from './Pages/Details+css/DetailsDrinks';
 
 function App() {
   return (

@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiMeals } from '../redux/actions';
 import '../Styles/FoodCards.css';
-import { Link } from 'react-router-dom';
 
 class FoodCards extends React.Component {
   componentDidMount() {
@@ -31,7 +31,7 @@ class FoodCards extends React.Component {
             className="foodCards"
           />
           <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-          <Link to={`/comidas/${meal.idMeal}/`}>Detalhes</Link>
+          <Link to={ `/comidas/${meal.idMeal}/` }>Detalhes</Link>
         </div>)
       ),
     );
