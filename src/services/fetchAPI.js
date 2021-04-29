@@ -15,7 +15,7 @@ export const fetchFoods = async (data, searchValue) => {
     }
     break;
   default:
-    console.log('default');
+    url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   }
   const fetchData = await fetch(url);
   const result = await fetchData.json();
@@ -39,7 +39,7 @@ export const fetchDrinks = async (data, searchValue) => {
     }
     break;
   default:
-    console.log('default');
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   }
   const fetchData = await fetch(url);
   const result = await fetchData.json();
