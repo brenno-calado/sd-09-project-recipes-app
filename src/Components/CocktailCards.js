@@ -43,7 +43,7 @@ class CocktailCards extends React.Component {
 
   render() {
     const { cocktails, loading } = this.props;
-    console.log(loading)
+    console.log(loading);
     return (
       <div className="cardContainer">
         {cocktails ? this.createCards() : <div />}
