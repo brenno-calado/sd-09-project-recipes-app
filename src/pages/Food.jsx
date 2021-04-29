@@ -1,13 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import SearchBar from '../components/SearchBar';
 
 function Food({ match }) {
-  return <Header title="Comidas" match={ match } />;
+  return (
+    <div>
+      <Header title="Comidas" match={ match } />
+      {SearchBar(match)}
+    </div>
+  );
 }
 
 Food.propTypes = {
-  match: PropTypes.shape().isRequired,
+  match: PropTypes.shape({}).isRequired,
 };
 
 export default Food;
