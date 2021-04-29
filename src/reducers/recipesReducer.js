@@ -27,12 +27,12 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
   case GET_DRINKS:
     return {
       ...state,
-      drinks: [...actions.recipes],
+      drinks: [...actions.drinks],
     };
   case SEARCH_DRINKS:
     return {
       ...state,
-      searchedDrinks: [...actions.recipes],
+      searchedDrinks: [...actions.drinks],
     };
   default:
     return {

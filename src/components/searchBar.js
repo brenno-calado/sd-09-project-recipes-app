@@ -7,11 +7,14 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { searchRecipes, searchDrink } from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
 export default function SearchBar({ type }) {
   const [searchText, setSearchText] = useState('');
-  const [searchOption, setSearchOption] = useState('');
+  const [searchOption, setSearchOption] = useState('getNameByValue');
+  const dispatch = useDispatch();
 
   const handleTyping = ({ target }) => {
     setSearchText(target.value);
@@ -24,10 +27,8 @@ export default function SearchBar({ type }) {
   const getSearchStringClearBar = () => {
     const myString = (
       searchOption === 'getFirstLetterByValue' ? searchText[0] : searchText);
-    console.log(myString);
 
     setSearchText('');
-    console.log(myString);
 
     return myString;
   };
@@ -43,10 +44,17 @@ export default function SearchBar({ type }) {
     const mySearchString = getSearchStringClearBar();
 
     try {
-      // fazer o dispatch
       const searchResult = await getFoodsAndDrinks(type, searchOption, mySearchString);
-      // fazer o dispatch
-      console.log(searchResult);
+      if (searchResult.meals === null || searchResult.drinks === null) {
+        throw new Error('Nothing found');
+      }
+
+      if (type === 'food') {
+        dispatch(searchRecipes(searchResult.meals));
+      } else {
+        console.log(searchResult.drinks);
+        dispatch(searchDrink(searchResult.drinks));
+      }
     } catch (err) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       console.log(err);
@@ -63,7 +71,13 @@ export default function SearchBar({ type }) {
           placeholder="Buscar Receita"
         />
       </InputGroup>
-      <ToggleButtonGroup type="radio" name="search-options" className="mb-3" size="sm">
+      <ToggleButtonGroup
+        type="radio"
+        name="search-options"
+        className="mb-3"
+        size="sm"
+        defaultValue="getNameByValue"
+      >
         <ToggleButton
           variant="outline-primary"
           data-testid="ingredient-search-radio"
