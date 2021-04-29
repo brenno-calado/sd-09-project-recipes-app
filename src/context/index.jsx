@@ -9,10 +9,7 @@ function Provider({ children }) {
   const [data, setData] = useState([]);
   const [authLogin, setAuthLogin] = useState({});
   const [formValidation, setFormValidation] = useState(false);
-
-  useEffect(() => {
-    fetchApi('food', 'letters', 'l');
-  }, []);
+  const [foods, setFoods] = useState();
 
   const value = {
     data,
@@ -23,6 +20,8 @@ function Provider({ children }) {
     setAuthLogin,
     formValidation,
     setFormValidation,
+    foods,
+    setFoods,
   };
 
   return (
