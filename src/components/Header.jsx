@@ -14,13 +14,11 @@ function Header() {
   return (
     <div>
       <div className="header-content">
-        <div>
-          <Link to="/perfil">
-            <button data-testid="profile-top-btn" type="button">
-              <img src={ ProfileIcon } alt="profile-icon" />
-           </button>
-          </Link>
-        </div>
+        <Link to="/perfil">
+          <button data-testid="profile-top-btn" type="button">
+            <img src={ ProfileIcon } alt="profile-icon" />
+          </button>
+        </Link>
         <h1 data-testid="page-title">Title</h1>
         <span>
           <button data-testid="search-top-btn" type="button" onClick={ handleClick }>
