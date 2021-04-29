@@ -39,6 +39,12 @@ function DrinkDetails({
         <img src={ `${recipe.strDrinkThumb}` } alt="recipe" data-testid="recipe-photo" />
         <ShareAndFavo match={ match } recipe={ recipe } />
         <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
+        {recipe.strAlcoholic === 'Alcoholic' && (
+          <h2
+            data-testid="recipe-category"
+          >
+            {recipe.strAlcoholic}
+          </h2>)}
         {ingredientToMeasure
           .map((item) => item.ingredient && (
             <ul
@@ -58,12 +64,6 @@ function DrinkDetails({
         <p data-testid="instructions">{recipe.strInstructions}</p>
         {/* // O vídeo, presente somente na tela
       de comidas, deve possuir o atributo data-testid="video"; */}
-        <a
-          data-testid="video"
-          href={ `${recipe.strYoutube}` }
-        >
-          Video Receita
-        </a>
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
