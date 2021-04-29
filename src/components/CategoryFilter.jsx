@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -6,6 +6,8 @@ import {
   mealsCategoriesThunk,
   mealsByCategoriesThunk,
   cocktailsByCategoriesThunk,
+  mealsThunk,
+  cocktailsThunk,
 } from '../redux/actions';
 
 function CategoryFilter({
@@ -17,7 +19,11 @@ function CategoryFilter({
   fetchCocktailsByCategory,
   isFetchedCategories,
   isFetched,
+  mealsThunkDispatcher,
+  cocktailsThunkDispatcher,
 }) {
+  const [previousCategory, setPreviousCategory] = useState('');
+
   const fetchByCategory = () => {
     if (recipeType === 'meals') {
       mealsCategoryDispatcher();
@@ -34,12 +40,19 @@ function CategoryFilter({
   }, [isFetched]);
 
   const handleClick = ({ target: { value } }) => {
-    if (recipeType === 'meals') {
-      fetchMealsByCategory(value);
+    if ((previousCategory === value) || (value === 'all')) {
+      if (recipeType === 'meals') mealsThunkDispatcher('', '');
+      if (recipeType === 'cocktails') cocktailsThunkDispatcher('', '');
+    } else {
+      if (recipeType === 'meals') {
+        fetchMealsByCategory(value);
+      }
+      if (recipeType === 'cocktails') {
+        fetchCocktailsByCategory(value);
+      }
     }
-    if (recipeType === 'cocktails') {
-      fetchCocktailsByCategory(value);
-    }
+
+    setPreviousCategory(value);
   };
 
   return (
@@ -54,11 +67,23 @@ function CategoryFilter({
               onClick={ handleClick }
               value={ strCategory }
             >
-              { strCategory }
+              { strCategory}
             </button>
           ))
         )
       }
+      {
+        isFetchedCategories
+        && <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ handleClick }
+          value="all"
+        >
+          All
+        </button>
+      }
+
     </section>
   );
 }
@@ -76,6 +101,10 @@ const mapDispatchToProps = (dispatch) => ({
   cocktailsCategoryDispatcher: () => dispatch(cocktailsCategoriesThunk()),
   fetchMealsByCategory: (category) => dispatch(mealsByCategoriesThunk(category)),
   fetchCocktailsByCategory: (category) => dispatch(cocktailsByCategoriesThunk(category)),
+  mealsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(mealsThunk(radioSearch, textSearch)),
+  cocktailsThunkDispatcher:
+    (radioSearch, textSearch) => dispatch(cocktailsThunk(radioSearch, textSearch)),
 });
 
 CategoryFilter.propTypes = {
@@ -83,6 +112,8 @@ CategoryFilter.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   mealsCategoryDispatcher: PropTypes.func.isRequired,
   cocktailsCategoryDispatcher: PropTypes.func.isRequired,
+  mealsThunkDispatcher: PropTypes.func.isRequired,
+  cocktailsThunkDispatcher: PropTypes.func.isRequired,
   fetchMealsByCategory: PropTypes.func.isRequired,
   fetchCocktailsByCategory: PropTypes.func.isRequired,
   isFetchedCategories: PropTypes.bool.isRequired,

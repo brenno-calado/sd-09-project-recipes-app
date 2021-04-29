@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { mealsThunk, cocktailsThunk } from '../redux/actions';
 
 function RecipeList({
@@ -29,33 +30,37 @@ function RecipeList({
 
   const mealsCards = (
     recipes.map((recipe, index) => (
-      <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
-        <p data-testid={ `${index}-card-name` }>{ recipe.strMeal }</p>
-        <img
-          src={ recipe.strMealThumb }
-          alt="foto da receita"
-          data-testid={ `${index}-card-img` }
-        />
-      </div>
+      <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
+        <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
+          <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
+          <img
+            src={ recipe.strMealThumb }
+            alt="foto da receita"
+            data-testid={ `${index}-card-img` }
+          />
+        </div>
+      </Link>
     ))
   );
 
   const cocktailsCards = (
     recipes.map((recipe, index) => (
-      <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
-        <p data-testid={ `${index}-card-name` }>{ recipe.strDrink }</p>
-        <img
-          src={ recipe.strDrinkThumb }
-          alt="foto da receita"
-          data-testid={ `${index}-card-img` }
-        />
-      </div>
+      <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
+        <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
+          <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
+          <img
+            src={ recipe.strDrinkThumb }
+            alt="foto da receita"
+            data-testid={ `${index}-card-img` }
+          />
+        </div>
+      </Link>
     ))
   );
 
   return (
     <section>
-      { (recipeType === 'meals') ? mealsCards : cocktailsCards }
+      { (recipeType === 'meals') ? mealsCards : cocktailsCards}
     </section>
   );
 }
