@@ -1,0 +1,19 @@
+
+div.Card {
+  display: flex;
+  flex-direction: row;
+  height: 410px;
+  width: 599px;
+  overflow-y: scroll;
+}
+
+img.Imagem {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+button.fix {
+  position: fixed;
+  right: 0%;
+  top: 90%;
+}
