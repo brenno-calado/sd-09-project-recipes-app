@@ -6,7 +6,8 @@ function DrinksRecomendations() {
 
   const getDrinks = async () => {
     const result = await fecthForName('', false);
-    setDrinks(result.drinks.slice(0, 7));
+    const recomendations = 6;
+    setDrinks(result.drinks.slice(0, recomendations));
   };
 
   useEffect(() => { getDrinks(); }, []);
