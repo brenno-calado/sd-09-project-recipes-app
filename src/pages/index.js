@@ -13,6 +13,7 @@ import ReceitasFeitas from './ReceitasFeitas';
 import DetalhesBebida from './DetalhesBebida';
 import ProgressoBebidas from './ProgressoBebidas';
 import ProgressoComidas from './ProgressoComidas';
+import DetalhesComida from './DetalhesComida';
 
 export {
   Bebidas,
@@ -30,4 +31,5 @@ export {
   DetalhesBebida,
   ProgressoBebidas,
   ProgressoComidas,
+  DetalhesComida,
 };

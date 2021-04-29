@@ -16,6 +16,7 @@ import {
   DetalhesBebida,
   ProgressoBebidas,
   ProgressoComidas,
+  DetalhesComida,
 } from './pages';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +24,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const App = () => (
   <Switch>
     <Route path="/comidas/:id/in-progress" component={ ProgressoComidas } />
-    {/* <Route path="/comidas/:id" component={ DetalhesComida } /> */}
+    <Route path="/comidas/:id" component={ DetalhesComida } />
     <Route path="/comidas" component={ Comidas } />
     <Route path="/bebidas/:id/in-progress" component={ ProgressoBebidas } />
     <Route path="/bebidas/:id" component={ DetalhesBebida } />
