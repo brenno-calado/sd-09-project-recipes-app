@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import RecipeMealCard from '../components/RecipeMealCard';
 import { defaultFetchApiAction, setIsLoading } from '../actions';
+import CategoriesList from '../components/CategoriesList';
 
 class Meals extends React.Component {
   componentDidMount() {
@@ -27,6 +28,7 @@ class Meals extends React.Component {
     return (
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
+        <CategoriesList />
         {itens && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((meal, index) => (

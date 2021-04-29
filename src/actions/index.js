@@ -1,34 +1,45 @@
 import fetchRecipes from '../service/recepiesApi';
 import fetchDetails from '../service/fetchDetails';
 import fetchDefaultApi from '../service/defautFetchApi';
+import categoriesfetchApi from '../service/categoriesFetchApi';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
   recipes: response,
 });
 
-export const fetchRecipesAction = (filter, searchInputValue) => (dispach) => {
+export const fetchRecipesAction = (filter, searchInputValue) => (dispatch) => {
   switch (filter) {
   case 'ingredient':
     return fetchRecipes(`filter.php?i=${searchInputValue}`)
-      .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
+      .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
   case 'name':
     return fetchRecipes(`search.php?s=${searchInputValue}`)
-      .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
+      .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
   default:
     return fetchRecipes(`search.php?f=${searchInputValue}`)
-      .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
+      .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
   }
 };
 
-export const defaultFetchApiAction = () => (dispach) => {
+export const defaultFetchApiAction = () => (dispatch) => {
   fetchDefaultApi()
-    .then((recipesApiReponse) => dispach(receiveApiReponse(recipesApiReponse)));
+    .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
 };
 
 export const setIsLoading = () => ({
   type: 'SET_ISLOADING',
 });
+
+export const setCategories = (categories) => ({
+  type: 'SET_CATEGORIES',
+  categories,
+});
+
+export const categoriesfetchApiAction = () => (dispatch) => {
+  categoriesfetchApi()
+    .then((recipesApiReponse) => dispatch(setCategories(recipesApiReponse)));
+};
 
 export const fetchFoodRecipeDetails = (id) => (dispatch) => (
   fetchDetails('food', id)
