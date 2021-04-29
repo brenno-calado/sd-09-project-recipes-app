@@ -27,10 +27,6 @@ function Header({ title, match }) {
     }
   };
 
-  const renderSearch = () => (
-    <SearchBar match={ match } />
-  );
-
   return (
     <>
       <header className="header-container">
