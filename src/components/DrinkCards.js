@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
-export default function MealCards(categories, meals, categoryCheck) {
+export default function DrinkCards(categories, drinks, categoryCheck) {
   return (
     <section
       className="row"
@@ -38,10 +38,10 @@ export default function MealCards(categories, meals, categoryCheck) {
           </button>
         ))}
       </div>
-      {meals.map((meal, index) => (
-        <Link key={ meal.idMeal } to={ `/comidas/${meal.idMeal}` }>
+      {drinks.map((drink, index) => (
+        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
           <div
-            key={ meal.idMeal }
+            key={ drink.idDrink }
             data-testid={ `${index}-recipe-card` }
             className="card"
             style={ {
@@ -52,9 +52,9 @@ export default function MealCards(categories, meals, categoryCheck) {
             } }
           >
             <img
-              src={ meal.strMealThumb }
+              src={ drink.strDrinkThumb }
               data-testid={ `${index}-card-img` }
-              alt={ `${meal.strMeal} recipe` }
+              alt={ `${drink.strDrink} recipe` }
               className="card-img-top"
               style={ { width: '6rem', margin: '4px' } }
             />
@@ -62,7 +62,7 @@ export default function MealCards(categories, meals, categoryCheck) {
               data-testid={ `${index}-card-name` }
               className="card-title"
             >
-              {meal.strMeal}
+              {drink.strDrink}
             </h5>
           </div>
         </Link>

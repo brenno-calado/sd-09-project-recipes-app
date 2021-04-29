@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../Common/Components/Header';
+import Header from '../components/Header';
 
 function Profile() {
   return (
     <div>
-      <Header />
+      <Header pageName="Perfil" />
       <h1>Profile</h1>
     </div>
   );

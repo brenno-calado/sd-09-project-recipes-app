@@ -9,12 +9,13 @@
 }
 
 .footer-icons {
-  margin: 20%;
+  margin: 10%;
+  width: 70%;
 }
 
 .meals {
   align-items: center;
-  background: #0fa36b;
+  background: #e4e4e4;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -29,9 +30,25 @@
   max-height: 80vh;
 }
 
-.header {
+.header-bar {
+  align-items: center;
+  background-color: #747373;
   display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
+
+.header-icons {
+  margin: 20%;
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+}
+
 /*
 #iceLeft {
   animation: clink .8s infinite ease;

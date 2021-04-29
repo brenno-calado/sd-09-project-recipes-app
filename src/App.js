@@ -6,8 +6,7 @@ import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
-import RecipeDetails from './pages/RecipeDetails';
-import { testMeal } from './components/recipeTestObj';
+// import Profile from './Pages/Profile';
 
 function App() {
   return (
@@ -17,7 +16,7 @@ function App() {
         <Route path="/comidas" component={ Foods } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />
-        <Route path="/recipedetail" render={ () => <RecipeDetails recipe={ testMeal } /> } />
+        {/* <Route path="/perfil" component={ Profile } /> */}
       </Switch>
     </div>
   );

@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe('9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo', () => {
-  it('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
+it('Tem os data-testids profile-top-btn, page-title e search-top-btn', () => {
+    describe('9 - Implemente os elementos do header na tela principal de receitas, respeitando os atributos descritos no protótipo', () => {
     cy.visit('http://localhost:3000/comidas');
 
     cy.get('[data-testid="profile-top-btn"]');
