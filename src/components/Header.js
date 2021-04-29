@@ -16,7 +16,7 @@ function Header() {
     <div className="container">
       <div className="d-flex">
         <Link to="/perfil">
-          <img src={ profileIcon } alt="iconeBusca" />
+          <img src={ profileIcon } alt="iconePerfil" />
         </Link>
         <h1>{title}</h1>
         <button

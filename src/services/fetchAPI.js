@@ -43,3 +43,9 @@ export function drinkAPI(searchType, n) {
     return false;
   }
 }
+
+export function defaultMeals() {
+  const endPoint = 'www.themealdb.com/api/json/v1/1/search.php?s=';
+  fetch(endPoint).then((promise) => promise.json()
+    .then((response) => response));
+}
