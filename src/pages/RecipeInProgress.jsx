@@ -6,10 +6,10 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeInProgress() {
   const [favorite, setFavorite] = useState(false);
 
-  const [title, setTitle] = useState('Title');
-  const [ingredients, setIngredient] = useState(['Item-1', 'Item-2', 'Item-3']);
-  const [category, setCategory] = useState('Categoria');
-  const [instructions, setInstructions] = useState('');
+  const [title] = useState('Title');
+  const [ingredients] = useState(['Item-1', 'Item-2', 'Item-3']);
+  const [category] = useState('Categoria');
+  const [instructions] = useState('');
 
   function handleClick() {
     setFavorite(!favorite);
@@ -113,8 +113,5 @@ function RecipeInProgress() {
     </div>
   );
 }
-
-// O texto da categoria deve possuir o atributo data-testid="recipe-category";
-// O botão para finalizar a receita deve possuir o atributo data-testid="finish-recipe-btn".
 
 export default RecipeInProgress;

@@ -1,12 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-<<<<<<< HEAD
 // import RecipeInProgress from './pages/RecipeInProgress';
-=======
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
->>>>>>> f4d8566f4b940f856d08b6b9b88a4186b76e72d7
 import FoodsMainPage from './pages/FoodsMainPage';
 import DrinksMainPage from './pages/DrinksMainPage';
 import Profile from './pages/Profile';
