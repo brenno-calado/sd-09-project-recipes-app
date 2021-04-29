@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext }from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
+import SearchBar from '../components/SearchBar';
 import ProfileImage from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
@@ -24,7 +26,10 @@ const exploreTitle = (pathName, title) => {
   return valueReturn;
 };
 
+
 const Header = () => {
+  const { displaySearchBar, statusSearchBar } = useContext(RecipesContext);
+  const { status } = displaySearchBar;
   const pathName = useLocation().pathname.split('/');
   let headerTitle;
   const tempTitle = pathName[1].charAt(0).toUpperCase() + pathName[1].slice(1);
@@ -75,9 +80,11 @@ const Header = () => {
             src={ SearchIcon }
             alt="profileIcon"
             data-testid="search-top-btn"
+            onClick={ statusSearchBar }
           />
         </div>
       )}
+      { status &&  (<SearchBar /> )}
     </header>
   );
 };
