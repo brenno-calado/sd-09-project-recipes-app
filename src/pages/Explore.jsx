@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 function Explore() {
   function renderExploreMealsButton() {
     return (
-      <Link to="/explorar/comidas">
+      <Link to={ { pathname: '/explorar/comidas', state: { recipeType: 'Meal' } } }>
         <button type="button" data-testid="explore-food">
           Explorar Comidas
         </button>
@@ -16,7 +16,7 @@ function Explore() {
 
   function renderExploreDrinksButton() {
     return (
-      <Link to="/explorar/bebidas">
+      <Link to={ { pathname: '/explorar/bebidas', state: { recipeType: 'Drink' } } }>
         <button type="button" data-testid="explore-drinks">
           Explorar Bebidas
         </button>
