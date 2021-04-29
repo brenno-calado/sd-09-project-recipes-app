@@ -19,7 +19,7 @@ function Header({ title, match }) {
       return (
         <button
           type="button"
-          onClick={ handleSearch }
+          onClick={ () => setSearch(!search) }
         >
           <img data-testid="search-top-btn" src={ searchIcon } alt="Search" />
         </button>
