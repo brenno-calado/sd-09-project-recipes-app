@@ -6,8 +6,7 @@ import SearchBar from '../components/SearchBar';
 function Drinks({ match }) {
   return (
     <div>
-      <Header title="Bebidas" match={ match } />;
-      <button type="button" data-testid="search-top-btn">click</button>
+      <Header title="Bebidas" match={ match } />
       {SearchBar(match)}
     </div>
   );
