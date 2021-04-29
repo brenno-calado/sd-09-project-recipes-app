@@ -38,7 +38,7 @@ function Header({ title, match }) {
         <h1 data-testid="page-title">{ title }</h1>
         { renderButtonSearch() }
       </header>
-      { search && renderSearch() }
+      { search && <SearchBar match={ match } /> }
     </>
   );
 }
