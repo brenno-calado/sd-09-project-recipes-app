@@ -28,7 +28,6 @@ const mapStateToProps = (state) => ({
   meals: state.searchReducer.meals,
 });
 
-
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string).isRequired,
   history: PropTypes.shape({}).isRequired,
