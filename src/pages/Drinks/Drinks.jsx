@@ -1,28 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import RecipeCard from '../../common/components/RecipeCard';
+import RenderRecipeCards from '../../common/components/RenderRecipeCards';
+import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
+import { saveDrinks } from '../../actions/userActions';
 
 const Drinks = (props) => {
   const { drinks, history } = props;
-  const cardsLimit = 12;
-  function renderDrinkCards() {
-    return drinks
-      .slice(0, cardsLimit)
-      .map((drink, index) => (
-        <RecipeCard key={ index } index={ index } recipe={ drink } />));
+
+  async function fetchData() {
+    const { dispatchDrinks } = props;
+    await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (drinks) {
+    console.log(drinks);
+    return (
+      <div>
+        <Header title="Bebidas" value="bebidas" history={ history } />
+        <RenderRecipeCards list={ drinks } kindOfFood="drinks" cardsLimit="12" />
+        <Footer />
+      </div>
+    );
   }
 
   return (
-    <div>
-      <Header title="Bebidas" value="bebidas" history={ history } />
-      { drinks.length > 1 && renderDrinkCards() }
-      <Footer />
-    </div>
+    <>
+      Carregando...
+    </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchDrinks: (drinks) => dispatch(saveDrinks(drinks)),
+});
 
 const mapStateToProps = (state) => ({
   drinks: state.searchReducer.drinks,
@@ -31,6 +48,7 @@ const mapStateToProps = (state) => ({
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.string).isRequired,
   history: PropTypes.shape({}).isRequired,
+  dispatchDrinks: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Drinks);
+export default connect(mapStateToProps, mapDispatchToProps)(Drinks);
