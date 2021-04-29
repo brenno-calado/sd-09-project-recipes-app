@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class index extends Component {
   render() {
-    const { ingredients } = this.props;
+    const { ingredients, quantities } = this.props;
     return (
       <div>
         <h3>Ingredientes</h3>
@@ -14,6 +14,8 @@ class index extends Component {
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
                 {ingrediente}
+                {' - '}
+                {quantities[index]}
               </li>))}
           </ul>
         </div>

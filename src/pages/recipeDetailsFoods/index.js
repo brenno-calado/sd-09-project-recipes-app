@@ -25,10 +25,6 @@ class index extends Component {
 
   async componentDidMount() {
     this.setMealData()
-    // this.setMealImage();
-    // this.setIngredientes();
-    // this.setInstructions();
-    // this.setVideo();
   }
 
   async setMealData() {
@@ -51,12 +47,23 @@ class index extends Component {
   getIngredients = () => {
     const { mealData } = this.state;
     if(!mealData){return ['Carregando']};
-    const ingredientes = Object.entries(mealData)
+    const ingredients = Object.entries(mealData)
       .filter((element) => element[0].includes('strIngredient'))
       .filter((element) => element[1] !== '' && element[1] !== null)
       .map((element) => element[1]);
 
-    return ingredientes
+    return ingredients
+  }
+
+  getIngredientsQuantity = () => {
+    const { mealData } = this.state;
+    if(!mealData){return ['Carregando']};
+    const ingredientsQuantity = Object.entries(mealData)
+      .filter((element) => element[0].includes('strMeasure'))
+      .filter((element) => element[1] !== '' && element[1] !== null)
+      .map((element) => element[1]);
+
+    return ingredientsQuantity
   }
 
   getInsructions = () => {
@@ -72,38 +79,6 @@ class index extends Component {
     const response = await mealData.json();
     console.log(response);
     return response.meals[0];
-  }
-
-  async setMealImage() {
-    const mealData = await this.getMealData();
-    this.setState({
-      mealImage: mealData.strMealThumb,
-    });
-  }
-
-  async setIngredientes() {
-    const mealData = await this.getMealData();
-    const ingredientes = Object.entries(mealData)
-      .filter((element) => element[0].includes('strIngredient'))
-      .filter((element) => element[1] !== '' && element[1] !== null)
-      .map((element) => element[1]);
-    this.setState({
-      ingredientes,
-    });
-  }
-
-  async setInstructions() {
-    const mealData = await this.getMealData();
-    this.setState({
-      instructions: mealData.strInstructions,
-    });
-  }
-
-  async setVideo() {
-    const mealData = await this.getMealData();
-    this.setState({
-      video: mealData.strYoutube,
-    });
   }
 
   getTitle = () => {
@@ -128,7 +103,7 @@ class index extends Component {
       <div>
         <MealHeaderImage image={ this.getMealImage() } />
         <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory()} />
-        <MealIngredients ingredients={ this.getIngredients() } />
+        <MealIngredients ingredients={ this.getIngredients() } quantities={this.getIngredientsQuantity()}/>
         <MealInstructions instructions={ this.getInsructions() } />
         <MealVideo videoId={ video } />
         <MealRecommendations recommendations={ this.getRecommendations() } />

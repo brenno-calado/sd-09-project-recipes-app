@@ -67,6 +67,17 @@ class index extends Component {
     return ['Teste1', 'Teste 2', 'Teste 3', 'Teste 4', 'Teste 5', 'Teste 6']
   }
 
+  getIngredientsQuantity = () => {
+    const { drinkData } = this.state;
+    if(!drinkData){return ['Carregando']};
+    const ingredientsQuantity = Object.entries(drinkData)
+      .filter((element) => element[0].includes('strMeasure'))
+      .filter((element) => element[1] !== '' && element[1] !== null)
+      .map((element) => element[1]);
+
+    return ingredientsQuantity
+  }
+
   getTitle = () => {
     const { drinkData } = this.state;
     if(!drinkData){return 'Carregando'};
@@ -76,7 +87,7 @@ class index extends Component {
   getCategory = () => {
     const { drinkData } = this.state;
     if(!drinkData){return 'Carregando'};
-    return drinkData.strCategory
+    return drinkData.strAlcoholic
   }
 
   render() {
@@ -86,7 +97,7 @@ class index extends Component {
       <div>
         <MealHeaderImage image={ this.getDrinkImage() } />
         <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory() }/>
-        <MealIngredients ingredients={ this.getIngredients() } />
+        <MealIngredients ingredients={ this.getIngredients() } quantities={this.getIngredientsQuantity()} />
         <MealInstructions instructions={ this.getInsructions() } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
         <button data-testid="start-recipe-btn" type="button">
