@@ -67,12 +67,6 @@ function DrinkDetails({
         <p data-testid="instructions">{recipe.strInstructions}</p>
         {/* // O vídeo, presente somente na tela
       de comidas, deve possuir o atributo data-testid="video"; */}
-        <a
-          data-testid="video"
-          href={ `${recipe.strYoutube}` }
-        >
-          Video Receita
-        </a>
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}

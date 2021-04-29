@@ -25,6 +25,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
       });
     }
   }, [match, recipe, recipes, history, getMealByIdDispatch]);
+  const MAX_SLICE_YOUTUBE = 11;
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -64,12 +65,18 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
         <p data-testid="instructions">{recipe.strInstructions}</p>
         {/* // O vídeo, presente somente na tela
       de comidas, deve possuir o atributo data-testid="video"; */}
-        <a
-          data-testid="video"
-          href={ `${recipe.strYoutube}` }
-        >
-          Video Receita
-        </a>
+        { recipe.strYoutube && (<iframe
+          width="560"
+          height="315"
+          src={ `https://www.youtube.com/embed/${recipe.strYoutube
+            .slice(recipe
+              .strYoutube.length - MAX_SLICE_YOUTUBE, recipe.strYoutube.length)}` }
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay;
+          clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />)}
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
