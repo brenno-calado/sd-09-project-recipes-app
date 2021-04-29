@@ -1,0 +1,39 @@
+body {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.container-header {
+  background-color: lavender;
+  display: block;
+  padding: 1em;
+  text-align: center;
+}
+
+.header-icon {
+  height: 3em;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5em;
+  text-transform: uppercase;
+}
+
+.header-button {
+  align-items: center;
+  border: solid 1px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  height: 4em;
+  text-transform: uppercase;
+  transition-duration: 0.4s;
+  width: 5%;
+}
+
+.header-button:hover {
+  background-color: lightgray;
+  transition-duration: 0.5s;
+}

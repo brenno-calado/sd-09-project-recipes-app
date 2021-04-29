@@ -1,0 +1,32 @@
+.container-explore {
+  border-radius: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+.explore-button {
+  align-items: center;
+  background-color: blue;
+  border: solid 1px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  height: 4em;
+  justify-content: center;
+  margin: 1.5em 0.5em;
+  text-transform: uppercase;
+  transition-duration: 0.4s;
+}
+
+.explore-button:hover {
+  background-color: darkblue;
+  transition-duration: 0.5s;
+}
+
+a:link {
+  text-decoration: none;
+}
