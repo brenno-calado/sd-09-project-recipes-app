@@ -8,16 +8,11 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const history = useHistory();
   useEffect(() => {
-    const validateEmail = (value) => {
-      const re = /\S+@\S+\.\S+/;
-      return re.test(value);
-    };
+    const emailIsValid = /\S+@\S+\.\S+/.test(email);
     const passwordMin = 6;
-    if (validateEmail(email) && password.length > passwordMin) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
+    const passwordIsValid = password.length > passwordMin;
+    const buttonIsDisabled = !(emailIsValid && passwordIsValid);
+    setDisabled(buttonIsDisabled);
   }, [email, password]);
 
   const handleLogin = () => {
