@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import './style.css';
-// import SearchBar from '../SearchBar';
+import SearchBar from '../SearchBar';
 
 function Header({ title, match }) {
   const [search, setSearch] = useState(false);
@@ -32,48 +32,7 @@ function Header({ title, match }) {
   };
 
   const renderSearch = () => (
-    // <SearchBar />
-    <div className="search-bar silver-shadow">
-      <input
-        data-testid="search-input"
-      />
-      <div>
-        <label htmlFor="i">
-          <input
-            type="radio"
-            name="type"
-            id="i"
-            data-testid="ingredient-search-radio"
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="s">
-          <input
-            type="radio"
-            name="type"
-            id="s"
-            data-testid="name-search-radio"
-          />
-          Nome
-        </label>
-        <label htmlFor="f">
-          <input
-            type="radio"
-            name="type"
-            id="f"
-            data-testid="first-letter-search-radio"
-          />
-          Primeira letra
-        </label>
-      </div>
-      <button
-        type="button"
-        size="sm"
-        data-testid="exec-search-btn"
-      >
-        Buscar
-      </button>
-    </div>
+    <SearchBar match={ match } />
   );
 
   return (
