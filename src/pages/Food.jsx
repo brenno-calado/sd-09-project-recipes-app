@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import SearchBar from '../components/SearchBar';
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header';
 
 function Food({ match: { path } }) {
   const [result, setResult] = useState(undefined);
@@ -32,9 +32,8 @@ function Food({ match: { path } }) {
 
   return (
     <div>
-      <button type="button" data-testid="search-top-btn">click</button>
-      {SearchBar(path, setResult)}
-      <section>{ renderResult() }</section>
+      <Header title="Comidas" path={ path } setResult={ setResult } />
+      <section className="card-container">{ renderResult() }</section>
     </div>
   );
 }

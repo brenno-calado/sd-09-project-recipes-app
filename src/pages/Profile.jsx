@@ -1,5 +1,8 @@
+import React from 'react';
+import Header from '../components/Header';
+
 function Profile() {
-  return null;
+  return <Header title="Perfil" />;
 }
 
 export default Profile;
