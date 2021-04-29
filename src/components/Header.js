@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import paths from '../routes/paths';
+import SearchBar from './SearchBar';
 
 const Header = ({ activeSearch = false, title }) => {
   const history = useHistory();
+  const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <header>
       <button type="button" onClick={ () => history.push(paths.PROFILE_PAGE) }>
@@ -17,11 +19,15 @@ const Header = ({ activeSearch = false, title }) => {
         />
       </button>
       <h2 data-testid="page-title">{ title }</h2>
-      { activeSearch && <img
-        src={ SearchIcon }
-        data-testid="search-top-btn"
-        alt="search icon"
-      /> }
+      { activeSearch && (
+        <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
+          <img
+            src={ SearchIcon }
+            data-testid="search-top-btn"
+            alt="search icon"
+          />
+        </button>)}
+      { showSearchBar && <SearchBar /> }
     </header>
   );
 };
