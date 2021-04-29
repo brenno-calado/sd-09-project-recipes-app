@@ -1,13 +1,13 @@
 import React from 'react';
 import Header from './Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchBar from './Comidas/SearchBar';
+import SearchBar from '../components/SearchBar';
 
 function Comidas() {
   return (
     <div>
-    <Header />
-    <SearchBar />
+      <Header />
+      <SearchBar isMealsPage />
     </div>
 
   );
