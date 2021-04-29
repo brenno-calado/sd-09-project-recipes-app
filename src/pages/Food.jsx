@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function Food({ match: { path } }) {
   const [result, setResult] = useState(undefined);
@@ -34,6 +35,7 @@ function Food({ match: { path } }) {
     <div className="center">
       <Header title="Comidas" path={ path } setResult={ setResult } />
       <section className="card-container">{ renderResult() }</section>
+      <Footer />
     </div>
   );
 }
