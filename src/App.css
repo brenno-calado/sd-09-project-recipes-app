@@ -34,6 +34,11 @@ footer {
   position: fixed;
 }
 
+.check {
+  text-decoration: none solid black;
+}
+
+
 .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
