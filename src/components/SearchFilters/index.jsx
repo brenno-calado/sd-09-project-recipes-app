@@ -10,6 +10,16 @@ const initialState = {
 export default function SearchFilters({ setFilter }) {
   const [options, setOptions] = useState(initialState);
 
+  const setNewFilter = () => {
+    const letterOption = options.option === 'letters';
+    const searchOption = options.searchTerm.length > 1;
+    if (letterOption && searchOption) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      setFilter({ ...options });
+    }
+  };
+
   const handleNewFilterOption = ({ target: { value: option } }) => {
     setOptions((prevState) => ({ ...prevState, option }));
   };
@@ -62,7 +72,7 @@ export default function SearchFilters({ setFilter }) {
       </label>
       <br />
       <button
-        onClick={ () => setFilter({ ...options }) }
+        onClick={ setNewFilter }
         type="button"
         data-testid="exec-search-btn"
       >
