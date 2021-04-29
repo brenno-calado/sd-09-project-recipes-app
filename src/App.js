@@ -9,13 +9,14 @@ import ExploreDrinksByIngredients from './pages/ExploreDrinksByIngredients';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreFoodsByIngredients from './pages/ExploreFoodsByIngredients';
 import ExploreFoodsByLocal from './pages/ExploreFoodsByLocal';
-import Perfil from './pages/Perfil';
+import Profile from './pages/Profile';
 import recipesDone from './pages/recipesDone';
 import recipesFavorites from './pages/recipesFavorites';
 import ProcessDrinks from './pages/ProcessDrinks';
 import ProcessFoods from './pages/ProcessFoods';
 import FoodsDetails from './pages/FoodsDetails';
 import DrinksDetails from './pages/DrinksDetails';
+import './App.css';
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
         component={ ExploreFoodsByIngredients }
       />
       <Route exact path="/explorar/comidas/area" component={ ExploreFoodsByLocal } />
-      <Route exact path="/perfil" component={ Perfil } />
+      <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ recipesDone } />
       <Route exact path="/receitas-favoritas" component={ recipesFavorites } />
     </BrowserRouter>
