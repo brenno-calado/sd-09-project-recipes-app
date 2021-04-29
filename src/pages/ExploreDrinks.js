@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Header from '../components/Header';
 import Menu from '../components/Menu';
-import { getRandomDrink } from '../services/drinksAPI';
+import { getRandomDrink } from '../services/drinksAPI.js';
 
 const ExploreDrinks = () => {
   const [drink, setDrink] = useState();

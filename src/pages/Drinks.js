@@ -6,7 +6,7 @@ import {
   getDrinksAll,
   getDrinksByCategory,
   getDrinksCategories,
-} from '../services/drinksAPI';
+} from '../services/drinksAPI.js';
 import RecipeCard from '../components/RecipeCard';
 import FilterButtons from '../components/FilterButtons';
 
