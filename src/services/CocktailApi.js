@@ -1,4 +1,4 @@
-async function fetchCocktailApi({ searchText, filter }) {
+export async function fetchCocktailApi({ searchText, filter }) {
   if (filter === 'ingredient') {
     const apiResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${searchText}`)
       .then((data) => data.json());
@@ -16,4 +16,14 @@ async function fetchCocktailApi({ searchText, filter }) {
   }
 }
 
-export default fetchCocktailApi;
+export async function fetchCocktailsCategories() {
+  const apiResponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
+    .then((data) => data.json());
+  return apiResponse.drinks;
+}
+
+export async function fetchCocktailsByCategory(category) {
+  const apiResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`)
+    .then((data) => data.json());
+  return apiResponse.drinks;
+}

@@ -1,4 +1,5 @@
 .search-bar-container {
+  background-color: rgb(235, 235, 235);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,4 +13,12 @@
 
 .search-bar-container > div > label {
   margin: 0 5px;
+}
+
+.search-bar-container > input {
+  margin: 0;
+}
+
+.search-bar-container > button {
+  margin: 0;
 }

@@ -1,5 +1,6 @@
 .header-container {
   align-items: center;
+  background-color: rgb(235, 235, 235);
   display: flex;
   justify-content: space-around;
 }
