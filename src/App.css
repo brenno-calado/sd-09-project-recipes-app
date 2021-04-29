@@ -15,8 +15,8 @@ img {
 }
 
 .btn-initial {
-  position: fixed;
   bottom: 0;
+  position: fixed;
 }
 
 .recipe-details {
