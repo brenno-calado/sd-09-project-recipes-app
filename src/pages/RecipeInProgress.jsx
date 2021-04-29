@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getItemById } from '../actions/itemById';
 import RecipeList from '../components/RecipeList';
 import ShareAndFavo from '../components/ShareAndFavo';
+import { handleDone } from '../services/localStorage';
 
 function FoodInProgress(
   { match: { path, params, url }, setItem, item, loading, checks },
@@ -64,6 +65,7 @@ function FoodInProgress(
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ disable }
+          onClick={ () => handleDone(recipe, query) }
         >
           Finalizar
         </button>
