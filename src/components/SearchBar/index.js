@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
-function SearchBar({ path }) {
+function SearchBar({ path, setResult }) {
   const [filter, setFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
 
@@ -16,7 +17,7 @@ function SearchBar({ path }) {
       : `${drinkSearchURL}${filter}=${searchText}`;
     const fetchSearch = await fetch(searchURL);
     const search = await fetchSearch.json();
-    return search;
+    setResult(search);
   };
 
   return (
@@ -74,6 +75,7 @@ function SearchBar({ path }) {
 
 SearchBar.propTypes = {
   path: PropTypes.string.isRequired,
+  setResult: PropTypes.func.isRequired,
 };
 
 export default SearchBar;

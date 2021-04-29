@@ -1,0 +1,10 @@
+.recipe-card {
+  border: 1px solid silver;
+  border-radius: 20px;
+  margin: 6px;
+  overflow: hidden;
+}
+
+.recipe-title {
+  margin: 1em 10px;
+}
