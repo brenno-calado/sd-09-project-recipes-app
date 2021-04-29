@@ -19,7 +19,7 @@ const Drinks = (props) => {
     <div>
       <Header title="Bebidas" value="bebidas" history={ history } />
       { drinks.length > 1 && renderDrinkCards() }
-     <Footer />
+      <Footer />
     </div>
   );
 };
