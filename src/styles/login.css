@@ -1,0 +1,31 @@
+.content {
+  padding-top: 30vh;
+  text-align: center;
+}
+
+input {
+  border: 1px solid black;
+  border-radius: 6px;
+  font-size: 30px;
+  margin: 0;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 60%;
+}
+
+.inputs input {
+  margin-top: 20px;
+  padding: 10px;
+  width: 100%;
+}
+
+.bnt_login {
+  background-color: #6ce34f;
+  height: 88px;
+  margin-top: 50px;
+  width: 60%;
+}
