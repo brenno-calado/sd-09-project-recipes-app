@@ -41,3 +41,19 @@ export async function functionDrink(obj) {
   setRecipes(drinks);
   setShouldCards(true);
 }
+
+export function getIngredients(data, key) {
+  const results = Object.entries(data).filter((e) => (
+    e[0].includes(key) && e[1] !== null && e[1] !== ''));
+  return results;
+}
+
+export function progressRecipes(value) {
+  const recipes = JSON.parse(localStorage.getItem('progressRecipes'));
+  const teste = recipes.filter((id) => id === value);
+  if (teste.length === 0) {
+    recipes.push(value);
+    localStorage.setItem('progressRecipes', JSON.stringify(recipes));
+    console.log(recipes);
+  }
+}

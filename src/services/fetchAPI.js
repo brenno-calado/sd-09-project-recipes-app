@@ -45,3 +45,35 @@ export const fetchDrinks = async (data, searchValue) => {
   const result = await fetchData.json();
   return result;
 };
+
+export const fetchFoodsDetails = async (id) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const fetchDrinksDetails = async (id) => {
+  const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const fetchFoodsRecomendation = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const fetchData = await fetch(url);
+  const { meals } = await fetchData.json();
+  const returnNumber = 6;
+  const resultFinal = meals.filter((_, index) => index < returnNumber);
+  return resultFinal;
+};
+
+export const fetchDrinksRecomendation = async () => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const fetchData = await fetch(url);
+  const { drinks } = await fetchData.json();
+  const returnNumber = 6;
+  const resultFinal = drinks.filter((_, index) => index < returnNumber);
+  return resultFinal;
+};
