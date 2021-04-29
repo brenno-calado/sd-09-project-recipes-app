@@ -36,7 +36,6 @@ function SearchBar() {
         <input
           type="text"
           id="searchBar"
-          className="hidden"
           data-testid="search-input"
           onChange={ ({ target }) => setSearchValue(target.value) }
         />

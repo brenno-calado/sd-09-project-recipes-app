@@ -25,5 +25,3 @@ export default Provider;
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
 };
-
-// a
