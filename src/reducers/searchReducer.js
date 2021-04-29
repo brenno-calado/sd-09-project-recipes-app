@@ -2,8 +2,8 @@ import { TOGGLE_SEARCH_BAR, SAVE_MEALS, SAVE_DRINKS } from '../actions/userActio
 
 const INITIAL_STATE = {
   isEnabled: true,
-  meals: [],
-  drinks: [],
+  meals: undefined,
+  drinks: undefined,
 };
 
 function userReducer(state = INITIAL_STATE, action) {
