@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import { useLocation, Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { searchRecipe } from '../actions';
 import '../styles/Recipes.css';
 
 const TWELVE = 12;
 
-function Recipes({ recipesList, recipesType, dispatchSearch, redirect }) {
-  const [render, setRender] = useState(true);
+function Recipes({
+  recipesList = [], recipesType, dispatchSearch, redirect }) {
   const category = useLocation().pathname;
   useEffect(() => {
-    if (category === '/comidas' && render) {
+    if (category === '/comidas' && recipesList.length === 0) {
       dispatchSearch(null, null, 'meal');
-      setRender(true);
     }
-    if (category === '/bebidas' && render) {
+    if (category === '/bebidas' && recipesList.length === 0) {
       dispatchSearch(null, null, 'cocktail');
-      setRender(true);
     }
-  }, [category, dispatchSearch, render]);
+  }, [category, dispatchSearch, recipesList]);
   if (!recipesList) {
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   if (recipesList.length === 1 && redirect) {

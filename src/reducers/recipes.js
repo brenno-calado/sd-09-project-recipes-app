@@ -9,6 +9,14 @@ const INITIAL_STATE = {
 const recipes = (state = INITIAL_STATE, { type, recipesList, recipesType }) => {
   switch (type) {
   case FETCH_RECIPES:
+    if (recipesList === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return {
+        ...state,
+        recipesType,
+        recipesList: [],
+      };
+    }
     return {
       ...state,
       recipesType,
