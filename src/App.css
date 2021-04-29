@@ -1,12 +1,12 @@
-*, ::after, ::before {
+*, :after, :before {
   box-sizing: border-box;
 }
 
 /* Components */
 .header-wrapper, .footer-wrapper {
   background-color: #ccc;
-  padding: 0.25rem;
   height: 60px;
+  padding: 0.25rem;
   position: fixed;
   text-align: center;
   width: 100%;
@@ -14,17 +14,17 @@
 }
 
 .footer-wrapper {
+  align-items: center;
   bottom: 0;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .header-Display {
-  top: 0;
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  top: 0;
 }
 
 .header-searchBttn {
@@ -38,6 +38,11 @@
   margin: 0;
 }
 
+.card {
+  margin: 0.25rem;
+  width: calc(50% - 0.5rem);
+}
+
 .accordion .card {
   background-color: #ccc;
   border: 0;
@@ -47,7 +52,7 @@
 }
 
 .accordion .card-body {
-  background-color: #fff;
+  background-color: white;
   border-bottom: 1px solid #ccc;
   padding: 10px;
 }
@@ -59,14 +64,9 @@
   padding: 0.25rem;
 }
 
-.card {
-  margin: 0.25rem;
-  width: calc(50% - 0.5rem);
-}
-
 /* Categories */
 .nav {
-  background-color: #fff;
+  background-color: white;
   box-shadow: 0 -2px 5px 3px #999;
 }
 
@@ -74,11 +74,9 @@
   margin: 0.25rem;
 }
 
-
 /* Pages */
 
 /* Login */
-
 .login-wrapper {
   align-items: center;
   display: flex;
@@ -88,7 +86,6 @@
 }
 
 /* mainPage */
-
 .meals {
   align-items: center;
   background: #0fa36b;
