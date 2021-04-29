@@ -21,7 +21,7 @@ function useFoodApi() {
     } else {
       setFoods([]);
     }
-  }, [filter]);
+  }, [filter, setFoods]);
 
   return { foods, setFilter, filter };
 }

@@ -25,7 +25,7 @@ export default function Foods() {
         .filter((food) => res.meals.indexOf(food) < lengthOfCategories);
       setCategories(fetchCategories);
     });
-  }, []);
+  }, [setFoods, setCategories]);
 
   return (
     <>

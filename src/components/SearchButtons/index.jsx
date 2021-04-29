@@ -4,9 +4,11 @@ import fetchApi from '../../services';
 import { context } from '../../context';
 
 function CategoriesButtons(props) {
+  const toogleTest = [];
+
   const { type } = props;
   const {
-    setFoods, setDrinks, setToggleButton, categories,
+    setFoods, setDrinks, categories,
   } = useContext(context);
   const lengthOfList = 12;
 
@@ -16,9 +18,12 @@ function CategoriesButtons(props) {
         const fetchFoods = res.meals
           .filter((food) => res.meals.indexOf(food) < lengthOfList);
         setFoods(fetchFoods);
-        const teste = {};
-        fetchFoods.forEach((food) => teste[food] = false);
-        setToggleButton(teste);
+        fetchFoods.forEach((food) => {
+          toogleTest.push(
+            { [food.strMeal]: false },
+          );
+        });
+        console.log(toogleTest);
       });
     }
 
@@ -31,8 +36,34 @@ function CategoriesButtons(props) {
     }
   };
 
+  const allFilter = () => {
+    if (type === 'food') {
+      fetchApi('food', 'name', '').then((res) => {
+        const fetchFoods = res.meals
+          .filter((food) => res.meals.indexOf(food) < lengthOfList);
+        setFoods(fetchFoods);
+      });
+    }
+
+    if (type === 'drink') {
+      fetchApi('cocktail', 'name', '').then((res) => {
+        const fetchFoods = res.drinks
+          .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
+        setDrinks(fetchFoods);
+      });
+    }
+  };
+
   return (
     <>
+      <button
+        type="button"
+        name="all"
+        data-testid="All-category-filter"
+        onClick={ allFilter }
+      >
+        All
+      </button>
       {
         categories.map(({ strCategory }) => (
           <button

@@ -25,7 +25,7 @@ export default function Drinks() {
         .filter((drink) => res.drinks.indexOf(drink) < lengthOfCategories);
       setCategories(fetchCategories);
     });
-  }, []);
+  }, [setDrinks, setCategories]);
 
   return (
     <>
