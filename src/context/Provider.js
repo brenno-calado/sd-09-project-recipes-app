@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
+import searchApi from '../services/RecipesApi';
 
 const Provider = ({ children }) => {
   const [displaySearchBar, changeStatus] = useState({ status: false });
@@ -26,11 +27,20 @@ const Provider = ({ children }) => {
     });
   };
 
+  const [recipes, setRecipes] = useState([]);
+
+  const addRecipes = async (typeRecipe, typeSearch, itemSearch) => {
+    const recipesSearch = await (searchApi(typeRecipe, typeSearch, itemSearch));
+    setRecipes(recipesSearch);
+  };
+
   const context = {
     displaySearchBar,
     statusSearchBar,
     searchBar,
     addSearchBar,
+    recipes,
+    addRecipes,
   };
 
   return (
