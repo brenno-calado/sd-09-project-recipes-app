@@ -7,7 +7,7 @@ function Foods() {
   const { showSearchBar } = useContext(RecipesContext);
   return (
     <div>
-      <Header showSearchButton="true" />
+      <Header showSearchButton />
       { showSearchBar && <SearchBar /> }
     </div>
   );

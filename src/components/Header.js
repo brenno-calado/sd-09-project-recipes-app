@@ -1,14 +1,18 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import iconProfile from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-function Header(props) {
+function Header() {
   const history = useHistory();
-  const { title, setTitle, setShowSearchBar, showSearchBar } = useContext(RecipesContext);
-  const { showSearchButton } = props;
+  const {
+    title,
+    setTitle,
+    setShowSearchBar,
+    showSearchBar,
+    showSearchButton,
+  } = useContext(RecipesContext);
 
   const handleClick = () => {
     history.push('/perfil');
@@ -37,9 +41,5 @@ function Header(props) {
     </header>
   );
 }
-
-Header.propTypes = {
-  showSearchButton: PropTypes.bool.isRequired,
-};
 
 export default Header;

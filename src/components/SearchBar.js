@@ -8,13 +8,13 @@ function SearchBar() {
     setSearchState({ ...searchState, search: value });
   };
 
-  const handleClick = ({ target: { name } }) => {
-    setSearchState({ ...searchState, radioButton: name });
+  const handleClick = ({ target: { id } }) => {
+    setSearchState({ ...searchState, radioButton: id });
   };
 
   const handleSubmit = () => {
     const { search, radioButton } = searchState;
-    console.log(getFilteredRecipes(search, radioButton));
+    getFilteredRecipes(search, radioButton);
   };
 
   return (
@@ -28,34 +28,37 @@ function SearchBar() {
         />
       </label>
 
-      <label htmlFor="ingredient">
+      <label htmlFor="ingrediente">
+        Ingrediente
         <input
           type="radio"
           data-testid="ingredient-search-radio"
-          name="ingrediente"
+          name="filter"
+          id="ingrediente"
           onClick={ handleClick }
         />
-        Ingrediente
       </label>
 
-      <label htmlFor="ingredient">
+      <label htmlFor="nome">
+        Nome
         <input
           type="radio"
           data-testid="name-search-radio"
-          name="nome"
+          name="filter"
+          id="nome"
           onClick={ handleClick }
         />
-        Nome
       </label>
 
-      <label htmlFor="ingredient">
+      <label htmlFor="primeira-letra">
+        Primeira letra
         <input
           type="radio"
           data-testid="first-letter-search-radio"
-          name="primeira-letra"
+          name="filter"
+          id="primeira-letra"
           onClick={ handleClick }
         />
-        Primeira letra
       </label>
 
       <button
