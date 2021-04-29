@@ -12,6 +12,8 @@ import ExploreFoodByIng from './Pages/ExploreFoodByIng';
 import ExploreDrink from './Pages/ExploreDrink';
 import ExploreFood from './Pages/ExploreFood';
 import Explore from './Pages/ Explore';
+import DetailsFood from './Pages/DetailsFood';
+import DetailsDrinks from './Pages/DetailsDrinks';
 
 function App() {
   return (
@@ -29,7 +31,9 @@ function App() {
       <Route path="/comidas/{id-da-receita}/in-progress" render={ (recipe-id) => <FoodProgress {...recipe-id} /> } />
       <Route path="/bebidas:{id-bebida}" render={ (drink-id) => <DrinkDetails {...drink-id} /> } />
       <Route path="/comidas/:{id-receita}"
-      render={ (recipe-id) => <FoodDetails {...recipe-id} /> }/> */}
+    render={ (recipe-id) => <FoodDetails {...recipe-id} /> }/> */}
+      <Route path="/comidas/:id/" component={ DetailsFood } />
+      <Route path="/bebidas/:id/" component={ DetailsDrinks } />
       <Route path="/bebidas" component={ MainDrink } />
       <Route path="/comidas" component={ MainFood } />
       <Route exact path="/" component={ Login } />

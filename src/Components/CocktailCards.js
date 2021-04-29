@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
+import { Link } from 'react-router-dom';
 
 class CocktailCards extends React.Component {
   componentDidMount() {
@@ -22,6 +23,7 @@ class CocktailCards extends React.Component {
         <div key={ index }>
           <img src={ cocktail.strDrinkThumb } alt="cocktails" className="foodCards" />
           <p>{cocktail.strDrink}</p>
+          <Link to={`/bebidas/${cocktail.idDrink}/`}>Detalhes</ Link>
         </div>)
       ),
     );
