@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function Provider({ children }) {
-  const [title, setTitle] = useState('Comidas');
+  const [title, setTitle] = useState();
   const [showSearchBar, setShowSearchBar] = useState(false);
 
   const getTitleValue = () => {
@@ -15,6 +15,7 @@ function Provider({ children }) {
     setTitle,
     showSearchBar,
     setShowSearchBar,
+    showSearchButton: true,
     getTitleValue,
   };
 
