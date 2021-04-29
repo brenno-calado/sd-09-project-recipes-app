@@ -6,13 +6,12 @@ import searchIcon from '../../images/searchIcon.svg';
 import './style.css';
 import SearchBar from '../SearchBar';
 
-function Header({ title, match }) {
+function Header({ title, path, setResult }) {
   const [search, setSearch] = useState(false);
 
   const renderButtonSearch = () => {
-    if (!match) return;
+    if (!path) return;
 
-    const { path } = match;
     if (path === '/bebidas'
       || path === '/comidas'
       || path === '/explorar/comidas/area') {
@@ -38,14 +37,15 @@ function Header({ title, match }) {
         <h1 data-testid="page-title">{ title }</h1>
         { renderButtonSearch() }
       </header>
-      { search && <SearchBar match={ match } /> }
+      { search && <SearchBar path={ path } setResult={ setResult } /> }
     </>
   );
 }
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  match: PropTypes.shape().isRequired,
+  path: PropTypes.string.isRequired,
+  setResult: PropTypes.func.isRequired,
 };
 
 export default Header;

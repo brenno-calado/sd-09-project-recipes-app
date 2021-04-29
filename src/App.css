@@ -1,9 +1,12 @@
-label {
-  padding: 0 5px;
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 640px;
 }
 
-label input {
-  margin: 0 2px;
+.center {
+  text-align: center;
 }
 
 .full-width {
