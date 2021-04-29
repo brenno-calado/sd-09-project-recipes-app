@@ -6,11 +6,12 @@ export default function Header() {
   return (
     <header>
       <button
+        type="button"
         className="profile-top-btn"
         id="profile-top-btn"
         data-testId="profile-top-btn"
       >
-        <img src={ ProfileIcon } alt="Profile Icon"/>
+        <img src={ ProfileIcon } alt="Profile Icon" />
       </button>
 
       <h1
@@ -22,11 +23,12 @@ export default function Header() {
       </h1>
 
       <button
+        type="button"
         className="search-top-btn"
         id="search-top-btn"
         data-testId="search-top-btn"
       >
-        <img src={ SearchIcon } alt="Search Icon"/>
+        <img src={ SearchIcon } alt="Search Icon" />
       </button>
 
     </header>
