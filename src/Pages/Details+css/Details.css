@@ -1,18 +1,17 @@
-
-div.Card {
+.Card {
   display: flex;
   flex-direction: row;
   height: 410px;
-  width: 599px;
   overflow-y: scroll;
+  width: 599px;
 }
 
-img.Imagem {
-  max-width: 300px;
+.Imagem {
   max-height: 300px;
+  max-width: 300px;
 }
 
-button.fix {
+.fix {
   position: fixed;
   right: 0%;
   top: 90%;
