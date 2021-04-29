@@ -1,28 +1,44 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import RecipeCard from '../../common/components/RecipeCard';
+import { fetchMealNameAPI } from '../../services/fetchMealAPI';
+import { saveMeals } from '../../actions/userActions';
+import RenderRecipeCards from '../../common/components/RenderRecipeCards';
 
 const Recipes = (props) => {
   const { meals, history } = props;
-  const cardsLimit = 12;
-  function renderRecipeCards() {
-    return meals
-      .slice(0, cardsLimit)
-      .map((meal, index) => (
-        <RecipeCard key={ index } index={ index } recipe={ meal } />));
+
+  async function fetchData() {
+    const { dispatchMeals } = props;
+    await fetchMealNameAPI('').then((response) => dispatchMeals(response));
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (meals) {
+    return (
+      <>
+        <Header title="Comidas" value="comidas" history={ history } />
+        <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
+        <Footer />
+      </>
+    );
   }
 
   return (
-    <div>
-      <Header title="Comidas" value="comidas" history={ history } />
-      { meals.length > 1 && renderRecipeCards() }
-      <Footer />
-    </div>
+    <>
+      Carregando...
+    </>
   );
 };
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchMeals: (meals) => dispatch(saveMeals(meals)),
+});
 
 const mapStateToProps = (state) => ({
   meals: state.searchReducer.meals,
@@ -31,6 +47,7 @@ const mapStateToProps = (state) => ({
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string).isRequired,
   history: PropTypes.shape({}).isRequired,
+  dispatchMeals: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Recipes);
+export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

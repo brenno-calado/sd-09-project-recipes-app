@@ -14,7 +14,7 @@ export const fetchMealNameAPI = async (name) => {
     const meals = await fetch(mealAPI).then((response) => response.json());
     return meals;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
