@@ -1,3 +1,9 @@
+export async function getRecipesByCategory(type) {
+  const promise = await fetch(`https://www.${type}.com/api/json/v1/1/list.php?c=list`);
+  const data = await promise.json();
+  return data;
+}
+
 export async function getRecipes(type) {
   const promise = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=`);
   const data = await promise.json();

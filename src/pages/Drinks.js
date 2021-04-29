@@ -15,8 +15,11 @@ function Drinks() {
     || recipesData.drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    handleFetchRecipes('thecocktaildb');
   }, [recipesData]);
+
+  useEffect(() => {
+    handleFetchRecipes('thecocktaildb');
+  }, []);
 
   function header() {
     return (
@@ -34,6 +37,7 @@ function Drinks() {
           </button>
         </SearchBar>
         <BottomMenu />
+        botões de categoria
         {recipesData.drinks && (
           recipesData.drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
             index < twelve && (
