@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import BarraDeBusca from '../components/BarraDeBusca.jsx'
+import BarraDeBusca from './BarraDeBusca';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
-
 
 function Header() {
   const [toggleSearch, setToogleSearch] = useState(false);
@@ -19,7 +18,7 @@ function Header() {
           <Link to="/perfil">
             <button data-testid="profile-top-btn" type="button">
               <img src={ ProfileIcon } alt="profile-icon" />
-            </button>
+           </button>
           </Link>
         </div>
         <h1 data-testid="page-title">Title</h1>
