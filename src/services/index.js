@@ -26,7 +26,7 @@ const fetchApi = async (type, selector, endPoint) => {
   try {
     const request = await fetch(types[type] + selectors[selector] + endPoint);
     const response = await request.json();
-    return response;
+    return (response);
   } catch (error) {
     console.log(error);
   }

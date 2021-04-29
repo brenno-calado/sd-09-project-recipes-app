@@ -31,7 +31,7 @@ export default function Drinks() {
     <>
       <Header title="Bebidas" canFind setFilter={ setFilter } />
       <span>Drinks</span>
-      {categories && <CategoriesButtons />}
+      {categories && <CategoriesButtons type="drink" />}
       {drinks && <ListCards items={ drinks } />}
       <Footer />
     </>

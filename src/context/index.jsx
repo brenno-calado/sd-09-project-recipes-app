@@ -11,6 +11,7 @@ function Provider({ children }) {
   const [foods, setFoods] = useState(null);
   const [drinks, setDrinks] = useState(null);
   const [categories, setCategories] = useState();
+  const [toggleButton, setToggleButton] = useState();
 
   const value = {
     data,
@@ -27,6 +28,8 @@ function Provider({ children }) {
     setFoods,
     categories,
     setCategories,
+    toggleButton,
+    setToggleButton,
   };
 
   return (

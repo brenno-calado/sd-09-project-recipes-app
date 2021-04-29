@@ -30,7 +30,7 @@ export default function Foods() {
   return (
     <>
       <Header title="Comidas" canFind setFilter={ setFilter } />
-      {categories && <CategoriesButtons />}
+      {categories && <CategoriesButtons type="food" />}
       {foods && <ListCards items={ foods } />}
       <Footer />
     </>
