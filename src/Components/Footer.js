@@ -9,8 +9,6 @@ function Footer() {
   const location = useLocation().pathname;
   const regex = /\d/g;
   const result = regex.test(location);
-  console.log(location);
-  console.log(result);
   return (
     <div>
       { !result
