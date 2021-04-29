@@ -87,3 +87,9 @@ export const getDrinkIdDetails = async (id) => {
   const { drinks } = await fetch(url).then((response) => response.json());
   return drinks[0];
 };
+
+export const getFoodIdDetails = async (id) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const { meals } = await fetch(url).then((response) => response.json());
+  return meals[0];
+};
