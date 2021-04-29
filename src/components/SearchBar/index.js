@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import './style.css';
 
 function SearchBar({ path, setResult }) {
   const [filter, setFilter] = useState(null);

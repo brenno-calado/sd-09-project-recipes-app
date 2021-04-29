@@ -31,7 +31,7 @@ function Food({ match: { path } }) {
   };
 
   return (
-    <div>
+    <div className="center">
       <Header title="Comidas" path={ path } setResult={ setResult } />
       <section className="card-container">{ renderResult() }</section>
     </div>
