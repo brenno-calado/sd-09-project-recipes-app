@@ -21,10 +21,10 @@ class DetailsDrinks extends React.Component {
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
         this.setState({ drink: drinks[0] });
-        const ing = Object.keys(drinks[0]).filter((key) => key.includes('strIngredient'))
+        const ingr = Object.keys(drinks[0]).filter((key) => key.includes('strIngredient'))
           .filter((value) => drinks[0][value] !== ' '
             && drinks[0][value] !== '' && drinks[0][value] !== null);
-        this.setState({ igredients: ing });
+        this.setState({ igredients: ingr });
 
         const pou = Object.keys(drinks[0]).filter((key) => key.includes('strMeasure'))
           .filter((value) => drinks[0][value] !== ' '
