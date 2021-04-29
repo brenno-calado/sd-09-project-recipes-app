@@ -14,6 +14,15 @@ img {
   width: 100%;
 }
 
+.btn-initial {
+  position: fixed;
+  bottom: 0;
+}
+
+.recipe-details {
+  position: relative;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
