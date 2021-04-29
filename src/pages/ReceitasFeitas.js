@@ -3,25 +3,7 @@ import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 function ReceitasFeitas() {
-  const index = '';
-  const tagName = '';
-
-  const doneRecipe = {
-    type: 'Food',
-    img: 'http://www.dulcerestaurantecolonial.com.br/wp-content/uploads/2020/03/Histo%CC%81ria-da-feijoada-dulce-restaurante.jpg',
-    category: 'Food',
-    recipeName: 'Feijoada',
-    date: '10/10/10',
-    tag1: 'bun',
-    tag2: 'baking',
-    link: 'www.blbala',
-  };
-
-  const recipeArr = [];
-
-  recipeArr.push(doneRecipe);
-  localStorage.setItem('recipe', JSON.stringify(recipeArr));
-  const localData = JSON.parse(localStorage.getItem('recipe'));
+  const localData = JSON.parse(localStorage.getItem('doneRecipes'));
 
   // const [button, setButton] = useState();
 
@@ -34,21 +16,22 @@ function ReceitasFeitas() {
         <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
       </section>
       {
-        localData.map((recipe) => (
+        localData.map((recipe, index) => (
           <div key="1">
+            <p>{recipe.alcoholicOrNot}</p>
             <div>
               <img
-                src={ recipe.img }
+                src={ recipe.image }
                 alt=""
                 data-testid={ `${index}-horizontal-image` }
               />
             </div>
             <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
             <h1 data-testid={ `${index}-horizontal-name` }>
-              { recipe.recipeName }
+              { recipe.name }
             </h1>
             <p data-testid={ `${index}-horizontal-done-date` }>
-              { recipe.date }
+              { recipe.doneDate }
             </p>
             <button
               type="button"
@@ -57,8 +40,16 @@ function ReceitasFeitas() {
             >
               <img src={ shareIcon } alt="compartilhar" />
             </button>
-            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag1 }</p>
-            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag2 }</p>
+            <p
+              data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
+            >
+              { recipe.tags }
+            </p>
+            <p
+              data-testid={ `${index}-${recipe.type}-horizontal-tag` }
+            >
+              { recipe.type }
+            </p>
           </div>
         ))
       }
