@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import CardDetails from '../components/CardDetails/index';
-import { getFoodDetailsById, getRecommendedFood } from '../services/fetchApi';
+import { getFoodDetailsById, getRecommendedDrink } from '../services/fetchApi';
+import styles from './recipeDetails.module.css';
 
 function FoodRecipeDetails(props) {
   const { match } = props;
@@ -9,18 +10,16 @@ function FoodRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
-  const [recommendedFood, setRecommendedFood] = useState();
+  const [recommendedDrink, setRecommendedDrink] = useState();
 
   const six = 6;
 
   useEffect(() => {
-    getRecommendedFood()
+    getRecommendedDrink()
       .then((result) => {
-        setRecommendedFood(result);
+        setRecommendedDrink(result);
       });
   }, []);
-
-  console.log('recomendações', recommendedFood);
 
   useEffect(() => {
     getFoodDetailsById(id)
@@ -85,16 +84,22 @@ function FoodRecipeDetails(props) {
             </CardDetails>
           ))
         )}
-        {recommendedFood && (
-          recommendedFood.meals.map(({ strMealThumb, strMeal, idMeal }, index) => (
-            index < six && (
-              <div key={ idMeal } data-testid={ `${index}-recomendation-card` }>
-                <img src={ strMealThumb } alt={ strMeal } />
-                <p>{ strMeal }</p>
-              </div>
-            )
-          ))
-        )}
+        <div className={ styles.scrollingWrapper }>
+          {recommendedDrink && (
+            recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+              index < six && (
+                <div
+                  className={ styles.details }
+                  key={ idDrink }
+                  data-testid={ `${index}-recomendation-card` }
+                >
+                  <img width="300px" src={ strDrinkThumb } alt={ strDrink } />
+                  <p>{ strDrink }</p>
+                </div>
+              )
+            ))
+          )}
+        </div>
         <button
           data-testid="start-recipe-btn"
           type="button"

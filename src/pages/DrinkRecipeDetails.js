@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+} from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
-import { getDrinkDetailsById, getRecommendedDrink } from '../services/fetchApi';
+import { getDrinkDetailsById, getRecommendedFood } from '../services/fetchApi';
+import styles from './recipeDetails.module.css';
 
 function DrinkRecipeDetails(props) {
   const { match } = props;
@@ -9,17 +13,15 @@ function DrinkRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
-  const [recommendedDrink, setRecommendedDrink] = useState();
+  const [recommendedFood, setRecommendedFood] = useState();
   const six = 6;
 
   useEffect(() => {
-    getRecommendedDrink()
+    getRecommendedFood()
       .then((result) => {
-        setRecommendedDrink(result);
+        setRecommendedFood(result);
       });
   }, []);
-
-  console.log('recomendações', recommendedDrink);
 
   useEffect(() => {
     getDrinkDetailsById(id)
@@ -29,12 +31,9 @@ function DrinkRecipeDetails(props) {
       });
   }, [id]);
 
-  console.log(apiData);
-
   function ingredientList() {
     const newArrayOfApiData = apiData.drinks.map((drink) => (
       Object.entries(drink)));
-    console.log(newArrayOfApiData);
 
     const recipeItems = [];
     let number = 1;
@@ -86,16 +85,41 @@ function DrinkRecipeDetails(props) {
             </CardDetails>
           ))
         )}
-        {recommendedDrink && (
-          recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-            index < six && (
-              <div key={ idDrink } data-testid={ `${index}-recomendation-card` }>
-                <img src={ strDrinkThumb } alt={ strDrink } />
-                <p>{ strDrink }</p>
-              </div>
-            )
-          ))
-        )}
+        <div className={ styles.scrollingWrapper }>
+          <CarouselProvider
+            naturalSlideWidth={ 10 }
+            naturalSlideHeight={ 10 }
+            totalSlides={ 6 }
+            infinite
+            visibleSlides={ 2 }
+          >
+            <Slider>
+              {recommendedFood && (
+                recommendedFood.meals.map(({ strMealThumb, strMeal, idMeal }, index) => (
+                  index < six && (
+                    <Slide index={ index }>
+                      <div
+                        key={ idMeal }
+                        data-testid={ `${index}-recomendation-card` }
+                      >
+                        <img
+                          className={ styles.details }
+                          src={ strMealThumb }
+                          alt={ strMeal }
+                        />
+                        <p>{ strMeal }</p>
+                      </div>
+                    </Slide>
+                  )
+                ))
+              )}
+            </Slider>
+            <ButtonBack>Back</ButtonBack>
+            <ButtonNext>Next</ButtonNext>
+
+          </CarouselProvider>
+
+        </div>
         <button
           data-testid="start-recipe-btn"
           type="button"

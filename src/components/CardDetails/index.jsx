@@ -7,6 +7,7 @@ function CardDetails({
   return (
     <li>
       <img
+        width="340px"
         src={ image }
         data-testid="recipe-photo"
         alt={ title }
