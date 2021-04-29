@@ -4,31 +4,23 @@ import fetchApi from '../../services';
 import { context } from '../../context';
 
 function CategoriesButtons(props) {
-  const toogleTest = [];
-
   const { type } = props;
   const {
-    setFoods, setDrinks, categories,
+    setFoods, setDrinks, categories, toggleButton, setToggleButton,
   } = useContext(context);
   const lengthOfList = 12;
 
-  const handleClick = ({ target }) => {
+  const fecthAll = (recipe, name, categorie) => {
     if (type === 'food') {
-      fetchApi('food', 'categorie', target.name).then((res) => {
+      fetchApi(recipe, name, categorie).then((res) => {
         const fetchFoods = res.meals
           .filter((food) => res.meals.indexOf(food) < lengthOfList);
         setFoods(fetchFoods);
-        fetchFoods.forEach((food) => {
-          toogleTest.push(
-            { [food.strMeal]: false },
-          );
-        });
-        console.log(toogleTest);
       });
     }
 
     if (type === 'drink') {
-      fetchApi('cocktail', 'categorie', target.name).then((res) => {
+      fetchApi(recipe, name, categorie).then((res) => {
         const fetchDrinks = res.drinks
           .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
         setDrinks(fetchDrinks);
@@ -36,21 +28,26 @@ function CategoriesButtons(props) {
     }
   };
 
-  const allFilter = () => {
+  // const fetchCategories = () => {
+
+  // };
+
+  const handleClick = ({ target }) => {
+    if (toggleButton === null || toggleButton !== target.name) {
+      setToggleButton(target.name);
+    }
+
+    if (toggleButton === target.name) {
+      setToggleButton(null);
+      fecthAll('food', 'name', '');
+    }
+
     if (type === 'food') {
-      fetchApi('food', 'name', '').then((res) => {
-        const fetchFoods = res.meals
-          .filter((food) => res.meals.indexOf(food) < lengthOfList);
-        setFoods(fetchFoods);
-      });
+      fecthAll('food', 'categorie', target.name);
     }
 
     if (type === 'drink') {
-      fetchApi('cocktail', 'name', '').then((res) => {
-        const fetchFoods = res.drinks
-          .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
-        setDrinks(fetchFoods);
-      });
+      fecthAll('cocktail', 'categorie', target.name);
     }
   };
 
@@ -60,7 +57,7 @@ function CategoriesButtons(props) {
         type="button"
         name="all"
         data-testid="All-category-filter"
-        onClick={ allFilter }
+        onClick={ fecthAll }
       >
         All
       </button>
