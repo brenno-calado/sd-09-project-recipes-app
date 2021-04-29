@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import getFilteredRecipes from '../services/api';
 
 function SearchBar() {
   const [searchState, setSearchState] = useState({ search: '', radioButton: '' });
+  const history = useHistory();
 
   const handleChange = ({ target: { value } }) => {
     setSearchState({ ...searchState, search: value });
@@ -14,7 +16,9 @@ function SearchBar() {
 
   const handleSubmit = () => {
     const { search, radioButton } = searchState;
-    getFilteredRecipes(search, radioButton);
+    const { pathname } = history.location;
+    const route = pathname.substr(1);
+    getFilteredRecipes(route, search, radioButton);
   };
 
   return (
