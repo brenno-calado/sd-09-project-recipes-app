@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -7,19 +7,41 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Drinks() {
-  const { handleFetchDrinkClick, recipesData, handleFetchRecipes } = useRecipeContext();
+  const [categoryDrink, setCategoryDrink] = useState([]);
+  const { handleFetchDrinkClick,
+    recipesData,
+    handleFetchRecipes,
+    getRecipesByCategory } = useRecipeContext();
   const twelve = 12;
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
-    || recipesData.drinks === null) {
+      || recipesData.drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }, [recipesData]);
 
   useEffect(() => {
     handleFetchRecipes('thecocktaildb');
-  }, []);
+  }, [handleFetchRecipes]);
+
+  useEffect(() => {
+    getRecipesByCategory('thecocktaildb')
+      .then(({ drinks }) => setCategoryDrink(drinks));
+  }, [getRecipesByCategory]);
+
+  function categoryButtom() {
+    const five = 5;
+    return (
+      categoryDrink.map(({ strCategory }, index) => (
+        index < five && (
+          <button type="button" data-testid={ `${strCategory}-category-filter` }>
+            { strCategory }
+          </button>
+        )
+      ))
+    );
+  }
 
   function header() {
     return (
@@ -37,7 +59,7 @@ function Drinks() {
           </button>
         </SearchBar>
         <BottomMenu />
-        botões de categoria
+        {categoryButtom()}
         {recipesData.drinks && (
           recipesData.drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
             index < twelve && (
@@ -51,7 +73,7 @@ function Drinks() {
               />
             )
           ))
-        )}
+        ) }
       </>
     );
   }
