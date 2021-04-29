@@ -4,33 +4,48 @@ import { objectOf } from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import RecipeDrinkCard from '../components/RecipeDrinkCard';
+import { defaultFetchApiAction } from '../actions';
 
 class Drinks extends React.Component {
+  componentDidMount() {
+    const { defaultFetchApi } = this.props;
+    defaultFetchApi();
+  }
+
   render() {
-    const { recipes } = this.props;
+    const { recipes, isLoading } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
-    const itens = recipes.filter((_, index) => index < mxmItens);
+    const itens = recipes && recipes.filter((_, index) => index < mxmItens);
     const idType = (pathName === '/comidas') ? 'idMeal' : 'idDrink';
+    if (isLoading) return <p>Loading...</p>;
+    if (recipes === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     return (
-      <>
+      <div>
         <Header title="Bebidas" searchIcon={ searchIcon } />
-        {itens.length === 1
+        {itens && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
-        {itens.map((drink, index) => (
+        {itens && itens.map((drink, index) => (
           <RecipeDrinkCard key={ drink[idType] } drink={ drink } index={ index } />))}
-      </>
+      </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
   recipes: state.searchInputReducer.recipes,
+  isLoading: state.searchInputReducer.isLoading,
+});
+
+const mapDispatchToProps = (dispach) => ({
+  defaultFetchApi: () => dispach(defaultFetchApiAction()),
 });
 
 Drinks.propTypes = {
   recipes: objectOf,
 }.isRequired;
 
-export default connect(mapStateToProps)(Drinks);
+export default connect(mapStateToProps, mapDispatchToProps)(Drinks);
