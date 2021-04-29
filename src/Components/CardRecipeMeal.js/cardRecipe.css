@@ -1,8 +1,11 @@
 .card-recipe-container {
   display: flex;
+  flex-direction: column;
   margin: 1rem;
+  width: 40vw;
 }
 
 .card-recipe-container img {
-  width: 5rem;
+  height: 5rem;
+  min-width: 100%;
 }
