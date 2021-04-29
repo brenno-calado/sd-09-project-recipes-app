@@ -52,7 +52,7 @@ export const testDrink = {
   dateModified: '2015-08-18 14:42:59',
 };
 
-export const mealTest = {
+export const testMeal = {
   idMeal: '52771',
   strMeal: 'Spicy Arrabiata Penne',
   strDrinkAlternate: null,
