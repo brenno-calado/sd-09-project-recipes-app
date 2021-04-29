@@ -1,0 +1,12 @@
+.done-recipes-nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.done-recipes-nav button {
+  background-color: lightgray;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+}
