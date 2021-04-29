@@ -10,6 +10,7 @@ function FoodRecipeDetails(props) {
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
   const [recommendedFood, setRecommendedFood] = useState();
+
   const six = 6;
 
   useEffect(() => {
