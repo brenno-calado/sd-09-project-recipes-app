@@ -5,7 +5,7 @@ class index extends Component {
     return (
       <div>
         <header>Perfil</header>
-        <h1 data-testid="email-input">userEmail</h1>
+        <h1 data-testid="profile-email">userEmail</h1>
         <button type="button" data-testid="profile-done-btn">
           Receitas Feitas
         </button>
