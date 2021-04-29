@@ -3,7 +3,7 @@ import React from 'react';
 function FoodsDetails() {
   return (
     <div>
-      Oi
+      <h1>Food Details</h1>
     </div>
   );
 }

@@ -7,7 +7,8 @@ import {
   Home, Foods, Drinks, FoodsDetails, DrinksDetails,
   FoodsInProgress, DrinksInProgress, Explore, ExploreFoods,
   ExploreDrinks, ExploreFoodsAndIngredients, ExploreArea, Profile,
-  DoneRecipes, FavoriteRecipes, NotFound } from './pages/index';
+  DoneRecipes, ExploreDrinksAndIngredients,
+  FavoriteRecipes, NotFound } from './pages/index';
 
 function App() {
   return (
@@ -33,6 +34,10 @@ function App() {
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExploreFoodsAndIngredients }
+          />
+          <Route
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreDrinksAndIngredients }
           />
           <Route path="/explorar/comidas/area" component={ ExploreArea } />
           <Route path="/perfil" component={ Profile } />
