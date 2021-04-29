@@ -9,7 +9,6 @@ const MealProvider = ({ children }) => {
   useEffect(() => {
     getMealsByName('Arrabiata').then((response) => setData(response));
   }, []);
-  console.log('Provider', data);
 
   const context = {
     data,
