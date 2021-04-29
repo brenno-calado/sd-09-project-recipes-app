@@ -10,6 +10,7 @@ const Provider = ({ children }) => {
   const [mealArea, setMealArea] = useState([]);
   const [drinksCategories, setDrinksCategories] = useState([]);
   const [drinksIngredients, setDrinksIngredients] = useState([]);
+  const [searchFilter, setSearchFilter] = useState([]);
 
   const getApiData = async () => {
     const mealCategoryApi = await fetchApi.fetchMealCategories();
@@ -37,6 +38,8 @@ const Provider = ({ children }) => {
     mealArea,
     drinksCategories,
     drinksIngredients,
+    searchFilter,
+    setSearchFilter,
   };
 
   return (
