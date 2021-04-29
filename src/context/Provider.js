@@ -15,7 +15,6 @@ function Provider({ children }) {
     setTitle,
     showSearchBar,
     setShowSearchBar,
-    showSearchButton: true,
     getTitleValue,
   };
 
