@@ -5,6 +5,7 @@ import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import FoodsMainPage from './pages/FoodsMainPage';
 import DrinksMainPage from './pages/DrinksMainPage';
+import Profile from './pages/Profile';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -28,6 +29,7 @@ function App() {
       <Route path="/perfil" component={} />
       <Route path="/receitas-feitas" component={} />
       <Route path="/receitas-favoritas" component={} /> */}
+
     </Switch>
   );
 }
