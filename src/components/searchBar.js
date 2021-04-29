@@ -31,7 +31,6 @@ export default function SearchBar(location) {
           placeholder="Buscar Receita"
         />
       </InputGroup>
-
       <ToggleButtonGroup type="radio" name="search-options" className="mb-3" size="sm">
         <ToggleButton
           variant="outline-primary"

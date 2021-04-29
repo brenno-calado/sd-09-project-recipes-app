@@ -1,12 +1,13 @@
 import React from 'react';
 
-import SearchBar from '../components/searchBar';
+import Header from '../components/header';
+import Footer from '../components/footer';
 
 export default function MainPageFood() {
   return (
-    <div data-testid="search-top-btn">
-      MainPageFood
-      <SearchBar location="comidas" />
-    </div>
+    <>
+      <Header page="Comidas" search="true" />
+      <Footer />
+    </>
   );
 }

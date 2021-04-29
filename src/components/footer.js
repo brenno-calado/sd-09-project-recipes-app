@@ -16,21 +16,21 @@ function Footer() {
         alignItems: 'center',
       } }
     >
-      <Link to="/mainPageDrinks">
+      <Link to="/bebidas">
         <img
           src={ drinkIcon }
           alt="Drinks"
           data-testid="drinks-bottom-btn"
         />
       </Link>
-      <Link to="/explore">
+      <Link to="/explorar">
         <img
           src={ exploreIcon }
           alt="Explore"
           data-testid="explore-bottom-btn"
         />
       </Link>
-      <Link to="/mainPageFood">
+      <Link to="/comidas">
         <img
           src={ mealIcon }
           alt="Meals"
