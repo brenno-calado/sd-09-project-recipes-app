@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { ScreenContext, RecipesContext } from '../context';
+import { useHistory, useLocation } from 'react-router-dom';
+import { RecipesContext } from '../context';
 import useRecipes from '../hooks/useRecipes';
 
 export default function BarraDeBusca() {
@@ -9,10 +9,10 @@ export default function BarraDeBusca() {
     criteria: '',
   });
 
-  const { values: { category } } = useContext(ScreenContext);
   const { actions: { setRecipesResult } } = useContext(RecipesContext);
 
   const history = useHistory();
+  const { pathname } = useLocation();
 
   const { getRecipes } = useRecipes();
 
@@ -23,6 +23,7 @@ export default function BarraDeBusca() {
 
   async function submitSearch() {
     const { searchInput, criteria } = searchInfo;
+    const category = pathname.includes('comidas') ? 'comidas' : 'bebidas';
     const recipes = await getRecipes(category, searchInput, criteria);
     setRecipesResult(recipes);
     if (!Array.isArray(recipes)) {
