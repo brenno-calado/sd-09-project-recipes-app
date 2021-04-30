@@ -17,6 +17,8 @@ import DetailsDrinks from './Pages/Details+css/DetailsDrinks';
 import './App.css';
 // import ExploreFoodByArea from './Pages/ExploreFoodByAre';
 import ExploreDrinksByArea from './Pages/ExploreDrinksByArea';
+import FoodProgress from './Pages/FoodProgress';
+import DrinkProgress from './Pages/DrinkProgress';
 
 function App() {
   return (
@@ -31,12 +33,14 @@ function App() {
       <Route path="/explorar/bebidas" component={ ExploreDrink } />
       <Route path="/explorar/comidas" component={ ExploreFood } />
       <Route path="/explorar" component={ Explore } />
+      <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
+      <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
       {/* <Route
-        path="/bebidas/{id-da-receita}/in-progress"
+        path="/bebidas/:id/in-progress"
         render={ (drink-id) => <DrinkProgress {...drink-id} /> }
       />
       <Route
-        path="/comidas/{id-da-receita}/in-progress"
+        path="/comidas/:id/in-progress"
         render={ (recipe-id) => <FoodProgress {...recipe-id} /> }
       /> */}
       <Route

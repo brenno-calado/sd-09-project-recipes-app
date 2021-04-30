@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { fetchDrinkDetailsAPI, fetchMealsAPI } from '../../services/ApiRequest';
+import ShareIcon from '../../Components/ShareIcon';
+import FavoriteButton from '../../Components/FavoriteButton';
 
 class DetailsDrinks extends React.Component {
   constructor() {
@@ -35,6 +38,7 @@ class DetailsDrinks extends React.Component {
       .then(({ meals }) => {
         this.setState({ foods: meals });
       });
+    localStorage.setItem('id', id);
   }
 
   recomendar() {
@@ -59,11 +63,14 @@ class DetailsDrinks extends React.Component {
   render() {
     const { drink, igredients, pounds } = this.state;
     const { strAlcoholic, strDrinkThumb, strDrink, strInstructions } = drink;
+    const { match } = this.props;
+    const { params } = match;
+    const { id } = params;
     return (
       <div>
         <h1>Detalhes</h1>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <ShareIcon />
+        <FavoriteButton />
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
         <h2 data-testid="recipe-title">{strDrink}</h2>
         <h3 data-testid="recipe-category">{strAlcoholic}</h3>
@@ -79,13 +86,15 @@ class DetailsDrinks extends React.Component {
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
         {this.recomendar()}
-        <button
-          className="fix"
-          data-testid="start-recipe-btn"
-          type="button"
-        >
-          Iniciar Receita
-        </button>
+        <Link to={ `/bebidas/${id}/in-progress` }>
+          <button
+            className="fix"
+            data-testid="start-recipe-btn"
+            type="button"
+          >
+            Iniciar Receita
+          </button>
+        </Link>
       </div>
     );
   }

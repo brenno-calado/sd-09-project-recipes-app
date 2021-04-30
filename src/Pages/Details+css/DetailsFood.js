@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import './Details.css';
 import ReactPlayer from 'react-player/youtube';
 import { fetchMealDetailsAPI, fetchCocktailAPI } from '../../services/ApiRequest';
+import ShareIcon from '../../Components/ShareIcon';
+import FavoriteButton from '../../Components/FavoriteButton';
 
 class DetailsFood extends React.Component {
   constructor() {
@@ -91,8 +93,8 @@ class DetailsFood extends React.Component {
     return (
       <div>
         <h1>Detalhes</h1>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        <ShareIcon />
+        <FavoriteButton />
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
