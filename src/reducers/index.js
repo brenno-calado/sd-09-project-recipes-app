@@ -5,6 +5,7 @@ import setFilters from './filters';
 import setItem from './item';
 import setChecks from './checks';
 import setIngredients from './ingredients';
+import setAreas from './area';
 
 const rootReduce = combineReducers({
   setData,
@@ -13,6 +14,7 @@ const rootReduce = combineReducers({
   setItem,
   setChecks,
   setIngredients,
+  setAreas,
 });
 
 export default rootReduce;
