@@ -42,7 +42,7 @@ class index extends Component {
     const { recipe } = this.props;
     const recipeData = {
       id: recipe.idMeal || recipe.idDrink,
-      type: recipe.idMeal ? 'Comida' : 'Bebida',
+      type: recipe.idMeal ? 'comida' : 'bebida',
       area: recipe.strArea ? recipe.strArea : '',
       category:  recipe.strCategory ? recipe.strCategory : '',
       alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
