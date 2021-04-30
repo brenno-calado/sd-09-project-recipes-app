@@ -5,6 +5,8 @@ export default async function getFoodsAndDrinks(type, param, value) {
     getByCategory: 'list.php?c=list',
     getById: `lookup.php?i=${value}`,
 
+    filterCategory: `filter.php?c=${value}`,
+
     getIngredient: 'list.php?i=list',
     getOrigin: 'list.php?a=list', // só para FOOD (Tela explorar, FOOD com 3 botões e DRINK com 2)
     getRandom: 'random.php', // redireciona para a receita escolhida pelo ramdom (Tela de detalhe da Receita)
