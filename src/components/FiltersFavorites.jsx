@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function FiltersFavorites({ data, setData }) {
   function filterByType(typeBtn) {
@@ -35,5 +36,10 @@ function FiltersFavorites({ data, setData }) {
     </div>
   );
 }
+
+FiltersFavorites.propTypes = {
+  data: PropTypes.objectOf(PropTypes.array).isRequired,
+  setData: PropTypes.func.isRequired,
+};
 
 export default FiltersFavorites;

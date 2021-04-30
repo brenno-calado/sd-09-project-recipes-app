@@ -7,18 +7,6 @@ import FiltersFavorites from '../components/FiltersFavorites';
 function ExploreFavorites() {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    renderElements();
-  }, [data]);
-
-  useEffect(() => {
-    setData(JSON.parse(localStorage.getItem('favoriteRecipes')));
-  }, []);
-
-  if (data.length === 0) {
-    return <div><FiltersFavorites data={ data } setData={ setData } /></div>;
-  }
-
   function renderElements() {
     return (
       <div>
@@ -45,6 +33,18 @@ function ExploreFavorites() {
         </div>
       </div>
     );
+  }
+
+  useEffect(() => {
+    renderElements();
+  }, [data]);
+
+  useEffect(() => {
+    setData(JSON.parse(localStorage.getItem('favoriteRecipes')));
+  }, []);
+
+  if (data.length === 0) {
+    return <div><FiltersFavorites data={ data } setData={ setData } /></div>;
   }
 
   return renderElements();
