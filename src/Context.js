@@ -7,6 +7,7 @@ export const Provider = ({ children }) => {
   const [recipies, setRecipies] = useState([]);
   const [typeRecipies, setTypeRecipies] = useState('');
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
+  const [recipeSpec, setRecipeSpec] = useState({});
   // const [mealsCategory, setMealsCategory] = useState([]);
   // const [drinksCategory, setDrinksCategory] = useState([]);
   const value = {
@@ -16,6 +17,8 @@ export const Provider = ({ children }) => {
     setTypeRecipies,
     setDisplaySearchBar,
     displaySearchBar,
+    recipeSpec,
+    setRecipeSpec,
   };
 
   return (

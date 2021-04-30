@@ -83,7 +83,6 @@ function DrinksScreen() {
           .map((recipe, index) => (index < '12')
           && <CardRecipeDrink
             recipe={ recipe }
-            // data-testid={ `${index}-recipe-card` }
             index={ index }
             key={ index }
           />)}
