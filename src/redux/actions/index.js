@@ -8,7 +8,7 @@ import {
   FAILURE_CATEGORIES,
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
-  ADD_STARTED_RECIPE
+  ADD_STARTED_RECIPE,
 } from './actionTypes';
 import {
   fetchByIngredient,
