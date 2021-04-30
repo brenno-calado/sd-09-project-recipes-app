@@ -49,7 +49,6 @@ export default function App() {
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
             <Route path="/explorar" component={ Explore } />
-            <Route path="/explorar" component={ Explore } />
             <Route path="/comidas" component={ Foods } />
             <Route path="/bebidas" component={ Drinks } />
             <Route path="/perfil" component={ Profile } />
