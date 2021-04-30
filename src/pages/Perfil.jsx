@@ -6,12 +6,11 @@ import BottomMenu from '../components/BottomMenu';
 function Perfil() {
   const renderEmailFromStorage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     return (
       <h4
         data-testid="profile-email"
       >
-        {user.email}
+        {user !== null ? user.email : 'Usuário'}
       </h4>
     );
   };

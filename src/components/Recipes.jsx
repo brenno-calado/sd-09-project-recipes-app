@@ -34,11 +34,14 @@ function Recipes({
       {recipesType === 'meal'
         ? recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <Link to={ `/comidas/${recipe.idMeal}` }>
+            <Link
+              to={ `/comidas/${recipe.idMeal}` }
+              key={ recipe.idMeal }
+              className="card align-items-center m-2 flex-wrap"
+            >
               <div
-                className="card align-items-center m-2 flex-wrap"
+                // className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
-                key={ recipe.idMeal }
               >
                 <img
                   data-testid={ `${index}-card-img` }
@@ -55,11 +58,14 @@ function Recipes({
 
         : recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <Link to={ `/bebidas/${recipe.idDrink}` }>
+            <Link
+              to={ `/bebidas/${recipe.idDrink}` }
+              key={ recipe.idDrink }
+              className="card align-items-center m-2 flex-wrap"
+            >
               <div
-                className="card align-items-center m-2 flex-wrap"
+                // className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
-                key={ recipe.idDrink }
               >
                 <img
                   data-testid={ `${index}-card-img` }
