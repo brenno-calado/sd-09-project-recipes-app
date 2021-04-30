@@ -14,6 +14,8 @@ const {
 
 const Profile = ({ match: { path } }) => {
   const userEmail = JSON.parse(localStorage.getItem('user')) || '';
+  const userEmail = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')).email : '';
   const history = useHistory();
   const handleQuit = () => {
     localStorage.clear();
