@@ -12,6 +12,7 @@ import { receiveDataMeal, receiveCategoryMeal } from '../redux/actions';
 function Foods() {
   const [loading, isFetching] = useState(true);
   const [categoryBtn, getCategory] = useState(undefined);
+  const [lastCategory, checkCategory] = useState(undefined);
 
   const meals = useSelector((state) => state.foodReducer.meals);
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ function Foods() {
     async function cardMount(categoryType) {
       if (categoryType) {
         isFetching(true);
-
         const number12 = 12;
         const number5 = 5;
 
@@ -36,6 +36,7 @@ function Foods() {
 
         return isFetching(false);
       }
+
       const number12 = 12;
       const number5 = 5;
 
@@ -50,11 +51,18 @@ function Foods() {
 
       return isFetching(false);
     }
+
     cardMount(categoryBtn);
-  }, [categoryBtn, dispatch]);
+  }, [categoryBtn, lastCategory, dispatch]);
 
   async function categoryCheck(param) {
-    getCategory(param);
+    if (lastCategory === param) {
+      getCategory(undefined);
+      checkCategory(undefined);
+    } else {
+      getCategory(param);
+      checkCategory(param);
+    }
   }
 
   return (
