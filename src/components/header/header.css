@@ -6,7 +6,15 @@
   padding: 5px 10px;
 }
 
-.btn-search {
+.btn-search-header {
   background-color: transparent;
   border: none;
+}
+
+.btn-search-header:focus {
+  outline: transparent;
+}
+
+.btn-search-header.clicked {
+  outline: none;
 }

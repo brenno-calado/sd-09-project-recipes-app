@@ -1,0 +1,23 @@
+.container-search {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-radios {
+  display: flex;
+  height: 30px;
+  justify-content: space-around;
+}
+
+.input-search {
+  margin: 3px 15px;
+}
+
+.btn-search {
+  align-self: center;
+  width: 100px;
+}
+
+.input-radio {
+  margin-right: 3px;
+}
