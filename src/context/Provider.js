@@ -6,12 +6,12 @@ import {
   getDrinksAll,
   getDrinksByCategory,
   getDrinksCategories,
-} from '../services/drinksAPI';
+} from '../services/DrinksAPI';
 import {
   getFoodAll,
   getFoodByCategory,
   getFoodCategories,
-} from '../services/foodAPI';
+} from '../services/FoodAPI';
 
 const Provider = ({ children }) => {
   const [recipes, setRecipes] = useState({
