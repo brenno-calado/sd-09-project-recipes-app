@@ -62,7 +62,7 @@ function AlimentDetails({ data, recomendation }) {
         strAlcoholic === 'Alcoholic'
           ? <p data-testid="recipe-category">Alcoholic</p> : <br />
       }
-      <ShareButton />
+      <ShareButton dataTestId="share-btn" urlCopied={ href } />
       <FavoriteRecipes data={ data[0] } path={ pathname } />
       <ul>
         { ingredients.map((ingredient, index) => (

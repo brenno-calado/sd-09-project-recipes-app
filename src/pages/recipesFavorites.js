@@ -7,6 +7,13 @@ import FiltersFavorites from '../components/FiltersFavorites';
 function ExploreFavorites() {
   const [data, setData] = useState([]);
 
+  function createLocalStorage() {
+    const favoriteRecipes = 'favoriteRecipes';
+    if (localStorage[favoriteRecipes] === undefined) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+  }
+
   function renderElements() {
     return (
       <div>
@@ -40,11 +47,16 @@ function ExploreFavorites() {
   }, [data]);
 
   useEffect(() => {
+    createLocalStorage();
     setData(JSON.parse(localStorage.getItem('favoriteRecipes')));
   }, []);
 
   if (data.length === 0) {
-    return <div><FiltersFavorites data={ data } setData={ setData } /></div>;
+    return (
+      <div>
+        <Header2 title="Receitas Favoritas" />
+        <FiltersFavorites data={ data } setData={ setData } />
+      </div>);
   }
 
   return renderElements();
