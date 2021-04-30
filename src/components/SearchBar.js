@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
-import { fetchRecipesAction } from '../actions';
+import { fetchRecipesAction, setIsCategoryToFalseAction } from '../actions';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -18,6 +18,12 @@ class SearchBar extends React.Component {
     this.setState({ [target.name]: target.id });
   }
 
+  onClick(radioSearchInput, searchInputValue) {
+    const { setIsCategoryToFalse, fetchRecipes } = this.props;
+    fetchRecipes(radioSearchInput, searchInputValue);
+    setIsCategoryToFalse();
+  }
+
   async inputTextHandleChange({ target }) {
     await this.setState({ searchInputValue: target.value });
     const { searchInputValue, radioSearchInput } = this.state;
@@ -31,7 +37,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { fetchRecipes, searchInput } = this.props;
+    const { searchInput } = this.props;
     const { radioSearchInput, searchInputValue } = this.state;
     return (
       <div>
@@ -75,7 +81,7 @@ class SearchBar extends React.Component {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
+          onClick={ () => this.onClick(radioSearchInput, searchInputValue) }
         >
           Buscar
         </button>
@@ -88,6 +94,7 @@ const mapDispatchToProps = (dispach) => ({
   fetchRecipes: (filter, searchInputValue) => dispach(
     fetchRecipesAction(filter, searchInputValue),
   ),
+  setIsCategoryToFalse: () => dispach(setIsCategoryToFalseAction()),
 });
 
 SearchBar.propTypes = {

@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import RecipeMealCard from '../components/RecipeMealCard';
 import { defaultFetchApiAction, setIsLoading } from '../actions';
+import CategoriesList from '../components/CategoriesList';
 
 class Meals extends React.Component {
   componentDidMount() {
@@ -15,7 +16,7 @@ class Meals extends React.Component {
   }
 
   render() {
-    const { recipes, isLoading } = this.props;
+    const { recipes, isLoading, isCategory } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
@@ -28,6 +29,8 @@ class Meals extends React.Component {
     return (
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
+        <CategoriesList />
+        {itens && !isCategory && itens.length === 1
         <div className="recipe-card-container">
           {recipes.meals && recipes.meals.map((meal) => (
             <RecipeMealCard key={ meal.idMeal } meal={ meal } />))}
@@ -45,11 +48,12 @@ class Meals extends React.Component {
 const mapStateToProps = (state) => ({
   recipes: state.searchInputReducer.recipes,
   isLoading: state.searchInputReducer.isLoading,
+  isCategory: state.searchInputReducer.isCategory,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  defaultFetchApi: () => dispach(defaultFetchApiAction()),
-  setIsLoadingToTrue: () => dispach(setIsLoading()),
+const mapDispatchToProps = (dispatch) => ({
+  defaultFetchApi: () => dispatch(defaultFetchApiAction()),
+  setIsLoadingToTrue: () => dispatch(setIsLoading()),
 });
 
 Meals.propTypes = {
