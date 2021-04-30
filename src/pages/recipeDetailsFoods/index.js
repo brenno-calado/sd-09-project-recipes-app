@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Style.css';
+import PropTypes from 'prop-types';
 
 import MealHeaderImage from '../../components/MealHeaderImage';
 import MeadHeaderInfo from '../../components/MealHeaderInfo';
@@ -16,11 +17,8 @@ class index extends Component {
     super(props);
     this.state = {
       mealData: false,
-      mealImage: '',
-      ingredientes: [],
-      instructions: '',
       video: '',
-      recommendedDrinks: ['Teste1', 'Teste 2', 'Teste 3', 'Teste 4', 'Teste 5', 'Teste 6'],
+      recommendedDrinks: ['Teste1'],
     };
   }
 
@@ -39,8 +37,8 @@ class index extends Component {
     });
   }
 
-  async setRecommendedDrinks () {
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
+  async setRecommendedDrinks() {
+    const url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     const drinks = await fetch(url);
     const response = await drinks.json();
     response.drinks.length = 6;
@@ -51,36 +49,36 @@ class index extends Component {
 
   getMealImage = () => {
     const { mealData } = this.state;
-    if(!mealData){return loadingImage}
-    return mealData.strMealThumb
+    if (!mealData) { return loadingImage; }
+    return mealData.strMealThumb;
   }
 
   getIngredients = () => {
     const { mealData } = this.state;
-    if(!mealData){return ['Carregando']};
+    if (!mealData) { return ['Carregando']; }
     const ingredients = Object.entries(mealData)
       .filter((element) => element[0].includes('strIngredient'))
       .filter((element) => element[1] !== '' && element[1] !== null)
       .map((element) => element[1]);
 
-    return ingredients
+    return ingredients;
   }
 
   getIngredientsQuantity = () => {
     const { mealData } = this.state;
-    if(!mealData){return ['Carregando']};
+    if (!mealData) { return ['Carregando']; }
     const ingredientsQuantity = Object.entries(mealData)
       .filter((element) => element[0].includes('strMeasure'))
       .filter((element) => element[1] !== '' && element[1] !== null)
       .map((element) => element[1]);
 
-    return ingredientsQuantity
+    return ingredientsQuantity;
   }
 
   getInsructions = () => {
     const { mealData } = this.state;
-    if(!mealData){return 'Carregando'};
-    return mealData.strInstructions
+    if (!mealData) { return 'Carregando'; }
+    return mealData.strInstructions;
   }
 
   async getMealData() {
@@ -94,19 +92,19 @@ class index extends Component {
 
   getTitle = () => {
     const { mealData } = this.state;
-    if(!mealData){return 'Carregando'};
-    return mealData.strMeal
+    if (!mealData) { return 'Carregando'; }
+    return mealData.strMeal;
   }
 
   getCategory = () => {
     const { mealData } = this.state;
-    if(!mealData){return 'Carregando'};
-    return mealData.strCategory
+    if (!mealData) { return 'Carregando'; }
+    return mealData.strCategory;
   }
 
   getRecommendations = () => {
     const { recommendedDrinks } = this.state;
-    return recommendedDrinks
+    return recommendedDrinks;
   }
 
   render() {
@@ -115,15 +113,37 @@ class index extends Component {
     return (
       <div>
         <MealHeaderImage image={ this.getMealImage() } />
-        <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory()} recipe={ mealData } id={id}/>
-        <MealIngredients ingredients={ this.getIngredients() } quantities={this.getIngredientsQuantity()}/>
+        <MeadHeaderInfo
+          title={ this.getTitle() }
+          category={ this.getCategory() }
+          recipe={ mealData }
+          id={ id }
+        />
+        <MealIngredients
+          ingredients={ this.getIngredients() }
+          quantities={ this.getIngredientsQuantity() }
+        />
         <MealInstructions instructions={ this.getInsructions() } />
         <MealVideo videoId={ video } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
-        <ButtonStartRecipe recipe={mealData} id={id} ingredients={ this.getIngredients() }/>
+        <ButtonStartRecipe
+          recipe={ mealData }
+          id={ id }
+          ingredients={ this.getIngredients() }
+        />
       </div>
     );
   }
 }
+
+index.propTypes = {
+  match: PropTypes.shape(
+    {
+      params: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+      }),
+    },
+  ).isRequired,
+};
 
 export default index;
