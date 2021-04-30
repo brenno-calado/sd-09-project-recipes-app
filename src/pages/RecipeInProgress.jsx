@@ -24,34 +24,26 @@ function RecipeInProgress() {
     setIngredient(ingredientsKeyValue.map((item) => (item[1])));
   }
 
-  function setMealDescription(meals) {
-    setImage(meals[0].strMealThumb);
-    setTitle(meals[0].strMeal);
-    setCategories(meals[0].strCategory);
-    filterIngredients(meals[0]);
-    setInstructions(meals[0].strInstructions);
-  }
-
-  function setDrinkDescription(drinks) {
-    setImage(drinks[0].strDrinkThumb);
-    setTitle(drinks[0].strDrink);
-    setCategories(drinks[0].strCategory);
-    filterIngredients(drinks[0]);
-    setInstructions(drinks[0].strInstructions);
-  }
-
   useEffect(() => {
     if (type === 'comidas') {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ meals }) => {
-          setMealDescription(meals);
+          setImage(meals[0].strMealThumb);
+          setTitle(meals[0].strMeal);
+          setCategories(meals[0].strCategory);
+          filterIngredients(meals[0]);
+          setInstructions(meals[0].strInstructions);
         });
     } else if (type === 'bebidas') {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ drinks }) => {
-          setDrinkDescription(drinks);
+          setImage(drinks[0].strDrinkThumb);
+          setTitle(drinks[0].strDrink);
+          setCategories(drinks[0].strCategory);
+          filterIngredients(drinks[0]);
+          setInstructions(drinks[0].strInstructions);
         });
     }
   }, [id]);
