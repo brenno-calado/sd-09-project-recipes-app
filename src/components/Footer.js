@@ -14,7 +14,7 @@ function Footer() {
   );
 
   return (
-    <footer className="footer" data-testid="footer">
+    <footer data-testid="footer">
       <Link to="/bebidas" onClick={ () => updateData(fecthByName('', false)) }>
         { renderImage('drinks-bottom-btn', drinkIcon, 'drink-icon') }
       </Link>

@@ -7,10 +7,7 @@ function Meals() {
   const { data, updateData } = useContext(Context);
 
   useEffect(() => {
-    if (!data.meals) {
-      const getData = async () => updateData(fecthByName('', true));
-      getData();
-    }
+    if (!data.meals) { updateData(fecthByName('', true)); }
   }, [data, updateData]);
 
   if (!data) return <div>Loading...</div>;

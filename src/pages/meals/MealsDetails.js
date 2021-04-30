@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
-import { DrinksRecomendations } from '../../components';
+import { DrinksRecomendations, YoutubePlayer } from '../../components';
 
 function MealsDetails() {
   const { id } = useParams();
@@ -29,21 +29,7 @@ function MealsDetails() {
           <input data-testid="ingredient-step" type="checkbox" />
         </p>)) }
       <p data-testid="instructions">{strInstructions}</p>
-      <iframe
-        data-testid="video"
-        width="560"
-        height="315"
-        title={ strMeal }
-        src={ strYoutube && `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
-        frameBorder="0"
-        allow="accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture"
-        allowFullScreen
-      />
+      <YoutubePlayer url={ strYoutube } title={ strMeal } />
       <span data-testid="0-recomendation-card">Card de Recomendaçoes</span>
       <span data-testid="1-recomendation-card">Card de Recomendaçoes</span>
       <button

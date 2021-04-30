@@ -7,10 +7,7 @@ function Drinks() {
   const { data, updateData } = useContext(Context);
 
   useEffect(() => {
-    if (!data.drinks) {
-      const getData = async () => updateData(fecthByName('', false));
-      getData();
-    }
+    if (!data.drinks) { updateData(fecthByName('', false)); }
   }, [data, updateData]);
 
   if (!data) return <div>Loading...</div>;
