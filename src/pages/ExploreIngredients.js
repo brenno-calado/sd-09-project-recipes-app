@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import Header from '../components/Header/index';
 import Menu from '../components/Menu';
@@ -30,7 +31,6 @@ const ExploreIngredients = ({ match }) => {
     const rootURL = 'https://www.thecocktaildb.com/images/ingredients/';
     const ingredientsListAPI = await getDrinksIngredientsList();
     ingredientsListAPI.splice(MAX_INGREDIENTS, ingredientsListAPI.length);
-    debugger;
     const customIngredientsList = ingredientsListAPI.map((ingredient) => {
       const name = ingredient.strIngredient1;
       const customIngredient = { name };
@@ -52,7 +52,10 @@ const ExploreIngredients = ({ match }) => {
           <Header title="Explorar Ingredientes" />
           <br />
           <div className="cards">
-            <Ingredients ingredientsList={ ingredientsList } />
+            <Ingredients
+              ingredientsList={ ingredientsList }
+              explorerPath={ explorerPath }
+            />
           </div>
           <Menu />
         </div>
@@ -60,5 +63,7 @@ const ExploreIngredients = ({ match }) => {
       : <span>Loading...</span>
   );
 };
-
+ExploreIngredients.propTypes = {
+  match: PropTypes.shape().isRequired,
+};
 export default ExploreIngredients;
