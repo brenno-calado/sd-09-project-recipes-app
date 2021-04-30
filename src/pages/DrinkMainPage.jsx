@@ -8,11 +8,15 @@ import { searchBarFetch } from '../actions/searchBar';
 import { filtersFetch } from '../actions/filters';
 import Filters from '../components/Filters';
 
-function DrinkMainPage({ match, setRecipes, setFilters }) {
+function DrinkMainPage({ match, setRecipes, setFilters, ingredient }) {
   useEffect(() => {
-    setRecipes({ searchValue: '', query: 's', page: 'Bebidas' });
+    if (ingredient) {
+      setRecipes({ searchValue: ingredient, query: 'i', page: 'Bebidas' });
+    } else {
+      setRecipes({ searchValue: '', query: 's', page: 'Bebidas' });
+    }
     setFilters('Bebidas');
-  }, [setRecipes, setFilters]);
+  }, [setRecipes, setFilters, ingredient]);
   return (
     <div>
       <Header page="Bebidas" search />
@@ -23,6 +27,10 @@ function DrinkMainPage({ match, setRecipes, setFilters }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  ingredient: state.setIngredients.ingredient,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setRecipes: (search) => dispatch(searchBarFetch(search)),
   setFilters: (page) => dispatch(filtersFetch(page)),
@@ -32,4 +40,4 @@ DrinkMainPage.propTypes = {
   match: object,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(DrinkMainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DrinkMainPage);
