@@ -7,7 +7,6 @@ const fetchApi = async (params) => {
   const query = paramsKey === 'i' ? 'filter' : 'search';
   const urlParams = Object.entries(params)[0].join('=');
   const url = `https://www.themealdb.com/api/json/v1/1/${query}.php?${urlParams}`;
-  console.log(url);
   const request = await fetch(url);
   return request.json();
 };

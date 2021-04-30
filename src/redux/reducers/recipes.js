@@ -11,7 +11,6 @@ const searchReducer = (state = INITIAL_STATE, { type, payload }) => {
   case REQUEST_RECIPES:
     return { ...state, isFetching: true };
   case GET_RECIPES:
-    console.log(payload);
     return { ...state, isFetching: false, recipes: payload };
   default:
     return state;

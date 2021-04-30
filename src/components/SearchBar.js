@@ -1,14 +1,13 @@
-import React, { useReducer, useState } from 'react';
-import searchReducer from '../redux/reducers/search';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import setSearchOptions from '../redux/actions/search';
 import fetchSearchRecipes from '../redux/actions/recipes';
 
 const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
   const [searchOption, setSearchOption] = useState('i');
-  const [searchState, searchDispatch] = useReducer(searchReducer, {}); // Talvez precisa do INITIAL_STATE
+  const dispatch = useDispatch();
   const isInvalidSearch = searchOption === 'f' && searchText.length > 1;
-  console.log(searchState);
 
   return (
     <form>
@@ -58,8 +57,8 @@ const SearchBar = () => {
             return alert('Sua busca deve conter somente 1 (um) caracter');
           }
           const searchParams = { [searchOption]: searchText };
-          searchDispatch(setSearchOptions(searchParams));
-          fetchSearchRecipes();
+          dispatch(setSearchOptions(searchParams));
+          dispatch(fetchSearchRecipes());
         } }
       >
         Buscar
