@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RecipesContext from '../../context/RecipesContext';
 import { fetchMealIngredientAPI, fetchMealLetterAPI,
@@ -23,11 +24,13 @@ const SearchBar = (props) => {
     // itShouldRedirect,
   } = useContext(RecipesContext);
 
-  const { meals, drinks, history } = props;
+  const history = useHistory();
+
+  const { meals, drinks } = props;
   useEffect(() => {
     if (redirectMeal) {
       const { idMeal } = meals[0];
-      history.push(`/comidas/${idMeal}`);
+      history.push(`/comidas/${idMeal}`, meals);
     }
     if (redirectDrink) {
       const { idDrink } = drinks[0];

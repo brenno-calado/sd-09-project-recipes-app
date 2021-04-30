@@ -16,6 +16,7 @@ function Footer() {
         bottom: 0,
         width: '100%',
         color: 'white',
+        backgroundColor: '#ccc',
       } }
     >
       <button
