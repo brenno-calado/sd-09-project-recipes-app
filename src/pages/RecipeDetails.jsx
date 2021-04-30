@@ -12,10 +12,10 @@ const copy = require('clipboard-copy');
 
 function RecipeDetails({ match: { params: { id } } }) {
   const {
-    isFetching,
     mealId,
     getMealId,
     drinkRecomendation,
+    setMealId,
   } = useContext(RecipesAppContext);
 
   const [copied, setCopy] = useState(false);
@@ -36,11 +36,12 @@ function RecipeDetails({ match: { params: { id } } }) {
   }
 
   useEffect(() => {
-    async function getMealById() {
-      await getMealId(id);
-    }
-    getMealById();
+    getMealId(id);
   }, [getMealId, id]);
+
+  useEffect(() => () => {
+    setMealId({});
+  }, [setMealId]);
 
   const ingredientsList = () => {
     const list = [];
@@ -55,7 +56,7 @@ function RecipeDetails({ match: { params: { id } } }) {
 
   return (
     <div>
-      { (!(isFetching) && (mealId !== null)) && (
+      { (mealId.idMeal === id) ? (
         <div>
           <img
             data-testid="recipe-photo"
@@ -118,13 +119,15 @@ function RecipeDetails({ match: { params: { id } } }) {
             Iniciar Receita
           </button>
         </div>
-      ) }
+      ) : (<p className="loading-message">Loading...</p>)}
     </div>
   );
 }
 
 RecipeDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
 };
 
 export default RecipeDetails;

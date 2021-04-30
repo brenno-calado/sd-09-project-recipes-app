@@ -11,10 +11,10 @@ const copy = require('clipboard-copy');
 
 function DrinkDetails({ match: { params: { id } } }) {
   const {
-    isFetching,
     drinkId,
     getDrinkId,
     mealRecomendation,
+    setDrinkId,
   } = useContext(RecipesAppContext);
 
   const [copied, setCopy] = useState(false);
@@ -38,10 +38,14 @@ function DrinkDetails({ match: { params: { id } } }) {
     getDrinkId(id);
   }, [getDrinkId, id]);
 
+  useEffect(() => () => {
+    setDrinkId({});
+  }, [setDrinkId]);
+
   const ingredientsList = () => {
     const list = [];
 
-    for (let index = 1; drinkId[`strIngredient${index}`] !== ''; index += 1) {
+    for (let index = 1; drinkId[`strIngredient${index}`] !== null; index += 1) {
       list.push(`
         ${drinkId[`strIngredient${index}`]} - ${drinkId[`strMeasure${index}`]}
       `);
@@ -51,7 +55,7 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   return (
     <div>
-      { (!(isFetching) && (drinkId !== null)) && (
+      { (drinkId.idDrink === id) ? (
         <div>
           <img
             data-testid="recipe-photo"
@@ -114,13 +118,15 @@ function DrinkDetails({ match: { params: { id } } }) {
             Iniciar Receita
           </button>
         </div>
-      ) }
+      ) : (<p className="loading-message">Loading...</p>)}
     </div>
   );
 }
 
 DrinkDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
 };
 
 export default DrinkDetails;

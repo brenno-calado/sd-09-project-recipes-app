@@ -48,7 +48,7 @@ function MainDrinks() {
           <div className="recipes-container">
             { cocktailsRecipes.map((drink, index) => ((index < CARDS_LIMIT) && (
               <Link
-                to={ `/bebidas/${cocktailsRecipes[0].idDrink}` }
+                to={ `/bebidas/${drink.idDrink}` }
                 key={ `${index}-recipe-card` }
               >
                 <div className="recipe-card" data-testid={ `${index}-recipe-card` }>

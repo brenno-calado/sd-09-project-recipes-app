@@ -24,3 +24,7 @@
 .carousel {
   width: 100%;
 }
+
+.loading-message {
+  text-align: center;
+}

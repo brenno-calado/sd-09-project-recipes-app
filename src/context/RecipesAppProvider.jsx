@@ -30,8 +30,8 @@ function RecipesAppProvider({ children }) {
   const [cocktailsBkp, setCocktailsBkp] = useState([]);
   const [mealCategoryBkp, setMealCategoryBkp] = useState(null);
   const [cocktailCategoryBkp, setCocktailCategoryBkp] = useState(null);
-  const [mealId, setMealId] = useState([]);
-  const [drinkId, setDrinkId] = useState([]);
+  const [mealId, setMealId] = useState({});
+  const [drinkId, setDrinkId] = useState({});
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
   const [mealRecomendation, setMealRecomendation] = useState([]);
 
@@ -149,6 +149,7 @@ function RecipesAppProvider({ children }) {
     drinkRecomendation,
     mealRecomendation,
     setMealId,
+    setDrinkId,
     setShowSearchBar,
     handleSearchClick,
     handleMealCategoryClick,
