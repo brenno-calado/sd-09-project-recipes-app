@@ -77,3 +77,22 @@ export function categoriesList(typeFood) {
         .then((response) => response.drinks));
   }
 }
+
+export function searchByCategory(category, typeFood) {
+  const categoryEndPointMeal = (
+    `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
+  );
+  const categoryEndPointDrink = (
+    `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
+  );
+  if (typeFood === 'comidas') {
+    return fetch(categoryEndPointMeal)
+      .then((promise) => promise.json()
+        .then((response) => response.meals));
+  }
+  if (typeFood === 'bebidas') {
+    return fetch(categoryEndPointDrink)
+      .then((promise) => promise.json()
+        .then((response) => response.drinks));
+  }
+}

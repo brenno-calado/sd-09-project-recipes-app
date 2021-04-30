@@ -3,7 +3,7 @@ import { MyContext } from '../MyContext';
 import Header from './Header';
 
 function MealCard() {
-  const { data, categories } = useContext(MyContext);
+  const { data, categories, filterByCategory } = useContext(MyContext);
 
   const limitMealsRender = 11;
   const limitCategory = 4;
@@ -19,6 +19,8 @@ function MealCard() {
             data-testid={ `${categorie.strCategory}-category-filter` }
             type="button"
             key={ categorie.strCategory }
+            value={ categorie.strCategory }
+            onClick={ ({ target }) => filterByCategory(target, 'comidas') }
           >
             { categorie.strCategory }
           </button>
