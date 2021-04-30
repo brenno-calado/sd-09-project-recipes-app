@@ -10,34 +10,56 @@ function ReceitasFeitas() {
   const [meals, setMeals] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [drincks, setDrincks] = useState([]);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     console.log('mount');
-    const tmp = getDoneRecipes();
-    console.log(`tmp: ${tmp}`);
-    setDoneRecipes(tmp);
+    setDoneRecipes(getDoneRecipes());
   }, []);
 
-  const handleClickButton = ({ target: { value } }) => {
-    // const { value } = target;
-    console.log(value);
-    /* if () {
-    } */
-  };
-  /* const handleClickButton = () => {
-    console.log('clik');
-  }; */
+  const filtersRecipes = (keyword) => (
+    doneRecipes.filter(({ type }) => type === keyword)
+  );
 
-  const doneRecipesList = doneRecipes.map((recipes, index) => (
-    <ContentDoneRecipes key={ recipes.id } recipes={ recipes } recipeIndex={ index } />
-  ));
-  console.log(doneRecipes);
+  const handleClickButton = ({ target: { value } }) => {
+    if (value === 'food') {
+      console.log(filtersRecipes('meals'));
+      setMeals(filtersRecipes('meals'));
+      setFilter(value);
+    } else if (value === 'drinks') {
+      setDrincks(filtersRecipes('drinks'));
+      setFilter(value);
+    } else {
+      setFilter(value);
+    }
+  };
+
+  console.log(filter);
+  const currentFilter = () => {
+    switch (filter) {
+    case 'all':
+      return doneRecipes.map((recipe, index) => (
+        <ContentDoneRecipes key={ recipe.id } recipes={ recipe } recipeIndex={ index } />
+      ));
+    case 'food':
+      return meals.map((recipe, index) => (
+        <ContentDoneRecipes key={ recipe.id } recipes={ recipe } recipeIndex={ index } />
+      ));
+    case 'drinks':
+      return drincks.map((recipe, index) => (
+        <ContentDoneRecipes key={ recipe.id } recipes={ recipe } recipeIndex={ index } />
+      ));
+    default:
+      return 'Recipes not found!';
+    }
+  };
+
   return (
     <div>
       <Header page="Receitas Feitas" hasSearchButton={ false } />
       <div className="done-recipes-container">
         <NavReceitasFeitas onclick={ handleClickButton } />
-        { doneRecipesList }
+        {currentFilter()}
       </div>
     </div>
   );
