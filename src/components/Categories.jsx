@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import '../styles/Card.css';
-import { useLocation } from 'react-router-dom';
-import getCategories from '../services/categoriesAPI';
+import { RecipesContext } from '../context';
 
 function Categories() {
-  const { pathname } = useLocation();
-  const category = pathname.includes('comidas') ? 'Meal' : 'Drink';
-  const [categories, setCategories] = useState();
-  getCategories(category)
-    .then((response) => setCategories(response));
   const CINCO = 5;
+  const { values: { categories } } = useContext(RecipesContext);
   return categories ? (
     <>
       { categories
         .filter((_, index) => index < CINCO)
         .map(({ strCategory }, index) => (
           <button
-            type="button"
+            data-testid={ `${strCategory}-category-filter` }
             key={ `strCategory${index}` }
+            type="button"
           >
             { strCategory }
           </button>

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 import getAllRecipes from '../../services/allRecipesAPI';
-import { usePathLocation } from '../../hooks';
+import usePathLocation from '../../hooks/usePathLocation';
+import getCategories from '../../services/categoriesAPI';
 
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
@@ -13,6 +14,7 @@ export default function RecipesProvider({ children }) {
   });
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
+  const [categories, setCategories] = useState();
 
   const value = {
     values: {
@@ -21,6 +23,7 @@ export default function RecipesProvider({ children }) {
       favoriteRecipes,
       inProgressRecipes,
       isFetching,
+      categories,
     },
     actions: {
       setRecipesResult,
@@ -53,6 +56,8 @@ export default function RecipesProvider({ children }) {
         .finally(() => setIsFetching(false));
     };
     fetchAllRecipes();
+    getCategories(pathLocation)
+      .then((response) => setCategories(response));
   }, [pathLocation]);
 
   return (
