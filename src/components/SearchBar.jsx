@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { searchRecipe } from '../actions';
+import { searchRecipe, setRedirect } from '../actions';
 import RecipesContext from '../contexts/RecipesContext';
 
 const SEARCH_INITIAL_STATE = {
@@ -9,7 +9,7 @@ const SEARCH_INITIAL_STATE = {
   searchText: '',
 };
 
-function SearchBar({ dispatchSearch, category }) {
+function SearchBar({ dispatchSearch, category, dispatchRedirect }) {
   const [search, setSearch] = useState(SEARCH_INITIAL_STATE);
   const { setLoading } = useContext(RecipesContext);
 
@@ -24,6 +24,7 @@ function SearchBar({ dispatchSearch, category }) {
     setLoading(true);
     await dispatchSearch(search.searchType, search.searchText, category);
     setLoading(false);
+    dispatchRedirect();
   };
 
   const renderRadios = () => (
@@ -93,12 +94,14 @@ function SearchBar({ dispatchSearch, category }) {
 
 SearchBar.propTypes = {
   dispatchSearch: PropTypes.func,
+  dispatchRedirect: PropTypes.func,
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
   dispatchSearch: (type, text, category) => (
     dispatch(searchRecipe(type, text, category))
   ),
+  dispatchRedirect: () => dispatch(setRedirect()),
 });
 
 export default connect(null, mapDispatchToProps)(SearchBar);
