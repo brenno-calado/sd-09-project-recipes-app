@@ -10,7 +10,6 @@ function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
   const location = useLocation();
   // const idType = (location.pathname === '/comidas') ? 'idMeal' : 'idDrink';
   const maxItemsToshow = 12;
-  if (items.length > maxItemsToshow) items = items.slice(0, maxItemsToshow);
 
   const alertNotFound = () => {
     notFoundReset();
@@ -21,20 +20,24 @@ function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
     <div className="Cards">
       {notFound && alertNotFound()}
       {items.length === 0 && <p>Faça uma busca</p>}
-      {items.length === 1 && couldRedirect ? <Redirect
-        to={ `${location.pathname}/${items[0][idType]}` }
-      /> : null}
-      {items.map((item, index) => (
-        <Card item={ item } index={ index } key={ index } />
+      {items.length === 1 && couldRedirect ? (
+        <Redirect to={ `${location.pathname}/${items[0][idType]}` } />
+      ) : null}
+      {items.slice(0, maxItemsToshow).map((item, index) => (
+        <Card
+          item={ item }
+          index={ index }
+          key={ index }
+          detailsURL={ `${location.pathname}/${items[0][idType]}` }
+        />
       ))}
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  // items: state.searchBar.items,
   notFound: state.recipesList.notFound,
-  couldRedirect: state.couldRedirect,
+  couldRedirect: state.filter.couldRedirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -13,7 +13,7 @@ function Filters({ type }) {
   useEffect(() => {
     const numberOfFilters = 5;
     fetchFilters().then((data) => setFilters(data.slice(0, numberOfFilters)));
-  });
+  }, [fetchFilters]);
 
   return (
     <div>
