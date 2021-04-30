@@ -14,6 +14,7 @@ import ProfileScreen from './Pages/ProfileScreen/ProfileScreen';
 import
 FavoriteRecipiesScreen from './Pages/FavoriteRecipiesScreen/FavoriteRecipiesScreeen';
 import DoneRecipiesScreen from './Pages/DoneRecipesScreen/DoneRecipiesScreen';
+import NotFound from './Pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -30,12 +31,18 @@ function App() {
       />
       <Route
         exact
-        path="/explorar/:pageType/area"
+        path="/explorar/comidas/area"
         component={ ExploreForArea }
+      />
+      <Route
+        exact
+        path="/explorar/bebidas/area"
+        component={ NotFound }
       />
       <Route exact path="/perfil" component={ ProfileScreen } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipiesScreen } />
       <Route exact path="/receitas-feitas" component={ DoneRecipiesScreen } />
+      {/* <Route component={ NotFound } /> */}
     </Switch>
   );
 }
