@@ -1,6 +1,7 @@
 .recipe-detail-title-container {
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .recipe-detail-title-container div {

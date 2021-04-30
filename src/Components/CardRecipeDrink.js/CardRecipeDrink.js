@@ -1,9 +1,9 @@
 import React from 'react';
-import { number, shape } from 'prop-types';
+import { number, shape, string } from 'prop-types';
 import './cardRecipeDrink.css';
 import { Link } from 'react-router-dom';
 
-function CardRecipeMeal({ recipe, index }) {
+function CardRecipeMeal({ recipe, index, testid }) {
   return (
     <Link to={ { pathname: `/bebidas/${recipe.idDrink}`, pageType: 'bebidas' } }>
       <div className="card-recipe-container" data-testid={ `${index}-recipe-card` }>
@@ -12,7 +12,7 @@ function CardRecipeMeal({ recipe, index }) {
           alt={ `imagen de ${recipe.strDrink}` }
           data-testid={ `${index}-card-img` }
         />
-        <p data-testid={ `${index}-card-name` }>
+        <p data-testid={ testid }>
           { recipe.strDrink }
         </p>
       </div>
@@ -23,6 +23,7 @@ function CardRecipeMeal({ recipe, index }) {
 CardRecipeMeal.propTypes = {
   recipe: shape().isRequired,
   index: number.isRequired,
+  testid: string.isRequired,
 };
 
 export default CardRecipeMeal;

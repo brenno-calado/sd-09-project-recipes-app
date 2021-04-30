@@ -8,7 +8,8 @@ function IngredientList() {
     const numberOfIngredinets = 20;
     let cont = 1;
     for (let index = 0; index <= numberOfIngredinets; index += 1) {
-      if (recipeSpec[`strIngredient${cont}`] !== '') {
+      if (recipeSpec[`strIngredient${cont}`] !== ''
+      && recipeSpec[`strIngredient${cont}`] !== null) {
         recipeIngredient
           .push(
             `${recipeSpec[`strIngredient${cont}`]} - ${recipeSpec[`strMeasure${cont}`]}`,
@@ -27,7 +28,7 @@ function IngredientList() {
       <ul>
         {(recipeIngredient.length) && recipeIngredient.map((item, index) => (
           <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            { item }
+            { item.replace(null, '') }
           </li>
         )) }
       </ul>

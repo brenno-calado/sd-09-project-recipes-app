@@ -37,10 +37,10 @@ function RecipeDetailsScreen({ match: { params: { id } }, location: { pathname }
   return (
     <div className="recipe-details-main-container">
       {(pageType === 'comidas') && (
-        <RecipeMealDetailComponent recipe={ recipeSpec } />
+        <RecipeMealDetailComponent recipe={ recipeSpec } pageType={ pageType } />
       )}
       {(pageType === 'bebidas') && (
-        <RecipeDrinkDetailComponent recipe={ recipeSpec } />
+        <RecipeDrinkDetailComponent recipe={ recipeSpec } pageType={ pageType } />
       )}
     </div>
   );
