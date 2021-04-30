@@ -1,15 +1,14 @@
 import React from 'react';
-import Header from './Header';
+import Header from '../components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchBar from '../components/SearchBar';
 
 function Comidas() {
   return (
     <div>
-      <Header />
+      <Header title="Comidas" showButton />
       <SearchBar isMealsPage />
     </div>
-
   );
 }
 
