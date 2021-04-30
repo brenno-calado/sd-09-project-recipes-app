@@ -68,16 +68,17 @@ function Drinks() {
     }
   }
 
+  function fetchAlert() {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.' );
+  }
+
   function drinksCardsRender() {
     if (drinks) {
       return (
         DrinkCards(category, drinks, categoryCheck)
       );
     } if (!drinks) {
-      return (
-        <span>Nehum elemento foi encontrado</span>
-      );
-      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.' );
+      fetchAlert();
     }
   }
 

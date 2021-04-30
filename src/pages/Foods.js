@@ -72,16 +72,17 @@ function Foods() {
     }
   }
 
+  function fetchAlert() {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.' );
+  }
+
   function foodCardsRender() {
     if (meals) {
       return (
         MealCards(category, meals, categoryCheck)
       );
     } if (!meals) {
-      return (
-        <span>Nehum elemento foi encontrado</span>
-        // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
-      );
+      fetchAlert();
     }
   }
 
