@@ -8,7 +8,7 @@ import './Cards.css';
 
 function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
   const location = useLocation();
-  // const idType = (location.pathname === '/comidas') ? 'idMeal' : 'idDrink';
+  const type = (location.pathname === '/comidas') ? 'comidas' : 'bebidas';
   const maxItemsToshow = 12;
 
   const alertNotFound = () => {
