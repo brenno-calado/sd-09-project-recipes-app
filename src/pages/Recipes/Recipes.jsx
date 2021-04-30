@@ -1,29 +1,63 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
-import { fetchMealNameAPI } from '../../services/fetchMealAPI';
+import {
+  fetchFilteredByCategory,
+  fetchMealCategory,
+  fetchMealNameAPI,
+} from '../../services/fetchMealAPI';
 import { saveMeals } from '../../actions/userActions';
 import RenderRecipeCards from '../../common/components/RenderRecipeCards';
+import GenericCategoryButton from '../../common/components/buttons/GenericCategoryButton';
 
 const Recipes = (props) => {
   const { meals, history } = props;
+  const [mealCategoryList, setMealCategoryList] = useState();
+  const [filteredByCategoryArray, setfilteredByCategoryArray] = useState(undefined);
+  const cinco = 5;
 
   async function fetchData() {
     const { dispatchMeals } = props;
     await fetchMealNameAPI('').then((response) => dispatchMeals(response));
+    await fetchMealCategory().then((r) => setMealCategoryList(r));
   }
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  function filterByCategory(category) {
+    fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
+  }
+
   if (meals) {
     return (
       <>
         <Header title="Comidas" value="comidas" history={ history } />
-        <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
+        {
+          mealCategoryList && mealCategoryList.meals
+            .slice(0, cinco)
+            .map((meal, index) => (
+              <GenericCategoryButton
+                key={ index }
+                buttonLabel={ meal.strCategory }
+                action={ filterByCategory }
+              />
+            ))
+        }
+        {
+          filteredByCategoryArray
+            ? (
+              <RenderRecipeCards
+                array={ filteredByCategoryArray }
+                kindOfFood="meals"
+                cardsLimit="12"
+              />
+            )
+            : <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
+        }
         <Footer />
       </>
     );

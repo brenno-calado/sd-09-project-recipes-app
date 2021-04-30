@@ -1,3 +1,5 @@
+const CATEGORY_API = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+
 export const fetchMealIngredientAPI = async (ingredient) => {
   try {
     const mealAPI = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -23,6 +25,22 @@ export const fetchMealLetterAPI = async (letter) => {
     const mealAPI = `https://www.themealdb.com/api/json/v1/1/search.php?f=${letter}`;
     const meals = await fetch(mealAPI).then((response) => response.json());
     return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchMealCategory = async () => {
+  try {
+    return await fetch(CATEGORY_API).then((response) => response.json());
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const fetchFilteredByCategory = async (category) => {
+  try {
+    return await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`).then((response) => response.json());
   } catch (error) {
     console.log(error);
   }

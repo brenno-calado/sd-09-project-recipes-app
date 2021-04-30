@@ -1,30 +1,63 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
 import RenderRecipeCards from '../../common/components/RenderRecipeCards';
-import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
+import {
+  fetchDrinksFilteredByCategory,
+  fetchDrinkCategory,
+  fetchDrinkNameAPI,
+} from '../../services/fetchDrinkAPI';
 import { saveDrinks } from '../../actions/userActions';
+import GenericCategoryButton from '../../common/components/buttons/GenericCategoryButton';
 
 const Drinks = (props) => {
   const { drinks, history } = props;
+  const [drinksCategoryList, setDrinksCategoryList] = useState();
+  const [filteredByCategoryArray, setFilteredBYCategoryArray] = useState(undefined);
+  const cinco = 5;
 
   async function fetchData() {
     const { dispatchDrinks } = props;
     await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
+    await fetchDrinkCategory().then((r) => setDrinksCategoryList(r));
   }
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  function filterByCategory(category) {
+    fetchDrinksFilteredByCategory(category).then(setFilteredBYCategoryArray);
+  }
+
   if (drinks) {
-    console.log(drinks);
     return (
       <div>
         <Header title="Bebidas" value="bebidas" history={ history } />
-        <RenderRecipeCards list={ drinks } kindOfFood="drinks" cardsLimit="12" />
+        {
+          drinksCategoryList && drinksCategoryList.drinks
+            .slice(0, cinco)
+            .map((drink, index) => (
+              <GenericCategoryButton
+                key={ index }
+                buttonLabel={ drink.strCategory }
+                action={ filterByCategory }
+              />
+            ))
+        }
+        {
+          filteredByCategoryArray
+            ? (
+              <RenderRecipeCards
+                array={ filteredByCategoryArray }
+                kindOfFood="drinks"
+                cardsLimit="12"
+              />
+            )
+            : <RenderRecipeCards list={ drinks } kindOfFood="drinks" cardsLimit="12" />
+        }
         <Footer />
       </div>
     );
