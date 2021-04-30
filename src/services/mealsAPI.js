@@ -1,6 +1,7 @@
 const MEAL_BY_NAME = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const MEAL_BY_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
 const MEAL_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+const MEAL_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 
 export default {
   async fetchByName(name) {
@@ -40,6 +41,20 @@ export default {
         return recipesJSON.meals;
       }
       throw new Error('Falha ao buscar receitas por ingrediente =(');
+    } catch (error) {
+      return { message: error.message };
+    }
+  },
+
+  async fetchByCategory(category) {
+    try {
+      const recipesHTTP = await fetch(`${MEAL_BY_CATEGORY}${category}`);
+      if (recipesHTTP.ok) {
+        const recipesJSON = await recipesHTTP.json();
+
+        return recipesJSON.meals;
+      }
+      throw new Error('Falha ao buscar receitas por categoria =(');
     } catch (error) {
       return { message: error.message };
     }

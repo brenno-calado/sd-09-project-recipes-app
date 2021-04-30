@@ -10,6 +10,8 @@ export default function useRecipes() {
       return mealsAPI.fetchByName(searchInput);
     case 'firstLetter':
       return mealsAPI.fetchByFirstLetter(searchInput);
+    case 'category':
+      return mealsAPI.fetchByCategory(searchInput);
     default:
       return [];
     }
@@ -23,6 +25,8 @@ export default function useRecipes() {
       return cocktailsAPI.fetchByName(searchInput);
     case 'firstLetter':
       return cocktailsAPI.fetchByFirstLetter(searchInput);
+    case 'category':
+      return cocktailsAPI.fetchByCategory(searchInput);
     default:
       return [];
     }
