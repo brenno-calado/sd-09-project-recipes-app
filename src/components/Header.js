@@ -14,7 +14,7 @@ function renderButton() {
 function createHeader({ title, showButton }) {
   return (
     <header>
-      <Link to="/perfil"> 
+      <Link to="/perfil">
         <button data-testid="profile-top-btn" type="button" src={ profileImg }>
           <img alt="ProfileImage" src={ profileImg } />
         </button>
