@@ -74,7 +74,7 @@ const DetalhesComida = () => {
       addToFavorites(idMeal);
       favoriteRecipe({
         id: idMeal,
-        type: 'comida',
+        type: 'meal',
         area: strArea,
         category: strCategory,
         alcoholicOrNot: '',
