@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
 import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/MainPage.css';
@@ -19,7 +18,6 @@ function MainDrinks() {
   } = useContext(RecipesAppContext);
   return (
     <>
-      <Header />
       <div className="main-page-container">
         { (redirect) && <Redirect to={ `/bebidas/${cocktailsRecipes[0].idDrink}` } /> }
         { !(isFetching) && (
