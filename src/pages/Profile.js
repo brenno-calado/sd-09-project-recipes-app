@@ -18,9 +18,10 @@ const Profile = () => (
       { email }
     </div>
     <div>
-    <Link to="/receitas-favoritas">
+      <Link to="/receitas-favoritas">
         <button
           data-testid="profile-favorite-btn"
+          type="button"
         >
           Receitas Favoritas
         </button>
@@ -28,6 +29,7 @@ const Profile = () => (
       <Link to="/receitas-feitas">
         <button
           data-testid="profile-done-btn"
+          type="button"
         >
           Receitas Feitas
         </button>
@@ -35,6 +37,7 @@ const Profile = () => (
       <Link to="/">
         <button
           data-testid="profile-logout-btn"
+          type="button"
           onClick={ clearLocalStorage }
         >
           Sair
