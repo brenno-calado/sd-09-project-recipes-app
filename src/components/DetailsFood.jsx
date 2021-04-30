@@ -7,35 +7,27 @@ import Card from './Card';
 
 function DetailsFood({ recipe }) {
   const [recommends, setRecommends] = useState([]);
+  const [allIngrdients, setAllIngrdients] = useState([]);
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
+
+  const getIngredients = () => {
+    const ingredients = [];
+    const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
+    const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
+    ingreQtt.forEach((item, index) => {
+      if (recipe[item] !== null && recipe[item] !== '') {
+        ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
+      }
+    });
+    setAllIngrdients(ingredients);
+  };
 
   useEffect(() => {
     const toSlice = 6;
     fetchBeverages().then((data) => setRecommends(data.slice(0, toSlice)));
-  });
-
-  const getIngredients = () => {
-    const maxNumber = 20;
-    const ingredients = [];
-    for (let index = 1; index <= maxNumber; index += 1) {
-      const ingredient = `strIngredient${index}`;
-      const quantity = `strMeasure${index}`;
-      if (recipe[ingredient] !== '') {
-        ingredients.push({
-          name: recipe[ingredient],
-          quantity: recipe[quantity],
-        });
-      }
-    }
-    return ingredients.map(({ name, quantity }, index) => (
-      <li
-        key={ name }
-        data-testid={ `${index}-ingredient-name-and-measure` }
-      >
-        {`${name} - ${quantity}`}
-      </li>));
-  };
+    getIngredients();
+  }, []);
 
   return (
     <div>
@@ -60,7 +52,13 @@ function DetailsFood({ recipe }) {
         <div>
           <h2>Ingredients</h2>
           <ul>
-            { getIngredients() }
+            {allIngrdients.map(({ name, quantity }, index) => (
+              <li
+                key={ name }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${name} - ${quantity}`}
+              </li>))}
           </ul>
         </div>
         <div>
@@ -82,7 +80,13 @@ function DetailsFood({ recipe }) {
             type="bebidas"
           />))}
         </div>
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
       </div>
     </div>
   );

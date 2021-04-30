@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import { objectOf } from 'prop-types';
 import DetailsDrink from '../components/DetailsDrink';
 import DetailsFood from '../components/DetailsFood';
 import Loading from '../components/Loading';
@@ -27,5 +28,9 @@ function Details({ match: { params: { id } } }) {
     </div>
   );
 }
+
+Details.propTypes = {
+  match: objectOf(),
+}.isRequired;
 
 export default Details;

@@ -7,33 +7,26 @@ import Card from './Card';
 
 function DetailsDrink({ recipe }) {
   const [recommends, setRecommends] = useState([]);
+  const [allIngrdients, setAllIngrdients] = useState([]);
   const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = recipe;
-
-  useEffect(() => {
-    const toSlice = 6;
-    fetchMeals().then((data) => setRecommends(data.slice(0, toSlice)));
-  });
 
   const getIngredients = () => {
     const ingredients = [];
     const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
-    const measure = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
+    const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
     ingreQtt.forEach((item, index) => {
       if (recipe[item] !== null && recipe[item] !== '') {
-        ingredients.push({
-          name: recipe[item],
-          quantity: recipe[measure[index]],
-        });
+        ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
       }
     });
-    return ingredients.map(({ name, quantity }, index) => (
-      <li
-        key={ name }
-        data-testid={ `${index}-ingredient-name-and-measure` }
-      >
-        {`${name} - ${quantity}`}
-      </li>));
+    setAllIngrdients(ingredients);
   };
+
+  useEffect(() => {
+    const toSlice = 6;
+    fetchMeals().then((data) => setRecommends(data.slice(0, toSlice)));
+    getIngredients();
+  }, []);
 
   return (
     <div>
@@ -58,7 +51,13 @@ function DetailsDrink({ recipe }) {
         <div>
           <h2>Ingredients</h2>
           <ul>
-            { getIngredients() }
+            {allIngrdients.map(({ name, quantity }, index) => (
+              <li
+                key={ name }
+                data-testid={ `${index}-ingredient-name-and-measure` }
+              >
+                {`${name} - ${quantity}`}
+              </li>))}
           </ul>
         </div>
         <div>
@@ -76,7 +75,13 @@ function DetailsDrink({ recipe }) {
             type="comidas"
           />))}
         </div>
-        <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+        >
+          Iniciar Receita
+        </button>
       </div>
     </div>
   );
