@@ -33,7 +33,7 @@ export const fetchSearch = (url) => async (dispatch) => {
 };
 
 export const getRecipesThunk = (recipeType, category) => async (dispatch) => {
-  const formatedCategory = category.replace(' ', '_');
+  const formatedCategory = category;
   const recipes = await fetchByCategory(recipeType, formatedCategory);
 
   dispatch(getRecipesAction(recipes));
