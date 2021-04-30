@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchBar from '../components/SearchBar';
 import RecipeList from '../components/RecipeList';
 import { RecipiesContext } from '../context/RecipiesContext';
+import { getMealsByName } from '../services/apiMeals';
 
 const mealToRecipe = (meal) => ({
   // ...meal,
@@ -12,7 +12,11 @@ const mealToRecipe = (meal) => ({
 });
 
 function Comidas() {
-  const { searchMealsList } = useContext(RecipiesContext);
+  const { searchMealsList = [], setSearchMealsList } = useContext(RecipiesContext);
+  useEffect(() => {
+    getMealsByName('').then((data) => { setSearchMealsList(data); });
+  }, [setSearchMealsList]);
+
   return (
     <div>
       <Header title="Comidas" showButton />

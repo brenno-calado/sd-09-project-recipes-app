@@ -1,10 +1,16 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { getMealsByFirstLetter, getMealsByIngredient,
-  getMealsByName } from '../services/apiMeals';
-import { getDrinksByFirstLetter, getDrinksByIngredient,
-  getDrinksByName } from '../services/apiDrinks';
+import {
+  getMealsByFirstLetter,
+  getMealsByIngredient,
+  getMealsByName,
+} from '../services/apiMeals';
+import {
+  getDrinksByFirstLetter,
+  getDrinksByIngredient,
+  getDrinksByName,
+} from '../services/apiDrinks';
 import { RecipiesContext } from '../context/RecipiesContext';
 
 export default function SearchBar({ isMealsPage }) {
@@ -131,7 +137,4 @@ export default function SearchBar({ isMealsPage }) {
 
 SearchBar.propTypes = {
   isMealsPage: PropTypes.bool.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
 };

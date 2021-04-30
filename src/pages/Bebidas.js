@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipeList from '../components/RecipeList';
 import { RecipiesContext } from '../context/RecipiesContext';
+import { getDrinksByName } from '../services/apiDrinks';
 
 const drinkToRecipe = (drink) => ({
   // ...drink,
@@ -12,7 +12,11 @@ const drinkToRecipe = (drink) => ({
 });
 
 function Bebidas() {
-  const { searchDrinksList } = useContext(RecipiesContext);
+  const { searchDrinksList, setSearchDrinksList } = useContext(RecipiesContext);
+  useEffect(() => {
+    getDrinksByName('').then((data) => { setSearchDrinksList(data); });
+  }, [setSearchDrinksList]);
+
   return (
     <div>
       <Header title="Bebidas" showButton />
