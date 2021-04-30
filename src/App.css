@@ -39,11 +39,6 @@
 }
 
 .accordion .card {
-  margin: 0.25rem;
-  width: calc(50% - 0.5rem);
-}
-
-.accordion .card {
   background-color: #ccc;
   border: 0;
   border-radius: 0;
