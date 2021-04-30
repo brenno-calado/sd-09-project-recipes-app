@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Style.css';
+import PropTypes from 'prop-types';
 
 class index extends Component {
   recipeBox(recipe, indexNumb) {
@@ -40,10 +41,14 @@ class index extends Component {
     const { recommendations } = this.props;
     return (
       <div className="recommendations-box">
-        {recommendations.map((drink, indexNumb) => this.recipeBox(drink, indexNumb))}
+        {recommendations.map((recipe, indexNumb) => this.recipeBox(recipe, indexNumb))}
       </div>
     );
   }
 }
+
+index.propTypes = {
+  recommendations: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default index;

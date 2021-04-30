@@ -16,7 +16,7 @@ class index extends Component {
     if(recipe){console.log(recipe)};
     const data = {
       id: recipe.idMeal || recipe.idDrink,
-      type: recipe.idMeal ? 'Comida' : 'Bebida',
+      type: recipe.idMeal ? 'comida' : 'bebida',
       area: recipe.strArea ? recipe.strArea : '',
       category:  recipe.strCategory ? recipe.strCategory : '',
       alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',

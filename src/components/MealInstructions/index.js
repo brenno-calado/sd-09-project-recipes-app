@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class index extends Component {
   render() {
@@ -15,5 +16,9 @@ class index extends Component {
     );
   }
 }
+
+index.propTypes = {
+  instructions: PropTypes.string.isRequired,
+};
 
 export default index;

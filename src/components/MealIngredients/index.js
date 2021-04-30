@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class index extends Component {
   render() {
@@ -8,14 +9,14 @@ class index extends Component {
         <h3>Ingredientes</h3>
         <div className="background-gray">
           <ul>
-            {ingredients.map((ingrediente, index) => (
+            {ingredients.map((ingredient, indexNumber) => (
               <li
-                key={ ingrediente }
-                data-testid={ `${index}-ingredient-name-and-measure` }
+                key={ ingredient }
+                data-testid={ `${indexNumber}-ingredient-name-and-measure` }
               >
-                {ingrediente}
+                {ingredient}
                 {' - '}
-                {quantities[index]}
+                {quantities[indexNumber]}
               </li>))}
           </ul>
         </div>
@@ -23,5 +24,10 @@ class index extends Component {
     );
   }
 }
+
+index.propTypes = {
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  quantities: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default index;
