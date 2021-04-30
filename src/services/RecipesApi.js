@@ -36,7 +36,6 @@ async function searchApi(typeRecipe, typeSearch, itemSearch) {
     }
     return recipesSearch.meals;
   }
-  console.log(recipesSearch);
   if (recipesSearch.drinks === null) {
     return [];
   }
