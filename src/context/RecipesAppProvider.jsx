@@ -133,7 +133,7 @@ function RecipesAppProvider({ children }) {
     getRecipes();
     getCategories();
     getDrinksRecomendation();
-    getMealRecomendation()
+    getMealRecomendation();
   }, []);
 
   const contextValue = {

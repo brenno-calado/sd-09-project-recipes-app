@@ -1,11 +1,17 @@
-import React, { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import ReactPlayer from 'react-player';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import RecipesAppContext from '../context/RecipesAppContext';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../styles/details.css';
 
-function RecipeDetails() {
+const copy = require('clipboard-copy');
+
+function RecipeDetails({ match: { params: { id } } }) {
   const {
     isFetching,
     mealId,
@@ -13,12 +19,28 @@ function RecipeDetails() {
     drinkRecomendation,
   } = useContext(RecipesAppContext);
 
-  const location = useLocation();
-  const id = location.pathname.split('comidas/', 2)[1];
+  const [copied, setCopy] = useState(false);
+
+  const history = useHistory();
   const maxRecomendations = 6;
 
+  function renderMessage() {
+    return (
+      <span>Link copiado!</span>
+    );
+  }
+
+  function shareButtonClick() {
+    setCopy(true);
+    copy(`http://localhost:3000${history.location.pathname}`);
+    renderMessage();
+  }
+
   useEffect(() => {
-    getMealId(id);
+    async function getMealById() {
+      await getMealId(id);
+    }
+    getMealById();
   }, [getMealId, id]);
 
   const ingredientsList = () => {
@@ -39,21 +61,23 @@ function RecipeDetails() {
         <div>
           <img
             data-testid="recipe-photo"
+            className="recipe-photo"
             alt={ mealId.strMeal }
             src={ mealId.strMealThumb }
           />
-          <h3 data-testid="recipe-title">{ mealId.strMeal }</h3>
+          <h3 data-testid="recipe-title" className="recipe-title">{ mealId.strMeal }</h3>
           <button
             type="button"
             data-testid="share-btn"
+            onClick={ shareButtonClick }
           >
-            Compartilhar
+            { copied ? renderMessage() : (<img src={ shareIcon } alt="Compartilhar" />) }
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
           >
-            Favoritar
+            <img src={ whiteHeartIcon } alt="Favoritar" />
           </button>
           <span data-testid="recipe-category">{ mealId.strCategory }</span>
           <ul className="list-ingredients">
@@ -66,12 +90,15 @@ function RecipeDetails() {
               </li>
             ))}
           </ul>
-          <p data-testid="instructions">{ mealId.strInstructions }</p>
+          <p data-testid="instructions" className="instructions">
+            { mealId.strInstructions }
+          </p>
           <ReactPlayer
             url={ mealId.strYoutube }
             data-testid="video"
+            width="100%"
           />
-          <Carousel>
+          <Carousel width="100%">
             { drinkRecomendation.slice(0, maxRecomendations).map((drink, index) => (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img alt="Recomendation" src={ drink.strDrinkThumb } />
@@ -88,13 +115,18 @@ function RecipeDetails() {
           <button
             type="button"
             data-testid="start-recipe-btn"
+            className="button-start-recipe"
           >
-            Iniciar
+            Iniciar Receita
           </button>
         </div>
       ) }
     </div>
   );
 }
+
+RecipeDetails.propTypes = {
+  match: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+};
 
 export default RecipeDetails;

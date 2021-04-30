@@ -1,10 +1,16 @@
-import React, { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import RecipesAppContext from '../context/RecipesAppContext';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import '../styles/details.css';
 
-function DrinkDetails() {
+const copy = require('clipboard-copy');
+
+function DrinkDetails({ match: { params: { id } } }) {
   const {
     isFetching,
     drinkId,
@@ -12,10 +18,22 @@ function DrinkDetails() {
     mealRecomendation,
   } = useContext(RecipesAppContext);
 
-  const location = useLocation();
-  const id = location.pathname.split('bebidas/', 2)[1];
+  const [copied, setCopy] = useState(false);
+
+  const history = useHistory();
   const maxRecomendations = 6;
-  console.log(mealRecomendation);
+
+  function renderMessage() {
+    return (
+      <span>Link copiado!</span>
+    );
+  }
+
+  function shareButtonClick() {
+    setCopy(true);
+    copy(`http://localhost:3000${history.location.pathname}`);
+    renderMessage();
+  }
 
   useEffect(() => {
     getDrinkId(id);
@@ -39,23 +57,30 @@ function DrinkDetails() {
         <div>
           <img
             data-testid="recipe-photo"
-            alt={ drinkId.strMeal }
-            src={ drinkId.strMealThumb }
+            className="recipe-photo"
+            alt={ drinkId.strDrink }
+            src={ drinkId.strDrinkThumb }
           />
-          <h3 data-testid="recipe-title">{ drinkId.strMeal }</h3>
+          <h3
+            data-testid="recipe-title"
+            className="recipe-title"
+          >
+            { drinkId.strDrink }
+          </h3>
           <button
             type="button"
             data-testid="share-btn"
+            onClick={ shareButtonClick }
           >
-            Compartilhar
+            { copied ? renderMessage() : (<img src={ shareIcon } alt="Compartilhar" />) }
           </button>
           <button
             type="button"
             data-testid="favorite-btn"
           >
-            Favoritar
+            <img src={ whiteHeartIcon } alt="Favoritar" />
           </button>
-          <span data-testid="recipe-category">{ drinkId.strCategory }</span>
+          <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
           <ul className="list-ingredients">
             { ingredientsList().map((ingredients, index) => (
               <li
@@ -66,16 +91,18 @@ function DrinkDetails() {
               </li>
             ))}
           </ul>
-          <p data-testid="instructions">{ drinkId.strInstructions }</p>
+          <p data-testid="instructions" className="instructions">
+            { drinkId.strInstructions }
+          </p>
           <Carousel>
-            { mealRecomendation.slice(0, maxRecomendations).map((drink, index) => (
+            { mealRecomendation.slice(0, maxRecomendations).map((meal, index) => (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
-                <img alt="Recomendation" src={ drink.strDrinkThumb } />
+                <img alt="Recomendation" src={ meal.strMealThumb } />
                 <Carousel.Caption>
                   <p
                     data-testid={ `${index}-recomendation-title` }
                   >
-                    {drink.strDrink}
+                    {meal.strMeal}
                   </p>
                 </Carousel.Caption>
               </Carousel.Item>
@@ -84,13 +111,18 @@ function DrinkDetails() {
           <button
             type="button"
             data-testid="start-recipe-btn"
+            className="button-start-recipe"
           >
-            Iniciar
+            Iniciar Receita
           </button>
         </div>
       ) }
     </div>
   );
 }
+
+DrinkDetails.propTypes = {
+  match: PropTypes.objectOf(PropTypes.objectOf(PropTypes.string)).isRequired,
+};
 
 export default DrinkDetails;
