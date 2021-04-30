@@ -30,8 +30,7 @@ function MealsDetails() {
         </p>)) }
       <p data-testid="instructions">{strInstructions}</p>
       <YoutubePlayer url={ strYoutube } title={ strMeal } />
-      <span data-testid="0-recomendation-card">Card de Recomendaçoes</span>
-      <span data-testid="1-recomendation-card">Card de Recomendaçoes</span>
+      <DrinksRecomendations />
       <button
         data-testid="start-recipe-btn"
         type="button"
@@ -39,7 +38,6 @@ function MealsDetails() {
       >
         Iniciar Receita
       </button>
-      <DrinksRecomendations />
     </section>
   );
 }
