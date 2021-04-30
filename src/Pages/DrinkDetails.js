@@ -5,16 +5,28 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { drinkDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
 import { foodThunkAction } from '../action/FoodAndDrinkAction';
+import { doneRecipesAction,
+  favoriteRecipesAction, inProgressRecipesAction } from '../action/ButtonAction';
 import CarouselDrinkDetails from '../components/CarouselDrinkDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { doneRecipesAction, inProgressRecipesAction } from '../action/ButtonAction';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const copy = require('clipboard-copy');
 
 class DrinkDetails extends React.Component {
   constructor(props) {
     super(props);
 
     this.ingredientName = this.ingredientName.bind(this);
+    this.copyCodeToClipboard = this.copyCodeToClipboard.bind(this);
+    this.heartToggle = this.heartToggle.bind(this);
+    this.verificFavorite = this.verificFavorite.bind(this);
+
+    this.state = {
+      linkCopy: false,
+      heartToggle: false,
+    };
   }
 
   componentDidMount() {
@@ -24,14 +36,25 @@ class DrinkDetails extends React.Component {
       getFoodBoolean,
       getFoodName,
       setDone,
-      setProgress } = this.props;
-
+      setProgress,
+      setFavorite } = this.props;
     setDrinksDetails(id);
     setFood('', getFoodBoolean, getFoodName);
     const localDone = JSON.parse(localStorage.getItem('doneRecipes'));
     setDone(localDone);
     const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     setProgress(localProgress, 'cocktails');
+    const localFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    setFavorite(localFavorite);
+    this.verificFavorite();
+  }
+
+  verificFavorite() {
+    const { match: { params: { id } } } = this.props;
+    const localFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (localFavorite && localFavorite.find((favorite) => favorite.id === id)) {
+      this.setState({ heartToggle: true });
+    }
   }
 
   entreisLoop(food, type) {
@@ -50,7 +73,6 @@ class DrinkDetails extends React.Component {
   ingredientName(drink) {
     const ingredientFilter = this.entreisLoop(drink, 'Ingredient');
     const measureFilter = this.entreisLoop(drink, 'Measure');
-
     const totalIngredient = ingredientFilter.map((ingredient, index) => (
       <p key={ ingredient } data-testid={ `${index}-ingredient-name-and-measure` }>
         {`-${ingredient} - ${measureFilter[index]}`}
@@ -59,21 +81,59 @@ class DrinkDetails extends React.Component {
     return totalIngredient;
   }
 
+  copyCodeToClipboard() {
+    copy(window.location.href);
+    this.setState({ linkCopy: true });
+  }
+
+  removeFavorite(favoriteRecipes) {
+    const { match: { params: { id } }, setFavorite } = this.props;
+    const favoriteFilter = favoriteRecipes.filter((favorite) => favorite.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteFilter));
+    setFavorite(favoriteFilter);
+  }
+
+  heartToggle() {
+    const { heartToggle } = this.state;
+    const { getDrinkDetails, getFavorite, setFavorite } = this.props;
+    const newFavorite = {
+      id: getDrinkDetails.idDrink,
+      type: 'bebida',
+      area: '',
+      category: getDrinkDetails.strCategory,
+      alcoholicOrNot: getDrinkDetails.strAlcoholic,
+      name: getDrinkDetails.strDrink,
+      image: getDrinkDetails.strDrinkThumb,
+    };
+    let favoriteRecipes = [];
+    if (getFavorite) {
+      favoriteRecipes = [...getFavorite, newFavorite];
+    } else {
+      favoriteRecipes = [newFavorite];
+    }
+    if (heartToggle) {
+      this.setState({ heartToggle: false });
+      this.removeFavorite(favoriteRecipes);
+    } else {
+      this.setState({ heartToggle: true });
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+      setFavorite(favoriteRecipes);
+    }
+  }
+
   render() {
     const { match: { params: { id } },
       getDrinkDetails, getInProgress, getDoneRecipes } = this.props;
+    const { linkCopy, heartToggle } = this.state;
     let nameButton = 'Iniciar Receita';
     let classButton = true;
-
     if (getInProgress && Object.values(getInProgress.cocktails)
       .find((progress) => Object.keys(progress)[0] === id)) {
       nameButton = 'Continuar Receita';
     }
-
     if (getDoneRecipes && getDoneRecipes.find((done) => done.id === id)) {
       classButton = false;
     }
-
     return (
       <div>
         <div>
@@ -91,16 +151,28 @@ class DrinkDetails extends React.Component {
               className="btn"
               type="button"
               data-testid="share-btn"
+              onClick={ () => this.copyCodeToClipboard() }
             >
-              <img src={ shareIcon } alt="share icon" className="icoBtn" />
+              <img src={ shareIcon } alt="share" className="icoBtn" />
             </button>
             <button
               className="btn"
               type="button"
-              data-testid="favorite-btn"
+              onClick={ () => this.heartToggle() }
             >
-              <img src={ whiteHeartIcon } alt="white heart icon" className="icoBtn" />
+              { heartToggle ? <img
+                src={ blackHeartIcon }
+                alt="favorit"
+                data-testid="favorite-btn"
+                className="icoBtn"
+              /> : <img
+                src={ whiteHeartIcon }
+                alt="favorit"
+                data-testid="favorite-btn"
+                className="icoBtn"
+              />}
             </button>
+            { linkCopy && <p>Link copiado!</p> }
           </div>
         </div>
         <p data-testid="recipe-category">{getDrinkDetails.strAlcoholic}</p>
@@ -148,6 +220,7 @@ const mapStateToProps = (state) => ({
   getFoodBoolean: state.FoodAndDrinkReducer.foodBoolean,
   getInProgress: state.ButtonReducer.inProgressRecipes,
   getDoneRecipes: state.ButtonReducer.doneRecipes,
+  getFavorite: state.ButtonReducer.favoriteRecipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -157,6 +230,7 @@ const mapDispatchToProps = (dispatch) => ({
   ),
   setDone: (done) => dispatch(doneRecipesAction(done)),
   setProgress: (progress, name) => dispatch(inProgressRecipesAction(progress, name)),
+  setFavorite: (favorite) => dispatch(favoriteRecipesAction(favorite)),
 });
 
 DrinkDetails.propTypes = ({

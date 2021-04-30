@@ -1,33 +1,27 @@
 .btnExploreFood {
-  position: absolute;
-  width: 322px;
+  align-items: flex-end;
+  color: black;
+  display: flex;
+  font-size: 32px;
+  font-style: normal;
   height: 89px;
   left: 20px;
-  top: 58px;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 32px;
   line-height: 37px;
-  display: flex;
-  align-items: flex-end;
-  color: #000000;
+  position: absolute;
+  top: 58px;
+  width: 322px;
 }
 
 .btnExploreDrink {
-  position: absolute;
-  width: 322px;
+  align-items: flex-end;
+  color: black;
+  display: flex;
+  font-size: 32px;
+  font-style: normal;
   height: 89px;
   left: 19px;
-  top: 173px;
-  
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 32px;
   line-height: 37px;
-  display: flex;
-  align-items: flex-end;
-  
-  color: #000000;
+  position: absolute;
+  top: 173px;
+  width: 322px;
 }
