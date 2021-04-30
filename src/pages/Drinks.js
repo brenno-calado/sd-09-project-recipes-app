@@ -14,6 +14,7 @@ import { receiveCategoryDrink, receiveDataDrink } from '../redux/actions';
 function Drinks() {
   const [loading, isFetching] = useState(true);
   const [categoryBtn, getCategory] = useState(undefined);
+  const [lastCategory, checkCategory] = useState(undefined);
 
   const drinks = useSelector((state) => state.drinkReducer.drinks);
   const dispatch = useDispatch();
@@ -22,7 +23,6 @@ function Drinks() {
   useEffect(() => {
     async function cardMount(categoryType) {
       if (categoryType) {
-        console.log('com parametros');
         isFetching(true);
 
         const number12 = 12;
@@ -39,6 +39,7 @@ function Drinks() {
 
         return isFetching(false);
       }
+
       const number12 = 12;
       const number5 = 5;
 
@@ -54,13 +55,17 @@ function Drinks() {
       return isFetching(false);
     }
     cardMount(categoryBtn);
-  }, [categoryBtn, dispatch]);
+  }, [categoryBtn, lastCategory, dispatch]);
 
   async function categoryCheck(param) {
-    console.log(`chamou função category ${param}`);
-    getCategory(param);
+    if (lastCategory === param) {
+      getCategory(undefined);
+      checkCategory(undefined);
+    } else {
+      getCategory(param);
+      checkCategory(param);
+    }
   }
-
   return (
     <>
       { loading ? <h1> Loading...</h1> : DrinkCards(category, drinks, categoryCheck) }
