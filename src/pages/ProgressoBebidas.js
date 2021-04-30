@@ -15,13 +15,14 @@ const ProgressoBebidas = () => {
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
+  const [ingredientsStatus, setIngredientsStatus] = useState({});
 
   const { favoriteRecipe,
     removeFromFavorite,
     addToFavorites,
     removeFromTheFavorites,
     favorites,
-    finishRecipe } = useContext(AppContext);
+    finishRecipe, inProgressDrink } = useContext(AppContext);
 
   let stepsLimit = 1;
   const getIngredients = () => {
@@ -89,7 +90,7 @@ const ProgressoBebidas = () => {
       alcoholicOrNot: strAlcoholic,
       name: strDrink,
       image: strDrinkThumb,
-      doneDate: '',
+      doneDate: new Date(),
       tags: strTags,
     };
     finishRecipe(doneInfos);
@@ -117,6 +118,10 @@ const ProgressoBebidas = () => {
               key={ index }
               setStepsFinished={ setStepsFinished }
               stepsFinished={ stepsFinished }
+              ingredientsStatus={ ingredientsStatus }
+              setIngredientsStatus={ setIngredientsStatus }
+              inProgressDrink={ inProgressDrink }
+              idRecipe={ idDrink }
             />);
         }) }
       </div>

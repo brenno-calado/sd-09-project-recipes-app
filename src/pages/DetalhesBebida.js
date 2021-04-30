@@ -121,7 +121,7 @@ const DetalhesBebida = () => {
           <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
         </div>
       )) }
-      <Link to={ `${id}/in-progress` }>
+      <Link to={ { pathname: `${id}/in-progress`, ingredientsList: getIngredients() } }>
         <button
           type="button"
           data-testid="start-recipe-btn"

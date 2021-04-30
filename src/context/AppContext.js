@@ -24,21 +24,25 @@ const AppProvider = ({ children }) => {
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
 
-  // const inProgressRecipesObject = {
-  //   cocktails: {},
-  //   meals: {},
-  // };
-  // const [inProgressRecipes, setInProgressRecipes] = useState(inProgressRecipesObject);
+  const [inProgressDrinks, setInProgressDrinks] = useState(
+    JSON.parse(localStorage.getItem('inProgressDrinks')) || {},
+  );
+  const [inProgressMeals, setInProgressMeals] = useState(
+    JSON.parse(localStorage.getItem('inProgressMeals')) || {},
+  );
 
-  // const setLocalStorageInProgress = (type, id, ingredientsArray) => {
-  //   if (type === 'Meal') {
-  //     setInProgressRecipes({ ...inProgressRecipes, meals: { [id]: ingredientsArray } });
-  //   }
-  //   if (type === 'Drink') {
-  //     setInProgressRecipes({ ...inProgressRecipes,
-  //       cocktails: { [id]: ingredientsArray } });
-  //   }
-  // };
+  const inProgressDrink = (recipe) => {
+    setInProgressDrinks({
+      ...inProgressDrinks,
+      recipe,
+    });
+  };
+  const inProgressMeal = (recipe) => {
+    setInProgressMeals([
+      ...inProgressMeals,
+      recipe,
+    ]);
+  };
 
   const fetchFoods = async () => {
     const response = await getFoods();
@@ -102,6 +106,14 @@ const AppProvider = ({ children }) => {
   }, [favoriteRecipes]);
 
   useEffect(() => {
+    localStorage.setItem('inProgressDrinks', JSON.stringify(inProgressDrinks));
+  }, [inProgressDrinks]);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressDrinks', JSON.stringify(inProgressMeals));
+  }, [inProgressMeals]);
+
+  useEffect(() => {
     fetchFoods();
     fetchDrinks();
     fetchFoodCategories();
@@ -127,6 +139,8 @@ const AppProvider = ({ children }) => {
     addToFavorites,
     removeFromTheFavorites,
     finishRecipe,
+    inProgressDrink,
+    inProgressMeal,
   };
   return (
     <AppContext.Provider value={ context }>
