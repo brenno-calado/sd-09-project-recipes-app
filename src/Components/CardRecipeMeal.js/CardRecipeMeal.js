@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 function CardRecipeMeal({ recipe, index }) {
   return (
-    <Link to={ `/comidas/${recipe.idMeal}` }>
+    <Link to={ { pathname: `/comidas/${recipe.idMeal}`, pageType: 'comidas' } }>
       <div className="card-recipe-container" data-testid={ `${index}-recipe-card` }>
         <img
           src={ recipe.strMealThumb }
