@@ -67,6 +67,7 @@ const ProgressoBebidas = () => {
         alcoholicOrNot: strAlcoholic,
         name: strDrink,
         image: strDrinkThumb,
+        link: linkShared,
       });
     } else {
       removeFromTheFavorites(idDrink);
