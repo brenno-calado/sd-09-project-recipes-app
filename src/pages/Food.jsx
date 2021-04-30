@@ -11,10 +11,10 @@ import CategoryButton from '../components/CategoryButton';
 import Footer from '../components/Footer';
 
 function Food({ match: { path } }) {
-  const [result, setResult] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [result, setResult] = useState({});
+  const [categories, setCategories] = useState({});
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState({});
   const maxResult = 12;
 
   useCategory(fetchCategoryMeals, setCategories);
@@ -31,7 +31,7 @@ function Food({ match: { path } }) {
   };
 
   const renderCategories = () => {
-    if (categories.length === 0) return;
+    if (Object.keys(categories).length === 0) return;
     const maxCategories = 5;
     return categories.meals.slice(0, maxCategories)
       .map(({ strCategory }) => (
@@ -55,12 +55,12 @@ function Food({ match: { path } }) {
     ));
 
   const renderFilter = () => {
-    if (filter.meals === undefined) return 'loading...';
+    if (Object.keys(filter).length === 0) return 'loading...';
     return renderRecipeCards(filter);
   };
 
   const renderResult = () => {
-    if (result.length === 0) return '...loading';
+    if (Object.keys(result).length === 0) return '...loading';
     if (result.meals === null) {
       return window
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -91,7 +91,7 @@ function Food({ match: { path } }) {
       <section
         className="card-container"
       >
-        { filter.length === 0 ? renderResult() : renderFilter() }
+        { Object.keys(filter).length === 0 ? renderResult() : renderFilter() }
       </section>
       <Footer />
     </div>

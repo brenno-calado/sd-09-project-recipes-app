@@ -11,10 +11,10 @@ import CategoryButton from '../components/CategoryButton';
 import Footer from '../components/Footer';
 
 function Drinks({ match: { path } }) {
-  const [result, setResult] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [result, setResult] = useState({});
+  const [categories, setCategories] = useState({});
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState({});
   const maxResult = 12;
 
   useCategory(fetchCategoryDrinks, setCategories);
@@ -27,12 +27,13 @@ function Drinks({ match: { path } }) {
       return setFilter(toFilter);
     }
     setSelectedCategory('');
-    return setFilter([]);
+    return setFilter({});
   };
 
   const renderCategories = () => {
-    if (categories.length === 0) return;
+    if (Object.keys(categories).length === 0) return;
     const maxCategories = 5;
+    console.log(categories);
     return categories.drinks.slice(0, maxCategories)
       .map(({ strCategory }) => (
         <CategoryButton
@@ -55,12 +56,13 @@ function Drinks({ match: { path } }) {
     ));
 
   const renderFilter = () => {
-    if (filter.drinks === undefined) return 'loading...';
+    console.log(filter.drinks);
+    if (Object.keys(filter).length === undefined) return 'loading...';
     return renderRecipeCards(filter);
   };
 
   const renderResult = () => {
-    if (result.length === 0) return '...loading';
+    if (Object.keys(result).length === 0) return '...loading';
     if (result.drinks === null) {
       return window
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -81,7 +83,7 @@ function Drinks({ match: { path } }) {
           type="button"
           onClick={ () => {
             setSelectedCategory('');
-            return setFilter([]);
+            return setFilter({});
           } }
           data-testid="All-category-filter"
         >
@@ -91,7 +93,7 @@ function Drinks({ match: { path } }) {
       <section
         className="card-container"
       >
-        { filter.length === 0 ? renderResult() : renderFilter() }
+        { Object.keys(filter).length === 0 ? renderResult() : renderFilter() }
       </section>
       <Footer />
     </div>

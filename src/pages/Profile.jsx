@@ -7,7 +7,7 @@ class Profile extends React.Component {
   render() {
     return (
       <div>
-        <Header title="perfil" />
+        <Header title="Perfil" />
         <p data-testid="profile-email">{localStorage.getItem('user')}</p>
         <Link to="/receitas-feitas">
           <button
