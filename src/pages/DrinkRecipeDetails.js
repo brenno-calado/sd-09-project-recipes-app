@@ -9,6 +9,7 @@ import { getDrinkDetailsById, getRecommendedFood } from '../services/fetchApi';
 import styles from './recipeDetails.module.css';
 import useIngredientList from '../hooks/useIngredientList';
 import useShouldRedirect from '../hooks/useShoulRedirect';
+import useHandleFavoriteDrinks from '../hooks/useHandleFavoriteDrinks';
 
 function DrinkRecipeDetails(props) {
   const { match } = props;
@@ -16,13 +17,27 @@ function DrinkRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
-  const [recommendedFood, setRecommendedFood] = useState();
   const [favorite, setFavorite] = useState(false);
+  const [recommendedFood, setRecommendedFood] = useState();
   const [ingredientList] = useIngredientList();
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
-  const six = 6;
+  const [handleFavorite] = useHandleFavoriteDrinks();
+  const [drinksLocal, setMealLocal] = useState([]);
 
-  console.log(apiData);
+  const six = 6;
+  const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
+
+  useEffect(() => {
+    if (localStorage.length > 0) {
+      const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setMealLocal(repositoresLocal);
+      repositoresLocal.forEach(({ id: favoriteId }) => {
+        if (favoriteId === id) {
+          setFavorite(true);
+        }
+      });
+    }
+  }, [id]);
 
   useEffect(() => {
     getRecommendedFood()
@@ -38,38 +53,6 @@ function DrinkRecipeDetails(props) {
         setIsFetching(true);
       });
   }, [id]);
-
-  function handleFavorite() {
-    setFavorite(!favorite);
-    if (apiData && !favorite) {
-      const mealLocalStorage = apiData.drinks.map(({
-        idDrink,
-        strArea,
-        strCategory,
-        strAlcoholic,
-        strDrink,
-        strMealThumb,
-      }) => (
-        [{ id: idDrink,
-          type: 'bebida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: strAlcoholic,
-          name: strDrink,
-          image: strMealThumb }]
-      ));
-      localStorage.setItem('favoriteRecipes', JSON.stringify(mealLocalStorage));
-    }
-    if (favorite) {
-      localStorage.removeItem('favoriteRecipes');
-    }
-  }
-
-  useEffect(() => {
-    if (localStorage.length) {
-      setFavorite(true);
-    }
-  }, []);
 
   if (shouldRedirect) return <Redirect to={ `/bebidas/${id}/in-progress` } />;
   function renderDetails() {
@@ -92,7 +75,7 @@ function DrinkRecipeDetails(props) {
               isAlcoholic={ strAlcoholic }
               categoryText={ strCategory }
               instructions={ strInstructions }
-              handleFavoriteClick={ handleFavorite }
+              handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
               favorite={ favorite }
             >
               {apiData && ingredientList(apiData)}

@@ -12,6 +12,7 @@ function CardDetails({
   function handleClickUrl() {
     setCopyUrl('Link copiado!');
   }
+
   const url = window.location.href;
   return (
     <li>

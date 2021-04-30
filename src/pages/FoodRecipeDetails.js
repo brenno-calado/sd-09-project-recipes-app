@@ -10,6 +10,7 @@ import { getFoodDetailsById, getRecommendedDrink } from '../services/fetchApi';
 import styles from './recipeDetails.module.css';
 import useIngredientFoodList from '../hooks/useIngredientFoodList';
 import useShouldRedirect from '../hooks/useShoulRedirect';
+import useHandleFavoriteFoods from '../hooks/useHandleFavoriteFoods';
 
 function FoodRecipeDetails(props) {
   const { match } = props;
@@ -21,8 +22,11 @@ function FoodRecipeDetails(props) {
   const [favorite, setFavorite] = useState(false);
   const [ingredientList] = useIngredientFoodList();
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
-  console.log(apiData);
+  const [handleFavorite] = useHandleFavoriteFoods();
+  const [mealLocal, setMealLocal] = useState([]);
   const six = 6;
+
+  const favoriteParams = { apiData, id, mealLocal, favorite, setFavorite };
 
   useEffect(() => {
     getRecommendedDrink()
@@ -39,36 +43,17 @@ function FoodRecipeDetails(props) {
       });
   }, [id]);
 
-  function handleFavorite() {
-    setFavorite(!favorite);
-    if (apiData && !favorite) {
-      const mealLocalStorage = apiData.meals.map(({
-        idMeal,
-        strArea,
-        strCategory,
-        strMeal,
-        strMealThumb,
-      }) => (
-        [{ id: idMeal,
-          type: 'comida',
-          area: strArea,
-          category: strCategory,
-          alcoholicOrNot: '',
-          name: strMeal,
-          image: strMealThumb }]
-      ));
-      localStorage.setItem('favoriteRecipes', JSON.stringify(mealLocalStorage));
-    }
-    if (favorite) {
-      localStorage.removeItem('favoriteRecipes');
-    }
-  }
-
   useEffect(() => {
-    if (localStorage.length) {
-      setFavorite(true);
+    if (localStorage.length > 0) {
+      const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      setMealLocal(repositoresLocal);
+      repositoresLocal.forEach(({ id: favoriteId }) => {
+        if (favoriteId === id) {
+          setFavorite(true);
+        }
+      });
     }
-  }, []);
+  }, [id]);
 
   if (shouldRedirect) return <Redirect to={ `/comidas/${id}/in-progress` } />;
 
@@ -92,17 +77,17 @@ function FoodRecipeDetails(props) {
               video={ strYoutube }
               categoryText={ strCategory }
               instructions={ strInstructions }
-              handleFavoriteClick={ handleFavorite }
+              handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
               favorite={ favorite }
             >
               { apiData && ingredientList(apiData)}
             </CardDetails>
           ))
         )}
-        <div className={ styles.scrollingWrapper }>
+        <div className={ styles.scrollingWrapper } style={ { marginLeft: 50 } }>
           <CarouselProvider
-            naturalSlideWidth={ 10 }
-            naturalSlideHeight={ 10 }
+            naturalSlideWidth={ 100 }
+            naturalSlideHeight={ 100 }
             totalSlides={ 6 }
             infinite
             visibleSlides={ 2 }
@@ -115,6 +100,7 @@ function FoodRecipeDetails(props) {
                   index < six && (
                     <Slide index={ index }>
                       <div
+                        style={ { marginLeft: 100 } }
                         key={ idDrink }
                         data-testid={ `${index}-recomendation-card` }
                       >

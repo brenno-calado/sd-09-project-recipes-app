@@ -36,8 +36,14 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <DrinkRecipeDetails { ...props } /> }
         />
-        <Route path="/comidas/:id/in-progress" component={ FoodRecipeInProgress } />
-        <Route path="/bebidas/:id/in-progress" component={ DrinkRecipeInProgress } />
+        <Route
+          path="/comidas/:id/in-progress"
+          render={ (props) => <FoodRecipeInProgress { ...props } /> }
+        />
+        <Route
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <DrinkRecipeInProgress { ...props } /> }
+        />
         <Route path="/explorar" exact component={ Explore } />
         <Route path="/explorar/comidas" exact component={ ExploreFoods } />
         <Route path="/explorar/bebidas" exact component={ ExploreDrinks } />
