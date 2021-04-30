@@ -27,10 +27,18 @@ const Provider = ({ children }) => {
   const [recipesType, setRecipesType] = useState('');
   const location = useLocation();
 
-  const changeRecipesType = () => (
-    location.pathname === '/bebidas'
-      ? setRecipesType('drinks') : setRecipesType('meals')
-  );
+  const changeRecipesType = () => {
+    switch (location.pathname) {
+    case '/bebidas':
+      setRecipesType('drinks');
+      break;
+    case '/comidas':
+      setRecipesType('meals');
+      break;
+    default:
+      setRecipesType(recipesType);
+    }
+  };
 
   const checkCategoryAndGetFood = () => (
     category === 'All'
