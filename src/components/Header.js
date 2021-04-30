@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import profileImg from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
+import { RecipiesContext } from '../context/RecipiesContext';
 
-function renderButton() {
-  return (
-    <button data-testid="search-top-btn" type="button" src={ searchImg }>
-      <img alt="SearchImage" src={ searchImg } />
-    </button>
-  );
-}
-
-function createHeader({ title, showButton }) {
+function CreateHeader({ title, showButton }) {
+  const { showSearchBar, setShowSearchBar } = useContext(RecipiesContext);
+  const changeSearchBarStatus = () => setShowSearchBar(!showSearchBar);
+  function renderButton() {
+    return (
+      <button
+        data-testid="search-top-btn"
+        type="button"
+        src={ searchImg }
+        onClick={ changeSearchBarStatus }
+      >
+        <img alt="SearchImage" src={ searchImg } />
+      </button>
+    );
+  }
   return (
     <header>
       <Link to="/perfil">
@@ -25,4 +33,9 @@ function createHeader({ title, showButton }) {
   );
 }
 
-export default createHeader;
+CreateHeader.propTypes = {
+  title: PropTypes.string,
+  showButton: PropTypes.bool,
+}.isRequired;
+
+export default CreateHeader;

@@ -12,7 +12,11 @@ const mealToRecipe = (meal) => ({
 });
 
 function Comidas() {
-  const { searchMealsList = [], setSearchMealsList } = useContext(RecipiesContext);
+  const {
+    searchMealsList,
+    setSearchMealsList,
+    showSearchBar,
+  } = useContext(RecipiesContext);
   useEffect(() => {
     getMealsByName('').then((data) => { setSearchMealsList(data); });
   }, [setSearchMealsList]);
@@ -20,7 +24,7 @@ function Comidas() {
   return (
     <div>
       <Header title="Comidas" showButton />
-      <SearchBar isMealsPage />
+      { showSearchBar && <SearchBar isMealsPage /> }
       <RecipeList listItems={ searchMealsList.map(mealToRecipe) } />
     </div>
   );

@@ -12,7 +12,11 @@ const drinkToRecipe = (drink) => ({
 });
 
 function Bebidas() {
-  const { searchDrinksList, setSearchDrinksList } = useContext(RecipiesContext);
+  const {
+    searchDrinksList,
+    setSearchDrinksList,
+    showSearchBar,
+  } = useContext(RecipiesContext);
   useEffect(() => {
     getDrinksByName('').then((data) => { setSearchDrinksList(data); });
   }, [setSearchDrinksList]);
@@ -20,7 +24,7 @@ function Bebidas() {
   return (
     <div>
       <Header title="Bebidas" showButton />
-      <SearchBar isMealsPage={ false } />
+      { showSearchBar && <SearchBar isMealsPage={ false } /> }
       <RecipeList listItems={ searchDrinksList.map(drinkToRecipe) } />
     </div>
   );
