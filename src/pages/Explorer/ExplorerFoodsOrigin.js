@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../../components/Header';
 
-export default function Profile() {
+export default function ExplorerFoodsOrigin() {
   return (
     <div>
-      <Header name="Perfil" icon="true" currentPage="Profile" />
+      <Header title="Explorar Origem" icon="true" currentPage="Drinks" />
       Explorar Origem
     </div>
   );
