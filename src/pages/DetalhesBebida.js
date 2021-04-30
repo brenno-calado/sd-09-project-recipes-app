@@ -70,7 +70,7 @@ const DetalhesBebida = () => {
       addToFavorites(idDrink);
       favoriteRecipe({
         id: idDrink,
-        type: 'bebida',
+        type: 'drink',
         area: '',
         category: strCategory,
         alcoholicOrNot: strAlcoholic,
