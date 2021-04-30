@@ -3,13 +3,29 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
+import { fetchAllMeals, fetchCategoryMeals } from '../service/mealAPI';
+import useResult from '../effects/useResult';
+import useCategory from '../effects/useCategory';
+import CategoryButton from '../components/CategoryButton';
 
 function Food({ match: { path } }) {
-  const [result, setResult] = useState(undefined);
+  const [result, setResult] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useCategory(fetchCategoryMeals, setCategories);
+  useResult(fetchAllMeals, setResult);
+
+  const renderCategories = () => {
+    if (categories.length === 0) return;
+    const maxCategories = 5;
+    return categories.meals.slice(0, maxCategories)
+      .map(({ strCategory }) => (
+        <CategoryButton key={ strCategory } strCategory={ strCategory } />));
+  };
 
   const renderResult = () => {
-    if (!result) return undefined;
-    if (!result.meals) {
+    if (result.length === 0) return '...loading';
+    if (result.meals === null) {
       return window
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
@@ -33,6 +49,7 @@ function Food({ match: { path } }) {
   return (
     <div className="center">
       <Header title="Comidas" path={ path } setResult={ setResult } />
+      <section className="categories-container">{ renderCategories() }</section>
       <section className="card-container">{ renderResult() }</section>
     </div>
   );
