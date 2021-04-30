@@ -20,7 +20,7 @@ class Login extends Component {
 
   handlerEmail({ target: { value } }) {
     const regex = (
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+      /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9-]+\.([a-zA-Z0-9.]{2,})+$/);
     const isvalid = regex.test(value);
 
     this.setState({
@@ -34,7 +34,7 @@ class Login extends Component {
     const minCaracter = 6;
     let isValid = false;
 
-    if (password >= minCaracter) {
+    if (password > minCaracter) {
       isValid = true;
     }
 
