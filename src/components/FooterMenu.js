@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 
 import drinkIcon from '../images/drinkIcon.svg';
@@ -53,4 +54,4 @@ FooterMenu.propTypes = {
   }).isRequired,
 };
 
-export default FooterMenu;
+export default withRouter(FooterMenu);
