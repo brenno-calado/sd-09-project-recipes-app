@@ -46,7 +46,7 @@ function RecipeInProgress() {
           setInstructions(drinks[0].strInstructions);
         });
     }
-  }, [id]);
+  }, [id, type]);
 
   function handleClick() {
     setFavorite(!favorite);
