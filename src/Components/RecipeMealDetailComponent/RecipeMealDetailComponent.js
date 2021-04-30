@@ -7,13 +7,17 @@ import './RecipeMealDetailComponent.css';
 
 function RecipeMealDetailComponent() {
   const { recipeSpec } = useContext(RecipeContext);
-  console.log(recipeSpec);
   const {
     strMeal,
     strCategory,
     strMealThumb,
     strInstructions,
+    strYoutube,
   } = recipeSpec;
+  let youTubeCode = '';
+  if (strYoutube) {
+    youTubeCode = strYoutube.replace('https://www.youtube.com/watch?v=', '');
+  }
   return (
     <div>
       <img
@@ -44,12 +48,22 @@ function RecipeMealDetailComponent() {
       <IngredientList />
       <h3>Instructions</h3>
       <p data-testid="instructions">{ strInstructions }</p>
+      <h3>Video</h3>
       {/* <iframe
-        width="560"
+        width="460"
         height="315"
-        src={ recipe.strYoutube }
+        src={ strYoutube }
         title="YouTube video player"
       /> */}
+      <iframe
+        src={ `https://www.youtube.com/embed/${youTubeCode}` }
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer;
+         autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+      />
+      <h3>recommended</h3>
     </div>
   );
 }
