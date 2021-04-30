@@ -4,13 +4,14 @@ import { Context } from '../context/Context';
 import { fecthForName } from '../services/api';
 
 function Meals() {
-  const { searchResult, setSearchResult } = useContext(Context);
+  const {
+    searchResult,
+    setSearchResult,
+  } = useContext(Context);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setSearchResult(await fecthForName('', true));
-    };
-    fetchData();
+    const getData = async () => setSearchResult(await fecthForName('', true));
+    getData();
   }, [setSearchResult]);
 
   return (

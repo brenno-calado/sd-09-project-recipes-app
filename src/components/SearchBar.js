@@ -17,7 +17,7 @@ function SearchBar({ isMeal }) {
     const { search, searchBy } = state;
     setIsSearch(true);
     if (searchBy === 'firstLetter' && search.length > 1) {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
+      alert('Sua busca deve conter somente 1 (um) caracter');
     }
     if (searchBy === 'name') setSearchResult(await fecthForName(search, isMeal));
     if (searchBy === 'ingredient') {
