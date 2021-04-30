@@ -1,38 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Details from '../components/Details';
-import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 import { fetchOneMeal, fetchOneDrink } from '../services/api';
+import { getIdFromURL, getPageFromURL } from '../services/others';
 
 function RecipeDetails() {
-  const { page } = useContext(MealsAndDrinkContext);
-  const [details, setDetails] = useState();
-
-  function getIdFromURL() {
-    const path = window.location.pathname;
-    const magicNum = 9;
-    return path.substr(magicNum);
-  }
+  const [recipe, setRecipe] = useState();
+  const [recomendedList, setRecomendedList] = useState();
 
   useEffect(() => {
-    async function handleSearch() {
+    async function fetchOne() {
       const urlId = getIdFromURL();
       let found = {};
-      if (page === 'comidas') {
+      if (getPageFromURL()) {
         found = await fetchOneMeal(urlId);
-      }
-      if (page === 'bebidas') {
+      } else {
         found = await fetchOneDrink(urlId);
       }
-      setDetails(found[0]);
+      setRecipe(found[0]);
     }
-    handleSearch();
-  }, [page]);
+    fetchOne();
+  }, []);
+
+  const detailsContext = { recipe, recomendedList, setRecomendedList };
 
   return (
     <section>
       <h1>RECIPE DETAILS</h1>
       <div>
-        {!details ? <p>loading</p> : <Details recipe={ details } page={ page } />}
+        {!recipe ? <p>loading</p> : (
+          <div>
+            <Details detailsContext={ detailsContext } />
+          </div>
+        )}
       </div>
     </section>
   );
