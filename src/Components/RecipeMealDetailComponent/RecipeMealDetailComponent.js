@@ -1,8 +1,9 @@
-import { shape } from 'prop-types';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { RecipeContext } from '../../Context';
-import useIngredient from '../../services/useIngredients';
 import IngredientList from '../IngredientList/IngredientList';
+import shareIcon from '../../images/shareIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import './RecipeMealDetailComponent.css';
 
 function RecipeMealDetailComponent() {
   const { recipeSpec } = useContext(RecipeContext);
@@ -20,7 +21,25 @@ function RecipeMealDetailComponent() {
         alt="foto da receita"
         data-testid="recipe-photo"
       />
-      <h2 data-testid="recipe-title">{ strMeal }</h2>
+      <section className="recipe-detail-title-container">
+        <h2 data-testid="recipe-title">{ strMeal }</h2>
+        <div>
+          <button type="button">
+            <img
+              src={ shareIcon }
+              alt="botão de compartilhar"
+              data-testid="share-btn"
+            />
+          </button>
+          <button type="button">
+            <img
+              src={ whiteHeartIcon }
+              alt="botão de compartilhar"
+              data-testid="favorite-btn"
+            />
+          </button>
+        </div>
+      </section>
       <p data-testid="recipe-category">{ strCategory }</p>
       <IngredientList />
       <h3>Instructions</h3>

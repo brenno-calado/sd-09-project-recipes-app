@@ -47,6 +47,7 @@ function MealsScreen() {
   }
 
   function filterByMealCategoty(name) {
+    console.log(name);
     if (name === filter) {
       removeFilter();
       setFilter('');
@@ -78,7 +79,7 @@ function MealsScreen() {
         />)}
       </section>
       <div className="list-meal-container">
-        {(recipies.length > 1 && typeRecipies === 'comidas') && recipies
+        {(recipies.length >= 1 && typeRecipies === 'comidas') && recipies
           .map((recipe, index) => (index < '12')
           && <CardRecipeMeal
             recipe={ recipe }

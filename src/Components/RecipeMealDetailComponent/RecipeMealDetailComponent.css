@@ -1,0 +1,12 @@
+.recipe-detail-title-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.recipe-detail-title-container div {
+  margin-left: 0.5rem;
+}
+
+.recipe-detail-title-container div button img {
+  height: 3rem;
+}
