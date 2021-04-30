@@ -6,13 +6,14 @@ import Cocktails from './pages/Cocktails';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Details from './pages/Details';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
-        <Route path="/comidas/:id/in-progress" component={ Details } />
-        <Route path="/bebidas/:id/in-progress" component={ Details } />
+        <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/comidas/:id" component={ Details } />
         <Route path="/bebidas/:id" component={ Details } />
         <Route path="/explorar/comidas/area" component={ Explore } />

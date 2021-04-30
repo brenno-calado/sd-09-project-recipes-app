@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
 import { mealsByIdThunk, cocktailsByIdThunk } from '../redux/actions';
 import RecommendedRecipes from '../components/RecommendedRecipes';
+import StartRecipeButton from '../components/StartRecipeButton';
 
 function Details({
   match: { params: { id } },
@@ -36,7 +37,9 @@ function Details({
     }
   }, []);
 
-  useEffect(() => { getIngredients(); }, [recipe]);
+  useEffect(() => {
+    getIngredients();
+  }, [recipe]);
 
   return (
     <section>
@@ -67,6 +70,7 @@ function Details({
           { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
         </p>
         <p data-testid="recipe-category">{ recipe.strCategory }</p>
+        { recipeType === 'cocktails' && <p>{ recipe.strAlcoholic }</p>}
       </div>
       <div>
         <ul>
@@ -96,16 +100,8 @@ function Details({
           ) }
         </div>
       </div>
-      <div>
-        <RecommendedRecipes />
-      </div>
-      <button
-        type="button"
-        onClick={ () => {} }
-        data-testid="start-recipe-btn"
-      >
-        Iniciar receita
-      </button>
+      <RecommendedRecipes />
+      <StartRecipeButton id={ id } />
     </section>
   );
 }
@@ -113,6 +109,10 @@ function Details({
 const mapStateToProps = (state) => ({
   recipe: state.recipeDetailsReducer.recipe,
   recipeType: state.recipesReducer.recipeType,
+  startedMeals: state.recipeDetailsReducer.startedMeals,
+  startedCocktails: state.recipeDetailsReducer.startedCocktails,
+  finishedMeals: state.recipeDetailsReducer.finishedMeals,
+  finishedCocktails: state.recipeDetailsReducer.finishedCocktails,
 });
 
 const mapDispatchToProps = (dispatch) => ({

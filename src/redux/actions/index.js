@@ -8,6 +8,8 @@ import {
   FAILURE_CATEGORIES,
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
+  ADD_STARTED_MEALS,
+  ADD_STARTED_COCKTAILS,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -195,3 +197,13 @@ export function cocktailsRecommendedThunk() {
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
+
+export const addToStartedMeals = (recipe) => ({
+  type: ADD_STARTED_MEALS,
+  recipe,
+});
+
+export const addToStartedCocktails = (recipe) => ({
+  type: ADD_STARTED_COCKTAILS,
+  recipe,
+});
