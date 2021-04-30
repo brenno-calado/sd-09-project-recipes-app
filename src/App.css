@@ -34,7 +34,7 @@
 }
 
 .card .card-header {
-  padding: 0 0;
+  padding: 0;
 }
 
 /* Accordion Card */
@@ -122,7 +122,6 @@
 }
 
 /* explore */
-
 .exploreButton-wrapper {
   display: flex;
   flex-flow: column wrap;
