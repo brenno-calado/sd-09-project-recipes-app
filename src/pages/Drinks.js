@@ -69,7 +69,7 @@ function Drinks() {
   }
 
   function fetchAlert() {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.' );
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
 
   function drinksCardsRender() {
