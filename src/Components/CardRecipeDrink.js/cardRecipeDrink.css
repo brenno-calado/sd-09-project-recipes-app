@@ -1,6 +1,6 @@
 .card-recipe-container {
-  background-color: whitesmoke;
   align-items: center;
+  background-color: whitesmoke;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

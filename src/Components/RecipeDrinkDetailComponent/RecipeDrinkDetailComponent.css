@@ -19,12 +19,12 @@
   bottom: 0;
   display: flex;
   justify-content: center;
-  position: fixed;
   margin-bottom: 0.5rem;
+  position: fixed;
   width: 100vw;
 }
 
-.start-recipe-container button{
+.start-recipe-container button {
   background-color: #6ce34f;
   padding: 10px;
   width: 95%;
