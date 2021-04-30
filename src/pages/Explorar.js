@@ -7,7 +7,7 @@ function Explorar() {
   return (
     <div>
       <Header title="Explorar" showButton={ false } />
-      <Explorer />
+      <Explorer type="global" />
     </div>
   );
 }
