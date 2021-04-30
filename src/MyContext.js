@@ -6,6 +6,7 @@ const MyContext = createContext();
 const MyContextProvider = ({ children }) => {
   const [showBar, setShowBar] = useState(false);
   const [resultAPI, setResultAPI] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const clickShowBar = () => {
     if (showBar) {
@@ -20,6 +21,8 @@ const MyContextProvider = ({ children }) => {
     resultAPI,
     clickShowBar,
     setResultAPI,
+    isLoading,
+    setIsLoading,
   };
   return (
     <MyContext.Provider value={ context }>

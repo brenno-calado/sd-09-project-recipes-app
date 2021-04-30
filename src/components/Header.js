@@ -33,12 +33,13 @@ function Header() {
           <img src={ profileIcon } alt="iconePerfil" />
         </Link>
         <h1>{title}</h1>
-        <button
-          type="button"
-          onClick={ clickShowBar }
-        >
-          <img src={ searchIcon } alt="iconeBusca" />
-        </button>
+        {pathname === '/comidas' || pathname === '/bebidas' ? (
+          <button
+            type="button"
+            onClick={ clickShowBar }
+          >
+            <img src={ searchIcon } alt="iconeBusca" />
+          </button>) : null}
       </div>
       {showBar ? <SearchBar /> : null}
     </div>

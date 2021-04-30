@@ -44,8 +44,19 @@ export function drinkAPI(searchType, n) {
   }
 }
 
-export function defaultMeals() {
-  const endPoint = 'www.themealdb.com/api/json/v1/1/search.php?s=';
-  fetch(endPoint).then((promise) => promise.json()
-    .then((response) => response));
+export function fetchToMainScreen(typeFood) {
+  const endPointMeals = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const endPointDrinks = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+  if (typeFood === 'meals') {
+    return fetch(endPointMeals)
+      .then((promise) => promise.json()
+        .then((response) => response));
+  }
+
+  if (typeFood === 'drinks') {
+    return fetch(endPointDrinks)
+      .then((promise) => promise.json()
+        .then((response) => response));
+  }
 }
