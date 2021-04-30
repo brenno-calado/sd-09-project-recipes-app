@@ -13,6 +13,18 @@
   width: 70%;
 }
 
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-bar {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .meals {
   align-items: center;
   background: #e4e4e4;
@@ -23,6 +35,11 @@
   height: auto;
   justify-content: center;
   width: 100%;
+}
+
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
 }
 
 /*
@@ -38,3 +55,39 @@
   transform-origin: 60px 78px;
 }
 */
+
+.meals > .logo {
+  animation: shake 1.5s infinite ease;
+  color: aliceblue;
+  font-family: Montserrat, sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes clink {
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+}

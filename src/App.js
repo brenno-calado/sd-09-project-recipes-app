@@ -7,6 +7,7 @@ import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
 import Profile from './Pages/Profile';
+import FooterMenu from './components/FooterMenu';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/explorar" component={ Explore } />
         <Route path="/perfil" component={ Profile } />
       </Switch>
+      <FooterMenu />
     </div>
   );
 }

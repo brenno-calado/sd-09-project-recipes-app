@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import FooterMenu from '../components/FooterMenu';
 import { fetchMealsApi, fetchMealsCategories, fetchMealsByCategory } from '../services';
 import '../App.css';
 import MealCards from '../components/MealCards';
@@ -77,10 +76,9 @@ function Foods() {
   }
 
   return (
-    <div>
+    <div className="test2">
       <SearchBar />
       { loading ? <h1> Loading...</h1> : foodCardsRender() }
-      <FooterMenu />
     </div>
   );
 }
