@@ -3,8 +3,6 @@ import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Switch, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import PrincipalComidas from './pages/PrincipalComidas';
 import Explorar from './pages/Explorar';
 import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarComidasIng from './pages/ExplorarComidasIng';

@@ -14,7 +14,12 @@ function SearchBar() {
       Nome
       <input data-testid="first-letter-search-radio" type="radio" name="Search radio" />
       Primeira Letra
-      <button data-testid="exec-search-btn" type="button">Buscar</button>
+      <button
+        data-testid="exec-search-btn"
+        type="button"
+      >
+        Buscar
+      </button>
     </div>
   );
 }
