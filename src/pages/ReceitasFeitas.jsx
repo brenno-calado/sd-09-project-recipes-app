@@ -1,47 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import '../styles/Header.css';
 import '../css/pages/ReceitasFeitas.css';
 import Header from '../components/Header';
 import NavReceitasFeitas from '../components/NavReceitasFeitas';
 import ContentDoneRecipes from '../components/ContentDoneRecipes';
+import getDoneRecipes from '../services/getLocalStorageDoneRecipes';
 
 function ReceitasFeitas() {
-  const data = [
-    {
-      id: 52846,
-      type: 'meals',
-      area: 'Japanese',
-      category: 'Chicken',
-      alcoholicOrNot: '',
-      name: 'Chicken & mushroom Hotpot',
-      image: 'https://www.themealdb.com/images/media/meals/uuuspp1511297945.jpg',
-      doneDate: '2016-08-18',
-      tags: ['bun', 'baking', 'xablau'],
-    },
-    {
-      id: 11007,
-      type: 'drinks',
-      area: '',
-      category: 'Ordinary Drink',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Margarita',
-      image: 'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
-      doneDate: '2015-08-14',
-      tags: [],
-    },
-  ];
+  const [meals, setMeals] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [drincks, setDrincks] = useState([]);
 
-  const handleClickButton = () => {};
+  useEffect(() => {
+    console.log('mount');
+    const tmp = getDoneRecipes();
+    console.log(`tmp: ${tmp}`);
+    setDoneRecipes(tmp);
+  }, []);
 
-  const doneRecipes = data.map((recipes, index) => (
+  const handleClickButton = ({ target: { value } }) => {
+    // const { value } = target;
+    console.log(value);
+    /* if () {
+    } */
+  };
+  /* const handleClickButton = () => {
+    console.log('clik');
+  }; */
+
+  const doneRecipesList = doneRecipes.map((recipes, index) => (
     <ContentDoneRecipes key={ recipes.id } recipes={ recipes } recipeIndex={ index } />
   ));
+  console.log(doneRecipes);
   return (
     <div>
       <Header page="Receitas Feitas" hasSearchButton={ false } />
       <div className="done-recipes-container">
-        <NavReceitasFeitas />
-        { doneRecipes }
+        <NavReceitasFeitas onclick={ handleClickButton } />
+        { doneRecipesList }
       </div>
     </div>
   );
