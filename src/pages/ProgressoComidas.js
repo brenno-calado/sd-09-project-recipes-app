@@ -15,13 +15,15 @@ const ProgressoComidas = () => {
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
+  const [ingredientsStatus, setIngredientsStatus] = useState({});
+  // const localData = JSON.parse(localStorage.getItem('inProgressMeals'));
 
   const { favoriteRecipe,
     removeFromFavorite,
     addToFavorites,
     removeFromTheFavorites,
     favorites,
-    finishRecipe } = useContext(AppContext);
+    finishRecipe, inProgressMeal } = useContext(AppContext);
 
   let stepsLimit = 1;
   const getIngredients = () => {
@@ -117,6 +119,10 @@ const ProgressoComidas = () => {
               key={ index }
               setStepsFinished={ setStepsFinished }
               stepsFinished={ stepsFinished }
+              ingredientsStatus={ ingredientsStatus }
+              setIngredientsStatus={ setIngredientsStatus }
+              inProgressRecipe={ inProgressMeal }
+              idRecipe={ idMeal }
             />);
         }) }
       </div>
