@@ -1,16 +1,16 @@
 .details {
-	height: 300px;
+  height: 300px;
   width: 300px;
 }
 
 /* .scrollingWrapper {
-	display: flex;
-	height: 400px;
-	width: 540px;
-	background-color: red;
+  display: flex;
+  height: 400px;
+  width: 540px;
+  background-color: red;
 } */
 
 .startButton {
-	bottom: 0;
-	position: fixed;
+  bottom: 0;
+  position: fixed;
 }
