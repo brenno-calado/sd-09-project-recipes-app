@@ -68,7 +68,10 @@ function Drinks() {
         DrinkCards(category, drinks, categoryCheck)
       );
     } if (!drinks) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return (
+        <span>Nehum elemento foi encontrado</span>
+      );
+      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }
 
