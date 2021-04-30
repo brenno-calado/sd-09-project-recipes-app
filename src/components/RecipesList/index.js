@@ -11,7 +11,7 @@ const RecipesList = () => {
 
   return (
     <main>
-      {recipes && recipes.isFetching ? (
+      {!recipes || recipes.isFetching ? (
         <div className="spinner-border" role="status">
           <span className="sr-only">Loading...</span>
         </div>

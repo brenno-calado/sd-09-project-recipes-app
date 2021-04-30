@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import RecipesContext from './RecipesContext';
@@ -23,13 +24,13 @@ const Provider = ({ children }) => {
     isFetching: false,
   });
   const [category, setCategory] = useState('All');
-  const [recipesType, setRecipesType] = useState('meals');
+  const [recipesType, setRecipesType] = useState('');
+  const location = useLocation();
 
-  const changeRecipesType = (type) => {
-    if (type !== recipesType) {
-      setRecipesType(type);
-    }
-  };
+  const changeRecipesType = () => (
+    location.pathname === '/bebidas'
+      ? setRecipesType('drinks') : setRecipesType('meals')
+  );
 
   const checkCategoryAndGetFood = () => (
     category === 'All'
@@ -48,9 +49,9 @@ const Provider = ({ children }) => {
       const recipesResponse = recipesType === 'meals'
         ? await checkCategoryAndGetFood()
         : await checkCategoryAndGetDrinks();
-      const newRecipeList = recipesResponse[recipesType];
+      const newRecipeList = recipesResponse[recipesType].slice(0, listSize);
       setRecipes({
-        recipesList: newRecipeList.slice(0, listSize),
+        recipesList: newRecipeList,
         isFetching: false,
       });
     } catch (error) {
@@ -61,17 +62,13 @@ const Provider = ({ children }) => {
   const requestCategories = async () => {
     try {
       const categoriesSize = 5;
-
       setCategories({ ...categories, isFetching: true });
-
       const categoriesResponse = recipesType === 'meals'
         ? await getFoodCategories()
         : await getDrinksCategories();
-
-      const newCategoriesList = categoriesResponse[recipesType];
-
+      const newCategoriesList = categoriesResponse[recipesType].slice(0, categoriesSize);
       setCategories({
-        categoriesList: newCategoriesList.slice(0, categoriesSize),
+        categoriesList: newCategoriesList,
         isFetching: false,
       });
     } catch (error) {
@@ -88,11 +85,20 @@ const Provider = ({ children }) => {
   );
 
   useEffect(() => {
-    requestRecipes();
-  }, [recipesType, category]);
+    changeRecipesType();
+    cleanCategories();
+  }, [location]);
 
   useEffect(() => {
-    requestCategories();
+    if (recipesType) {
+      requestRecipes();
+    }
+  }, [category, recipesType]);
+
+  useEffect(() => {
+    if (recipesType) {
+      requestCategories();
+    }
   }, [recipesType]);
 
   const contextValue = {
