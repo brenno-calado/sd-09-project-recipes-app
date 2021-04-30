@@ -71,7 +71,7 @@ function Drinks() {
       return (
         <span>Nehum elemento foi encontrado</span>
       );
-      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      // alert('Sinto muito, não encontramos nenhuma receita para esses filtros.' );
     }
   }
 
