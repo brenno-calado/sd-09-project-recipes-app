@@ -3,8 +3,9 @@ import { Redirect } from 'react-router';
 import { context } from '../../context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import ListCards from '../../components/ListFoodCards ';
+import ListFoodCards from '../../components/ListFoodCards';
 import fetchApi from '../../services';
+import useFoodApi from '../../hooks/useFoodApi';
 import CategoriesButtons from '../../components/SearchButtons';
 
 export default function Foods() {
@@ -36,8 +37,7 @@ export default function Foods() {
     <>
       <Header title="Comidas" canFind setFilter={ setFilterHook } />
       {categories && <CategoriesButtons type="food" />}
-      {foods && <ListCards items={ foods } />}
-      {moreThanOneRecipes && <ListCards items={ foodsHook } />}
+      {moreThanOneRecipes && <ListFoodCards items={ foods } />}
       {uniqueRecipe && <Redirect to={ `/comidas/${foodsHook[0].idMeal}` } />}
       <Footer />
     </>
