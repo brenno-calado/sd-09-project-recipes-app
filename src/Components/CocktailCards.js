@@ -70,7 +70,6 @@ class CocktailCards extends React.Component {
 
   render() {
     const { cocktails } = this.props;
-    console.log(this.state.filteredByCategories);
     if (cocktails === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }

@@ -68,7 +68,6 @@ class FoodCards extends React.Component {
 
   render() {
     const { meals } = this.props;
-    console.log(this.state.filteredByCategories)
     if (meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
