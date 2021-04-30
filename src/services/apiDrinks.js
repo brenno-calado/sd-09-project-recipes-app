@@ -13,7 +13,7 @@ export async function getDrinksByIngredient(ingredient) {
     .then((data) => data.json())
     .catch((error) => console.log(error));
 
-  return response.ingredients;
+  return response.drinks;
 }
 
 export async function getDrinksByName(name) {
