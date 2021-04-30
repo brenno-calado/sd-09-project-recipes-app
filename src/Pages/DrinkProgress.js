@@ -37,7 +37,7 @@ class DrinkProgress extends Component {
     const { strCategory, strDrinkThumb, strDrink, strInstructions } = drink;
     return (
       <div>
-        <h1>Detalhes</h1>
+        <h1>Drink em Progresso </h1>
         <ShareIcon />
         <FavoriteButton />
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
@@ -64,7 +64,16 @@ class DrinkProgress extends Component {
           })}
         </div>
         <p data-testid="instructions">{strInstructions}</p>
-        <Link />
+        <Link
+          to={ `/bebidas/${id}/receitas-feitas` }
+        >
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
     );
   }

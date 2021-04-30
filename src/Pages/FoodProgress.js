@@ -36,7 +36,7 @@ class FoodProgress extends Component {
     const { strCategory, strMealThumb, strMeal, strInstructions } = meal;
     return (
       <div>
-        <h1>Detalhes</h1>
+        <h1>Comida em Progresso</h1>
         <ShareIcon />
         <FavoriteButton />
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
@@ -65,10 +65,13 @@ class FoodProgress extends Component {
         <p data-testid="instructions">{strInstructions}</p>
         <Link
           to={ `/comidas/${id}/receitas-feitas` }
-          data-testid="finish-recipe-btn"
-          // onClick={ () => console.log({ this.state.igredients }) }
         >
-          Finalizar Receita
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+          >
+            Finalizar Receita
+          </button>
         </Link>
       </div>
     );
