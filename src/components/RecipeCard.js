@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 export default function RecipeCard({ index, thumbUrl, name }) {
   return (
     <section data-testid={ `${index}-recipe-card` }>
-      <img src={ thumbUrl } alt="Foto da receita" data-testid={ `${index}-card-img` } />
+      <img
+        width="80"
+        src={ thumbUrl }
+        alt="Foto da receita"
+        data-testid={ `${index}-card-img` }
+      />
       <span data-testid={ `${index}-card-name` }>{name}</span>
     </section>
   );
