@@ -33,6 +33,7 @@ function RecipesAppProvider({ children }) {
   const [mealId, setMealId] = useState([]);
   const [drinkId, setDrinkId] = useState([]);
   const [drinkRecomendation, setDrinkRecomendation] = useState([]);
+  const [mealRecomendation, setMealRecomendation] = useState([]);
 
   const handleSearchClick = async (inputs, pathname) => {
     const { searchText, filter } = inputs;
@@ -123,10 +124,16 @@ function RecipesAppProvider({ children }) {
     setDrinkRecomendation(resolve);
   };
 
+  const getMealRecomendation = async () => {
+    const resolve = await fetchMealRecomendation();
+    setMealRecomendation(resolve);
+  };
+
   useEffect(() => {
     getRecipes();
     getCategories();
     getDrinksRecomendation();
+    getMealRecomendation()
   }, []);
 
   const contextValue = {
@@ -140,6 +147,7 @@ function RecipesAppProvider({ children }) {
     mealId,
     drinkId,
     drinkRecomendation,
+    mealRecomendation,
     setMealId,
     setShowSearchBar,
     handleSearchClick,

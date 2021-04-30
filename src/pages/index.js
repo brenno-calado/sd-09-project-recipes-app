@@ -8,6 +8,7 @@ import ExploreDrinks from './ExploreDrinks';
 import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
 import RecipeDetails from './RecipeDetails';
+import DrinkDetails from './DrinkDetails.jsx';
 
 export {
   Login,
@@ -20,4 +21,5 @@ export {
   DoneRecipes,
   FavoriteRecipes,
   RecipeDetails,
+  DrinkDetails,
 };
