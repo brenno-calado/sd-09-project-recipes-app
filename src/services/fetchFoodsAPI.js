@@ -15,3 +15,9 @@ export const fetchFoodsCategoryAPI = async (category) => {
     .then((data) => data.json());
   return request.meals;
 };
+
+export const fetchSingleRecipeAPI = async (id) => {
+  const recipe = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((data) => data.json());
+  return recipe.meals;
+};
