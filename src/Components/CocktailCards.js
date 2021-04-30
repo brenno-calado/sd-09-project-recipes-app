@@ -31,6 +31,7 @@ class CocktailCards extends React.Component {
             className="foodCards"
           />
           <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
+          <Link to={ `/bebidas/${cocktail.idDrink}/` }>Detalhes</Link>
         </div>)
       ),
     );
