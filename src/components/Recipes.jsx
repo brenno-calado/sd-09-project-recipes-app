@@ -19,9 +19,6 @@ function Recipes({
       dispatchSearch(null, null, 'cocktail');
     }
   }, [category, dispatchSearch, recipesList]);
-  if (!recipesList) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
 
   if (recipesList.length === 1 && redirect) {
     return recipesType === 'meal'
@@ -37,10 +34,9 @@ function Recipes({
             <Link
               to={ `/comidas/${recipe.idMeal}` }
               key={ recipe.idMeal }
-              className="card align-items-center m-2 flex-wrap"
+              className="card align-items-center"
             >
               <div
-                // className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
               >
                 <img
@@ -64,7 +60,6 @@ function Recipes({
               className="card align-items-center m-2 flex-wrap"
             >
               <div
-                // className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
               >
                 <img
