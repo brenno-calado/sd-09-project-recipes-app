@@ -6,6 +6,7 @@ import FooterMenu from '../components/FooterMenu';
 import { fetchMealsApi, fetchMealsCategories, fetchMealsByCategory } from '../services';
 import '../App.css';
 import MealCards from '../components/MealCards';
+
 import { receiveDataMeal, receiveCategoryMeal } from '../redux/actions';
 import SearchBar from '../components/SearchBar';
 import useRouter from '../hooks/router';
