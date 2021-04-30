@@ -3,7 +3,10 @@ import Login from '../components/Login';
 
 function Home() {
   return (
-    <Login />
+    <div>
+      <h1>Login</h1>
+      <Login />
+    </div>
   );
 }
 

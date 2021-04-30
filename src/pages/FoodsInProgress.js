@@ -3,7 +3,7 @@ import React from 'react';
 function FoodsInProgress() {
   return (
     <div>
-      <h1>Nao tem nada</h1>
+      <h1>Processo de Comida</h1>
     </div>
   );
 }
