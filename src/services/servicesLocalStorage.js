@@ -11,7 +11,7 @@ export function setItemLocalStorage(key, value) {
 
 // getItem
 export function getItemLocalStorage(key) {
-  let result = localStorage.setItem(key);
+  let result = localStorage.getItem(key);
 
   if (key !== 'mealsToken' || key !== 'cocktailsToken') {
     result = JSON.parse(result);
