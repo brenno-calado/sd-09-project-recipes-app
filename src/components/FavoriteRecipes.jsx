@@ -7,8 +7,8 @@ function FavoriteRecipes({ data, path }) {
   function createLocalStorage() {
     const inProgressRecipes = 'favoriteRecipes';
     if (localStorage[inProgressRecipes] === undefined) {
-      const obj = [];
-      localStorage.setItem('favoriteRecipes', JSON.stringify(obj));
+      const object = [];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(object));
     }
   }
 
