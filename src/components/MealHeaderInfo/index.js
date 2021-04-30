@@ -13,16 +13,16 @@ class index extends Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setIsRecipeFavorite();
   }
 
-  handleClick = ({target: {name}}) => {
+  handleClick = ({ target: { name } }) => {
     const { [name]: previous } = this.state;
-    console.log(previous)
+    console.log(previous);
     this.setState({
       [name]: !previous,
-    })
+    });
   }
 
   copyCurrentLink = () => {
@@ -30,9 +30,9 @@ class index extends Component {
     const url = window.location.href;
 
     //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-    navigator.clipboard.writeText(url)
+    navigator.clipboard.writeText(url);
 
-    const actualShareState = shareClicked
+    const actualShareState = shareClicked;
     this.setState({
       shareClicked: !actualShareState,
     });
@@ -44,61 +44,61 @@ class index extends Component {
       id: recipe.idMeal || recipe.idDrink,
       type: recipe.idMeal ? 'comida' : 'bebida',
       area: recipe.strArea ? recipe.strArea : '',
-      category:  recipe.strCategory ? recipe.strCategory : '',
+      category: recipe.strCategory ? recipe.strCategory : '',
       alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
       name: recipe.strMeal ? recipe.strMeal : recipe.strDrink,
       image: recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb,
-    }
-    return recipeData
+    };
+    return recipeData;
   }
 
   addFavoriteRecipe = () => {
-    if(!localStorage.getItem('favoriteRecipes')){
-      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
-    const recipe = this.recipeData()
-    console.log(recipe)
-    favoriteRecipes.push(recipe)
-    localStorage.setItem('favoriteRecipes',JSON.stringify(favoriteRecipes))
-    console.log('Favoritou')
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const recipe = this.recipeData();
+    console.log(recipe);
+    favoriteRecipes.push(recipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    console.log('Favoritou');
   }
 
   removeFavoriteRecipe = () => {
-    if(!localStorage.getItem('favoriteRecipes')){
-      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const recipe = this.recipeData();
 
-    favoriteRecipes = favoriteRecipes.filter((element) => element.id !== recipe.id)
-    localStorage.setItem('favoriteRecipes',JSON.stringify(favoriteRecipes))
-    console.log('Desfavoritou')
+    favoriteRecipes = favoriteRecipes.filter((element) => element.id !== recipe.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    console.log('Desfavoritou');
   }
 
   favoriteRecipeHandle = () => {
-    if(!localStorage.getItem('favoriteRecipes')){
-      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     const recipe = this.recipeData();
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
-    const found = favoriteRecipes.some((element) => element.id === recipe.id)
-    if(found){this.removeFavoriteRecipe()}
-    if(!found){this.addFavoriteRecipe()}
-    this.setIsRecipeFavorite()
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const found = favoriteRecipes.some((element) => element.id === recipe.id);
+    if (found) { this.removeFavoriteRecipe(); }
+    if (!found) { this.addFavoriteRecipe(); }
+    this.setIsRecipeFavorite();
   }
 
   setIsRecipeFavorite = () => {
-    if(!localStorage.getItem('favoriteRecipes')){
-      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     const { id } = this.props;
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
-    const found = favoriteRecipes.some((element) => element.id === id)
-    console.log(found)
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const found = favoriteRecipes.some((element) => element.id === id);
+    console.log(found);
     this.setState({
-      favoriteIcon: found
-    })
+      favoriteIcon: found,
+    });
   }
 
   render() {
@@ -111,7 +111,12 @@ class index extends Component {
           <p data-testid="recipe-category" className="recipe-category">{category}</p>
         </div>
         <div>
-          <div onClick={ this.copyCurrentLink }>
+          <div
+            onClick={ this.copyCurrentLink }
+            onKeyDown={ this.copyCurrentLink }
+            role="button"
+            tabIndex={ 0 }
+          >
             <img
               src={ shareIcon }
               alt="shareIcon"
@@ -119,9 +124,14 @@ class index extends Component {
             />
             {shareClicked ? <p>Link copiado!</p> : null}
           </div>
-          <div onClick={ this.favoriteRecipeHandle }>
+          <div
+            onClick={ this.favoriteRecipeHandle }
+            onKeyDown={ this.favoriteRecipeHandle }
+            role="button"
+            tabIndex={ 0 }
+          >
             <img
-              src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon}
+              src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
               alt="whiteHeartIcon"
               name="favoriteIcon"
               data-testid="favorite-btn"
@@ -136,6 +146,8 @@ class index extends Component {
 index.propTypes = {
   title: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  recipe: PropTypes.objectOf().isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default index;

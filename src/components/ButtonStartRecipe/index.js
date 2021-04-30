@@ -4,7 +4,6 @@ import './Style.css';
 import PropTypes from 'prop-types';
 
 let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-let recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
 class index extends Component {
   getCurrentDate() {
     //  https://tecadmin.net/get-current-date-time-javascript/
@@ -32,6 +31,7 @@ class index extends Component {
   }
 
   makeRecipeDone = () => {
+    let recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!recipesDone) {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
     }

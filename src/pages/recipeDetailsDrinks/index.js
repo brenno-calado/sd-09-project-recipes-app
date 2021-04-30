@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import MealHeaderImage from '../../components/MealHeaderImage';
 import MeadHeaderInfo from '../../components/MealHeaderInfo';
 import MealIngredients from '../../components/MealIngredients';
 import MealInstructions from '../../components/MealInstructions';
-import MealVideo from '../../components/MealVideo';
 import MealRecommendations from '../../components/MealRecommendations';
 import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
@@ -15,11 +15,7 @@ class index extends Component {
     super(props);
     this.state = {
       drinkData: false,
-      drinkImage: '',
-      ingredientes: [],
-      instructions: '',
-      video: '',
-      recommendedDrinks: ['Teste1', 'Teste 2', 'Teste 3', 'Teste 4', 'Teste 5', 'Teste 6'],
+      recommendedDrinks: ['Teste1'],
     };
   }
 
@@ -102,18 +98,37 @@ class index extends Component {
   render() {
     const { drinkData } = this.state;
     const { match: { params: { id } } } = this.props;
-    { console.log(this.getIngredients()); }
     return (
       <div>
         <MealHeaderImage image={ this.getDrinkImage() } />
-        <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory() } recipe={ drinkData } id={ id } />
-        <MealIngredients ingredients={ this.getIngredients() } quantities={ this.getIngredientsQuantity() } />
+        <MeadHeaderInfo
+          title={ this.getTitle() }
+          category={ this.getCategory() }
+          recipe={ drinkData }
+          id={ id }
+        />
+        <MealIngredients
+          ingredients={ this.getIngredients() }
+          quantities={ this.getIngredientsQuantity() }
+        />
         <MealInstructions instructions={ this.getInsructions() } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
-        <ButtonStartRecipe recipe={ drinkData } id={ id } ingredients={ this.getIngredients() } />
+        <ButtonStartRecipe
+          recipe={ drinkData }
+          id={ id }
+          ingredients={ this.getIngredients() }
+        />
       </div>
     );
   }
 }
+
+index.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default index;
