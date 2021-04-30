@@ -1,6 +1,7 @@
 import { shape } from 'prop-types';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import useIdRecipe from '../../services/useIdRecipe';
 import './exploreFoodOrDrink.css';
@@ -39,6 +40,7 @@ function ExploreFoodScreen({ match: { params: { pageType } } }) {
           </button>
         </Link>
       </section>
+      <Footer />
     </div>
   );
 }

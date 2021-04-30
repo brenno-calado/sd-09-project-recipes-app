@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import CardIngredient from '../../Components/CardIngredient/CardIngredient';
+import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import { RecipeContext } from '../../Context';
 
@@ -68,6 +69,7 @@ function ExploreForIngredient() {
               />
             </Link>))}
       </div>
+      <Footer />
     </div>
   );
 }
