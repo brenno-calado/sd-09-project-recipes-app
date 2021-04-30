@@ -20,7 +20,7 @@ function Header({ name }) {
   return (
     <div>
       { !result && (
-        <header className="container">
+        <header className="headerContainer">
           <Link to="/perfil">
             <img
               src={ profileIcon }
