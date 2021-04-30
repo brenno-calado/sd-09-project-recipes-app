@@ -12,7 +12,7 @@ function CategoriesButtons(props) {
 
   const fecthAll = (recipe, name, categorie) => {
     if (type === 'food') {
-      fetchApi(recipe, name, categorie).then((res) => {
+      fetchApi('food', name, categorie).then((res) => {
         const fetchFoods = res.meals
           .filter((food) => res.meals.indexOf(food) < lengthOfList);
         setFoods(fetchFoods);
@@ -20,7 +20,8 @@ function CategoriesButtons(props) {
     }
 
     if (type === 'drink') {
-      fetchApi(recipe, name, categorie).then((res) => {
+      fetchApi('cocktail', name, categorie).then((res) => {
+        console.log(res.drinks);
         const fetchDrinks = res.drinks
           .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
         setDrinks(fetchDrinks);
@@ -39,7 +40,12 @@ function CategoriesButtons(props) {
 
     if (toggleButton === target.name) {
       setToggleButton(null);
-      fecthAll('food', 'name', '');
+      if (type === 'food') {
+        fecthAll('food', 'name', '');
+      }
+      if (type === 'drink') {
+        fecthAll('cocktail', 'name', '');
+      }
     }
 
     if (type === 'food') {
@@ -57,7 +63,7 @@ function CategoriesButtons(props) {
         type="button"
         name="all"
         data-testid="All-category-filter"
-        onClick={ fecthAll }
+        onClick={ () => fecthAll(type, 'name', '') }
       >
         All
       </button>
