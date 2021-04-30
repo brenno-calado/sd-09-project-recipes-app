@@ -46,6 +46,23 @@ export const fetchDrinks = async (data, searchValue) => {
   return result;
 };
 
+export const fetchCategory = async (type) => {
+  let url = '';
+  switch (type) {
+  case 'drinks':
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    break;
+  case 'meals':
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    break;
+  default:
+    break;
+  }
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
 export const fetchFoodsDetails = async (id) => {
   const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const fetchData = await fetch(url);

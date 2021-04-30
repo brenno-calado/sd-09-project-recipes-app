@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { fetchFoods } from '../services/fetchAPI';
+import RecipeCategory from '../components/RecipeCategory';
 
 function PrincipalFoods() {
   const [foods, setFoods] = useState([]);
 
   useEffect(() => {
     fetchFoods(null, 'a').then((response) => setFoods(response));
-    console.log(foods);
   }, []);
 
   const cardLimit = 12;
   const foodsMap = Object.values(foods)[0];
-  console.log(foodsMap);
   return (
     <>
       <Header title="Comidas" />
+      <RecipeCategory type="meals" />
       {foodsMap && foodsMap.map((recipe, index) => {
         if (index < cardLimit) {
           return (
