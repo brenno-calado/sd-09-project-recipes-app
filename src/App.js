@@ -4,8 +4,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import Comidas from './pages/Comidas';
-import Bebidas from './pages/Bebidas';
-import RecipiesProvider from './context/RecipiesContext';
 import ExplorarIngredientes from './pages/ExplorarIngredientes';
 import DetalheComidas from './pages/DetalheComidas';
 import DetalheBebidas from './pages/DetalheBebidas';
@@ -16,6 +14,8 @@ import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
+import RecipiesProvider from './context/RecipiesContext';
+import Bebidas from './pages/Bebidas';
 
 function App() {
   return (
