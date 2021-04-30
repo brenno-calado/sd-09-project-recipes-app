@@ -1,0 +1,8 @@
+.card-ingredient-container {
+  display: flex;
+  margin: 1rem;
+}
+
+.card-ingredient-container img {
+  width: 5rem;
+}
