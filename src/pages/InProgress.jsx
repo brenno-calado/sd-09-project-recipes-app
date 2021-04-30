@@ -18,6 +18,19 @@ function InProgress() {
       >
         { strMeal }
       </h2>
+      <button 
+        href="#share"
+        data-testid="share-btn"
+      >
+        <img src="" alt="Share button" />
+      </button>
+      <button
+        href="#favorites"
+        data-testid="favorite-btn"
+      >
+        <img src="" alt="Favorite button"/>
+      </button>
+
     </main>
   );
 }
