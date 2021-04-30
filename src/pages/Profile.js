@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 
-const { email } = JSON.parse(localStorage.getItem('user'));
+const Profile = () => {
+  const { email } = JSON.parse(localStorage.getItem('user'));
 
-function clearLocalStorage() {
+  function clearLocalStorage() {
+    return (
+      localStorage.clear()
+    );
+  }
+
   return (
-    localStorage.clear()
-  );
-}
-
-const Profile = () => (
   <div>
     <Header />
     <div data-testid="profile-email">
@@ -46,6 +47,7 @@ const Profile = () => (
     </div>
     <MenuInferior />
   </div>
-);
+  );
+};
 
 export default Profile;
