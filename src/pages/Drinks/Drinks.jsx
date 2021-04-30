@@ -87,7 +87,9 @@ const mapStateToProps = (state) => ({
 
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   dispatchDrinks: PropTypes.func.isRequired,
 };
 

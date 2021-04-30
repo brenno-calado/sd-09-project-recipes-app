@@ -25,11 +25,11 @@ const Recipes = (props) => {
     await fetchMealCategory().then((r) => setMealCategoryList(r));
     setLoading(false);
   }
-  
+
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   function filterByCategory(category) {
     fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
   }
@@ -85,7 +85,9 @@ const mapStateToProps = (state) => ({
 
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string).isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   dispatchMeals: PropTypes.func.isRequired,
 };
 
