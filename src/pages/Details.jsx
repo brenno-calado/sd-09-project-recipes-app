@@ -10,7 +10,7 @@ import Loading from '../components/Loading';
 import { fetchRecipeDetails } from '../services/fetchRecipes';
 import './Styles/Details.css';
 
-function Details({ match: { params: { id } } }) {
+function Details({ match: { params: { id } }, toggleCouldRedirect }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
   const [inProgressRecipes, setInProgressRecipes] = useState(false);
@@ -60,7 +60,6 @@ function Details({ match: { params: { id } } }) {
     setLoading(true);
   };
 
-
   return (
     <div>
       {loading && <Loading />}
@@ -79,7 +78,6 @@ function Details({ match: { params: { id } } }) {
     </div>
   );
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
   toggleCouldRedirect: (bool) => dispatch(toggleCouldRedirectAction(bool)),

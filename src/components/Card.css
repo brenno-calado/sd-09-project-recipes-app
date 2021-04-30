@@ -7,10 +7,10 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 5px;
-  margin: 5px 0;
-  text-align: center;
   height: 172px;
+  margin: 5px 0;
+  padding: 5px;
+  text-align: center;
   width: 161px;
 }
 

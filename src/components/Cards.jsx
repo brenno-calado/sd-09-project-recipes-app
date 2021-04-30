@@ -27,6 +27,7 @@ function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
         <Card
           item={ item }
           index={ index }
+          type={ type }
           key={ index }
           detailsURL={ `${location.pathname}/${items[0][idType]}` }
         />

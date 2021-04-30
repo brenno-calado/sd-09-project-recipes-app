@@ -26,4 +26,4 @@ export const fetchRecipeDetails = async (idType, id) => {
   return response[type][0];
 };
 
-export default fetchRecipes;
+// export default fetchRecipes;
