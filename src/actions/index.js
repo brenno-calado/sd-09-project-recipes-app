@@ -56,9 +56,14 @@ export const fetchDrinkRecipeDetails = (id) => (dispatch) => (
       recipeDetails: recipesApiReponse,
     })));
 
-export const fetchRecipesByCategoryAction = (category) => (dispatch) => {
-  fetchRecipeByCategory(category)
-    .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
+export const fetchRecipesByCategoryAction = (categorie, toggle, category) => (dispatch) => {
+  if (toggle && categorie !== category) {
+    fetchRecipeByCategory(categorie)
+      .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
+  } else {
+    fetchDefaultApi()
+      .then((recipesApiReponse) => dispatch(receiveApiReponse(recipesApiReponse)));
+  }
 };
 
 export const setIsCategoryToTrueAction = () => ({

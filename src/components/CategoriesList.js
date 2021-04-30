@@ -8,15 +8,31 @@ import {
 } from '../actions';
 
 class CategoriesList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      toggle: true,
+      category: 'Inicial',
+    };
+  }
+
   componentDidMount() {
     const { categoriesFetchApi } = this.props;
     categoriesFetchApi();
   }
 
   handleClick(categorie) {
+    const { toggle, category } = this.state;
+    console.log(categorie, category, toggle);
     const { fetchRepiciesByCategory, setIsCategoryToTrue } = this.props;
-    fetchRepiciesByCategory(categorie);
+    fetchRepiciesByCategory(categorie, toggle, category);
     setIsCategoryToTrue();
+    if (categorie !== category) {
+      this.setState({ category: categorie });
+    }
+    if (categorie === category) {
+      this.setState({ category: 'Inicial' });
+    }
   }
 
   render() {
@@ -46,8 +62,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispach) => ({
   categoriesFetchApi: () => dispach(categoriesfetchApiAction()),
-  fetchRepiciesByCategory: (categorie) => (
-    dispach(fetchRecipesByCategoryAction(categorie))),
+  fetchRepiciesByCategory: (categorie, toggle, category) => (
+    dispach(fetchRecipesByCategoryAction(categorie, toggle, category))),
   setIsCategoryToTrue: () => dispach(setIsCategoryToTrueAction()),
 });
 
