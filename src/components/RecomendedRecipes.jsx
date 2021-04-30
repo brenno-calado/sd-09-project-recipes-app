@@ -16,7 +16,12 @@ function RecomendedRecipes({ detailsContext }) {
   function createCard(classNameObj, recipe, index) {
     console.log(recipe.strDrinkThumb, recipe.strMealThumb);
     return (
-      <Card style={ { width: '18rem' } } key={ index } className={ classNameObj }>
+      <Card
+        style={ { width: '18rem' } }
+        key={ index }
+        className={ classNameObj }
+        data-testid={ `${index}-recomendation-card` }
+      >
         { !getPageFromURL() ? (
           <Card.Img variant="top" src={ recipe.strMealThumb } />)
           : (<Card.Img variant="top" src={ recipe.strDrinkThumb } />)}
