@@ -7,7 +7,14 @@ import getPageTitle from '../services/pageTitles';
 
 import paths from '../routes/paths';
 
-const { EXPLORE, EXPLORE_DRINK, EXPLORE_FOOD } = paths;
+const {
+  EXPLORE,
+  EXPLORE_DRINK,
+  EXPLORE_FOOD,
+  FOOD_BY_AREA,
+  FOOD_BY_INGREDIENTS,
+  DRINK_BY_INGREDIENTS,
+} = paths;
 
 const Explore = ({ match: { path } }) => {
   const history = useHistory();
@@ -15,7 +22,7 @@ const Explore = ({ match: { path } }) => {
     <>
       <Header title={ getPageTitle(path) } />
       {
-        path.includes(EXPLORE) && (
+        path === EXPLORE && (
           <>
             <button
               type="button"
@@ -30,6 +37,47 @@ const Explore = ({ match: { path } }) => {
               onClick={ () => history.push(EXPLORE_DRINK) }
             >
               Explorar Bebidas
+            </button>
+          </>
+        )
+      }
+
+      {
+        path === EXPLORE_FOOD && (
+          <>
+            <button
+              type="button"
+              data-testid="explore-by-ingredient"
+              onClick={ () => history.push(FOOD_BY_INGREDIENTS) }
+            >
+              Por Ingredientes
+            </button>
+            <button
+              type="button"
+              data-testid="explore-by-area"
+              onClick={ () => history.push(FOOD_BY_AREA) }
+            >
+              Por Local de Origem
+            </button>
+            <button type="button" data-testid="explore-surprise">
+              Me Surpreenda!
+            </button>
+          </>
+        )
+      }
+
+      {
+        path === EXPLORE_DRINK && (
+          <>
+            <button
+              type="button"
+              data-testid="explore-by-ingredient"
+              onClick={ () => history.push(DRINK_BY_INGREDIENTS) }
+            >
+              Por Ingredientes
+            </button>
+            <button type="button" data-testid="explore-surprise">
+              Me Surpreenda!
             </button>
           </>
         )
