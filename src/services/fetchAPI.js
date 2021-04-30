@@ -14,6 +14,9 @@ export const fetchFoods = async (data, searchValue) => {
       window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     break;
+  case 'category':
+    url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchValue}`;
+    break;
   default:
     url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   }
@@ -37,6 +40,9 @@ export const fetchDrinks = async (data, searchValue) => {
     } else {
       window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
+    break;
+  case 'category':
+    url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${searchValue}`;
     break;
   default:
     url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
