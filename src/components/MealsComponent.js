@@ -8,7 +8,7 @@ function MealsComponent({ data: { meals } }) {
   const maxArrayLength = 12;
 
   if (meals === null) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    console.log('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   if (!meals) return <div>Loading...</div>;
   if (isSearch && meals.length === 1) {
