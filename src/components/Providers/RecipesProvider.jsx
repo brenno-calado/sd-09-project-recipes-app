@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 import getAllRecipes from '../../services/allRecipesAPI';
-import usePathLocation from '../../hooks/usePathLocation';
+import { usePathLocation } from '../../hooks';
 
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
