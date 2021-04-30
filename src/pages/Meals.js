@@ -44,9 +44,9 @@ const mapStateToProps = (state) => ({
   isCategory: state.searchInputReducer.isCategory,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  defaultFetchApi: () => dispach(defaultFetchApiAction()),
-  setIsLoadingToTrue: () => dispach(setIsLoading()),
+const mapDispatchToProps = (dispatch) => ({
+  defaultFetchApi: () => dispatch(defaultFetchApiAction()),
+  setIsLoadingToTrue: () => dispatch(setIsLoading()),
 });
 
 Meals.propTypes = {

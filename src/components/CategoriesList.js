@@ -5,6 +5,7 @@ import {
   fetchRecipesByCategoryAction,
   categoriesfetchApiAction,
   setIsCategoryToTrueAction,
+  defaultFetchApiAction,
 } from '../actions';
 
 class CategoriesList extends React.Component {
@@ -13,6 +14,7 @@ class CategoriesList extends React.Component {
     this.state = {
       category: 'Inicial',
     };
+    this.allBtnHandleClick = this.allBtnHandleClick.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,11 @@ class CategoriesList extends React.Component {
     }
   }
 
+  allBtnHandleClick() {
+    const { defaultFetchApi } = this.props;
+    defaultFetchApi();
+  }
+
   render() {
     const { categories } = this.props;
     const mxmcategories = 5;
@@ -41,6 +48,13 @@ class CategoriesList extends React.Component {
       .filter((_, index) => index < mxmcategories);
     return (
       <div>
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ this.allBtnHandleClick }
+        >
+          All
+        </button>
         {filteredCategories.map((categorie) => (
           <button
             type="button"
@@ -59,11 +73,12 @@ const mapStateToProps = (state) => ({
   categories: state.searchInputReducer.categories,
 });
 
-const mapDispatchToProps = (dispach) => ({
-  categoriesFetchApi: () => dispach(categoriesfetchApiAction()),
+const mapDispatchToProps = (dispatch) => ({
+  categoriesFetchApi: () => dispatch(categoriesfetchApiAction()),
   fetchRepiciesByCategory: (categorie, category) => (
-    dispach(fetchRecipesByCategoryAction(categorie, category))),
-  setIsCategoryToTrue: () => dispach(setIsCategoryToTrueAction()),
+    dispatch(fetchRecipesByCategoryAction(categorie, category))),
+  setIsCategoryToTrue: () => dispatch(setIsCategoryToTrueAction()),
+  defaultFetchApi: () => dispatch(defaultFetchApiAction()),
 });
 
 CategoriesList.propTypes = {
