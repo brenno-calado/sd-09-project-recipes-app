@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from '../components/Header';
+import '../styles/recipes.css';
 
-class ReceitasFavoritas extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header textProp="Receitas Favoritas" />
-        <p>Receitas Favoritas Placeholder</p>
-      </div>);
-  }
+function ReceitasFavoritas() {
+  return (
+    <>
+      <Header textProp="Receitas Favoritas" />
+      <h1>Receitas Favoritas</h1>
+    </>
+  );
 }
 
 export default ReceitasFavoritas;

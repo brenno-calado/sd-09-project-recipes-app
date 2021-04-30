@@ -25,6 +25,7 @@ function Explorar() {
       <Header textProp="Explorar" />
 
       <button
+        className="button"
         type="button"
         data-testid="explore-food"
         name="toFood"
@@ -34,6 +35,7 @@ function Explorar() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-drinks"
         name="toDrinks"
