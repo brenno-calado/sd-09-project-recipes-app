@@ -15,6 +15,7 @@ function RenderRecipeCards({
     if (kind === 'meals') {
       history.push(`/comidas/${recipe.idMeal}`, recipe);
     } else { history.push(`/bebidas/${recipe.idDrink}`, recipe); }
+
   };
 
   function renderCard(theChosenOne) {

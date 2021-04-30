@@ -94,7 +94,6 @@ function RecipeDetails(props) {
       <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
     </div>
   );
-}
 
 RecipeDetails.propTypes = {
   history: PropTypes.shape({
