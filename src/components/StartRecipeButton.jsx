@@ -1,56 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToStartedMeals, addToStartedCocktails } from '../redux/actions';
+import { addToStartedRecipe } from '../redux/actions';
 
 function StartRecipeButton({
-  recipeType,
   recipe,
-  startMealsRecipe,
-  startCocktailsRecipe,
-  startedMeals,
-  startedCocktails,
-  finishedMeals,
-  finishedCocktails,
+  startRecipe,
+  startedRecipes,
+  finishedRecipes,
   id,
 }) {
   const [recipeState, setRecipeState] = useState();
 
-  const verifyIfRecipeWasStarted = () => {
-    const mealsStarted = startedMeals.some((item) => (
+  const verifyIfRecipeWasStarted = useCallback(() => {
+    const mealsStarted = startedRecipes.some((item) => (
       item.idMeal === recipe.idMeal
     ));
-    const cocktailsStarted = startedCocktails.some((item) => (
+    const cocktailsStarted = startedRecipes.some((item) => (
       item.idDrink === recipe.idDrink
     ));
     if (mealsStarted || cocktailsStarted) setRecipeState('started');
-  };
+    if (!mealsStarted || !cocktailsStarted) setRecipeState(undefined);
+  }, [startedRecipes, recipe]);
 
-  const verifyIfRecipeWasFinished = () => {
-    const mealsFinished = finishedMeals.some((item) => (
+  const verifyIfRecipeWasFinished = useCallback(() => {
+    const mealsFinished = finishedRecipes.some((item) => (
       item.idMeal === recipe.idMeal
     ));
-    const cocktailsFinished = finishedCocktails.some((item) => (
+    const cocktailsFinished = finishedRecipes.some((item) => (
       item.idDrink === recipe.idDrink
     ));
     if (mealsFinished || cocktailsFinished) setRecipeState('finished');
-  };
+  }, [finishedRecipes, recipe]);
 
   useEffect(() => {
     verifyIfRecipeWasStarted();
     verifyIfRecipeWasFinished();
-  }, [recipe]);
+  }, [recipe, verifyIfRecipeWasStarted, verifyIfRecipeWasFinished]);
 
   const startRecipeButton = (
     <Link to={ `/comidas/${id}/in-progress` }>
       <button
         type="button"
-        onClick={
-          recipeType === 'meals'
-            ? () => startMealsRecipe(recipe)
-            : () => startCocktailsRecipe(recipe)
-        }
+        onClick={ () => startRecipe(recipe) }
         data-testid="start-recipe-btn"
       >
         { !recipeState ? 'Iniciar Receita' : 'Continuar Receita' }
@@ -67,27 +60,19 @@ function StartRecipeButton({
 
 const mapStateToProps = (state) => ({
   recipe: state.recipeDetailsReducer.recipe,
-  recipeType: state.recipesReducer.recipeType,
-  startedMeals: state.recipeDetailsReducer.startedMeals,
-  startedCocktails: state.recipeDetailsReducer.startedCocktails,
-  finishedMeals: state.recipeDetailsReducer.finishedMeals,
-  finishedCocktails: state.recipeDetailsReducer.finishedCocktails,
+  startedRecipes: state.recipeDetailsReducer.startedRecipes,
+  finishedRecipes: state.recipeDetailsReducer.finishedRecipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startMealsRecipe: (recipe) => dispatch(addToStartedMeals(recipe)),
-  startCocktailsRecipe: (recipe) => dispatch(addToStartedCocktails(recipe)),
+  startRecipe: (recipe) => dispatch(addToStartedRecipe(recipe)),
 });
 
 StartRecipeButton.propTypes = {
-  recipeType: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf().isRequired,
-  startMealsRecipe: PropTypes.func.isRequired,
-  startCocktailsRecipe: PropTypes.func.isRequired,
-  startedMeals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  startedCocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
-  finishedMeals: PropTypes.arrayOf(PropTypes.object).isRequired,
-  finishedCocktails: PropTypes.arrayOf(PropTypes.object).isRequired,
+  startRecipe: PropTypes.func.isRequired,
+  startedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
+  finishedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.string.isRequired,
 };
 

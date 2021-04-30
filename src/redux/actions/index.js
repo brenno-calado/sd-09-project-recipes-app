@@ -8,8 +8,7 @@ import {
   FAILURE_CATEGORIES,
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
-  ADD_STARTED_MEALS,
-  ADD_STARTED_COCKTAILS,
+  ADD_STARTED_RECIPE
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -198,12 +197,7 @@ export function cocktailsRecommendedThunk() {
   };
 }
 
-export const addToStartedMeals = (recipe) => ({
-  type: ADD_STARTED_MEALS,
-  recipe,
-});
-
-export const addToStartedCocktails = (recipe) => ({
-  type: ADD_STARTED_COCKTAILS,
+export const addToStartedRecipe = (recipe) => ({
+  type: ADD_STARTED_RECIPE,
   recipe,
 });
