@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
@@ -18,23 +17,23 @@ function Details({ match: { params: { id } }, toggleCouldRedirect }) {
   const { pathname } = useLocation();
   const idType = (pathname.includes('comida')) ? 'meals' : 'cocktails';
 
-  const checkInProgressStore = () => {
-    let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (!inProgress) return null;
-    inProgress = inProgress[idType];
-    inProgress = Object.keys(inProgress);
-    setInProgressRecipes(inProgress.find((item) => item === id));
-  };
-
-  const checkDoneRecipie = () => {
-    const isDone = localStorage.getItem('doneRecipes');
-    if (isDone) {
-      const isItDone = JSON.parse(isDone).some((item) => item.id === id);
-      setDone(isItDone);
-    }
-  };
-
   useEffect(() => {
+    const checkInProgressStore = () => {
+      let inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (!inProgress) return null;
+      inProgress = inProgress[idType];
+      inProgress = Object.keys(inProgress);
+      setInProgressRecipes(inProgress.find((item) => item === id));
+    };
+
+    const checkDoneRecipie = () => {
+      const isDone = localStorage.getItem('doneRecipes');
+      if (isDone) {
+        const isItDone = JSON.parse(isDone).some((item) => item.id === id);
+        setDone(isItDone);
+      }
+    };
+
     fetchRecipeDetails(idType, id)
       .then((data) => {
         setRecipe(data);
@@ -43,7 +42,7 @@ function Details({ match: { params: { id } }, toggleCouldRedirect }) {
         checkDoneRecipie();
         toggleCouldRedirect(false);
       });
-  }, [id, idType]);
+  }, [id, idType, toggleCouldRedirect]);
 
   const handleClick = () => {
     const savedProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));

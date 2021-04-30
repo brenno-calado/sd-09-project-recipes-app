@@ -6,29 +6,30 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchMeals } from '../services/fetchRecipes';
 import Card from './Card';
 
-function DetailsDrink({ recipe, inProgressRecipes, handleClick, done}) {
+function DetailsDrink({ recipe, inProgressRecipes, handleClick, done }) {
   const [recommends, setRecommends] = useState([]);
   const [allIngrdients, setAllIngrdients] = useState([]);
   const location = useLocation();
   const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = recipe;
 
-  const getIngredients = () => {
-    const ingredients = [];
-    const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
-    const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
-    ingreQtt.forEach((item, index) => {
-      if (recipe[item] !== null && recipe[item] !== '') {
-        ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
-      }
-    });
-    setAllIngrdients(ingredients);
-  };
-
   useEffect(() => {
+    const getIngredients = () => {
+      const ingredients = [];
+      const ingreQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strIngredient'));
+      const measureQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strMeasure'));
+      ingreQtt.forEach((item, index) => {
+        if (recipe[item] !== null && recipe[item] !== '') {
+          ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
+        }
+      });
+      setAllIngrdients(ingredients);
+    };
     const toSlice = 6;
     fetchMeals().then((data) => setRecommends(data.slice(0, toSlice)));
     getIngredients();
-  }, []);
+  }, [recipe]);
 
   const renderButton = () => (
     <Link to={ `${location.pathname}/in-progress` }>
