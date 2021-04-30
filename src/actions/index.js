@@ -21,11 +21,6 @@ export const categoriesMeals = (categories) => ({
   categories,
 });
 
-export const searchMeals = (meals) => ({
-  type: SEARCH_MEALS,
-  meals,
-});
-
 export const listDrinks = (drinks) => ({
   type: GET_DRINKS,
   drinks,
@@ -34,9 +29,4 @@ export const listDrinks = (drinks) => ({
 export const categoriesDrinks = (categories) => ({
   type: GET_CATEGORIES_DRINKS,
   categories,
-});
-
-export const searchDrinks = (drinks) => ({
-  type: SEARCH_DRINKS,
-  drinks,
 });
