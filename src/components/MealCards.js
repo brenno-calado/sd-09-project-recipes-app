@@ -1,38 +1,52 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { Link } from 'react-router-dom';
 
-export default function MealCards(categories, meals, categoryCheck) {
+export default function MealCards(
+  categories,
+  meals,
+  categoryCheck,
+) {
   return (
     <section
-      className="row"
+      className="container-cards"
       style={ {
         justifyContent: 'space-around',
         margin: '5px',
       } }
     >
       <div
-        className="btn-group"
+        className="group"
         style={ {
+          display: 'flex',
+          flexDirection: 'column',
           width: '100%',
+          height: '100%',
+          justifyContent: 'space-between',
         } }
       >
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-outline-dark btn-sm"
           data-testid="All-category-filter"
           key={ -0 }
           onClick={ async () => categoryCheck() }
+          style={ {
+            marginBottom: '3px',
+          } }
         >
           All
         </button>
         {categories.map((category, index) => (
           <button
             type="button"
-            className="btn btn-secondary"
+            className="btn btn-outline-dark btn-sm"
             data-testid={ `${category.strCategory}-category-filter` }
             key={ index }
             onClick={ async () => categoryCheck(category.strCategory) }
+            style={ {
+              marginBottom: '3px',
+            } }
           >
             {category.strCategory}
           </button>
@@ -43,9 +57,9 @@ export default function MealCards(categories, meals, categoryCheck) {
           <div
             key={ meal.idMeal }
             data-testid={ `${index}-recipe-card` }
-            className="card"
+            className="cards"
             style={ {
-              width: '7rem',
+              width: '16rem',
               alignItems: 'center',
               marginBottom: '5px',
               marginTop: '10px',
@@ -56,11 +70,15 @@ export default function MealCards(categories, meals, categoryCheck) {
               data-testid={ `${index}-card-img` }
               alt={ `${meal.strMeal} recipe` }
               className="card-img-top"
-              style={ { width: '6rem', margin: '4px' } }
+              style={ { width: '15.5rem', margin: '4px' } }
             />
             <h5
               data-testid={ `${index}-card-name` }
-              className="card-title"
+              style={ {
+                display: 'flex',
+                justifyContent: 'center',
+                textDecoration: 'none',
+              } }
             >
               {meal.strMeal}
             </h5>
