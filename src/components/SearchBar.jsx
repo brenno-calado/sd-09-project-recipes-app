@@ -1,6 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { fetchMeal, fetchDrink } from '../services/api';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
+import { getPageFromURL } from '../services/others';
 
 const defaultSearchFilters = {
   inputSearch: '',
@@ -11,7 +12,7 @@ const defaultSearchFilters = {
 
 function SearchBar() {
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
-  const { meals, setMeals, drinks, setDrinks, page } = useContext(MealsAndDrinkContext);
+  const { meals, setMeals, drinks, setDrinks } = useContext(MealsAndDrinkContext);
 
   function handleChange({ target }) {
     const obj = { ...searchFilters };
@@ -26,21 +27,29 @@ function SearchBar() {
     setSearchFilters(obj);
   }
 
-  async function handleSearch() {
-    if (page === 'comidas') {
-      const mealList = await fetchMeal(searchFilters);
+  async function handleSearchMealsAndDrinks(searchWithFilters) {
+    if (getPageFromURL()) {
+      const mealList = await fetchMeal(searchWithFilters);
       setMeals(mealList);
-    }
-    if (page === 'bebidas') {
-      const drinkList = await fetchDrink(searchFilters);
+    } else {
+      const drinkList = await fetchDrink(searchWithFilters);
       setDrinks(drinkList);
     }
   }
 
-  function handleLog() {
-    console.log(meals);
-    console.log(drinks);
-  }
+  useEffect(() => {
+    async function searchMealsAndDrinksInit() {
+      if (meals.length === 0) {
+        const mealList = await fetchMeal({ nome: true, inputSearch: '' });
+        setMeals(mealList);
+      }
+      if (drinks.length === 0) {
+        const drinkList = await fetchDrink({ nome: true, inputSearch: '' });
+        setDrinks(drinkList);
+      }
+    }
+    searchMealsAndDrinksInit();
+  }, [meals, drinks, setMeals, setDrinks]);
 
   return (
     <div>
@@ -89,11 +98,12 @@ function SearchBar() {
           onChange={ handleChangeCheck }
         />
       </label>
-      <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
+      <button
+        data-testid="exec-search-btn"
+        type="button"
+        onClick={ () => handleSearchMealsAndDrinks(searchFilters) }
+      >
         Busca
-      </button>
-      <button type="button" onClick={ handleLog }>
-        CONSOLOGAR LISTAS
       </button>
     </div>
   );
