@@ -32,9 +32,8 @@ function Cards({ notFound, items, idType, notFoundReset, couldRedirect }) {
 }
 
 const mapStateToProps = (state) => ({
-  // items: state.searchBar.items,
   notFound: state.recipesList.notFound,
-  couldRedirect: state.couldRedirect,
+  couldRedirect: state.filter.couldRedirect,
 });
 
 const mapDispatchToProps = (dispatch) => ({

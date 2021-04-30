@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import recipesList from './recipesList';
-import couldRedirect from './couldRedirect';
+import filter from './filter';
 
 const rootReducer = combineReducers({
   recipesList,
-  couldRedirect,
+  filter,
 });
 
 export default rootReducer;
