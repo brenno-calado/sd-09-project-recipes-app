@@ -8,42 +8,60 @@ function RecipeInProgress() {
   const history = useHistory();
   const [favorite, setFavorite] = useState(false);
 
+  const [image, setImage] = useState('');
   const [title, setTitle] = useState('Title');
-  const [ingredients] = useState(['Item-1', 'Item-2', 'Item-3']);
   const [category, setCategories] = useState('Categoria');
-  const [instructions] = useState('');
+  const [ingredients, setIngredient] = useState([]);
+  const [instructions, setInstructions] = useState('');
 
   const id = history.location.pathname.replace(/\D/g, '');
   const type = history.location.pathname.split('/')[1];
-  console.log(history.location.pathname);
-  console.log(type);
-  console.log(title);
-  console.log(category);
+
+  function filterIngredients(obj) {
+    const recipe = Object.entries(obj);
+    const ingredientsKeyValue = recipe
+      .filter((item) => ((item[0].includes('strIngredient')) && item[1]));
+    setIngredient(ingredientsKeyValue.map((item) => (item[1])));
+  }
+
+  function setMealDescription(meals) {
+    setImage(meals[0].strMealThumb);
+    setTitle(meals[0].strMeal);
+    setCategories(meals[0].strCategory);
+    filterIngredients(meals[0]);
+    setInstructions(meals[0].strInstructions);
+  }
+
+  function setDrinkDescription(drinks) {
+    setImage(drinks[0].strDrinkThumb);
+    setTitle(drinks[0].strDrink);
+    setCategories(drinks[0].strCategory);
+    filterIngredients(drinks[0]);
+    setInstructions(drinks[0].strInstructions);
+  }
 
   useEffect(() => {
     if (type === 'comidas') {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ meals }) => {
-          setTitle(meals[0].strMeal);
-          setCategories(meals[0].strCategory);
+          setMealDescription(meals);
         });
     } else if (type === 'bebidas') {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ drinks }) => {
-          setTitle(drinks[0].strDrink);
-          setCategories(drinks[0].strCategory);
+          setDrinkDescription(drinks);
         });
     }
-  }, [id, type]);
+  }, [id]);
 
   function handleClick() {
     setFavorite(!favorite);
   }
 
   function rendeImage() {
-    return (<img data-testid="recipe-photo" src="#" alt="Imagem da receita" />);
+    return (<img data-testid="recipe-photo" src={ image } alt="Imagem da receita" />);
   }
 
   function rendeTitle() {
@@ -134,7 +152,7 @@ function RecipeInProgress() {
       { rendeCategory() }
       { btnShare() }
       { btnFavorite() }
-      { henderIngredients() }
+      { (ingredients.length > 0) ? henderIngredients() : <h1>{ingredients}</h1> }
       { henderInstructions() }
       { btnFinished() }
     </div>
