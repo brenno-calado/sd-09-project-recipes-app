@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { fetchDrinkById } from '../services/index';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -12,8 +12,8 @@ function DrinkDetails() {
   const {
     strDrink,
     strDrinkThumb,
-    strCategory,
     strInstructions,
+    strAlcoholic,
   } = currentDrink;
   const recipeId = useParams();
 
@@ -21,9 +21,9 @@ function DrinkDetails() {
     const fetchRecipeDetails = async () => {
       const retrievedRecipe = await fetchDrinkById(recipeId.id);
       setCurrentDrink(retrievedRecipe[0]);
+      setFetching(false);
     };
     fetchRecipeDetails();
-    setFetching(false);
   }, [recipeId.id]);
 
   const filterIngredients = () => {
@@ -76,7 +76,7 @@ function DrinkDetails() {
           <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
         </button>
       </div>
-      <h2 data-testid="recipe-category">{`Categoria: ${strCategory}`}</h2>
+      <h2 data-testid="recipe-category">{strAlcoholic}</h2>
       <ul>
         { filterIngredients() }
       </ul>
@@ -88,7 +88,7 @@ function DrinkDetails() {
       >
         Iniciar Receita
       </button>
-      <section data-testid="1-recomendation-card">Recomendações</section>
+      <section data-testid="0-recomendation-card">Recomendações</section>
     </div>
   );
 

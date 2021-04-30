@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 import { fetchMealsById } from '../services/index';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -21,11 +21,12 @@ function RecipeDetails() {
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
+      // setFetching(true);
       const retrievedRecipe = await fetchMealsById(recipeId.id);
       setCurrentMeal(retrievedRecipe[0]);
+      setFetching(false);
     };
     fetchRecipeDetails();
-    setFetching(false);
   }, [recipeId.id]);
 
   const filterIngredients = () => {
