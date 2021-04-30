@@ -6,6 +6,11 @@ import {
   getMealByIngredients,
   getMealByFirstLetter,
 } from '../services/MealFetch';
+import {
+  getDrinkByName,
+  getDrinkByFirstLetter,
+  getDrinkByIngredients,
+} from '../services/DrinkFetch';
 
 const MealProvider = ({ children }) => {
   const [foods, setFoods] = useState();
@@ -17,7 +22,7 @@ const MealProvider = ({ children }) => {
     setRadio(value);
   }
 
-  function filters(input) {
+  function foodFilter(input) {
     if (radio === 'name') {
       getMealsByName(input)
         .then((response) => setFoods(response));
@@ -34,9 +39,35 @@ const MealProvider = ({ children }) => {
     } else if (radio === 'letter' && input.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     }
+  }
 
-    console.clear();
-    console.log(foods);
+  function drinkFilter(input) {
+    if (radio === 'name') {
+      getDrinkByName(input)
+        .then((response) => setFoods(response));
+    }
+
+    if (radio === 'ingredient') {
+      getDrinkByIngredients(input)
+        .then((response) => setFoods(response));
+    }
+
+    if (radio === 'letter' && input.length === 1) {
+      getDrinkByFirstLetter(input)
+        .then((response) => setFoods(response));
+    } else if (radio === 'letter' && input.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+  }
+
+  function filters(input) {
+    if (window.location.href.match(/comidas$/)) {
+      foodFilter(input);
+    }
+
+    if (window.location.href.match(/bebidas$/)) {
+      drinkFilter(input);
+    }
   }
 
   const context = {

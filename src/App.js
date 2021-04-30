@@ -29,19 +29,15 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route path="/comidas" component={ PrincipalComidas } />
           <Route path="/bebidas" component={ PrincipalBebidas } />
-          {/* Placeholder do id */}
+
           <Route path="/comidas/id-da-receita" component={ DetalhesComida } />
-          {/* Placeholder do id */}
+
           <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } />
-          {/* Placeholder do id */}
+
           <Route
             path="/comidas/id-da-receita/in-progress"
             component={ ProcessoComida }
           />
-          {/* Placeholder do id */}
-          {/* <Route
-            path="/bebidas/id-da-receita/in-progress"
-            component={ processoBebida } /> */}
           <Route path="/bebidas/id-da-receita/in-progress" component={ ProcessoBebida } />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
