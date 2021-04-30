@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function MainPageFood() {
+export default function DrinkDetails() {
   return (<div>DrinkDetails</div>);
 }

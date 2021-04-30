@@ -1,5 +1,12 @@
 import React from 'react';
+import Footer from '../components/footer';
+import Header from '../components/header';
 
-export default function MainPageFood() {
-  return (<div>Explore</div>);
+export default function Explore() {
+  return (
+    <>
+      <Header page="Explorar" />
+      <Footer />
+    </>
+  );
 }

@@ -8,9 +8,12 @@ import {
   searchDrinks,
   searchMeals,
 } from '../actions';
+import getFoodsAndDrinks from '../services/servicesAPI';
+
+import Header from '../components/header';
+import Footer from '../components/footer';
 import CardContainer from '../components/cardContainer';
 import Categories from '../components/categories';
-import getFoodsAndDrinks from '../services/servicesAPI';
 
 export default function MainPageFood() {
   const [recipes, setRecipes] = useState([]);
@@ -94,6 +97,8 @@ export default function MainPageFood() {
     if (type) return state.recipesReducer[stateValues[type].categories];
   });
 
+  const searchFor = () => (pathname === '/comidas' ? 'meals' : 'drinks');
+
   useEffect(() => {
     setRecipes(catSelected === 'All' ? recipesData : searchData);
     setCategories(categoriesData);
@@ -101,7 +106,10 @@ export default function MainPageFood() {
 
   return (
     <>
-      <header className="header-wrapper">{pathname.replace('/', '')}</header>
+      <Header
+        page={ pathname.replace('/', '').charAt(0).toUpperCase() + pathname.slice(2) }
+        search={ { searchBtn: true, searchFor: searchFor() } }
+      />
       <main className="mainPage-wrapper">
         <Categories
           categories={ categories }
@@ -110,7 +118,7 @@ export default function MainPageFood() {
         />
         <CardContainer recipes={ recipes } path={ pathname } />
       </main>
-      <footer className="footer-wrapper">Footer</footer>
+      <Footer />
     </>
   );
 }
