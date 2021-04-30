@@ -16,7 +16,7 @@ function ReceitasFeitas() {
       name: 'Chicken & mushroom Hotpot',
       image: 'https://www.themealdb.com/images/media/meals/uuuspp1511297945.jpg',
       doneDate: '2016-08-18',
-      tags: ['bun', 'baking'],
+      tags: ['bun', 'baking', 'xablau'],
     },
     {
       id: 11007,
@@ -30,8 +30,11 @@ function ReceitasFeitas() {
       tags: [],
     },
   ];
+
+  const handleClickButton = () => {};
+
   const doneRecipes = data.map((recipes, index) => (
-    <ContentDoneRecipes key={ recipes.id } recipes={ recipes } index={ index } />
+    <ContentDoneRecipes key={ recipes.id } recipes={ recipes } recipeIndex={ index } />
   ));
   return (
     <div>
