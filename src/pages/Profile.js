@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import getPageTitle from '../services/pageTitles';
 import paths from '../routes/paths';
-
 const {
   DONE_RECIPES,
   FAVORITE_RECIPES,
