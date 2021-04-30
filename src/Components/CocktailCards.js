@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import '../Styles/FoodCards.css';
@@ -30,14 +30,17 @@ class CocktailCards extends React.Component {
           key={ index }
           data-testid={ `${index}-recipe-card` }
         >
-          <img
-            src={ cocktail.strDrinkThumb }
-            alt="cocktails"
-            data-testid={ `${index}-card-img` }
-            className="foodCards"
-          />
-          <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
-          <Link to={ `/bebidas/${cocktail.idDrink}/` }>Detalhes</Link>
+          <Link
+            to={ `/bebidas/${cocktail.idDrink}` }
+          >
+            <img
+              src={ cocktail.strDrinkThumb }
+              alt="cocktails"
+              data-testid={ `${index}-card-img` }
+              className="foodCards"
+            />
+            <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
+          </Link>
         </div>)
       ),
     );
@@ -45,10 +48,9 @@ class CocktailCards extends React.Component {
 
   render() {
     const { cocktails, loading } = this.props;
-    console.log(loading)
     return (
       <div className="cardContainer">
-        {cocktails ? this.createCards() : <div />}
+        {cocktails ? this.createCards() : <div>{loading}</div>}
       </div>
     );
   }
@@ -59,6 +61,7 @@ CocktailCards.propTypes = {
     map: PropTypes.func.isRequired,
   }).isRequired,
   getCocktails: PropTypes.func.isRequired,
+  loading: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({

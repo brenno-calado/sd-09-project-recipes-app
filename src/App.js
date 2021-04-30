@@ -30,11 +30,22 @@ function App() {
       <Route path="/explorar/bebidas" component={ ExploreDrink } />
       <Route path="/explorar/comidas" component={ ExploreFood } />
       <Route path="/explorar" component={ Explore } />
-      {/* <Route path="/bebidas/{id-da-receita}/in-progress" render={ (drink-id) => <DrinkProgress {...drink-id} /> }/>
-      <Route path="/comidas/{id-da-receita}/in-progress" render={ (recipe-id) => <FoodProgress {...recipe-id} /> } />
-      <Route path="/bebidas:{id-bebida}" render={ (drink-id) => <DrinkDetails {...drink-id} /> } />
-      <Route path="/comidas/:{id-receita}"
-    render={ (recipe-id) => <FoodDetails {...recipe-id} /> }/> */}
+      {/* <Route
+        path="/bebidas/{id-da-receita}/in-progress"
+        render={ (drink-id) => <DrinkProgress {...drink-id} /> }
+      />
+      <Route
+        path="/comidas/{id-da-receita}/in-progress"
+        render={ (recipe-id) => <FoodProgress {...recipe-id} /> }
+      /> */}
+      <Route
+        path="/bebidas:{id-bebida}"
+        render={ (drinkid) => <DetailsDrinks { ...drinkid } /> }
+      />
+      <Route
+        path="/comidas/:{id-receita}"
+        render={ (recipeid) => <DetailsFood { ...recipeid } /> }
+      />
       <Route path="/comidas/:id/" component={ DetailsFood } />
       <Route path="/bebidas/:id/" component={ DetailsDrinks } />
       <Route path="/bebidas" component={ MainDrink } />

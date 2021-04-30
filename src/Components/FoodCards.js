@@ -21,17 +21,20 @@ class FoodCards extends React.Component {
       (meal, index) => (index <= magicNumber
       && (
         <div
+          type="button"
           key={ index }
           data-testid={ `${index}-recipe-card` }
         >
-          <img
-            src={ meal.strMealThumb }
-            alt="meal"
-            data-testid={ `${index}-card-img` }
-            className="foodCards"
-          />
-          <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-          <Link to={ `/comidas/${meal.idMeal}/` }>Detalhes</Link>
+          <Link to={ `/comidas/${meal.idMeal}` }>
+            <img
+              src={ meal.strMealThumb }
+              alt="meal"
+              data-testid={ `${index}-card-img` }
+              className="foodCards"
+            />
+            <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+            Detalhes
+          </Link>
         </div>)
       ),
     );

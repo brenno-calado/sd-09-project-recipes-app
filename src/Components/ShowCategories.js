@@ -17,7 +17,6 @@ function ShowCategories({ name }) {
     else getCategories(fetchCocktailsCategories);
   }, [getCategories, name]);
   const numberOfCategories = 5;
-  console.log(categories);
 
   return (
     <div>
