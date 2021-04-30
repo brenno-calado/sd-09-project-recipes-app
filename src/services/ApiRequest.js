@@ -69,3 +69,15 @@ export async function fetchCocktailsCategories() {
   const cocktailCategories = await response.json();
   return cocktailCategories;
 }
+
+export async function fetchExplreFoodRadom() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const cocktailCategories = await response.json();
+  return cocktailCategories;
+}
+
+export async function fetchExplreDrinksRadom() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const cocktailCategories = await response.json();
+  return cocktailCategories;
+}

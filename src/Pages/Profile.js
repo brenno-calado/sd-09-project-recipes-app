@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import '../Styles/Profile.css';
@@ -34,13 +35,21 @@ class Profile extends React.Component {
               type="button"
               data-testid="profile-done-btn"
             >
-              Receitas Feitas
+              <Link
+                to="/receitas-feitas"
+              >
+                Receitas Feitas
+              </Link>
             </button>
             <button
               type="button"
               data-testid="profile-favorite-btn"
             >
-              Receitas Favoritas
+              <Link
+                to="/receitas-favoritas"
+              >
+                Receitas Favoritas
+              </Link>
             </button>
             <button
               type="button"
