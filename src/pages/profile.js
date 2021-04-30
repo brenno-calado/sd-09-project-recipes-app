@@ -3,16 +3,17 @@ import { Link } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 
-export default function Perfil() {
+export default function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));
+
   const clearLocalStorage = () => {
-    localStorage.clear()
-  }
+    localStorage.clear();
+  };
 
   return (
     <>
       <Header page="Perfil" />
-      <h1 data-testid="profile-email">{ user?.email }</h1>
+      <h1 data-testid="profile-email">{ user.email }</h1>
       <main className="perfil">
         <Link to="/receitas-feitas">
           <btn data-testid="profile-done-btn">Receitas Feitas</btn>

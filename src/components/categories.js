@@ -4,7 +4,6 @@ import { Nav } from 'react-bootstrap';
 
 export default function Categories({ categories, selected, callback }) {
   const size = 5;
-  console.log(selected);
 
   return (
     <Nav fill variant="pills" defaultActiveKey={ selected }>
