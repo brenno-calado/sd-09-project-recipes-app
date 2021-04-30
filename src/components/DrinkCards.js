@@ -87,41 +87,6 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
         index < numberOfDrinks
           ? renderCards(drink, index)
           : null
-        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
-          <div
-            key={ drink.idDrink }
-            data-testid={ `${index}-recipe-card` }
-            className="cards"
-            style={ {
-              width: '16rem',
-              alignItems: 'center',
-              marginBottom: '5px',
-              marginTop: '10px',
-            } }
-          >
-            <img
-              src={ drink.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-              alt={ `${drink.strDrink} recipe` }
-              className="img"
-              style={ {
-                width: '15.5rem',
-                margin: '4px',
-
-              } }
-            />
-            <h5
-              data-testid={ `${index}-card-name` }
-              style={ {
-                display: 'flex',
-                justifyContent: 'center',
-                textDecoration: 'none',
-              } }
-            >
-              {drink.strDrink}
-            </h5>
-          </div>
-        </Link>
       ))}
     </section>
   );
