@@ -1,17 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MealContext from './MealContext';
-import getMealsByName from '../services/MealFetch';
+import {
+  getMealsByName,
+  getMealByIngredients,
+  getMealByFirstLetter,
+} from '../services/MealFetch';
 
 const MealProvider = ({ children }) => {
-  const [data, setData] = useState();
+  const [foods, setFoods] = useState();
+  const [drinks, setDrinks] = useState();
+  const [radio, setRadio] = useState('');
+  const [inputValue, setInputValue] = useState('');
 
-  useEffect(() => {
-    getMealsByName('Arrabiata').then((response) => setData(response));
-  }, []);
+  function handleChangeRadio({ target: { value } }) {
+    setRadio(value);
+  }
+
+  function filters(input) {
+    if (radio === 'name') {
+      getMealsByName(input)
+        .then((response) => setFoods(response));
+    }
+
+    if (radio === 'ingredient') {
+      getMealByIngredients(input)
+        .then((response) => setFoods(response));
+    }
+
+    if (radio === 'letter' && input.length === 1) {
+      getMealByFirstLetter(input)
+        .then((response) => setFoods(response));
+    } else if (radio === 'letter' && input.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+
+    console.clear();
+    console.log(foods);
+  }
 
   const context = {
-    data,
+    foods,
+    setFoods,
+    drinks,
+    setDrinks,
+    radio,
+    handleChangeRadio,
+    filters,
+    inputValue,
+    setInputValue,
   };
 
   return (
