@@ -1,6 +1,5 @@
 async function searchApi(typeRecipe, typeSearch, itemSearch) {
   let url;
-
   if (typeRecipe === 'comidas') {
     switch (typeSearch) {
     case 'ingredient':
