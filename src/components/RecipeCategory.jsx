@@ -4,7 +4,7 @@ import { fetchCategory } from '../services/fetchAPI';
 
 const FIRST_FIVE_CATEGORY = 5;
 
-export default function RecipeCategory({ type, toggleFunc }) {
+export default function RecipeCategory({ type, toggleFunc, setToggle }) {
   const [typeCategoryPopulated, setTypeCategoryPopulated] = useState([]);
 
   useEffect(() => {
@@ -23,14 +23,14 @@ export default function RecipeCategory({ type, toggleFunc }) {
             key={ `${category.strCategory}` }
             value={ `${category.strCategory}` }
             data-testid={ `${category.strCategory}-category-filter` }
-            onClick={ (e) => toggleFunc(e.target.value) }
+            onClick={ (e) => toggleFunc(category.strCategory, e.target.value) }
           >
             {category.strCategory}
           </button>
         ))}
       <button
         type="button"
-        onClick={ () => toggleFunc('all') }
+        onClick={ () => setToggle(false) }
         data-testid="All-category-filter"
       >
         All
@@ -40,6 +40,7 @@ export default function RecipeCategory({ type, toggleFunc }) {
 }
 
 RecipeCategory.propTypes = {
+  setToggle: PropTypes.func.isRequired,
   toggleFunc: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };

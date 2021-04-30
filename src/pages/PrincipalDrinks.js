@@ -7,23 +7,21 @@ import RecipeCategory from '../components/RecipeCategory';
 
 function PrincipalDrinks() {
   const [drinks, setDrinks] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const history = useHistory();
 
-  function toggleFunc(category) {
-    if (category === 'all') setToggle(false);
-    else {
-      setSelectedCategory(category);
-      if (selectedCategory === category) {
-        setToggle(false);
-      } else {
+  function toggleFunc(category, categoryValue) {
+    if (categoryValue !== 'all') {
+      setSelectedCategory(categoryValue);
+      if (selectedCategory === categoryValue) setToggle(false);
+      else {
         fetchDrinks('category', category)
           .then((response) => setFilteredDrinks(response));
+        setToggle(true);
       }
-    }
+    } else setToggle(false);
   }
 
   function redirectToDetails(id) {
@@ -39,7 +37,7 @@ function PrincipalDrinks() {
   return (
     <div>
       <Header title="Bebidas" />
-      <RecipeCategory type="drinks" toggleFunc={ toggleFunc } />
+      <RecipeCategory type="drinks" toggleFunc={ toggleFunc } setToggle={ setToggle } />
       {drinksMap && drinksMap.map((recipe, index) => {
         if (index < cardLimit) {
           return (
