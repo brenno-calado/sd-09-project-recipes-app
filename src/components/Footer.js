@@ -8,6 +8,9 @@ const footerStyle = {
   bottom: '0px',
   margin: 'auto',
   position: 'fixed',
+  // width: '100%',
+  // display: 'flex',
+  // justifyContent: 'space-between',
 };
 
 const Footer = () => (

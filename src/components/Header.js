@@ -9,7 +9,9 @@ const headerStyle = {
   margin: 'auto',
   position: 'fixed',
   top: '0px',
-
+  // width: '100%',
+  // display: 'flex',
+  // justifyContent: 'space-between',
 };
 
 export default function Header(props) {
