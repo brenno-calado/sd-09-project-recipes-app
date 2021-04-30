@@ -14,7 +14,6 @@ function ExploreFood() {
   useEffect(() => {
     const randomFetch = async () => {
       const randomSetup = await getRandom('Foods');
-      console.log(randomSetup);
       setRandom(randomSetup.meals[0].idMeal);
     };
     randomFetch();
