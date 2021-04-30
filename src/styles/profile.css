@@ -22,7 +22,7 @@
   text-transform: uppercase;
 }
 
-.recipe-buttons {
+.recipe-button {
   align-items: center;
   background-color: blue;
   border: solid 1px;
@@ -38,7 +38,7 @@
   width: 40%;
 }
 
-.recipe-buttons:hover {
+.recipe-button:hover {
   background-color: darkblue;
   transition-duration: 0.5s;
 }

@@ -28,7 +28,7 @@ export default function Profile() {
         type="button"
         data-testid="profile-done-btn"
         onClick={ () => history.push('/receitas-feitas') }
-        className="recipe-buttons"
+        className="recipe-button"
       >
         Receitas Feitas
       </button>
@@ -36,7 +36,7 @@ export default function Profile() {
         type="button"
         data-testid="profile-favorite-btn"
         onClick={ () => history.push('/receitas-favoritas') }
-        className="recipe-buttons"
+        className="recipe-button"
       >
         Receitas Favoritas
       </button>
