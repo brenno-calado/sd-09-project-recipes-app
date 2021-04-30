@@ -35,6 +35,7 @@ function recipesReducer(state = INITIAL_STATE, action) {
       ...state,
       isFetching: true,
       isFetched: false,
+      isFetchedCategories: false,
     });
   case SUCCESS_FETCH:
     return ({

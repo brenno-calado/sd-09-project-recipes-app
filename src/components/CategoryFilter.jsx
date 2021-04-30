@@ -24,7 +24,7 @@ function CategoryFilter({
 }) {
   const [previousCategory, setPreviousCategory] = useState('');
 
-  const fetchByCategory = () => {
+  const fetchCategories = () => {
     if (recipeType === 'meals') {
       mealsCategoryDispatcher();
     }
@@ -35,7 +35,7 @@ function CategoryFilter({
 
   useEffect(() => {
     if (!isFetchedCategories) {
-      fetchByCategory();
+      fetchCategories();
     }
   }, [isFetched]);
 

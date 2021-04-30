@@ -5,8 +5,13 @@ import ReactPlayer from 'react-player';
 import { mealsByIdThunk, cocktailsByIdThunk } from '../redux/actions';
 import RecommendedRecipes from '../components/RecommendedRecipes';
 import StartRecipeButton from '../components/StartRecipeButton';
+import FavoriteButton from '../components/FavoriteButton';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function Details({
+  history,
   match: { params: { id } },
   mealsById,
   cocktailsById,
@@ -14,6 +19,7 @@ function Details({
   recipe,
 }) {
   const [ingredients, setIngredients] = useState([]);
+  const [showMessage, setShowMessage] = useState(false);
 
   const getIngredients = () => {
     const chave = 'strIngredient';
@@ -26,6 +32,15 @@ function Details({
       obj[recipe[ingredientKeys[index]]] = recipe[measureKeys[index]];
     }
     setIngredients(Object.entries(obj));
+  };
+
+  const getLink = async () => {
+    const magicNumber = 4000;
+    const { location: { pathname } } = history;
+    const link = `http://localhost:3000${pathname}`;
+    await navigator.clipboard.writeText(link);
+    setShowMessage(true);
+    setTimeout(() => { setShowMessage(false); }, magicNumber);
   };
 
   useEffect(() => {
@@ -52,19 +67,15 @@ function Details({
       <div>
         <button
           type="button"
-          onClick={ () => {} }
+          onClick={ getLink }
           data-testid="share-btn"
         >
+          <img src={ shareIcon } alt="botao de compartilhar" />
           Compartilhar
         </button>
-        <button
-          type="button"
-          onClick={ () => {} }
-          data-testid="favorite-btn"
-        >
-          Favoritar
-        </button>
       </div>
+      <FavoriteButton />
+      { showMessage && <p>Link copiado!</p> }
       <div>
         <p data-testid="recipe-title">
           { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
@@ -128,6 +139,7 @@ Details.propTypes = {
   cocktailsById: PropTypes.func.isRequired,
   recipeType: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf().isRequired,
+  history: PropTypes.objectOf().isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);

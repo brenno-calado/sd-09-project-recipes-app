@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mealsRecommendedThunk, cocktailsRecommendedThunk } from '../redux/actions';
+import '../css/RecommendedRecipes.css';
 
 function RecommendedRecipes({
   mealsThunkDispatcher,
@@ -37,25 +38,35 @@ function RecommendedRecipes({
   }, [recommended, verifyFetch]);
 
   const recommendedMeals = data.map((recipe, index) => (
-    <p
+    <div
       key={ recipe.idMeal }
       data-testid={ `${index}-recomendation-card` }
+      className="recommendation-card"
     >
-      { recipe.strMeal }
-    </p>
+      <img
+        src={ recipe.strMealThumb }
+        alt="foto da receita"
+      />
+      <p>{recipe.strMeal}</p>
+    </div>
   ));
 
   const recommendedDrinks = data.map((recipe, index) => (
-    <p
+    <div
       key={ recipe.idDrink }
       data-testid={ `${index}-recomendation-card` }
+      className="recommendation-card"
     >
-      { recipe.strDrink }
-    </p>
+      <img
+        src={ recipe.strDrinkThumb }
+        alt="foto da receita"
+      />
+      <p>{recipe.strDrink}</p>
+    </div>
   ));
 
   return (
-    <section>
+    <section className="recommendation-container">
       { recipeType === 'meals' ? recommendedDrinks : recommendedMeals }
     </section>
   );
