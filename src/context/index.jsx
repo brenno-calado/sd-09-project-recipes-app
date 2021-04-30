@@ -10,20 +10,26 @@ function Provider({ children }) {
   const [formValidation, setFormValidation] = useState(false);
   const [foods, setFoods] = useState(null);
   const [drinks, setDrinks] = useState(null);
+  const [categories, setCategories] = useState();
+  const [toggleButton, setToggleButton] = useState(null);
 
   const value = {
     data,
     setData,
     drinks,
     setDrinks,
-    foods,
-    setFoods,
     isLoading,
     setLoading,
     authLogin,
     setAuthLogin,
     formValidation,
     setFormValidation,
+    foods,
+    setFoods,
+    categories,
+    setCategories,
+    toggleButton,
+    setToggleButton,
   };
 
   return (

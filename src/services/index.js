@@ -8,6 +8,7 @@ const types = {
 
 const selectors = {
   ingredient: 'api/json/v1/1/filter.php?i=',
+  categorie: 'api/json/v1/1/filter.php?c=',
   name: 'api/json/v1/1/search.php?s=',
   letters: 'api/json/v1/1/search.php?f=',
   image: 'images/ingredients/',
@@ -25,7 +26,7 @@ const fetchApi = async (type, selector, endPoint) => {
   try {
     const request = await fetch(types[type] + selectors[selector] + endPoint);
     const response = await request.json();
-    return response;
+    return (response);
   } catch (error) {
     console.log(error);
   }

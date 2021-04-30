@@ -22,7 +22,7 @@ function useDrinkApi() {
     } else {
       setDrinks([]);
     }
-  }, [filter]);
+  }, [setDrinks, filter]);
 
   return { drinks, setFilter, filter };
 }
