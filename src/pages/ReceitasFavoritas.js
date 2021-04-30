@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartImg from '../images/blackHeartIcon.svg';
+// import whiteHeartImg from '../images/whiteHeartIcon.svg';
+import { AppContext } from '../context/AppContext';
 
 function Perfil() {
-  const localData = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const { removeFromFavorite, removeFromTheFavorites, xablau } = useContext(AppContext);
+  let localData = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
 
@@ -25,6 +28,11 @@ function Perfil() {
     setFilterName(value);
   };
 
+  const handleFavoriteButton = (id) => {
+    removeFromFavorite(id);
+    removeFromTheFavorites(id);
+  };
+
   const showFilteredMeal = () => (
     localData.filter((meal) => {
       switch (filterName) {
@@ -40,7 +48,13 @@ function Perfil() {
     })
   );
 
-  const arrRecipes = filterName ? showFilteredMeal() : localData;
+  let arrRecipes = filterName ? showFilteredMeal() : localData;
+
+  useEffect(() => {
+    localData = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(localData);
+    arrRecipes = filterName ? showFilteredMeal() : localData;
+  }, [xablau]);
 
   return (
     <div>
@@ -109,6 +123,13 @@ function Perfil() {
               data-testid={ `${index}-horizontal-share-btn` }
             >
               <img src={ shareIcon } alt="compartilhar" />
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              onClick={ () => handleFavoriteButton(recipe.id) }
+            >
+              <img src={ blackHeartImg } alt="Favoritas" />
             </button>
             { linkShared && <p>Link copiado!</p> }
             <p
