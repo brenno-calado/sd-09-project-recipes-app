@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import Card from '../../components/card';
 import Header from '../../components/header';
 import Btn from '../../components/btn';
 import Footer from '../../components/footer';
+import Search from '../../components/search';
 import { requestCategoriesDrinks, requestDrinks } from '../../services/api';
 
 class index extends Component {
@@ -10,11 +12,13 @@ class index extends Component {
     super(props);
     this.setDrinks = this.setDrinks.bind(this);
     this.setLastFilter = this.setLastFilter.bind(this);
+    this.setSearch = this.setSearch.bind(this);
 
     this.state = {
       drinks: [],
       categories: [],
       lastFilter: 'All',
+      statusSearch: false,
     };
   }
 
@@ -33,6 +37,10 @@ class index extends Component {
 
   setLastFilter(filter) {
     this.setState((state) => ({ ...state, lastFilter: filter }));
+  }
+
+  setSearch() {
+    this.setState((state) => ({ ...state, statusSearch: !state.statusSearch }));
   }
 
   renderbtns() {
@@ -95,10 +103,20 @@ class index extends Component {
   }
 
   render() {
+    const { statusSearch, drinks } = this.state;
+    if (drinks.length === 1) return <Redirect to={ `/bebidas/${drinks[0].idDrink}` } />;
     return (
       <div>
-        <Header title="Bebidas" />
+        <Header title="Bebidas" setSearch={ this.setSearch } />
+        {
+          (statusSearch)
+          && <Search
+            setItems={ this.setDrinks }
+            type="drinks"
+          />
+        }
         { this.renderbtns() }
+        { (drinks.length === 0) && <span>Carregando...</span> }
         { this.renderCards() }
         <Footer />
       </div>
