@@ -280,7 +280,7 @@ describe('29 - Implemente o filtro como um toggle, que se for selecionado de nov
 });
 
 describe('30 - Implemente o filtro de categoria para que apenas um seja selecionado por vez', () => {
-  it.skip('Caso as receitas sejam de comida apenas um filtro de categoria deve poder ser selecionado por vez', () => {
+  it('Caso as receitas sejam de comida apenas um filtro de categoria deve poder ser selecionado por vez', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
         win.fetch = fetchMock;
