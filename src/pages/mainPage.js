@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { categoriesDrinks, categoriesMeals, listDrinks, listMeals } from '../actions';
+import {
+  categoriesDrinks,
+  categoriesMeals,
+  listDrinks,
+  listMeals,
+} from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
 import Header from '../components/header';
@@ -9,37 +14,77 @@ import CardContainer from '../components/cardContainer';
 import Categories from '../components/categories';
 
 export default function MainPageFood() {
-  const { pathname } = window.location;
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [catSelected, setCatSelected] = useState('All');
+  const [type, setType] = useState('');
   const dispatch = useDispatch();
 
+  const fetchValues = {
+    meals: {
+      all: listMeals,
+      categories: categoriesMeals,
+    },
+    drinks: {
+      all: listDrinks,
+      categories: categoriesDrinks,
+    },
+  };
+
+  const stateValues = {
+    meals: {
+      all: 'meals',
+      filter: 'searchedMeals',
+      categories: 'categoriesMeals',
+    },
+    drinks: {
+      all: 'drinks',
+      filter: 'searchedDrinks',
+      categories: 'categoriesDrinks',
+    },
+  };
+
+  const fetchDispatch = async (fetchParam, fetchValue, value) => {
+    const fetch = await getFoodsAndDrinks(type, fetchParam, value);
+    dispatch(fetchValues[type][fetchValue](fetch));
+  };
+
+  const { pathname } = window.location;
+  const path = pathname.replace('/', '');
+
   useEffect(() => {
-    const dispatchFetchs = async () => {
-      const fetchMeals = await getFoodsAndDrinks('meals', 'getAll');
-      const fetchDrinks = await getFoodsAndDrinks('drinks', 'getAll');
+    if (path === 'comidas') {
+      setType('meals');
+    }
+    if (path === 'bebidas') {
+      setType('drinks');
+    }
+  }, [path]);
 
-      dispatch(listMeals(fetchMeals));
-      dispatch(listDrinks(fetchDrinks));
+  useEffect(() => {
+    if (type) {
+      fetchDispatch('getAll', 'all');
+      fetchDispatch('getByCategory', 'categories');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [type]);
 
-      const fetchCategoriesMeals = await getFoodsAndDrinks('meals', 'getByCategory');
-      const fetchCategoriesDrinks = await getFoodsAndDrinks('drinks', 'getByCategory');
-
-      dispatch(categoriesMeals(fetchCategoriesMeals));
-      dispatch(categoriesDrinks(fetchCategoriesDrinks));
-    };
-
-    dispatchFetchs();
-  }, [dispatch]);
+  const selectCategoryButton = async (value) => {
+    if (value !== 'All' && value !== catSelected) {
+      fetchDispatch('filterCategory', 'all', value);
+      setCatSelected(value);
+    } else {
+      fetchDispatch('getAll', 'all');
+      setCatSelected('All');
+    }
+  };
 
   const recipesData = useSelector((state) => {
-    if (pathname === '/comidas') return state.recipesReducer.meals;
-    if (pathname === '/bebidas') return state.recipesReducer.drinks;
+    if (type) return state.recipesReducer[stateValues[type].all];
   });
 
   const categoriesData = useSelector((state) => {
-    if (pathname === '/comidas') return state.recipesReducer.categoriesMeals;
-    if (pathname === '/bebidas') return state.recipesReducer.categoriesDrinks;
+    if (type) return state.recipesReducer[stateValues[type].categories];
   });
 
   const searchFor = () => (pathname === '/comidas' ? 'meals' : 'drinks');
@@ -47,7 +92,7 @@ export default function MainPageFood() {
   useEffect(() => {
     setRecipes(recipesData);
     setCategories(categoriesData);
-  }, [categoriesData, recipesData]);
+  }, [catSelected, categoriesData, recipesData]);
 
   return (
     <>
@@ -56,7 +101,11 @@ export default function MainPageFood() {
         search={ { searchBtn: true, searchFor: searchFor() } }
       />
       <main className="mainPage-wrapper">
-        <Categories categories={ categories } path={ pathname } />
+        <Categories
+          categories={ categories }
+          selected={ catSelected }
+          callback={ selectCategoryButton }
+        />
         <CardContainer recipes={ recipes } path={ pathname } />
       </main>
       <Footer />

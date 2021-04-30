@@ -42,11 +42,6 @@
   margin: 0;
 }
 
-.card {
-  margin: 0.25rem;
-  width: calc(50% - 0.5rem);
-}
-
 .accordion .card {
   background-color: #ccc;
   border: 0;
@@ -66,6 +61,11 @@
   display: flex;
   flex-wrap: wrap;
   padding: 0.25rem;
+}
+
+.cards-container a {
+  margin: 0.25rem;
+  width: calc(50% - 0.5rem);
 }
 
 /* Categories */
