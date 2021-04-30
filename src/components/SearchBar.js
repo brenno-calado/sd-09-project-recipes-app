@@ -81,6 +81,7 @@ function SearchBar() {
         <input
           type="text"
           data-testid="search-input"
+          className="text-input"
           onChange={ (event) => setInputValue(event.target.value) }
         />
         <div>
@@ -88,6 +89,7 @@ function SearchBar() {
             type="radio"
             name="filter"
             value="ingredient"
+            className="radio-btn"
             data-testid="ingredient-search-radio"
             onChange={ (event) => setFilter(event.target.value) }
           />
@@ -95,6 +97,7 @@ function SearchBar() {
             type="radio"
             name="filter"
             value="name"
+            className="radio-btn"
             data-testid="name-search-radio"
             onChange={ (event) => setFilter(event.target.value) }
           />
@@ -102,6 +105,7 @@ function SearchBar() {
             type="radio"
             name="filter"
             value="first-letter"
+            className="radio-btn"
             data-testid="first-letter-search-radio"
             onChange={ (event) => setFilter(event.target.value) }
           />

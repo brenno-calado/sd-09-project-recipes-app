@@ -25,18 +25,68 @@
   justify-content: center;
 }
 
+.text-input {
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  outline: transparent;
+  padding: 10px;
+  width: 200px;
+}
+
 .search-btn {
   background-color: transparent;
-  border: #ff3f34 2px solid;
-  border-radius: 5px;
-  color: #ff3f34;
-  font-weight: 800;
+  border: #3c40c6 1px solid;
+  border-radius: 10px;
+  color: #3c40c6;
   padding: 5px 20px;
   transition: 0.3s;
 }
 
+.radio-btn {
+  appearance: none;
+  background-color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 17px;
+  height: 40px;
+  margin: 5px;
+  position: relative;
+  transition: 0.3s;
+  width: 100px;
+}
+
+.radio-btn:checked {
+  background-color: #3c40c6;
+}
+
+.radio-btn:after {
+  color: #353535;
+  content: 'Ingrediente';
+  left: 8%;
+  position: absolute;
+  top: 19%;
+}
+
+.radio-btn:nth-of-type( 2 ):after {
+  content: 'Nome';
+  left: 27%;
+}
+
+.radio-btn:nth-of-type( 3 ):after {
+  content: 'Primeira letra';
+  font-size: 14px;
+  left: 9%;
+  text-align: center;
+  top: 22%;
+}
+
+.radio-btn:checked:after {
+  color: white;
+}
+
 .search-btn:hover {
-  background-color: #ff3f34;
+  background-color: #3c40c6;
   color: white;
 }
 
