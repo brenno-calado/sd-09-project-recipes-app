@@ -8,22 +8,12 @@ function Explore() {
     <>
       <Header title="Explorar" />
       <Footer />
-      <Link to="/explorar/comidas">
-        <button
-          type="button"
-          data-testid="explore-food"
-        >
-          Explorar Comidas
-        </button>
+      <Link to="/explorar/comidas" data-testid="explore-food">
+        Explorar Comidas
       </Link>
       <br />
-      <Link to="/explorar/bebidas">
-        <button
-          type="button"
-          data-testid="explore-drinks"
-        >
-          Explorar Bebidas
-        </button>
+      <Link to="/explorar/bebidas" data-testid="explore-drinks">
+        Explorar Bebidas
       </Link>
     </>
   );
