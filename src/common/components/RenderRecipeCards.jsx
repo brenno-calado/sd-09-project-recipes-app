@@ -16,6 +16,7 @@ function RenderRecipeCards({
       history.push(`/comidas/${recipe.idMeal}`, recipe);
     } else { history.push(`/bebidas/${recipe.idDrink}`, recipe); }
   };
+
   function renderCard(theChosenOne) {
     return theChosenOne[kindOfFood].slice(0, cardsLimit).map((meal, index) => (
       <button
