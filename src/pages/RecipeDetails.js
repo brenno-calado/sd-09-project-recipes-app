@@ -1,24 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { fetchMealsById } from '../services/index';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
-function RecipeDetails({ recipe }) {
+function RecipeDetails() {
   const [isFavorite, setFavorite] = useState(false);
-  const { strMeal, strMealThumb, strCategory } = recipe;
+  const [isFetching, setFetching] = useState(true);
+  const [currentMeal, setCurrentMeal] = useState({});
+  const {
+    strMeal,
+    strMealThumb,
+    strCategory,
+    strInstructions,
+    strYoutube,
+  } = currentMeal;
+  const recipeId = useParams();
+  // const currentMeal = Promise.resolve(fetchMealsById(recipeId.id));
+
+  useEffect(() => {
+    const fetchRecipeDetails = async () => {
+      const retrievedRecipe = await fetchMealsById(recipeId.id);
+      setCurrentMeal(retrievedRecipe[0]);
+    };
+    fetchRecipeDetails();
+    setFetching(false);
+  }, [recipeId.id]);
 
   const filterIngredients = () => {
-    // console.log(recipe);
     const recipeIngredients = Object
-      .entries(recipe).filter((key) => (
+      .entries(currentMeal).filter((key) => (
         key[0].includes('Ingredient') && key[1] !== '' && key[1] !== null
       ));
     const recipeIngredientsMeasures = Object
-      .entries(recipe).filter((key) => (
+      .entries(currentMeal).filter((key) => (
         key[0].includes('Measure') && key[1] !== '' && key[1] !== null
       ));
-    // console.log(recipeIngredients);
-    // console.log(recipeIngredientsMeasures);
 
     const recipeIngredientsAndMeasures = [];
     recipeIngredients.forEach((ingr, index) => {
@@ -36,9 +54,26 @@ function RecipeDetails({ recipe }) {
       ));
   };
 
-  return (
-    <div>
-      <img src={ strMealThumb } alt="Receita" data-testid="recipe-photo" />
+  const renderVideoThumb = (url) => {
+    if (url !== undefined) {
+      const recipeUrl = url.split('=')[1];
+      return (
+        <iframe
+          width="340"
+          height="400"
+          src={ `https://www.youtube.com/embed/${recipeUrl}` }
+          title={ strMeal }
+        />);
+    }
+  };
+  const renderRecipeDetails = () => (
+    <div className="recipe-details">
+      <img
+        className="recipe-image"
+        src={ strMealThumb }
+        alt="Receita"
+        data-testid="recipe-photo"
+      />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
       <div>
         <button
@@ -59,7 +94,21 @@ function RecipeDetails({ recipe }) {
       <ul>
         { filterIngredients() }
       </ul>
+      <p data-testid="instructions">{ strInstructions }</p>
+      <section data-testid="video">{ renderVideoThumb(strYoutube) }</section>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => console.log('clicou') }
+      >
+        Iniciar Receita
+      </button>
+      <section data-testid="1-recomendation-card">Recomendações</section>
     </div>
+  );
+
+  return (
+    isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>
   );
 }
 

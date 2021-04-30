@@ -3,9 +3,9 @@ import Header from '../components/Header';
 
 export default function Explore() {
   return (
-    <div>
-      <Header pageName="Explorar" />
+    <>
+      <Header pageName="Explorar" searchBtn={ false } />
       <h1>Explore</h1>
-    </div>
+    </>
   );
 }

@@ -6,6 +6,7 @@ import FooterMenu from '../components/FooterMenu';
 import { fetchMealsApi, fetchMealsCategories, fetchMealsByCategory } from '../services';
 import '../App.css';
 import MealCards from '../components/MealCards';
+import Header from '../components/Header';
 
 import { receiveDataMeal, receiveCategoryMeal } from '../redux/actions';
 
@@ -61,6 +62,7 @@ function Foods() {
 
   return (
     <>
+      <Header pageName="Comidas" searchBtn />
       { loading ? <h1> Loading...</h1> : MealCards(category, meals, categoryCheck) }
       <FooterMenu />
     </>

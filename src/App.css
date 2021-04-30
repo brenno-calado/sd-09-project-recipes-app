@@ -47,6 +47,13 @@
 .recipe-details {
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
+  width: 360px;
+}
+
+.recipe-image{
+  width: 360px;
 }
 
 /*

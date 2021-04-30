@@ -6,17 +6,19 @@ import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
-// import Profile from './Pages/Profile';
+import Profile from './pages/Profile';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/comidas" component={ Foods } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />
-        {/* <Route path="/perfil" component={ Profile } /> */}
+        <Route path="/perfil" component={ Profile } />
       </Switch>
     </div>
   );
