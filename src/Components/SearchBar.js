@@ -84,7 +84,7 @@ class SearchBar extends Component {
   render() {
     const { input } = this.state;
     return (
-      <section>
+      <section className="searchContainer">
         <input
           name="input"
           type="text"
@@ -147,7 +147,10 @@ SearchBar.propTypes = {
   getCocktailsbyIngredient: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({ cocktails: state.cocktails.cocktails });
+const mapStateToProps = (state) => ({
+  cocktails: state.cocktails.cocktails,
+  meals: state.meals.meals,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getMealsbyName: (input) => dispatch(requestApiMealsbyName(input)),

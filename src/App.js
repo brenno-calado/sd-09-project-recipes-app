@@ -14,6 +14,7 @@ import ExploreFood from './Pages/ExploreFood';
 import Explore from './Pages/ Explore';
 import DetailsFood from './Pages/Details+css/DetailsFood';
 import DetailsDrinks from './Pages/Details+css/DetailsDrinks';
+import './App.css';
 // import ExploreFoodByArea from './Pages/ExploreFoodByAre';
 import ExploreDrinksByArea from './Pages/ExploreDrinksByArea';
 

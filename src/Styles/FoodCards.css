@@ -4,6 +4,7 @@
 }
 
 .cardContainer {
+  /* position: relative; */
   display: grid;
   grid-template-columns: 33vw 33vw 33vw;
 }

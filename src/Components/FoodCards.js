@@ -6,19 +6,25 @@ import { requestApiMeals } from '../redux/actions';
 import '../Styles/FoodCards.css';
 
 class FoodCards extends React.Component {
+  constructor(props) {
+    super(props);
+    this.callMeal = this.callMeal.bind(this);
+  }
+
   componentDidMount() {
-    const callMeal = async () => {
-      const { getMeals } = this.props;
-      await getMeals();
-    };
-    callMeal();
+    this.callMeal();
+  }
+
+  async callMeal() {
+    const { getMeals } = this.props;
+    await getMeals();
   }
 
   createCards() {
     const { meals } = this.props;
-    const magicNumber = 11;
+    const maxItens = 11;
     return meals.map(
-      (meal, index) => (index <= magicNumber
+      (meal, index) => (index <= maxItens
       && (
         <div
           type="button"
@@ -42,9 +48,13 @@ class FoodCards extends React.Component {
 
   render() {
     const { meals } = this.props;
+    if (meals === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (!meals) return <div>Loading...</div>;
     return (
       <div className="cardContainer">
-        { meals ? this.createCards() : <div />}
+        { this.createCards() }
       </div>
     );
   }
@@ -57,7 +67,9 @@ FoodCards.propTypes = {
   getMeals: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({ meals: state.meals.meals });
+const mapStateToProps = (state) => ({
+  meals: state.meals.meals,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   getMeals: () => dispatch(requestApiMeals()),

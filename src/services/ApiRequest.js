@@ -45,6 +45,7 @@ export async function fetchCocktailAPIbyIngredient(input) {
   const meals = await response.json();
   return meals;
 }
+
 export async function fetchMealDetailsAPI(id) {
   const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
   const cocktails = await response.json();
