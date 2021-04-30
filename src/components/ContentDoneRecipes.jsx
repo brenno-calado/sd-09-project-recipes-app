@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import shareIcon from '../images/shareIcon.svg';
 import '../css/components/ContentDoneRecipes.css';
 
 /* COMIDA                                             BEBIDA
-foto da receita                                      foto da receita 
+foto da receita                                      foto da receita
 o nome                                               o nome
 categoria                                            se é alcoólica
 area
@@ -15,17 +16,19 @@ e um botão de compartilhar                           e um botão de compartilha
 */
 
 function ContentDoneRecipes({ recipes, recipeIndex }) {
-  const { type, alcoholicOrNot, name, image, doneDate, tags } = recipes;
+  const { id, type, alcoholicOrNot, name, image, doneDate, tags } = recipes;
   const filteredTags = tags.filter((_, index) => index < 2);
 
   return (
     <div className="done-recipes-card">
-      <img
-        className="thumbnail"
-        src={ image }
-        alt={ name }
-        data-testid={ `${recipeIndex}-horizontal-image` }
-      />
+      <Link to={ type === 'meals' ? `/comidas/${id}` : `/bebidas/${id}` }>
+        <img
+          className="thumbnail"
+          src={ image }
+          alt={ name }
+          data-testid={ `${recipeIndex}-horizontal-image` }
+        />
+      </Link>
       <section>
         <div>
           <div data-testid={ `${recipeIndex}-horizontal-top-text` }>
@@ -37,7 +40,9 @@ function ContentDoneRecipes({ recipes, recipeIndex }) {
             alt="Share Icon"
           />
         </div>
-        <h4 data-testid={ `${recipeIndex}-horizontal-name` }>{ name }</h4>
+        <Link to={ type === 'meals' ? `/comidas/${id}` : `/bebidas/${id}` }>
+          <h4 data-testid={ `${recipeIndex}-horizontal-name` }>{ name }</h4>
+        </Link>
         <span data-testid={ `${recipeIndex}-horizontal-done-date` }>
           { `Feita em: ${doneDate}` }
         </span>

@@ -1,5 +1,6 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+// import { propTypes } from 'react-bootstrap/esm/Image';
+import PropTypes from 'prop-types';
 
 import '../css/pages/NavReceitasFeitas.css';
 
@@ -34,8 +35,8 @@ function NavReceitasFeitas({ onclick }) {
   );
 }
 
-/* NavReceitasFeitas.propTypes = {
-
-} */
+NavReceitasFeitas.propTypes = {
+  onclick: PropTypes.func.isRequired,
+};
 
 export default NavReceitasFeitas;
