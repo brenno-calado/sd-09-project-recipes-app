@@ -12,7 +12,6 @@ const DoneRecipes = () => {
         All
       </button>
       <button
-        onClick={ onClick }
         type="button"
         data-testid="filter-by-food-btn"
       >
