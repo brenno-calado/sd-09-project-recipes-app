@@ -75,13 +75,12 @@ function Foods() {
     }
   }
 
-
   return (
-    <>
+    <div>
       <SearchBar />
       { loading ? <h1> Loading...</h1> : foodCardsRender() }
       <FooterMenu />
-    </>
+    </div>
   );
 }
 
