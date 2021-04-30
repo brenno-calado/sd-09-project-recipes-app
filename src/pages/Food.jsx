@@ -7,6 +7,7 @@ import { fetchAllMeals, fetchCategoryMeals } from '../service/mealAPI';
 import useResult from '../effects/useResult';
 import useCategory from '../effects/useCategory';
 import CategoryButton from '../components/CategoryButton';
+import Footer from '../components/Footer';
 
 function Food({ match: { path } }) {
   const [result, setResult] = useState([]);
@@ -68,6 +69,7 @@ function Food({ match: { path } }) {
       >
         { filter.length === 0 ? renderResult() : renderFilter() }
       </section>
+      <Footer />
     </div>
   );
 }

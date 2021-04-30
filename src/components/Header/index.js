@@ -28,7 +28,7 @@ function Header({ title, path, setResult }) {
 
   return (
     <>
-      <header className="header-container">
+      <header>
         <Link
           to="/perfil"
         >

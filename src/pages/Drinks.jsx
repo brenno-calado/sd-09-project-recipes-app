@@ -7,6 +7,7 @@ import { fetchAllDrinks, fetchCategoryDrinks } from '../service/cocktailAPI';
 import useResult from '../effects/useResult';
 import useCategory from '../effects/useCategory';
 import CategoryButton from '../components/CategoryButton';
+import Footer from '../components/Footer';
 
 function Drinks({ match: { path } }) {
   const [result, setResult] = useState([]);
@@ -67,6 +68,7 @@ function Drinks({ match: { path } }) {
       >
         { filter.length === 0 ? renderResult() : renderFilter() }
       </section>
+      <Footer />
     </div>
   );
 }
