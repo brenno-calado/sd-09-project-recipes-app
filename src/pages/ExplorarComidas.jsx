@@ -31,6 +31,7 @@ function ExplorarComidas() {
       <Header textProp="Explorar Comidas" />
 
       <button
+        className="button"
         type="button"
         data-testid="explore-by-ingredient"
         name="byIngredients"
@@ -40,6 +41,7 @@ function ExplorarComidas() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-by-area"
         name="byArea"
@@ -49,6 +51,7 @@ function ExplorarComidas() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-surprise"
         name="surpriseMe"

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
-import '../styles/login.css';
+// import '../styles/login.css';
 
 class Login extends Component {
   constructor(props) {

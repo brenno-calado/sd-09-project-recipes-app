@@ -26,6 +26,7 @@ function ExplorarBebidas() {
       <Header textProp="Explorar Bebidas" />
 
       <button
+        className="button"
         type="button"
         data-testid="explore-by-ingredient"
         name="byIngredients"
@@ -35,6 +36,7 @@ function ExplorarBebidas() {
       </button>
 
       <button
+        className="button"
         type="button"
         data-testid="explore-surprise"
         name="surpriseMe"
