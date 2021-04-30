@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import CardRecipeMeal from '../../Components/CardRecipeMeal.js/CardRecipeMeal';
+import Footer from '../../Components/Footer/Footer';
 import Header from '../../Components/Header/Header';
 import { RecipeContext } from '../../Context';
 
@@ -68,6 +69,7 @@ function ExploreForArea() {
               />
             </Link>))}
       </div>
+      <Footer />
     </div>
   );
 }
