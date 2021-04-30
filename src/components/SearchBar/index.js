@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import { fetchSearchMeals } from '../../service/mealAPI';
+import { fetchSearchDrinks } from '../../service/cocktailAPI';
 
 function SearchBar({ path, setResult }) {
   const [filter, setFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
 
-  const filterFood = async () => {
-    const foodSearchURL = `https://www.themealdb.com/api/json/v1/1/${filter === 'i' ? 'filter' : 'search'}.php?`;
-    const drinkSearchURL = `https://www.thecocktaildb.com/api/json/v1/1/${filter === 'i' ? 'filter' : 'search'}.php?`;
+  const filterFood = () => {
     if (!filter || !searchText) return;
     if (filter === 'f' && searchText.length > 1) {
       return window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const searchURL = path === '/comidas' ? `${foodSearchURL}${filter}=${searchText}`
-      : `${drinkSearchURL}${filter}=${searchText}`;
-    const fetchSearch = await fetch(searchURL);
-    const search = await fetchSearch.json();
+    const search = path === '/comidas' ? fetchSearchMeals(filter, searchText)
+      : fetchSearchDrinks(filter, searchText);
     setResult(search);
   };
 

@@ -1,0 +1,11 @@
+button {
+  border: 1px solid silver;
+  border-radius: 10px;
+  margin: 5px 10px 0 0;
+  padding: 5px 1em;
+}
+
+button:hover {
+  background-color: silver;
+  color: white;
+}
