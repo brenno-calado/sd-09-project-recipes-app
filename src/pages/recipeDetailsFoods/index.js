@@ -7,6 +7,7 @@ import MealIngredients from '../../components/MealIngredients';
 import MealInstructions from '../../components/MealInstructions';
 import MealVideo from '../../components/MealVideo';
 import MealRecommendations from '../../components/MealRecommendations';
+import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
 import loadingImage from '../../images/Figura-Loading-PNG.png';
 
@@ -118,9 +119,7 @@ class index extends Component {
         <MealInstructions instructions={ this.getInsructions() } />
         <MealVideo videoId={ video } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
-        <button data-testid="start-recipe-btn" type="button">
-          Iniciar Receita
-        </button>
+        <ButtonStartRecipe />
       </div>
     );
   }
