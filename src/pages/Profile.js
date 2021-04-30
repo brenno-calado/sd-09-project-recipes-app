@@ -5,9 +5,6 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import getPageTitle from '../services/pageTitles';
 import paths from '../routes/paths';
-
-const userEmail = JSON.parse(localStorage.getItem('user')).email;
-
 const {
   DONE_RECIPES,
   FAVORITE_RECIPES,
@@ -15,12 +12,13 @@ const {
 } = paths;
 
 const Profile = ({ match: { path } }) => {
+  const userEmail = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')).email : '';
   const history = useHistory();
   const handleQuit = () => {
     localStorage.clear();
     history.push(LOGIN);
   };
-  console.log(typeof userEmail);
 
   return (
     <>
