@@ -14,6 +14,7 @@ import DetalhesBebida from './DetalhesBebida';
 import ProgressoBebidas from './ProgressoBebidas';
 import ProgressoComidas from './ProgressoComidas';
 import DetalhesComida from './DetalhesComida';
+import NotFound from './NotFound';
 
 export {
   Bebidas,
@@ -32,4 +33,5 @@ export {
   ProgressoBebidas,
   ProgressoComidas,
   DetalhesComida,
+  NotFound,
 };

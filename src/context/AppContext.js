@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFoods, getDrinks, getFoodCategories, getDrinkCategories } from '../services';
+import {
+  getFoods, getDrinks, getFoodCategories, getDrinkCategories, getMealAreas,
+} from '../services';
 
 export const AppContext = createContext();
 
@@ -20,6 +22,7 @@ const AppProvider = ({ children }) => {
   const [favorites, setFavorites] = useState(
     JSON.parse(localStorage.getItem('favoritesId')) || {},
   );
+  const [mealAreas, setMealAreas] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState(
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
@@ -39,7 +42,6 @@ const AppProvider = ({ children }) => {
   //       cocktails: { [id]: ingredientsArray } });
   //   }
   // };
-
   const fetchFoods = async () => {
     const response = await getFoods();
     setFoodsArray(response.slice(0, NUMBER_OF_ITEMS));
@@ -58,6 +60,11 @@ const AppProvider = ({ children }) => {
   const fetchDrinkCategories = async () => {
     const response = await getDrinkCategories();
     setDrinkCategories(response.slice(0, NUMBER_OF_CATEGORIES));
+  };
+
+  const fetchMealAreas = async () => {
+    const response = await getMealAreas();
+    setMealAreas(response);
   };
 
   const addToFavorites = (id) => {
@@ -106,6 +113,7 @@ const AppProvider = ({ children }) => {
     fetchDrinks();
     fetchFoodCategories();
     fetchDrinkCategories();
+    fetchMealAreas();
   }, []);
 
   const foods = foodApiResults.length && foodApiResults !== 'null'
@@ -120,6 +128,7 @@ const AppProvider = ({ children }) => {
     drinkCategories,
     favoriteRecipes,
     favorites,
+    mealAreas,
     setFoodApiResults,
     setDrinksApiResults,
     favoriteRecipe,
