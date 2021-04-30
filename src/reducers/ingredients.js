@@ -1,4 +1,5 @@
-import { RESOLVED_INGREDIENTS, LOADING_INGREDIENTS, SAVE_INGREDIENT } from '../actions/Ingredients';
+import { RESOLVED_INGREDIENTS, LOADING_INGREDIENTS,
+  SAVE_INGREDIENT } from '../actions/Ingredients';
 
 const INITIAL_STATE = {
   loading: true,
