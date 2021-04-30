@@ -5,6 +5,7 @@ import DetailsDrink from '../components/DetailsDrink';
 import DetailsFood from '../components/DetailsFood';
 import Loading from '../components/Loading';
 import { fetchRecipeDetails } from '../services/fetchRecipes';
+import './Styles/Details.css';
 
 function Details({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});

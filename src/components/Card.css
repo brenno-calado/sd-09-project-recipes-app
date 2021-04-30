@@ -1,16 +1,24 @@
 .Card {
   align-items: center;
+  background: white;
+  border: none;
   border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding: 5px;
+  margin: 5px 0;
   text-align: center;
-  width: 45vw;
+  height: 172px;
+  width: 161px;
 }
 
 .Card img {
+  border: none;
   border-radius: 6px 6px 0 0;
-  width: 35vw;
+  height: 109px;
+  width: 161px;
 }
 
 .Card p {

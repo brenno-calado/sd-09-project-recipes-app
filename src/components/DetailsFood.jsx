@@ -30,13 +30,13 @@ function DetailsFood({ recipe }) {
   }, []);
 
   return (
-    <div>
+    <div className="Details">
       <img
         src={ strMealThumb }
         alt={ strMeal }
         data-testid="recipe-photo"
       />
-      <div>
+      <div className="title-btns">
         <div>
           <h1 data-testid="recipe-title">{strMeal}</h1>
           <h3 data-testid="recipe-category">{strCategory}</h3>
@@ -49,28 +49,30 @@ function DetailsFood({ recipe }) {
             <img src={ blackHeartIcon } alt="Favorite button" />
           </button>
         </div>
+      </div>
+      <div className="ingredients">
+        <h2>Ingredients</h2>
         <div>
-          <h2>Ingredients</h2>
-          <ul>
-            {allIngrdients.map(({ name, quantity }, index) => (
-              <li
-                key={ name }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {`${name} - ${quantity}`}
-              </li>))}
-          </ul>
+          {allIngrdients.map(({ name, quantity }, index) => (
+            <p
+              key={ name }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`- ${name} - ${quantity}`}
+            </p>))}
         </div>
-        <div>
-          <h2>Instructions</h2>
-          <p data-testid="instructions">{strInstructions}</p>
-        </div>
-        <div>
-          <h2>Video</h2>
-          <iframe src={ `https://www.youtube.com/embed/${embedId}` } title="video" frameBorder="0" data-testid="video" />
-        </div>
-        <div>
-          <h2>Recomended</h2>
+      </div>
+      <div className="instructions">
+        <h2>Instructions</h2>
+        <p data-testid="instructions">{strInstructions}</p>
+      </div>
+      <div className="video">
+        <h2>Video</h2>
+        <iframe src={ `https://www.youtube.com/embed/${embedId}` } title="video" frameBorder="0" data-testid="video" />
+      </div>
+      <div className="recomendations">
+        <h2>Recomended</h2>
+        <div className="carocel-recomendations">
           {recommends.map((item, index) => (<Card
             cardTestid={ `${index}-recomendation-card` }
             titleTestid={ `${index}-recomendation-title` }
@@ -80,14 +82,14 @@ function DetailsFood({ recipe }) {
             type="bebidas"
           />))}
         </div>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
       </div>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe-btn"
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
