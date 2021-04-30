@@ -1,14 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function GenericCategoryButton(props) {
+function GenericCategoryButton({ buttonLabel, action }) {
   return (
     <button
-      data-testid={ `${ props.buttonLabel }-category-filter` }
-      onClick={ () => props.action(props.buttonLabel) }
+      type="button"
+      data-testid={ `${buttonLabel}-category-filter` }
+      onClick={ () => action(buttonLabel) }
     >
-      { props.buttonLabel }
+      { buttonLabel }
     </button>
   );
 }
+
+GenericCategoryButton.propTypes = {
+  buttonLabel: PropTypes.string.isRequired,
+  action: PropTypes.func.isRequired,
+};
 
 export default GenericCategoryButton;

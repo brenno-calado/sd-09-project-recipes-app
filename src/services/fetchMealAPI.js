@@ -40,7 +40,7 @@ export const fetchMealCategory = async () => {
 
 export const fetchFilteredByCategory = async (category) => {
   try {
-    return await fetch(`www.themealdb.com/api/json/v1/1/filter.php?c=${category}`).then((response) => response.json());
+    return await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`).then((response) => response.json());
   } catch (error) {
     console.log(error);
   }
