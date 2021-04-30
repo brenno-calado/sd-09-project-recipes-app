@@ -5,7 +5,7 @@ import exploreIcon from '../images/exploreIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-function footer() {
+function Footer() {
   // const [foods, setFoods] = useState('');
 
   return (
@@ -23,4 +23,4 @@ function footer() {
   );
 }
 
-export default footer;
+export default Footer;

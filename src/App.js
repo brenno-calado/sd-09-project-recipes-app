@@ -17,6 +17,7 @@ import {
   ProgressoBebidas,
   ProgressoComidas,
   DetalhesComida,
+  NotFound,
 } from './pages';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -45,6 +46,7 @@ const App = () => (
     <Route path="/receitas-feitas" component={ ReceitasFeitas } />
     <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
     <Route exact path="/" component={ Login } />
+    <Route component={ NotFound } />
   </Switch>
 );
 
