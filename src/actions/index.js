@@ -4,6 +4,7 @@ export const GET_CATEGORIES_MEALS = 'GET_CATEGORIES_MEALS';
 export const GET_DRINKS = 'GET_DRINKS';
 export const GET_CATEGORIES_DRINKS = 'GET_CATEGORIES_DRINKS';
 export const GET_RANDOM_RECIPE = 'GET_RANDOM_RECIPE';
+export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 
 export const loginUser = (email) => ({
   type: LOGIN,
@@ -33,4 +34,9 @@ export const categoriesDrinks = (categories) => ({
 export const getRandomRecipe = (randomRecipe) => ({
   type: GET_RANDOM_RECIPE,
   randomRecipe,
+});
+
+export const getIngredients = (ingredients) => ({
+  type: GET_INGREDIENTS,
+  ingredients,
 });

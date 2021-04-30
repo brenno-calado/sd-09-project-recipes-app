@@ -4,6 +4,7 @@ import {
   GET_DRINKS,
   GET_CATEGORIES_DRINKS,
   GET_RANDOM_RECIPE,
+  GET_INGREDIENTS,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
   drinks: [],
   categoriesDrinks: [],
   randomRecipe: { idMeal: '', idDrinks: '' },
+  ingredients: [],
 };
 
 export default function recipesReducer(state = INITIAL_STATE, actions) {
@@ -35,6 +37,11 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
     return {
       ...state,
       categoriesDrinks: [...actions.categories],
+    };
+  case GET_INGREDIENTS:
+    return {
+      ...state,
+      ingredients: { ...actions.ingredients },
     };
   case GET_RANDOM_RECIPE:
     return {
