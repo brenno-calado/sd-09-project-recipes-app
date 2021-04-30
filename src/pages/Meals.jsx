@@ -16,7 +16,7 @@ function Meals() {
     <section>
       <Header page="Comidas" />
       {toggledSearchBar && <SearchBar category="meal" />}
-      {isLoading ? <Loading /> : <Recipes /> }
+      {isLoading ? <Loading /> : <Recipes path="/comidas" /> }
       <BottomMenu />
     </section>
   );

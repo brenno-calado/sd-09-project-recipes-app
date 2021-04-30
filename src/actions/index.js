@@ -11,7 +11,6 @@ const receiveRecipes = (recipesList, category) => ({
 export function searchRecipe(type, text, category) {
   return async (dispatch) => {
     const recipesList = await fetchRecipesData(type, text, category);
-    console.log(recipesList);
     return dispatch(receiveRecipes(recipesList, category));
   };
 }

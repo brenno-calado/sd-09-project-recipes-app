@@ -4,22 +4,24 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import '../styles/Recipes.css';
 
+const MEAL = 'meal';
 const TWELVE = 12;
 
-function Recipes({ recipesList, recipesType }) {
+function Recipes({ path, recipesList, recipesType }) {
   if (!recipesList) {
-    return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    return null;
   }
 
   if (recipesList.length === 1) {
-    return recipesType === 'meal'
-      ? <Redirect to={ `/comidas/${recipesList[0].idMeal}` } />
-      : <Redirect to={ `/bebidas/${recipesList[0].idDrink}` } />;
+    return (
+      <Redirect to={ `${path}/${recipesList[0].idMeal || recipesList[0].idDrink}` } />
+    );
   }
 
   return (
     <div className="card-content">
-      {recipesType === 'meal'
+      {recipesType === MEAL
         ? recipesList.map((recipe, index) => (
           index < TWELVE && (
             <div
