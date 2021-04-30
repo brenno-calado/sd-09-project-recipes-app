@@ -5,8 +5,6 @@ import {
   categoriesMeals,
   listDrinks,
   listMeals,
-  searchDrinks,
-  searchMeals,
 } from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
@@ -25,12 +23,10 @@ export default function MainPageFood() {
   const fetchValues = {
     meals: {
       all: listMeals,
-      filter: searchMeals,
       categories: categoriesMeals,
     },
     drinks: {
       all: listDrinks,
-      filter: searchDrinks,
       categories: categoriesDrinks,
     },
   };
@@ -48,6 +44,11 @@ export default function MainPageFood() {
     },
   };
 
+  const fetchDispatch = async (fetchParam, fetchValue, value) => {
+    const fetch = await getFoodsAndDrinks(type, fetchParam, value);
+    dispatch(fetchValues[type][fetchValue](fetch));
+  };
+
   const { pathname } = window.location;
   const path = pathname.replace('/', '');
 
@@ -62,35 +63,24 @@ export default function MainPageFood() {
 
   useEffect(() => {
     if (type) {
-      const dispatchFetchs = async () => {
-        const fetch = await getFoodsAndDrinks(type, 'getAll');
-        dispatch(fetchValues[type].all(fetch));
-
-        const fetchCategories = await getFoodsAndDrinks(type, 'getByCategory');
-        dispatch(fetchValues[type].categories(fetchCategories));
-      };
-
-      dispatchFetchs();
+      fetchDispatch('getAll', 'all');
+      fetchDispatch('getByCategory', 'categories');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
   const selectCategoryButton = async (value) => {
     if (value !== 'All' && value !== catSelected) {
-      const fetch = await getFoodsAndDrinks(type, 'filterCategory', value);
-      dispatch(fetchValues[type].filter(fetch));
+      fetchDispatch('filterCategory', 'all', value);
+      setCatSelected(value);
+    } else {
+      fetchDispatch('getAll', 'all');
+      setCatSelected('All');
     }
-
-    setCatSelected(value);
   };
 
   const recipesData = useSelector((state) => {
     if (type) return state.recipesReducer[stateValues[type].all];
-  });
-
-  const searchData = useSelector((state) => {
-    if (type && catSelected !== 'All') {
-      return state.recipesReducer[stateValues[type].filter];
-    }
   });
 
   const categoriesData = useSelector((state) => {
@@ -100,9 +90,9 @@ export default function MainPageFood() {
   const searchFor = () => (pathname === '/comidas' ? 'meals' : 'drinks');
 
   useEffect(() => {
-    setRecipes(catSelected === 'All' ? recipesData : searchData);
+    setRecipes(recipesData);
     setCategories(categoriesData);
-  }, [catSelected, categoriesData, recipesData, searchData]);
+  }, [catSelected, categoriesData, recipesData]);
 
   return (
     <>
