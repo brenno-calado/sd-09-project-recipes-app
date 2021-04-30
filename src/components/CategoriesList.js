@@ -11,7 +11,6 @@ class CategoriesList extends React.Component {
   constructor() {
     super();
     this.state = {
-      toggle: true,
       category: 'Inicial',
     };
   }
@@ -22,10 +21,10 @@ class CategoriesList extends React.Component {
   }
 
   handleClick(categorie) {
-    const { toggle, category } = this.state;
-    console.log(categorie, category, toggle);
+    const { category } = this.state;
+    console.log(categorie, category);
     const { fetchRepiciesByCategory, setIsCategoryToTrue } = this.props;
-    fetchRepiciesByCategory(categorie, toggle, category);
+    fetchRepiciesByCategory(categorie, category);
     setIsCategoryToTrue();
     if (categorie !== category) {
       this.setState({ category: categorie });
@@ -62,8 +61,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispach) => ({
   categoriesFetchApi: () => dispach(categoriesfetchApiAction()),
-  fetchRepiciesByCategory: (categorie, toggle, category) => (
-    dispach(fetchRecipesByCategoryAction(categorie, toggle, category))),
+  fetchRepiciesByCategory: (categorie, category) => (
+    dispach(fetchRecipesByCategoryAction(categorie, category))),
   setIsCategoryToTrue: () => dispach(setIsCategoryToTrueAction()),
 });
 
