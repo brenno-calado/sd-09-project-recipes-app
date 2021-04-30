@@ -1,0 +1,17 @@
+.card-recipe-container {
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+  padding: 5px;
+  text-align: center;
+  width: 37vw;
+}
+
+.card-recipe-container img {
+  border-radius: 5px 5px 0 0;
+  max-height: 6rem;
+  width: 90%;
+}

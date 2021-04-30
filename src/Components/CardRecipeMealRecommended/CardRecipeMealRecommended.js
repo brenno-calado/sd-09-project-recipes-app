@@ -1,19 +1,19 @@
 import React from 'react';
 import { number, shape } from 'prop-types';
-import './cardRecipeDrink.css';
+import './cardRecipeMealRecommended.css';
 import { Link } from 'react-router-dom';
 
 function CardRecipeMeal({ recipe, index }) {
   return (
-    <Link to={ { pathname: `/bebidas/${recipe.idDrink}`, pageType: 'bebidas' } }>
+    <Link to={ { pathname: `/comidas/${recipe.idMeal}`, pageType: 'comidas' } }>
       <div className="card-recipe-container" data-testid={ `${index}-recipe-card` }>
         <img
-          src={ recipe.strDrinkThumb }
-          alt={ `imagen de ${recipe.strDrink}` }
+          src={ recipe.strMealThumb }
+          alt={ `imagen de ${recipe.strMeal}` }
           data-testid={ `${index}-card-img` }
         />
-        <p data-testid={ `${index}-card-name` }>
-          { recipe.strDrink }
+        <p data-testid={ `${index}-recomendation-card` }>
+          { recipe.strMeal }
         </p>
       </div>
     </Link>

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { string } from 'prop-types';
-import CardRecipeMeal from '../CardRecipeMeal.js/CardRecipeMeal';
-import CardRecipeDrink from '../CardRecipeDrink.js/CardRecipeDrink';
+import CardRecipeMealRecommended
+  from '../CardRecipeMealRecommended/CardRecipeMealRecommended';
+import CardRecipeDrinkRecommended
+  from '../CardRecipeDrinkRecommended/CardRecipeDrinkRecommended';
 import './RecommendedRecipies.css';
 
 function RecommendedRecipies({ pageType }) {
@@ -25,17 +27,15 @@ function RecommendedRecipies({ pageType }) {
       <div className="c-slider">
         {(recommendedRecipies && pageType === 'comidas') && recommendedRecipies
           .map((recipe, index) => (index < '6')
-            && <CardRecipeDrink
+            && <CardRecipeDrinkRecommended
               recipe={ recipe }
-              testid={ `${index}-recomendation-card` }
               index={ index }
               key={ index }
             />)}
         {(recommendedRecipies && pageType === 'bebidas') && recommendedRecipies
           .map((recipe, index) => (index < '6')
-            && <CardRecipeMeal
+            && <CardRecipeMealRecommended
               recipe={ recipe }
-              testid={ `${index}-recomendation-card` }
               index={ index }
               key={ index }
             />)}

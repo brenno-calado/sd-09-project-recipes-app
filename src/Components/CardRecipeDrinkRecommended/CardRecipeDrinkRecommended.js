@@ -1,6 +1,6 @@
 import React from 'react';
 import { number, shape } from 'prop-types';
-import './cardRecipeDrink.css';
+import './cardRecipeDrinkRecommended.css';
 import { Link } from 'react-router-dom';
 
 function CardRecipeMeal({ recipe, index }) {
@@ -12,7 +12,7 @@ function CardRecipeMeal({ recipe, index }) {
           alt={ `imagen de ${recipe.strDrink}` }
           data-testid={ `${index}-card-img` }
         />
-        <p data-testid={ `${index}-card-name` }>
+        <p data-testid={ `${index}-recomendation-card` }>
           { recipe.strDrink }
         </p>
       </div>
