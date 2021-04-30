@@ -2,22 +2,15 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 import SearchBar from './SearchBar';
-
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
-const INITIAL_STATE = { shouldSearch: false };
-
 function Header({ title, search }) {
-  const [state, setState] = useState(INITIAL_STATE);
+  const [shouldSearch, setShouldSearch] = useState(false);
 
   const renderImage = (testid, src, alt) => (
     <img data-testid={ testid } src={ src } alt={ alt } />
   );
-
-  const toggleSearch = () => {
-    setState({ ...state, shouldSearch: !state.shouldSearch });
-  };
 
   return (
     <header>
@@ -28,11 +21,11 @@ function Header({ title, search }) {
       <h1 data-testid="page-title">{ title }</h1>
 
       { search && (
-        <button type="button" onClick={ toggleSearch }>
+        <button type="button" onClick={ () => setShouldSearch(!shouldSearch) }>
           { renderImage('search-top-btn', searchIcon, 'search icon')}
-        </button>)}
+        </button>) }
 
-      { search && state.shouldSearch
+      { search && shouldSearch
         ? <SearchBar isMeal={ title === 'Comidas' } /> : null }
     </header>
   );

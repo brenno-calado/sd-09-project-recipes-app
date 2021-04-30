@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRecipeDetails } from '../services/api';
-import { MealsRecomendations } from '../components';
+import { fetchRecipeDetails } from '../../services/api';
+import { MealsRecomendations } from '../../components';
 
 function DrinksDetails() {
   const { id } = useParams();
@@ -14,8 +14,7 @@ function DrinksDetails() {
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
-
-  const { strDrinkThumb, strDrink, strInstructions, strYoutube, strAlcoholic } = data;
+  const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
 
   return (
     <section className="recipe-details">
@@ -27,23 +26,8 @@ function DrinksDetails() {
       { ingredients.map((ingredient, index) => (
         <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
           { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
-        </p>
-      )) }
-      <iframe
-        data-testid="video"
-        width="560"
-        height="315"
-        title={ strDrink }
-        src={ strYoutube && `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
-        frameBorder="0"
-        allow="accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture"
-        allowFullScreen
-      />
+          <input data-testid="ingredient-step" type="checkbox" />
+        </p>)) }
       <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="start-recipe-btn"
