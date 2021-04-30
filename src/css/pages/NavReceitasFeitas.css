@@ -1,6 +1,7 @@
 .done-recipes-nav {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
 
 .done-recipes-nav button {
@@ -8,5 +9,6 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width: 100px;
+  height: 45px;
+  width: 102px;
 }

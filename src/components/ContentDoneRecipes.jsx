@@ -1,59 +1,53 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import shareIcon from '../images/shareIcon.svg';
 import '../css/components/ContentDoneRecipes.css';
 
-function ContentDoneRecipes() {
-  const data = [
-    {
-      id: 52846,
-      type: comida,
-      area: 'Japanese',
-      category: 'Chicken',
-      alcoholicOrNot: '',
-      name: 'Chicken & mushroom Hotpot',
-      image: 'https://www.themealdb.com/images/media/meals/uuuspp1511297945.jpg',
-      doneDate: '2016-08-18',
-      tags: ['bun', 'baking'],
-    },
-    {
-      id: 11007,
-      type: 'bebida',
-      area: '',
-      category: 'Ordinary Drink',
-      alcoholicOrNot: 'Alcoholic',
-      name: 'Margarita',
-      image: 'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg"',
-      doneDate: '2015-08-14',
-      tags: ['bun', 'baking'],
-    },
-  ];
+function ContentDoneRecipes({ recipes, index }) {
+  const { type, alcoholicOrNot, name, image, doneDate, tags } = recipes;
   return (
     <div className="done-recipes-card">
       <img
         className="thumbnail"
-        src="https://www.themealdb.com/images/media/meals/uuuspp1511297945.jpg"
-        alt=""
-        data-testid="${index}-horizontal-image"
+        src={ image }
+        alt={ name }
+        data-testid={ `${index}-horizontal-image` }
       />
       <section>
         <div>
-          <div data-testid="${index}-horizontal-top-text">
-            {/* Alcoholic(bebida) || type(comida) */}
-            bebida
+          <div data-testid={ `${index}-horizontal-top-text` }>
+            {type === 'meals' ? type : alcoholicOrNot}
           </div>
-          {/* icone compartilhar */}
-          <img src={ shareIcon } alt="Share Icon" />
+          <img
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ shareIcon }
+            alt="Share Icon"
+          />
         </div>
-        <h4>Chelsea Buns</h4>
-        <span>Feita em: 10/06/2019</span>
+        <h4 data-testid={ `${index}-horizontal-name` }>{ name }</h4>
+        <span data-testid={ `${index}-horizontal-done-date` }>
+          { `Feita em: ${doneDate}` }
+        </span>
         <div>
-          {/* tags */}
-          <span className="done-recipes-tags">xablau</span>
+          {tags.map((tagName) => (
+            <span
+              data-testid={ `${index}-${tagName}-horizontal-tag` }
+              key={ tagName }
+              className="done-recipes-tags"
+            >
+              { tagName }
+            </span>
+          ))}
         </div>
       </section>
     </div>
   );
 }
+
+ContentDoneRecipes.propTypes = {
+  recipes: PropTypes.arrayOf(Object).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default ContentDoneRecipes;

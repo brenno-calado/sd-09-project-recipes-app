@@ -1,4 +1,5 @@
 import React from 'react';
+// import PropTypes from 'prop-types';
 
 import '../css/pages/NavReceitasFeitas.css';
 
@@ -26,5 +27,9 @@ function NavReceitasFeitas() {
     </nav>
   );
 }
+
+/* NavReceitasFeitas.propTypes = {
+
+} */
 
 export default NavReceitasFeitas;
