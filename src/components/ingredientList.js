@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function IngredientsList({ recipe }) {
   console.log(recipe);
@@ -27,3 +28,7 @@ export default function IngredientsList({ recipe }) {
         </li>))}
     </ul>);
 }
+
+IngredientsList.propTypes = {
+  recipe: PropTypes.objectOf(PropTypes.string),
+}.isRequired;
