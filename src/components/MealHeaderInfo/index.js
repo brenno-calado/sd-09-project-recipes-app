@@ -4,8 +4,29 @@ import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 class index extends Component {
+  constructor() {
+    super();
+    this.state = {
+      shareClicked: false,
+    };
+  }
+
+  copyCurrentLink = () => {
+    const { shareClicked } = this.state;
+    const url = window.location.href;
+
+    //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    navigator.clipboard.writeText(url)
+
+    const actualShareState = shareClicked
+    this.setState({
+      shareClicked: !actualShareState,
+    });
+  }
+
   render() {
     const { title, category } = this.props;
+    const { shareClicked } = this.state;
     return (
       <div className="recipe-details-box">
         <div className="recipe-details-informations">
@@ -13,7 +34,14 @@ class index extends Component {
           <p data-testid="recipe-category" className="recipe-category">{category}</p>
         </div>
         <div>
-          <img src={ shareIcon } alt="shareIcon" data-testid="share-btn" />
+          <div onClick={ this.copyCurrentLink }>
+            <img
+              src={ shareIcon }
+              alt="shareIcon"
+              data-testid="share-btn"
+            />
+            {shareClicked ? <p>Link copiado!</p> : null}
+          </div>
           <img src={ whiteHeartIcon } alt="whiteHeartIcon" data-testid="favorite-btn" />
         </div>
       </div>
