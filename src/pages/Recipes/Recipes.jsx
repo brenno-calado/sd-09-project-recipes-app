@@ -16,12 +16,14 @@ const Recipes = (props) => {
   const { meals, history } = props;
   const [mealCategoryList, setMealCategoryList] = useState();
   const [filteredByCategoryArray, setfilteredByCategoryArray] = useState(undefined);
+  const [loading, setLoading] = useState(true);
   const cinco = 5;
 
   async function fetchData() {
     const { dispatchMeals } = props;
     await fetchMealNameAPI('').then((response) => dispatchMeals(response));
     await fetchMealCategory().then((r) => setMealCategoryList(r));
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -32,40 +34,43 @@ const Recipes = (props) => {
     fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
   }
 
-  if (meals) {
+  if (loading) {
     return (
-      <>
-        <Header title="Comidas" value="comidas" history={ history } />
-        {
-          mealCategoryList && mealCategoryList.meals
-            .slice(0, cinco)
-            .map((meal, index) => (
-              <GenericCategoryButton
-                key={ index }
-                buttonLabel={ meal.strCategory }
-                action={ filterByCategory }
-              />
-            ))
-        }
-        {
-          filteredByCategoryArray
-            ? (
-              <RenderRecipeCards
-                array={ filteredByCategoryArray }
-                kindOfFood="meals"
-                cardsLimit="12"
-              />
-            )
-            : <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
-        }
-        <Footer />
-      </>
+      <h1>Carregando...</h1>
     );
+  }
+
+  if (meals.length === 1) {
+    history.push(`/comidas/${meals[0].idMeal}`, meals);
+    return null;
   }
 
   return (
     <>
-      Carregando...
+      <Header title="Comidas" value="comidas" history={ history } />
+      {
+        mealCategoryList && mealCategoryList.meals
+          .slice(0, cinco)
+          .map((meal, index) => (
+            <GenericCategoryButton
+              key={ index }
+              buttonLabel={ meal.strCategory }
+              action={ filterByCategory }
+            />
+          ))
+      }
+      {
+        filteredByCategoryArray
+          ? (
+            <RenderRecipeCards
+              array={ filteredByCategoryArray }
+              kindOfFood="meals"
+              cardsLimit="12"
+            />
+          )
+          : <RenderRecipeCards list={ meals } kindOfFood="meals" cardsLimit="12" />
+      }
+      <Footer />
     </>
   );
 };
@@ -80,7 +85,9 @@ const mapStateToProps = (state) => ({
 
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string).isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   dispatchMeals: PropTypes.func.isRequired,
 };
 

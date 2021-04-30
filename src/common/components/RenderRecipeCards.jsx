@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
 
 function RenderRecipeCards({
@@ -8,13 +9,24 @@ function RenderRecipeCards({
   kindOfFood,
   cardsLimit,
 }) {
+  const history = useHistory();
+  const handleCardClick = (recipe) => {
+    history.push(`/comidas/${recipe.idMeal}`, recipe);
+  };
+
   function renderCard(theChosenOne) {
     return theChosenOne[kindOfFood].slice(0, cardsLimit).map((meal, index) => (
-      <RecipeCard
+      <button
         key={ index }
-        index={ index }
-        recipe={ meal }
-      />
+        type="button"
+        onClick={ () => handleCardClick(meal) }
+      >
+        <RecipeCard
+          key={ index }
+          index={ index }
+          recipe={ meal }
+        />
+      </button>
     ));
   }
 

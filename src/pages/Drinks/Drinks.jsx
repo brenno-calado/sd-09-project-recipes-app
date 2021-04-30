@@ -16,12 +16,15 @@ const Drinks = (props) => {
   const { drinks, history } = props;
   const [drinksCategoryList, setDrinksCategoryList] = useState();
   const [filteredByCategoryArray, setFilteredBYCategoryArray] = useState(undefined);
+  const [loading, setLoading] = useState(true);
+
   const cinco = 5;
 
   async function fetchData() {
     const { dispatchDrinks } = props;
     await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
     await fetchDrinkCategory().then((r) => setDrinksCategoryList(r));
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -32,41 +35,45 @@ const Drinks = (props) => {
     fetchDrinksFilteredByCategory(category).then(setFilteredBYCategoryArray);
   }
 
-  if (drinks) {
+  if (loading) {
     return (
-      <div>
-        <Header title="Bebidas" value="bebidas" history={ history } />
-        {
-          drinksCategoryList && drinksCategoryList.drinks
-            .slice(0, cinco)
-            .map((drink, index) => (
-              <GenericCategoryButton
-                key={ index }
-                buttonLabel={ drink.strCategory }
-                action={ filterByCategory }
-              />
-            ))
-        }
-        {
-          filteredByCategoryArray
-            ? (
-              <RenderRecipeCards
-                array={ filteredByCategoryArray }
-                kindOfFood="drinks"
-                cardsLimit="12"
-              />
-            )
-            : <RenderRecipeCards list={ drinks } kindOfFood="drinks" cardsLimit="12" />
-        }
-        <Footer />
-      </div>
+      <h1>Carregando...</h1>
     );
   }
 
+  if (drinks.length === 1) {
+    console.log(drinks);
+    history.push(`/bebidas/${drinks[0].idDrink}`, drinks);
+    return null;
+  }
+
   return (
-    <>
-      Carregando...
-    </>
+    <div>
+      <Header title="Bebidas" value="bebidas" history={ history } />
+      {
+        drinksCategoryList && drinksCategoryList.drinks
+          .slice(0, cinco)
+          .map((drink, index) => (
+            <GenericCategoryButton
+              key={ index }
+              buttonLabel={ drink.strCategory }
+              action={ filterByCategory }
+            />
+          ))
+      }
+      {
+        filteredByCategoryArray
+          ? (
+            <RenderRecipeCards
+              array={ filteredByCategoryArray }
+              kindOfFood="drinks"
+              cardsLimit="12"
+            />
+          )
+          : <RenderRecipeCards list={ drinks } kindOfFood="drinks" cardsLimit="12" />
+      }
+      <Footer />
+    </div>
   );
 };
 
@@ -80,7 +87,9 @@ const mapStateToProps = (state) => ({
 
 Drinks.propTypes = {
   drinks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   dispatchDrinks: PropTypes.func.isRequired,
 };
 
