@@ -1,9 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  fetchMealCategories,
-  fetchCocktailsCategories,
-} from '../services/ApiRequest';
+import { fetchMealCategories, fetchCocktailsCategories } from '../services/ApiRequest';
 
 function ShowCategories({ name }) {
   const [categories, setCategories] = useState([]);
@@ -17,7 +14,6 @@ function ShowCategories({ name }) {
     else getCategories(fetchCocktailsCategories);
   }, [getCategories, name]);
   const numberOfCategories = 5;
-  console.log(categories);
 
   return (
     <div>

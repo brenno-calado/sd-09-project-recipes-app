@@ -10,12 +10,12 @@ function Footer() {
   const regex = /\d/g;
   const result = regex.test(location);
   return (
-    <div>
+    <div className="footerContainer">
       { !result
         ? (
           <footer
+            className="footer"
             data-testid="footer"
-            className="container"
           >
             <Link to="/bebidas">
               <img

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
@@ -22,9 +22,9 @@ class CocktailCards extends React.Component {
 
   createCards() {
     const { cocktails } = this.props;
-    const magicNumber = 11;
+    const maxItens = 11;
     return cocktails.map(
-      (cocktail, index) => (index <= magicNumber
+      (cocktail, index) => (index <= maxItens
       && (
         <div
           key={ index }
@@ -43,11 +43,14 @@ class CocktailCards extends React.Component {
   }
 
   render() {
-    const { cocktails, loading } = this.props;
-    console.log(loading);
+    const { cocktails } = this.props;
+    if (cocktails === null) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (!cocktails) return <div>Loading...</div>;
     return (
       <div className="cardContainer">
-        {cocktails ? this.createCards() : <div />}
+        { this.createCards() }
       </div>
     );
   }
@@ -62,7 +65,7 @@ CocktailCards.propTypes = {
 
 const mapStateToProps = (state) => ({
   cocktails: state.cocktails.cocktails,
-  loading: state.cocktails.loading });
+});
 
 const mapDispatchToProps = (dispatch) => (
   { getCocktails: () => dispatch(requestApiCocktails()) }

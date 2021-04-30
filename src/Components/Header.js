@@ -18,9 +18,9 @@ function Header({ name }) {
   }
 
   return (
-    <div>
+    <div className="headerContainer">
       { !result && (
-        <header className="container">
+        <header>
           <Link to="/perfil">
             <img
               src={ profileIcon }
@@ -56,9 +56,7 @@ function Header({ name }) {
               </button>)
             : ''}
         </header>)}
-      <section>
-        {showSearchBar && <SearchBar /> }
-      </section>
+      {showSearchBar && <SearchBar /> }
     </div>
   );
 }
