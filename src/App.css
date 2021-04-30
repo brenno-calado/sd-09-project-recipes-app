@@ -25,6 +25,21 @@
   justify-content: center;
 }
 
+.search-btn {
+  background-color: transparent;
+  border: #ff3f34 2px solid;
+  border-radius: 5px;
+  color: #ff3f34;
+  font-weight: 800;
+  padding: 5px 20px;
+  transition: 0.3s;
+}
+
+.search-btn:hover {
+  background-color: #ff3f34;
+  color: white;
+}
+
 .meals {
   align-items: center;
   background: #e4e4e4;
@@ -35,11 +50,6 @@
   height: auto;
   justify-content: center;
   width: 100%;
-}
-
-.rocksGlass {
-  animation: shake 1s infinite ease;
-  max-height: 80vh;
 }
 
 /*
@@ -55,39 +65,3 @@
   transform-origin: 60px 78px;
 }
 */
-
-.meals > .logo {
-  animation: shake 1.5s infinite ease;
-  color: aliceblue;
-  font-family: Montserrat, sans-serif;
-  font-size: 3em;
-  font-weight: 900;
-}
-
-@keyframes shake {
-  0% {
-    transform: rotate(5deg);
-  }
-
-  50% {
-    transform: rotate(-5deg);
-  }
-
-  100% {
-    transform: rotate(5deg);
-  }
-}
-
-@keyframes clink {
-  0% {
-    transform: rotate(-10deg);
-  }
-
-  50% {
-    transform: rotate(20deg);
-  }
-
-  100% {
-    transform: rotate(-10deg);
-  }
-}

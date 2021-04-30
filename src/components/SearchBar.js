@@ -108,6 +108,7 @@ function SearchBar() {
         </div>
         <button
           type="button"
+          className="search-btn"
           data-testid="exec-search-btn"
           onClick={ () => fetchRecipe() }
         >
