@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { objectOf } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { fetchMeals } from '../services/fetchRecipes';
+import Card from './Card';
 
 function DetailsDrink({ recipe }) {
+  const [recommends, setRecommends] = useState([]);
   const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = recipe;
 
+  useEffect(() => {
+    const toSlice = 6;
+    fetchMeals().then((data) => setRecommends(data.slice(0, toSlice)));
+  });
+
   const getIngredients = () => {
-    const maxNumber = 15;
     const ingredients = [];
-    for (let index = 1; index <= maxNumber; index += 1) {
-      const ingredient = `strIngredient${index}`;
-      const quantity = `strMeasure${index}`;
-      if (recipe[ingredient] !== null && recipe[ingredient] !== '') {
+    const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
+    const measure = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
+    ingreQtt.forEach((item, index) => {
+      if (recipe[item] !== null && recipe[item] !== '') {
         ingredients.push({
-          name: recipe[ingredient],
-          quantity: recipe[quantity],
+          name: recipe[item],
+          quantity: recipe[measure[index]],
         });
       }
-    }
+    });
     return ingredients.map(({ name, quantity }, index) => (
       <li
         key={ name }
@@ -59,12 +67,23 @@ function DetailsDrink({ recipe }) {
         </div>
         <div>
           <h2>Recomended</h2>
-          <div data-testid={ `${0}-recomendation-card` }>comidas</div>
+          {recommends.map((item, index) => (<Card
+            cardTestid={ `${index}-recomendation-card` }
+            titleTestid={ `${index}-recomendation-title` }
+            key={ index }
+            item={ item }
+            index={ index }
+            type="comidas"
+          />))}
         </div>
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     </div>
   );
 }
+
+DetailsDrink.propTypes = {
+  recipe: objectOf(),
+}.isRequired;
 
 export default DetailsDrink;

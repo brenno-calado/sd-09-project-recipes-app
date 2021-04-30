@@ -8,7 +8,7 @@ import './Cards.css';
 
 function Cards({ notFound, items, idType, notFoundReset }) {
   const location = useLocation();
-  // const idType = (location.pathname === '/comidas') ? 'idMeal' : 'idDrink';
+  const type = (location.pathname === '/comidas') ? 'comidas' : 'bebidas';
   const maxItemsToshow = 12;
   if (items.length > maxItemsToshow) items = items.slice(0, maxItemsToshow);
 
@@ -25,14 +25,13 @@ function Cards({ notFound, items, idType, notFoundReset }) {
         to={ `${location.pathname}/${items[0][idType]}` }
       />}
       {items.map((item, index) => (
-        <Card item={ item } index={ index } key={ item.idType } />
+        <Card item={ item } index={ index } key={ item.idType } type={ type } />
       ))}
     </div>
   );
 }
 
 const mapStateToProps = (state) => ({
-  // items: state.searchBar.items,
   notFound: state.recipesList.notFound,
 });
 

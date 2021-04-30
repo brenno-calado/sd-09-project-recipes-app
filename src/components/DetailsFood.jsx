@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { objectOf } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { fetchBeverages } from '../services/fetchRecipes';
+import Card from './Card';
 
 function DetailsFood({ recipe }) {
+  const [recommends, setRecommends] = useState([]);
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
-  console.log(recipe);
+
+  useEffect(() => {
+    const toSlice = 6;
+    fetchBeverages().then((data) => setRecommends(data.slice(0, toSlice)));
+  });
 
   const getIngredients = () => {
     const maxNumber = 20;
@@ -13,7 +21,6 @@ function DetailsFood({ recipe }) {
     for (let index = 1; index <= maxNumber; index += 1) {
       const ingredient = `strIngredient${index}`;
       const quantity = `strMeasure${index}`;
-      console.log(ingredient, quantity);
       if (recipe[ingredient] !== '') {
         ingredients.push({
           name: recipe[ingredient],
@@ -66,12 +73,23 @@ function DetailsFood({ recipe }) {
         </div>
         <div>
           <h2>Recomended</h2>
-          <div data-testid={ `${0}-recomendation-card` }>comidas</div>
+          {recommends.map((item, index) => (<Card
+            cardTestid={ `${index}-recomendation-card` }
+            titleTestid={ `${index}-recomendation-title` }
+            key={ index }
+            item={ item }
+            index={ index }
+            type="bebidas"
+          />))}
         </div>
         <button type="button" data-testid="start-recipe-btn">Iniciar Receita</button>
       </div>
     </div>
   );
 }
+
+DetailsFood.propTypes = {
+  recipe: objectOf(),
+}.isRequired;
 
 export default DetailsFood;
