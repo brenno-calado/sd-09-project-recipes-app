@@ -23,7 +23,7 @@
 .header-Display {
   align-items: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   top: 0;
 }
 
@@ -31,6 +31,10 @@
   background-color: transparent;
   border: none;
   outline: none;
+}
+
+.card .card-header {
+  padding: 0 0;
 }
 
 /* Accordion Card */
@@ -74,6 +78,21 @@
   margin: 0.25rem;
 }
 
+.nav-item .nav-link {
+  padding: 0.25rem;
+}
+
+.nav-pills .nav-item .nav-link {
+  border: 1px solid  #6c757d;
+  color: #6c757d;
+}
+
+.nav-pills .nav-item .nav-link.active {
+  background-color: #6c757d;
+  color: white;
+}
+
+
 /* Pages */
 
 /* Login */
@@ -96,6 +115,20 @@
   height: 100vh;
   justify-content: center;
   width: 100%;
+}
+
+.mainPage-wrapper {
+  margin-bottom: 60px;
+}
+
+/* explore */
+
+.exploreButton-wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  height: 200px;
+  justify-content: space-evenly;
+  padding: 10px;
 }
 
 /* generic rules */
