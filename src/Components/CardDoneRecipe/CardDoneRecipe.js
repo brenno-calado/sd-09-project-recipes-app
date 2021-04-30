@@ -49,7 +49,7 @@ function CardDoneRecipe({ recipe, index }) {
           </span>
         )) }
       </div>
-      { (showCopyMsg === true) && <span>Link copiado!</span>}
+      { (showCopyMsg) && <span>Link copiado!</span>}
     </div>
   );
 }
