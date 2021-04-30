@@ -1,11 +1,14 @@
 import React from 'react';
 
+import Provider from './context/Provider';
 import Routes from './pages/Routes';
 import './App.css';
 
 function App() {
   return (
-    <Routes />
+    <Provider>
+      <Routes />
+    </Provider>
   );
 }
 
