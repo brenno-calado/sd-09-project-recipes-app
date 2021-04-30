@@ -26,6 +26,14 @@ function SearchBar() {
     }
   };
 
+  const verifyApiResult = (apiResult) => {
+    if (apiResult !== null) {
+      setSearchFilter(apiResult);
+    } else {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+  };
+
   const handleClick = async () => {
     const filter = input.text;
     let url = '';
@@ -42,7 +50,7 @@ function SearchBar() {
         url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${filter[0]}`;
         apiResult = await fetchApi.fetchDrinkByFilter(url);
       }
-      setSearchFilter(apiResult);
+      verifyApiResult(apiResult);
       return url;
     case 'ingredients':
       if (pathname === '/comidas') {
@@ -52,7 +60,7 @@ function SearchBar() {
         url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${filter}`;
         apiResult = await fetchApi.fetchDrinkByFilter(url);
       }
-      setSearchFilter(apiResult);
+      verifyApiResult(apiResult);
       return url;
     case 'name':
       if (pathname === '/comidas') {
@@ -62,7 +70,7 @@ function SearchBar() {
         url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter}`;
         apiResult = await fetchApi.fetchDrinkByFilter(url);
       }
-      setSearchFilter(apiResult);
+      verifyApiResult(apiResult);
       return url;
     default:
     }
