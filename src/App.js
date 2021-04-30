@@ -14,6 +14,7 @@ import ProfileScreen from './Pages/ProfileScreen/ProfileScreen';
 import
 FavoriteRecipiesScreen from './Pages/FavoriteRecipiesScreen/FavoriteRecipiesScreeen';
 import DoneRecipiesScreen from './Pages/DoneRecipesScreen/DoneRecipiesScreen';
+import RecipeDetailsScreen from './Pages/RecipeDetailsScreen/RecipeDetailsScreen';
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ MealsScreen } />
       <Route exact path="/bebidas" component={ DrinksScreen } />
+      <Route exact path="/comidas/:id" component={ RecipeDetailsScreen } />
+      <Route exact path="/bebidas/:id" component={ RecipeDetailsScreen } />
       <Route exact path="/explorar" component={ ExploreScreen } />
       <Route exact path="/explorar/:pageType" component={ ExploreFoodScreen } />
       <Route
