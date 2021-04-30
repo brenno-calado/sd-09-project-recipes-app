@@ -24,9 +24,7 @@ class index extends Component {
 
   async componentDidMount() {
     this.setDrinkData();
-    // this.setIngredientes();
-    // this.setInstructions();
-    // this.setVideo();
+    this.setRecommendedFoods();
   }
 
   async setDrinkData() {
@@ -37,6 +35,16 @@ class index extends Component {
     console.log(response);
     this.setState({
       drinkData: response.drinks[0],
+    });
+  }
+
+  async setRecommendedFoods () {
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=`;
+    const foods = await fetch(url);
+    const response = await foods.json();
+    response.meals.length = 6;
+    this.setState({
+      recommendedDrinks: response.meals,
     });
   }
 
@@ -64,7 +72,8 @@ class index extends Component {
   }
 
   getRecommendations = () => {
-    return ['Teste1', 'Teste 2', 'Teste 3', 'Teste 4', 'Teste 5', 'Teste 6']
+    const { recommendedDrinks } = this.state;
+    return recommendedDrinks
   }
 
   getIngredientsQuantity = () => {

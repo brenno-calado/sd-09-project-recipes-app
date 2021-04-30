@@ -1,0 +1,41 @@
+/* O carrocel foi feito com este codigo */
+/* https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
+
+.recommendations-box {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.recommended-box {
+  background: #FFFFFF;
+  width: 161px;
+  height: 172px;
+  margin: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  flex: 0 0 auto;
+}
+
+.recommended-box-image {
+  height: 109px;
+  width: 161px;
+  border-radius: 6px 6px 0px 0px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.recommended-box-category {
+  color: #A9A9A9;
+  font-weight: 400;
+  font-size: 15px;
+  margin: 0 5px;
+}
+
+.recommended-box-name {
+  color: #000000;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 5px;
+}

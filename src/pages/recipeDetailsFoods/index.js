@@ -24,7 +24,8 @@ class index extends Component {
   }
 
   async componentDidMount() {
-    this.setMealData()
+    this.setMealData();
+    this.setRecommendedDrinks();
   }
 
   async setMealData() {
@@ -32,9 +33,18 @@ class index extends Component {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const mealData = await fetch(url);
     const response = await mealData.json();
-    console.log(response);
     this.setState({
       mealData: response.meals[0],
+    });
+  }
+
+  async setRecommendedDrinks () {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`;
+    const drinks = await fetch(url);
+    const response = await drinks.json();
+    response.drinks.length = 6;
+    this.setState({
+      recommendedDrinks: response.drinks,
     });
   }
 
@@ -94,7 +104,8 @@ class index extends Component {
   }
 
   getRecommendations = () => {
-    return ['Teste1', 'Teste 2', 'Teste 3', 'Teste 4', 'Teste 5', 'Teste 6']
+    const { recommendedDrinks } = this.state;
+    return recommendedDrinks
   }
 
   render() {
