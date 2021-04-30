@@ -1,7 +1,7 @@
 .start-recipe-btn {
-  background-color: #6CE34F;
-  position: fixed;
-  bottom: 0px;
+  background-color: #6ce34f;
+  bottom: 0;
   left: 50%;
+  position: fixed;
   transform: translateX(-50%);
 }
