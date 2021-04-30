@@ -34,9 +34,12 @@ function MealsDetails() {
       </button>
       <p data-testid="recipe-category">{ strCategory }</p>
       { ingredients.map((ingredient, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
-          { `${data[ingredient]} ${data[measures[index]]}` }
-        </p>)) }
+        data[ingredient] && data[ingredient].length ? (
+          <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
+            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
+          </p>
+        ) : false
+      )) }
       <p data-testid="instructions">{strInstructions}</p>
       <YoutubePlayer url={ strYoutube } title={ strMeal } />
       <DrinksRecomendations />

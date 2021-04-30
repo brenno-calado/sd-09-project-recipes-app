@@ -8,7 +8,7 @@ function DrinksComponent({ data: { drinks } }) {
   const maxArrayLength = 12;
 
   if (drinks === null) {
-    console.log('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
   }
   if (!drinks) return <div>Loading...</div>;
   if (isSearch && drinks.length === 1) {

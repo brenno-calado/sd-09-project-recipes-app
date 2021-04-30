@@ -33,19 +33,22 @@ function DrinksInProgress() {
       </button>
       <p data-testid="recipe-category">{ strAlcoholic }</p>
       { ingredients.map((ingredient, index) => (
-        <label
-          htmlFor={ ingredient }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ ingredient }
-        >
-          { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
-          <input
-            data-testid={ `${index}-ingredient-step` }
-            id={ ingredient }
-            value={ ingredient }
-            type="checkbox"
-          />
-        </label>)) }
+        data[ingredient] && data[ingredient].length ? (
+          <label
+            htmlFor={ ingredient }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ ingredient }
+          >
+            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
+            <span data-testid="ingredient-step">
+              <input
+                id={ ingredient }
+                value={ ingredient }
+                type="checkbox"
+              />
+            </span>
+          </label>) : false
+      )) }
       <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="finish-recipe-btn"
