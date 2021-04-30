@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button, Container, Jumbotron } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
+import './Details.css';
 
 function Details({ detailsContext }) {
   const { recipe } = detailsContext;
@@ -24,31 +26,71 @@ function Details({ detailsContext }) {
   }
 
   return (
-    <div>
-      { getPageFromURL() ? (
-        <h2 data-testid="recipe-title" className="detail-img">{recipe.strMeal}</h2>)
-        : (<h2 data-testid="recipe-title" className="detail-img">{recipe.strDrink}</h2>)}
-      { getPageFromURL() ? (<p data-testid="recipe-category">{recipe.strCategory}</p>)
-        : (<p data-testid="recipe-category">{recipe.strAlcoholic}</p>)}
-      { getPageFromURL() ? (
-        <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />)
-        : (<img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />)}
-      <br />
-      <button data-testid="share-btn" type="button">Share</button>
-      <button data-testid="favorite-btn" type="button">Favorite it</button>
-      <h4>ingredients</h4>
-      <div>
-        <ul>
-          {getIngredientsLiElements()}
-        </ul>
-      </div>
-      <div>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{recipe.strInstructions}</p>
-      </div>
-      <br />
-      <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
-    </div>
+    <Jumbotron>
+      <Container>
+        <div className="details-main">
+          { getPageFromURL() ? (
+            <h2 data-testid="recipe-title" className="display-4">{recipe.strMeal}</h2>)
+            : (
+              <h2 data-testid="recipe-title" className="display-4">
+                {recipe.strDrink}
+              </h2>
+            )}
+          { getPageFromURL() ? (
+            <p data-testid="recipe-category" className="lead">{recipe.strCategory}</p>)
+            : (
+              <p data-testid="recipe-category" className="lead">
+                {recipe.strAlcoholic}
+              </p>
+            )}
+          { getPageFromURL() ? (
+            <img
+              data-testid="recipe-photo"
+              src={ recipe.strMealThumb }
+              alt="img"
+              className="details-img"
+            />)
+            : (
+              <img
+                data-testid="recipe-photo"
+                src={ recipe.strDrinkThumb }
+                alt="img"
+                className="details-img"
+              />)}
+          <br />
+          <Button data-testid="share-btn" type="button" color="primary" className="btn">
+            Share
+          </Button>
+          <Button
+            data-testid="favorite-btn"
+            type="button"
+            color="primary"
+            className="btn"
+          >
+            Favorite it
+          </Button>
+          <Button
+            type="button"
+            data-testid="start-recipe-btn"
+            color="primary"
+            className="btn"
+          >
+            Start Recipe
+          </Button>
+        </div>
+        <div>
+          <h4>ingredients</h4>
+          <ul>
+            {getIngredientsLiElements()}
+          </ul>
+        </div>
+        <div>
+          <h4>Instructions</h4>
+          <p data-testid="instructions">{recipe.strInstructions}</p>
+        </div>
+        <hr className="my-2" />
+      </Container>
+    </Jumbotron>
   );
 }
 

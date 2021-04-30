@@ -1,0 +1,21 @@
+.card {
+  margin: 15px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card-container-title {
+  text-align: center;
+}
+
+.cards-section-container {
+  margin: 25px 0;
+}
+
+.hidden {
+  display: none;
+}
+

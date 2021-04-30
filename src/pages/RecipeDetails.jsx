@@ -14,13 +14,14 @@ function RecipeDetails() {
   const [recomendationRecipesList, setRecomendationRecipesList] = useState();
 
   async function fetchRecomendationMealsAndDrinks() {
-    let found = {};
+    let found = [];
+    const maxLengthRecomendedRecipes = 6;
     if (getPageFromURL()) {
       found = await fetchMealsAcompaniments();
     } else {
       found = await fetchDrinksAcompaniments();
     }
-    setRecomendationRecipesList(found);
+    setRecomendationRecipesList(found.splice(0, maxLengthRecomendedRecipes));
   }
 
   useEffect(() => {
@@ -42,13 +43,13 @@ function RecipeDetails() {
 
   return (
     <section>
-      <h1>RECIPE DETAILS</h1>
+      <h1 className="display-4 text-center">RECIPE DETAILS</h1>
       <div>
         {!recipe ? <p>loading</p> : (
           <div>
             <Details detailsContext={ detailsContextProps } />
-            <RecomendedRecipes detailsContext={ detailsContextProps } />
             <RecipeVideo detailsContext={ detailsContextProps } />
+            <RecomendedRecipes detailsContext={ detailsContextProps } />
           </div>
         )}
       </div>

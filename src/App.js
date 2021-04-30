@@ -11,11 +11,10 @@ function App() {
     <MealsAndDrinkProvider>
       <BrowserRouter>
         <Switch>
-          <Route path="/comidas" />
           <Route exact path="/" component={ Login } />
           <Route path="/comidas/:id/" component={ RecipeDetails } />
           <Route path="/bebidas/:id/" component={ RecipeDetails } />
-          
+          <Route path="/comidas" />
         </Switch>
       </BrowserRouter>
     </MealsAndDrinkProvider>
