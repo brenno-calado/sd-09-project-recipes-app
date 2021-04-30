@@ -18,6 +18,7 @@ export function RecipeContextProvider({ children }) {
 
   function handleChangeSearchBar() {
     setIsSearchBar(!isSearchBar);
+    console.log('clicado');
   }
 
   function handleLocalStorage() {

@@ -1,9 +1,18 @@
-import { string, arrayOf, shape, bool } from 'prop-types';
-import React from 'react';
+import { string, arrayOf, shape, bool, func } from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import React, { useState } from 'react';
+import blackHeart from '../../images/blackHeartIcon.svg';
+import whiteHeart from '../../images/whiteHeartIcon.svg';
 
 function CardDetails({
   image, title, video, categoryText, instructions,
-  shouldVideoApear, children, isAlcoholic }) {
+  shouldVideoApear, children, isAlcoholic, handleFavoriteClick, favorite }) {
+  const [copyUrl, setCopyUrl] = useState('');
+
+  function handleClickUrl() {
+    setCopyUrl('Link copiado!');
+  }
+  const url = window.location.href;
   return (
     <li>
       <img
@@ -14,18 +23,24 @@ function CardDetails({
       />
       <h2 data-testid="recipe-title">{ title }</h2>
       {!shouldVideoApear && <p data-testid="recipe-category">{isAlcoholic}</p>}
-      <button
-        data-testid="share-btn"
-        type="button"
-      >
-        Compartilhar
+      <CopyToClipboard text={ url }>
+        <button
+          onClick={ handleClickUrl }
+          data-testid="share-btn"
+          type="button"
+        >
+          Compartilhar
+        </button>
+      </CopyToClipboard>
+      {copyUrl}
+      <button type="button" onClick={ handleFavoriteClick }>
+        <img
+          data-testid="favorite-btn"
+          src={ favorite ? blackHeart : whiteHeart }
+          alt="Favoritar"
+        />
       </button>
-      <button
-        data-testid="favorite-btn"
-        type="button"
-      >
-        Favoritar
-      </button>
+
       <p data-testid="recipe-category">{ categoryText }</p>
 
       <ul>
@@ -56,6 +71,8 @@ CardDetails.propTypes = {
   isAlcoholic: string,
   children: arrayOf(shape()),
   shouldVideoApear: bool,
+  handleFavoriteClick: func,
+  favorite: bool,
 };
 
 CardDetails.defaultProps = {
@@ -67,6 +84,8 @@ CardDetails.defaultProps = {
   isAlcoholic: '',
   children: [{}],
   shouldVideoApear: bool,
+  handleFavoriteClick: () => {},
+  favorite: bool,
 };
 
 export default CardDetails;

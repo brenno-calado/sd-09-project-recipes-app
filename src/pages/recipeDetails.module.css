@@ -9,3 +9,8 @@
 	width: 540px;
 	background-color: red;
 } */
+
+.startButton {
+	position: fixed;
+	bottom: 0;
+}
