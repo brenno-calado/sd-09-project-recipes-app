@@ -10,7 +10,7 @@ import { MyContext } from '../MyContext';
 function Header() {
   const { showBar, clickShowBar } = useContext(MyContext);
   const { pathname } = useLocation();
-  // const title = pathname.slice(1);
+
   let title = '';
   switch (pathname) {
   case '/comidas':
