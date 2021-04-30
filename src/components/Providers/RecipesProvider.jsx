@@ -3,6 +3,7 @@ import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 
 export default function RecipesProvider({ children }) {
+  const [recipesResult, setRecipesResult] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
   const [inProgressRecipes, setInProgressRecipes] = useState({
@@ -11,11 +12,13 @@ export default function RecipesProvider({ children }) {
 
   const value = {
     values: {
+      recipesResult,
       doneRecipes,
       favoriteRecipes,
       inProgressRecipes,
     },
     actions: {
+      setRecipesResult,
       addRecipeToDone(recipeObj) {
         setDoneRecipes([...doneRecipes, recipeObj]);
       },
