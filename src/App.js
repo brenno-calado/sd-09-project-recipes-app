@@ -25,7 +25,6 @@ function App() {
       <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
       <Route path="/comidas/:id" component={ DetalheComidas } />
       <Route path="/comidas" component={ Comidas } />
-      <Route path="/bebidas" component={ Bebidas } />
       <Route path="/bebidas/:id" component={ DetalheBebidas } />
       <Route path="/bebidas" component={ Bebidas } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
