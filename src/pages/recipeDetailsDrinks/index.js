@@ -111,7 +111,7 @@ class index extends Component {
         <MealIngredients ingredients={ this.getIngredients() } quantities={this.getIngredientsQuantity()} />
         <MealInstructions instructions={ this.getInsructions() } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
-        <ButtonStartRecipe recipe={drinkData} id={id}/>
+        <ButtonStartRecipe recipe={drinkData} id={id} ingredients={ this.getIngredients()} />
       </div>
     );
   }

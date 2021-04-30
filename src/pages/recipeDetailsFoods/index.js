@@ -120,7 +120,7 @@ class index extends Component {
         <MealInstructions instructions={ this.getInsructions() } />
         <MealVideo videoId={ video } />
         <MealRecommendations recommendations={ this.getRecommendations() } />
-        <ButtonStartRecipe recipe={mealData} id={id}/>
+        <ButtonStartRecipe recipe={mealData} id={id} ingredients={ this.getIngredients() }/>
       </div>
     );
   }
