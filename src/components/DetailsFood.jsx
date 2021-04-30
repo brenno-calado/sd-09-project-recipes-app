@@ -13,23 +13,24 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
 
-  const getIngredients = () => {
-    const ingredients = [];
-    const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
-    const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
-    ingreQtt.forEach((item, index) => {
-      if (recipe[item] !== null && recipe[item] !== '') {
-        ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
-      }
-    });
-    setAllIngrdients(ingredients);
-  };
-
   useEffect(() => {
+    const getIngredients = () => {
+      const ingredients = [];
+      const ingreQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strIngredient'));
+      const measureQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strMeasure'));
+      ingreQtt.forEach((item, index) => {
+        if (recipe[item] !== null && recipe[item] !== '') {
+          ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
+        }
+      });
+      setAllIngrdients(ingredients);
+    };
     const toSlice = 6;
     fetchBeverages().then((data) => setRecommends(data.slice(0, toSlice)));
     getIngredients();
-  }, []);
+  }, [recipe]);
 
   const renderButton = () => (
     <Link to={ `${location.pathname}/in-progress` }>
