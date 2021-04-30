@@ -25,7 +25,7 @@ export const fetchBeverages = async () => {
 };
 
 export const fetchRecipeDetails = async (idType, id) => {
-  const url = (idType === 'idMeal')
+  const url = (idType === 'meals')
     ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
     : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const request = await fetch(url);

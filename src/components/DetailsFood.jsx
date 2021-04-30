@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { objectOf } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchBeverages } from '../services/fetchRecipes';
 import Card from './Card';
 
-function DetailsFood({ recipe }) {
+function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const [recommends, setRecommends] = useState([]);
   const [allIngrdients, setAllIngrdients] = useState([]);
+  const location = useLocation();
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
 
@@ -28,6 +30,19 @@ function DetailsFood({ recipe }) {
     fetchBeverages().then((data) => setRecommends(data.slice(0, toSlice)));
     getIngredients();
   }, []);
+
+  const renderButton = () => (
+    <Link to={ `${location.pathname}/in-progress` }>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe-btn"
+        onClick={ handleClick }
+      >
+        { !inProgressRecipes ? 'Iniciar Receita' : 'Continuar Receita'}
+      </button>
+    </Link>
+  );
 
   return (
     <div className="Details">
@@ -83,13 +98,7 @@ function DetailsFood({ recipe }) {
           />))}
         </div>
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      {!done && renderButton()}
     </div>
   );
 }

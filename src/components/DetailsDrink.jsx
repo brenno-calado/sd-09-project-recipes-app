@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { objectOf } from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchMeals } from '../services/fetchRecipes';
 import Card from './Card';
 
-function DetailsDrink({ recipe }) {
+function DetailsDrink({ recipe, inProgressRecipes, handleClick, done}) {
   const [recommends, setRecommends] = useState([]);
   const [allIngrdients, setAllIngrdients] = useState([]);
+  const location = useLocation();
   const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = recipe;
 
   const getIngredients = () => {
@@ -27,6 +29,19 @@ function DetailsDrink({ recipe }) {
     fetchMeals().then((data) => setRecommends(data.slice(0, toSlice)));
     getIngredients();
   }, []);
+
+  const renderButton = () => (
+    <Link to={ `${location.pathname}/in-progress` }>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe-btn"
+        onClick={ handleClick }
+      >
+        { !inProgressRecipes ? 'Iniciar Receita' : 'Continuar Receita'}
+      </button>
+    </Link>
+  );
 
   return (
     <div className="Details">
@@ -78,13 +93,7 @@ function DetailsDrink({ recipe }) {
           />))}
         </div>
       </div>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      {!done && renderButton() }
     </div>
   );
 }
