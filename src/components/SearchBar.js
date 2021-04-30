@@ -1,17 +1,8 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import {
-  getMealsByFirstLetter,
-  getMealsByIngredient,
-  getMealsByName,
-} from '../services/apiMeals';
-import {
-  getDrinksByFirstLetter,
-  getDrinksByIngredient,
-  getDrinksByName,
-} from '../services/apiDrinks';
 import { RecipiesContext } from '../context/RecipiesContext';
+import * as api from '../services/api';
 
 export default function SearchBar({ isMealsPage }) {
   const { searchMealsList, setSearchMealsList,
@@ -30,48 +21,25 @@ export default function SearchBar({ isMealsPage }) {
     setRadioValue(target.value);
   };
 
-  const searchDrinks = async () => {
-    if (radioValue === 'ingredient') {
-      const ingredient = await getDrinksByIngredient(inputValue);
-      setSearchDrinksList(ingredient);
-    }
-    if (radioValue === 'name') {
-      const drinkName = await getDrinksByName(inputValue);
-      setSearchDrinksList(drinkName);
-    }
-    if (radioValue === 'first-letter') {
+  const searchRecipes = async () => {
+    let result;
+    switch (radioValue) {
+    case 'ingredient':
+      result = await api.getRecipesByIngredient(inputValue, isMealsPage);
+      break;
+    case 'name':
+      result = await api.getRecipesByName(inputValue, isMealsPage);
+      break;
+    case 'first-letter':
       if (inputValue.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      const drinkName = await getDrinksByFirstLetter(inputValue);
-      setSearchDrinksList(drinkName);
+      result = await api.getRecipesByFirstLetter(inputValue, isMealsPage);
+      break;
+    default:
     }
-  };
-
-  const searchMeals = async () => {
-    if (radioValue === 'ingredient') {
-      const ingredient = await getMealsByIngredient(inputValue);
-      setSearchMealsList(ingredient);
-    }
-    if (radioValue === 'name') {
-      const mealskName = await getMealsByName(inputValue);
-      setSearchMealsList(mealskName);
-    }
-    if (radioValue === 'first-letter') {
-      if (inputValue.length > 1) {
-        return alert('Sua busca deve conter somente 1 (um) caracter');
-      }
-      const mealskName = await getMealsByFirstLetter(inputValue);
-      setSearchMealsList(mealskName);
-    }
-  };
-
-  console.log(searchMealsList);
-  console.log(searchDrinksList);
-
-  const handleClickSearch = () => {
-    if (isMealsPage) return searchMeals();
-    return searchDrinks();
+    if (isMealsPage) setSearchMealsList(result);
+    else setSearchDrinksList(result);
   };
 
   const redirectDetails = () => {
@@ -125,7 +93,7 @@ export default function SearchBar({ isMealsPage }) {
         <button
           data-testid="exec-search-btn"
           type="button"
-          onClick={ handleClickSearch }
+          onClick={ searchRecipes }
         >
           Buscar
         </button>
