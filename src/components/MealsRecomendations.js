@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import Carousel from 'react-multi-carousel';
 import { fecthByName } from '../services/api';
+import 'react-multi-carousel/lib/styles.css';
 
 function MealsRecomendations() {
   const [meals, setMeals] = useState([]);
@@ -12,16 +14,24 @@ function MealsRecomendations() {
 
   useEffect(() => { getMeals(); }, []);
 
+  const responsive = {
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
+
   if (!meals.length) return <div>Loading...</div>;
 
   return (
-    <section>
+    <Carousel responsive={ responsive }>
       { meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
         <span data-testid={ `${index}-recomendation-card` } key={ idMeal }>
-          <img src={ strMealThumb } alt={ strMeal } />
+          <img variant="top" src={ strMealThumb } alt={ strMeal } />
           <p data-testid={ `${index}-recomendation-title` }>{strMeal}</p>
-        </span>)) }
-    </section>
+        </span>
+      )) }
+    </Carousel>
   );
 }
 

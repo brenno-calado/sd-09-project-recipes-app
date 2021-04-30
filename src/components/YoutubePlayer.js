@@ -5,8 +5,8 @@ function YoutubePlayer({ url, title }) {
   return (
     <iframe
       data-testid="video"
-      width="560"
-      height="315"
+      width="360"
+      height="200"
       title={ title }
       src={ url && `https://www.youtube.com/embed/${url.split('=')[1]}` }
       frameBorder="0"
