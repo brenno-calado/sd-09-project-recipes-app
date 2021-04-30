@@ -30,7 +30,6 @@ class Meals extends React.Component {
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
         <CategoriesList />
-        {itens && !isCategory && itens.length === 1
         <div className="recipe-card-container">
           {recipes.meals && recipes.meals.map((meal) => (
             <RecipeMealCard key={ meal.idMeal } meal={ meal } />))}
