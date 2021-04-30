@@ -34,9 +34,12 @@ function DrinksDetails() {
       </button>
       <p data-testid="recipe-category">{ strAlcoholic }</p>
       { ingredients.map((ingredient, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
-          { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
-        </p>)) }
+        data[ingredient] && data[ingredient].length ? (
+          <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
+            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
+          </p>
+        ) : false
+      )) }
       <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="start-recipe-btn"
