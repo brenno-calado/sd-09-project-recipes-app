@@ -1,23 +1,10 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import {
-  Login,
-  Meals,
-  Drinks,
-  Explore,
-  ExploreMeals,
-  ExploreDrinks,
-  Profile,
-  FavoriteRecipes,
-  DoneRecipes,
-  MealsByIngredients,
-  DrinksByIngredients,
-  MealsByArea,
-  MealsInProgress,
-  DrinksInProgress,
-  MealsDetails,
-  DrinksDetails,
-} from './pages';
+import { Login, Explore, Profile, FavoriteRecipes, DoneRecipes } from './pages';
+import { Meals, ExploreMeals, MealsByIngredients, MealsByArea, MealsInProgress,
+  MealsDetails } from './pages/meals';
+import { Drinks, ExploreDrinks, DrinksByIngredients, DrinksInProgress,
+  DrinksDetails } from './pages/drinks';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,6 +22,7 @@ function App() {
       <Route path="/explorar/comidas/ingredientes" component={ MealsByIngredients } />
       <Route path="/explorar/bebidas/ingredientes" component={ DrinksByIngredients } />
       <Route path="/explorar/comidas/area" component={ MealsByArea } />
+      <Route path="/explorar/bebidas/area" render={ () => <div>Not Found</div> } />
       <Route path="/explorar/comidas" component={ ExploreMeals } />
       <Route path="/explorar/bebidas" component={ ExploreDrinks } />
       <Route path="/explorar" component={ Explore } />

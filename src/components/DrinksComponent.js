@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect, Link } from 'react-router-dom';
-import { Context } from '../context/Context';
+import { Context } from '../context';
 
 function DrinksComponent({ data: { drinks } }) {
   const { isSearch } = useContext(Context);
+  const maxArrayLength = 12;
 
   if (drinks === null) {
     alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -13,7 +14,6 @@ function DrinksComponent({ data: { drinks } }) {
   if (isSearch && drinks.length === 1) {
     return <Redirect to={ `bebidas/${drinks[0].idDrink}` } />;
   }
-  const maxArrayLength = 12;
 
   return (
     <main>

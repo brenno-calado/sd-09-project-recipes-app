@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { fecthForName } from '../services/api';
+import { fecthByName } from '../services/api';
 
 function MealsRecomendations() {
   const [meals, setMeals] = useState([]);
 
   const getMeals = async () => {
-    const result = await fecthForName('', true);
+    const result = await fecthByName('', true);
     const recomendations = 6;
     setMeals(result.meals.slice(0, recomendations));
   };
 
   useEffect(() => { getMeals(); }, []);
 
+  if (!meals.length) return <div>Loading...</div>;
+
   return (
     <section>
-      { meals.length && meals.map((el, index) => (
-        <span
-          key={ el.idMeal }
-          data-testid={ `${index}-recomendation-card` }
-        >
-          <img src={ el.strMealThumb } alt={ `${el.strMeal} thumb` } />
-          <p data-testid={ `${index}-recomendation-title` }>{el.strMeal}</p>
-        </span>
-      ))}
+      { meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
+        <span data-testid={ `${index}-recomendation-card` } key={ idMeal }>
+          <img src={ strMealThumb } alt={ strMeal } />
+          <p data-testid={ `${index}-recomendation-title` }>{strMeal}</p>
+        </span>)) }
     </section>
   );
 }

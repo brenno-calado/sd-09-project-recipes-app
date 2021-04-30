@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRecipeDetails } from '../services/api';
-import { DrinksRecomendations } from '../components';
+import { fetchRecipeDetails } from '../../services/api';
+import { DrinksRecomendations } from '../../components';
 
 function MealsDetails() {
   const { id } = useParams();
@@ -26,8 +26,8 @@ function MealsDetails() {
       { ingredients.map((ingredient, index) => (
         <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
           { `${data[ingredient]} ${data[measures[index]]}` }
-        </p>
-      )) }
+          <input data-testid="ingredient-step" type="checkbox" />
+        </p>)) }
       <p data-testid="instructions">{strInstructions}</p>
       <iframe
         data-testid="video"

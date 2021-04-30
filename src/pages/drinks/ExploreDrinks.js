@@ -1,34 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, Footer } from '../components';
-import { fetchRandomRecipe } from '../services/api';
+import { Header, Footer } from '../../components';
+import { fetchRandomRecipe } from '../../services/api';
 
 function ExploreDrinks() {
-  const [randomRecipe, setRandomRecipe] = useState({});
+  const [data, setData] = useState({});
 
-  const getData = async () => {
-    setRandomRecipe(await fetchRandomRecipe(false));
-  };
-
-  useEffect(() => { getData(); }, []);
+  useEffect(() => {
+    const getData = async () => setData(await fetchRandomRecipe(false));
+    getData();
+  }, []);
 
   const createButton = (testid, text) => (
     <button data-testid={ testid } type="button">{ text }</button>
   );
 
+  if (!data.drinks) return <div>Loading...</div>;
+
   return (
     <section>
       <Header title="Explorar Bebidas" />
-
       <Link to="/explorar/bebidas/ingredientes">
         { createButton('explore-by-ingredient', 'Por Ingredientes') }
       </Link>
-
-      { randomRecipe.drinks && (
-        <Link to={ `/bebidas/${randomRecipe.drinks[0].idDrink}` }>
-          { createButton('explore-surprise', 'Me Surpreenda!') }
-        </Link>) }
-
+      <Link to={ `/bebidas/${data.drinks[0].idDrink}` }>
+        { createButton('explore-surprise', 'Me Surpreenda!') }
+      </Link>
       <Footer />
     </section>
   );
