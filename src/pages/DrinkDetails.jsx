@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import PropTypes from 'prop-types';
-import Header from '../components/Header';
 import RecipesAppContext from '../context/RecipesAppContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -52,7 +51,6 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   return (
     <div>
-      <Header />
       { (!(isFetching) && (drinkId !== null)) && (
         <div>
           <img
