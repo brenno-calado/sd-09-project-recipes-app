@@ -27,7 +27,7 @@ function SearchBar() {
     setSearchFilters(obj);
   }
 
-  async function handleSearch(searchWithFilters) {
+  async function handleSearchMealsAndDrinks(searchWithFilters) {
     if (getPageFromURL()) {
       const mealList = await fetchMeal(searchWithFilters);
       setMeals(mealList);
@@ -38,7 +38,7 @@ function SearchBar() {
   }
 
   useEffect(() => {
-    async function handleSearchInit() {
+    async function searchMealsAndDrinksInit() {
       if (meals.length === 0) {
         const mealList = await fetchMeal({ nome: true, inputSearch: '' });
         setMeals(mealList);
@@ -48,10 +48,8 @@ function SearchBar() {
         setDrinks(drinkList);
       }
     }
-    handleSearchInit();
+    searchMealsAndDrinksInit();
   }, [meals, drinks, setMeals, setDrinks]);
-
-  console.log('SEARCH BAR');
 
   return (
     <div>
@@ -103,7 +101,7 @@ function SearchBar() {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ () => handleSearch(searchFilters) }
+        onClick={ () => handleSearchMealsAndDrinks(searchFilters) }
       >
         Busca
       </button>

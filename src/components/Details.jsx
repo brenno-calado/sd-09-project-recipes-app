@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { fetchMealsAcompaniments, fetchDrinksAcompaniments } from '../services/api';
-import { getPageFromURL, getYouTubeLink } from '../services/others';
+import { getPageFromURL } from '../services/others';
 
 function Details({ detailsContext }) {
-  const { recipe, recomendedList } = detailsContext;
+  const { recipe } = detailsContext;
+
   function getIngredientsLiElements() {
     const maxIngredients = 20;
     const ingredientsList = [];
@@ -46,22 +46,6 @@ function Details({ detailsContext }) {
         <h4>Instructions</h4>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      <section>
-        <h2>Recomended Recipes</h2>
-        {recomendedList ? <p>Loading...</p> : <p>Lista vazia</p> }
-        {/* O card de receitas recomendadas deve possuir o */}
-        {/* atributo data-testid="${index}-recomendation-card" */}
-      </section>
-      { getPageFromURL() && (
-        <iframe
-          data-testid="video"
-          title="video"
-          width="700"
-          height="500"
-          src={ getYouTubeLink(recipe) }
-          allow="autoplay; encrypted-media"
-        />
-      )}
       <br />
       <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
     </div>

@@ -1,11 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Details from '../components/Details';
-import { fetchOneMeal, fetchOneDrink } from '../services/api';
+import RecomendedRecipes from '../components/RecomendedRecipes';
 import { getIdFromURL, getPageFromURL } from '../services/others';
+import {
+  fetchOneMeal,
+  fetchOneDrink,
+  fetchMealsAcompaniments,
+  fetchDrinksAcompaniments } from '../services/api';
+import RecipeVideo from '../components/RecipeVideo';
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState();
-  const [recomendedList, setRecomendedList] = useState();
+  const [recomendationRecipesList, setRecomendationRecipesList] = useState();
+
+  async function fetchRecomendationMealsAndDrinks() {
+    let found = {};
+    if (getPageFromURL()) {
+      found = await fetchMealsAcompaniments();
+    } else {
+      found = await fetchDrinksAcompaniments();
+    }
+    setRecomendationRecipesList(found);
+  }
 
   useEffect(() => {
     async function fetchOne() {
@@ -21,7 +37,8 @@ function RecipeDetails() {
     fetchOne();
   }, []);
 
-  const detailsContext = { recipe, recomendedList, setRecomendedList };
+  const detailsContextProps = {
+    recipe, recomendationRecipesList, fetchRecomendationMealsAndDrinks };
 
   return (
     <section>
@@ -29,7 +46,9 @@ function RecipeDetails() {
       <div>
         {!recipe ? <p>loading</p> : (
           <div>
-            <Details detailsContext={ detailsContext } />
+            <Details detailsContext={ detailsContextProps } />
+            <RecomendedRecipes detailsContext={ detailsContextProps } />
+            <RecipeVideo detailsContext={ detailsContextProps } />
           </div>
         )}
       </div>
