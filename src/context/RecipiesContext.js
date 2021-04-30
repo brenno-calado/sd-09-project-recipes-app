@@ -6,7 +6,7 @@ export const RecipiesContext = createContext();
 function RecipiesProvider({ children }) {
   const [searchMealsList, setSearchMealsList] = useState([]);
   const [searchDrinksList, setSearchDrinksList] = useState([]);
-  const [showSearchBar, setShowSearchBar] = useState(true);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
   const context = {
     searchMealsList,

@@ -16,7 +16,6 @@ export default function SearchBar({ isMealsPage }) {
 
   const history = useHistory();
 
-  console.log(searchItemList);
   const handleChange = ({ target }) => {
     setInputValue(target.value);
   };

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
+import { RecipiesContext } from '../context/RecipiesContext';
 
 function Bebidas() {
+  const { showSearchBar } = useContext(RecipiesContext);
   return (
     <div>
       <Header title="Bebidas" showButton />
-      <SearchBar isMealsPage={ false } />
+      { showSearchBar && <SearchBar isMealsPage={ false } /> }
     </div>
   );
 }

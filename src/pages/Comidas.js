@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SearchBar from '../components/SearchBar';
 import { RecipiesContext } from '../context/RecipiesContext';
+import SearchBar from '../components/SearchBar';
 
 function Comidas() {
   const { showSearchBar } = useContext(RecipiesContext);
