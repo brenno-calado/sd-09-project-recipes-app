@@ -2,7 +2,7 @@
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
   gap: 5px;
-  margin: 10px 0 55px 0;
+  justify-content: space-around;
+  margin: 10px 0 55px;
 }

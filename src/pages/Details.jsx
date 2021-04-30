@@ -1,6 +1,9 @@
+
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import { objectOf } from 'prop-types';
+import { connect } from 'react-redux';
+import { func, objectOf } from 'prop-types';
+import { toggleCouldRedirectAction } from '../Redux/actions';
 import DetailsDrink from '../components/DetailsDrink';
 import DetailsFood from '../components/DetailsFood';
 import Loading from '../components/Loading';
@@ -38,6 +41,7 @@ function Details({ match: { params: { id } } }) {
         setLoading(false);
         checkInProgressStore();
         checkDoneRecipie();
+        toggleCouldRedirect(false);
       });
   }, [id, idType]);
 
@@ -55,6 +59,7 @@ function Details({ match: { params: { id } } }) {
     }
     setLoading(true);
   };
+
 
   return (
     <div>
@@ -75,8 +80,14 @@ function Details({ match: { params: { id } } }) {
   );
 }
 
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleCouldRedirect: (bool) => dispatch(toggleCouldRedirectAction(bool)),
+});
+
 Details.propTypes = {
+  toggleCouldRedirect: func,
   match: objectOf(),
 }.isRequired;
 
-export default Details;
+export default connect(null, mapDispatchToProps)(Details);
