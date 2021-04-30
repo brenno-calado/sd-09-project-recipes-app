@@ -14,6 +14,9 @@ export const fetchFoods = async (data, searchValue) => {
       window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     break;
+  case 'category':
+    url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${searchValue}`;
+    break;
   default:
     url = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   }
@@ -38,8 +41,28 @@ export const fetchDrinks = async (data, searchValue) => {
       window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
     break;
+  case 'category':
+    url = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${searchValue}`;
+    break;
   default:
     url = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  }
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const fetchCategory = async (type) => {
+  let url = '';
+  switch (type) {
+  case 'drinks':
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+    break;
+  case 'meals':
+    url = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    break;
+  default:
+    break;
   }
   const fetchData = await fetch(url);
   const result = await fetchData.json();
