@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import RecipeInProgress from './RecipeInProgress';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -85,6 +86,7 @@ function Login() {
       { renderEmailInput() }
       { renderPasswordInput() }
       { renderLoginButton() }
+      { RecipeInProgress() }
     </div>
   );
 }

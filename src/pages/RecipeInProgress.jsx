@@ -1,15 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function RecipeInProgress() {
+  const history = useHistory();
   const [favorite, setFavorite] = useState(false);
 
-  const [title] = useState('Title');
+  const [title, setTitle] = useState('Title');
   const [ingredients] = useState(['Item-1', 'Item-2', 'Item-3']);
-  const [category] = useState('Categoria');
+  const [category, setCategories] = useState('Categoria');
   const [instructions] = useState('');
+
+  const id = history.location.pathname.replace(/\D/g, '');
+  const type = history.location.pathname.split('/')[1];
+  console.log(history.location.pathname);
+  console.log(type);
+  console.log(title);
+  console.log(category);
+
+  useEffect(() => {
+    if (type === 'comidas') {
+      fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json())
+        .then(({ meals }) => {
+          setTitle(meals[0].strMeal);
+          setCategories(meals[0].strCategory);
+        });
+    } else if (type === 'bebidas') {
+      fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then((response) => response.json())
+        .then(({ drinks }) => {
+          setTitle(drinks[0].strDrink);
+          setCategories(drinks[0].strCategory);
+        });
+    }
+  }, [id, type]);
 
   function handleClick() {
     setFavorite(!favorite);

@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 
 import '../App.css';
@@ -6,13 +8,12 @@ import '../App.css';
 function MealDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     async function fetchRecipe() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
       const fetchResponse = await fetch(endpoint);
       const jsonRecipe = await fetchResponse.json();
-      setRecipe(jsonRecipe.meals[0]);
+      console.log(setRecipe(jsonRecipe.meals[0]));
       setLoading(false);
     }
     fetchRecipe();
@@ -156,12 +157,14 @@ function MealDetails({ match: { params: { id } } }) {
 
   function renderStartRecipeButton() {
     return (
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar receita
-      </button>
+      <Link to={ `/comidas/${id}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar receita
+        </button>
+      </Link>
     );
   }
 

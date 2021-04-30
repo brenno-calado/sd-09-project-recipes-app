@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
-// import RecipeInProgress from './pages/RecipeInProgress';
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import FoodsMainPage from './pages/FoodsMainPage';
 import DrinksMainPage from './pages/DrinksMainPage';
 import Profile from './pages/Profile';
+import RecipeInProgress from './pages/RecipeInProgress';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,12 +17,12 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ FoodsMainPage } />
       <Route exact path="/bebidas" component={ DrinksMainPage } />
+      <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/comidas/:id" component={ MealDetails } />
       <Route path="/bebidas/:id" component={ DrinkDetails } />
-      {/* <Route path="/comidas/:id/in-progress" component={} />
-      <Route path="/bebidas/:id/in-progress" component={} />
-      <Route path="/explorar/comidas/ingredientes" component={} />
+      {/* <Route path="/explorar/comidas/ingredientes" component={} />
       <Route path="/explorar/bebidas/ingredientes" component={} />
       <Route path="/explorar/comidas" component={} />
       <Route path="/explorar/bebidas" component={} />

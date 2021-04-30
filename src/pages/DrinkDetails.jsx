@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import '../App.css';
@@ -144,12 +145,14 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   function renderStartRecipeButton() {
     return (
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar receita
-      </button>
+      <Link to={ `/bebidas/${id}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar receita
+        </button>
+      </Link>
     );
   }
 
