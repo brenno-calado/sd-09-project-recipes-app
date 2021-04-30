@@ -3,16 +3,26 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiMeals } from '../redux/actions';
+import ShowCategories from './ShowCategories';
+import { fetchMealByCategory } from '../services/ApiRequest';
 import '../Styles/FoodCards.css';
 
 class FoodCards extends React.Component {
   constructor(props) {
     super(props);
     this.callMeal = this.callMeal.bind(this);
+    this.updateSearchedMeal = this.updateSearchedMeal.bind(this);
+    this.state = {
+      filteredByCategories: [],
+    };
   }
 
   componentDidMount() {
     this.callMeal();
+  }
+
+  componentWillUnmount() {
+    this.setState({ filteredByCategories: [] });
   }
 
   async callMeal() {
@@ -20,14 +30,25 @@ class FoodCards extends React.Component {
     await getMeals();
   }
 
+  async updateSearchedMeal(category) {
+    const categoryResponse = await fetchMealByCategory(category);
+    this.setState({
+      filteredByCategories: categoryResponse.meals,
+    });
+  }
+
   createCards() {
     const { meals } = this.props;
+    const { filteredByCategories } = this.state;
     const maxItens = 11;
-    return meals.map(
+    let finalFoodReturn = [];
+    if (filteredByCategories === null) finalFoodReturn = meals;
+    else if (filteredByCategories.length > 0) finalFoodReturn = filteredByCategories;
+    else finalFoodReturn = meals;
+    return finalFoodReturn.map(
       (meal, index) => (index <= maxItens
       && (
         <div
-          type="button"
           key={ index }
           data-testid={ `${index}-recipe-card` }
         >
@@ -39,7 +60,6 @@ class FoodCards extends React.Component {
               className="foodCards"
             />
             <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-            Detalhes
           </Link>
         </div>)
       ),
@@ -48,12 +68,14 @@ class FoodCards extends React.Component {
 
   render() {
     const { meals } = this.props;
+    console.log(this.state.filteredByCategories)
     if (meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (!meals) return <div>Loading...</div>;
     return (
       <div className="cardContainer">
+        <ShowCategories name="Comidas" searchResult={ this.updateSearchedMeal } />
         { this.createCards() }
       </div>
     );

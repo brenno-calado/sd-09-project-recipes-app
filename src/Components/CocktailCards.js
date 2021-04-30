@@ -3,16 +3,26 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
+import ShowCategories from './ShowCategories';
+import { fetchCocktailByCategory } from '../services/ApiRequest';
 import '../Styles/FoodCards.css';
 
 class CocktailCards extends React.Component {
   constructor(props) {
     super(props);
     this.callCocktail = this.callCocktail.bind(this);
+    this.updateSearchedDrink = this.updateSearchedDrink.bind(this);
+    this.state = {
+      filteredByCategories: [],
+    };
   }
 
   componentDidMount() {
     this.callCocktail();
+  }
+
+  componentWillUnmount() {
+    this.setState({ filteredByCategories: [] });
   }
 
   async callCocktail() {
@@ -20,10 +30,22 @@ class CocktailCards extends React.Component {
     await getCocktails();
   }
 
+  async updateSearchedDrink(category) {
+    const categoryResponse = await fetchCocktailByCategory(category);
+    this.setState({
+      filteredByCategories: categoryResponse.drinks,
+    });
+  }
+
   createCards() {
     const { cocktails } = this.props;
+    const { filteredByCategories } = this.state;
     const maxItens = 11;
-    return cocktails.map(
+    let finalDrinkReturn = [];
+    if (filteredByCategories === null) finalDrinkReturn = cocktails;
+    else if (filteredByCategories.length > 0) finalDrinkReturn = filteredByCategories;
+    else finalDrinkReturn = cocktails;
+    return finalDrinkReturn.map(
       (cocktail, index) => (index <= maxItens
       && (
         <div
@@ -48,12 +70,14 @@ class CocktailCards extends React.Component {
 
   render() {
     const { cocktails } = this.props;
+    console.log(this.state.filteredByCategories);
     if (cocktails === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     if (!cocktails) return <div>Loading...</div>;
     return (
       <div className="cardContainer">
+        <ShowCategories name="Bebidas" searchResult={ this.updateSearchedDrink } />
         { this.createCards() }
       </div>
     );
@@ -65,7 +89,6 @@ CocktailCards.propTypes = {
     map: PropTypes.func.isRequired,
   }).isRequired,
   getCocktails: PropTypes.func.isRequired,
-  loading: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
