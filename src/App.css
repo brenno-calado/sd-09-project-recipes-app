@@ -1,3 +1,8 @@
+footer {
+  bottom: 0;
+  position: fixed;
+}
+
 img {
   height: 5rem;
 }
@@ -12,6 +17,15 @@ img {
   height: 100vh;
   justify-content: center;
   width: 100%;
+}
+
+.btn-initial {
+  bottom: 0;
+  position: fixed;
+}
+
+.recipe-details {
+  position: relative;
 }
 
 .rocksGlass {

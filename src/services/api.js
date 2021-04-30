@@ -1,53 +1,66 @@
-export const fetchForIngredients = async (ingredient, isMeal) => {
-  const mealsURL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const listOfIngredients = await response.json();
-  return listOfIngredients;
-};
+const mealsURL = 'https://www.themealdb.com/api/json/v1/1/';
+const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
 
-export const fecthForName = async (name, isMeal) => {
-  const mealsURL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
-  const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const listOfName = await response.json();
-  return listOfName;
-};
+const fetchApi = (endpoint) => (
+  fetch(endpoint).then((result) => result.json().then((data) => data))
+);
 
-export const fetchForFirstLetter = async (firstLetter, isMeal) => {
-  const mealsURL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
-  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+export const fecthByArea = async (name, isMeal) => {
   const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const listOfName = await response.json();
-  return listOfName;
+  const data = await fetchApi(`${url}filter.php?a=${name}`);
+  return data;
 };
 
 export const fecthByCategory = async (name, isMeal) => {
-  const mealsURL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${name}`;
-  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${name}`;
   const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const listOfName = await response.json();
-  return listOfName;
+  const data = await fetchApi(`${url}filter.php?c=${name}`);
+  return data;
 };
 
-export const fetchCategories = async (isMeal) => {
-  const mealsURL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
-  const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+export const fetchByFirstLetter = async (firstLetter, isMeal) => {
   const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const categories = await response.json();
-  return categories;
+  const data = await fetchApi(`${url}search.php?f=${firstLetter}`);
+  return data;
+};
+
+export const fetchByIngredient = async (ingredient, isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}filter.php?i=${ingredient}`);
+  return data;
+};
+
+export const fecthByName = async (name, isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}search.php?s=${name}`);
+  return data;
+};
+
+export const fetchAreaList = async (isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}list.php?a=list`);
+  return data;
+};
+
+export const fetchCategoryList = async (isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}list.php?c=list`);
+  return data;
+};
+
+export const fetchIngredientList = async (isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}list.php?i=list`);
+  return data;
+};
+
+export const fetchRandomRecipe = async (isMeal) => {
+  const url = isMeal ? mealsURL : drinksURL;
+  const data = await fetchApi(`${url}random.php`);
+  return data;
 };
 
 export const fetchRecipeDetails = async (id, isMeal) => {
-  const mealsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const drinksURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const url = isMeal ? mealsURL : drinksURL;
-  const response = await fetch(url);
-  const details = await response.json();
-  return isMeal ? details.meals[0] : details.drinks[0];
+  const data = await fetchApi(`${url}lookup.php?i=${id}`);
+  return isMeal ? data.meals[0] : data.drinks[0];
 };

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
-
-const INITIAL_STATE = { email: '', password: '', shouldRedirect: false };
+import { Context } from '../context';
+import { fecthByName } from '../services/api';
 
 function Login() {
-  const [state, setState] = useState(INITIAL_STATE);
+  const { updateData } = useContext(Context);
+  const [state, setState] = useState({ email: '', password: '' });
+  const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const checkFormats = () => {
     const { email, password } = state;
@@ -22,7 +24,8 @@ function Login() {
     localStorage.user = JSON.stringify({ email });
     localStorage.mealsToken = 1;
     localStorage.cocktailsToken = 1;
-    setState({ ...state, shouldRedirect: true });
+    updateData(fecthByName('', true));
+    setShouldRedirect(true);
   };
 
   const createInput = (type) => (
@@ -35,7 +38,7 @@ function Login() {
     />
   );
 
-  if (state.shouldRedirect) return <Redirect to="/comidas" />;
+  if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
     <section>

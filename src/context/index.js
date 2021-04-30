@@ -4,15 +4,12 @@ import { node } from 'prop-types';
 const Context = createContext();
 
 const Provider = ({ children }) => {
-  const [searchResult, setSearchResult] = useState([]);
+  const [data, setData] = useState([]);
   const [isSearch, setIsSearch] = useState(false);
 
-  const contextValue = {
-    setSearchResult,
-    searchResult,
-    isSearch,
-    setIsSearch,
-  };
+  const updateData = async (api) => setData(await api);
+
+  const contextValue = { data, updateData, isSearch, setIsSearch };
 
   return (
     <Context.Provider value={ contextValue }>

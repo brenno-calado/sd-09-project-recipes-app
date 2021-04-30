@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRecipeDetails } from '../services/api';
+import { fetchRecipeDetails } from '../../services/api';
+import { MealsRecomendations } from '../../components';
 
 function DrinksDetails() {
   const { id } = useParams();
@@ -13,11 +14,10 @@ function DrinksDetails() {
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
-
-  const { strDrinkThumb, strDrink, strInstructions, strYoutube, strAlcoholic } = data;
+  const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
 
   return (
-    <section>
+    <section className="recipe-details">
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="recipe" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
       <button data-testid="share-btn" type="button">Compartilhar</button>
@@ -26,27 +26,17 @@ function DrinksDetails() {
       { ingredients.map((ingredient, index) => (
         <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
           { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
-        </p>
-      )) }
-      <iframe
-        data-testid="video"
-        width="560"
-        height="315"
-        title={ strDrink }
-        src={ strYoutube && `https://www.youtube.com/embed/${strYoutube.split('=')[1]}` }
-        frameBorder="0"
-        allow="accelerometer;
-          autoplay;
-          clipboard-write;
-          encrypted-media;
-          gyroscope;
-          picture-in-picture"
-        allowFullScreen
-      />
+          <input data-testid="ingredient-step" type="checkbox" />
+        </p>)) }
       <p data-testid="instructions">{strInstructions}</p>
-      <span data-testid="0-recomendation-card">Card de Recomendaçoes</span>
-      <span data-testid="1-recomendation-card">Card de Recomendaçoes</span>
-      <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="btn-initial"
+      >
+        Iniciar Receita
+      </button>
+      <MealsRecomendations />
     </section>
   );
 }
