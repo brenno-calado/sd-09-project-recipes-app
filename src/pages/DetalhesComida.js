@@ -64,7 +64,7 @@ const DetalhesComida = () => {
   };
 
   const handleShare = () => {
-    copy(pathname);
+    copy(`http://localhost:3000/${pathname}`);
     setLinkShared(true);
   };
 
@@ -94,7 +94,6 @@ const DetalhesComida = () => {
 
   if (!idDetails || !recomendations) return <p>Carregando...</p>;
   const { strMealThumb, strMeal, strCategory, strInstructions, idMeal } = idDetails;
-
   return (
     <div>
       <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />

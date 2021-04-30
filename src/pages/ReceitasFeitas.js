@@ -1,64 +1,118 @@
-import React /* { useState } */ from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 
 function ReceitasFeitas() {
-  const index = '';
-  const tagName = '';
+  const localData = JSON.parse(localStorage.getItem('doneRecipes'));
+  const [linkShared, setLinkShared] = useState(false);
+  const [filterName, setFilterName] = useState('');
 
-  const doneRecipe = {
-    type: 'Food',
-    img: 'http://www.dulcerestaurantecolonial.com.br/wp-content/uploads/2020/03/Histo%CC%81ria-da-feijoada-dulce-restaurante.jpg',
-    category: 'Food',
-    recipeName: 'Feijoada',
-    date: '10/10/10',
-    tag1: 'bun',
-    tag2: 'baking',
-    link: 'www.blbala',
+  const shareLink = (id, type) => {
+    if (type === 'meal') {
+      copy(`http://localhost:3000/comidas/${id}`);
+    } else {
+      copy(`http://localhost:3000/bebidas/${id}`);
+    }
+
+    setLinkShared(true);
   };
 
-  const recipeArr = [];
+  const handleClick = ({ target }) => {
+    const { value } = target;
+    setFilterName(value);
+  };
 
-  recipeArr.push(doneRecipe);
-  localStorage.setItem('recipe', JSON.stringify(recipeArr));
-  const localData = JSON.parse(localStorage.getItem('recipe'));
+  const showFilteredMeal = () => (
+    localData.filter((meal) => {
+      switch (filterName) {
+      case 'All':
+        return localData;
+      case 'Food':
+        return meal.type === 'meal';
+      case 'Drinks':
+        return meal.type === 'drink';
+      default:
+        return localData;
+      }
+    })
+  );
 
-  // const [button, setButton] = useState();
+  const arrRecipes = filterName ? showFilteredMeal() : localData;
 
   return (
     <div>
       <Header title="Receitas Feitas" searchIcon={ false } />
       <section>
-        <button type="button" data-testid="filter-by-all-btn">All</button>
-        <button type="button" data-testid="filter-by-food-btn">Food</button>
-        <button type="button" data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          value="All"
+          type="button"
+          onClick={ handleClick }
+          data-testid="filter-by-all-btn"
+        >
+          All
+        </button>
+        <button
+          value="Food"
+          type="button"
+          onClick={ handleClick }
+          data-testid="filter-by-food-btn"
+        >
+          Food
+        </button>
+        <button
+          value="Drinks"
+          type="button"
+          onClick={ handleClick }
+          data-testid="filter-by-drink-btn"
+        >
+          Drinks
+        </button>
       </section>
       {
-        localData.map((recipe) => (
-          <div key="1">
+        arrRecipes.map((recipe, index) => (
+          <div key={ recipe.name }>
+            <p>{recipe.alcoholicOrNot}</p>
             <div>
-              <img
-                src={ recipe.img }
-                alt=""
-                data-testid={ `${index}-horizontal-image` }
-              />
+              <Link
+                to={
+                  recipe.type === 'meal'
+                    ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
+                }
+              >
+                <img
+                  src={ recipe.image }
+                  alt=""
+                  data-testid={ `${index}-horizontal-image` }
+                />
+              </Link>
             </div>
             <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
             <h1 data-testid={ `${index}-horizontal-name` }>
-              { recipe.recipeName }
+              { recipe.name }
             </h1>
             <p data-testid={ `${index}-horizontal-done-date` }>
-              { recipe.date }
+              { recipe.doneDate }
             </p>
             <button
               type="button"
-              onClick={ () => navigator.clipboard.writeText(recipe.link) }
+              onClick={ () => shareLink(recipe.id, recipe.type) }
               data-testid={ `${index}-horizontal-share-btn` }
             >
               <img src={ shareIcon } alt="compartilhar" />
             </button>
-            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag1 }</p>
-            <p data-testid={ `${index}-${tagName}-horizontal-tag` }>{ recipe.tag2 }</p>
+            { linkShared && <p>Link copiado!</p> }
+            <p
+              data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
+            >
+              { recipe.tags }
+            </p>
+            <p
+              data-testid={ `${index}-${recipe.type}-horizontal-tag` }
+            >
+              { recipe.type }
+            </p>
           </div>
         ))
       }

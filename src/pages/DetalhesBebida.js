@@ -60,7 +60,7 @@ const DetalhesBebida = () => {
   };
 
   const handleShare = () => {
-    copy(pathname);
+    copy(`http://localhost:3000/${pathname}`);
     setLinkShared(true);
   };
 
