@@ -41,9 +41,21 @@ const getRandomDrink = async () => {
   }
 };
 
+const getDrinkById = async (id) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const result = await fetch(url);
+    const data = await result.json();
+    return data.drinks[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
-  getDrinksByCategory,
-  getDrinksCategories,
+  getDrinkById,
   getDrinksAll,
   getRandomDrink,
+  getDrinksByCategory,
+  getDrinksCategories,
 };

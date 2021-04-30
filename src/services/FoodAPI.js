@@ -42,4 +42,20 @@ const getRandomFood = async () => {
   }
 };
 
-export { getFoodByCategory, getFoodsCategories, getFoodAll, getRandomFood };
+const getFoodById = async (id) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const result = await fetch(url);
+    const data = await result.json();
+    return data.meals[0];
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  getFoodAll,
+  getRandomFood,
+  getFoodByCategory,
+  getFoodsCategories,
+  getFoodById };

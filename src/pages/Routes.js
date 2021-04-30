@@ -1,15 +1,17 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import Food from './Food';
 import Login from './Login';
 import Drinks from './Drinks';
 import Profile from './Profile';
-import Recipes from './Recipes';
 import Explorer from './Explorer';
 import NotFound from './NotFound';
 import ExploreArea from './ExploreArea';
 import ExploreFood from './ExploreFood';
 import Ingredients from './Ingredients';
+import FoodDetails from './FoodDetails';
+import DrinkDetails from './DrinkDetails';
 import ExploreDrinks from './ExploreDrinks';
 import FavoriteRecipes from './FavoriteRecipes';
 import CompletedRecipes from './CompletedRecipes';
@@ -20,11 +22,11 @@ const Routes = () => (
     <Route exact path="/" component={ Login } />
     <Route
       path="/comidas/:id"
-      render={ (props) => <Recipes { ...props } /> }
+      render={ (props) => <FoodDetails { ...props } /> }
     />
     <Route
       path="/bebidas/:id"
-      render={ (props) => <Recipes { ...props } /> }
+      render={ (props) => <DrinkDetails { ...props } /> }
     />
     <Route
       path="/comidas/:id/in-progress"
