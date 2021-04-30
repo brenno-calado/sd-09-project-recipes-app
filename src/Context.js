@@ -7,6 +7,8 @@ export const Provider = ({ children }) => {
   const [recipies, setRecipies] = useState([]);
   const [typeRecipies, setTypeRecipies] = useState('');
   const [displaySearchBar, setDisplaySearchBar] = useState(false);
+  // const [mealsCategory, setMealsCategory] = useState([]);
+  // const [drinksCategory, setDrinksCategory] = useState([]);
   const value = {
     recipies,
     setRecipies,
@@ -15,6 +17,7 @@ export const Provider = ({ children }) => {
     setDisplaySearchBar,
     displaySearchBar,
   };
+
   return (
     <RecipeContext.Provider value={ value }>
       { children }
