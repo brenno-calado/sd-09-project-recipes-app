@@ -8,7 +8,7 @@ import SearchBar from './SearchBar';
 import { MyContext } from '../MyContext';
 
 function Header() {
-  const { showBar, clickShowBar } = useContext(MyContext);
+  const { showBar, clickShowBar, setShowBar } = useContext(MyContext);
   const { pathname } = useLocation();
 
   let title = '';
@@ -20,6 +20,7 @@ function Header() {
     title = 'Bebidas';
     break;
   case '/perfil':
+    setShowBar(false);
     title = 'Perfil';
     break;
   default:
@@ -30,15 +31,15 @@ function Header() {
     <div className="container">
       <div className="d-flex">
         <Link to="/perfil">
-          <img src={ profileIcon } alt="iconePerfil" />
+          <img src={ profileIcon } alt="iconePerfil" data-testid="profile-top-btn" />
         </Link>
-        <h1>{title}</h1>
+        <h1 data-testid="page-title">{title}</h1>
         {pathname === '/comidas' || pathname === '/bebidas' ? (
           <button
             type="button"
             onClick={ clickShowBar }
           >
-            <img src={ searchIcon } alt="iconeBusca" />
+            <img src={ searchIcon } alt="iconeBusca" data-testid="search-top-btn" />
           </button>) : null}
       </div>
       {showBar ? <SearchBar /> : null}

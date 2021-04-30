@@ -30,6 +30,7 @@ const MyContextProvider = ({ children }) => {
     setIsLoading,
     setData,
     setCategories,
+    setShowBar,
   };
   return (
     <MyContext.Provider value={ context }>

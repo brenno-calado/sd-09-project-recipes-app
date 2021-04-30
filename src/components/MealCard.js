@@ -12,25 +12,32 @@ function MealCard() {
   return (
     <div>
       <Header />
-      <button type="button">All</button>
-      {categories.map((categorie, index) => (index <= limitCategory ? (
-        <button
-          data-testid={ `${categorie.strCategory}-category-filter` }
-          type="button"
-          key={ categorie.strCategory }
-        >
-          { categorie.strCategory }
-        </button>
-      ) : null))}
+      <div className="text-center">
+        <button type="button">All</button>
+        {categories.map((categorie, index) => (index <= limitCategory ? (
+          <button
+            data-testid={ `${categorie.strCategory}-category-filter` }
+            type="button"
+            key={ categorie.strCategory }
+          >
+            { categorie.strCategory }
+          </button>
+        ) : null))}
+      </div>
       {data.map((element, index) => (
         index <= limitMealsRender ? (
-          <div className="text-center" key={ element.strMeal }>
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="text-center"
+            key={ element.strMeal }
+          >
             <img
+              data-testid={ `${index}-card-img` }
               className="img-thumbnail img-fluid"
               src={ element.strMealThumb }
               alt={ element.strMeal }
             />
-            <h1>{ element.strMeal }</h1>
+            <h1 data-testid={ `${index}-card-name` }>{ element.strMeal }</h1>
           </div>
         ) : null
       ))}
