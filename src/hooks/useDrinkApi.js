@@ -13,8 +13,9 @@ function useDrinkApi() {
   useEffect(() => {
     if (filter.option && filter.searchTerm) {
       fetchApi('cocktail', filter.option, filter.searchTerm).then(
-        (responseFoods) => {
-          setDrinks(responseFoods.drinks);
+        (responseDrinks) => {
+          if (responseDrinks.drinks) setDrinks(responseDrinks.drinks);
+          else alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         },
         (error) => console.log(error),
       );

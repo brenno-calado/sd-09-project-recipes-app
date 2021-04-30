@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { Redirect } from 'react-router';
 import { context } from '../../context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -8,8 +9,12 @@ import CategoriesButtons from '../../components/SearchButtons';
 
 export default function Foods() {
   const {
-    foods, setFoods, setFilter, categories, setCategories,
+    foods, setFoods, categories, setCategories,
   } = useContext(context);
+
+  const { foods: foodsHook, setFilter: setFilterHook } = useFoodApi();
+  const uniqueRecipe = foods && foods.length === 1;
+  const moreThanOneRecipes = foods && foods.length > 1;
 
   useEffect(() => {
     const lengthOfList = 12;
@@ -29,9 +34,11 @@ export default function Foods() {
 
   return (
     <>
-      <Header title="Comidas" canFind setFilter={ setFilter } />
+      <Header title="Comidas" canFind setFilter={ setFilterHook } />
       {categories && <CategoriesButtons type="food" />}
       {foods && <ListCards items={ foods } />}
+      {moreThanOneRecipes && <ListCards items={ foodsHook } />}
+      {uniqueRecipe && <Redirect to={ `/comidas/${foodsHook[0].idMeal}` } />}
       <Footer />
     </>
   );

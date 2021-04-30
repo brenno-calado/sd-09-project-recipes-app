@@ -14,7 +14,8 @@ function useFoodApi() {
     if (filter.option && filter.searchTerm) {
       fetchApi('food', filter.option, filter.searchTerm).then(
         (responseFoods) => {
-          setFoods(responseFoods.meals);
+          if (responseFoods.meals) setFoods(responseFoods.meals);
+          else alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
         },
         (error) => console.log(error),
       );
