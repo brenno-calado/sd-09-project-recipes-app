@@ -10,8 +10,11 @@ function RenderRecipeCards({
   cardsLimit,
 }) {
   const history = useHistory();
-  const handleCardClick = (recipe) => {
-    history.push(`/comidas/${recipe.idMeal}`, recipe);
+
+  const handleCardClick = (recipe, kind) => {
+    if (kind === 'meals') {
+      history.push(`/comidas/${recipe.idMeal}`, recipe);
+    } else { history.push(`/bebidas/${recipe.idDrink}`, recipe); }
   };
 
   function renderCard(theChosenOne) {
@@ -19,7 +22,7 @@ function RenderRecipeCards({
       <button
         key={ index }
         type="button"
-        onClick={ () => handleCardClick(meal) }
+        onClick={ () => handleCardClick(meal, kindOfFood) }
       >
         <RecipeCard
           key={ index }

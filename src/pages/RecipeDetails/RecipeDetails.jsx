@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
+import RecipeCard from '../../common/components/RecipeCard';
 
 function RecipeDetails(props) {
   const { history: { location: { state: data } } } = props;
+  const [recommended, setRecommended] = useState([]);
+  const dois = 2;
   const recipe = {
     state: data,
   };
+
+  async function fetchRecommended() {
+    await fetchDrinkNameAPI('').then((response) => setRecommended(response.drinks));
+  }
+
+  useEffect(() => {
+    fetchRecommended();
+  }, []);
 
   function showDetails() {
     const { state } = recipe;
@@ -25,11 +37,6 @@ function RecipeDetails(props) {
     return <ul>{ingredients}</ul>;
   }
 
-  // function renderRecommendedRecipes() {
-  //   return console.log(null);
-  //   // data-testid="${index}-recomendation-card")
-  // }
-
   const { state } = recipe;
   const recipeURL = state.strYoutube;
   const recipeEndPoint = recipeURL.split('.com/');
@@ -42,6 +49,7 @@ function RecipeDetails(props) {
         alt="recipeImg"
         width="350px"
       />
+      { console.log(state.strMealThumb) }
       <div>
         <h1 data-testid="recipe-title">{ state.strMeal }</h1>
         <h5 data-testid="recipe-category">
@@ -60,6 +68,7 @@ function RecipeDetails(props) {
         { showDetails() }
       </div>
       <div>
+        <h4>Video</h4>
         <iframe
           data-testid="video"
           width="420"
@@ -70,7 +79,17 @@ function RecipeDetails(props) {
       </div>
       <div>
         <h4>Recommended Recipes</h4>
-        {/* { renderRecommendedRecipes() } */}
+        <div>
+          { recommended && recommended
+            .slice(0, dois)
+            .map((drink, index) => (
+              <RecipeCard
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+                recipe={ drink }
+              />
+            ))}
+        </div>
       </div>
       <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
     </div>
