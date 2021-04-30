@@ -89,9 +89,16 @@ function ReceitasFeitas() {
               </Link>
             </div>
             <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
-            <h1 data-testid={ `${index}-horizontal-name` }>
-              { recipe.name }
-            </h1>
+            <Link
+              to={
+                recipe.type === 'meal'
+                  ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
+              }
+            >
+              <h1 data-testid={ `${index}-horizontal-name` }>
+                { recipe.name }
+              </h1>
+            </Link>
             <p data-testid={ `${index}-horizontal-done-date` }>
               { recipe.doneDate }
             </p>
