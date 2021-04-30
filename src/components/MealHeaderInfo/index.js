@@ -2,13 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 class index extends Component {
   constructor() {
     super();
     this.state = {
       shareClicked: false,
+      favoriteIcon: false,
     };
+  }
+
+  componentDidMount(){
+    this.setIsRecipeFavorite();
+  }
+
+  handleClick = ({target: {name}}) => {
+    const { [name]: previous } = this.state;
+    console.log(previous)
+    this.setState({
+      [name]: !previous,
+    })
   }
 
   copyCurrentLink = () => {
@@ -24,9 +38,72 @@ class index extends Component {
     });
   }
 
+  recipeData = () => {
+    const { recipe } = this.props;
+    const recipeData = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: recipe.idMeal ? 'Comida' : 'Bebida',
+      area: recipe.strArea ? recipe.strArea : '',
+      category:  recipe.strCategory ? recipe.strCategory : '',
+      alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
+      name: recipe.strMeal ? recipe.strMeal : recipe.strDrink,
+      image: recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb,
+    }
+    return recipeData
+  }
+
+  addFavoriteRecipe = () => {
+    if(!localStorage.getItem('favoriteRecipes')){
+      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    }
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    const recipe = this.recipeData()
+    console.log(recipe)
+    favoriteRecipes.push(recipe)
+    localStorage.setItem('favoriteRecipes',JSON.stringify(favoriteRecipes))
+    console.log('Favoritou')
+  }
+
+  removeFavoriteRecipe = () => {
+    if(!localStorage.getItem('favoriteRecipes')){
+      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    }
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    const recipe = this.recipeData();
+
+    favoriteRecipes = favoriteRecipes.filter((element) => element.id !== recipe.id)
+    localStorage.setItem('favoriteRecipes',JSON.stringify(favoriteRecipes))
+    console.log('Desfavoritou')
+  }
+
+  favoriteRecipeHandle = () => {
+    if(!localStorage.getItem('favoriteRecipes')){
+      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    }
+    const recipe = this.recipeData();
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    const found = favoriteRecipes.some((element) => element.id === recipe.id)
+    if(found){this.removeFavoriteRecipe()}
+    if(!found){this.addFavoriteRecipe()}
+    this.setIsRecipeFavorite()
+  }
+
+  setIsRecipeFavorite = () => {
+    if(!localStorage.getItem('favoriteRecipes')){
+      localStorage.setItem('favoriteRecipes',JSON.stringify([]))
+    }
+    const { id } = this.props;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'))
+    const found = favoriteRecipes.some((element) => element.id === id)
+    console.log(found)
+    this.setState({
+      favoriteIcon: found
+    })
+  }
+
   render() {
     const { title, category } = this.props;
-    const { shareClicked } = this.state;
+    const { shareClicked, favoriteIcon } = this.state;
     return (
       <div className="recipe-details-box">
         <div className="recipe-details-informations">
@@ -42,7 +119,14 @@ class index extends Component {
             />
             {shareClicked ? <p>Link copiado!</p> : null}
           </div>
-          <img src={ whiteHeartIcon } alt="whiteHeartIcon" data-testid="favorite-btn" />
+          <div onClick={ this.favoriteRecipeHandle }>
+            <img
+              src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon}
+              alt="whiteHeartIcon"
+              name="favoriteIcon"
+              data-testid="favorite-btn"
+            />
+          </div>
         </div>
       </div>
     );

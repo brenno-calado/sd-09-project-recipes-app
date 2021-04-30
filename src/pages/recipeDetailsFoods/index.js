@@ -115,7 +115,7 @@ class index extends Component {
     return (
       <div>
         <MealHeaderImage image={ this.getMealImage() } />
-        <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory()} />
+        <MeadHeaderInfo title={ this.getTitle() } category={ this.getCategory()} recipe={ mealData } id={id}/>
         <MealIngredients ingredients={ this.getIngredients() } quantities={this.getIngredientsQuantity()}/>
         <MealInstructions instructions={ this.getInsructions() } />
         <MealVideo videoId={ video } />
