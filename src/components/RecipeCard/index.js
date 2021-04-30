@@ -1,11 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './style.css';
 
-const RecipeCard = ({ index, name, image }) => (
-  <article
+const RecipeCard = ({ index, name, image, path, id }) => (
+  <Link
     className="recipe-card silver-shadow"
     data-testid={ `${index}-recipe-card` }
+    to={ `${path}/${id}` }
   >
     <img
       src={ image }
@@ -19,13 +21,15 @@ const RecipeCard = ({ index, name, image }) => (
     >
       {name}
     </p>
-  </article>
+  </Link>
 );
 
 RecipeCard.propTypes = {
   index: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default RecipeCard;

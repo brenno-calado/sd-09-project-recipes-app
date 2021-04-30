@@ -1,18 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import { fetchDrinksByCategory } from '../../service/cocktailAPI';
-import { fetchMealsByCategory } from '../../service/mealAPI';
 
-const CategoryButton = ({ strCategory, setFilter, path }) => (
+const CategoryButton = ({ strCategory, toggleCategory }) => (
   <button
     type="button"
     data-testid={ `${strCategory}-category-filter` }
-    onClick={ async () => {
-      const toFilter = path === '/comidas' ? await fetchMealsByCategory(strCategory)
-        : await fetchDrinksByCategory(strCategory);
-      setFilter(toFilter);
-    } }
+    id={ strCategory }
+    onClick={ ({ target: { id } }) => toggleCategory(strCategory, id) }
   >
     {strCategory}
   </button>
@@ -20,8 +15,7 @@ const CategoryButton = ({ strCategory, setFilter, path }) => (
 
 CategoryButton.propTypes = {
   strCategory: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired,
-  path: PropTypes.string.isRequired,
+  toggleCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryButton;

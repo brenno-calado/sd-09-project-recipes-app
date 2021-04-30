@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
-import { fetchAllDrinks, fetchCategoryDrinks } from '../service/cocktailAPI';
+import { fetchAllDrinks, fetchCategoryDrinks, fetchDrinksByCategory,
+} from '../service/cocktailAPI';
 import useResult from '../effects/useResult';
 import useCategory from '../effects/useCategory';
 import CategoryButton from '../components/CategoryButton';
@@ -12,11 +13,22 @@ import Footer from '../components/Footer';
 function Drinks({ match: { path } }) {
   const [result, setResult] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [filter, setFilter] = useState([]);
   const maxResult = 12;
 
   useCategory(fetchCategoryDrinks, setCategories);
   useResult(fetchAllDrinks, setResult);
+
+  const toggleCategory = async (strCategory, id) => {
+    if (!selectedCategory || selectedCategory !== id) {
+      const toFilter = await fetchDrinksByCategory(strCategory);
+      setSelectedCategory(id);
+      return setFilter(toFilter);
+    }
+    setSelectedCategory('');
+    return setFilter([]);
+  };
 
   const renderCategories = () => {
     if (categories.length === 0) return;
@@ -26,8 +38,7 @@ function Drinks({ match: { path } }) {
         <CategoryButton
           key={ strCategory }
           strCategory={ strCategory }
-          setFilter={ setFilter }
-          path={ path }
+          toggleCategory={ toggleCategory }
         />));
   };
 
@@ -38,6 +49,8 @@ function Drinks({ match: { path } }) {
         key={ drink.idDrink }
         name={ drink.strDrink }
         image={ drink.strDrinkThumb }
+        path={ path }
+        id={ drink.idDrink }
       />
     ));
 
@@ -62,7 +75,19 @@ function Drinks({ match: { path } }) {
   return (
     <div className="center">
       <Header title="Bebidas" path={ path } setResult={ setResult } />
-      <section className="categories-container">{ renderCategories() }</section>
+      <section className="categories-container">
+        { renderCategories() }
+        <button
+          type="button"
+          onClick={ () => {
+            setSelectedCategory('');
+            return setFilter([]);
+          } }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      </section>
       <section
         className="card-container"
       >

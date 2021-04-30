@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
-import { fetchAllMeals, fetchCategoryMeals } from '../service/mealAPI';
+import { fetchAllMeals, fetchCategoryMeals, fetchMealsByCategory,
+} from '../service/mealAPI';
 import useResult from '../effects/useResult';
 import useCategory from '../effects/useCategory';
 import CategoryButton from '../components/CategoryButton';
@@ -12,11 +13,22 @@ import Footer from '../components/Footer';
 function Food({ match: { path } }) {
   const [result, setResult] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [filter, setFilter] = useState([]);
   const maxResult = 12;
 
   useCategory(fetchCategoryMeals, setCategories);
   useResult(fetchAllMeals, setResult);
+
+  const toggleCategory = async (strCategory, id) => {
+    if (!selectedCategory || selectedCategory !== id) {
+      const toFilter = await fetchMealsByCategory(strCategory);
+      setSelectedCategory(id);
+      return setFilter(toFilter);
+    }
+    setSelectedCategory('');
+    return setFilter([]);
+  };
 
   const renderCategories = () => {
     if (categories.length === 0) return;
@@ -26,8 +38,7 @@ function Food({ match: { path } }) {
         <CategoryButton
           key={ strCategory }
           strCategory={ strCategory }
-          setFilter={ setFilter }
-          path={ path }
+          toggleCategory={ toggleCategory }
         />));
   };
 
@@ -38,12 +49,13 @@ function Food({ match: { path } }) {
         key={ meal.idMeal }
         name={ meal.strMeal }
         image={ meal.strMealThumb }
+        path={ path }
+        id={ meal.idMeal }
       />
     ));
 
   const renderFilter = () => {
     if (filter.meals === undefined) return 'loading...';
-    console.log(filter.meals.slice(0, maxResult));
     return renderRecipeCards(filter);
   };
 
@@ -63,7 +75,19 @@ function Food({ match: { path } }) {
   return (
     <div className="center">
       <Header title="Comidas" path={ path } setResult={ setResult } />
-      <section className="categories-container">{ renderCategories() }</section>
+      <section className="categories-container">
+        { renderCategories() }
+        <button
+          type="button"
+          onClick={ () => {
+            setSelectedCategory('');
+            return setFilter([]);
+          } }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      </section>
       <section
         className="card-container"
       >
