@@ -8,8 +8,6 @@ import Profile from './pages/Profile';
 import Layout from './components/Layout';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
-import FoodDetails from './pages/FoodDetails';
-import DrinkDetails from './pages/DrinkDetails';
 import FoodProgress from './pages/FoodProgress';
 import DrinkProgress from './pages/DrinkProgress';
 import Explore from './pages/Explore';
@@ -19,6 +17,7 @@ import ExploreFoodIngredients from './pages/ExploreFoodIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreFoodArea from './pages/ExploreFoodArea';
 import NotFound from './pages/NotFound';
+import Details from './components/Details';
 
 export default function App() {
   return (
@@ -41,11 +40,11 @@ export default function App() {
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route
               path="/comidas/:id"
-              render={ (props) => <FoodDetails { ...props } /> }
+              render={ (props) => <Details { ...props } /> }
             />
             <Route
               path="/bebidas/:id"
-              render={ (props) => <DrinkDetails { ...props } /> }
+              render={ (props) => <Details { ...props } /> }
             />
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
