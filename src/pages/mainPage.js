@@ -32,15 +32,27 @@ export default function MainPageFood() {
     },
   };
 
+  const stateValues = {
+    meals: {
+      all: 'meals',
+      filter: 'searchedMeals',
+      categories: 'categoriesMeals',
+    },
+    drinks: {
+      all: 'drinks',
+      filter: 'searchedDrinks',
+      categories: 'categoriesDrinks',
+    },
+  };
+
   const { pathname } = window.location;
-  const path = pathname.split('/');
-  path.shift();
+  const path = pathname.replace('/', '');
 
   useEffect(() => {
-    if (path[0] === 'comidas') {
+    if (path === 'comidas') {
       setType('meals');
     }
-    if (path[0] === 'bebidas') {
+    if (path === 'bebidas') {
       setType('drinks');
     }
   }, [path]);
@@ -59,23 +71,22 @@ export default function MainPageFood() {
     }
   }, [type]);
 
-  const stateValues = {
-    meals: {
-      all: 'meals',
-      filter: 'searchedMeals',
-      categories: 'categoriesMeals',
-    },
-    drinks: {
-      all: 'drinks',
-      filter: 'searchedDrinks',
-      categories: 'categoriesDrinks',
-    },
+  const selectCategoryButton = async (value) => {
+    if (value !== 'All' && value !== catSelected) {
+      const fetch = await getFoodsAndDrinks(type, 'filterCategory', value);
+      dispatch(fetchValues[type].filter(fetch));
+    }
+
+    setCatSelected(value);
   };
 
   const recipesData = useSelector((state) => {
-    if (type) {
-      if (catSelected !== 'All') return state.recipesReducer[stateValues[type].filter];
-      return state.recipesReducer[stateValues[type].all];
+    if (type) return state.recipesReducer[stateValues[type].all];
+  });
+
+  const searchData = useSelector((state) => {
+    if (type && catSelected !== 'All') {
+      return state.recipesReducer[stateValues[type].filter];
     }
   });
 
@@ -84,9 +95,9 @@ export default function MainPageFood() {
   });
 
   useEffect(() => {
-    setRecipes(recipesData);
+    setRecipes(catSelected === 'All' ? recipesData : searchData);
     setCategories(categoriesData);
-  }, [categoriesData, recipesData]);
+  }, [catSelected, categoriesData, recipesData, searchData]);
 
   return (
     <>
@@ -95,7 +106,7 @@ export default function MainPageFood() {
         <Categories
           categories={ categories }
           selected={ catSelected }
-          callback={ setType }
+          callback={ selectCategoryButton }
         />
         <CardContainer recipes={ recipes } path={ pathname } />
       </main>

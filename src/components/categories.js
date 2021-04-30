@@ -8,7 +8,13 @@ export default function Categories({ categories, selected, callback }) {
   return (
     <Nav fill variant="pills" defaultActiveKey={ selected }>
       <Nav.Item>
-        <Nav.Link eventKey="All">All</Nav.Link>
+        <Nav.Link
+          eventKey="All"
+          data-testid="All-category-filter"
+          onClick={ () => callback('All') }
+        >
+          All
+        </Nav.Link>
       </Nav.Item>
 
       {categories && (categories.slice(0, size)).map(({ strCategory }, index) => (
