@@ -1,0 +1,4 @@
+export default {
+  GET_RECIPES: 'GET_RECIPES',
+  REQUEST_RECIPES: 'REQUEST_RECIPES',
+};

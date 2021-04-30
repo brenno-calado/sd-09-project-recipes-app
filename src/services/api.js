@@ -2,19 +2,14 @@
 // https://www.themealdb.com/api/json/v1/1/search.php?s={nome}
 // https://www.themealdb.com/api/json/v1/1/search.php?f={primeira-letra}
 
-// const AND_POINT_API = 'https://swapi-trybe.herokuapp.com/api/planets/';
-// const getDataPlanetsStarWars = () => (
-//   fetch(AND_POINT_API)
-//     .then((response) => (
-//       response
-//         .json()
-//         .then((json) => (response.ok ? Promise.resolve(json) : Promise.reject(json)))
-//     ))
-// );
-
-const fetchApi = async ({ type, params }) => {
+const fetchApi = async (params) => {
+  const paramsKey = Object.keys(params)[0];
+  const query = paramsKey === 'i' ? 'filter' : 'search';
   const urlParams = Object.entries(params)[0].join('=');
-  const url = `https://www.themealdb.com/api/json/v1/1/${type}.php?${urlParams}`;
+  const url = `https://www.themealdb.com/api/json/v1/1/${query}.php?${urlParams}`;
+  console.log(url);
+  const request = await fetch(url);
+  return request.json();
 };
 
 export default fetchApi;
