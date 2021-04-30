@@ -31,9 +31,15 @@ async function searchApi(typeRecipe, typeSearch, itemSearch) {
       .then((data) => data));
 
   if (typeRecipe === 'comidas') {
+    if (recipesSearch.meals === null) {
+      return [];
+    }
     return recipesSearch.meals;
   }
-
+  console.log(recipesSearch);
+  if (recipesSearch.drinks === null) {
+    return [];
+  }
   return recipesSearch.drinks;
 }
 

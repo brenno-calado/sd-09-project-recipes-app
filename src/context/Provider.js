@@ -16,14 +16,16 @@ const Provider = ({ children }) => {
   const searchBarInit = {
     text: '',
     radio: 'ingredient',
+    seachClicked: false,
   };
 
   const [searchBar, setSearchBar] = useState(searchBarInit);
 
-  const addSearchBar = (text, radio) => {
+  const addSearchBar = (text, radio, seachClicked) => {
     setSearchBar({
       text,
       radio,
+      seachClicked,
     });
   };
 
