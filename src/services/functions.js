@@ -57,3 +57,10 @@ export function progressRecipes(value) {
     console.log(recipes);
   }
 }
+
+export function favoriteButton(idElement, setData) {
+  const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const element = storage.filter(({ id }) => id !== idElement);
+  setData(element);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(element));
+}
