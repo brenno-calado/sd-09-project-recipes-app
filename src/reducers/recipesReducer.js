@@ -1,19 +1,19 @@
 import {
   GET_MEALS,
   GET_CATEGORIES_MEALS,
-  SEARCH_MEALS,
   GET_DRINKS,
   GET_CATEGORIES_DRINKS,
-  SEARCH_DRINKS,
+  GET_RANDOM_RECIPE,
+  GET_INGREDIENTS,
 } from '../actions';
 
 const INITIAL_STATE = {
   meals: [],
   categoriesMeals: [],
-  searchedMeals: [],
   drinks: [],
   categoriesDrinks: [],
-  searchedDrinks: [],
+  randomRecipe: { idMeal: '', idDrinks: '' },
+  ingredients: [],
 };
 
 export default function recipesReducer(state = INITIAL_STATE, actions) {
@@ -28,11 +28,6 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
       ...state,
       categoriesMeals: [...actions.categories],
     };
-  case SEARCH_MEALS:
-    return {
-      ...state,
-      searchedMeals: [...actions.meals],
-    };
   case GET_DRINKS:
     return {
       ...state,
@@ -43,10 +38,15 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
       ...state,
       categoriesDrinks: [...actions.categories],
     };
-  case SEARCH_DRINKS:
+  case GET_INGREDIENTS:
     return {
       ...state,
-      searchedDrinks: [...actions.drinks],
+      ingredients: { ...actions.ingredients },
+    };
+  case GET_RANDOM_RECIPE:
+    return {
+      ...state,
+      randomRecipe: { ...actions.randomRecipe },
     };
   default:
     return {

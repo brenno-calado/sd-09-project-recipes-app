@@ -8,11 +8,13 @@ import {
   ToggleButtonGroup,
 } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { searchMeals, searchDrinks } from '../actions';
+import { Redirect } from 'react-router';
+import { listDrinks, listMeals } from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
 export default function SearchBar({ type }) {
   const [searchText, setSearchText] = useState('');
+  const [pathToRedirect, setPathToRedirect] = useState(null);
   const [searchOption, setSearchOption] = useState('getNameByValue');
   const dispatch = useDispatch();
 
@@ -45,20 +47,36 @@ export default function SearchBar({ type }) {
 
     try {
       const searchResult = await getFoodsAndDrinks(type, searchOption, mySearchString);
-      if (searchResult.meals === null || searchResult.drinks === null) {
+
+      if (searchResult === null) {
         throw new Error('Nothing found');
       }
 
-      if (type === 'meals') {
-        dispatch(searchMeals(searchResult.meals));
-      } else {
-        dispatch(searchDrinks(searchResult.drinks));
-      }
+      const actionsObject = {
+        meals: {
+          one: () => {
+            dispatch(listMeals(searchResult));
+            setPathToRedirect(`/comidas/${searchResult[0].idMeal}`);
+          },
+          moreThanOne: () => (dispatch(listMeals(searchResult))),
+        },
+        drinks: {
+          one: () => {
+            dispatch(listDrinks(searchResult));
+            setPathToRedirect(`/bebidas/${searchResult[0].idDrink}`);
+          },
+          moreThanOne: () => (dispatch(listDrinks(searchResult))),
+        },
+      };
+
+      actionsObject[type][searchResult.length === 1 ? 'one' : 'moreThanOne']();
     } catch (err) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       console.log(err);
     }
   };
+
+  if (pathToRedirect) return <Redirect to={ pathToRedirect } />;
 
   return (
     <form className="form-group">
