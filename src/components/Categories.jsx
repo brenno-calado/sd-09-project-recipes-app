@@ -14,12 +14,12 @@ function Categories() {
     <>
       { categories
         .filter((_, index) => index < CINCO)
-        .map((element, index) => (
+        .map(({ strCategory }, index) => (
           <button
             type="button"
-            key={ index }
+            key={ `strCategory${index}` }
           >
-            {element}
+            { strCategory }
           </button>
         ))}
     </>
