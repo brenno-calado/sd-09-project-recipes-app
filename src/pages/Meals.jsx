@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 Meals.propTypes = {
   pathnameDispatcher: PropTypes.func.isRequired,
-  location: PropTypes.string.isRequired,
+  location: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Meals);

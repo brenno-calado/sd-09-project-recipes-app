@@ -9,9 +9,10 @@ import Meals from '../pages/Meals';
 // import Login from '../pages/Login';
 
 describe('Testa o Header a partir da page de comidas', () => {
+  const location = { pathname: '/comidas' };
   const renderWithRouter = (initialEntries = ['/']) => (
     <Router history={ createMemoryHistory({ initialEntries }) }>
-      <Meals />
+      <Meals location={ location } />
     </Router>
   );
 
