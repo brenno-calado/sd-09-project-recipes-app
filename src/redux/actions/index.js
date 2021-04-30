@@ -1,1 +1,4 @@
-// text
+// const SET_RECIPES = 'SET_RECIPES';
+// const SET_CATEGORIES = 'SET_CATEGORIES';
+
+// export { SET_RECIPES, SET_CATEGORIES };
