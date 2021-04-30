@@ -5,11 +5,10 @@ const Context = createContext();
 
 const Provider = ({ children }) => {
   const [data, setData] = useState([]);
-  const [isSearch, setIsSearch] = useState(false);
 
   const updateData = async (api) => setData(await api);
 
-  const contextValue = { data, updateData, isSearch, setIsSearch };
+  const contextValue = { data, updateData };
 
   return (
     <Context.Provider value={ contextValue }>

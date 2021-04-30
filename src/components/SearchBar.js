@@ -4,27 +4,26 @@ import { Context } from '../context';
 import { fecthByName, fetchByFirstLetter, fetchByIngredient } from '../services/api';
 
 function SearchBar({ isMeal }) {
-  const { updateData, setIsSearch } = useContext(Context);
+  const { updateData } = useContext(Context);
   const [state, setState] = useState({ search: '', searchBy: '' });
 
   const handleChange = ({ target: { name, value } }) => {
     setState({ ...state, [name]: value });
   };
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
     const { search, searchBy } = state;
-    setIsSearch(true);
-    if (searchBy === 'firstLetter' && search.length > 1) {
-      window.alert('Sua busca deve conter somente 1 (um) caracter');
-    }
-    if (searchBy === 'name') {
-      updateData(fecthByName(search, isMeal));
-    }
-    if (searchBy === 'ingredient') {
-      updateData(fetchByIngredient(search, isMeal));
-    }
-    if (searchBy === 'firstLetter') {
-      updateData(fetchByFirstLetter(search, isMeal));
+    switch (searchBy) {
+    case 'name':
+      return updateData(fecthByName(search, isMeal));
+    case 'ingredient':
+      return updateData(fetchByIngredient(search, isMeal));
+    case 'firstLetter':
+      return search.length > 1
+        ? window.alert('Sua busca deve conter somente 1 (um) caracter')
+        : updateData(fetchByFirstLetter(search, isMeal));
+    default:
+      break;
     }
   };
 
