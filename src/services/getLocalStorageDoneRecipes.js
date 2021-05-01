@@ -3,31 +3,33 @@ const getDoneRecipes = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     return doneRecipes !== undefined ? doneRecipes : 'Key not found';
   } */
-  const data = [
+
+  const doneRecipes = [
     {
-      id: 52846,
-      type: 'meals',
-      area: 'Japanese',
-      category: 'Chicken',
+      id: '52771',
+      type: 'comida',
+      area: 'Italian',
+      category: 'Vegetarian',
       alcoholicOrNot: '',
-      name: 'Chicken & mushroom Hotpot',
-      image: 'https://www.themealdb.com/images/media/meals/uuuspp1511297945.jpg',
-      doneDate: '2016-08-18',
-      tags: ['bun', 'baking', 'xablau'],
+      name: 'Spicy Arrabiata Penne',
+      image: 'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+      doneDate: '23/06/2020',
+      tags: ['Pasta', 'Curry'],
     },
     {
-      id: 11007,
-      type: 'drinks',
+      id: '178319',
+      type: 'bebida',
       area: '',
-      category: 'Ordinary Drink',
+      category: 'Cocktail',
       alcoholicOrNot: 'Alcoholic',
-      name: 'Margarita',
-      image: 'https://www.thecocktaildb.com/images/media/drink/5noda61589575158.jpg',
-      doneDate: '2015-08-14',
+      name: 'Aquamarine',
+      image: 'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+      doneDate: '23/06/2020',
       tags: [],
     },
   ];
-  return data;
+
+  return doneRecipes;
 };
 
 export default getDoneRecipes;

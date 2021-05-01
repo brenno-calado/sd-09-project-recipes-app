@@ -16,12 +16,22 @@ e um botão de compartilhar                           e um botão de compartilha
 */
 
 function ContentDoneRecipes({ recipes, recipeIndex }) {
-  const { id, type, alcoholicOrNot, name, image, doneDate, tags } = recipes;
+  const {
+    id,
+    area,
+    category,
+    type,
+    alcoholicOrNot,
+    name,
+    image,
+    doneDate,
+    tags,
+  } = recipes;
   const filteredTags = tags.filter((_, index) => index < 2);
 
   return (
     <div className="done-recipes-card">
-      <Link to={ type === 'meals' ? `/comidas/${id}` : `/bebidas/${id}` }>
+      <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
         <img
           className="thumbnail"
           src={ image }
@@ -32,7 +42,7 @@ function ContentDoneRecipes({ recipes, recipeIndex }) {
       <section>
         <div>
           <div data-testid={ `${recipeIndex}-horizontal-top-text` }>
-            {type === 'meals' ? type : alcoholicOrNot}
+            {type === 'comida' ? `${area} - ${category}` : alcoholicOrNot}
           </div>
           <img
             data-testid={ `${recipeIndex}-horizontal-share-btn` }
@@ -40,7 +50,8 @@ function ContentDoneRecipes({ recipes, recipeIndex }) {
             alt="Share Icon"
           />
         </div>
-        <Link to={ type === 'meals' ? `/comidas/${id}` : `/bebidas/${id}` }>
+        {/* {type === 'comida' && <p>{ area }</p>} */}
+        <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
           <h4 data-testid={ `${recipeIndex}-horizontal-name` }>{ name }</h4>
         </Link>
         <span data-testid={ `${recipeIndex}-horizontal-done-date` }>

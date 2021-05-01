@@ -23,11 +23,11 @@ function ReceitasFeitas() {
 
   const handleClickButton = ({ target: { value } }) => {
     if (value === 'food') {
-      console.log(filtersRecipes('meals'));
-      setMeals(filtersRecipes('meals'));
+      console.log(filtersRecipes('comida'));
+      setMeals(filtersRecipes('comida'));
       setFilter(value);
     } else if (value === 'drinks') {
-      setDrincks(filtersRecipes('drinks'));
+      setDrincks(filtersRecipes('bebida'));
       setFilter(value);
     } else {
       setFilter(value);
