@@ -8,7 +8,6 @@ import { drinksThunkAction } from '../action/FoodAndDrinkAction';
 import { doneRecipesAction,
   favoriteRecipesAction, inProgressRecipesAction } from '../action/ButtonAction';
 import CarouselDetails from '../components/CarouselFoodDetails';
-import '../styles/Details.css';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
