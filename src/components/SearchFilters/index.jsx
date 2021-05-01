@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import Filters from './styled';
+import { context } from '../../context';
 
 const initialState = {
   searchTerm: '',
@@ -8,8 +9,8 @@ const initialState = {
 };
 
 export default function SearchFilters({ setFilter }) {
+  const { setIsSearching } = useContext(context);
   const [options, setOptions] = useState(initialState);
-
   const setNewFilter = () => {
     const letterOption = options.option === 'letters';
     const searchOption = options.searchTerm.length > 1;
@@ -17,6 +18,7 @@ export default function SearchFilters({ setFilter }) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
       setFilter({ ...options });
+      setIsSearching(true);
     }
   };
 

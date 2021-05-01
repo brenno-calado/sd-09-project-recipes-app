@@ -10,12 +10,19 @@ import CategoriesButtons from '../../components/SearchButtons';
 
 export default function Foods() {
   const {
-    foods, setFoods, categories, setCategories,
+    foods, setFoods, categories, setCategories, isSearching,
   } = useContext(context);
+
+  // const { recipes, lists, setFilter } = useAPI(props);
+
+  // setFilter({
+  //   type: 'ingredient',
+  //   strSelector: e.targ.value
+  // })
 
   const { foods: foodsHook, setFilter: setFilterHook } = useFoodApi();
   const uniqueRecipe = foods && foods.length === 1;
-  const moreThanOneRecipes = foods && foods.length > 1;
+  // const moreThanOneRecipes = foods && foods.length > 1;
 
   useEffect(() => {
     const lengthOfList = 12;
@@ -37,8 +44,8 @@ export default function Foods() {
     <>
       <Header title="Comidas" canFind setFilter={ setFilterHook } />
       {categories && <CategoriesButtons type="food" />}
-      {moreThanOneRecipes && <ListFoodCards items={ foods } />}
-      {uniqueRecipe && <Redirect to={ `/comidas/${foodsHook[0].idMeal}` } />}
+      <ListFoodCards items={ foods } />
+      {uniqueRecipe && isSearching && <Redirect to={ `/comidas/${foodsHook[0].idMeal}` } />}
       <Footer />
     </>
   );

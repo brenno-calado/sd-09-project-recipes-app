@@ -11,6 +11,7 @@ function Provider({ children }) {
   const [foods, setFoods] = useState(null);
   const [drinks, setDrinks] = useState(null);
   const [categories, setCategories] = useState();
+  const [isSearching, setIsSearching] = useState(false);
   const [toggleButton, setToggleButton] = useState(null);
   const [supriseId, setSurpriseId] = useState(null);
 
@@ -19,6 +20,8 @@ function Provider({ children }) {
     setData,
     drinks,
     setDrinks,
+    isSearching,
+    setIsSearching,
     isLoading,
     setLoading,
     authLogin,
