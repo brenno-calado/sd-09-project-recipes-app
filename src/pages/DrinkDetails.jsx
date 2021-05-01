@@ -7,6 +7,7 @@ import '../App.css';
 function DrinkDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
+  const [btnVisibility, setVisibility] = useState('block');
 
   useEffect(() => {
     async function fetchRecipe() {
@@ -17,6 +18,20 @@ function DrinkDetails({ match: { params: { id } } }) {
       setLoading(false);
     }
     fetchRecipe();
+  }, [id]);
+
+  useEffect(() => {
+    function handleDoneRecipes() {
+      const doneRecipesJSON = localStorage.getItem('doneRecipes');
+      const doneRecipesList = JSON.parse(doneRecipesJSON);
+      if (doneRecipesList !== null) {
+        const isDone = doneRecipesList.find((doneRecipe) => doneRecipe.id === id);
+        if (isDone) {
+          setVisibility('none');
+        }
+      }
+    }
+    handleDoneRecipes();
   }, [id]);
 
   function renderRecipePhoto() {
@@ -149,6 +164,8 @@ function DrinkDetails({ match: { params: { id } } }) {
         <button
           type="button"
           data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          style={ { display: btnVisibility } }
         >
           Iniciar receita
         </button>

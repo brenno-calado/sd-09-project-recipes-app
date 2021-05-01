@@ -8,6 +8,8 @@ import '../App.css';
 function MealDetails({ match: { params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(true);
+  const [btnVisibility, setVisibility] = useState('block');
+
   useEffect(() => {
     async function fetchRecipe() {
       const endpoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
@@ -17,6 +19,20 @@ function MealDetails({ match: { params: { id } } }) {
       setLoading(false);
     }
     fetchRecipe();
+  }, [id]);
+
+  useEffect(() => {
+    function handleDoneRecipes() {
+      const doneRecipesJSON = localStorage.getItem('doneRecipes');
+      const doneRecipesList = JSON.parse(doneRecipesJSON);
+      if (doneRecipesList !== null) {
+        const isDone = doneRecipesList.find((doneRecipe) => doneRecipe.id === id);
+        if (isDone) {
+          setVisibility('none');
+        }
+      }
+    }
+    handleDoneRecipes();
   }, [id]);
 
   function renderRecipePhoto() {
@@ -161,6 +177,8 @@ function MealDetails({ match: { params: { id } } }) {
         <button
           type="button"
           data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+          style={ { display: btnVisibility } }
         >
           Iniciar receita
         </button>
