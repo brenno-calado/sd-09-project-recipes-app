@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import '../styles/Card.css';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { RecipesContext } from '../context';
 
 function Card() {
@@ -8,6 +8,7 @@ function Card() {
   const { pathname } = useLocation();
   const category = pathname.includes('comidas') ? 'Meal' : 'Drink';
   const DOZE = 12;
+
   return (
     <>
       { recipesResult
@@ -18,14 +19,16 @@ function Card() {
             data-testid={ `${index}-recipe-card` }
             key={ element[`id${category}`] }
           >
-            <img
-              alt={ `imagem de ${element.strMeal}` }
-              data-testid={ `${index}-card-img` }
-              src={ element[`str${category}Thumb`] }
-            />
-            <p data-testid={ `${index}-card-name` }>
-              { element[`str${category}`] }
-            </p>
+            <Link to={ `${pathname}/${element[`id${category}`]}` }>
+              <img
+                alt={ `imagem de ${element.strMeal}` }
+                data-testid={ `${index}-card-img` }
+                src={ element[`str${category}Thumb`] }
+              />
+              <p data-testid={ `${index}-card-name` }>
+                { element[`str${category}`] }
+              </p>
+            </Link>
           </section>
         ))}
     </>
