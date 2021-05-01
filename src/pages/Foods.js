@@ -8,10 +8,15 @@ import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
   const [meal, setMeal] = useState([]);
+  const [getSelectedCategory, setGetSelectedCategory] = useState();
+  const [listItemByCategory, setListItemByCategory] = useState([]);
+  const [checked, setChecked] = useState(false);
+
   const { handleFetchFoodClick,
     recipesData,
     handleFetchRecipes,
-    getRecipesByCategory } = useRecipeContext();
+    getRecipesByCategory,
+    getRecipesFoodsFilterByCategory } = useRecipeContext();
   const twelve = 12;
 
   useEffect(() => {
@@ -30,17 +35,55 @@ function Foods() {
       .then(({ meals }) => setMeal(meals));
   }, [getRecipesByCategory]);
 
+  useEffect(() => {
+    if (checked) {
+      getRecipesFoodsFilterByCategory(getSelectedCategory)
+        .then(({ meals }) => setListItemByCategory(meals || []));
+    }
+  }, [getSelectedCategory]);
+
+  const toggle = () => { if (checked) setListItemByCategory([]); };
+
+  const handleClick = ({ target }) => {
+    setGetSelectedCategory(target.name);
+    setChecked(!checked);
+    toggle();
+  };
+
   function categoryButtom() {
     const five = 5;
     return (
       meal.map(({ strCategory }, index) => (
         index < five && (
-          <button type="button" data-testid={ `${strCategory}-category-filter` }>
-            { strCategory }
-          </button>
+          <div className="categoty-btn">
+            <button
+              key={ strCategory }
+              type="button"
+              name={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ ({ target }) => handleClick({ target }) }
+            >
+              { strCategory }
+            </button>
+          </div>
         )
       ))
     );
+  }
+
+  function createRender(list) {
+    return list.map(({ idMeal, strMealThumb, strMeal }, index) => (
+      index < twelve && (
+        <RecipeCard
+          key={ idMeal }
+          image={ strMealThumb }
+          name={ strMeal }
+          recipeCArdId={ `${index}-recipe-card` }
+          cardImageId={ `${index}-card-img` }
+          cardNameId={ `${index}-card-name` }
+        />
+      )
+    ));
   }
 
   function header() {
@@ -58,22 +101,11 @@ function Foods() {
             Buscar
           </button>
         </SearchBar>
-        <BottomMenu />
         {categoryButtom() }
-        {recipesData.meals && (
-          recipesData.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-            index < twelve && (
-              <RecipeCard
-                key={ idMeal }
-                image={ strMealThumb }
-                name={ strMeal }
-                recipeCArdId={ `${index}-recipe-card` }
-                cardImageId={ `${index}-card-img` }
-                cardNameId={ `${index}-card-name` }
-              />
-            )
-          ))
-        ) }
+        { listItemByCategory.length
+          ? createRender(listItemByCategory)
+          : (recipesData.meals && (createRender(recipesData.meals))) }
+        <BottomMenu />
       </>
     );
   }

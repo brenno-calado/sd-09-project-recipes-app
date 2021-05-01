@@ -7,6 +7,8 @@ import {
   getDrinkByIngredient,
   getDrinkByName,
   getDrinkByFirstLetter,
+  getRecipesFoodsFilterByCategory,
+  getRecipesDrinksFilterByCategory,
   getRecipesByCategory } from '../services/fetchApi';
 
 function useClickFetch() {
@@ -73,6 +75,8 @@ function useClickFetch() {
     getInputValue,
     handleFetchRecipes,
     getRecipesByCategory,
+    getRecipesFoodsFilterByCategory,
+    getRecipesDrinksFilterByCategory,
   ];
 }
 

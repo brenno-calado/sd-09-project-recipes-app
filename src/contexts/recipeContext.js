@@ -11,7 +11,9 @@ export function RecipeContextProvider({ children }) {
     handleCheck,
     getInputValue,
     handleFetchRecipes,
-    getRecipesByCategory] = useClickFetch();
+    getRecipesByCategory,
+    getRecipesFoodsFilterByCategory,
+    getRecipesDrinksFilterByCategory] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -37,11 +39,13 @@ export function RecipeContextProvider({ children }) {
     recipesData,
     handleFetchRecipes,
     getRecipesByCategory,
+    getRecipesFoodsFilterByCategory,
+    getRecipesDrinksFilterByCategory,
   };
 
   return (
     <RecipeContext.Provider value={ context }>
-      {children}
+      {children }
     </RecipeContext.Provider>
   );
 }

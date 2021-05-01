@@ -1,13 +1,51 @@
+export async function getRecipesDrinksFilterByCategory(category) {
+  const promise = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}
+  `);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export async function getRecipesFoodsFilterByCategory(category) {
+  const promise = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}
+  `);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export async function getRecipesByCategory(type) {
   const promise = await fetch(`https://www.${type}.com/api/json/v1/1/list.php?c=list`);
-  const data = await promise.json();
-  return data;
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
 }
 
 export async function getRecipes(type) {
   const promise = await fetch(`https://www.${type}.com/api/json/v1/1/search.php?s=`);
-  const data = await promise.json();
-  return data;
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
 }
 
 export async function getRecipeByIngredient(ingredient) {

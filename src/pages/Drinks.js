@@ -7,11 +7,16 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Drinks() {
-  const [categoryDrink, setCategoryDrink] = useState([]);
+  const [drink, setDrink] = useState([]);
+  const [categoryDrink, setCategoryDrink] = useState();
+  const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
+  const [checked, setChecked] = useState(false);
+
   const { handleFetchDrinkClick,
     recipesData,
     handleFetchRecipes,
-    getRecipesByCategory } = useRecipeContext();
+    getRecipesByCategory,
+    getRecipesDrinksFilterByCategory } = useRecipeContext();
   const twelve = 12;
 
   useEffect(() => {
@@ -27,20 +32,58 @@ function Drinks() {
 
   useEffect(() => {
     getRecipesByCategory('thecocktaildb')
-      .then(({ drinks }) => setCategoryDrink(drinks));
+      .then(({ drinks }) => setDrink(drinks));
   }, [getRecipesByCategory]);
+
+  useEffect(() => {
+    if (checked) {
+      getRecipesDrinksFilterByCategory(categoryDrink)
+        .then(({ drinks }) => setListDrinkByCategory(drinks || []));
+    }
+  }, [categoryDrink]);
+
+  const toggle = () => { if (checked) setListDrinkByCategory([]); };
+
+  const handleClick = ({ target }) => {
+    setCategoryDrink(target.name);
+    setChecked(!checked);
+    toggle();
+  };
 
   function categoryButtom() {
     const five = 5;
     return (
-      categoryDrink.map(({ strCategory }, index) => (
+      drink.map(({ strCategory }, index) => (
         index < five && (
-          <button type="button" data-testid={ `${strCategory}-category-filter` }>
-            { strCategory }
-          </button>
+          <div className="category-btn">
+            <button
+              key={ strCategory }
+              type="button"
+              name={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ ({ target }) => handleClick({ target }) }
+            >
+              { strCategory }
+            </button>
+          </div>
         )
       ))
     );
+  }
+
+  function createRender(list) {
+    return list.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
+      index < twelve && (
+        <RecipeCard
+          key={ idDrink }
+          image={ strDrinkThumb }
+          name={ strDrink }
+          recipeCArdId={ `${index}-recipe-card` }
+          cardImageId={ `${index}-card-img` }
+          cardNameId={ `${index}-card-name` }
+        />
+      )
+    ));
   }
 
   function header() {
@@ -58,22 +101,11 @@ function Drinks() {
             Buscar
           </button>
         </SearchBar>
+        {categoryButtom() }
+        {listDrinkByCategory.length
+          ? createRender(listDrinkByCategory)
+          : (recipesData.drinks && (createRender(recipesData.drinks))) }
         <BottomMenu />
-        {categoryButtom()}
-        {recipesData.drinks && (
-          recipesData.drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-            index < twelve && (
-              <RecipeCard
-                key={ idDrink }
-                image={ strDrinkThumb }
-                name={ strDrink }
-                recipeCArdId={ `${index}-recipe-card` }
-                cardImageId={ `${index}-card-img` }
-                cardNameId={ `${index}-card-name` }
-              />
-            )
-          ))
-        ) }
       </>
     );
   }
