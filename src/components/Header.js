@@ -59,48 +59,6 @@ class Header extends React.Component {
     };
 
     return headerComponent();
-    // (
-    //   <header className="header">
-    //     {/* <label htmlFor="icon-left">
-    //       <input
-    //         id="icon-left"
-    //         type="button"
-    //         className="profile-btn"
-    //         data-testid="profile-top-btn"
-    //       />
-    //     </label> */}
-    //     <Link to="/perfil">
-    //       <img
-    //         alt="profile"
-    //         className="profile-btn"
-    //         data-testid="profile-top-btn"
-    //         src={ profileIcon }
-    //       />
-    //     </Link>
-    //     <span
-    //       data-testid="page-title"
-    //       className="page-title"
-    //     >
-    //       { titleHeader }
-    //     </span>
-    //     {/* <label htmlFor="icon-rigth">
-    //       <input
-    //         id="icon-rigth"
-    //         type="button"
-    //         className="search-btn"
-    //         data-testid="search-top-btn"
-    //       />
-    //     </label> */}
-    //     <Link to="/">
-    //       <img
-    //         alt="search"
-    //         className="search-btn"
-    //         data-testid="search-top-btn"
-    //         src={ searchIcon }
-    //       />
-    //     </Link>
-    //   </header>
-    // );
   }
 }
 
