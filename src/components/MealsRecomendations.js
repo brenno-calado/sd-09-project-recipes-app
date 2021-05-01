@@ -7,9 +7,9 @@ function MealsRecomendations() {
   const [meals, setMeals] = useState([]);
 
   const getMeals = async () => {
-    const result = await fecthByName('', true);
+    const data = await fecthByName('', true);
     const recomendations = 6;
-    setMeals(result.meals.slice(0, recomendations));
+    setMeals(data.meals.slice(0, recomendations));
   };
 
   useEffect(() => { getMeals(); }, []);

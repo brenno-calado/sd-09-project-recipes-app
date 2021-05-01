@@ -60,8 +60,6 @@ function SearchBar({ isMeal }) {
   );
 }
 
-SearchBar.propTypes = {
-  isMeal: bool.isRequired,
-};
+SearchBar.propTypes = { isMeal: bool }.isRequired;
 
 export default SearchBar;
