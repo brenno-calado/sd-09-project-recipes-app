@@ -29,10 +29,6 @@ function CategoriesButtons(props) {
     }
   };
 
-  // const fetchCategories = () => {
-
-  // };
-
   const handleClick = ({ target }) => {
     if (toggleButton === null || toggleButton !== target.name) {
       setToggleButton(target.name);
