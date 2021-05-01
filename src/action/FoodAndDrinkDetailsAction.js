@@ -21,3 +21,15 @@ export const drinkDetailsThunk = (id) => async (dispatch) => {
   const result = await response.json();
   return dispatch(drinkDetailsAction(result.drinks[0]));
 };
+
+export const randomFoodDetailsThunk = () => async (dispatch) => {
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const response = await data.json();
+  return dispatch(foodDetailsAction(response.meals[0]));
+};
+
+export const randomDrinkDetailsThunk = () => async (dispatch) => {
+  const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const response = await data.json();
+  return dispatch(drinkDetailsAction(response.drinks[0]));
+};

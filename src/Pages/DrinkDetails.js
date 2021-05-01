@@ -1,8 +1,8 @@
-import '../styles/Details.css';
 import React from 'react';
+import '../styles/Details.css';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { drinkDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
 import { foodThunkAction } from '../action/FoodAndDrinkAction';
 import { doneRecipesAction,
@@ -17,12 +17,10 @@ const copy = require('clipboard-copy');
 class DrinkDetails extends React.Component {
   constructor(props) {
     super(props);
-
     this.ingredientName = this.ingredientName.bind(this);
     this.copyCodeToClipboard = this.copyCodeToClipboard.bind(this);
     this.heartToggle = this.heartToggle.bind(this);
     this.verificFavorite = this.verificFavorite.bind(this);
-
     this.state = {
       linkCopy: false,
       heartToggle: false,

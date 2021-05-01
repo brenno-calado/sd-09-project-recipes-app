@@ -1,5 +1,5 @@
-import '../styles/Details.css';
 import React from 'react';
+import '../styles/Details.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -222,7 +222,6 @@ class FoodDetails extends React.Component {
     );
   }
 }
-
 const mapStateToProps = (state) => ({
   getFoodDetails: state.FoodAndDrinkDetailsReducer.foodDetails,
   getDrinks: state.FoodAndDrinkReducer.drinks,
@@ -232,7 +231,6 @@ const mapStateToProps = (state) => ({
   getDoneRecipes: state.ButtonReducer.doneRecipes,
   getFavorite: state.ButtonReducer.favoriteRecipes,
 });
-
 const mapDispatchToProps = (dispatch) => ({
   setFoodDetails: (id) => dispatch(foodDetailsThunk(id)),
   setDrinks: (drink, drinkBoolean, drinkName) => dispatch(
