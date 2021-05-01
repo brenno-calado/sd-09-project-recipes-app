@@ -13,8 +13,7 @@ class Profile extends React.Component {
       localStorage.clear();
       history.push('/');
     };
-
-    const { email } = this.props;
+    const email = localStorage.getItem('user');
     return (
       <div className="profileContainer">
         <header className="headerContainer">
@@ -25,12 +24,12 @@ class Profile extends React.Component {
           />
           <span data-testid="page-title">Perfil</span>
         </header>
-        <main>
+        <main className="mainContainer">
           <span data-testid="profile-email">
-            email:
+            e-mail:
             { email }
           </span>
-          <div className="buttons">
+          <div className="buttonsContainer">
             <button
               type="button"
               data-testid="profile-done-btn"
@@ -67,7 +66,6 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  email: PropTypes.string.isRequired,
   history: PropTypes.string.isRequired,
 };
 

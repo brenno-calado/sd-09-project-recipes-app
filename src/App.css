@@ -1,10 +1,6 @@
-body {
+.app {
   display: grid;
-  grid-template-rows: 10vh 110vh 10vh;
-}
-
-#root {
-  display: contents;
+  grid-template-rows: 10vh 120vh 10vh;
 }
 
 .headerContainer {
@@ -22,7 +18,7 @@ body {
 
 .footerContainer {
   background-color: white;
-  grid-row: 3;
+  grid-row: 5;
   margin-top: 5vh;
   width: 100vw;
   z-index: 10;
