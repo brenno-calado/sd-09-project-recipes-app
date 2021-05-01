@@ -47,7 +47,6 @@ const renderRadioElementFor = ({ label, inputParams, callback }) => (
 const SearchBar = () => {
   const currentLocation = useHistory().location.pathname;
   const isFoodsPage = currentLocation.includes('comida');
-
   const [searchText, setSearchText] = useState('');
   const [searchOption, setSearchOption] = useState('i');
   const dispatch = useDispatch();

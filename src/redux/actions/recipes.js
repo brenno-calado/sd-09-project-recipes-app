@@ -5,7 +5,7 @@ const { GET_RECIPES, REQUEST_RECIPES } = types;
 
 const requestRecipes = () => ({ type: REQUEST_RECIPES });
 
-const getRecipes = ({ meals }) => ({ type: GET_RECIPES, payload: meals });
+const getRecipes = (recipes) => ({ type: GET_RECIPES, payload: recipes });
 
 const fetchSearchRecipes = () => (
   (dispatch, getState) => {

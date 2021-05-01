@@ -6,12 +6,17 @@ const INITIAL_STATE = {
   recipes: [],
 };
 
+const getRecipes = (payload) => {
+  const recipesKey = Object.keys(payload)[0];
+  return Object.values(payload[recipesKey]);
+};
+
 const searchReducer = (state = INITIAL_STATE, { type, payload }) => {
   switch (type) {
   case REQUEST_RECIPES:
     return { ...state, isFetching: true };
   case GET_RECIPES:
-    return { ...state, isFetching: false, recipes: payload };
+    return { ...state, isFetching: false, recipes: getRecipes(payload) };
   default:
     return state;
   }
