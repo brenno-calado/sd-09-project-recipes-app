@@ -13,6 +13,6 @@
 }
 
 .mainContainer {
-  grid-row: 2;
   display: grid;
+  grid-row: 2;
 }
