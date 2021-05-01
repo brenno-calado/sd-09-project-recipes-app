@@ -2,6 +2,6 @@ import React from 'react';
 
 export default function NotFound() {
   return (
-    <h1>Página Não Encontrada</h1>
+    <h1>Not Found</h1>
   );
 }
