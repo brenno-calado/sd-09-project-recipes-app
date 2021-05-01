@@ -8,6 +8,7 @@ const getDrinksAll = async () => {
     console.log(error);
   }
 };
+
 const getDrinksByCategory = async (category) => {
   try {
     const filterEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
@@ -30,6 +31,39 @@ const getDrinksCategories = async () => {
   }
 };
 
+const getDrinksByName = async (name) => {
+  try {
+    const filterEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(`${filterEndpoint}${name}`);
+    const drinks = await response.json();
+    return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getDrinksByIngredient = async (ingredient) => {
+  try {
+    const filterEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
+    const response = await fetch(`${filterEndpoint}${ingredient}`);
+    const drinks = await response.json();
+    return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getDrinksByFirstLetter = async (firstLetter) => {
+  try {
+    const filterEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
+    const response = await fetch(`${filterEndpoint}${firstLetter}`);
+    const drinks = await response.json();
+    return drinks;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getRandomDrink = async () => {
   try {
     const randomEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
@@ -42,8 +76,11 @@ const getRandomDrink = async () => {
 };
 
 export {
-  getDrinksByCategory,
-  getDrinksCategories,
   getDrinksAll,
   getRandomDrink,
+  getDrinksByName,
+  getDrinksByIngredient,
+  getDrinksByCategory,
+  getDrinksCategories,
+  getDrinksByFirstLetter,
 };

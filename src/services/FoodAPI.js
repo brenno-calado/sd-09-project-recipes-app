@@ -76,11 +76,11 @@ const getRandomFood = async () => {
 };
 
 export {
-  getFoodByCategory,
-  getFoodCategories,
   getFoodAll,
   getRandomFood,
   getFoodByName,
+  getFoodByCategory,
+  getFoodCategories,
   getFoodByFirstLetter,
   getFoodByIngredient,
 };

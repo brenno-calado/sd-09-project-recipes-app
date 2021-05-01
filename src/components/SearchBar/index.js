@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
 import Button from 'react-bootstrap/Button';
+import RecipesContext from '../../context/RecipesContext';
 
 const SearchBar = () => {
-  const handleChange = (event) => {
-    console.log(event.target.value);
-  };
+  const { handleChange, handleClick } = useContext(RecipesContext);
+
   return (
     <div>
-      <input type="text" data-testid="search-input" />
+      <input
+        name="query"
+        type="text"
+        data-testid="search-input"
+        onChange={ (event) => handleChange(event) }
+      />
       <div
         className="search-radio-container"
         onChange={ (event) => handleChange(event) }
@@ -18,7 +24,7 @@ const SearchBar = () => {
             data-testid="ingredient-search-radio"
             id="ingredient-radio"
             value="ingredient"
-            name="search-radio"
+            name="filter"
           />
           Ingredientes
         </label>
@@ -28,7 +34,7 @@ const SearchBar = () => {
             data-testid="name-search-radio"
             id="name-radio"
             value="name"
-            name="search-radio"
+            name="filter"
           />
           Nome
         </label>
@@ -38,12 +44,12 @@ const SearchBar = () => {
             data-testid="first-letter-search-radio"
             id="first-letter-radio"
             value="first-letter"
-            name="search-radio"
+            name="filter"
           />
           Primeira letra
         </label>
       </div>
-      <Button data-testid="exec-search-btn">Buscar</Button>
+      <Button data-testid="exec-search-btn" onClick={ handleClick }>Buscar</Button>
     </div>
   );
 };
