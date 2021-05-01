@@ -65,6 +65,10 @@
   padding: 8px;
 }
 
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
 
 /*
 #iceLeft {

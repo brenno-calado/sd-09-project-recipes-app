@@ -10,14 +10,17 @@ import Explore from './pages/Explore';
 import Profile from './pages/Profile';
 import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
+import RecipeInProgress from './components/RecipeInProgress';
 
 function App() {
   return (
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
+        <Route path="/comidas/:id/inprogress" component={ RecipeInProgress } />
         <Route path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/comidas" component={ Foods } />
+        <Route path="/bebidas/:id/inprogress" component={ RecipeInProgress } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />

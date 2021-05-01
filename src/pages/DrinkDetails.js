@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { fetchDrinkById } from '../services/index';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -52,6 +52,16 @@ function DrinkDetails() {
       ));
   };
 
+  const startRecipe = () => {
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (recipesInProgress === null || !recipesInProgress
+      .some((item) => item.idDrink === recipeId.id)) {
+      const setRecipesInProgress = [];
+      setRecipesInProgress.push(currentDrink);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(setRecipesInProgress));
+    }
+  };
+
   const renderRecipeDetails = () => (
     <div className="recipe-details">
       <img
@@ -81,13 +91,16 @@ function DrinkDetails() {
         { filterIngredients() }
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => console.log('clicou') }
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `${recipeId.id}/in-progress` }>
+        <button
+          className="start-recipe"
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => startRecipe() }
+        >
+          Iniciar Receita
+        </button>
+      </Link>
       <section data-testid="0-recomendation-card">Recomendações</section>
     </div>
   );

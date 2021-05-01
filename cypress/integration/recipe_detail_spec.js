@@ -321,7 +321,7 @@ describe.skip('40 - Implemente a solução de modo que caso a receita tenha sido
   });
 });
 
-describe.skip('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
+describe('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita" seja clicado, a rota deve mudar para a tela de receita em processo', () => {
   it('Redireciona para tela de receita da comida em processo', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
@@ -345,7 +345,7 @@ describe.skip('41 - Redirecione a pessoa usuário caso o botão "Iniciar Receita
   });
 });
 
-describe.skip('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
+describe('42 - Implemente um botão de compartilhar e um de favoritar a receita', () => {
   it('Verifica se os botões estão disponíveis na tela de detalhes de uma comida', () => {
     cy.visit('http://localhost:3000/comidas/52771', {
       onBeforeLoad(win) {
