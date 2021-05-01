@@ -5,7 +5,16 @@ import Button from 'react-bootstrap/Button';
 import RecipesContext from '../../context/RecipesContext';
 
 const FilterButtons = () => {
-  const { categories, handleFilter, cleanCategories } = useContext(RecipesContext);
+  const {
+    categories,
+    category,
+    setCategory,
+    cleanCategories } = useContext(RecipesContext);
+
+  const handleFilter = (filterName) => (
+    category !== filterName ? setCategory(filterName) : cleanCategories()
+  );
+
   return categories.isFetching ? (
     <div>
       <Button block disabled>
