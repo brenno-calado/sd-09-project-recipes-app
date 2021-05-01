@@ -9,7 +9,6 @@ const getRecipes = ({ meals }) => ({ type: GET_RECIPES, payload: meals });
 
 const fetchSearchRecipes = () => (
   (dispatch, getState) => {
-    console.log(getState());
     const { search } = getState();
     dispatch(requestRecipes());
     return fetchApi(search)
