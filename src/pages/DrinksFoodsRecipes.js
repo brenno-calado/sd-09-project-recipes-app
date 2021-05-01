@@ -1,18 +1,24 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useLocation, Redirect } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 import RecipesContext from '../context/RecipesContext';
 import ListRecipes from '../components/ListRecipes';
 
-const FoodRecipes = () => {
+const DrinksFoodsRecipes = () => {
   const pathName = useLocation().pathname.split('/');
-  const { recipes } = useContext(RecipesContext);
+  const { recipes, searchBar, addSearchBar } = useContext(RecipesContext);
+  const { text, radio, seachClicked } = searchBar;
+
+  useEffect(() => {
+    if (recipes.length === 0 && seachClicked) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      addSearchBar(text, radio, false);
+    }
+  }, [recipes]);
 
   let id;
-  if (recipes.length === 0) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
+
   if (recipes.length === 1) {
     if (pathName[1] === 'comidas') {
       id = recipes[0].idMeal;
@@ -31,4 +37,4 @@ const FoodRecipes = () => {
   );
 };
 
-export default FoodRecipes;
+export default DrinksFoodsRecipes;

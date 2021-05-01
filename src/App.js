@@ -3,8 +3,10 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 import Login from './pages/Login';
-import FoodRecipes from './pages/FoodRecipes';
-import DrinkRecipes from './pages/DrinkRecipes';
+// import FoodRecipes from './pages/FoodRecipes';
+// import DrinkRecipes from './pages/DrinkRecipes';
+//  Troquei esses dois componentes por um generico DrinksFoodsRecipes
+import DrinksFoodsRecipes from './pages/DrinksFoodsRecipes';
 import Profile from './pages/Profile';
 import FoodInProgress from './pages/FoodInProgress';
 import DrinkInProgress from './pages/DrinkInProcess';
@@ -26,11 +28,11 @@ const App = () => (
         <Route exact path="/" component={ Login } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
         <Route path="/comidas/:id" component={ MealDetails } />
-        <Route path="/comidas" component={ FoodRecipes } />
+        <Route path="/comidas" component={ DrinksFoodsRecipes } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
-        <Route path="/bebidas" component={ DrinkRecipes } />
+        <Route path="/bebidas" component={ DrinksFoodsRecipes } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
         <Route path="/explorar/comidas/area" component={ FoodArea } />
         <Route path="/explorar/comidas" component={ ExplorerFood } />

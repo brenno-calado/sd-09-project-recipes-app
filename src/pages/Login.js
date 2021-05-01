@@ -12,7 +12,6 @@ const Login = () => {
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
   };
-  console.log(user);
 
   const handleInput = ({ target }) => {
     const { name, value } = target;
