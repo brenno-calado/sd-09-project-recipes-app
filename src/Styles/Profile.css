@@ -6,10 +6,10 @@
 .headerContainer {
   background-color: white;
   display: flex;
+  grid-row: 1;
   justify-content: space-evenly;
   margin-bottom: auto;
   padding: 10px;
-  grid-row: 1;
 }
 
 .mainContainer {
