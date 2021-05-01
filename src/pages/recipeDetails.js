@@ -3,49 +3,61 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import getFoodsAndDrinks from '../services/servicesAPI';
 import IngredientsList from '../components/ingredientList';
+import CardContainer from '../components/cardContainer';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const { pathname } = window.location;
   const isFood = (pathname.split('/')[1] === 'comidas');
+  const pathName = isFood ? '/bebidas' : '/comidas';
   const [recipe, setRecipe] = useState([]);
+  const [recomendations, setRecomendations] = useState([]);
   useEffect(() => {
     async function getRecipe() {
       if (isFood) {
         setRecipe(await getFoodsAndDrinks('meals', 'getById', id));
+        setRecomendations(await getFoodsAndDrinks('drinks', 'getAll'));
       }
       if (!isFood) {
         setRecipe(await getFoodsAndDrinks('drinks', 'getById', id));
+        setRecomendations(await getFoodsAndDrinks('meals', 'getAll'));
       }
     }
     getRecipe();
   }, [isFood, id]);
-  // console.log(recipe);
+  const type = isFood ? 'strMeal' : 'strDrink';
+  const limit = 6;
   return (
     recipe.length > 0
       ? (
         <div>
           <img
-            src={ recipe[0].strMealThumb }
-            alt={ recipe[0].strMeal }
+            src={ recipe[0][`${type}Thumb`] }
+            alt={ recipe[0][type] }
             width="400px"
             data-testid="recipe-photo"
           />
           <h1
             data-testid="recipe-title"
           >
-            { isFood ? recipe[0].strMeal : recipe[0].strDrink }
+            { recipe[0][type] }
           </h1>
           <button type="button" data-testid="share-btn">Compartilhar</button>
           <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <h3 data-testid="recipe-category">{ recipe[0].strCategory }</h3>
-          <h3>{!isFood && recipe[0].strAlcoholic}</h3>
+          <h3
+            data-testid="recipe-category"
+          >
+            { `${recipe[0].strCategory} / ${!isFood && recipe[0].strAlcoholic}` }
+          </h3>
           <IngredientsList recipe={ recipe[0] } />
           <p data-testid="instructions">{recipe[0].strInstructions}</p>
           {isFood && <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` } title={ recipe[0].strMeal } frameBorder="0" allow="accelerometer; encrypted-media; picture-in-picture" allowFullScreen />}
           <button type="button" data-testid="start-recipe-btn">Começar receita</button>
-          <h3 data-testid="0-recomendation-card">Recomendações</h3>
-          {/* <div data-testid={ `${index}-recomendation-card` }>Recomendados</div> */}
+          <CardContainer
+            recipes={ recomendations.slice(0, limit) }
+            path={ pathName }
+            type="recomendations"
+          />
         </div>)
       : <h1>Loading...</h1>
   );

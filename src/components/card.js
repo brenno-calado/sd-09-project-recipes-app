@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 // import { Button, Card } from 'react-bootstrap';
 
 export default function Cards({ image, name, index, url }) {
+  console.log('não recomendados');
   return (
     <Link to={ url }>
       <Card data-testid={ `${index}-recipe-card` }>

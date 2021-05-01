@@ -10,8 +10,11 @@ export default function IngredientsList({ recipe }) {
       item: recipe[`strIngredient${i}`],
       measure: recipe[`strMeasure${i}`],
     };
-    if (newIngredient.item.length < 1) {
+    if (!newIngredient.item) {
       break;
+    }
+    if (newIngredient.measure === null) {
+      newIngredient.measure = '';
     }
     console.log(newIngredient);
     ingredients = [...ingredients, newIngredient];
@@ -19,13 +22,25 @@ export default function IngredientsList({ recipe }) {
   console.log('lista de ingredientes:', ingredients);
   return (
     <ul>
-      {ingredients.map((ing, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {`${ing.measure} of ${ing.item}`}
-        </li>))}
+      {ingredients.map((ing, index) => {
+        if (ing.measure.length > 1) {
+          return (
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`${ing.measure} of ${ing.item}`}
+            </li>);
+        }
+        return (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {ing.item}
+          </li>
+        );
+      })}
     </ul>);
 }
 
