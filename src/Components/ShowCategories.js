@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealCategories, fetchCocktailsCategories } from '../services/ApiRequest';
 
-function ShowCategories({ name }) {
+function ShowCategories({ name, searchResult }) {
   const [categories, setCategories] = useState([]);
   const getCategories = useCallback(async (apiRequest) => {
     const getmealsCategory = await apiRequest();
@@ -14,7 +14,6 @@ function ShowCategories({ name }) {
     else getCategories(fetchCocktailsCategories);
   }, [getCategories, name]);
   const numberOfCategories = 5;
-
   return (
     <div>
       {!categories
@@ -22,21 +21,29 @@ function ShowCategories({ name }) {
         : categories.map(
           (category, index) => (index < numberOfCategories
             && (
-              <span
+              <button
                 type="button"
                 data-testid={ `${category.strCategory}-category-filter` }
                 key={ category.strCategory }
+                onClick={ () => searchResult(category.strCategory) }
               >
                 {category.strCategory}
-              </span>)
+              </button>)
           ),
         )}
+      <button
+        type="button"
+        onClick={ () => searchResult('All') }
+      >
+        All
+      </button>
     </div>
   );
 }
 
 ShowCategories.propTypes = {
   name: PropTypes.string.isRequired,
+  searchResult: PropTypes.func.isRequired,
 };
 
 export default ShowCategories;

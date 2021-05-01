@@ -81,3 +81,17 @@ export async function fetchExplreDrinksRadom() {
   const cocktailCategories = await response.json();
   return cocktailCategories;
 }
+
+export async function fetchMealByCategory(category) {
+  const response = await
+  fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  const mealByCategory = await response.json();
+  return mealByCategory;
+}
+
+export async function fetchCocktailByCategory(category) {
+  const response = await
+  fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  const cocktailByCategory = await response.json();
+  return cocktailByCategory;
+}
