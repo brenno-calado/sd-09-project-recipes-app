@@ -1,7 +1,18 @@
+.profileContainer {
+  display: grid;
+  grid-template-rows: 10vh 80vh 10vh;
+}
+
 .headerContainer {
   background-color: white;
   display: flex;
   justify-content: space-evenly;
   margin-bottom: auto;
   padding: 10px;
+  grid-row: 1;
+}
+
+.mainContainer {
+  grid-row: 2;
+  display: grid;
 }
