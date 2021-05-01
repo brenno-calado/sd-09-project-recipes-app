@@ -1,0 +1,8 @@
+.exploreContainer {
+  display: grid;
+  grid-template-rows: 10vh 5vh 120vh 10vh;
+}
+
+.linksContainer {
+  grid-row: 2;
+}

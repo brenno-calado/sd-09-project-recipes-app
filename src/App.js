@@ -20,39 +20,41 @@ import ExploreDrinksByArea from './Pages/ExploreDrinksByArea';
 
 function App() {
   return (
-    <Switch>
-      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-      <Route path="/receitas-feitas" component={ RecipesDone } />
-      <Route path="/perfil" component={ Profile } />
-      <Route path="/explorar/bebidas/area" component={ ExploreDrinksByArea } />
-      <Route path="/explorar/comidas/area" component={ ExploreFoodByArea } />
-      <Route path="/explorar/bebidas/ingredientes" component={ ExploreDrinkByIng } />
-      <Route path="/explorar/comidas/ingredientes" component={ ExploreFoodByIng } />
-      <Route path="/explorar/bebidas" component={ ExploreDrink } />
-      <Route path="/explorar/comidas" component={ ExploreFood } />
-      <Route path="/explorar" component={ Explore } />
-      {/* <Route
-        path="/bebidas/{id-da-receita}/in-progress"
-        render={ (drink-id) => <DrinkProgress {...drink-id} /> }
-      />
-      <Route
-        path="/comidas/{id-da-receita}/in-progress"
-        render={ (recipe-id) => <FoodProgress {...recipe-id} /> }
-      /> */}
-      <Route
-        path="/bebidas:{id-bebida}"
-        render={ (drinkid) => <DetailsDrinks { ...drinkid } /> }
-      />
-      <Route
-        path="/comidas/:{id-receita}"
-        render={ (recipeid) => <DetailsFood { ...recipeid } /> }
-      />
-      <Route path="/comidas/:id/" component={ DetailsFood } />
-      <Route path="/bebidas/:id/" component={ DetailsDrinks } />
-      <Route path="/bebidas" component={ MainDrink } />
-      <Route path="/comidas" component={ MainFood } />
-      <Route exact path="/" component={ Login } />
-    </Switch>
+    <div className="app">
+      <Switch>
+        <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+        <Route path="/receitas-feitas" component={ RecipesDone } />
+        <Route path="/perfil" component={ Profile } />
+        <Route path="/explorar/bebidas/area" component={ ExploreDrinksByArea } />
+        <Route path="/explorar/comidas/area" component={ ExploreFoodByArea } />
+        <Route path="/explorar/bebidas/ingredientes" component={ ExploreDrinkByIng } />
+        <Route path="/explorar/comidas/ingredientes" component={ ExploreFoodByIng } />
+        <Route path="/explorar/bebidas" component={ ExploreDrink } />
+        <Route path="/explorar/comidas" component={ ExploreFood } />
+        <Route path="/explorar" component={ Explore } />
+        {/* <Route
+          path="/bebidas/{id-da-receita}/in-progress"
+          render={ (drink-id) => <DrinkProgress {...drink-id} /> }
+        />
+        <Route
+          path="/comidas/{id-da-receita}/in-progress"
+          render={ (recipe-id) => <FoodProgress {...recipe-id} /> }
+        /> */}
+        <Route
+          path="/bebidas:{id-bebida}"
+          render={ (drinkid) => <DetailsDrinks { ...drinkid } /> }
+        />
+        <Route
+          path="/comidas/:{id-receita}"
+          render={ (recipeid) => <DetailsFood { ...recipeid } /> }
+        />
+        <Route path="/comidas/:id/" component={ DetailsFood } />
+        <Route path="/bebidas/:id/" component={ DetailsDrinks } />
+        <Route path="/bebidas" component={ MainDrink } />
+        <Route path="/comidas" component={ MainFood } />
+        <Route exact path="/" component={ Login } />
+      </Switch>
+    </div>
   );
 }
 
