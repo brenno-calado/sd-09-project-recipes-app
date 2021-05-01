@@ -31,8 +31,21 @@ function Categories() {
     }
   };
 
+  const handleClick = async () => {
+    const category = pathname.includes('comidas') ? 'comidas' : 'bebidas';
+    const allRecipes = await getAllRecipes(category);
+    setRecipesResult(allRecipes);
+  };
+
   return categories ? (
     <>
+      <button
+        type="button"
+        onClick={ handleClick }
+        data-testid="All-category-filter"
+      >
+        All
+      </button>
       { categories
         .filter((_, index) => index < CINCO)
         .map(({ strCategory }, index) => (
