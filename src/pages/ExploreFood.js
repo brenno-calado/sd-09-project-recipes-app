@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
-import Header from '../components/Header';
+import Header from '../components/Header/index';
 import Menu from '../components/Menu';
 import { getRandomFood } from '../services/FoodAPI';
 
