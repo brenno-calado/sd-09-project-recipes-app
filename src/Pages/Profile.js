@@ -66,7 +66,6 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  email: PropTypes.string.isRequired,
   history: PropTypes.string.isRequired,
 };
 
