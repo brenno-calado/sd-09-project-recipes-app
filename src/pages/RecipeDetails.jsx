@@ -55,7 +55,7 @@ function RecipeDetails() {
             <div className="buttons-section">
               <DetailsBtnFavoriteRecipe />
               <DetailsBtnShareRecipe />
-              <DetailsBtnStartRecipe detailsContext={ detailsContextProps } />
+              <DetailsBtnStartRecipe />
             </div>
             <RecipeVideo detailsContext={ detailsContextProps } />
             <RecomendedRecipes detailsContext={ detailsContextProps } />
