@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom';
 function Login() {
   const [button, setButton] = useState(true);
 
+  /* Regex found at: https://github.com/tryber/sd-09-live-lectures/tree/lecture/12.2 */
   const validateInputs = (email, password) => {
-    const regex = /[a-zA-Z0-9\-_.]+@[a-zA-Z0-9]+.[a-z]+$/gm.test(email);
+    const regex = /^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/igm.test(email);
     const passwordLimit = 6;
     if (regex && password.length >= passwordLimit) {
       setButton(false);

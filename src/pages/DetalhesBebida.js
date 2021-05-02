@@ -7,13 +7,46 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+
+const checkDoneRecipes = (recipeId) => {
+  if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
+    return true;
+  }
+  return false;
+};
+
+const handleFavorite = (idDetails, favoriteRecipe, removeFromFavorite, checkFavorite) => {
+  const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = idDetails;
+  if (!checkFavorite(idDrink)) {
+    favoriteRecipe({
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+    });
+  } else {
+    removeFromFavorite(idDrink);
+  }
+};
+
+const handleButtonName = (id) => {
+  if (inProgressRecipes) {
+    if (inProgressRecipes.cocktails) {
+      return inProgressRecipes.cocktails[id] ? 'Continuar Receita' : 'Iniciar Receita';
+    }
+    return 'Iniciar Receita';
+  }
+};
+
 const DetalhesBebida = () => {
   const {
     favoriteRecipe,
     removeFromFavorite,
-    addToFavorites,
-    removeFromTheFavorites,
-    favorites,
   } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -59,28 +92,15 @@ const DetalhesBebida = () => {
     setRecomendations(results.splice(0, MAX_RECOMENDATION));
   };
 
-  const handleShare = () => {
-    copy(`http://localhost:3000/${pathname}`);
-    setLinkShared(true);
+  const checkFavorite = (recipeId) => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+    return false;
   };
 
-  const handleFavorite = () => {
-    const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = idDetails;
-    if (!favorites[idDrink]) {
-      addToFavorites(idDrink);
-      favoriteRecipe({
-        id: idDrink,
-        type: 'drink',
-        area: '',
-        category: strCategory,
-        alcoholicOrNot: strAlcoholic,
-        name: strDrink,
-        image: strDrinkThumb,
-      });
-    } else {
-      removeFromTheFavorites(idDrink);
-      removeFromFavorite(idDrink);
-    }
+  const handleShare = () => {
+    copy(`http://localhost:3000${pathname}`);
+    setLinkShared(true);
   };
 
   useEffect(() => {
@@ -95,12 +115,22 @@ const DetalhesBebida = () => {
     <div>
       <img src={ strDrinkThumb } alt={ strDrink } data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
-      <button type="button" data-testid="share-btn" onClick={ handleShare }>
-        <img src={ shareImg } alt="Compartilhar" />
+      <button type="button" onClick={ () => handleShare() }>
+        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
       </button>
       { linkShared && <p>Link copiado!</p> }
-      <button type="button" data-testid="favorite-btn" onClick={ handleFavorite }>
-        <img src={ favorites[idDrink] ? blackHeartImg : whiteHeartImg } alt="Favoritar" />
+      <button
+        type="button"
+        onClick={
+          () => (
+            handleFavorite(idDetails, favoriteRecipe, removeFromFavorite, checkFavorite))
+        }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ checkFavorite(idDrink) ? blackHeartImg : whiteHeartImg }
+          alt="Favoritar"
+        />
       </button>
       <p data-testid="recipe-category">{strAlcoholic}</p>
       { idDetails && getIngredients().map((ingredient, index) => (
@@ -113,23 +143,25 @@ const DetalhesBebida = () => {
       { recomendations.map((food, index) => (
         <div data-testid={ `${index}-recomendation-card` } key={ food.idMeal }>
           <img
-            data-testid={ `${index}-card-img` }
+            data-testid={ `${index}-recomendation-img` }
             src={ food.strMealThumb }
             alt={ food.strMeal }
             width="100px"
           />
-          <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
+          <p data-testid={ `${index}-recomendation-title` }>{food.strMeal}</p>
         </div>
       )) }
-      <Link to={ `${id}/in-progress` }>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
-      </Link>
+      { !checkDoneRecipes(idDrink) && (
+        <Link to={ `${id}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+          >
+            { handleButtonName(idDrink) }
+          </button>
+        </Link>
+      ) }
     </div>
   );
 };

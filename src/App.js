@@ -37,9 +37,10 @@ const App = () => (
     <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
     <Route path="/explorar/comidas" component={ ExplorarComidas } />
     <Route
-      path="/explorar/bebibas/ingredientes"
+      path="/explorar/bebidas/ingredientes"
       component={ ExplorarBebidasIngredientes }
     />
+    <Route path="/explorar/bebidas/area" component={ NotFound } />
     <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
     <Route path="/explorar" component={ Explorar } />
     <Route path="/perfil" component={ Perfil } />

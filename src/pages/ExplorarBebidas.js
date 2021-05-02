@@ -1,9 +1,21 @@
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getRandomDrink } from '../services';
 
 function Explorar() {
+  const [randomDrink, setRandomDrink] = useState({});
+
+  const fetchRandomDrink = async () => {
+    const response = await getRandomDrink();
+    setRandomDrink(response);
+  };
+
+  useEffect(() => {
+    fetchRandomDrink();
+  }, []);
+
   return (
     <>
       <Header title="Explorar Bebidas" searchIcon={ false } />
@@ -15,7 +27,7 @@ function Explorar() {
           Por Ingredientes
         </button>
       </Link>
-      <Link to="/bebidas/178319">
+      <Link to={ `/bebidas/${randomDrink.idDrink}` }>
         <button
           type="button"
           data-testid="explore-surprise"

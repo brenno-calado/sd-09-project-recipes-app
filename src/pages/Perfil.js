@@ -5,12 +5,13 @@ import Footer from '../components/Footer';
 import 'react-bootstrap';
 
 function Perfil() {
+  const email = JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('user')).email
+    : '';
   return (
     <>
       <Header title="Perfil" searchIcon={ false } />
-      <h4 data-testid="profile-email">
-        { JSON.parse(localStorage.getItem('user')).email }
-      </h4>
+      <h4 data-testid="profile-email">{email}</h4>
       <Link to="/receitas-feitas">
         <button
           className="btn btn-warning"
