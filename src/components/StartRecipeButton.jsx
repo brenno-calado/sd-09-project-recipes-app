@@ -2,29 +2,28 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToStartedRecipe } from '../redux/actions';
 
-function StartRecipeButton({
-  recipe,
-  startRecipe,
-  startedRecipes,
-  finishedRecipes,
-  id,
-}) {
+function StartRecipeButton({ id, recipe, recipeType, ingredients }) {
   const [recipeState, setRecipeState] = useState();
 
   const verifyIfRecipeWasStarted = useCallback(() => {
-    const mealsStarted = startedRecipes.some((item) => (
-      item.idMeal === recipe.idMeal
+    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+    const { cocktails, meals } = startedRecipes;
+    const mealsKeys = Object.keys(meals);
+    const cocktailsKeys = Object.keys(cocktails);
+    const mealsStarted = mealsKeys.some((key) => (
+      key === recipe.idMeal
     ));
-    const cocktailsStarted = startedRecipes.some((item) => (
-      item.idDrink === recipe.idDrink
+    const cocktailsStarted = cocktailsKeys.some((key) => (
+      key === recipe.idDrink
     ));
+
     if (mealsStarted || cocktailsStarted) setRecipeState('started');
-    if (!mealsStarted || !cocktailsStarted) setRecipeState(undefined);
-  }, [startedRecipes, recipe]);
+  }, [recipe]);
 
   const verifyIfRecipeWasFinished = useCallback(() => {
+    const finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const mealsFinished = finishedRecipes.some((item) => (
       item.idMeal === recipe.idMeal
     ));
@@ -32,18 +31,39 @@ function StartRecipeButton({
       item.idDrink === recipe.idDrink
     ));
     if (mealsFinished || cocktailsFinished) setRecipeState('finished');
-  }, [finishedRecipes, recipe]);
+  }, [recipe]);
 
   useEffect(() => {
+    if (!localStorage.getItem('doneRecipes')) {
+      localStorage.setItem('doneRecipes', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('inProgressRecipes')) {
+      const object = {
+        cocktails: {},
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(object));
+    }
     verifyIfRecipeWasStarted();
     verifyIfRecipeWasFinished();
   }, [recipe, verifyIfRecipeWasStarted, verifyIfRecipeWasFinished]);
+
+  const startRecipe = () => {
+    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const { cocktails, meals } = startedRecipes;
+    if (recipeType === 'meals') {
+      meals[recipe.idMeal] = ingredients;
+    } else {
+      cocktails[recipe.idDrink] = ingredients;
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(startedRecipes));
+  };
 
   const startRecipeButton = (
     <Link to={ `/comidas/${id}/in-progress` }>
       <button
         type="button"
-        onClick={ () => startRecipe(recipe) }
+        onClick={ startRecipe }
         data-testid="start-recipe-btn"
       >
         { !recipeState ? 'Iniciar Receita' : 'Continuar Receita' }
@@ -52,7 +72,7 @@ function StartRecipeButton({
   );
 
   return (
-    <div>
+    <div className="start-recipe-btn-container">
       { recipeState !== 'finished' && startRecipeButton }
     </div>
   );
@@ -60,20 +80,15 @@ function StartRecipeButton({
 
 const mapStateToProps = (state) => ({
   recipe: state.recipeDetailsReducer.recipe,
-  startedRecipes: state.recipeDetailsReducer.startedRecipes,
-  finishedRecipes: state.recipeDetailsReducer.finishedRecipes,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  startRecipe: (recipe) => dispatch(addToStartedRecipe(recipe)),
+  recipeType: state.recipesReducer.recipeType,
+  ingredients: state.recipeDetailsReducer.ingredients,
 });
 
 StartRecipeButton.propTypes = {
-  recipe: PropTypes.objectOf().isRequired,
-  startRecipe: PropTypes.func.isRequired,
-  startedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  finishedRecipes: PropTypes.arrayOf(PropTypes.object).isRequired,
   id: PropTypes.string.isRequired,
+  recipe: PropTypes.objectOf().isRequired,
+  recipeType: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StartRecipeButton);
+export default connect(mapStateToProps)(StartRecipeButton);

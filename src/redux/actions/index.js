@@ -6,9 +6,10 @@ import {
   FETCHING_CATEGORIES,
   SUCCESS_CATEGORIES,
   FAILURE_CATEGORIES,
+  FETCHING_RECIPE,
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
-  ADD_STARTED_RECIPE,
+  SAVE_INGREDIENTS,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -151,6 +152,10 @@ export function cocktailsByCategoriesThunk(category) {
   };
 }
 
+export const fetchingRecipe = () => ({
+  type: FETCHING_RECIPE,
+});
+
 const successRecipe = (data) => ({
   type: SUCCESS_RECIPE,
   data,
@@ -158,7 +163,7 @@ const successRecipe = (data) => ({
 
 export function mealsByIdThunk(id) {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingRecipe());
     return fetchMealsById(id)
       .then((data) => dispatch(successRecipe(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -167,7 +172,7 @@ export function mealsByIdThunk(id) {
 
 export function cocktailsByIdThunk(id) {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingRecipe());
     return fetchCocktailsById(id)
       .then((data) => dispatch(successRecipe(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -197,7 +202,7 @@ export function cocktailsRecommendedThunk() {
   };
 }
 
-export const addToStartedRecipe = (recipe) => ({
-  type: ADD_STARTED_RECIPE,
-  recipe,
+export const saveIngredients = (ingredients) => ({
+  type: SAVE_INGREDIENTS,
+  ingredients,
 });

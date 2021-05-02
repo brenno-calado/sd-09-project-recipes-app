@@ -1,14 +1,38 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteButton({ recipe, recipeType }) {
-  const saveFavoriteRecipe = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  const [isFavorite, setIsFavorite] = useState();
+
+  const getObject = () => {
+    if (recipeType === 'meals') {
+      const object = {
+        id: recipe.idMeal,
+        type: 'comida',
+        area: recipe.strArea,
+        category: recipe.strCategory,
+        alcoholicOrNot: '',
+        name: recipe.strMeal,
+        image: recipe.strMealThumb,
+      };
+      return object;
     }
+    const object = {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
+    return object;
+  };
+
+  const saveFavoriteRecipe = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const isInArray = favorites
       .some((elem) => elem.id === recipe.idMeal || elem.id === recipe.idDrink);
@@ -17,52 +41,48 @@ function FavoriteButton({ recipe, recipeType }) {
         .findIndex((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
       favorites.splice(index, 1);
       localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
+      setIsFavorite(true);
     } else {
-      const object = {
-        id: (recipeType === 'meals' ? recipe.idMeal : recipe.idDrink),
-        type: recipeType,
-        area: (recipeType === 'meals' ? recipe.strArea : ''),
-        category: recipe.strCategory,
-        alcoholicOrNot: (recipeType === 'meals' ? '' : recipe.strAlcoholic),
-        name: (recipeType === 'meals' ? recipe.strMeal : recipe.strDrink),
-        image: (recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb),
-      };
+      const object = getObject();
       const newArray = [...favorites, object];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
+      setIsFavorite(false);
     }
   };
 
-  const renderImg = () => {
-    const white = (
-      <img
-        src={ whiteHeartIcon }
-        alt="favorite button"
-      />
-    );
-    const black = (
-      <img
-        src={ blackHeartIcon }
-        alt="favorite button"
-      />
-    );
+  useEffect(() => {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const isInArray = favorites
-      .some((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
+      .some((elem) => elem.id === recipe.idMeal || elem.id === recipe.idDrink);
     if (isInArray) {
-      return black;
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
     }
-    return white;
-  };
+  }, [isFavorite, recipe]);
 
-  console.log('renderizei');
   return (
     <div>
       <button
         type="button"
         data-testid="favorite-btn"
         onClick={ saveFavoriteRecipe }
+        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
       >
-        { renderImg() }
+        { isFavorite ? (
+          <img
+            src={ blackHeartIcon }
+            alt="favorite button"
+          />
+        ) : (
+          <img
+            src={ whiteHeartIcon }
+            alt="favorite button"
+          />
+        )}
       </button>
     </div>
   );

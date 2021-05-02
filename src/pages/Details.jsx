@@ -1,47 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { mealsByIdThunk, cocktailsByIdThunk } from '../redux/actions';
+import {
+  mealsByIdThunk, cocktailsByIdThunk, savePath, fetchingRecipe,
+} from '../redux/actions';
 import RecommendedRecipes from '../components/RecommendedRecipes';
 import StartRecipeButton from '../components/StartRecipeButton';
+import ShareRecipeButton from '../components/ShareRecipeButton';
 import FavoriteButton from '../components/FavoriteButton';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import IngredientsList from '../components/IngredientsList';
+import '../css/Details.css';
 
 function Details({
-  history,
   match: { params: { id } },
   mealsById,
   cocktailsById,
   recipeType,
   recipe,
+  history,
+  pathnameDispatcher,
+  isFetchingRecipe,
+  loading,
 }) {
-  const [ingredients, setIngredients] = useState([]);
-  const [showMessage, setShowMessage] = useState(false);
+  const { location: { pathname } } = history;
 
-  const getIngredients = () => {
-    const chave = 'strIngredient';
-    const valor = 'strMeasure';
-    const arrayKeys = Object.keys(recipe);
-    const ingredientKeys = arrayKeys.filter((key) => key.includes(chave));
-    const measureKeys = arrayKeys.filter((key) => key.includes(valor));
-    const obj = {};
-    for (let index = 0; index < ingredientKeys.length; index += 1) {
-      obj[recipe[ingredientKeys[index]]] = recipe[measureKeys[index]];
+  useEffect(() => {
+    loading();
+    const split = pathname.split('/');
+    if (split[1] === 'comidas') {
+      pathnameDispatcher(pathname, 'meals');
     }
-    setIngredients(Object.entries(obj));
-  };
-
-  const getLink = async () => {
-    const magicNumber = 4000;
-    const { location: { pathname } } = history;
-    const link = `http://localhost:3000${pathname}`;
-    await navigator.clipboard.writeText(link);
-    setShowMessage(true);
-    setTimeout(() => { setShowMessage(false); }, magicNumber);
-  };
+    if (split[1] === 'bebidas') {
+      pathnameDispatcher(pathname, 'cocktails');
+    }
+  }, []);
 
   useEffect(() => {
     if (recipeType === 'meals') {
@@ -50,12 +43,9 @@ function Details({
     if (recipeType === 'cocktails') {
       cocktailsById(id);
     }
-  }, []);
+  }, [recipeType]);
 
-  useEffect(() => {
-    getIngredients();
-  }, [recipe]);
-
+  if (isFetchingRecipe) return <div>Loading...</div>;
   return (
     <section>
       <h1>Detalhes da Receita</h1>
@@ -64,45 +54,19 @@ function Details({
         alt="current recipe"
         data-testid="recipe-photo"
       />
-      <div>
-        <button
-          type="button"
-          onClick={ getLink }
-          data-testid="share-btn"
-        >
-          <img src={ shareIcon } alt="botao de compartilhar" />
-          Compartilhar
-        </button>
-      </div>
+      <ShareRecipeButton pathname={ pathname } />
       <FavoriteButton />
-      { showMessage && <p>Link copiado!</p> }
       <div>
         <p data-testid="recipe-title">
           { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
         </p>
-        <p data-testid="recipe-category">{ recipe.strCategory }</p>
-        { recipeType === 'cocktails' && <p>{ recipe.strAlcoholic }</p>}
+        <p data-testid="recipe-category">
+          { recipeType === 'meals' ? recipe.strCategory : recipe.strAlcoholic }
+        </p>
+        {/* <p data-testid="recipe-category">{ recipe.strCategory }</p> */}
+        {/* { recipeType === 'cocktails' && <p>{ recipe.strAlcoholic }</p>} */}
       </div>
-      <div>
-        <ul>
-          {
-            recipe.length !== 0 && ingredients !== undefined
-            && ingredients.map((ingredient, index) => {
-              if (ingredient[0] === '') {
-                return;
-              }
-              return (
-                <li
-                  key={ ingredient }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  { `${ingredient[0]}: ${ingredient[1]}` }
-                </li>
-              );
-            })
-          }
-        </ul>
-      </div>
+      <IngredientsList />
       <div>
         <p data-testid="instructions">{ recipe.strInstructions }</p>
         <div>
@@ -124,11 +88,14 @@ const mapStateToProps = (state) => ({
   startedCocktails: state.recipeDetailsReducer.startedCocktails,
   finishedMeals: state.recipeDetailsReducer.finishedMeals,
   finishedCocktails: state.recipeDetailsReducer.finishedCocktails,
+  isFetchingRecipe: state.recipeDetailsReducer.isFetchingRecipe,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   mealsById: (id) => dispatch(mealsByIdThunk(id)),
   cocktailsById: (id) => dispatch(cocktailsByIdThunk(id)),
+  pathnameDispatcher: (pathname, recipeType) => dispatch(savePath(pathname, recipeType)),
+  loading: () => dispatch(fetchingRecipe()),
 });
 
 Details.propTypes = {
@@ -140,6 +107,9 @@ Details.propTypes = {
   recipeType: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf().isRequired,
   history: PropTypes.objectOf().isRequired,
+  pathnameDispatcher: PropTypes.func.isRequired,
+  isFetchingRecipe: PropTypes.bool.isRequired,
+  loading: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Details);
