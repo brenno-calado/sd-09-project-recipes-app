@@ -47,6 +47,16 @@ function Provider({ children }) {
     fetchDrinksList();
   }, [selectedDrinksCategory]);
 
+  function setFoodsListBySearchResult(recipeList) {
+    setFoodsList(recipeList);
+    selectedFoodsCategory('');
+  }
+
+  function setDrinksListBySearchResult(recipeList) {
+    setDrinksList(recipeList);
+    selectedDrinksCategory('');
+    console.log(recipeList);
+  }
   const contextValue = {
     login,
     setLogin,
@@ -58,6 +68,8 @@ function Provider({ children }) {
     setSelectedFoodsCategory,
     selectedDrinksCategory,
     setSelectedDrinksCategory,
+    setFoodsListBySearchResult,
+    setDrinksListBySearchResult,
   };
 
   return (
