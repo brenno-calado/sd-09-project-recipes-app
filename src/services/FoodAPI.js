@@ -98,11 +98,11 @@ const getFoodIngredientThumbnail = async (food) => {
 };
 
 export {
-  getFoodByCategory,
-  getFoodCategories,
   getFoodAll,
   getRandomFood,
   getFoodByName,
+  getFoodByCategory,
+  getFoodCategories,
   getFoodByFirstLetter,
   getFoodByIngredient,
   getFoodIngredientsList,

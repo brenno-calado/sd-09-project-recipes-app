@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
 import RecipesContext from './RecipesContext';
 import {
   getDrinksAll,
@@ -25,72 +24,85 @@ const Provider = ({ children }) => {
   });
   const [category, setCategory] = useState('All');
   const [recipesType, setRecipesType] = useState('');
+  const recipesTypeSufix = recipesType === 'meals' ? 'Meal' : 'Drink';
   const location = useLocation();
+  const history = useHistory();
 
   const changeRecipesType = () => {
     switch (location.pathname) {
-    case '/bebidas':
-      setRecipesType('drinks');
+    case '/bebidas': setRecipesType('drinks');
       break;
-    case '/comidas':
-      setRecipesType('meals');
+    case '/comidas': setRecipesType('meals');
       break;
-    default:
-      setRecipesType(recipesType);
+    default: setRecipesType(recipesType);
+      break;
     }
   };
 
-  const checkCategoryAndGetFood = () => (
-    category === 'All'
-      ? getFoodAll()
-      : getFoodByCategory(category));
+  const checkType = (foodRequest, drinkRequest, option) => {
+    const response = recipesType === 'meals'
+      ? foodRequest(option)
+      : drinkRequest(option);
 
-  const checkCategoryAndGetDrinks = () => (
-    category === 'All'
-      ? getDrinksAll()
-      : getDrinksByCategory(category));
+    return response;
+  };
 
-  const requestRecipes = async () => {
-    try {
-      const listSize = 12;
-      setRecipes({ ...recipes, isFetching: true });
-      const recipesResponse = recipesType === 'meals'
-        ? await checkCategoryAndGetFood()
-        : await checkCategoryAndGetDrinks();
-      const newRecipeList = recipesResponse[recipesType].slice(0, listSize);
-      setRecipes({
-        recipesList: newRecipeList,
-        isFetching: false,
-      });
-    } catch (error) {
-      console.log(error);
+  const checkCategory = () => (
+    category === 'All'
+      ? checkType(getFoodAll, getDrinksAll)
+      : checkType(getFoodByCategory, getDrinksByCategory, category)
+  );
+
+  const handleResponseFromSearch = (response) => {
+    const listSize = 12;
+    const responseList = response[recipesType];
+
+    if (!responseList) {
+      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      setRecipes({ ...recipes, isFetching: false });
+    } else if (responseList.length === 1) {
+      history.push(`\
+${location.pathname}/${responseList[0][`id${recipesTypeSufix}`]}`);
+    } else {
+      const newRecipeList = responseList.slice(0, listSize);
+      setRecipes({ recipesList: newRecipeList, isFetching: false });
     }
   };
 
-  const requestCategories = async () => {
-    try {
-      const categoriesSize = 5;
-      setCategories({ ...categories, isFetching: true });
-      const categoriesResponse = recipesType === 'meals'
-        ? await getFoodCategories()
-        : await getDrinksCategories();
-      const newCategoriesList = categoriesResponse[recipesType].slice(0, categoriesSize);
-      setCategories({
-        categoriesList: newCategoriesList,
-        isFetching: false,
-      });
-    } catch (error) {
-      console.log(error);
+  const requestLists = async () => {
+    const recipeListSize = 12;
+    const categoriesListSize = 5;
+
+    setRecipes({ ...recipes, isFetching: true });
+    setCategories({ ...categories, isFetching: true });
+
+    const recipesResponse = await checkCategory();
+    const categoriesResponse = await checkType(getFoodCategories, getDrinksCategories);
+
+    if (recipesResponse[recipesType] && categoriesResponse[recipesType]) {
+      const newRecipesList = recipesResponse[recipesType]
+        .slice(0, recipeListSize);
+      const newCategoriesList = categoriesResponse[recipesType]
+        .slice(0, categoriesListSize);
+
+      setRecipes({ recipesList: newRecipesList, isFetching: false });
+      setCategories({ categoriesList: newCategoriesList, isFetching: false });
     }
+  };
+
+  const requestSearch = async (foodSearchRequest, drinkSearchRequest, query) => {
+    setRecipes({ ...recipes, isFetching: true });
+    const recipesResponse = await checkType(
+      foodSearchRequest,
+      drinkSearchRequest,
+      query,
+    );
+    handleResponseFromSearch(recipesResponse);
   };
 
   const cleanCategories = () => {
     setCategory('All');
   };
-
-  const handleFilter = (filterName) => (
-    category !== filterName ? setCategory(filterName) : cleanCategories()
-  );
 
   useEffect(() => {
     changeRecipesType();
@@ -98,22 +110,17 @@ const Provider = ({ children }) => {
   }, [location]);
 
   useEffect(() => {
-    if (recipesType) {
-      requestRecipes();
-    }
+    requestLists();
   }, [category, recipesType]);
-
-  useEffect(() => {
-    if (recipesType) {
-      requestCategories();
-    }
-  }, [recipesType]);
 
   const contextValue = {
     recipes,
+    category,
     categories,
+    recipesTypeSufix,
     recipesType,
-    handleFilter,
+    setCategory,
+    requestSearch,
     cleanCategories,
     changeRecipesType,
   };

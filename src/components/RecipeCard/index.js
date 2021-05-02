@@ -15,7 +15,7 @@ const RecipeCard = ({ recipeName, recipeImage, index, id }) => {
           data-testid={ `${index}-card-img` }
           alt={ `foto de ${recipeName}` }
         />
-        <p data-testid={ `${index}-card-name` }>{ recipeName }</p>
+        <span data-testid={ `${index}-card-name` }>{ recipeName }</span>
       </div>
     </Link>
   );
