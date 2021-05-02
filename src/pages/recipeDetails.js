@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import getFoodsAndDrinks from '../services/servicesAPI';
 import IngredientsList from '../components/ingredientList';
-import CardContainer from '../components/cardContainer';
+import CarouselContainer from '../components/recContainer';
+import StartButton from '../components/startEndButton';
 
 export default function RecipeDetails() {
   const { id } = useParams();
   const { pathname } = window.location;
   const isFood = (pathname.split('/')[1] === 'comidas');
-  const pathName = isFood ? '/bebidas' : '/comidas';
+  const recPath = isFood ? '/bebidas' : '/comidas';
   const [recipe, setRecipe] = useState([]);
   const [recomendations, setRecomendations] = useState([]);
   useEffect(() => {
@@ -47,16 +48,16 @@ export default function RecipeDetails() {
           <h3
             data-testid="recipe-category"
           >
-            { `${recipe[0].strCategory} / ${!isFood && recipe[0].strAlcoholic}` }
+            {recipe[0].strCategory}
+            {!isFood && recipe[0].strAlcoholic}
           </h3>
           <IngredientsList recipe={ recipe[0] } />
           <p data-testid="instructions">{recipe[0].strInstructions}</p>
           {isFood && <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` } title={ recipe[0].strMeal } frameBorder="0" allow="accelerometer; encrypted-media; picture-in-picture" allowFullScreen />}
-          <button type="button" data-testid="start-recipe-btn">Começar receita</button>
-          <CardContainer
+          <StartButton />
+          <CarouselContainer
             recipes={ recomendations.slice(0, limit) }
-            path={ pathName }
-            type="recomendations"
+            path={ recPath }
           />
         </div>)
       : <h1>Loading...</h1>
