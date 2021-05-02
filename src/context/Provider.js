@@ -55,14 +55,16 @@ const Provider = ({ children }) => {
 
   const handleResponseFromSearch = (response) => {
     const listSize = 12;
-    if (!response[recipesType]) {
+    const responseList = response[recipesType];
+
+    if (!responseList) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setRecipes({ ...recipes, isFetching: false });
-    } else if (response[recipesType].length === 1) {
+    } else if (responseList.length === 1) {
       history.push(`\
-${location.pathname}/${response[recipesType][0][`id${recipesTypeSufix}`]}`);
+${location.pathname}/${responseList[0][`id${recipesTypeSufix}`]}`);
     } else {
-      const newRecipeList = response[recipesType].slice(0, listSize);
+      const newRecipeList = responseList.slice(0, listSize);
       setRecipes({ recipesList: newRecipeList, isFetching: false });
     }
   };
