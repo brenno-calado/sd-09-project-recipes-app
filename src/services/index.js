@@ -8,6 +8,8 @@ const types = {
 
 const selectors = {
   ingredient: 'api/json/v1/1/filter.php?i=',
+  categorie: 'api/json/v1/1/filter.php?c=',
+  area: 'api/json/v1/1/filter.php?a=',
   name: 'api/json/v1/1/search.php?s=',
   letters: 'api/json/v1/1/search.php?f=',
   image: 'images/ingredients/',

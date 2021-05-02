@@ -6,7 +6,7 @@ import ProfileIcon from '../../images/profileIcon.svg';
 import SearchIcon from '../../images/searchIcon.svg';
 import SearchFilters from '../SearchFilters';
 
-export default function Header({ title, canFind }) {
+export default function Header({ title, canFind, setFilter }) {
   const [searchFilters, setSearchFilters] = useState(false);
 
   const handleFilters = () => {
@@ -24,23 +24,20 @@ export default function Header({ title, canFind }) {
           />
         </Link>
         <span data-testid="page-title">{title}</span>
-        {
-          canFind
-          && (
-            <S.SearchButton
-              onClick={ handleFilters }
-              bgColor={ searchFilters ? '#82fa3d' : '#c3fff2' }
-            >
-              <img
-                src={ SearchIcon }
-                alt="search-icon"
-                data-testid="search-top-btn"
-              />
-            </S.SearchButton>
-          )
-        }
+        {canFind && (
+          <S.SearchButton
+            onClick={ handleFilters }
+            bgColor={ searchFilters ? '#82fa3d' : '#c3fff2' }
+          >
+            <img
+              src={ SearchIcon }
+              alt="search-icon"
+              data-testid="search-top-btn"
+            />
+          </S.SearchButton>
+        )}
       </S.Header>
-      { searchFilters && <SearchFilters /> }
+      {searchFilters && <SearchFilters setFilter={ setFilter } />}
     </>
   );
 }
@@ -48,6 +45,7 @@ export default function Header({ title, canFind }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   canFind: PropTypes.bool,
+  setFilter: PropTypes.func.isRequired,
 };
 
 Header.defaultProps = {
