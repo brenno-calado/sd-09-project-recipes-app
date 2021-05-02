@@ -39,14 +39,6 @@ const Provider = ({ children }) => {
     }
   };
 
-  const checkFoodCategory = () => (
-    category === 'All' ? getFoodAll() : getFoodByCategory(category)
-  );
-
-  const checkDrinksCategory = () => (
-    category === 'All' ? getDrinksAll() : getDrinksByCategory(category)
-  );
-
   const checkType = (foodRequest, drinkRequest, option) => {
     const response = recipesType === 'meals'
       ? foodRequest(option)
@@ -55,59 +47,55 @@ const Provider = ({ children }) => {
     return response;
   };
 
+  const checkCategory = () => (
+    category === 'All'
+      ? checkType(getFoodAll, getDrinksAll)
+      : checkType(getFoodByCategory, getDrinksByCategory, category)
+  );
+
   const handleResponseFromSearch = (response) => {
     const listSize = 12;
     if (!response[recipesType]) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       setRecipes({ ...recipes, isFetching: false });
-    } else if (response && response[recipesType].length === 1) {
+    } else if (response[recipesType].length === 1) {
       history.push(`\
 ${location.pathname}/${response[recipesType][0][`id${recipesTypeSufix}`]}`);
-    }
-    const newRecipeList = response[recipesType].slice(0, listSize);
-    setRecipes({ recipesList: newRecipeList, isFetching: false });
-  };
-
-  const requestRecipes = async () => {
-    const listSize = 12;
-    try {
-      setRecipes({ ...recipes, isFetching: true });
-      const recipesResponse = await checkType(checkFoodCategory, checkDrinksCategory);
-      if (recipesResponse[recipesType]) {
-        const newResponseList = recipesResponse[recipesType].slice(0, listSize);
-        setRecipes({ recipesList: newResponseList, isFetching: false });
-      }
-    } catch (error) {
-      console.log(error);
+    } else {
+      const newRecipeList = response[recipesType].slice(0, listSize);
+      setRecipes({ recipesList: newRecipeList, isFetching: false });
     }
   };
 
-  const requestCategories = async () => {
-    const listSize = 5;
-    try {
-      setRecipes({ ...recipes, isFetching: true });
-      const categoriesResponse = await checkType(getFoodCategories, getDrinksCategories);
-      if (categoriesResponse[recipesType]) {
-        const newResponseList = categoriesResponse[recipesType].slice(0, listSize);
-        setCategories({ categoriesList: newResponseList, isFetching: false });
-      }
-    } catch (error) {
-      console.log(error);
+  const requestLists = async () => {
+    const recipeListSize = 12;
+    const categoriesListSize = 5;
+
+    setRecipes({ ...recipes, isFetching: true });
+    setCategories({ ...categories, isFetching: true });
+
+    const recipesResponse = await checkCategory();
+    const categoriesResponse = await checkType(getFoodCategories, getDrinksCategories);
+
+    if (recipesResponse[recipesType] && categoriesResponse[recipesType]) {
+      const newRecipesList = recipesResponse[recipesType]
+        .slice(0, recipeListSize);
+      const newCategoriesList = categoriesResponse[recipesType]
+        .slice(0, categoriesListSize);
+
+      setRecipes({ recipesList: newRecipesList, isFetching: false });
+      setCategories({ categoriesList: newCategoriesList, isFetching: false });
     }
   };
 
   const requestSearch = async (foodSearchRequest, drinkSearchRequest, query) => {
-    try {
-      setRecipes({ ...recipes, isFetching: true });
-      const recipesResponse = await checkType(
-        foodSearchRequest,
-        drinkSearchRequest,
-        query,
-      );
-      handleResponseFromSearch(recipesResponse);
-    } catch (error) {
-      console.log(error);
-    }
+    setRecipes({ ...recipes, isFetching: true });
+    const recipesResponse = await checkType(
+      foodSearchRequest,
+      drinkSearchRequest,
+      query,
+    );
+    handleResponseFromSearch(recipesResponse);
   };
 
   const cleanCategories = () => {
@@ -120,15 +108,12 @@ ${location.pathname}/${response[recipesType][0][`id${recipesTypeSufix}`]}`);
   }, [location]);
 
   useEffect(() => {
-    requestRecipes();
+    requestLists();
   }, [category, recipesType]);
-
-  useEffect(() => {
-    requestCategories();
-  }, [recipesType]);
 
   const contextValue = {
     recipes,
+    category,
     categories,
     recipesTypeSufix,
     recipesType,
