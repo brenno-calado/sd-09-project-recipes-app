@@ -18,21 +18,21 @@
 }
 
 .btn-share-cardHorizontal .tooltip-text {
-  visibility: hidden;
-  width: 80px;
-  font-size: 10px;
   background-color: #555;
-  color: #fff;
-  text-align: center;
   border-radius: 6px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
   bottom: 100%;
+  color: white;
+  font-size: 10px;
   left: 50%;
   margin-left: -28px;
   opacity: 0;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
   transition: opacity 0.3s;
+  visibility: hidden;
+  width: 80px;
+  z-index: 1;
 }
 
 .btn-share-cardHorizontal {
@@ -40,17 +40,17 @@
 }
 
 .btn-share-cardHorizontal .tooltip-text::after {
-  content: "";
-  position: absolute;
-  top: 100%;
+  border-color: #555 transparent;
+  border-style: solid;
+  border-width: 5px;
+  content: '';
   left: 50%;
   margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  position: absolute;
+  top: 100%;
 }
 
-.btn-share-cardHorizontal:hover .tooltip-text{
-  visibility: visible;
+.btn-share-cardHorizontal:hover .tooltip-text {
   opacity: 1;
+  visibility: visible;
 }

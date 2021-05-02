@@ -1,7 +1,7 @@
 .container-cardHorizontal {
-  display: flex;
-  border-style: outset;
   border-radius: 10px;
+  border-style: outset;
+  display: flex;
   height: 160px;
   margin: 10px;
 }
