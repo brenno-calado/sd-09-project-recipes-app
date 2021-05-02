@@ -19,7 +19,11 @@ function SearchBar({ title }) {
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
       const fetchResponse = await fetch(endpoint);
       const jsonResponse = await fetchResponse.json();
-      if (jsonResponse.meals === null) {
+      if (jsonResponse.meals === null && title === 'Comidas') {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
         alert(alertMsg);
         return;
       }
@@ -37,7 +41,14 @@ function SearchBar({ title }) {
         : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
       const fetchResponse = await fetch(endpoint);
       const jsonResponse = await fetchResponse.json();
-      if (!jsonResponse) alert(alertMsg);
+      if (jsonResponse.meals === null) {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
+        alert(alertMsg);
+        return;
+      }
       if (title === 'Comidas') setFoodsListBySearchResult(jsonResponse.meals);
       else setDrinksListBySearchResult(jsonResponse.drinks);
     } catch (error) {
@@ -52,7 +63,14 @@ function SearchBar({ title }) {
         : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
       const fetchResponse = await fetch(endpoint);
       const jsonResponse = await fetchResponse.json();
-      if (!jsonResponse) { alert(alertMsg); }
+      if (jsonResponse.meals === null) {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
+        alert(alertMsg);
+        return;
+      }
       if (title === 'Comidas') setFoodsListBySearchResult(jsonResponse.meals);
       else setDrinksListBySearchResult(jsonResponse.drinks);
     } catch (error) {
