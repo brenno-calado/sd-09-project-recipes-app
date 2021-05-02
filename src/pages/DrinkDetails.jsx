@@ -4,6 +4,7 @@ import { objectOf, bool } from 'prop-types';
 import { getDrinkById } from '../actions/getDrinkById';
 import { mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
+import '../App.css';
 
 function DrinkDetails({
   recipes, match, history, getDrinkByIdDispatch, recommendedFoods }) {
@@ -29,7 +30,7 @@ function DrinkDetails({
     }
   }, [match, recipe, recipes, history, getDrinkByIdDispatch]);
 
-  const MAX_SLICE = 12;
+  const MAX_SLICE = 6;
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -67,18 +68,37 @@ function DrinkDetails({
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
-        <button data-testid="start-recipe-btn" type="button">Iniciar receita</button>
+        <button
+          className="init-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Iniciar receita
+
+        </button>
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
-        {recommendedFoods.slice(0, MAX_SLICE).map((item) => (
-          <div key={ `${item.index}` } data-testid={ `${item.index}-recomendation-card` }>
-            <a href={ `/comidas/${item.idDrink}` }>
-              <img src={ `${item.strDrinkThumb}` } alt="" />
-              <h2>{item.strDrink}</h2>
-
-            </a>
-          </div>
-        ))}
+        <div
+          className="gallery"
+          data-flickity-options='{ "wrapAround": true }'
+        >
+          {recommendedFoods && recommendedFoods.slice(0, MAX_SLICE).map((item) => (
+            <div
+              className="gallery-cell"
+              key={ `${item.index}` }
+              data-testid={ `${item.index}-recomendation-card` }
+            >
+              <a href={ `/comidas/${item.idMeal}` }>
+                <img className="image-recipe" src={ `${item.strMealThumb}` } alt="" />
+              </a>
+              <h2
+                data-testid={ `${item.index}-recomendation-title` }
+              >
+                {item.strMeal}
+              </h2>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
