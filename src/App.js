@@ -20,8 +20,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import MealDetails from './pages/MealDetails';
 import DrinkDetails from './pages/DrinkDetails';
-import FoodDetailRandom from './pages/FoodDetailRandom';
-import DrinkDetailRandom from './pages/DrinkDetailRandom';
 
 const App = () => (
   <Provider>
@@ -43,8 +41,6 @@ const App = () => (
         <Route path="/explorar" component={ Explorer } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoritesRecipes } />
-        <Route path="/comidas/aleatoria" component={ FoodDetailRandom } />
-        <Route path="/bebidas/aleatoria" component={ DrinkDetailRandom } />
       </Switch>
     </BrowserRouter>
   </Provider>
