@@ -37,6 +37,8 @@ const DoneRecipes = () => {
         data-testid={ `${index}-horizontal-share-btn` }
         type="button"
       />
+      <span data-testid={ `${index}-Pasta-horizontal-tag` }>tag</span>
+      <span data-testid={ `${index}-Curry-horizontal-tag` }>tag</span>
     </div>
   );
 };
