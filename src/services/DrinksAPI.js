@@ -45,8 +45,7 @@ const getDrinkById = async (id) => {
   try {
     const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
     const result = await fetch(url);
-    const data = await result.json();
-    return data.drinks[0];
+    return await result.json();
   } catch (error) {
     console.log(error);
   }

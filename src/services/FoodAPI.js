@@ -9,7 +9,7 @@ const getFoodAll = async () => {
   }
 };
 
-const getFoodsCategories = async () => {
+const getFoodCategories = async () => {
   try {
     const categoriesEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
     const response = await fetch(categoriesEndpoint);
@@ -24,6 +24,39 @@ const getFoodByCategory = async (category) => {
   try {
     const filterEndpoint = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
     const response = await fetch(`${filterEndpoint}${category}`);
+    const meals = await response.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFoodByName = async (name) => {
+  try {
+    const filterEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    const response = await fetch(`${filterEndpoint}${name}`);
+    const meals = await response.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFoodByIngredient = async (ingredient) => {
+  try {
+    const filterEndpoint = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+    const response = await fetch(`${filterEndpoint}${ingredient}`);
+    const meals = await response.json();
+    return meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFoodByFirstLetter = async (firstLetter) => {
+  try {
+    const filterEndpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?f=';
+    const response = await fetch(`${filterEndpoint}${firstLetter}`);
     const meals = await response.json();
     return meals;
   } catch (error) {
@@ -46,8 +79,7 @@ const getFoodById = async (id) => {
   try {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
     const result = await fetch(url);
-    const data = await result.json();
-    return data.meals[0];
+    return await result.json();
   } catch (error) {
     console.log(error);
   }
@@ -55,7 +87,11 @@ const getFoodById = async (id) => {
 
 export {
   getFoodAll,
+  getFoodById,
   getRandomFood,
+  getFoodByName,
   getFoodByCategory,
-  getFoodsCategories,
-  getFoodById };
+  getFoodCategories,
+  getFoodByIngredient,
+  getFoodByFirstLetter,
+};

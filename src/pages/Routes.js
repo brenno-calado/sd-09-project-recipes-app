@@ -10,9 +10,8 @@ import NotFound from './NotFound';
 import ExploreArea from './ExploreArea';
 import ExploreFood from './ExploreFood';
 import Ingredients from './Ingredients';
-import FoodDetails from './FoodDetails';
-import DrinkDetails from './DrinkDetails';
 import ExploreDrinks from './ExploreDrinks';
+import RecipeDetails from './RecipeDetails';
 import FavoriteRecipes from './FavoriteRecipes';
 import CompletedRecipes from './CompletedRecipes';
 import RecipeInProgress from './RecipeInProgress';
@@ -21,20 +20,20 @@ const Routes = () => (
   <Switch>
     <Route exact path="/" component={ Login } />
     <Route
-      path="/comidas/:id"
-      render={ (props) => <FoodDetails { ...props } /> }
-    />
-    <Route
-      path="/bebidas/:id"
-      render={ (props) => <DrinkDetails { ...props } /> }
-    />
-    <Route
       path="/comidas/:id/in-progress"
       render={ (props) => <RecipeInProgress { ...props } /> }
     />
     <Route
       path="/bebidas/:id/in-progress"
       render={ (props) => <RecipeInProgress { ...props } /> }
+    />
+    <Route
+      path="/comidas/:id"
+      render={ (props) => <RecipeDetails { ...props } /> }
+    />
+    <Route
+      path="/bebidas/:id"
+      render={ (props) => <RecipeDetails { ...props } /> }
     />
     <Route path="/comidas" component={ Food } />
     <Route path="/bebidas" component={ Drinks } />
