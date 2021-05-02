@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import setSearchOptions from '../redux/actions/search';
-import fetchSearchRecipes from '../redux/actions/recipes';
+import { fetchSearchRecipes } from '../redux/actions/recipes';
 
 const radioElementsParams = [
   {
