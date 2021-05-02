@@ -7,6 +7,8 @@ function RecipesProvider({ children }) {
   const [toggledSearchBar, setToggledSearchBar] = useState(false);
   const [toggledProfileButton, setToggledProfileButton] = useState(true);
   const [toggledSearchButton, setToggledSearchButton] = useState(true);
+  const [recipe, setRecipe] = useState({});
+  const [recomendations, setRecomendations] = useState([]);
 
   const showSearchBar = () => setToggledSearchBar(!toggledSearchBar);
 
@@ -19,6 +21,10 @@ function RecipesProvider({ children }) {
     setToggledSearchButton,
     isLoading,
     setLoading,
+    recipe,
+    setRecipe,
+    recomendations,
+    setRecomendations,
   };
   const { Provider } = RecipesContext;
 
