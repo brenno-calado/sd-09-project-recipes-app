@@ -39,7 +39,7 @@
   position: relative;
 }
 
-.tooltip-text::after .btn-share-cardHorizontal {
+.tooltip-text:after .btn-share-cardHorizontal {
   border-color: #555 transparent;
   border-style: solid;
   border-width: 5px;
