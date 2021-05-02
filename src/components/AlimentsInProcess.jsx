@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { getIngredients } from '../services/functions';
 import ShareButton from './ShareButton';
 import FavoriteRecipes from './FavoriteRecipes';
@@ -66,5 +67,9 @@ function AlimentsInProcess({ data }) {
     <div>a</div>
   );
 }
+
+AlimentsInProcess.propTypes = {
+  data: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default AlimentsInProcess;
