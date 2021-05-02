@@ -45,9 +45,10 @@ export default function Header({ title, canFind, setFilter }) {
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   canFind: PropTypes.bool,
-  setFilter: PropTypes.func.isRequired,
+  setFilter: PropTypes.func,
 };
 
 Header.defaultProps = {
   canFind: false,
+  setFilter: () => {},
 };

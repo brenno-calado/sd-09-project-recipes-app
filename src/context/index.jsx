@@ -1,7 +1,9 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import { setInitialLocalStorage } from '../services/localStorage';
 
 const context = createContext();
+const storage = setInitialLocalStorage();
 
 function Provider({ children }) {
   const [isLoading, setLoading] = useState(true);
@@ -14,12 +16,15 @@ function Provider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
   const [toggleButton, setToggleButton] = useState(null);
   const [supriseId, setSurpriseId] = useState(null);
+  const [favoriteRecipes, setFavoriteRecipes] = useState(storage);
 
   const value = {
     data,
     setData,
     drinks,
     setDrinks,
+    favoriteRecipes,
+    setFavoriteRecipes,
     isSearching,
     setIsSearching,
     isLoading,
