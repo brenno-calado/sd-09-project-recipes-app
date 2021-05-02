@@ -1,40 +1,59 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const fetchByIngredient = (ingredient) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
+async function fetchByIngredient(ingredient, title) {
+  try {
+    const endpoint = title === 'Comidas'
+      ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+      : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+    const fetchResponse = await fetch(endpoint);
+    const jsonResponse = await fetchResponse.json();
+    console.log(jsonResponse);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const fetchByName = (name) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
+async function fetchByName(name, title) {
+  try {
+    const endpoint = title === 'Comidas'
+      ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
+      : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+    const fetchResponse = await fetch(endpoint);
+    const jsonResponse = await fetchResponse.json();
+    console.log(jsonResponse);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const fetchByFirstLetter = (firstLetter) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
+async function fetchByFirstLetter(firstLetter, title) {
+  try {
+    const endpoint = title === 'Comidas'
+      ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`
+      : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+    const fetchResponse = await fetch(endpoint);
+    const jsonResponse = await fetchResponse.json();
+    console.log(jsonResponse);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-function SearchBar() {
+function SearchBar({ title }) {
   const [textSearch, setTextSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
 
   function handleClick() {
     if (radioSearch === 'ingredient-search') {
-      fetchByIngredient(textSearch);
+      fetchByIngredient(textSearch, title);
     }
     if (radioSearch === 'name-search') {
-      fetchByName(textSearch);
+      fetchByName(textSearch, title);
     }
     if (radioSearch === 'first-letter-search') {
       if (textSearch.length === 1) {
-        fetchByFirstLetter(textSearch);
+        fetchByFirstLetter(textSearch, title);
       } else {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
@@ -99,5 +118,9 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;
