@@ -6,6 +6,10 @@
   padding: 5px 10px;
 }
 
+.title-header {
+  font-size: 25px;
+}
+
 .btn-search-header {
   background-color: transparent;
   border: none;
