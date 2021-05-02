@@ -10,6 +10,7 @@ function ShareButton({ dataTestId, urlCopied }) {
     navigator.clipboard.writeText(urlCopied);
     setShouldCopy('');
   }
+
   return (
     <div>
       <button
