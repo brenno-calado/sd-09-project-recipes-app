@@ -15,6 +15,7 @@ function Provider({ children }) {
     async function fetchFoodsList() {
       try {
         setFetchingFoods(true);
+        // const endpoint = getFoodEndpoint();
         const endpoint = selectedFoodsCategory === 'All'
           ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
           : `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedFoodsCategory}`;
@@ -26,7 +27,7 @@ function Provider({ children }) {
         console.error(error);
       }
     }
-    fetchFoodsList();
+    if (selectedFoodsCategory) fetchFoodsList();
   }, [selectedFoodsCategory]);
 
   useEffect(() => {
@@ -44,8 +45,36 @@ function Provider({ children }) {
         console.error(error);
       }
     }
-    fetchDrinksList();
+    if (selectedDrinksCategory) fetchDrinksList();
   }, [selectedDrinksCategory]);
+
+  async function fetchFoodsByIngredient(ingredient) {
+    try {
+      setFetchingFoods(true);
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setFoodsList(jsonResponse.meals);
+      setFetchingFoods(false);
+      setSelectedFoodsCategory('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function fetchDrinksByIngredient(ingredient) {
+    try {
+      setFetchingDrinks(true);
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setDrinksList(jsonResponse.drinks);
+      setFetchingDrinks(false);
+      setSelectedDrinksCategory('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   const contextValue = {
     login,
@@ -58,6 +87,8 @@ function Provider({ children }) {
     setSelectedFoodsCategory,
     selectedDrinksCategory,
     setSelectedDrinksCategory,
+    fetchFoodsByIngredient,
+    fetchDrinksByIngredient,
   };
 
   return (

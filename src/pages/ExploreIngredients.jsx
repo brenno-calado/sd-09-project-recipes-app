@@ -9,9 +9,7 @@ function ExploreIngredients({ match: { url } }) {
   const responseType = linkType === 'comidas' ? 'meals' : 'drinks';
   const ingredientStr = linkType === 'comidas' ? 'strIngredient' : 'strIngredient1';
   const database = linkType === 'comidas' ? 'themealdb' : 'thecocktaildb';
-  const endpoint = linkType === 'comidas'
-    ? 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'
-    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const endpoint = `https://www.${database}.com/api/json/v1/1/list.php?i=list`;
 
   const [fetchingIngredients, setFetchingIngredients] = useState(true);
   const [ingredientsList, setIngredientsList] = useState([]);
@@ -41,6 +39,7 @@ function ExploreIngredients({ match: { url } }) {
           ingredient={ ingredient[ingredientStr] }
           db={ database }
           index={ index }
+          linkType={ linkType }
         />
       ))}
       <Footer />
