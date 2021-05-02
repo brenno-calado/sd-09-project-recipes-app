@@ -4,9 +4,7 @@ import RecipeCard from '../RecipeCard';
 import RecipesContext from '../../context/RecipesContext';
 
 const RecipesList = () => {
-  const { recipes, recipesType } = useContext(RecipesContext);
-
-  const typeSufix = recipesType === 'meals' ? 'Meal' : 'Drink';
+  const { recipes, recipesType, recipesTypeSufix } = useContext(RecipesContext);
   const urlType = recipesType === 'meals' ? 'comidas' : 'bebidas';
 
   return (
@@ -19,12 +17,12 @@ const RecipesList = () => {
         <div>
           {recipes.recipesList.map((recipe, index) => (
             <RecipeCard
-              key={ recipe[`id${typeSufix}`] }
-              recipeName={ recipe[`str${typeSufix}`] }
-              recipeImage={ recipe[`str${typeSufix}Thumb`] }
+              key={ recipe[`id${recipesTypeSufix}`] }
+              recipeName={ recipe[`str${recipesTypeSufix}`] }
+              recipeImage={ recipe[`str${recipesTypeSufix}Thumb`] }
               index={ index }
               type={ urlType }
-              id={ recipe[`id${typeSufix}`] }
+              id={ recipe[`id${recipesTypeSufix}`] }
             />
           ))}
         </div>

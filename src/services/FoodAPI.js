@@ -85,6 +85,28 @@ const getFoodById = async (id) => {
   }
 };
 
+const getFoodIngredientsList = async () => {
+  try {
+    const ingredientsEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    const data = await fetch(ingredientsEndpoint);
+    const result = await data.json();
+    return result.meals;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getFoodIngredientThumbnail = async (food) => {
+  try {
+    const thumbnailEndpoint = `https://www.themealdb.com/images/ingredients/${food}-Small.png`;
+    const data = await fetch(thumbnailEndpoint);
+    const result = await data.blob();
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export {
   getFoodAll,
   getFoodById,
@@ -94,4 +116,6 @@ export {
   getFoodCategories,
   getFoodByIngredient,
   getFoodByFirstLetter,
+  getFoodIngredientsList,
+  getFoodIngredientThumbnail,
 };

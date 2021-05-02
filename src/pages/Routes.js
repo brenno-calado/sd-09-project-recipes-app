@@ -9,7 +9,7 @@ import Explorer from './Explorer';
 import NotFound from './NotFound';
 import ExploreArea from './ExploreArea';
 import ExploreFood from './ExploreFood';
-import Ingredients from './Ingredients';
+import ExploreIngredients from './ExploreIngredients';
 import ExploreDrinks from './ExploreDrinks';
 import RecipeDetails from './RecipeDetails';
 import FavoriteRecipes from './FavoriteRecipes';
@@ -39,11 +39,11 @@ const Routes = () => (
     <Route path="/bebidas" component={ Drinks } />
     <Route
       path="/explorar/comidas/ingredientes"
-      component={ Ingredients }
+      render={ (props) => <ExploreIngredients { ...props } /> }
     />
     <Route
       path="/explorar/bebidas/ingredientes"
-      component={ Ingredients }
+      render={ (props) => <ExploreIngredients { ...props } /> }
     />
     <Route path="/explorar/comidas/area" component={ ExploreArea } />
     <Route path="/explorar/comidas" component={ ExploreFood } />
