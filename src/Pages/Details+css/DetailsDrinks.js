@@ -92,9 +92,9 @@ class DetailsDrinks extends React.Component {
 }
 
 DetailsDrinks.propTypes = {
-  match: PropTypes.objectOf.isRequired,
-  params: PropTypes.objectOf.isRequired,
-  id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf.isRequired,
+  }).isRequired,
 };
 
 export default DetailsDrinks;

@@ -1,4 +1,4 @@
-.Card {
+/* .Card {
   display: flex;
   flex-direction: row;
   height: 410px;
@@ -9,7 +9,7 @@
 .Imagem {
   max-height: 300px;
   max-width: 300px;
-}
+} */
 
 .fix {
   bottom: 0;
