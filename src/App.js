@@ -3,11 +3,11 @@ import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Provider from './context/Provider';
 import Login from './pages/Login';
-import FoodRecipes from './pages/FoodRecipes';
-import DrinkRecipes from './pages/DrinkRecipes';
+// import FoodRecipes from './pages/FoodRecipes';
+// import DrinkRecipes from './pages/DrinkRecipes';
+//  Troquei esses dois componentes por um generico DrinksFoodsRecipes
+import DrinksFoodsRecipes from './pages/DrinksFoodsRecipes';
 import Profile from './pages/Profile';
-import DisplayFood from './pages/DisplayFood';
-import DisplayDrink from './pages/DisplayDrink';
 import FoodInProgress from './pages/FoodInProgress';
 import DrinkInProgress from './pages/DrinkInProcess';
 import Explorer from './pages/Explorer';
@@ -18,6 +18,10 @@ import DrinkIngredients from './pages/DrinkIngredients';
 import FoodArea from './pages/FoodArea';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoritesRecipes from './pages/FavoritesRecipes';
+import MealDetails from './pages/MealDetails';
+import DrinkDetails from './pages/DrinkDetails';
+import FoodDetailRandom from './pages/FoodDetailRandom';
+import DrinkDetailRandom from './pages/DrinkDetailRandom';
 
 const App = () => (
   <Provider>
@@ -25,12 +29,12 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
-        <Route path="/comidas/:id" component={ DisplayFood } />
-        <Route path="/comidas" component={ FoodRecipes } />
+        <Route path="/comidas/:id" component={ MealDetails } />
+        <Route path="/comidas" component={ DrinksFoodsRecipes } />
         <Route path="/perfil" component={ Profile } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
-        <Route path="/bebidas/:id" component={ DisplayDrink } />
-        <Route path="/bebidas" component={ DrinkRecipes } />
+        <Route path="/bebidas/:id" component={ DrinkDetails } />
+        <Route path="/bebidas" component={ DrinksFoodsRecipes } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
         <Route path="/explorar/comidas/area" component={ FoodArea } />
         <Route path="/explorar/comidas" component={ ExplorerFood } />
@@ -39,6 +43,8 @@ const App = () => (
         <Route path="/explorar" component={ Explorer } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoritesRecipes } />
+        <Route path="/comidas/aleatoria" component={ FoodDetailRandom } />
+        <Route path="/bebidas/aleatoria" component={ DrinkDetailRandom } />
       </Switch>
     </BrowserRouter>
   </Provider>
