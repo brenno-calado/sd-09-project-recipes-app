@@ -14,7 +14,6 @@ function RecomendedRecipes({ detailsContext }) {
   }, [recomendationRecipesList, fetchRecomendationMealsAndDrinks]);
 
   function createCard(classNameObj, recipe, index) {
-    console.log(recipe.strDrinkThumb, recipe.strMealThumb);
     return (
       <Card
         style={ { width: '18rem' } }

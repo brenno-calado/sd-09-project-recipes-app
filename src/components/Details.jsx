@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Container, Jumbotron } from 'react-bootstrap';
+import { Container, Jumbotron } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
 import './Details.css';
 
@@ -58,25 +58,6 @@ function Details({ detailsContext }) {
                 className="details-img"
               />)}
           <br />
-          <Button data-testid="share-btn" type="button" color="primary" className="btn">
-            Share
-          </Button>
-          <Button
-            data-testid="favorite-btn"
-            type="button"
-            color="primary"
-            className="btn"
-          >
-            Favorite it
-          </Button>
-          <Button
-            type="button"
-            data-testid="start-recipe-btn"
-            color="primary"
-            className="btn"
-          >
-            Start Recipe
-          </Button>
         </div>
         <div>
           <h4>ingredients</h4>

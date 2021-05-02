@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import './RecipeDetails.css';
 import Details from '../components/Details';
 import RecomendedRecipes from '../components/RecomendedRecipes';
+import DetailsBtnFavoriteRecipe from '../components/DetailsBtnFavoriteRecipe';
+import DetailsBtnShareRecipe from '../components/DetailsBtnShareRecipe';
+import DetailsBtnStartRecipe from '../components/DetailsBtnStartRecipe';
 import { getIdFromURL, getPageFromURL } from '../services/others';
 import {
   fetchOneMeal,
@@ -48,6 +52,11 @@ function RecipeDetails() {
         {!recipe ? <p>loading</p> : (
           <div>
             <Details detailsContext={ detailsContextProps } />
+            <div className="buttons-section">
+              <DetailsBtnFavoriteRecipe />
+              <DetailsBtnShareRecipe />
+              <DetailsBtnStartRecipe detailsContext={ detailsContextProps } />
+            </div>
             <RecipeVideo detailsContext={ detailsContextProps } />
             <RecomendedRecipes detailsContext={ detailsContextProps } />
           </div>
