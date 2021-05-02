@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import MealRecipes from './pages/MealRecipes';
 import CocktailRecipes from './pages/CocktailRecipes';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <Route exact path="/" component={ Login } />
         <Route exact path="/comidas" component={ MealRecipes } />
         <Route exact path="/bebidas" component={ CocktailRecipes } />
+        <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+        <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       </Switch>
     </BrowserRouter>
   );
