@@ -1,6 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import fetchApi from '../services';
 
 const context = createContext();
 
@@ -9,10 +8,6 @@ function Provider({ children }) {
   const [data, setData] = useState([]);
   const [authLogin, setAuthLogin] = useState({});
   const [formValidation, setFormValidation] = useState(false);
-
-  useEffect(() => {
-    fetchApi('food', 'details', '52843');
-  }, []);
 
   const value = {
     data,
