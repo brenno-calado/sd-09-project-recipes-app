@@ -25,7 +25,7 @@ function Header({ title }) {
           data-testid="search-top-btn"
         />
       </button>
-      { searchBar && <SearchBar /> }
+      { searchBar && <SearchBar title={ title } /> }
     </header>
   );
 }
