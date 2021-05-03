@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { objectOf } from 'prop-types';
+import Carousel from 'react-multi-carousel';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchBeverages } from '../services/fetchRecipes';
 import Card from './Card';
+import 'react-multi-carousel/lib/styles.css';
+import LikeBtn from './LikeBtn';
 
 function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const [recommends, setRecommends] = useState([]);
   const [allIngrdients, setAllIngrdients] = useState([]);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const location = useLocation();
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
+  const responsive = {
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
 
   useEffect(() => {
     const getIngredients = () => {
@@ -45,6 +54,12 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
     </Link>
   );
 
+  const shareBtn = async () => {
+    const link = `http://localhost:3000${location.pathname}`;
+    setIsLinkCopied(true);
+    return navigator.clipboard.writeText(link);
+  };
+
   return (
     <div className="Details">
       <img
@@ -58,12 +73,11 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
           <h3 data-testid="recipe-category">{strCategory}</h3>
         </div>
         <div>
-          <button type="button" data-testid="share-btn">
+          <button type="button" data-testid="share-btn" onClick={ shareBtn }>
             <img src={ shareIcon } alt="Share button" />
           </button>
-          <button type="button" data-testid="favorite-btn">
-            <img src={ blackHeartIcon } alt="Favorite button" />
-          </button>
+          <LikeBtn recipe={ recipe } />
+          {isLinkCopied && <p>Link copiado!</p>}
         </div>
       </div>
       <div className="ingredients">
@@ -71,7 +85,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
         <div>
           {allIngrdients.map(({ name, quantity }, index) => (
             <p
-              key={ name }
+              key={ Math.random() }
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {`- ${name} - ${quantity}`}
@@ -88,7 +102,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
       </div>
       <div className="recomendations">
         <h2>Recomended</h2>
-        <div className="carocel-recomendations">
+        <Carousel responsive={ responsive }>
           {recommends.map((item, index) => (<Card
             cardTestid={ `${index}-recomendation-card` }
             titleTestid={ `${index}-recomendation-title` }
@@ -97,7 +111,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
             index={ index }
             type="bebidas"
           />))}
-        </div>
+        </Carousel>
       </div>
       {!done && renderButton()}
     </div>
