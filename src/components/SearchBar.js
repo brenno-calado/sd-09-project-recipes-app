@@ -1,29 +1,82 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+// import RecipeCard from './RecipeCard';
+import RecipesContext from '../Provider/RecipesContext';
 
-const fetchByIngredient = (ingredient) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
-
-const fetchByName = (name) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
-
-const fetchByFirstLetter = (firstLetter) => {
-  const endpoint = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
-  fetch(endpoint)
-    .then((response) => response.json())
-    .then((data) => console.log(data));
-};
-
-function SearchBar() {
+function SearchBar({ title }) {
+  console.log(title);
+  const {
+    setFoodsListBySearchResult, setDrinksListBySearchResult,
+  } = useContext(RecipesContext);
   const [textSearch, setTextSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
+  const alertMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+  async function fetchByIngredient(ingredient) {
+    try {
+      const endpoint = title === 'Comidas'
+        ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`
+        : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      if (jsonResponse.meals === null && title === 'Comidas') {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
+        alert(alertMsg);
+        return;
+      }
+      if (title === 'Comidas') setFoodsListBySearchResult(jsonResponse.meals);
+      else setDrinksListBySearchResult(jsonResponse.drinks);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function fetchByName(name) {
+    try {
+      const endpoint = title === 'Comidas'
+        ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`
+        : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      if (jsonResponse.meals === null) {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
+        alert(alertMsg);
+        return;
+      }
+      if (title === 'Comidas') setFoodsListBySearchResult(jsonResponse.meals);
+      else setDrinksListBySearchResult(jsonResponse.drinks);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function fetchByFirstLetter(firstLetter) {
+    try {
+      const endpoint = title === 'Comidas'
+        ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`
+        : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      if (jsonResponse.meals === null) {
+        alert(alertMsg);
+        return;
+      }
+      if (jsonResponse.drinks === null && title === 'Bebidas') {
+        alert(alertMsg);
+        return;
+      }
+      if (title === 'Comidas') setFoodsListBySearchResult(jsonResponse.meals);
+      else setDrinksListBySearchResult(jsonResponse.drinks);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function handleClick() {
     if (radioSearch === 'ingredient-search') {
@@ -42,6 +95,7 @@ function SearchBar() {
   }
 
   return (
+
     <div className="searchbar">
       <label htmlFor="search">
         Search
@@ -95,9 +149,12 @@ function SearchBar() {
       >
         Buscar
       </button>
-
     </div>
   );
 }
+
+SearchBar.propTypes = {
+  title: PropTypes.string.isRequired,
+};
 
 export default SearchBar;

@@ -6,6 +6,7 @@ import DrinkDetails from './pages/DrinkDetails';
 import FoodsMainPage from './pages/FoodsMainPage';
 import DrinksMainPage from './pages/DrinksMainPage';
 import Profile from './pages/Profile';
+import RecipeInProgress from './pages/RecipeInProgress';
 import Explore from './pages/Explore';
 import ExploreRecipes from './pages/ExploreRecipes';
 import ExploreIngredients from './pages/ExploreIngredients';
@@ -21,6 +22,8 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ FoodsMainPage } />
       <Route exact path="/bebidas" component={ DrinksMainPage } />
+      <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
+      <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/comidas/:id" component={ MealDetails } />
       <Route path="/bebidas/:id" component={ DrinkDetails } />
@@ -31,10 +34,8 @@ function App() {
       <Route path="/explorar/comidas" component={ ExploreRecipes } />
       <Route path="/explorar/bebidas" component={ ExploreRecipes } />
       <Route path="/explorar" component={ Explore } />
-      {/* <Route path="/comidas/:id/in-progress" component={} />
-      <Route path="/bebidas/:id/in-progress" component={} />
-      <Route path="/receitas-feitas" component={} />
-      <Route path="/receitas-favoritas" component={} /> */}
+      {/* <Route path="/receitas-feitas" component={} /> */}
+      {/* <Route path="/receitas-favoritas" component={} /> */}
     </Switch>
   );
 }

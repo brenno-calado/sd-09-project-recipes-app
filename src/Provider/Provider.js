@@ -90,6 +90,16 @@ function Provider({ children }) {
     }
   }
 
+  function setFoodsListBySearchResult(recipeList) {
+    setFoodsList(recipeList);
+    selectedFoodsCategory('');
+  }
+
+  function setDrinksListBySearchResult(recipeList) {
+    setDrinksList(recipeList);
+    selectedDrinksCategory('');
+    console.log(recipeList);
+  }
   const contextValue = {
     login,
     setLogin,
@@ -104,6 +114,8 @@ function Provider({ children }) {
     fetchFoodsByIngredient,
     fetchDrinksByIngredient,
     fetchFoodsByArea,
+    setFoodsListBySearchResult,
+    setDrinksListBySearchResult,
   };
 
   return (
