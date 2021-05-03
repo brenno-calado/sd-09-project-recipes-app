@@ -9,7 +9,12 @@ export default function RecipeList({ listItems }) {
     <ul>
       { listItems && listItems.slice(0, MAX_ITEMS).map((item, index) => (
         <li key={ index }>
-          <RecipeCard index={ index } thumbUrl={ item.thumbUrl } name={ item.name } />
+          <RecipeCard
+            index={ index }
+            thumbUrl={ item.thumbUrl }
+            name={ item.name }
+            redirectUrl={ item.url }
+          />
         </li>))}
     </ul>
   );
