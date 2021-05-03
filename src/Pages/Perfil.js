@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import MenuInferior from '../components/MenuInferior';
 
 export default function Perfil() {
   const { email } = JSON.parse(localStorage.getItem('user'));
@@ -36,6 +37,7 @@ export default function Perfil() {
           Sair
         </button>
       </Link>
+      <MenuInferior />
     </div>
   );
 }
