@@ -4,6 +4,7 @@ import MealCard from '../components/MealCard';
 import DrinkCard from '../components/DrinkCard';
 import { MyContext } from '../MyContext';
 import { fetchToMainScreen, categoriesList } from '../services/fetchAPI';
+import MenuInferior from '../components/MenuInferior';
 
 export default function TelaPrincipal() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ export default function TelaPrincipal() {
   return (
     <div>
       {pathname === '/comidas' ? <MealCard /> : <DrinkCard /> }
+      <MenuInferior />
     </div>
   );
 }
