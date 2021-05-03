@@ -4,7 +4,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-export default function () {
+export default function MenuInferior() {
   return (
     <div data-testid="footer" className="footer">
       <Link to="/bebidas">
