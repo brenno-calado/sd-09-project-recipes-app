@@ -14,12 +14,7 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
           key={ drink.idDrink }
           data-testid={ `${index}-recipe-card` }
           className="card"
-          style={ {
-            width: '7rem',
-            alignItems: 'center',
-            marginBottom: '5px',
-            marginTop: '10px',
-          } }
+          style={ { width: '7rem', alignItems: 'center', marginBottom: '5px', marginTop: '10px' } }
         >
           <img
             src={ drink.strDrinkThumb }
