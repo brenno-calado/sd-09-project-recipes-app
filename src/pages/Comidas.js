@@ -25,7 +25,7 @@ function Comidas() {
     <div>
       <Header title="Comidas" showButton />
       { showSearchBar && <SearchBar isMealsPage /> }
-      <RecipeList listItems={ searchMealsList.map(mealToRecipe) } />
+      <RecipeList listItems={ searchMealsList && searchMealsList.map(mealToRecipe) } />
     </div>
   );
 }

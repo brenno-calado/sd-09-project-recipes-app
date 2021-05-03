@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { RecipiesContext } from '../context/RecipiesContext';
 import * as api from '../services/api';
+import RecipeList from './RecipeList';
 
 export default function SearchBar({ isMealsPage }) {
-  const { searchMealsList, setSearchMealsList,
-    searchDrinksList, setSearchDrinksList } = useContext(RecipiesContext);
+  const {
+    searchMealsList,
+    setSearchMealsList,
+    searchDrinksList,
+    setSearchDrinksList,
+  } = useContext(RecipiesContext);
 
   const [inputValue, setInputValue] = useState('');
   const [radioValue, setRadioValue] = useState('');
@@ -43,11 +48,20 @@ export default function SearchBar({ isMealsPage }) {
   };
 
   const redirectDetails = () => {
-    if (searchMealsList.length === 1) {
+    if (searchMealsList && searchMealsList.length === 1) {
       return history.push(`/comidas/${searchMealsList[0].idMeal}`);
     }
-    if (searchDrinksList.length === 1) {
+    if (searchDrinksList && searchDrinksList.length === 1) {
       return history.push(`/bebidas/${searchDrinksList[0].idDrink}`);
+    }
+  };
+
+  const showRecipies = () => {
+    if (searchMealsList === null || searchDrinksList === null) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
+    if (searchMealsList.length > 1 || searchDrinksList.length > 1) {
+      return <RecipeList />;
     }
   };
 
@@ -98,6 +112,7 @@ export default function SearchBar({ isMealsPage }) {
           Buscar
         </button>
         {redirectDetails()}
+        {showRecipies()}
       </div>
     </div>
   );
