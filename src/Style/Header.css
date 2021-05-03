@@ -16,7 +16,7 @@ h1 {
 }
 
 .header-bar {
+  border-bottom: solid 1px black;
   display: flex;
   justify-content: space-between;
-  border-bottom: solid 1px black;
 }

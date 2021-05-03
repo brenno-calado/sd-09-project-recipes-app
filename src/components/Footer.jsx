@@ -4,11 +4,11 @@ import { func } from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-import '../App.css';
+import '../Style/Footer.css';
 
 function Footer() {
   return (
-    <footer data-testid="footer">
+    <footer data-testid="footer" className="footer">
       <Link to="/bebidas">
         <img src={ drinkIcon } alt="Drinks" data-testid="drinks-bottom-btn" />
       </Link>

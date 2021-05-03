@@ -2,3 +2,9 @@
   display: flex;
   justify-content: center;
 }
+
+.filters-btn {
+  border-radius: 5px;
+  background-color: rgb(251, 251, 251);
+  padding: 1.8%;
+}

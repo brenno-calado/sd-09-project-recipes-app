@@ -30,12 +30,14 @@ function Filters({ filters, path, setFiltered, setRecipes }) {
         type="button"
         data-testid="All-category-filter"
         onClick={ () => setRecipes({ searchValue: '', query: 's', page: type }) }
+        className="filters-btn"
       >
         All
       </button>
       { filters.map(({ strCategory }, index) => index < FILTER_LIMIT && (
         <button
           type="button"
+          className="filters-btn"
           key={ strCategory }
           name={ strCategory }
           onClick={ ({ target }) => handleClick(target.name, strCategory) }
