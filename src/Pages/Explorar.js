@@ -5,10 +5,9 @@ import Footer from '../components/Footer';
 
 function Explorar() {
   return (
-    <div className="">
+    <div>
       <Link to="/explorar/comidas">
         <button
-          className=""
           data-testid="explore-food"
           type="button"
         >
@@ -17,7 +16,6 @@ function Explorar() {
       </Link>
       <Link to="/explorar/bebidas">
         <button
-          className=""
           data-testid="explore-drinks"
           type="button"
         >
