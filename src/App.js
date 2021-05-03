@@ -12,12 +12,12 @@ function App() {
     <MealsAndDrinkProvider>
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/comidas" /> */}
           <Route path="/comidas/in-progress" component={ InProgress } />
           <Route path="/bebidas/:id/in-progress" component={ InProgress } />
-          <Route exact path="/" component={ Login } />
           <Route path="/comidas/:id/" component={ RecipeDetails } />
           <Route path="/bebidas/:id/" component={ RecipeDetails } />
+          <Route path="/comidas" />
+          <Route exact path="/" component={ Login } />
         </Switch>
       </BrowserRouter>
     </MealsAndDrinkProvider>

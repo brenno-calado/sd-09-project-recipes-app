@@ -1,0 +1,9 @@
+.video-container {
+  display: flex;
+  justify-content: center;
+}
+
+.video-frame {
+  height: 500px;
+  width: 700px;
+}
