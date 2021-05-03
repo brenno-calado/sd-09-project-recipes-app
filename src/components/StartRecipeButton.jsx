@@ -2,36 +2,43 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {
+  verifyIfRecipeWasStarted, verifyIfRecipeWasFinished,
+} from '../helpers/VerifyRecipeStatus';
 
 function StartRecipeButton({ id, recipe, recipeType, ingredients }) {
   const [recipeState, setRecipeState] = useState();
 
-  const verifyIfRecipeWasStarted = useCallback(() => {
-    const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const verifyIfRecipeWasStarted = useCallback(() => {
+  //   const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const { cocktails, meals } = startedRecipes;
+  //   let mealsStarted;
+  //   let cocktailsStarted;
+  //   if (meals) {
+  //     const mealsKeys = Object.keys(meals);
+  //     mealsStarted = mealsKeys.some((key) => (
+  //       key === recipe.idMeal
+  //     ));
+  //   }
+  //   if (cocktails) {
+  //     const cocktailsKeys = Object.keys(cocktails);
+  //     cocktailsStarted = cocktailsKeys.some((key) => (
+  //       key === recipe.idDrink
+  //     ));
+  //   }
+  //   if (mealsStarted || cocktailsStarted) setRecipeState('started');
+  // }, [recipe]);
 
-    const { cocktails, meals } = startedRecipes;
-    const mealsKeys = Object.keys(meals);
-    const cocktailsKeys = Object.keys(cocktails);
-    const mealsStarted = mealsKeys.some((key) => (
-      key === recipe.idMeal
-    ));
-    const cocktailsStarted = cocktailsKeys.some((key) => (
-      key === recipe.idDrink
-    ));
-
-    if (mealsStarted || cocktailsStarted) setRecipeState('started');
-  }, [recipe]);
-
-  const verifyIfRecipeWasFinished = useCallback(() => {
-    const finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const mealsFinished = finishedRecipes.some((item) => (
-      item.idMeal === recipe.idMeal
-    ));
-    const cocktailsFinished = finishedRecipes.some((item) => (
-      item.idDrink === recipe.idDrink
-    ));
-    if (mealsFinished || cocktailsFinished) setRecipeState('finished');
-  }, [recipe]);
+  // const verifyIfRecipeWasFinished = useCallback(() => {
+  //   const finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   const mealsFinished = finishedRecipes.some((item) => (
+  //     item.idMeal === recipe.idMeal
+  //   ));
+  //   const cocktailsFinished = finishedRecipes.some((item) => (
+  //     item.idDrink === recipe.idDrink
+  //   ));
+  //   if (mealsFinished || cocktailsFinished) setRecipeState('finished');
+  // }, [recipe]);
 
   useEffect(() => {
     if (!localStorage.getItem('doneRecipes')) {
@@ -44,9 +51,11 @@ function StartRecipeButton({ id, recipe, recipeType, ingredients }) {
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(object));
     }
-    verifyIfRecipeWasStarted();
-    verifyIfRecipeWasFinished();
-  }, [recipe, verifyIfRecipeWasStarted, verifyIfRecipeWasFinished]);
+    const isStarted = verifyIfRecipeWasStarted(recipe);
+    const isFinished = verifyIfRecipeWasFinished(recipe);
+    if (isStarted === 'started') setRecipeState('started');
+    if (isFinished === 'finished') setRecipeState('finished');
+  }, [recipe]);
 
   const startRecipe = () => {
     const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
