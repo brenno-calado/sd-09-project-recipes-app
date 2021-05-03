@@ -7,7 +7,7 @@ const MAX_ITEMS = 12;
 export default function RecipeList({ listItems }) {
   return (
     <ul>
-      { listItems.slice(0, MAX_ITEMS).map((item, index) => (
+      { listItems && listItems.slice(0, MAX_ITEMS).map((item, index) => (
         <li key={ index }>
           <RecipeCard index={ index } thumbUrl={ item.thumbUrl } name={ item.name } />
         </li>))}

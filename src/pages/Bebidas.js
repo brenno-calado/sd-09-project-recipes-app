@@ -25,7 +25,7 @@ function Bebidas() {
     <div>
       <Header title="Bebidas" showButton />
       { showSearchBar && <SearchBar isMealsPage={ false } /> }
-      <RecipeList listItems={ searchDrinksList.map(drinkToRecipe) } />
+      <RecipeList listItems={ searchDrinksList && searchDrinksList.map(drinkToRecipe) } />
     </div>
   );
 }
