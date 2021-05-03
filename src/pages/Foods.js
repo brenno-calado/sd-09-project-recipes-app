@@ -4,15 +4,19 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import RecipeCard from '../components/RecepiCard';
+import createRender from '../utils/headerfoods';
+import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 
 function Foods() {
   const [meal, setMeal] = useState([]);
+  const [listItemByCategory, setListItemByCategory] = useState([]);
+  const [handleClickButtonName, checked, category] = useHandleClickButtonName();
+
   const { handleFetchFoodClick,
     recipesData,
     handleFetchRecipes,
-    getRecipesByCategory } = useRecipeContext();
-  const twelve = 12;
+    getRecipesByCategory,
+    getRecipesFoodsFilterByCategory } = useRecipeContext();
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
@@ -30,14 +34,31 @@ function Foods() {
       .then(({ meals }) => setMeal(meals));
   }, [getRecipesByCategory]);
 
+  useEffect(() => {
+    if (checked) {
+      getRecipesFoodsFilterByCategory(category)
+        .then(({ meals }) => setListItemByCategory(meals || []));
+    }
+  }, [category, checked]);
+
+  const toggle = () => { if (checked) setListItemByCategory([]); };
+
   function categoryButtom() {
     const five = 5;
     return (
       meal.map(({ strCategory }, index) => (
         index < five && (
-          <button type="button" data-testid={ `${strCategory}-category-filter` }>
-            { strCategory }
-          </button>
+          <div className="categoty-btn">
+            <button
+              key={ strCategory }
+              type="button"
+              name={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ ({ target }) => handleClickButtonName({ target }, toggle) }
+            >
+              { strCategory }
+            </button>
+          </div>
         )
       ))
     );
@@ -58,22 +79,11 @@ function Foods() {
             Buscar
           </button>
         </SearchBar>
-        <BottomMenu />
         {categoryButtom() }
-        {recipesData.meals && (
-          recipesData.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
-            index < twelve && (
-              <RecipeCard
-                key={ idMeal }
-                image={ strMealThumb }
-                name={ strMeal }
-                recipeCArdId={ `${index}-recipe-card` }
-                cardImageId={ `${index}-card-img` }
-                cardNameId={ `${index}-card-name` }
-              />
-            )
-          ))
-        ) }
+        { listItemByCategory.length
+          ? createRender(listItemByCategory)
+          : (recipesData.meals && (createRender(recipesData.meals))) }
+        <BottomMenu />
       </>
     );
   }

@@ -12,6 +12,7 @@ function CardDetails({
   function handleClickUrl() {
     setCopyUrl('Link copiado!');
   }
+
   const url = window.location.href;
   return (
     <li>
@@ -82,7 +83,7 @@ CardDetails.defaultProps = {
   video: '',
   instructions: '',
   isAlcoholic: '',
-  children: [{}],
+  children: [],
   shouldVideoApear: bool,
   handleFavoriteClick: () => {},
   favorite: bool,

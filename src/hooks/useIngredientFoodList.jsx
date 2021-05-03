@@ -1,7 +1,8 @@
 import React from 'react';
+import CheckInput from '../components/CheckInput';
 
 function useIngredientFoodList() {
-  function ingredientList(apiData) {
+  function ingredientList(apiData, match, handleCheckedValue) {
     const newArrayOfApiData = apiData.meals.map((meal) => (
       Object.entries(meal)));
 
@@ -21,14 +22,26 @@ function useIngredientFoodList() {
     });
 
     return recipeItems.map((item, index) => (
-      <li
-        data-testid={ `${index}-ingredient-name-and-measure` }
-        key={ item }
-      >
-        { item }
-      </li>
+      match.path === '/comidas/:id/in-progress'
+        ? (
+          <CheckInput
+            index={ index }
+            handleCheckedValue={ handleCheckedValue }
+            item={ item }
+            apiData={ apiData }
+          />
+        ) : (
+          <li
+            data-testid={ `${index}-ingredient-name-and-measure` }
+            key={ Math.random() }
+          >
+            { item }
+          </li>
+
+        )
     ));
   }
+
   return [ingredientList];
 }
 

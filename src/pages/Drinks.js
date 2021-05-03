@@ -4,15 +4,19 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import RecipeCard from '../components/RecepiCard';
+import createRender from '../utils/headerDrinks';
+import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 
 function Drinks() {
-  const [categoryDrink, setCategoryDrink] = useState([]);
+  const [drink, setDrink] = useState([]);
+  const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
+  const [handleClickButtonName, checked, category] = useHandleClickButtonName();
+
   const { handleFetchDrinkClick,
     recipesData,
     handleFetchRecipes,
-    getRecipesByCategory } = useRecipeContext();
-  const twelve = 12;
+    getRecipesByCategory,
+    getRecipesDrinksFilterByCategory } = useRecipeContext();
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
@@ -27,17 +31,34 @@ function Drinks() {
 
   useEffect(() => {
     getRecipesByCategory('thecocktaildb')
-      .then(({ drinks }) => setCategoryDrink(drinks));
+      .then(({ drinks }) => setDrink(drinks));
   }, [getRecipesByCategory]);
+
+  useEffect(() => {
+    if (checked) {
+      getRecipesDrinksFilterByCategory(category)
+        .then(({ drinks }) => setListDrinkByCategory(drinks || []));
+    }
+  }, [category, checked]);
+
+  const toggle = () => { if (checked) setListDrinkByCategory([]); };
 
   function categoryButtom() {
     const five = 5;
     return (
-      categoryDrink.map(({ strCategory }, index) => (
+      drink.map(({ strCategory }, index) => (
         index < five && (
-          <button type="button" data-testid={ `${strCategory}-category-filter` }>
-            { strCategory }
-          </button>
+          <div className="category-btn">
+            <button
+              key={ strCategory }
+              type="button"
+              name={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ ({ target }) => handleClickButtonName({ target }, toggle) }
+            >
+              { strCategory }
+            </button>
+          </div>
         )
       ))
     );
@@ -58,22 +79,11 @@ function Drinks() {
             Buscar
           </button>
         </SearchBar>
+        {categoryButtom() }
+        {listDrinkByCategory.length
+          ? createRender(listDrinkByCategory)
+          : (recipesData.drinks && (createRender(recipesData.drinks))) }
         <BottomMenu />
-        {categoryButtom()}
-        {recipesData.drinks && (
-          recipesData.drinks.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-            index < twelve && (
-              <RecipeCard
-                key={ idDrink }
-                image={ strDrinkThumb }
-                name={ strDrink }
-                recipeCArdId={ `${index}-recipe-card` }
-                cardImageId={ `${index}-card-img` }
-                cardNameId={ `${index}-card-name` }
-              />
-            )
-          ))
-        ) }
       </>
     );
   }
