@@ -4,7 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ReceitasFeitas() {
   return (
-    <Header title="Receitas Feitas" showButton={ false } />
+    <div>
+      <Header title="Receitas Feitas" showButton={ false } />
+    </div>
   );
 }
 

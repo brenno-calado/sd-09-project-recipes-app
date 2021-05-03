@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import profileImg from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
 import { RecipiesContext } from '../context/RecipiesContext';
-import Footer from './Footer';
 
 function CreateHeader({ title, showButton }) {
   const { showSearchBar, setShowSearchBar } = useContext(RecipiesContext);
@@ -30,7 +29,7 @@ function CreateHeader({ title, showButton }) {
       </Link>
       <h1 data-testid="page-title">{title}</h1>
       {showButton && renderButton()}
-      <Footer />
+
     </header>
   );
 }

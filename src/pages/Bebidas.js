@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import { RecipiesContext } from '../context/RecipiesContext';
@@ -9,6 +10,7 @@ function Bebidas() {
     <div>
       <Header title="Bebidas" showButton />
       { showSearchBar && <SearchBar isMealsPage={ false } /> }
+      <Footer />
     </div>
   );
 }
