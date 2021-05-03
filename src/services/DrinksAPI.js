@@ -75,6 +75,16 @@ const getRandomDrink = async () => {
   }
 };
 
+const getDrinkById = async (id) => {
+  try {
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const result = await fetch(url);
+    return await result.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getDrinksIngredientsList = async () => {
   try {
     const ingredientsEndpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
@@ -98,12 +108,13 @@ const getDrinkIngredientThumbnail = async (drink) => {
 };
 
 export {
+  getDrinkById,
   getDrinksAll,
   getRandomDrink,
   getDrinksByName,
-  getDrinksByIngredient,
   getDrinksByCategory,
   getDrinksCategories,
+  getDrinksByIngredient,
   getDrinksByFirstLetter,
   getDrinksIngredientsList,
   getDrinkIngredientThumbnail,
