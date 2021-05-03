@@ -10,6 +10,7 @@ import {
 import '../App.css';
 import DrinkCards from '../components/DrinkCards';
 import { receiveCategoryDrink, receiveDataDrink } from '../redux/actions';
+import SearchBar from '../components/SearchBar';
 
 function Drinks() {
   const [loading, isFetching] = useState(true);
@@ -66,9 +67,25 @@ function Drinks() {
       checkCategory(param);
     }
   }
+
+  function fetchAlert() {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  function drinksCardsRender() {
+    if (drinks) {
+      return (
+        DrinkCards(category, drinks, categoryCheck)
+      );
+    } if (!drinks) {
+      fetchAlert();
+    }
+  }
+
   return (
     <>
-      { loading ? <h1> Loading...</h1> : DrinkCards(category, drinks, categoryCheck) }
+      <SearchBar />
+      { loading ? <h1> Loading...</h1> : drinksCardsRender() }
       <FooterMenu />
     </>
   );

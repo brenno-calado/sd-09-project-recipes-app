@@ -23,3 +23,8 @@ export const receiveCategoryDrink = (category) => ({
   type: STORE_CATEGORY_DRINK,
   category,
 });
+
+export const saveFilterDataAction = (meals) => ({
+  type: STORE_DATA_MEAL,
+  meals,
+});

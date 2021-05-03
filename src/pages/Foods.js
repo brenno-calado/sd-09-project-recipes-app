@@ -8,10 +8,17 @@ import '../App.css';
 import MealCards from '../components/MealCards';
 
 import { receiveDataMeal, receiveCategoryMeal } from '../redux/actions';
+import SearchBar from '../components/SearchBar';
+import useRouter from '../hooks/router';
 
 function Foods() {
   const [loading, isFetching] = useState(true);
   const [categoryBtn, getCategory] = useState(undefined);
+
+  const router = useRouter();
+
+  console.log(router.pathname);
+
   const [lastCategory, checkCategory] = useState(undefined);
 
   const meals = useSelector((state) => state.foodReducer.meals);
@@ -65,11 +72,26 @@ function Foods() {
     }
   }
 
+  function fetchAlert() {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  function foodCardsRender() {
+    if (meals) {
+      return (
+        MealCards(category, meals, categoryCheck)
+      );
+    } if (!meals) {
+      fetchAlert();
+    }
+  }
+
   return (
-    <>
-      { loading ? <h1> Loading...</h1> : MealCards(category, meals, categoryCheck) }
+    <div className="test2">
+      <SearchBar />
+      { loading ? <h1> Loading...</h1> : foodCardsRender() }
       <FooterMenu />
-    </>
+    </div>
   );
 }
 
