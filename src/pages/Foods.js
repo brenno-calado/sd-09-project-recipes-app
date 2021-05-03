@@ -4,20 +4,19 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import RecipeCard from '../components/RecepiCard';
+import createRender from '../utils/headerfoods';
+import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 
 function Foods() {
   const [meal, setMeal] = useState([]);
-  const [getSelectedCategory, setGetSelectedCategory] = useState();
   const [listItemByCategory, setListItemByCategory] = useState([]);
-  const [checked, setChecked] = useState(false);
+  const [handleClickButtonName, checked, category] = useHandleClickButtonName();
 
   const { handleFetchFoodClick,
     recipesData,
     handleFetchRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory } = useRecipeContext();
-  const twelve = 12;
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
@@ -37,18 +36,12 @@ function Foods() {
 
   useEffect(() => {
     if (checked) {
-      getRecipesFoodsFilterByCategory(getSelectedCategory)
+      getRecipesFoodsFilterByCategory(category)
         .then(({ meals }) => setListItemByCategory(meals || []));
     }
-  }, [getSelectedCategory]);
+  }, [category, checked]);
 
   const toggle = () => { if (checked) setListItemByCategory([]); };
-
-  const handleClick = ({ target }) => {
-    setGetSelectedCategory(target.name);
-    setChecked(!checked);
-    toggle();
-  };
 
   function categoryButtom() {
     const five = 5;
@@ -61,7 +54,7 @@ function Foods() {
               type="button"
               name={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClick({ target }) }
+              onClick={ ({ target }) => handleClickButtonName({ target }, toggle) }
             >
               { strCategory }
             </button>
@@ -69,21 +62,6 @@ function Foods() {
         )
       ))
     );
-  }
-
-  function createRender(list) {
-    return list.map(({ idMeal, strMealThumb, strMeal }, index) => (
-      index < twelve && (
-        <RecipeCard
-          key={ idMeal }
-          image={ strMealThumb }
-          name={ strMeal }
-          recipeCArdId={ `${index}-recipe-card` }
-          cardImageId={ `${index}-card-img` }
-          cardNameId={ `${index}-card-name` }
-        />
-      )
-    ));
   }
 
   function header() {

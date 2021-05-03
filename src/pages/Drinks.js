@@ -4,20 +4,19 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import RecipeCard from '../components/RecepiCard';
+import createRender from '../utils/headerDrinks';
+import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 
 function Drinks() {
   const [drink, setDrink] = useState([]);
-  const [categoryDrink, setCategoryDrink] = useState();
   const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
-  const [checked, setChecked] = useState(false);
+  const [handleClickButtonName, checked, category] = useHandleClickButtonName();
 
   const { handleFetchDrinkClick,
     recipesData,
     handleFetchRecipes,
     getRecipesByCategory,
     getRecipesDrinksFilterByCategory } = useRecipeContext();
-  const twelve = 12;
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
@@ -37,18 +36,12 @@ function Drinks() {
 
   useEffect(() => {
     if (checked) {
-      getRecipesDrinksFilterByCategory(categoryDrink)
+      getRecipesDrinksFilterByCategory(category)
         .then(({ drinks }) => setListDrinkByCategory(drinks || []));
     }
-  }, [categoryDrink]);
+  }, [category, checked]);
 
   const toggle = () => { if (checked) setListDrinkByCategory([]); };
-
-  const handleClick = ({ target }) => {
-    setCategoryDrink(target.name);
-    setChecked(!checked);
-    toggle();
-  };
 
   function categoryButtom() {
     const five = 5;
@@ -61,7 +54,7 @@ function Drinks() {
               type="button"
               name={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClick({ target }) }
+              onClick={ ({ target }) => handleClickButtonName({ target }, toggle) }
             >
               { strCategory }
             </button>
@@ -69,21 +62,6 @@ function Drinks() {
         )
       ))
     );
-  }
-
-  function createRender(list) {
-    return list.map(({ idDrink, strDrinkThumb, strDrink }, index) => (
-      index < twelve && (
-        <RecipeCard
-          key={ idDrink }
-          image={ strDrinkThumb }
-          name={ strDrink }
-          recipeCArdId={ `${index}-recipe-card` }
-          cardImageId={ `${index}-card-img` }
-          cardNameId={ `${index}-card-name` }
-        />
-      )
-    ));
   }
 
   function header() {

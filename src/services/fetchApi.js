@@ -1,9 +1,9 @@
 export async function getRecipesDrinksFilterByCategory(category) {
-  const promise = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}
-  `);
+  const promise = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
   try {
     const data = await promise.json();
     if (data) {
+      console.log(data);
       return data;
     }
   } catch (error) {
@@ -12,8 +12,7 @@ export async function getRecipesDrinksFilterByCategory(category) {
 }
 
 export async function getRecipesFoodsFilterByCategory(category) {
-  const promise = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}
-  `);
+  const promise = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   try {
     const data = await promise.json();
     if (data) {
