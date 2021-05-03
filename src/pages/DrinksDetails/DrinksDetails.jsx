@@ -1,36 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealNameAPI } from '../../services/fetchMealAPI';
+import { fetchDrinkById } from '../../services/fetchDrinkAPI';
 import RecipeCard from '../../common/components/RecipeCard';
 
 function DrinkDetails(props) {
-  const { history: { location: { state: data } } } = props;
+  const { match: { params: { id } } } = props;
   const [recommended, setRecommended] = useState([]);
-  const dois = 2;
-  const recipe = {
-    state: data,
-  };
+  const [drink, setDrink] = useState();
+  const seis = 6;
+  const idDrink = id;
 
-  console.log(data);
-  async function fetchRecommended() {
+  async function fetchData() {
     await fetchMealNameAPI('').then((response) => setRecommended(response.meals));
+    await fetchDrinkById(idDrink).then((response) => setDrink(response.drinks[0]));
   }
 
   useEffect(() => {
-    fetchRecommended();
+    fetchData();
   }, []);
 
   function showDetails() {
-    const { state } = recipe;
     const maxIngredient = 21;
     let ingredients = [];
     for (let index = 1; index < maxIngredient; index += 1) {
-      if (state[`strIngredient${index}`]) {
+      if (drink[`strIngredient${index}`]) {
         ingredients = [...ingredients, (
-          <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
-            {state[`strIngredient${index}`]}
+          <li key={ index } data-testid={ `${index - 1}-ingredient-name-and-measure` }>
+            {drink[`strIngredient${index}`]}
             -
-            {state[`strMeasure${index}`]}
+            {drink[`strMeasure${index}`]}
           </li>
         )];
       }
@@ -38,56 +37,58 @@ function DrinkDetails(props) {
     return <ul>{ingredients}</ul>;
   }
 
-  const { state } = recipe;
+  function renderDrink() {
+    return (
+      <div>
+        <img
+          data-testid="recipe-photo"
+          src={ drink.strDrinkThumb }
+          alt="recipeImg"
+          width="350px"
+        />
+        <div>
+          <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
+          <h5 data-testid="recipe-category">
+            Category:
+            { drink.strAlcoholic }
+          </h5>
+          <button data-testid="share-btn" type="button">Share</button>
+          <button data-testid="favorite-btn" type="button">♡</button>
+        </div>
+        <div>
+          <h4>Instructions</h4>
+          <p data-testid="instructions">{ drink.strInstructions }</p>
+        </div>
+        <div>
+          <h4>Ingredients</h4>
+          { showDetails() }
+        </div>
+        <div>
+          <h4>Recommended Recipes</h4>
+          <div>
+            { recommended && recommended
+              .slice(0, seis)
+              .map((meal, index) => (
+                <div key={ index } data-testid={ `${index}-recomendation-card` }>
+                  <RecipeCard recipe={ meal } />
+                </div>
+              ))}
+          </div>
+        </div>
+        <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      <img
-        data-testid="recipe-photo"
-        src={ state.strDrinkThumb }
-        alt="recipeImg"
-        width="350px"
-      />
-      <div>
-        <h1 data-testid="recipe-title">{ state.strDrink }</h1>
-        <h5 data-testid="recipe-category">
-          Category:
-          { state.strCategory }
-        </h5>
-        <button data-testid="share-btn" type="button">Share</button>
-        <button data-testid="favorite-btn" type="button">♡</button>
-      </div>
-      <div>
-        <h4>Instructions</h4>
-        <p data-testid="instructions">{ state.strInstructions }</p>
-      </div>
-      <div>
-        <h4>Ingredients</h4>
-        { showDetails() }
-      </div>
-      <div>
-        <h4>Recommended Recipes</h4>
-        <div>
-          { recommended && recommended
-            .slice(0, dois)
-            .map((meal, index) => (
-              <RecipeCard
-                key={ index }
-                data-testid={ `${index}-recomendation-card` }
-                recipe={ meal }
-              />
-            ))}
-        </div>
-      </div>
-      <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
-    </div>
+    (drink ? renderDrink() : <p>Loading...</p>)
   );
 }
 
 DrinkDetails.propTypes = {
-  history: PropTypes.shape({
-    location: PropTypes.shape({
-      state: PropTypes.arrayOf(PropTypes.string),
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
     }),
   }).isRequired,
   recipe: PropTypes.shape({
@@ -95,7 +96,7 @@ DrinkDetails.propTypes = {
     includes: PropTypes.func,
     strDrink: PropTypes.string,
     strDrinkThumb: PropTypes.string,
-    srtCategory: PropTypes.string,
+    strAlcoholic: PropTypes.string,
     srtInstructions: PropTypes.string,
     srtSource: PropTypes.string,
     srtMeasure: PropTypes.string,

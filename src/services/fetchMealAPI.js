@@ -45,3 +45,13 @@ export const fetchFilteredByCategory = async (category) => {
     console.log(error);
   }
 };
+
+export const fetchMealById = async (mealId) => {
+  try {
+    const endPoint = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`;
+    const meal = await fetch(endPoint).then((response) => response.json());
+    return meal;
+  } catch (error) {
+    console.log(error);
+  }
+};
