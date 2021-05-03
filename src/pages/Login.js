@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Context } from '../context';
 import { fecthByName } from '../services/api';
+import { startLocalStorage } from '../services/localStorageService';
 
 function Login() {
   const { updateData } = useContext(Context);
@@ -21,9 +22,10 @@ function Login() {
 
   const handleSubmit = () => {
     const { email } = state;
-    localStorage.user = JSON.stringify({ email });
-    localStorage.mealsToken = 1;
-    localStorage.cocktailsToken = 1;
+    startLocalStorage(email);
+    // localStorage.user = JSON.stringify({ email });
+    // localStorage.mealsToken = 1;
+    // localStorage.cocktailsToken = 1;
     updateData(fecthByName('', true));
     setShouldRedirect(true);
   };

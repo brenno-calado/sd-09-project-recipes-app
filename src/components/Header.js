@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
-// import SearchBar from './SearchBar';
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -25,8 +25,8 @@ function Header({ title, search }) {
           { renderImage('search-top-btn', searchIcon, 'search icon')}
         </button>) }
 
-      {/* { search && shouldSearch
-        ? <SearchBar isMeal={ title === 'Comidas' } /> : null } */}
+      { search && shouldSearch
+        ? <SearchBar isMeal={ title === 'Comidas' } /> : null }
     </header>
   );
 }

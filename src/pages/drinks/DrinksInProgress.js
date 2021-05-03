@@ -39,7 +39,7 @@ function DrinksInProgress() {
             data-testid={ `${index}-ingredient-name-and-measure` }
             key={ ingredient }
           >
-            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
+            { `${data[ingredient]} ${data[measures[index]]}` }
             <span data-testid="ingredient-step">
               <input
                 id={ ingredient }
