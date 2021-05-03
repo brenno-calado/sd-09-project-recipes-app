@@ -4,7 +4,6 @@ import createIngredientsArray from '../services/createIngredientsArray';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
-// import dateFormatting from '../services/dateFormatting';
 import { localStorageInitialState,
   sendDoneRecipeToLocalStorage } from '../services/localStorage';
 import '../css/FoodsInProgress.css';
