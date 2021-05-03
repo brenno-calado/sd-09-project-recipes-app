@@ -14,7 +14,7 @@ export default function () {
           alt="drinkIcon"
         />
       </Link>
-      <Link to="/explorar">
+      <Link to="explorar">
         <img
           data-testid="explore-bottom-btn"
           src={ exploreIcon }

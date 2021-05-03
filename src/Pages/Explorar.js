@@ -6,7 +6,7 @@ import MenuInferior from '../components/MenuInferior';
 function Explorar() {
   return (
     <div>
-      <Link to="/comidas">
+      <Link to="/explorar/comidas">
         <button
           data-testid="explore-food"
           type="button"
@@ -14,7 +14,7 @@ function Explorar() {
           Explorar Comidas
         </button>
       </Link>
-      <Link to="/bebidas">
+      <Link to="/explorar/bebidas">
         <button
           data-testid="explore-drinks"
           type="button"
