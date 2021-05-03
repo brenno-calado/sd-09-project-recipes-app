@@ -40,7 +40,7 @@ function LikeBtn({ recipe }) {
       setFavoriteRecipes(likedRecipes);
     };
     checkLiked();
-  }, []);
+  }, [recipeToSave.id, type]);
 
   const likeRecipe = () => {
     switch (like) {
