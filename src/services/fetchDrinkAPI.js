@@ -45,3 +45,13 @@ export const fetchDrinksFilteredByCategory = async (category) => {
     console.log(error);
   }
 };
+
+export const fetchDrinkById = async (drinkId) => {
+  try {
+    const endPoint = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`;
+    const drink = await fetch(endPoint).then((response) => response.json());
+    return drink;
+  } catch (error) {
+    console.log(error);
+  }
+};

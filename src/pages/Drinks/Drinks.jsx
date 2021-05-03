@@ -37,13 +37,13 @@ const Drinks = (props) => {
 
   if (loading) {
     return (
-      <h1>Carregando...</h1>
+      <p>Loading...</p>
     );
   }
 
   if (drinks.length === 1) {
     console.log(drinks);
-    history.push(`/bebidas/${drinks[0].idDrink}`, drinks);
+    history.push(`/bebidas/${drinks[0].idDrink}`, drinks[0]);
     return null;
   }
 

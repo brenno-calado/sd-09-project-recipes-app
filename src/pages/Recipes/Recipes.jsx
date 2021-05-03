@@ -36,12 +36,12 @@ const Recipes = (props) => {
 
   if (loading) {
     return (
-      <h1>Carregando...</h1>
+      <p>Loading...</p>
     );
   }
 
   if (meals.length === 1) {
-    history.push(`/comidas/${meals[0].idMeal}`, meals);
+    history.push(`/comidas/${meals[0].idMeal}`, meals[0]);
     return null;
   }
 
