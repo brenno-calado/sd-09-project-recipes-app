@@ -20,6 +20,7 @@ function MealsDetails() {
   }, [id]);
 
   const handleClick = () => {
+    console.log('Cliquei');
     updateLocalStorage('inProgressRecipes', 'meals', id, []);
     setShouldRedirect(true);
   };
