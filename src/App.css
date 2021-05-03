@@ -71,8 +71,8 @@
 }
 
 .hide-start-btn {
-  display:none;
   bottom: 0;
+  display:none;
   position: fixed;
 }
 
