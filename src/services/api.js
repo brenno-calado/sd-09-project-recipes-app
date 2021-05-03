@@ -23,3 +23,8 @@ export function getCategories(meals = false) {
   const url = `${apiUrl(meals)}/list.php?c=list`;
   return fetchData(url).then((res) => res[recipeType(meals)]);
 }
+
+export function getRecipesByCategory(category, meals) {
+  const url = `${apiUrl(meals)}/filter.php?c=${category}`;
+  return fetchData(url).then((res) => res[recipeType(meals)]);
+}
