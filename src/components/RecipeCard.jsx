@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function RecipeCard({ recipe, index, recipeType }) {
   const type = recipeType === 'meals' ? 'Meal' : 'Drink';
   const redirectLink = recipeType === 'meals' ? 'comidas' : 'bebidas';
- 
+
   function handleCardClick() {
     // event.preventDefault();
   }
