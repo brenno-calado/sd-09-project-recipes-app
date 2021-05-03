@@ -26,7 +26,7 @@ function Footer() {
   };
 
   return (
-    <foot className="footer" data-testid="footer">
+    <footer className="footer" data-testid="footer">
       <button
         type="button"
         data-testid="drinks-bottom-btn"
@@ -51,7 +51,7 @@ function Footer() {
       >
         <img src={ mealIcon } alt="icon-foods" />
       </button>
-    </foot>
+    </footer>
   );
 }
 
