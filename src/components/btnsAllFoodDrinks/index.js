@@ -5,7 +5,7 @@ function index({ setFilters }) {
     <div className="container-btns-recipesDone">
       <button
         onClick={ () => setFilters('All') }
-        className="btn-recipesDone"
+        className="btn-category"
         data-testid="filter-by-all-btn"
         type="button"
       >
@@ -13,7 +13,7 @@ function index({ setFilters }) {
       </button>
       <button
         onClick={ () => setFilters('foods') }
-        className="btn-recipesDone"
+        className="btn-category"
         data-testid="filter-by-food-btn"
         type="button"
       >
@@ -21,7 +21,7 @@ function index({ setFilters }) {
       </button>
       <button
         onClick={ () => setFilters('drinks') }
-        className="btn-recipesDone"
+        className="btn-category"
         data-testid="filter-by-drink-btn"
         type="button"
       >
