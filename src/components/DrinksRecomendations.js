@@ -7,9 +7,9 @@ function DrinksRecomendations() {
   const [drinks, setDrinks] = useState([]);
 
   const getDrinks = async () => {
-    const result = await fecthByName('', false);
+    const data = await fecthByName('', false);
     const recomendations = 6;
-    setDrinks(result.drinks.slice(0, recomendations));
+    setDrinks(data.drinks.slice(0, recomendations));
   };
 
   useEffect(() => { getDrinks(); }, []);

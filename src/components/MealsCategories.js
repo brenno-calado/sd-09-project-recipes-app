@@ -9,13 +9,11 @@ function MealsCategories() {
   const maxArrayLength = 5;
 
   const getCategories = async () => {
-    const result = await fetchCategoryList(true);
-    setCategories(result.meals);
+    const data = await fetchCategoryList(true);
+    setCategories(data.meals);
   };
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  useEffect(() => { getCategories(); }, []);
 
   const handleClick = ({ target: { value, name } }) => {
     if (toggleClick[name] || name === 'All') {

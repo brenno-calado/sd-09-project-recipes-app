@@ -9,13 +9,11 @@ function DrinksCategories() {
   const maxArrayLength = 5;
 
   const getCategories = async () => {
-    const result = await fetchCategoryList(false);
-    setCategories(result.drinks);
+    const data = await fetchCategoryList(false);
+    setCategories(data.drinks);
   };
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  useEffect(() => { getCategories(); }, []);
 
   const handleClick = ({ target: { value, name } }) => {
     if (toggleClick[name] || name === 'All') {
