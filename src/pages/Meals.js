@@ -16,7 +16,7 @@ class Meals extends React.Component {
   }
 
   render() {
-    const { recipes, isLoading, isCategory } = this.props;
+    const { recipes, isLoading } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
