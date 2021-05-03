@@ -17,6 +17,7 @@ const foodReducer = (state = INITIAL_STATE, action) => {
       ...state,
       category: action.category,
     };
+
   default:
     return state;
   }

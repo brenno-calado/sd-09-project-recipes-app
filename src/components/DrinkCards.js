@@ -3,6 +3,41 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function DrinkCards(categories, drinks, categoryCheck) {
+  const numberOfDrinks = 12;
+  function renderCards(drink, index) {
+    return (
+      <Link
+        key={ drink.idDrink }
+        to={ `/bebidas/${drink.idDrink}` }
+      >
+        <div
+          key={ drink.idDrink }
+          data-testid={ `${index}-recipe-card` }
+          className="card"
+          style={ {
+            width: '7rem',
+            alignItems: 'center',
+            marginBottom: '5px',
+            marginTop: '10px',
+          } }
+        >
+          <img
+            src={ drink.strDrinkThumb }
+            data-testid={ `${index}-card-img` }
+            alt={ `${drink.strDrink} recipe` }
+            className="card-img-top"
+            style={ { width: '6rem', margin: '4px' } }
+          />
+          <h5
+            data-testid={ `${index}-card-name` }
+            className="card-title"
+          >
+            {drink.strDrink}
+          </h5>
+        </div>
+      </Link>
+    );
+  }
   return (
     <section
       className="container-cards"
@@ -49,41 +84,9 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
         ))}
       </div>
       {drinks.map((drink, index) => (
-        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
-          <div
-            key={ drink.idDrink }
-            data-testid={ `${index}-recipe-card` }
-            className="cards"
-            style={ {
-              width: '16rem',
-              alignItems: 'center',
-              marginBottom: '5px',
-              marginTop: '10px',
-            } }
-          >
-            <img
-              src={ drink.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-              alt={ `${drink.strDrink} recipe` }
-              className="img"
-              style={ {
-                width: '15.5rem',
-                margin: '4px',
-
-              } }
-            />
-            <h5
-              data-testid={ `${index}-card-name` }
-              style={ {
-                display: 'flex',
-                justifyContent: 'center',
-                textDecoration: 'none',
-              } }
-            >
-              {drink.strDrink}
-            </h5>
-          </div>
-        </Link>
+        index < numberOfDrinks
+          ? renderCards(drink, index)
+          : null
       ))}
     </section>
   );

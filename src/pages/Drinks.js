@@ -67,10 +67,25 @@ function Drinks() {
       checkCategory(param);
     }
   }
+
+  function fetchAlert() {
+    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
+  function drinksCardsRender() {
+    if (drinks) {
+      return (
+        DrinkCards(category, drinks, categoryCheck)
+      );
+    } if (!drinks) {
+      fetchAlert();
+    }
+  }
+
   return (
     <>
       <Header pageName="Bebidas" searchBtn />
-      { loading ? <h1> Loading...</h1> : DrinkCards(category, drinks, categoryCheck) }
+      { loading ? <h1> Loading...</h1> : drinksCardsRender() }
       <FooterMenu />
     </>
   );
