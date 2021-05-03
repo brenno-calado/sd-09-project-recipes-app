@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Components/Header';
-import MenuInferior from '../Components/MenuInferior';
+import Header from '../components/Header';
+import MenuInferior from '../components/MenuInferior';
 
 export default function Perfil() {
   const { email } = JSON.parse(localStorage.getItem('user'));
