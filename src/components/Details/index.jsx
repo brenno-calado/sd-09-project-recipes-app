@@ -1,31 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import * as S from './styled';
-import TitleContainer from './TitleContainer';
+import {
+  pathName,
+  ingredientsArray,
+  measureArray,
+  copyLInk,
+  sources,
+  sourcesRecomendations,
+} from './services';
 
-const pathName = (path) => ({
-  typePath: path.includes('comidas') ? 'food' : 'cocktail',
-  selectorPath: path.includes('comidas') ? 'meals' : 'drinks',
-  recomendationPath: path.includes('comidas') ? 'cocktail' : 'food',
-  recomendationName: path.includes('comidas') ? 'drinks' : 'meals',
-});
+const recomendationDefaultLength = 6;
 
-export default function Details(props) {
+export default function Details({ match: { params, url } }) {
   const [details, setDetails] = useState(null);
   const [recomendation, setRecomendation] = useState(null);
-  const { match: { params, path } } = props;
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [copyLink, setCopyLink] = useState(false);
+
+  const { id } = params;
 
   const {
     typePath,
     selectorPath,
     recomendationPath,
     recomendationName,
-  } = pathName(path);
-
-  const { id } = params;
-
-  const recomendationDefaultLength = 6;
+  } = pathName(url);
 
   useEffect(() => {
     fetchApi(typePath, 'details', id).then((res) => setDetails(res[selectorPath][0]));
@@ -33,84 +35,96 @@ export default function Details(props) {
 
   useEffect(() => {
     fetchApi(recomendationPath, 'name', '').then((res) => {
-      const recomentation = res[recomendationName].filter(
-        (item) => res[recomendationName].indexOf(item) < recomendationDefaultLength,
-      );
+      const recomentation = res[recomendationName]
+        .filter((item) => res[recomendationName]
+          .indexOf(item) < recomendationDefaultLength);
       setRecomendation(recomentation);
     });
   }, [recomendationPath, recomendationName, selectorPath]);
 
-  const ingredientsArray = details
-    && Object.keys(details)
-      .filter((ingredientKey) => ingredientKey.includes('strIngredient'))
-      .map((strIngredients) => details[strIngredients])
-      .filter((ingredient) => ingredient);
+  const redirectToProgrecessPage = () => {
+    setShouldRedirect(true);
+  };
 
-  const measureArray = details
-    && Object.keys(details)
-      .filter((measureKey) => measureKey.includes('strMeasure'))
-      .map((strMeasures) => details[strMeasures])
-      .filter((measure) => measure);
+  const handleCopy = () => {
+    copyLInk(`http://localhost:3000${url}`, setCopyLink);
+  };
 
-  const sources = (meal, drink) => details && (
-    typePath === 'food' ? details[meal] : details[drink]);
-
-  const sourcesRecomendations = (meal, drink, recipe) => (
-    typePath === 'food' ? recipe[drink] : recipe[meal]);
-
+  if (shouldRedirect) {
+    return (
+      (typePath === 'food') ? <Redirect to={ `/comidas/${id}/in-progress` } />
+        : <Redirect to={ `/bebidas/${id}/in-progress` } />
+    );
+  }
   return (
     <S.Container>
       <S.ThumbNail
-        src={ sources('strMealThumb', 'strDrinkThumb') }
+        src={ sources('strMealThumb', 'strDrinkThumb', details, typePath) }
         alt="recipe"
         data-testid="recipe-photo"
       />
-      <TitleContainer { ...props } item={ details } />
+
+      <S.TitleContainer>
+        <h1
+          data-testid="recipe-title"
+        >
+          { sources('strMeal', 'strDrink', details, typePath) }
+        </h1>
+        <div>
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ handleCopy }
+          >
+            {copyLink ? 'Link copiado!' : 'Share'}
+          </button>
+          <button type="button" data-testid="favorite-btn">favorite</button>
+        </div>
+      </S.TitleContainer>
       <h3 data-testid="recipe-category">
-        {details
-          && (typePath === 'food' ? details.strCategory : details.strAlcoholic)}
+        { details && ((typePath === 'food')
+          ? details.strCategory : details.strAlcoholic) }
       </h3>
       <ul>
         <h4>Ingredients:</h4>
-        {details
-          && ingredientsArray.map((item, index) => (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {measureArray[index]}
+        {
+          details && ingredientsArray(details).map((item, index) => (
+            <li key={ index } data-testid={ `${index}-ingredient-name-and-measure` }>
+              { measureArray(details)[index] }
               &nbsp;
-              <strong>{item}</strong>
+              <strong>{ item }</strong>
             </li>
-          ))}
+          ))
+        }
       </ul>
-      <p data-testid="instructions">{details && details.strInstructions}</p>
-      {typePath === 'food' && (
-        <iframe
+      <p data-testid="instructions">{ details && details.strInstructions}</p>
+      {
+        (typePath === 'food') && <iframe
           src={ details && details.strYoutube }
           data-testid="video"
           title="video"
         />
-      )}
+      }
       <S.RecomendationContainer>
-        {recomendation
-          && recomendation.map((recipe, index) => (
+        {
+          recomendation && recomendation.map((recipe, index) => (
             <S.Card key={ index } data-testid={ `${index}-recomendation-card` }>
               <img
-                src={ sourcesRecomendations(
-                  'strMealThumb',
-                  'strDrinkThumb',
-                  recipe,
-                ) }
+                src={ sourcesRecomendations('strMealThumb', 'strDrinkThumb', recipe) }
                 alt="recomendations"
               />
               <h3 data-testid={ `${index}-recomendation-title` }>
-                {sourcesRecomendations('strMeal', 'strDrink', recipe)}
+                { sourcesRecomendations('strMeal', 'strDrink', recipe, typePath)}
               </h3>
             </S.Card>
-          ))}
+          ))
+        }
       </S.RecomendationContainer>
-      <S.StartButton type="button" data-testid="start-recipe-btn">
+      <S.StartButton
+        onClick={ redirectToProgrecessPage }
+        type="button"
+        data-testid="start-recipe-btn"
+      >
         Iniciar Receita
       </S.StartButton>
     </S.Container>
@@ -121,7 +135,7 @@ Details.propTypes = {
   id: PropTypes.string,
   match: PropTypes.shape({
     params: PropTypes.objectOf(PropTypes.string),
-    path: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
 };
 
