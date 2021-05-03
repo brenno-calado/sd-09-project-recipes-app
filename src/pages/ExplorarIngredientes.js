@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ExplorarIngredientes() {
   return (
-    <Header title="Explorar Ingredientes" showButton={ false } />
+    <Header title="Explorar Ingredientes" showExplorerButton={ false } />
   );
 }
 

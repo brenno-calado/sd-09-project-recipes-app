@@ -6,7 +6,7 @@ import Explorer from '../components/Explorer';
 function ExplorarBebidas() {
   return (
     <div>
-      <Header title="Explorar Bebidas" showButton={ false } />
+      <Header title="Explorar Bebidas" showExplorerButton={ false } />
       <Explorer type="drinks" />
     </div>
   );

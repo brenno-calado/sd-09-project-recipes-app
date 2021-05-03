@@ -1,5 +1,19 @@
-import React from 'react';
+import { func } from 'prop-types';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { RecipiesContext } from '../context/RecipiesContext';
+
+function randomRecipe(type) {
+  // const { searchMealsList } = useContext(RecipiesContext);
+  // console.log(searchMealsList);
+  if (type === 'food') {
+    const listMeals = [{ idMeal: '52977' }, { idMeal: '52978' }];
+    const randomElement = listMeals[Math.floor(Math.random() * listMeals.length)];
+    const surpriseMeal = randomElement.idMeal;
+    // window.location.href = (`http://localhost:3000/comidas/${surpriseMeal}`);
+    console.log(searchMealsList);
+  }
+}
 
 function Explorer({ type }) {
   if (type === 'global') {
@@ -31,11 +45,13 @@ function Explorer({ type }) {
             Por Local de Origem
           </button>
         </Link>
-        <Link to="/explorar/XXXX">
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => randomRecipe('food') }
+        >
+          Me Surpreenda!
+        </button>
       </div>
     );
   }
@@ -47,11 +63,13 @@ function Explorer({ type }) {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/XXXX">
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => randomRecipe('drink') }
+        >
+          Me Surpreenda!
+        </button>
       </div>
     );
   }

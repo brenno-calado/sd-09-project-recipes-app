@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Perfil() {
   return (
-    <Header title="Perfil" showButton={ false } />
+    <Header title="Perfil" showExplorerButton={ false } />
   );
 }
 
