@@ -8,7 +8,6 @@ function Explorar() {
     <div>
       <Link to="/explorar/comidas">
         <button
-          className=""
           data-testid="explore-food"
           type="button"
         >
