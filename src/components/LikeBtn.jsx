@@ -13,7 +13,7 @@ function LikeBtn({ recipe }) {
     ? {
       id: recipe.idMeal,
       type: 'comida',
-      area: recipe.strArea || '',
+      area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: '',
       name: recipe.strMeal,
@@ -22,9 +22,9 @@ function LikeBtn({ recipe }) {
     : {
       id: recipe.idDrink,
       type: 'bebida',
-      area: recipe.strArea || '',
+      area: '',
       category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic || '',
+      alcoholicOrNot: recipe.strAlcoholic,
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
     };
