@@ -1,0 +1,17 @@
+header {
+  background-color: rgb(251, 144, 22);
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  color: aliceblue;
+  display: flex;
+  margin-top: 50px;
+}
+
+.logo-img {
+  height: 200px;
+  width: 200px;
+}
+

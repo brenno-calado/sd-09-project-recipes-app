@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import setLocalStorage from '../services/localStorage';
+import '../Style/Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="Login-body">
       <label htmlFor="email">
         Digite o email:
         <input

@@ -8,11 +8,16 @@ import { searchBarFetch } from '../actions/searchBar';
 import { filtersFetch } from '../actions/filters';
 import Filters from '../components/Filters';
 
-function FoodMainPage({ match, setRecipes, setFilters }) {
+function FoodMainPage({ match, setRecipes, setFilters, ingredient }) {
   useEffect(() => {
-    setRecipes({ searchValue: '', query: 's', page: 'Comidas' });
+    console.log(ingredient);
+    if (ingredient) {
+      setRecipes({ searchValue: ingredient, query: 'i', page: 'Comidas' });
+    } else {
+      setRecipes({ searchValue: '', query: 's', page: 'Comidas' });
+    }
     setFilters('Comidas');
-  }, [setRecipes, setFilters]);
+  }, [setRecipes, setFilters, ingredient]);
   return (
     <div>
       <Header page="Comidas" search />
@@ -23,6 +28,10 @@ function FoodMainPage({ match, setRecipes, setFilters }) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  ingredient: state.setIngredients.ingredient,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setRecipes: (search) => dispatch(searchBarFetch(search)),
   setFilters: (page) => dispatch(filtersFetch(page)),
@@ -32,4 +41,4 @@ FoodMainPage.propTypes = {
   match: object,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(FoodMainPage);
+export default connect(mapStateToProps, mapDispatchToProps)(FoodMainPage);

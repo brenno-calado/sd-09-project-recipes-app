@@ -4,6 +4,7 @@ import setPage from './page';
 import setFilters from './filters';
 import setItem from './item';
 import setChecks from './checks';
+import setIngredients from './ingredients';
 import setAreas from './area';
 
 const rootReduce = combineReducers({
@@ -12,6 +13,7 @@ const rootReduce = combineReducers({
   setFilters,
   setItem,
   setChecks,
+  setIngredients,
   setAreas,
 });
 
