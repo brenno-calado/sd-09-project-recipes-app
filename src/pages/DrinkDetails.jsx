@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/details.css';
 
 const copy = require('clipboard-copy');
@@ -21,6 +22,33 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   const history = useHistory();
   const maxRecomendations = 6;
+
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const isFavorited = favoriteRecipes.some((obj) => obj.id === drinkId.idDrink);
+  const [favorited, setFavorited] = useState(isFavorited);
+
+  function handleFavorite(item) {
+    console.log(favorited);
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (isFavorited) {
+      const newFavorites = favorites
+        .filter((drink) => drink.id !== item.idDrink);
+      setFavorited(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    } else {
+      const newFavorites = [...favorites, {
+        id: item.idDrink,
+        type: 'bebida',
+        area: item.strArea,
+        category: '',
+        alcoholicOrNot: item.strAlcoholic,
+        name: item.strDrink,
+        image: item.strDrinkThumb,
+      }];
+      setFavorited(false);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    }
+  }
 
   function renderMessage() {
     return (
@@ -79,8 +107,12 @@ function DrinkDetails({ match: { params: { id } } }) {
           <button
             type="button"
             data-testid="favorite-btn"
+            onClick={ () => handleFavorite(drinkId) }
           >
-            <img src={ whiteHeartIcon } alt="Favoritar" />
+            <img
+              src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
+              alt="Favoritar"
+            />
           </button>
           <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
           <ul className="list-ingredients">
