@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
 import { getFoodDetailsById } from '../services/fetchApi';
-// import CardDetails from '../components/CardDetails/index';
+import CardeInProgress from '../components/CardInProgress';
+import useIngredientFoodList from '../hooks/useIngredientFoodList';
 
 function FoodRecipeInProgress(props) {
   const { match } = props;
@@ -9,6 +10,7 @@ function FoodRecipeInProgress(props) {
   const { id } = params;
   const [isFetching, setIsFetching] = useState(false);
   const [apiData, setApiData] = useState();
+  const [ingredientList] = useIngredientFoodList();
 
   useEffect(() => {
     getFoodDetailsById(id)
@@ -18,28 +20,66 @@ function FoodRecipeInProgress(props) {
       });
   }, [id]);
 
-  // function renderInProgressMeal() {
-  //   return (
-  //     apiData.meals && (
-  //       apiData.meals.map(({
-  //         strMealThumb,
-  //         strMeal,
-  //         strYoutube,
-  //         strCategory,
-  //         strInstructions,
-  //         idMeal,
-  //       }) => (
-  //         <CardDetails
+  function handleCheckedValue({ target }) {
+    if (target.checked) {
+      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const getFilteredLocal = getLocal && getLocal.meals[id]
+        .filter((item, index) => getLocal.meals[id].indexOf(item) === index);
 
-  //         />
-  //       ))
-  //     )
-  //   );
-  // }
+      const localFoods = {
+        meals: {
+          [id]: getLocal ? [...getFilteredLocal, target.name] : [target.name],
+        },
+      };
+
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(localFoods));
+    }
+
+    if (!target.checked) {
+      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
+      const removeLocal = getLocal && getLocal.meals[id]
+        .filter((item) => item !== target.name);
+
+      const localFoods = {
+        meals: {
+          [id]: removeLocal,
+        },
+      };
+
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(localFoods));
+    }
+  }
+
+  function renderInProgressMeal() {
+    return (
+      apiData.meals && (
+        apiData.meals.map(({
+          strMealThumb,
+          strMeal,
+          strCategory,
+          strInstructions,
+          idMeal,
+        }) => (
+          <CardeInProgress
+            key={ idMeal }
+            image={ strMealThumb }
+            title={ strMeal }
+            category={ strCategory }
+            instructions={ strInstructions }
+          >
+            {ingredientList(apiData, match, handleCheckedValue)}
+
+          </CardeInProgress>
+        ))
+      )
+    );
+  }
 
   return (
-    <p>render</p>
-    //! isFetching ? <p>loading</p> : renderInProgressMeal()
+    !isFetching ? <p>loading</p> : renderInProgressMeal()
   );
 }
 

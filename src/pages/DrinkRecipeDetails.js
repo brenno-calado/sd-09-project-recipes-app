@@ -28,8 +28,8 @@ function DrinkRecipeDetails(props) {
   const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
 
   useEffect(() => {
-    if (localStorage.length > 0) {
-      const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (repositoresLocal) {
       setMealLocal(repositoresLocal);
       repositoresLocal.forEach(({ id: favoriteId }) => {
         if (favoriteId === id) {
@@ -78,7 +78,7 @@ function DrinkRecipeDetails(props) {
               handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
               favorite={ favorite }
             >
-              {apiData && ingredientList(apiData)}
+              {apiData && ingredientList(apiData, match)}
             </CardDetails>
           ))
         )}

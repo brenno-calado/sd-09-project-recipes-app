@@ -83,7 +83,7 @@ CardDetails.defaultProps = {
   video: '',
   instructions: '',
   isAlcoholic: '',
-  children: [{}],
+  children: [],
   shouldVideoApear: bool,
   handleFavoriteClick: () => {},
   favorite: bool,
