@@ -13,17 +13,20 @@ import {
 } from '../services/DrinkFetch';
 
 const MealProvider = ({ children }) => {
-  const [foods, setFoods] = useState('');
-  // const [drinks, setDrinks] = useState('');
+  const [foods, setFoods] = useState([]);
   const [radio, setRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
+
+  function handleChange({ target: { value } }) {
+    setInputValue(value);
+  }
 
   function handleChangeRadio({ target: { value } }) {
     setRadio(value);
   }
 
   function foodFilter(input) {
-    if (radio === 'name' || radio === '') {
+    if (radio === 'name') {
       getMealsByName(inputValue)
         .then((response) => setFoods(response));
     }
@@ -60,29 +63,27 @@ const MealProvider = ({ children }) => {
     }
   }
 
-  function filters(input) {
+  function filters() {
     if (window.location.href.match(/comidas$/)) {
-      foodFilter(input);
+      foodFilter(inputValue);
     }
 
     if (window.location.href.match(/bebidas$/)) {
-      drinkFilter(input);
+      drinkFilter(inputValue);
     }
 
-    console.log(radio);
-    console.log(foods);
+    console.log('radio', radio);
+    console.log('response', foods);
   }
 
   const context = {
     foods,
     setFoods,
-    // drinks,
-    // setDrinks,
     radio,
     handleChangeRadio,
+    handleChange,
     filters,
     inputValue,
-    setInputValue,
     foodFilter,
   };
 
