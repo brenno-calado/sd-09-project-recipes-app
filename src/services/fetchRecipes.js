@@ -16,6 +16,15 @@ export const fetchBeverages = async () => {
   return recipesList;
 };
 
+export const fetchRecipes = async (url, type) => {
+  const endpoint = url;
+  const request = await fetch(endpoint);
+  const response = await request.json();
+  const recipesList = response[type];
+
+  return recipesList;
+};
+
 export const fetchRecipeDetails = async (idType, id) => {
   const url = (idType === 'meals')
     ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
@@ -25,5 +34,3 @@ export const fetchRecipeDetails = async (idType, id) => {
   const type = Object.keys(response);
   return response[type][0];
 };
-
-// export default fetchRecipes;

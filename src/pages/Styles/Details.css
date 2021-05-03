@@ -2,10 +2,7 @@
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   justify-content: space-between;
-  overflow-x: hidden;
-  overflow-y: scroll;
   text-align: left;
 }
 
@@ -50,13 +47,13 @@ iframe {
 }
 
 .recomendations {
-  margin-bottom: 100px;
+  margin-bottom: 75px;
 }
 
 .carocel-recomendations {
   display: flex;
   gap: 15px;
-  overflow-x: scroll;
+  /* overflow-x: scroll; */
   padding: 5px;
 }
 
