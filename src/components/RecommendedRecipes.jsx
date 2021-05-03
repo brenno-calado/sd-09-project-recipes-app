@@ -2,6 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mealsRecommendedThunk, cocktailsRecommendedThunk } from '../redux/actions';
+
+import HorizontalScrollMenu from './HorizontalScrollMenu';
+
 import '../css/RecommendedRecipes.css';
 
 function RecommendedRecipes({
@@ -51,23 +54,24 @@ function RecommendedRecipes({
     </div>
   ));
 
-  const recommendedDrinks = data.map((recipe, index) => (
-    <div
-      key={ recipe.idDrink }
-      data-testid={ `${index}-recomendation-card` }
-      className="recommendation-card"
-    >
-      <img
-        src={ recipe.strDrinkThumb }
-        alt="foto da receita"
-      />
-      <p>{recipe.strDrink}</p>
-    </div>
-  ));
+  // const recommendedDrinks = data.map((recipe, index) => (
+  //   <div
+  //     key={ recipe.idDrink }
+  //     data-testid={ `${index}-recomendation-card` }
+  //     className="recommendation-card"
+  //   >
+  //     <img
+  //       src={ recipe.strDrinkThumb }
+  //       alt="foto da receita"
+  //     />
+  //     <p>{recipe.strDrink}</p>
+  //   </div>
+  // ));
 
   return (
     <section className="recommendation-container">
-      { recipeType === 'comidas' ? recommendedDrinks : recommendedMeals }
+      {/* { recipeType === 'comidas' ? recommendedDrinks : recommendedMeals } */}
+      <HorizontalScrollMenu recommended={ recommended } />
     </section>
   );
 }
