@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
-import * as fetchAPI from '../services/fetchAPI';
+import { useLocation } from 'react-router';
+import { mealAPI, drinkAPI } from '../services/fetchAPI';
 import { MyContext } from '../MyContext';
 
 function SearchBar() {
+  const { pathname } = useLocation();
   const [radioSelected, setRadioSelected] = useState('');
   const [searchInput, setSearchInput] = useState('');
 
-  const { setResultAPI } = useContext(MyContext);
+  const { setData } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
     if (target.type === 'radio') {
@@ -16,8 +18,23 @@ function SearchBar() {
     }
   };
 
-  function searchFetch() {
+  function verifyPathToFetch() {
     const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+    if (pathname === '/comidas') {
+      mealAPI(radioSelected, searchInput)
+        .then((results) => (
+          results === null ? alert(notFound) : setData(results)
+        ));
+    }
+    if (pathname === '/bebidas') {
+      drinkAPI(radioSelected, searchInput)
+        .then((results) => (
+          results === null ? alert(notFound) : setData(results)
+        ));
+    }
+  }
+
+  function searchFetch() {
     if (radioSelected === '' && searchInput === '') {
       alert('Não foi possivel completar a busca verifique os campos e tente novamente!');
       return null;
@@ -25,10 +42,7 @@ function SearchBar() {
     if (radioSelected === 'firstLetter' && searchInput.length > 1) {
       alert('Sua busca deve conter somente 1 (um) caracter');
     } else {
-      fetchAPI.mealAPI(radioSelected, searchInput)
-        .then((results) => (
-          results.meals === null ? alert(notFound) : setResultAPI(results)
-        ));
+      verifyPathToFetch();
     }
   }
   return (
