@@ -83,27 +83,3 @@ footer {
 div {
   box-sizing: border-box;
 }
-
-
-.gallery {
-  display: flex;
-  flex-direction: row;
-  overflow: auto;
-  white-space: nowrap;
-  width: 400px;
-}
-
-.gallery-cell {
-  display: inline-block;
-  margin: 0 5px;
-}
-
-.image-recipe {
-  height: 200px;
-  width: 200px;
-}
-
-.init-btn {
-  bottom: 0;
-  position: fixed;
-}

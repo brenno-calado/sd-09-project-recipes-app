@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getDrinkById } from '../actions/getDrinkById';
 import { mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
-import '../App.css';
+import '../Style/Details.css';
 
 function DrinkDetails({
   recipes, match, history, getDrinkByIdDispatch, recommendedFoods }) {
@@ -53,75 +53,79 @@ function DrinkDetails({
     return <div>Loading...</div>;
   }
   return (
-    <div>
-      <div>
-        <h2 data-testid="recipe-title">{recipe.strDrink}</h2>
-        <img src={ `${recipe.strDrinkThumb}` } alt="recipe" data-testid="recipe-photo" />
-        <ShareAndFavo match={ match } recipe={ recipe } />
-        <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
-        {recipe.strAlcoholic === 'Alcoholic' && (
+    <div className="detailsPage">
+      <img
+        src={ `${recipe.strDrinkThumb}` }
+        alt="recipe"
+        data-testid="recipe-photo"
+        className="detailsImage"
+      />
+      <div className="headerDetails">
+        <div className="detailsMainInfos">
+          <h2
+            data-testid="recipe-title"
+            className="detailsTitle"
+          >
+            {recipe.strDrink}
+          </h2>
           <h2
             data-testid="recipe-category"
+            className="detailsCategory"
           >
-            {recipe.strAlcoholic}
-          </h2>)}
-        {ingredientToMeasure
-          .map((item) => item.ingredient && (
-            <ul
-              data-testid={ `${item.index}-ingredient-name-and-measure` }
-              key={ item.index }
-            >
-              <li>
-                { item.ingredient }
-              </li>
-              <li>
-                { item.measure }
-              </li>
-            </ul>
-          ))}
-        {/* // O texto de instruções
-        deve possuir o atributo data-testid="instructions"; */}
-        <p data-testid="instructions">{recipe.strInstructions}</p>
-        {/* // O vídeo, presente somente na tela
-      de comidas, deve possuir o atributo data-testid="video"; */}
-
-        {/* // O botão de iniciar receita deve possuir o
-      atributo data-testid="start-recipe-btn"; */}
-        { !completed && (
-          <Link to={ `/bebidas/${match.params.id}/in-progress` }>
-            <button
-              className="init-btn"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-            </button>
-          </Link>
-        )}
-        {/* // O card de receitas recomendadas
-      deve possuir o atributo data-testid="${index}-recomendation-card"; */}
-        <div
-          className="gallery"
-          data-flickity-options='{ "wrapAround": true }'
-        >
-          {recommendedFoods && recommendedFoods.slice(0, MAX_SLICE).map((item) => (
-            <div
-              className="gallery-cell"
-              key={ `${item.index}` }
-              data-testid={ `${item.index}-recomendation-card` }
-            >
-              <a href={ `/comidas/${item.idMeal}` }>
-                <img className="image-recipe" src={ `${item.strMealThumb}` } alt="" />
-              </a>
-              <h2
-                data-testid={ `${item.index}-recomendation-title` }
-              >
-                {item.strMeal}
-              </h2>
-            </div>
-          ))}
+            {recipe.strAlcoholic || recipe.strCategory}
+          </h2>
+        </div>
+        <div>
+          <ShareAndFavo match={ match } recipe={ recipe } />
         </div>
       </div>
+      <h3 className="detailsSubtitle">Ingredientes</h3>
+      <div>
+        <ul className="ingredientsList">
+          {ingredientToMeasure
+            .map((item) => item.ingredient && (
+              <li>{`- ${item.ingredient} - ${item.measure}`}</li>
+            ))}
+        </ul>
+      </div>
+      <h3 className="detailsSubtitle">Instructions</h3>
+      <div className="instructions">
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      <h3 className="detailsSubtitle">Recomendadas</h3>
+      <div
+        className="gallery"
+        data-flickity-options='{ "wrapAround": true }'
+      >
+        {recommendedFoods && recommendedFoods.slice(0, MAX_SLICE).map((item) => (
+          <div
+            className="gallery-cell recommended"
+            key={ `${item.index}` }
+            data-testid={ `${item.index}-recomendation-card` }
+          >
+            <Link to={ `/comidas/${item.idMeal}` }>
+              <img className="image-recipe" src={ `${item.strMealThumb}` } alt="" />
+            </Link>
+            <p>{ item.strCategory }</p>
+            <h2
+              data-testid={ `${item.index}-recomendation-title` }
+            >
+              {item.strMeal}
+            </h2>
+          </div>
+        ))}
+      </div>
+      { !completed && (
+        <Link to={ `/bebidas/${match.params.id}/in-progress` }>
+          <button
+            className="init-btn"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+          </button>
+        </Link>
+      )}
     </div>
   );
 }

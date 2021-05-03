@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { object } from 'prop-types';
 import isFavorite from '../images/blackHeartIcon.svg';
 import isNotFavorite from '../images/whiteHeartIcon.svg';
+import share from '../images/shareIcon.svg';
+import '../Style/ShareAndFavo.css';
 
 function ShareAndFavo({ match, recipe }) {
   const [copy, setCopy] = useState(false);
@@ -51,17 +53,14 @@ function ShareAndFavo({ match, recipe }) {
   };
 
   return (
-    <div>
-      <label htmlFor="favorite-btn">
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ handleShare }
-        >
-          Compartilhar
-        </button>
-        { copy && 'Link copiado!' }
-      </label>
+    <div className="shareAndFavo">
+      <button
+        type="button"
+        data-testid="share-btn"
+        onClick={ handleShare }
+      >
+        <img src={ share } alt="Compartilhar" />
+      </button>
       <button
         type="button"
         data-testid="favorite-btn"
@@ -70,6 +69,7 @@ function ShareAndFavo({ match, recipe }) {
       >
         <img src={ favorite ? isFavorite : isNotFavorite } alt="Favoritar" />
       </button>
+      { copy && 'Link copiado!' }
     </div>
   );
 }
