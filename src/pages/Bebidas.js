@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import RecipeList from '../components/RecipeList';
 import { RecipiesContext } from '../context/RecipiesContext';
-import { getDrinksByName } from '../services/apiDrinks';
+import { getRecipesByName } from '../services/api';
 import CategoryFilters from '../components/CategoryFilters';
 
 const drinkToRecipe = (drink) => ({
@@ -19,7 +19,7 @@ function Bebidas() {
     showSearchBar,
   } = useContext(RecipiesContext);
   useEffect(() => {
-    getDrinksByName('').then((data) => { setSearchDrinksList(data); });
+    getRecipesByName('').then((data) => { setSearchDrinksList(data); });
   }, [setSearchDrinksList]);
 
   return (

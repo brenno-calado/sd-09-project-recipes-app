@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { RecipiesContext } from '../context/RecipiesContext';
 import * as api from '../services/api';
-import RecipeList from './RecipeList';
 
 export default function SearchBar({ isMealsPage }) {
   const {

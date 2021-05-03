@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
 import RecipeList from '../components/RecipeList';
 import { RecipiesContext } from '../context/RecipiesContext';
-import { getMealsByName } from '../services/apiMeals';
+import { getRecipesByName } from '../services/api';
 import CategoryFilters from '../components/CategoryFilters';
 
 const mealToRecipe = (meal) => ({
@@ -19,7 +19,7 @@ function Comidas() {
     showSearchBar,
   } = useContext(RecipiesContext);
   useEffect(() => {
-    getMealsByName('').then((data) => { setSearchMealsList(data); });
+    getRecipesByName('', true).then((data) => { setSearchMealsList(data); });
   }, [setSearchMealsList]);
 
   return (
