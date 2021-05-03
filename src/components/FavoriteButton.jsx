@@ -86,7 +86,6 @@ function FavoriteButton({ recipe, recipeType }) {
       return blackButton;
     }
     return whiteButton;
-
   };
 
   useEffect(() => {
