@@ -23,8 +23,7 @@
 }
 
 .btns {
-  height: 40px;
-  padding: 10px;
+  display: flex;
 }
 
 .cardDetails {
@@ -93,8 +92,6 @@
   align-items: center;
   align-self: center;
   display: flex;
-  flex-direction: row;
-  height: 40px;
   justify-content: space-between;
   padding: 5px 0 5px 10px;
   vertical-align: center;
