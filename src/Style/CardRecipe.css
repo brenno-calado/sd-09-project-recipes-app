@@ -1,12 +1,12 @@
 .card-food-image {
-  height: 100px;
-  width: 100px;
   display: flex;
+  height: 150px;
+  width: 150px;
 }
 
 .list{
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: space-between;
   padding: 20px;
 }

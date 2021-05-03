@@ -23,18 +23,19 @@ function Header({ page, search }) {
       <header>
         <img src={ Logo1 } alt="logo" className="logo-img" />
         <h1> Minhas Receitas</h1>
+      </header>
+      <div className="header-bar">
         <Link to="/perfil">
           <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
         </Link>
-      </header>
-
-      <h2 data-testid="page-title">{ page }</h2>
-      { search
+        <h2 data-testid="page-title" className="page-title">{ page }</h2>
+        { search
       && (
         <button type="button" onClick={ HandleSearch }>
           <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
         </button>
       )}
+      </div>
       { searchBar && <SearchBar page={ page } /> }
     </div>
   );

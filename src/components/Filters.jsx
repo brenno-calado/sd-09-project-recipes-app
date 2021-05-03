@@ -3,6 +3,7 @@ import { arrayOf } from 'prop-types';
 import { connect } from 'react-redux';
 import { filteredFetch } from '../actions/filterList';
 import { searchBarFetch } from '../actions/searchBar';
+import '../Style/Filters.css';
 
 function Filters({ filters, path, setFiltered, setRecipes }) {
   const [buttons, setButtons] = useState({});
@@ -24,7 +25,7 @@ function Filters({ filters, path, setFiltered, setRecipes }) {
 
   return (
     <div>
-      <h4>Filtros</h4>
+      <h4 className="title-filters">Filtros</h4>
       <button
         type="button"
         data-testid="All-category-filter"

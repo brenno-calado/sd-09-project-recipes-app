@@ -15,3 +15,8 @@ h1 {
   width: 200px;
 }
 
+.header-bar {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px black;
+}
