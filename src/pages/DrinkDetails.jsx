@@ -39,7 +39,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       setFavorited(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     } else {
-      const newFavorites = [favorites, {
+      const newFavorites = [...favorites, {
         id: item.idDrink,
         type: 'bebida',
         area: item.strArea,

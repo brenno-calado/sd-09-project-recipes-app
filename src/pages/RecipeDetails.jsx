@@ -40,7 +40,7 @@ function RecipeDetails({ match: { params: { id } } }) {
       setFavorited(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     } else {
-      const newFavorites = [favorites, {
+      const newFavorites = [...favorites, {
         id: item.idMeal,
         type: 'comida',
         area: item.strArea,
