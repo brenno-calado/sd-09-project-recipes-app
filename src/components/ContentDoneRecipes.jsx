@@ -1,21 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import copy from 'clipboard-copy';
+import Alert from 'react-bootstrap/Alert';
 
 import shareIcon from '../images/shareIcon.svg';
 import '../css/components/ContentDoneRecipes.css';
 
-/* COMIDA                                             BEBIDA
-foto da receita                                      foto da receita
-o nome                                               o nome
-categoria                                            se é alcoólica
-area
-data em que a pessoa fez a receita                   data em que a pessoa fez a receita
-as 2 primeiras tags retornadas pela API
-e um botão de compartilhar                           e um botão de compartilhar
-*/
-
 function ContentDoneRecipes({ recipes, recipeIndex }) {
+  const [show, setShow] = useState(false);
+
   const {
     id,
     area,
@@ -29,6 +23,18 @@ function ContentDoneRecipes({ recipes, recipeIndex }) {
   } = recipes;
   const filteredTags = tags.filter((_, index) => index < 2);
 
+  const handleShareIconClick = (recipeType, recipeId) => {
+    const baseURL = 'http://localhost:3000/';
+    copy(`${baseURL}${recipeType}s/${recipeId}`);
+    setShow(true);
+  };
+
+  const alert = (
+    <Alert variant="success" onClose={ () => setShow(false) } dismissible>
+      <Alert.Heading>Link copiado!</Alert.Heading>
+    </Alert>
+  );
+
   return (
     <div className="done-recipes-card">
       <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
@@ -40,17 +46,19 @@ function ContentDoneRecipes({ recipes, recipeIndex }) {
         />
       </Link>
       <section>
+        {show && alert}
         <div>
           <div data-testid={ `${recipeIndex}-horizontal-top-text` }>
             {type === 'comida' ? `${area} - ${category}` : alcoholicOrNot}
           </div>
-          <img
-            data-testid={ `${recipeIndex}-horizontal-share-btn` }
-            src={ shareIcon }
-            alt="Share Icon"
-          />
+          <button type="button" onClick={ () => handleShareIconClick(type, id) }>
+            <img
+              data-testid={ `${recipeIndex}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="Share Icon"
+            />
+          </button>
         </div>
-        {/* {type === 'comida' && <p>{ area }</p>} */}
         <Link to={ type === 'comida' ? `/comidas/${id}` : `/bebidas/${id}` }>
           <h4 data-testid={ `${recipeIndex}-horizontal-name` }>{ name }</h4>
         </Link>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-// import '../styles/Header.css';
+
 import '../css/pages/ReceitasFeitas.css';
 import Header from '../components/Header';
 import NavReceitasFeitas from '../components/NavReceitasFeitas';
 import ContentDoneRecipes from '../components/ContentDoneRecipes';
-import getDoneRecipes from '../services/getLocalStorageDoneRecipes';
+import getStorage from '../services/getLocalStorageDoneRecipes';
+// import getDoneStorage from '../services/getLocalStorageDoneRecipes';
 
 function ReceitasFeitas() {
   const [meals, setMeals] = useState([]);
@@ -13,8 +14,7 @@ function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    console.log('mount');
-    setDoneRecipes(getDoneRecipes());
+    setDoneRecipes(getStorage.getDoneRecipes());
   }, []);
 
   const filtersRecipes = (keyword) => (
@@ -23,7 +23,6 @@ function ReceitasFeitas() {
 
   const handleClickButton = ({ target: { value } }) => {
     if (value === 'food') {
-      console.log(filtersRecipes('comida'));
       setMeals(filtersRecipes('comida'));
       setFilter(value);
     } else if (value === 'drinks') {
@@ -34,7 +33,6 @@ function ReceitasFeitas() {
     }
   };
 
-  console.log(filter);
   const currentFilter = () => {
     switch (filter) {
     case 'all':

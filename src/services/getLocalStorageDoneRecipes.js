@@ -1,7 +1,6 @@
 const getDoneRecipes = () => {
   /* if (localStorage.length !== 0) {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    return doneRecipes !== undefined ? doneRecipes : 'Key not found';
+    return JSON.parse(localStorage.getItem('doneRecipes'));
   } */
 
   const doneRecipes = [
@@ -32,4 +31,10 @@ const getDoneRecipes = () => {
   return doneRecipes;
 };
 
-export default getDoneRecipes;
+const getDoneStorage = () => {
+  if (localStorage.length !== 0) {
+    return JSON.parse(localStorage.getItem('card-products'));
+  }
+};
+
+export default { getDoneRecipes, getDoneStorage };
