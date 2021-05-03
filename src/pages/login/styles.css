@@ -1,3 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+.login-screen {
+  background-attachment: fixed;
+  background-color: #e76f51;
+  background-image: url('../../images/chef_wine_2.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  height: 100vh;
+  padding: 200px 36px 0;
+  width: 100vw;
+}
+
+.login-screen-title {
+  color: whitesmoke;
+  display: flex;
+  justify-content: center;
+  margin-top: 112px;
+  text-transform: uppercase;
+}
+
+.login-screen input , .login-screen button {
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 400;
+  height: 38px;
+  margin-top: 30px;
+}
+
+.login-screen input {
+  outline-color: coral;
+  padding-left: 13px;
+}
+
 .login-button {
+  background-color: whitesmoke;
+  border: 0;
   cursor: not-allowed;
+  margin-top: 58px;
 }

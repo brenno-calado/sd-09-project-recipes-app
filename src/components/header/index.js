@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './header.css';
 
-import profileIcon from '../../images/profileIcon.svg';
-import searchIcon from '../../images/searchIcon.svg';
+import profileIcon from '../../images/newIcons/profileIcon.svg';
+import searchIcon from '../../images/newIcons/searchIcon.svg';
 
 function index({ title, setSearch, iconSearch = 'visible' }) {
   return (

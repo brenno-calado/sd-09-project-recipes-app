@@ -36,11 +36,15 @@
   font-size: 21px;
   font-weight: 400;
   margin: 10px;
-  padding: 10px 0;
+  padding: 10px 5px;
 }
 
 .background-gray li {
   list-style-type: '- ';
+}
+
+.recipe-video {
+  text-align: center;
 }
 
 .recipe-video iframe {

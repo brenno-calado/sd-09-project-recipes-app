@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 
+// import chefImage from '../../images/undraw_Chef_cu0r.svg';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -35,8 +37,8 @@ class Login extends Component {
     const patternEmail = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
     const minPassLength = 7;
     return (
-      <div>
-        Login
+      <div className="login-screen">
+        <h1 className="login-screen-title">Login</h1>
         <input
           type="email"
           name="email"
@@ -63,6 +65,7 @@ class Login extends Component {
         >
           Entrar
         </button>
+        {/* <img src={ chefImage } alt="chef" /> */}
       </div>
     );
   }
