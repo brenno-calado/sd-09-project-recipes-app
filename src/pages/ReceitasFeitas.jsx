@@ -4,8 +4,7 @@ import '../css/pages/ReceitasFeitas.css';
 import Header from '../components/Header';
 import NavReceitasFeitas from '../components/NavReceitasFeitas';
 import ContentDoneRecipes from '../components/ContentDoneRecipes';
-import getStorage from '../services/getLocalStorageDoneRecipes';
-// import getDoneStorage from '../services/getLocalStorageDoneRecipes';
+import getDoneRecipes from '../services/getLocalStorageDoneRecipes';
 
 function ReceitasFeitas() {
   const [meals, setMeals] = useState([]);
@@ -14,7 +13,7 @@ function ReceitasFeitas() {
   const [filter, setFilter] = useState('all');
 
   useEffect(() => {
-    setDoneRecipes(getStorage.getDoneRecipes());
+    setDoneRecipes(getDoneRecipes());
   }, []);
 
   const filtersRecipes = (keyword) => (
