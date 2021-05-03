@@ -3,14 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { objectOf } from 'prop-types';
 import Carousel from 'react-multi-carousel';
 import shareIcon from '../images/shareIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchBeverages } from '../services/fetchRecipes';
 import Card from './Card';
 import 'react-multi-carousel/lib/styles.css';
+import LikeBtn from './LikeBtn';
 
 function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const [recommends, setRecommends] = useState([]);
   const [allIngrdients, setAllIngrdients] = useState([]);
+  const [isLinkCopied, setIsLinkCopied] = useState(false);
   const location = useLocation();
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
@@ -55,8 +56,8 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
 
   const shareBtn = async () => {
     const link = `http://localhost:3000${location.pathname}`;
-    return navigator.clipboard.writeText(link)
-      .then(() => alert('Link copiado!'));
+    setIsLinkCopied(true);
+    return navigator.clipboard.writeText(link);
   };
 
   return (
@@ -75,9 +76,8 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
           <button type="button" data-testid="share-btn" onClick={ shareBtn }>
             <img src={ shareIcon } alt="Share button" />
           </button>
-          <button type="button" data-testid="favorite-btn">
-            <img src={ blackHeartIcon } alt="Favorite button" />
-          </button>
+          <LikeBtn recipe={ recipe } />
+          {isLinkCopied && <p>Link copiado!</p>}
         </div>
       </div>
       <div className="ingredients">
@@ -112,8 +112,6 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
             type="bebidas"
           />))}
         </Carousel>
-        {/* <div className="carocel-recomendations">
-        </div> */}
       </div>
       {!done && renderButton()}
     </div>
