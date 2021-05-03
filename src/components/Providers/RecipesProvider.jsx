@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
+import getAllRecipes from '../../services/allRecipesAPI';
+import usePathLocation from '../../hooks/usePathLocation';
+import getCategories from '../../services/categoriesAPI';
 
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
@@ -9,6 +12,9 @@ export default function RecipesProvider({ children }) {
   const [inProgressRecipes, setInProgressRecipes] = useState({
     cocktails: {}, meals: {},
   });
+  const [isFetching, setIsFetching] = useState(true);
+  const [pathLocation] = usePathLocation();
+  const [categories, setCategories] = useState();
 
   const value = {
     values: {
@@ -16,6 +22,8 @@ export default function RecipesProvider({ children }) {
       doneRecipes,
       favoriteRecipes,
       inProgressRecipes,
+      isFetching,
+      categories,
     },
     actions: {
       setRecipesResult,
@@ -36,6 +44,21 @@ export default function RecipesProvider({ children }) {
       localStorage.setItem(key, value.values[key])
     ));
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
+
+  useEffect(() => {
+    const fetchAllRecipes = () => {
+      setIsFetching(true);
+      getAllRecipes(pathLocation)
+        .then(
+          (response) => setRecipesResult(response),
+          (error) => console.log(error.message),
+        )
+        .finally(() => setIsFetching(false));
+    };
+    fetchAllRecipes();
+    getCategories(pathLocation)
+      .then((response) => setCategories(response));
+  }, [pathLocation]);
 
   return (
     <RecipesContext.Provider value={ value }>
