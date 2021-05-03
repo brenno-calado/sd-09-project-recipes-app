@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { objectOf } from 'prop-types';
+import Carousel from 'react-multi-carousel';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { fetchBeverages } from '../services/fetchRecipes';
 import Card from './Card';
+import 'react-multi-carousel/lib/styles.css';
 
 function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const [recommends, setRecommends] = useState([]);
@@ -12,6 +14,12 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const location = useLocation();
   const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
   const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
+  const responsive = {
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
+  };
 
   useEffect(() => {
     const getIngredients = () => {
@@ -88,7 +96,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
       </div>
       <div className="recomendations">
         <h2>Recomended</h2>
-        <div className="carocel-recomendations">
+        <Carousel responsive={ responsive }>
           {recommends.map((item, index) => (<Card
             cardTestid={ `${index}-recomendation-card` }
             titleTestid={ `${index}-recomendation-title` }
@@ -97,7 +105,9 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
             index={ index }
             type="bebidas"
           />))}
-        </div>
+        </Carousel>
+        {/* <div className="carocel-recomendations">
+        </div> */}
       </div>
       {!done && renderButton()}
     </div>
