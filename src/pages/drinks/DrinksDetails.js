@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { MealsRecomendations } from '../../components';
-import { getItemLocalStorage } from '../../services/localStorageService';
+import { getItemLocalStorage,
+  updateLocalStorage } from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -19,6 +20,13 @@ function DrinksDetails() {
 
   const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes').cocktails).includes(id);
+
+  const handleClick = () => {
+    if (!recipeInProgress) {
+      updateLocalStorage('inProgressRecipes', 'cocktails', id, []);
+    }
+    setShouldRedirect(true);
+  };
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
@@ -49,7 +57,7 @@ function DrinksDetails() {
         data-testid="start-recipe-btn"
         type="button"
         className="btn-initial"
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ handleClick }
       >
         { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>

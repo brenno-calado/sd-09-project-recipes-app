@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { DrinksRecomendations, YoutubePlayer } from '../../components';
-import { getItemLocalStorage } from '../../services/localStorageService';
+import { getItemLocalStorage,
+  updateLocalStorage } from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -16,6 +17,11 @@ function MealsDetails() {
     const getData = async () => setData(await fetchRecipeDetails(id, true));
     getData();
   }, [id]);
+
+  const handleClick = () => {
+    updateLocalStorage('inProgressRecipes', 'meals', id, []);
+    setShouldRedirect(true);
+  };
 
   const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes').meals).includes(id);
@@ -51,7 +57,7 @@ function MealsDetails() {
         data-testid="start-recipe-btn"
         type="button"
         className="btn-initial"
-        onClick={ () => setShouldRedirect(true) }
+        onClick={ handleClick }
       >
         { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
