@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
+import { Redirect } from 'react-router';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
+} from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
-import { getDrinkDetailsById, getRecommendedDrink } from '../services/fetchApi';
+import { getDrinkDetailsById, getRecommendedFood } from '../services/fetchApi';
+import styles from './recipeDetails.module.css';
+import useIngredientList from '../hooks/useIngredientList';
+import useShouldRedirect from '../hooks/useShoulRedirect';
 
 function DrinkRecipeDetails(props) {
   const { match } = props;
@@ -9,17 +16,20 @@ function DrinkRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
-  const [recommendedDrink, setRecommendedDrink] = useState();
+  const [recommendedFood, setRecommendedFood] = useState();
+  const [favorite, setFavorite] = useState(false);
+  const [ingredientList] = useIngredientList();
+  const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const six = 6;
 
+  console.log(apiData);
+
   useEffect(() => {
-    getRecommendedDrink()
+    getRecommendedFood()
       .then((result) => {
-        setRecommendedDrink(result);
+        setRecommendedFood(result);
       });
   }, []);
-
-  console.log('recomendações', recommendedDrink);
 
   useEffect(() => {
     getDrinkDetailsById(id)
@@ -29,38 +39,39 @@ function DrinkRecipeDetails(props) {
       });
   }, [id]);
 
-  console.log(apiData);
-
-  function ingredientList() {
-    const newArrayOfApiData = apiData.drinks.map((drink) => (
-      Object.entries(drink)));
-    console.log(newArrayOfApiData);
-
-    const recipeItems = [];
-    let number = 1;
-    newArrayOfApiData[0].forEach((item) => {
-      if (item[0] === `strIngredient${number}` && item[1] !== null) {
-        const ingredient = item[1];
-        newArrayOfApiData[0].forEach((item2) => {
-          if (item2[0] === `strMeasure${number}` && item2[1] !== '') {
-            const measure = item2[1];
-            recipeItems.push([ingredient, ': ', measure]);
-          }
-        });
-        number += 1;
-      }
-    });
-
-    return recipeItems.map((item, index) => (
-      <li
-        data-testid={ `${index}-ingredient-name-and-measure` }
-        key={ Math.random() }
-      >
-        { item }
-      </li>
-    ));
+  function handleFavorite() {
+    setFavorite(!favorite);
+    if (apiData && !favorite) {
+      const mealLocalStorage = apiData.drinks.map(({
+        idDrink,
+        strArea,
+        strCategory,
+        strAlcoholic,
+        strDrink,
+        strMealThumb,
+      }) => (
+        [{ id: idDrink,
+          type: 'bebida',
+          area: strArea,
+          category: strCategory,
+          alcoholicOrNot: strAlcoholic,
+          name: strDrink,
+          image: strMealThumb }]
+      ));
+      localStorage.setItem('favoriteRecipes', JSON.stringify(mealLocalStorage));
+    }
+    if (favorite) {
+      localStorage.removeItem('favoriteRecipes');
+    }
   }
 
+  useEffect(() => {
+    if (localStorage.length) {
+      setFavorite(true);
+    }
+  }, []);
+
+  if (shouldRedirect) return <Redirect to={ `/bebidas/${id}/in-progress` } />;
   function renderDetails() {
     return (
       <>
@@ -81,22 +92,51 @@ function DrinkRecipeDetails(props) {
               isAlcoholic={ strAlcoholic }
               categoryText={ strCategory }
               instructions={ strInstructions }
+              handleFavoriteClick={ handleFavorite }
+              favorite={ favorite }
             >
-              {apiData && ingredientList()}
+              {apiData && ingredientList(apiData)}
             </CardDetails>
           ))
         )}
-        {recommendedDrink && (
-          recommendedDrink.drinks.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
-            index < six && (
-              <div key={ idDrink } data-testid={ `${index}-recomendation-card` }>
-                <img src={ strDrinkThumb } alt={ strDrink } />
-                <p>{ strDrink }</p>
-              </div>
-            )
-          ))
-        )}
+        <div className={ styles.scrollingWrapper }>
+          <CarouselProvider
+            naturalSlideWidth={ 10 }
+            naturalSlideHeight={ 10 }
+            totalSlides={ 6 }
+            infinite
+            visibleSlides={ 2 }
+          >
+            <Slider>
+              {recommendedFood && (
+                recommendedFood.meals.map(({ strMealThumb, strMeal, idMeal }, index) => (
+                  index < six && (
+                    <Slide index={ index }>
+                      <div
+                        key={ idMeal }
+                        data-testid={ `${index}-recomendation-card` }
+                      >
+                        <img
+                          className={ styles.details }
+                          src={ strMealThumb }
+                          alt={ strMeal }
+                        />
+                        <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
+                      </div>
+                    </Slide>
+                  )
+                ))
+              )}
+            </Slider>
+            <ButtonBack>Back</ButtonBack>
+            <ButtonNext>Next</ButtonNext>
+
+          </CarouselProvider>
+
+        </div>
         <button
+          onClick={ () => { handleClickRedirect(); } }
+          className={ styles.startButton }
           data-testid="start-recipe-btn"
           type="button"
         >
