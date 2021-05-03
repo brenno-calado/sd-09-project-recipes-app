@@ -19,12 +19,24 @@ const Routes = () => (
   <Switch>
     <Route exact path="/" component={ Login } />
     <Route
+      exact
       path="/comidas/:id"
       render={ (props) => <Recipes { ...props } /> }
     />
     <Route
+      exact
       path="/bebidas/:id"
       render={ (props) => <Recipes { ...props } /> }
+    />
+    <Route
+      exact
+      path="/comidas/:ingredient"
+      render={ (props) => <Food { ...props } /> }
+    />
+    <Route
+      exact
+      path="/bebidas/:ingredient"
+      render={ (props) => <Drinks { ...props } /> }
     />
     <Route
       path="/comidas/:id/in-progress"

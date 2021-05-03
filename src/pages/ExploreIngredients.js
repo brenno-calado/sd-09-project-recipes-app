@@ -60,7 +60,11 @@ const ExploreIngredients = ({ match }) => {
           <Menu />
         </div>
       )
-      : <span>Loading...</span>
+      : (
+        <div className="spinner-border" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      )
   );
 };
 ExploreIngredients.propTypes = {
