@@ -8,8 +8,7 @@ export const fetchMealById = async (ID) => {
   }
 };
 
-export const fetchRecommendedMealById = async (category = null) => {
-  console.log(category);
+export const fetchRecommendedMealById = async () => {
   const ENDPOINT = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(`${ENDPOINT}`);
