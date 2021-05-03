@@ -93,7 +93,7 @@ const ProgressoComidas = () => {
       name: strMeal,
       image: strMealThumb,
       doneDate: new Date().toLocaleDateString('pt-BR'),
-      tags: [...strTags.split(',')],
+      tags: strTags === null ? [] : [...strTags.split(',')],
     };
     finishRecipe(doneInfos);
     setRedirect(true);
