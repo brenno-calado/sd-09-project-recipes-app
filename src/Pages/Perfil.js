@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 
 export default function Perfil() {
@@ -9,6 +10,7 @@ export default function Perfil() {
   };
   return (
     <div>
+      <Header />
       <span data-testid="profile-email">
         { email }
       </span>
