@@ -29,14 +29,8 @@ const Provider = ({ children }) => {
   const history = useHistory();
 
   const changeRecipesType = () => {
-    switch (location.pathname) {
-    case '/bebidas': setRecipesType('drinks');
-      break;
-    case '/comidas': setRecipesType('meals');
-      break;
-    default: setRecipesType(recipesType);
-      break;
-    }
+    if (location.pathname.includes('comidas')) setRecipesType('meals');
+    else { setRecipesType('drinks'); }
   };
 
   const checkType = (foodRequest, drinkRequest, option) => {
