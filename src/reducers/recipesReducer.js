@@ -41,7 +41,7 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
   case GET_INGREDIENTS:
     return {
       ...state,
-      ingredients: { ...actions.ingredients },
+      ingredients: [...actions.ingredients],
     };
   case GET_RANDOM_RECIPE:
     return {

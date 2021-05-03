@@ -106,7 +106,7 @@ export default function MainPageFood() {
           selected={ catSelected }
           callback={ selectCategoryButton }
         />
-        <CardContainer recipes={ recipes } path={ pathname } />
+        <CardContainer recipes={ recipes } path={ pathname } cardType="recipes" />
       </main>
       <Footer />
     </>
