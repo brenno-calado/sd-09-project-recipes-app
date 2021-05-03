@@ -17,6 +17,14 @@ class index extends Component {
       drinkData: false,
       recommendedDrinks: ['Teste1'],
     };
+
+    this.getDrinkImage = this.getDrinkImage.bind(this);
+    this.getIngredients = this.getIngredients.bind(this);
+    this.getInsructions = this.getInsructions.bind(this);
+    this.getRecommendations = this.getRecommendations.bind(this);
+    this.getIngredientsQuantity = this.getIngredientsQuantity.bind(this);
+    this.getTitle = this.getTitle.bind(this);
+    this.getCategory = this.getCategory.bind(this);
   }
 
   async componentDidMount() {
@@ -44,13 +52,13 @@ class index extends Component {
     });
   }
 
-  getDrinkImage = () => {
+  getDrinkImage() {
     const { drinkData } = this.state;
     if (!drinkData) { return loadingImage; }
     return drinkData.strDrinkThumb;
   }
 
-  getIngredients = () => {
+  getIngredients() {
     const { drinkData } = this.state;
     if (!drinkData) { return ['Carregando']; }
     const ingredientes = Object.entries(drinkData)
@@ -61,18 +69,18 @@ class index extends Component {
     return ingredientes;
   }
 
-  getInsructions = () => {
+  getInsructions() {
     const { drinkData } = this.state;
     if (!drinkData) { return 'Carregando'; }
     return drinkData.strInstructions;
   }
 
-  getRecommendations = () => {
+  getRecommendations() {
     const { recommendedDrinks } = this.state;
     return recommendedDrinks;
   }
 
-  getIngredientsQuantity = () => {
+  getIngredientsQuantity() {
     const { drinkData } = this.state;
     if (!drinkData) { return ['Carregando']; }
     const ingredientsQuantity = Object.entries(drinkData)
@@ -83,13 +91,13 @@ class index extends Component {
     return ingredientsQuantity;
   }
 
-  getTitle = () => {
+  getTitle() {
     const { drinkData } = this.state;
     if (!drinkData) { return 'Carregando'; }
     return drinkData.strDrink;
   }
 
-  getCategory = () => {
+  getCategory() {
     const { drinkData } = this.state;
     if (!drinkData) { return 'Carregando'; }
     return drinkData.strAlcoholic;
