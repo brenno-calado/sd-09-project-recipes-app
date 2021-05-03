@@ -16,7 +16,7 @@ class Meals extends React.Component {
   }
 
   render() {
-    const { recipes, isLoading } = this.props;
+    const { recipes, isLoading, isCategory } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
@@ -34,7 +34,7 @@ class Meals extends React.Component {
           {recipes.meals && recipes.meals.map((meal) => (
             <RecipeMealCard key={ meal.idMeal } meal={ meal } />))}
         </div>
-        {itens && itens.length === 1
+        {itens && !isCategory && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((meal, index) => (
           <RecipeMealCard key={ meal[idType] } meal={ meal } index={ index } />))}

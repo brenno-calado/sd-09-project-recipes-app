@@ -24,7 +24,6 @@ class CategoriesList extends React.Component {
 
   handleClick(categorie) {
     const { category } = this.state;
-    console.log(categorie, category);
     const { fetchRepiciesByCategory, setIsCategoryToTrue } = this.props;
     fetchRepiciesByCategory(categorie, category);
     setIsCategoryToTrue();
