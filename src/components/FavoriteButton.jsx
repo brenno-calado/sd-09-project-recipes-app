@@ -8,7 +8,7 @@ function FavoriteButton({ recipe, recipeType }) {
   const [isFavorite, setIsFavorite] = useState();
 
   const getObject = () => {
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       const object = {
         id: recipe.idMeal,
         type: 'comida',
@@ -41,49 +41,63 @@ function FavoriteButton({ recipe, recipeType }) {
         .findIndex((item) => item.id === recipe.idMeal || item.id === recipe.idDrink);
       favorites.splice(index, 1);
       localStorage.setItem('favoriteRecipes', JSON.stringify(favorites));
-      setIsFavorite(true);
+      setIsFavorite(!isFavorite);
     } else {
       const object = getObject();
       const newArray = [...favorites, object];
       localStorage.setItem('favoriteRecipes', JSON.stringify(newArray));
-      setIsFavorite(false);
+      setIsFavorite(!isFavorite);
     }
+  };
+
+  const renderImg = () => {
+    const blackButton = (
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ saveFavoriteRecipe }
+        src={ blackHeartIcon }
+      >
+        <img
+          src={ blackHeartIcon }
+          alt="favorite button"
+        />
+      </button>
+    );
+    const whiteButton = (
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ saveFavoriteRecipe }
+        src={ whiteHeartIcon }
+      >
+        <img
+          src={ whiteHeartIcon }
+          alt="favorite button"
+        />
+      </button>
+    );
+
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (!favorites) return <p>Loading...</p>;
+    const isInArray = favorites
+      .some((elem) => elem.id === recipe.idMeal || elem.id === recipe.idDrink);
+    if (isInArray) {
+      return blackButton;
+    }
+    return whiteButton;
+
   };
 
   useEffect(() => {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const isInArray = favorites
-      .some((elem) => elem.id === recipe.idMeal || elem.id === recipe.idDrink);
-    if (isInArray) {
-      setIsFavorite(true);
-    } else {
-      setIsFavorite(false);
-    }
-  }, [isFavorite, recipe]);
+  }, []);
 
   return (
     <div>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ saveFavoriteRecipe }
-        src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-      >
-        { isFavorite ? (
-          <img
-            src={ blackHeartIcon }
-            alt="favorite button"
-          />
-        ) : (
-          <img
-            src={ whiteHeartIcon }
-            alt="favorite button"
-          />
-        )}
-      </button>
+      { renderImg() }
     </div>
   );
 }
@@ -91,6 +105,7 @@ function FavoriteButton({ recipe, recipeType }) {
 const mapStateToProps = (state) => ({
   recipe: state.recipeDetailsReducer.recipe,
   recipeType: state.recipesReducer.recipeType,
+  isFavorite: state.recipeDetailsReducer.isFavorite,
 });
 
 FavoriteButton.propTypes = {

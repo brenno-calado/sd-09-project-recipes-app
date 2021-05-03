@@ -29,18 +29,18 @@ function Details({
     loading();
     const split = pathname.split('/');
     if (split[1] === 'comidas') {
-      pathnameDispatcher(pathname, 'meals');
+      pathnameDispatcher(pathname, 'comidas');
     }
     if (split[1] === 'bebidas') {
-      pathnameDispatcher(pathname, 'cocktails');
+      pathnameDispatcher(pathname, 'bebidas');
     }
   }, []);
 
   useEffect(() => {
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       mealsById(id);
     }
-    if (recipeType === 'cocktails') {
+    if (recipeType === 'bebidas') {
       cocktailsById(id);
     }
   }, [recipeType]);
@@ -50,7 +50,7 @@ function Details({
     <section>
       <h1>Detalhes da Receita</h1>
       <img
-        src={ recipeType === 'meals' ? recipe.strMealThumb : recipe.strDrinkThumb }
+        src={ recipeType === 'comidas' ? recipe.strMealThumb : recipe.strDrinkThumb }
         alt="current recipe"
         data-testid="recipe-photo"
       />
@@ -58,10 +58,10 @@ function Details({
       <FavoriteButton />
       <div>
         <p data-testid="recipe-title">
-          { recipeType === 'meals' ? recipe.strMeal : recipe.strDrink }
+          { recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink }
         </p>
         <p data-testid="recipe-category">
-          { recipeType === 'meals' ? recipe.strCategory : recipe.strAlcoholic }
+          { recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic }
         </p>
         {/* <p data-testid="recipe-category">{ recipe.strCategory }</p> */}
         {/* { recipeType === 'cocktails' && <p>{ recipe.strAlcoholic }</p>} */}
@@ -70,7 +70,7 @@ function Details({
       <div>
         <p data-testid="instructions">{ recipe.strInstructions }</p>
         <div>
-          { recipeType === 'meals' && (
+          { recipeType === 'comidas' && (
             <ReactPlayer data-testid="video" url={ recipe.strYoutube } />
           ) }
         </div>

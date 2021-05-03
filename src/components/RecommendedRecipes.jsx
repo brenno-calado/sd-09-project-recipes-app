@@ -14,10 +14,10 @@ function RecommendedRecipes({
   const [data, setData] = useState([]);
 
   const verifyRecipeType = useCallback(() => {
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       cocktailsThunkDispatcher();
     }
-    if (recipeType === 'cocktails') {
+    if (recipeType === 'bebidas') {
       mealsThunkDispatcher();
     }
   }, [recipeType, cocktailsThunkDispatcher, mealsThunkDispatcher]);
@@ -67,7 +67,7 @@ function RecommendedRecipes({
 
   return (
     <section className="recommendation-container">
-      { recipeType === 'meals' ? recommendedDrinks : recommendedMeals }
+      { recipeType === 'comidas' ? recommendedDrinks : recommendedMeals }
     </section>
   );
 }

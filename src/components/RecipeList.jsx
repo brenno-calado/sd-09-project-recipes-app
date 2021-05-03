@@ -20,10 +20,10 @@ function RecipeList({
   }, [data, verifyRecipes]);
 
   useEffect(() => {
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       mealsThunkDispatcher('', '');
     }
-    if (recipeType === 'cocktails') {
+    if (recipeType === 'bebidas') {
       cocktailsThunkDispatcher('', '');
     }
   }, [recipeType]);
@@ -60,7 +60,7 @@ function RecipeList({
 
   return (
     <section>
-      { (recipeType === 'meals') ? mealsCards : cocktailsCards}
+      { (recipeType === 'comidas') ? mealsCards : cocktailsCards}
     </section>
   );
 }

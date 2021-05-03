@@ -12,6 +12,7 @@ const INITIAL_STATE = {
   isRecommendedFetched: false,
   startedRecipes: [],
   ingredients: [],
+  isFavorite: null,
 };
 
 function recipeDetailsReducer(state = INITIAL_STATE, action) {

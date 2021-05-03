@@ -25,10 +25,10 @@ function CategoryFilter({
   const [previousCategory, setPreviousCategory] = useState('');
 
   const fetchCategories = () => {
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       mealsCategoryDispatcher();
     }
-    if (recipeType === 'cocktails') {
+    if (recipeType === 'bebidas') {
       cocktailsCategoryDispatcher();
     }
   };
@@ -41,13 +41,13 @@ function CategoryFilter({
 
   const handleClick = ({ target: { value } }) => {
     if ((previousCategory === value) || (value === 'all')) {
-      if (recipeType === 'meals') mealsThunkDispatcher('', '');
-      if (recipeType === 'cocktails') cocktailsThunkDispatcher('', '');
+      if (recipeType === 'comidas') mealsThunkDispatcher('', '');
+      if (recipeType === 'bebidas') cocktailsThunkDispatcher('', '');
     } else {
-      if (recipeType === 'meals') {
+      if (recipeType === 'comidas') {
         fetchMealsByCategory(value);
       }
-      if (recipeType === 'cocktails') {
+      if (recipeType === 'bebidas') {
         fetchCocktailsByCategory(value);
       }
     }

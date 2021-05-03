@@ -51,7 +51,7 @@ function StartRecipeButton({ id, recipe, recipeType, ingredients }) {
   const startRecipe = () => {
     const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { cocktails, meals } = startedRecipes;
-    if (recipeType === 'meals') {
+    if (recipeType === 'comidas') {
       meals[recipe.idMeal] = ingredients;
     } else {
       cocktails[recipe.idDrink] = ingredients;
@@ -60,7 +60,7 @@ function StartRecipeButton({ id, recipe, recipeType, ingredients }) {
   };
 
   const startRecipeButton = (
-    <Link to={ `/comidas/${id}/in-progress` }>
+    <Link to={ `/${recipeType}/${id}/in-progress` }>
       <button
         type="button"
         onClick={ startRecipe }

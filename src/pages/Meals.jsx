@@ -11,10 +11,10 @@ function Meals({ pathnameDispatcher, location }) {
   useEffect(() => {
     const { pathname } = location;
     if (pathname === '/comidas') {
-      pathnameDispatcher(pathname, 'meals');
+      pathnameDispatcher(pathname, 'comidas');
     }
     if (pathname === '/bebidas') {
-      pathnameDispatcher(pathname, 'cocktails');
+      pathnameDispatcher(pathname, 'bebidas');
     }
   }, []);
 
