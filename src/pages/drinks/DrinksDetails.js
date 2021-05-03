@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { MealsRecomendations } from '../../components';
+import { getItemLocalStorage } from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 // import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -15,6 +16,9 @@ function DrinksDetails() {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
     getData();
   }, [id]);
+
+  const recipeInProgress = Object
+    .keys(getItemLocalStorage('inProgressRecipes').cocktails).includes(id);
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
@@ -36,7 +40,7 @@ function DrinksDetails() {
       { ingredients.map((ingredient, index) => (
         data[ingredient] && data[ingredient].length ? (
           <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
-            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
+            { `${data[ingredient]} ${data[measures[index]]}` }
           </p>
         ) : false
       )) }
@@ -47,7 +51,7 @@ function DrinksDetails() {
         className="btn-initial"
         onClick={ () => setShouldRedirect(true) }
       >
-        Iniciar Receita
+        { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
       <MealsRecomendations />
     </section>
