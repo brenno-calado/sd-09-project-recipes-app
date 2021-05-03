@@ -27,7 +27,7 @@ export default function Header({ title, canFind, setFilter }) {
         {canFind && (
           <S.SearchButton
             onClick={ handleFilters }
-            bgColor={ searchFilters ? '#82fa3d' : '#c3fff2' }
+            bgColor={ searchFilters ? 'rgba(0, 0, 0, .5)' : 'var(--hearder-color)' }
           >
             <img
               src={ SearchIcon }
