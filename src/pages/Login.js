@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
+import '../CSS/Login.css';
+import cooking from '../images/cooking.png';
 
 function Login() {
   const [button, setButton] = useState(true);
@@ -45,33 +47,47 @@ function Login() {
   }
 
   return (
-    <form>
-      <input
-        type="text"
-        placeholder="email"
-        name="email"
-        value={ email }
-        onChange={ handleChange }
-        autoComplete="off"
-        data-testid="email-input"
-      />
-      <input
-        type="password"
-        placeholder="senha"
-        value={ password }
-        name="password"
-        onChange={ handleChange }
-        data-testid="password-input"
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ submitForm }
-        disabled={ button }
-      >
-        Entrar
-      </button>
-    </form>
+    <div>
+      <section className="login-section">
+        <img className="icon" src={ cooking } alt="icon" />
+        <div className="login-text">
+          <h1>Recipe App</h1>
+          <p>Bem-vindo, Mestre Cuca</p>
+        </div>
+        <div className="login-card">
+          <form className="login--form">
+            <input
+              className="login--input"
+              type="text"
+              placeholder="email"
+              name="email"
+              value={ email }
+              onChange={ handleChange }
+              autoComplete="off"
+              data-testid="email-input"
+            />
+            <input
+              className="login--input"
+              type="password"
+              placeholder="senha"
+              value={ password }
+              name="password"
+              onChange={ handleChange }
+              data-testid="password-input"
+            />
+            <button
+              className="login--button"
+              type="button"
+              data-testid="login-submit-btn"
+              onClick={ submitForm }
+              disabled={ button }
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
   );
 }
 
