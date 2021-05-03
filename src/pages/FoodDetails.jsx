@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
 import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
+import '../App.css';
 
 function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommendedFoods }) {
   const [recipe, setRecipe] = useState(null);
@@ -27,7 +28,7 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
     }
   }, [match, recipe, recipes, history, getMealByIdDispatch]);
   const MAX_SLICE_YOUTUBE = 11;
-
+  const MAX_SLICE = 6;
   return loading ? (
     <div>Loading...</div>
   ) : (
@@ -72,18 +73,39 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
-        <button type="button" data-testid="start-recipe-btn">Iniciar receita</button>
+        <button
+          className="init-btn"
+          type="button"
+          data-testid="start-recipe-btn"
+        >
+          Iniciar receita
+
+        </button>
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
-        {recommendedFoods.map((item) => (
-          <div key={ `${item.index}` } data-testid={ `${item.index}-recomendation-card` }>
-            <a href={ `/comidas/${item.idMeal}` }>
-              <img src={ `${item.strMealThumb}` } alt="" />
-              <h2>{item.strMeal}</h2>
+        <div
+          className="gallery"
+          data-flickity-options='{ "wrapAround": true }'
+        >
+          {recommendedFoods && recommendedFoods.slice(0, MAX_SLICE).map((item) => (
+            <div
+              className="gallery-cell"
+              key={ `${item.index}` }
+              data-testid={ `${item.index}-recomendation-card` }
+            >
+              <a href={ `/comidas/${item.idDrink}` }>
+                <img className="image-recipe" src={ `${item.strDrinkThumb}` } alt="" />
+              </a>
+              <h2
+                data-testid={ `${item.index}-recomendation-title` }
+              >
+                {item.strDrink}
+              </h2>
 
-            </a>
-          </div>
-        ))}
+            </div>
+          ))}
+
+        </div>
       </div>
     </div>
   );

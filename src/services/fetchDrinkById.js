@@ -8,18 +8,19 @@ export const fetchDrinkById = async (ID) => {
   }
 };
 
-export const fetchRecommendedDrinkById = async (category) => {
-  const ENDPOINT = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+export const fetchRecommendedDrinkById = async (category = null) => {
+  console.log(category);
+  const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(`${ENDPOINT}`);
     const result = await response.json();
     let index = 0;
-    const resultWithIndex = result.drinks.map((item) => {
+    const resultWithIndex = result.meals.map((item) => {
       item.index = index;
       index += 1;
       return item;
     });
-
+    console.log(resultWithIndex);
     return resultWithIndex;
   } catch (error) {
     console.log(error);
