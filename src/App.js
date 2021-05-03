@@ -2,12 +2,16 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Routes from './routes/routes';
+import ContextFood from './context/contextFood';
+import ContextDrink from './context/contextDrink';
 
 function App() {
   return (
-    <div>
-      <Routes />
-    </div>
+    <ContextDrink>
+      <ContextFood>
+        <Routes />
+      </ContextFood>
+    </ContextDrink>
   );
 }
 
