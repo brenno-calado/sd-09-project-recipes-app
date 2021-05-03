@@ -17,7 +17,7 @@ function DrinksDetails() {
     getData();
   }, [id]);
 
-  const recipeInProgress = Object
+  const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes').cocktails).includes(id);
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));

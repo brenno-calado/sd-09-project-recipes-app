@@ -23,6 +23,9 @@ function Login() {
   const handleSubmit = () => {
     const { email } = state;
     startLocalStorage(email);
+    // localStorage.user = JSON.stringify({ email });
+    // localStorage.mealsToken = 1;
+    // localStorage.cocktailsToken = 1;
     updateData(fecthByName('', true));
     setShouldRedirect(true);
   };

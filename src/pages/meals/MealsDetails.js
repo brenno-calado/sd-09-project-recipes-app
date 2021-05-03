@@ -17,7 +17,7 @@ function MealsDetails() {
     getData();
   }, [id]);
 
-  const recipeInProgress = Object
+  const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes').meals).includes(id);
 
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
@@ -40,7 +40,7 @@ function MealsDetails() {
       { ingredients.map((ingredient, index) => (
         data[ingredient] && data[ingredient].length ? (
           <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
-            { `${data[ingredient]} ${data[measures[index]]}` }
+            { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
           </p>
         ) : false
       )) }
