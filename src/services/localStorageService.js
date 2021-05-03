@@ -7,17 +7,20 @@ export const startLocalStorage = (email) => {
   localStorage.inProgressRecipes = JSON.stringify({ cocktails: {}, meals: {} });
 };
 
-export const updateLocalStorage = (action, key, data) => {
+export const updateLocalStorage = (action, key, data, value) => {
   switch (action) {
   case 'doneRecipes':
-    localStorage[key] = JSON.stringify([...localStorage[key], data]);
+    localStorage[key] = JSON.stringify([
+      ...JSON.parse(localStorage[key]),
+      data,
+    ]);
     break;
   case 'inProgressRecipes':
     localStorage.inProgressRecipes = JSON.stringify({
-      ...localStorage.inProgressRecipes,
+      ...JSON.parse(localStorage.inProgressRecipes),
       [key]: {
-        ...localStorage.inProgressRecipes[key],
-        data,
+        ...JSON.parse(localStorage.inProgressRecipes)[key],
+        [data]: value,
       },
     });
     break;
