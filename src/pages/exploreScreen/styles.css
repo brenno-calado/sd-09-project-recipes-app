@@ -1,17 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
 .explore-screen {
   display: flex;
   flex-direction: column;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 .explore-screen-header {
   align-items: center;
   background-color: #e76f51;
   display: flex;
   font-family: 'Roboto', sans-serif;
-  justify-content: space-between;
   height: 58px;
+  justify-content: space-between;
 }
 
 .explore-screen-header-title {
