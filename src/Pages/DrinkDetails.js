@@ -1,13 +1,13 @@
 import React from 'react';
+import '../styles/Details.css';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { drinkDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
 import { foodThunkAction } from '../action/FoodAndDrinkAction';
-import CarouselDrinkDetails from '../components/CarouselDrinkDetails';
-import '../styles/Details.css';
 import { doneRecipesAction,
   favoriteRecipesAction, inProgressRecipesAction } from '../action/ButtonAction';
+import CarouselDrinkDetails from '../components/CarouselDrinkDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';

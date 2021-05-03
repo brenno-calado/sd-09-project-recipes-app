@@ -1,13 +1,13 @@
 import React from 'react';
+import '../styles/Details.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { foodDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
 import { drinksThunkAction } from '../action/FoodAndDrinkAction';
-import CarouselDetails from '../components/CarouselFoodDetails';
-import '../styles/Details.css';
 import { doneRecipesAction,
   favoriteRecipesAction, inProgressRecipesAction } from '../action/ButtonAction';
+import CarouselDetails from '../components/CarouselFoodDetails';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -240,10 +240,8 @@ const mapDispatchToProps = (dispatch) => ({
   setProgress: (progress, id) => dispatch(inProgressRecipesAction(progress, id)),
   setFavorite: (favorite) => dispatch(favoriteRecipesAction(favorite)),
 });
-
 FoodDetails.propTypes = ({
   getFoodDetails: PropTypes.arrayOf(PropTypes.object),
   setFoodDetails: PropTypes.func,
 }).isRequired;
-
 export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);
