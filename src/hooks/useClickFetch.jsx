@@ -6,7 +6,8 @@ import {
   getRecipeByFirstLetter,
   getDrinkByIngredient,
   getDrinkByName,
-  getDrinkByFirstLetter } from '../services/fetchApi';
+  getDrinkByFirstLetter,
+  getRecipesByCategory } from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
@@ -71,6 +72,7 @@ function useClickFetch() {
     handleCheck,
     getInputValue,
     handleFetchRecipes,
+    getRecipesByCategory,
   ];
 }
 

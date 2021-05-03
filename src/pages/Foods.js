@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
@@ -7,16 +7,41 @@ import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
-  const { handleFetchFoodClick, recipesData, handleFetchRecipes } = useRecipeContext();
+  const [meal, setMeal] = useState([]);
+  const { handleFetchFoodClick,
+    recipesData,
+    handleFetchRecipes,
+    getRecipesByCategory } = useRecipeContext();
   const twelve = 12;
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
-    || recipesData.meals === null) {
+      || recipesData.meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    handleFetchRecipes('themealdb');
   }, [recipesData]);
+
+  useEffect(() => {
+    handleFetchRecipes('themealdb');
+  }, [handleFetchRecipes]);
+
+  useEffect(() => {
+    getRecipesByCategory('themealdb')
+      .then(({ meals }) => setMeal(meals));
+  }, [getRecipesByCategory]);
+
+  function categoryButtom() {
+    const five = 5;
+    return (
+      meal.map(({ strCategory }, index) => (
+        index < five && (
+          <button type="button" data-testid={ `${strCategory}-category-filter` }>
+            { strCategory }
+          </button>
+        )
+      ))
+    );
+  }
 
   function header() {
     return (
@@ -34,6 +59,7 @@ function Foods() {
           </button>
         </SearchBar>
         <BottomMenu />
+        {categoryButtom() }
         {recipesData.meals && (
           recipesData.meals.map(({ idMeal, strMealThumb, strMeal }, index) => (
             index < twelve && (
@@ -47,7 +73,7 @@ function Foods() {
               />
             )
           ))
-        )}
+        ) }
       </>
     );
   }
