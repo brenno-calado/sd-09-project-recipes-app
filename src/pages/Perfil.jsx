@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LoginContext } from '../context';
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 function Perfil() {
   const { values } = useContext(LoginContext);
@@ -49,6 +51,9 @@ function Perfil() {
       >
         Sair
       </button>
+      <h1> Perfil </h1>
+      <Header />
+      <Footer />
     </div>
   );
 }
