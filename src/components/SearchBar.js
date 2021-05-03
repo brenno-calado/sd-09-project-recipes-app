@@ -88,6 +88,15 @@ export default function SearchBar({ isMealsPage }) {
     }
   };
 
+  /* const renderListOfIngredients = () => {
+    const ingredientsList = [];
+    for (let i = 1; i <= Number('20'); i += 1) {
+
+    }
+  };
+
+  console.log(searchMealsList[0] && searchMealsList[0]); */
+
   return (
     <div>
       <input data-testid="search-input" type="text" onChange={ handleChange } />
