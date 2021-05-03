@@ -100,7 +100,7 @@ function RecipeDetails() {
           <div>
             <Details detailsContext={ detailsContextProps } />
             <div className="buttons-section">
-              <DetailsBtnFavoriteRecipe />
+              <DetailsBtnFavoriteRecipe detailsContext={ detailsContextProps } />
               <DetailsBtnShareRecipe />
               {!btnStartShouldHide()
               && <DetailsBtnStartRecipe
