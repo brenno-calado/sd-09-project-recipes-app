@@ -5,9 +5,6 @@ import React, { useEffect, useState } from 'react';
 import { getFoodAll } from '../services/FoodAPI';
 import { getDrinksAll } from '../services/DrinksAPI';
 
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-
 const RecomendationCard = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendedType, setRecommendedType] = useState('');
