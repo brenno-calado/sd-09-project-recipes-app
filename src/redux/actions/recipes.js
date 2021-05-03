@@ -14,6 +14,11 @@ export const fetchSearchRecipes = () => (
     const { search } = getState();
     dispatch(requestRecipes());
     return fetchApi(search)
-      .then((json) => dispatch(getRecipes(json)));
+      .then((json) => {
+        const recipesKey = Object.keys(json)[0];
+        const recipesValue = json[recipesKey];
+        const recipes = recipesValue ? Object.values(json[recipesKey]) : null;
+        dispatch(getRecipes(recipes));
+      });
   }
 );
