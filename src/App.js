@@ -12,7 +12,7 @@ function App() {
     <MealsAndDrinkProvider>
       <BrowserRouter>
         <Switch>
-          <Route path="/comidas/in-progress" component={ InProgress } />
+          <Route path="/comidas/:id/in-progress" component={ InProgress } />
           <Route path="/bebidas/:id/in-progress" component={ InProgress } />
           <Route path="/comidas/:id/" component={ RecipeDetails } />
           <Route path="/bebidas/:id/" component={ RecipeDetails } />
