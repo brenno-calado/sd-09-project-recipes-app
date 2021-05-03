@@ -13,8 +13,16 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   const [allIngrdients, setAllIngrdients] = useState([]);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const location = useLocation();
-  const { strMeal, strMealThumb, strCategory, strInstructions, strYoutube } = recipe;
-  const embedId = strYoutube ? strYoutube.split('https://www.youtube.com/watch?v=')[1] : '';
+  const {
+    strMeal,
+    strMealThumb,
+    strCategory,
+    strInstructions,
+    strYoutube,
+  } = recipe;
+  const embedId = strYoutube
+    ? strYoutube.split('https://www.youtube.com/watch?v=')[1]
+    : '';
   const responsive = {
     mobile: {
       breakpoint: { max: 464, min: 0 },
@@ -25,13 +33,14 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   useEffect(() => {
     const getIngredients = () => {
       const ingredients = [];
-      const ingreQtt = Object.keys(recipe)
-        .filter((item) => item.includes('strIngredient'));
-      const measureQtt = Object.keys(recipe)
-        .filter((item) => item.includes('strMeasure'));
+      const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
+      const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
       ingreQtt.forEach((item, index) => {
         if (recipe[item] !== null && recipe[item] !== '') {
-          ingredients.push({ name: recipe[item], quantity: recipe[measureQtt[index]] });
+          ingredients.push({
+            name: recipe[item],
+            quantity: recipe[measureQtt[index]],
+          });
         }
       });
       setAllIngrdients(ingredients);
@@ -49,7 +58,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
         className="start-recipe-btn"
         onClick={ handleClick }
       >
-        { !inProgressRecipes ? 'Iniciar Receita' : 'Continuar Receita'}
+        {!inProgressRecipes ? 'Iniciar Receita' : 'Continuar Receita'}
       </button>
     </Link>
   );
@@ -62,11 +71,7 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
 
   return (
     <div className="Details">
-      <img
-        src={ strMealThumb }
-        alt={ strMeal }
-        data-testid="recipe-photo"
-      />
+      <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
       <div className="title-btns">
         <div>
           <h1 data-testid="recipe-title">{strMeal}</h1>
@@ -89,7 +94,8 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
               data-testid={ `${index}-ingredient-name-and-measure` }
             >
               {`- ${name} - ${quantity}`}
-            </p>))}
+            </p>
+          ))}
         </div>
       </div>
       <div className="instructions">
@@ -98,19 +104,26 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
       </div>
       <div className="video">
         <h2>Video</h2>
-        <iframe src={ `https://www.youtube.com/embed/${embedId}` } title="video" frameBorder="0" data-testid="video" />
+        <iframe
+          src={ `https://www.youtube.com/embed/${embedId}` }
+          title="video"
+          frameBorder="0"
+          data-testid="video"
+        />
       </div>
       <div className="recomendations">
         <h2>Recomended</h2>
         <Carousel responsive={ responsive }>
-          {recommends.map((item, index) => (<Card
-            cardTestid={ `${index}-recomendation-card` }
-            titleTestid={ `${index}-recomendation-title` }
-            key={ index }
-            item={ item }
-            index={ index }
-            type="bebidas"
-          />))}
+          {recommends.map((item, index) => (
+            <Card
+              cardTestid={ `${index}-recomendation-card` }
+              titleTestid={ `${index}-recomendation-title` }
+              key={ index }
+              item={ item }
+              index={ index }
+              type="bebidas"
+            />
+          ))}
         </Carousel>
       </div>
       {!done && renderButton()}
