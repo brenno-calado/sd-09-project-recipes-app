@@ -1,16 +1,16 @@
-.page-title { 
+.page-title {
   display: flex;
   justify-content: space-between;
 }
 
 .email {
   display: flex;
-  justify-content: center;
   font-size: 200%;
-} 
+  justify-content: center;
+}
 
 .btn-profile {
   border-radius: 7%;
   padding: 2%;
-  margin: 2%
+  margin: 2%;
 }
