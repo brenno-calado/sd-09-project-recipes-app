@@ -12,6 +12,7 @@ function DrinksDetails() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [copy, setCopy] = useState(false);
 
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
@@ -28,6 +29,12 @@ function DrinksDetails() {
     setShouldRedirect(true);
   };
 
+  const share = () => {
+    const { location: { href } } = window;
+    navigator.clipboard.writeText(href);
+    setCopy(true);
+  };
+
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
@@ -38,7 +45,7 @@ function DrinksDetails() {
     <section className="recipe-details">
       <img data-testid="recipe-photo" src={ strDrinkThumb } alt="recipe" />
       <h2 data-testid="recipe-title">{strDrink}</h2>
-      <button data-testid="share-btn" type="button">
+      <button data-testid="share-btn" type="button" onClick={ share }>
         <img src={ shareIcon } alt="share icon" />
       </button>
       <button data-testid="favorite-btn" type="button">
@@ -62,6 +69,7 @@ function DrinksDetails() {
         { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
       <MealsRecomendations />
+      { copy && <span>Link copiado!</span> }
     </section>
   );
 }

@@ -17,9 +17,9 @@ export const updateLocalStorage = (action, key, data, value) => {
     break;
   case 'inProgressRecipes':
     localStorage.inProgressRecipes = JSON.stringify({
-      ...JSON.parse(localStorage.inProgressRecipes),
+      ...JSON.parse(localStorage.inProgressRecipes || '{}'),
       [key]: {
-        ...JSON.parse(localStorage.inProgressRecipes)[key],
+        ...(JSON.parse(localStorage.inProgressRecipes || '{}')[key]),
         [data]: value,
       },
     });
