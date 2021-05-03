@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
-import shareIcon from '../images/shareIcon.svg';
+import DoneMealCard from '../components/DoneMealCard';
+import DoneDrinkCard from '../components/DoneDrinkCard';
 
 function ReceitasFeitas() {
-  const localData = JSON.parse(localStorage.getItem('doneRecipes'));
+  const localData = JSON.parse(localStorage.getItem('doneRecipes')) || [];
   const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
 
   const shareLink = (id, type) => {
-    if (type === 'meal') {
+    if (type === 'comida') {
       copy(`http://localhost:3000/comidas/${id}`);
     } else {
       copy(`http://localhost:3000/bebidas/${id}`);
@@ -30,9 +30,9 @@ function ReceitasFeitas() {
       case 'All':
         return localData;
       case 'Food':
-        return meal.type === 'meal';
+        return meal.type === 'comida';
       case 'Drinks':
-        return meal.type === 'drink';
+        return meal.type === 'bebida';
       default:
         return localData;
       }
@@ -72,55 +72,25 @@ function ReceitasFeitas() {
       </section>
       {
         arrRecipes.map((recipe, index) => (
-          <div key={ recipe.name }>
-            <p>{recipe.alcoholicOrNot}</p>
-            <div>
-              <Link
-                to={
-                  recipe.type === 'meal'
-                    ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
-                }
-              >
-                <img
-                  src={ recipe.image }
-                  alt=""
-                  data-testid={ `${index}-horizontal-image` }
-                />
-              </Link>
-            </div>
-            <h4 data-testid={ `${index}-horizontal-top-text` }>{ recipe.category }</h4>
-            <Link
-              to={
-                recipe.type === 'meal'
-                  ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
-              }
-            >
-              <h1 data-testid={ `${index}-horizontal-name` }>
-                { recipe.name }
-              </h1>
-            </Link>
-            <p data-testid={ `${index}-horizontal-done-date` }>
-              { recipe.doneDate }
-            </p>
-            <button
-              type="button"
-              onClick={ () => shareLink(recipe.id, recipe.type) }
-              data-testid={ `${index}-horizontal-share-btn` }
-            >
-              <img src={ shareIcon } alt="compartilhar" />
-            </button>
-            { linkShared && <p>Link copiado!</p> }
-            <p
-              data-testid={ `${index}-${recipe.tags}-horizontal-tag` }
-            >
-              { recipe.tags }
-            </p>
-            <p
-              data-testid={ `${index}-${recipe.type}-horizontal-tag` }
-            >
-              { recipe.type }
-            </p>
-          </div>
+          recipe.type === 'comida'
+            ? (
+              <DoneMealCard
+                key={ index }
+                recipe={ recipe }
+                index={ index }
+                linkShared={ linkShared }
+                shareLink={ shareLink }
+              />
+            )
+            : (
+              <DoneDrinkCard
+                key={ index }
+                recipe={ recipe }
+                index={ index }
+                linkShared={ linkShared }
+                shareLink={ shareLink }
+              />
+            )
         ))
       }
     </div>

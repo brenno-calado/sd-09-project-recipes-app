@@ -5,6 +5,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getDrinksFromCategory } from '../services';
 
+const MAX_AMOUNT = 12;
+const CATEGORIES_NUMBER = 5;
+
 function Bebidas() {
   const { drinks, drinkCategories, setDrinksApiResults } = useContext(AppContext);
   const [clicked, setClicked] = useState({});
@@ -29,22 +32,24 @@ function Bebidas() {
     <>
       <Header title="Bebidas" searchIcon />
       <button
+        data-testid="All-category-filter"
         type="button"
         onClick={ () => { setDrinksApiResults([]); setClicked({}); } }
       >
         All
       </button>
-      { drinkCategories && drinkCategories.map(({ strCategory }) => (
-        <button
-          data-testid={ `${strCategory}-category-filter` }
-          key={ strCategory }
-          type="button"
-          onClick={ () => handleClick(strCategory) }
-        >
-          {strCategory}
-        </button>
-      )) }
-      { drinks && drinks.map((drink, index) => (
+      { drinkCategories
+        && drinkCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
+          <button
+            data-testid={ `${strCategory}-category-filter` }
+            key={ strCategory }
+            type="button"
+            onClick={ () => handleClick(strCategory) }
+          >
+            {strCategory}
+          </button>
+        )) }
+      { drinks && drinks.slice(0, MAX_AMOUNT).map((drink, index) => (
         <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
           <div data-testid={ `${index}-recipe-card` }>
             <img

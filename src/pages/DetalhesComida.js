@@ -7,27 +7,49 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
+const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+
+const checkFavorite = (recipeId) => {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+  return false;
+};
+
+const checkDoneRecipes = (recipeId) => {
+  if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
+    return true;
+  }
+  return false;
+};
+
+const replaceVideoUrl = (idDetails) => {
+  const { strYoutube } = idDetails;
+  if (strYoutube) {
+    const urlArray = strYoutube.split('=');
+    return `https://www.youtube.com/embed/${urlArray[1]}`;
+  }
+};
+
+const handleButtonName = (id) => {
+  if (inProgressRecipes) {
+    if (inProgressRecipes.meals) {
+      return inProgressRecipes.meals[id] ? 'Continuar Receita' : 'Iniciar Receita';
+    }
+    return 'Iniciar Receita';
+  }
+};
+
 const DetalhesComida = () => {
   const {
     favoriteRecipe,
     removeFromFavorite,
-    addToFavorites,
-    removeFromTheFavorites,
-    favorites,
   } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
   const [idDetails, setIdDetails] = useState([]);
   const [linkShared, setLinkShared] = useState(false);
   const [recomendations, setRecomendations] = useState([]);
-
-  const replaceVideoUrl = () => {
-    const { strYoutube } = idDetails;
-    if (strYoutube) {
-      const urlArray = strYoutube.split('=');
-      return `https://www.youtube.com/embed/${urlArray[1]}`;
-    }
-  };
 
   const getIngredients = () => {
     const ingredients = Object.entries(idDetails).filter((details) => {
@@ -64,17 +86,16 @@ const DetalhesComida = () => {
   };
 
   const handleShare = () => {
-    copy(`http://localhost:3000/${pathname}`);
+    copy(`http://localhost:3000${pathname}`);
     setLinkShared(true);
   };
 
   const handleFavorite = () => {
     const { idMeal, strMeal, strArea, strCategory, strMealThumb } = idDetails;
-    if (!favorites[idMeal]) {
-      addToFavorites(idMeal);
+    if (!checkFavorite(idMeal)) {
       favoriteRecipe({
         id: idMeal,
-        type: 'meal',
+        type: 'comida',
         area: strArea,
         category: strCategory,
         alcoholicOrNot: '',
@@ -82,7 +103,6 @@ const DetalhesComida = () => {
         image: strMealThumb,
       });
     } else {
-      removeFromTheFavorites(idMeal);
       removeFromFavorite(idMeal);
     }
   };
@@ -98,12 +118,16 @@ const DetalhesComida = () => {
     <div>
       <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button type="button" data-testid="share-btn" onClick={ handleShare }>
-        <img src={ shareImg } alt="Compartilhar" />
+      <button type="button" onClick={ () => handleShare() }>
+        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
       </button>
       { linkShared && <p>Link copiado!</p> }
-      <button type="button" data-testid="favorite-btn" onClick={ handleFavorite }>
-        <img src={ favorites[idMeal] ? blackHeartImg : whiteHeartImg } alt="Favoritas" />
+      <button type="button" onClick={ handleFavorite }>
+        <img
+          data-testid="favorite-btn"
+          src={ checkFavorite(idMeal) ? blackHeartImg : whiteHeartImg }
+          alt="Favoritas"
+        />
       </button>
       <p data-testid="recipe-category">{strCategory}</p>
       { idDetails && getIngredients().map((ingredient, index) => (
@@ -112,28 +136,34 @@ const DetalhesComida = () => {
         </p>
       )) }
       <p data-testid="instructions">{strInstructions}</p>
-      <iframe data-testid="video" title="Instructions" src={ replaceVideoUrl() } />
+      <iframe
+        data-testid="video"
+        title="Instructions"
+        src={ replaceVideoUrl((idDetails)) }
+      />
       <p>Bebidas recomendadas</p>
       { recomendations && recomendations.map((drink, index) => (
         <div data-testid={ `${index}-recomendation-card` } key={ drink.idDrink }>
           <img
-            data-testid={ `${index}-card-img` }
+            data-testid={ `${index}-recomendation-img` }
             src={ drink.strDrinkThumb }
             alt={ drink.strDrink }
             width="100px"
           />
-          <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+          <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
         </div>
       )) }
-      <Link to={ `${id}/in-progress` }>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-recipe-btn"
-        >
-          Iniciar Receita
-        </button>
-      </Link>
+      { !checkDoneRecipes(idMeal) && (
+        <Link to={ `${id}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+          >
+            { handleButtonName(idMeal) }
+          </button>
+        </Link>
+      ) }
     </div>
   );
 };

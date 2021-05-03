@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Redirect, useLocation, useParams } from 'react-router';
+import { Redirect, useParams } from 'react-router';
 import copy from 'clipboard-copy';
 import CheckBoxProgress from '../components/CheckboxProgress';
 import { AppContext } from '../context/AppContext';
@@ -8,22 +8,27 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
+const checkFavorite = (recipeId) => {
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+  return false;
+};
+
 const ProgressoComidas = () => {
   const [stepsFinished, setStepsFinished] = useState(1);
   const [idDetails, setIdDetails] = useState([]);
-  const { pathname } = useLocation();
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
-  const [ingredientsStatus, setIngredientsStatus] = useState({});
   // const localData = JSON.parse(localStorage.getItem('inProgressMeals'));
 
-  const { favoriteRecipe,
+  const {
+    favoriteRecipe,
     removeFromFavorite,
-    addToFavorites,
-    removeFromTheFavorites,
-    favorites,
-    finishRecipe, inProgressMeal } = useContext(AppContext);
+    finishRecipe,
+    handleProgressRecipes,
+    handleIngredientsUsed,
+  } = useContext(AppContext);
 
   let stepsLimit = 1;
   const getIngredients = () => {
@@ -53,14 +58,14 @@ const ProgressoComidas = () => {
     setIdDetails(results);
   };
   const handleShare = () => {
-    copy(`http://localhost:3000/${pathname}`);
+    const { idMeal } = idDetails;
+    copy(`http://localhost:3000/comidas/${idMeal}`);
     setLinkShared(true);
   };
 
   const handleFavorite = () => {
     const { idMeal, strMeal, strArea, strCategory, strMealThumb } = idDetails;
-    if (!favorites[idMeal]) {
-      addToFavorites(idMeal);
+    if (!checkFavorite(idMeal)) {
       favoriteRecipe({
         id: idMeal,
         type: 'comida',
@@ -71,42 +76,51 @@ const ProgressoComidas = () => {
         image: strMealThumb,
       });
     } else {
-      removeFromTheFavorites(idMeal);
       removeFromFavorite(idMeal);
     }
   };
-  useEffect(() => {
-    fetchDetails(id);
-  }, [id]);
 
-  if (!idDetails) return <p>Carregando...</p>;
-  const { strMealThumb,
-    strMeal, strCategory, strInstructions, idMeal, strArea, strTags } = idDetails;
   const handleFinishRecipe = () => {
+    const {
+      strMealThumb,
+      strMeal, strCategory, idMeal, strArea, strTags } = idDetails;
     const doneInfos = {
       id: idMeal,
-      type: 'meal',
+      type: 'comida',
       area: strArea,
       category: strCategory,
       alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
-      doneDate: '',
-      tags: strTags,
+      doneDate: new Date().toLocaleDateString('pt-BR'),
+      tags: [...strTags.split(',')],
     };
     finishRecipe(doneInfos);
     setRedirect(true);
   };
+
+  useEffect(() => {
+    fetchDetails(id);
+  }, [id]);
+
+  if (!idDetails) return <p>Carregando...</p>;
+  const {
+    strMealThumb,
+    strMeal, strCategory, strInstructions, idMeal } = idDetails;
   return (
     <div>
       <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
       <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button type="button" data-testid="share-btn" onClick={ handleShare }>
-        <img src={ shareImg } alt="Compartilhar" />
+      <button type="button" onClick={ () => handleShare() }>
+        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
       </button>
       { linkShared && <p>Link copiado!</p> }
-      <button type="button" data-testid="favorite-btn" onClick={ handleFavorite }>
-        <img src={ favorites[idMeal] ? blackHeartImg : whiteHeartImg } alt="Favoritas" />
+      <button type="button" onClick={ handleFavorite }>
+        <img
+          data-testid="favorite-btn"
+          src={ checkFavorite(idMeal) ? blackHeartImg : whiteHeartImg }
+          alt="Favoritas"
+        />
       </button>
       <p data-testid="recipe-category">{strCategory}</p>
       <div className="ingredient-steps">
@@ -119,10 +133,10 @@ const ProgressoComidas = () => {
               key={ index }
               setStepsFinished={ setStepsFinished }
               stepsFinished={ stepsFinished }
-              ingredientsStatus={ ingredientsStatus }
-              setIngredientsStatus={ setIngredientsStatus }
-              inProgressRecipe={ inProgressMeal }
+              ingredientsUsed={ handleIngredientsUsed }
+              inProgressRecipe={ handleProgressRecipes }
               idRecipe={ idMeal }
+              type="meals"
             />);
         }) }
       </div>

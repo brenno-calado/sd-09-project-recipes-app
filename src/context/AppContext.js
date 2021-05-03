@@ -1,13 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  getFoods, getDrinks, getFoodCategories, getDrinkCategories, getMealAreas,
+  getFoods,
+  getDrinks,
+  getFoodCategories,
+  getDrinkCategories, getMealAreas, getMealIngredients, getDrinkIngredients,
 } from '../services';
 
 export const AppContext = createContext();
-
-const NUMBER_OF_ITEMS = 12;
-const NUMBER_OF_CATEGORIES = 5;
 
 const AppProvider = ({ children }) => {
   const [foodApiResults, setFoodApiResults] = useState([]);
@@ -19,53 +19,51 @@ const AppProvider = ({ children }) => {
   const [favoriteRecipes, setFavoriteRecipes] = useState(
     JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
   );
-  const [favorites, setFavorites] = useState(
-    JSON.parse(localStorage.getItem('favoritesId')) || {},
-  );
   const [mealAreas, setMealAreas] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState(
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
   const [xablau, setXablau] = useState('');
 
-  const [inProgressDrinks, setInProgressDrinks] = useState(
-    JSON.parse(localStorage.getItem('inProgressDrinks')) || {},
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
   );
-  const [inProgressMeals, setInProgressMeals] = useState(
-    JSON.parse(localStorage.getItem('inProgressMeals')) || {},
-  );
+  const [mealIngredients, setMealIngredients] = useState([]);
+  const [drinkIngredients, setDrinkIngredients] = useState([]);
+  const [ingredientsUsed, setIngredientsUsed] = useState([]);
 
-  const inProgressDrink = (recipe, id) => {
-    setInProgressDrinks({
-      ...inProgressDrinks,
-      [id]: recipe,
+  const handleProgressRecipes = (type, id) => {
+    setInProgressRecipes({
+      ...inProgressRecipes,
+      [type]: { [id]: ingredientsUsed },
     });
   };
-  const inProgressMeal = (recipe, id) => {
-    setInProgressMeals({
-      ...inProgressMeals,
-      [id]: recipe,
-    });
+
+  const handleIngredientsUsed = (ingredient) => {
+    setIngredientsUsed([
+      ...ingredientsUsed,
+      ingredient,
+    ]);
   };
 
   const fetchFoods = async () => {
     const response = await getFoods();
-    setFoodsArray(response.slice(0, NUMBER_OF_ITEMS));
+    setFoodsArray(response);
   };
 
   const fetchDrinks = async () => {
     const response = await getDrinks();
-    setDrinksArray(response.slice(0, NUMBER_OF_ITEMS));
+    setDrinksArray(response);
   };
 
   const fetchFoodCategories = async () => {
     const response = await getFoodCategories();
-    setFoodCategories(response.slice(0, NUMBER_OF_CATEGORIES));
+    setFoodCategories(response);
   };
 
   const fetchDrinkCategories = async () => {
     const response = await getDrinkCategories();
-    setDrinkCategories(response.slice(0, NUMBER_OF_CATEGORIES));
+    setDrinkCategories(response);
   };
 
   const fetchMealAreas = async () => {
@@ -73,18 +71,14 @@ const AppProvider = ({ children }) => {
     setMealAreas(response);
   };
 
-  const addToFavorites = (id) => {
-    setFavorites({
-      ...favorites,
-      [id]: true,
-    });
+  const fetchMealIngredients = async () => {
+    const response = await getMealIngredients();
+    setMealIngredients(response);
   };
 
-  const removeFromTheFavorites = (id) => {
-    setFavorites({
-      ...favorites,
-      [id]: false,
-    });
+  const fetchDrinkIngredients = async () => {
+    const response = await getDrinkIngredients();
+    setDrinkIngredients(response);
   };
 
   const favoriteRecipe = (meal) => {
@@ -107,21 +101,16 @@ const AppProvider = ({ children }) => {
   }, [doneRecipes]);
 
   useEffect(() => {
-    localStorage.setItem('favoritesId', JSON.stringify(favorites));
-  }, [favorites]);
-
-  useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
     setXablau(Math.random());
   }, [favoriteRecipes]);
 
   useEffect(() => {
-    localStorage.setItem('inProgressDrinks', JSON.stringify(inProgressDrinks));
-  }, [inProgressDrinks]);
-
-  useEffect(() => {
-    localStorage.setItem('inProgressMeals', JSON.stringify(inProgressMeals));
-  }, [inProgressMeals]);
+    localStorage.setItem(
+      'inProgressRecipes',
+      JSON.stringify(inProgressRecipes),
+    );
+  }, [inProgressRecipes]);
 
   useEffect(() => {
     fetchFoods();
@@ -129,6 +118,8 @@ const AppProvider = ({ children }) => {
     fetchFoodCategories();
     fetchDrinkCategories();
     fetchMealAreas();
+    fetchMealIngredients();
+    fetchDrinkIngredients();
   }, []);
 
   const foods = foodApiResults.length && foodApiResults !== 'null'
@@ -142,18 +133,17 @@ const AppProvider = ({ children }) => {
     foodCategories,
     drinkCategories,
     favoriteRecipes,
-    favorites,
     mealAreas,
     setFoodApiResults,
     setDrinksApiResults,
     favoriteRecipe,
     removeFromFavorite,
-    addToFavorites,
-    removeFromTheFavorites,
     finishRecipe,
+    handleProgressRecipes,
+    handleIngredientsUsed,
     xablau,
-    inProgressDrink,
-    inProgressMeal,
+    mealIngredients,
+    drinkIngredients,
   };
   return (
     <AppContext.Provider value={ context }>

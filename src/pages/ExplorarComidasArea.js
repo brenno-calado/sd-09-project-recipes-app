@@ -5,6 +5,8 @@ import { getMealByArea } from '../services';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
+const MAX_MEALS = 12;
+
 function ExplorarComidasArea() {
   const { mealAreas, foods } = useContext(AppContext);
   const [areaValue, setAreaValue] = useState('Selecione uma opção');
@@ -35,7 +37,7 @@ function ExplorarComidasArea() {
         onChange={ handleChange }
       >
         <option disabled>Selecione uma opção</option>
-        <option value="All">All</option>
+        <option data-testid="All-option" value="All">All</option>
         { mealAreas && mealAreas.map(({ strArea }) => (
           <option
             data-testid={ `${strArea}-option` }
@@ -46,7 +48,7 @@ function ExplorarComidasArea() {
           </option>
         )) }
       </select>
-      { foods && mealArray.map((food, index) => (
+      { foods && mealArray.slice(0, MAX_MEALS).map((food, index) => (
         <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
           <div data-testid={ `${index}-recipe-card` }>
             <img

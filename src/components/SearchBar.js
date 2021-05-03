@@ -1,8 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';
 import { AppContext } from '../context/AppContext';
 import { getDrinkResults, getFoodResults } from '../services';
+
+const checkRedirect = (foods, drinks, setPath) => {
+  if (foods.length === 1) {
+    setPath(`/comidas/${foods[0].idMeal}`);
+  } else if (drinks.length === 1) {
+    setPath(`bebidas/${drinks[0].idDrink}`);
+  }
+};
 
 const SearchBar = ({ title }) => {
   const baseSearchBar = {
@@ -13,9 +21,13 @@ const SearchBar = ({ title }) => {
   const [searchState, setSearchState] = useState(baseSearchBar);
   const [showAlertLetterRadio, setShowAlertLetter] = useState(false);
   const [noResultsApi, setNoResults] = useState(1);
-  // const [pathToGo, setPath] = useState(null);
-  const { setFoodApiResults,
-    setDrinksApiResults } = useContext(AppContext);
+  const [pathToGo, setPath] = useState(null);
+  const {
+    foods,
+    drinks,
+    setFoodApiResults,
+    setDrinksApiResults,
+  } = useContext(AppContext);
 
   const handleClick = async () => {
     const { searchInput, radioOn } = searchState;
@@ -41,9 +53,14 @@ const SearchBar = ({ title }) => {
   const handleRadio = ({ target: { value } }) => {
     setSearchState({ ...searchState, radioOn: value });
   };
+
+  useEffect(() => {
+    checkRedirect(foods, drinks, setPath);
+  }, [foods, drinks]);
+
   const { searchInput, radioOn } = searchState;
 
-  // if (pathToGo !== null) return <Redirect to={ pathToGo } />;
+  if (pathToGo !== null) return <Redirect to={ pathToGo } />;
   return (
     <form>
       <input
