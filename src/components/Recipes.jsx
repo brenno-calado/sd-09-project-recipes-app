@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { searchRecipe } from '../actions';
 import '../styles/Recipes.css';
 
+const MEAL = 'meal';
 const TWELVE = 12;
 
 function Recipes({
@@ -28,7 +29,7 @@ function Recipes({
 
   return (
     <div className="card-content">
-      {recipesType === 'meal'
+      {recipesType === MEAL
         ? recipesList.map((recipe, index) => (
           index < TWELVE && (
             <Link

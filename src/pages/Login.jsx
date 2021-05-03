@@ -32,6 +32,7 @@ const Login = () => {
     localStorage.setItem('mealsToken', token);
     localStorage.setItem('cocktailsToken', token);
     localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('favoriteRecipes', '[]');
   };
 
   const handleChange = ({ target: { name, value } }) => {

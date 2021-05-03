@@ -4,6 +4,7 @@ import RecipesProvider from './contexts/RecipesProvider';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Cocktails from './pages/Cocktails';
+import RecipeDetails from './pages/RecipeDetails';
 import Perfil from './pages/Perfil';
 import Explorar from './pages/Explorar';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
@@ -13,7 +14,6 @@ import ExplorarBebidas from './pages/ExplorarBebidas';
 import ComidasPorIngredientes from './pages/ComidasPorIngredientes';
 import BebidasPorIngredientes from './pages/BebidasPorIngredientes';
 import ComidaOrigem from './pages/ComidaOrigem';
-import RecipeDetails from './pages/RecipeDetails';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,8 +31,26 @@ function App() {
           path="/bebidas/:id"
           render={ (props) => <RecipeDetails { ...props } /> }
         />
-        <Route exact path="/comidas" component={ Meals } />
-        <Route exact path="/bebidas" component={ Cocktails } />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <RecipeDetails { ...props } /> } // mudar para componente de receita em progresso
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <RecipeDetails { ...props } /> } // mudar para componente de receita em progresso
+        />
+        <Route
+          exact
+          path="/comidas"
+          render={ (props) => <Meals { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas"
+          render={ (props) => <Cocktails { ...props } /> }
+        />
         <Route
           exact
           path="/explorar/bebidas/ingredientes"
@@ -43,14 +61,6 @@ function App() {
           path="/explorar/comidas/ingredientes"
           component={ ComidasPorIngredientes }
         />
-        {/* <Route
-          path="/bebidas/{id-da-receita}/in-progress"
-          component={ ProcessoDeBebida }
-        />
-        <Route
-          path="/comidas/{id-da-receita}/in-progress"
-          component={ ProcessoDeReceita }
-        /> */}
         <Route exact path="/explorar/comidas/area" component={ ComidaOrigem } />
         <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
         <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
