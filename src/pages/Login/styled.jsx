@@ -31,16 +31,16 @@ export const Form = styled.form`
     padding: 1rem;
     cursor: pointer;
     transition: .5s;
-    background-color: #84d2ec;
+    background-color: #FFD315;
     border: none;
     text-transform: uppercase;
 
     &:hover {
-    background-color: #00BFFF ;
+    background-color: #f3d54e ;
     }
 
     &:focus {
-    background-color: #1285ac ;
+    background-color: #f8dc60;
     }
   }
 
