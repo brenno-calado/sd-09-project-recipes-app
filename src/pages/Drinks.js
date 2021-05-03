@@ -19,7 +19,7 @@ function Drinks() {
         />
       ) : null }
       { showSearchBar && <SearchBar /> }
-      {pathname === '/comidas' ? <Footer /> : null}
+      {pathname === '/bebidas' ? <Footer /> : null}
     </div>
   );
 }

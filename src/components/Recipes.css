@@ -1,0 +1,12 @@
+.recipes-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.recipes-start {
+  bottom: 0;
+  margin: auto;
+  position: fixed;
+  width: 100%;
+}

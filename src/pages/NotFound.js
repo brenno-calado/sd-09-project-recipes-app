@@ -3,7 +3,7 @@ import React from 'react';
 function NotFound() {
   return (
     <div>
-      Oi
+      <h1>Not Found</h1>
     </div>
   );
 }
