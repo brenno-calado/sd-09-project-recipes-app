@@ -6,8 +6,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 // import dateFormatting from '../services/dateFormatting';
 import { localStorageInitialState,
-  favoritesLocalStorageInitialState }
-  from '../services/localStorage';
+  sendDoneRecipeToLocalStorage } from '../services/localStorage';
 import '../css/FoodsInProgress.css';
 
 const FoodsInProgress = () => {
@@ -78,10 +77,16 @@ const FoodsInProgress = () => {
   const checkDefaultChecked = (ingredient) => (checked.includes(ingredient));
 
   // remove a receita finalizada do localStorage
-  const deleteFinishedRecipe = () => {
+  const deleteFinishedRecipe = (id) => {
     const myStorage = JSON.parse(localStorage.getItem('inProgress'));
-    delete myStorage.meals[myId];
+    delete myStorage.meals[id];
     localStorage.setItem('inProgress', JSON.stringify(myStorage));
+  };
+
+  const handleFinishClick = () => {
+    const { idMeal } = myRecipe;
+    deleteFinishedRecipe(idMeal);
+    sendDoneRecipeToLocalStorage('comida', myRecipe);
   };
 
   // checa se pode habilitar o botao FinalizarReceita
@@ -93,13 +98,11 @@ const FoodsInProgress = () => {
   const handleChecked = ({ target }) => {
     const { value } = target;
     let checkedArray = checked;
-
     if (checkedArray.includes(value)) {
       checkedArray = checkedArray.filter((ingredient) => ingredient !== value);
     } else {
       checkedArray.push(value);
     }
-
     setChecked(checkedArray);
     saveToLocalStorage(checkedArray);
     checkDisableButton();
@@ -116,30 +119,15 @@ const FoodsInProgress = () => {
     saveFavoriteToLocalStorage();
   };
 
-  // CSS pra fazer depois
-  const imgStyle = {
-    maxWidth: '200x',
-    maxHeight: '200px',
-    margin: 'auto',
-    borderRadius: '50px',
-  };
-
+  // Não da pra mexer no className do container principal... zoa a pagina
   const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     overflowY: 'scroll',
   };
 
-  const buttonContainer = {
-    display: 'flex',
-    flexDirection: 'row',
-    margin: 'auto',
-  };
-  // fim do css
-
   useEffect(() => {
     localStorageInitialState();
-    favoritesLocalStorageInitialState();
   }, []);
 
   useEffect(() => {
@@ -150,25 +138,21 @@ const FoodsInProgress = () => {
 
   useEffect(() => {
     checkFavoriteButton();
+    checkDisableButton();
   });
 
   useEffect(() => {
     setIngredients(createIngredientsArray(myRecipe));
   }, [myRecipe]);
 
-  useEffect(() => {
-    checkDisableButton();
-  });
-
   if (loading) return (<p>Loading...</p>);
   const { strMeal, strMealThumb, strCategory, strInstructions } = myRecipe;
-  // console.log(JSON.parse(localStorage.getItem('inProgressRecipes')));
   return (
     <div style={ containerStyle }>
       <h1 data-testid="recipe-title">{strMeal}</h1>
       <h4 data-testid="recipe-category">{strCategory}</h4>
 
-      <div style={ buttonContainer }>
+      <div className="button-container">
         <button
           type="button"
           data-testid="share-btn"
@@ -192,7 +176,7 @@ const FoodsInProgress = () => {
       <img
         src={ strMealThumb }
         alt={ strMeal }
-        style={ imgStyle }
+        className="food-image"
         data-testid="recipe-photo"
       />
       <div>
@@ -228,7 +212,7 @@ const FoodsInProgress = () => {
           type="button"
           data-testid="finish-recipe-btn"
           disabled={ !enableButton }
-          onClick={ deleteFinishedRecipe }
+          onClick={ handleFinishClick }
         >
           Finalizar Receita
         </button>
