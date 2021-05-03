@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 import Header from './Header';
 import { fetchToMainScreen } from '../services/fetchAPI';
+import MenuInferior from './MenuInferior';
 
 function MealCard() {
   const { data, categories, filterByCategory, setData } = useContext(MyContext);
@@ -16,6 +17,7 @@ function MealCard() {
       <Header />
       <div className="text-center">
         <button
+          data-testid="All-category-filter"
           type="button"
           onClick={ () => (
             fetchToMainScreen('/comidas').then((result) => setData(result))
@@ -37,12 +39,12 @@ function MealCard() {
       </div>
       {data.map((element, index) => (
         index <= limitMealsRender ? (
-          <Link to={ `/comidas/${element.idMeal}` }>
-            <div
-              data-testid={ `${index}-recipe-card` }
-              className="text-center"
-              key={ element.strMeal }
-            >
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="text-center"
+            key={ element.strMeal }
+          >
+            <Link to={ `/comidas/${element.idMeal}` }>
               <img
                 data-testid={ `${index}-card-img` }
                 className="img-thumbnail img-fluid"
@@ -50,10 +52,11 @@ function MealCard() {
                 alt={ element.strMeal }
               />
               <h1 data-testid={ `${index}-card-name` }>{ element.strMeal }</h1>
-            </div>
-          </Link>
+            </Link>
+          </div>
         ) : null
       ))}
+      <MenuInferior />
     </div>
   );
 }

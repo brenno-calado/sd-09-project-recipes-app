@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import TelaPrincipal from './Pages/TelaPrincipal';
 import Perfil from './Pages/Perfil';
 import Detalhes from './Pages/Detalhes';
+import Explorar from './Pages/Explorar';
 import { MyContextProvider } from './MyContext';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route path="/comidas/:id" component={ Detalhes } />
           <Route path="/bebidas/:id" component={ Detalhes } />
+          <Route path="/explorar" component={ Explorar } />
           <Route path="/comidas" component={ TelaPrincipal } />
           <Route path="/bebidas" component={ TelaPrincipal } />
           <Route path="/perfil" component={ Perfil } />

@@ -16,6 +16,7 @@ function DrinkCard() {
       <Header />
       <div className="text-center">
         <button
+          data-testid="All-category-filter"
           onClick={ () => (
             fetchToMainScreen('/bebidas').then((result) => setData(result))
           ) }
@@ -37,12 +38,12 @@ function DrinkCard() {
       </div>
       {data.map((element, index) => (
         index <= limitDrinksRender ? (
-          <Link to={ `/bebidas/${element.idDrink}` }>
-            <div
-              data-testid={ `${index}-recipe-card` }
-              className="text-center"
-              key={ element.strMeal }
-            >
+          <div
+            data-testid={ `${index}-recipe-card` }
+            className="text-center"
+            key={ element.strMeal }
+          >
+            <Link to={ `/bebidas/${element.idDrink}` }>
               <img
                 data-testid={ `${index}-card-img` }
                 className="img-thumbnail img-fluid"
@@ -50,8 +51,8 @@ function DrinkCard() {
                 alt={ element.strDrink }
               />
               <h1 data-testid={ `${index}-card-name` }>{ element.strDrink }</h1>
-            </div>
-          </Link>
+            </Link>
+          </div>
         ) : null
       ))}
 

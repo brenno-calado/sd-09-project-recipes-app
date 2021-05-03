@@ -23,6 +23,10 @@ function Header() {
     setShowBar(false);
     title = 'Perfil';
     break;
+  case '/explorar':
+    setShowBar(false);
+    title = 'Explorar';
+    break;
   default:
     break;
   }

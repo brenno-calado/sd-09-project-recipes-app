@@ -8,7 +8,7 @@ function SearchBar() {
   const [radioSelected, setRadioSelected] = useState('');
   const [searchInput, setSearchInput] = useState('');
 
-  const { setData } = useContext(MyContext);
+  const { setData, data } = useContext(MyContext);
 
   const handleChange = ({ target }) => {
     if (target.type === 'radio') {
