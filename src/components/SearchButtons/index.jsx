@@ -21,7 +21,6 @@ function CategoriesButtons(props) {
 
     if (type === 'drink') {
       fetchApi('cocktail', name, categorie).then((res) => {
-        console.log(res.drinks);
         const fetchDrinks = res.drinks
           .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
         setDrinks(fetchDrinks);
