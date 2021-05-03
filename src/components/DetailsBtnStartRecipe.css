@@ -1,8 +1,4 @@
 .btnFixed {
   bottom: 0;
-  position: fixed;
-}
-
-.hidden {
-  display: none;
+  position: fixed;;
 }

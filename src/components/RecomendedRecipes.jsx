@@ -26,8 +26,13 @@ function RecomendedRecipes({ detailsContext }) {
           : (<Card.Img variant="top" src={ recipe.strDrinkThumb } />)}
         <Card.Body>
           { !getPageFromURL() ? (
-            <Card.Title>{ recipe.strMeal }</Card.Title>)
-            : (<Card.Title>{ recipe.strDrink }</Card.Title>)}
+            <Card.Title data-testid={ `${index}-recomendation-title` }>
+              { recipe.strMeal }
+            </Card.Title>)
+            : (
+              <Card.Title data-testid={ `${index}-recomendation-title` }>
+                { recipe.strDrink }
+              </Card.Title>)}
           { !getPageFromURL() ? (
             <Card.Text>{ recipe.strCategory }</Card.Text>)
             : (<Card.Text>{ recipe.strAlcoholic }</Card.Text>)}

@@ -13,6 +13,44 @@ import {
   fetchDrinksAcompaniments } from '../services/api';
 import RecipeVideo from '../components/RecipeVideo';
 
+function btnStartGetName() {
+  const allRecipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const actualId = getIdFromURL();
+  let btnName = 'Iniciar Receita';
+  let foundCocktailsInProgress;
+  let foundMealsInProgress;
+  if (allRecipesInProgress) {
+    if (allRecipesInProgress.cocktails) {
+      foundCocktailsInProgress = Object
+        .keys(allRecipesInProgress.cocktails)
+        .find((key) => key === actualId);
+    }
+    if (allRecipesInProgress.meals) {
+      foundMealsInProgress = Object
+        .keys(allRecipesInProgress.meals)
+        .find((key) => key === actualId);
+    }
+  }
+  if (foundCocktailsInProgress || foundMealsInProgress) {
+    btnName = 'Continuar Receita';
+  }
+  return btnName;
+}
+
+function btnStartShouldHide() {
+  const allRecipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const actualId = getIdFromURL();
+  let recipeIsDone = false;
+  let foundInDone;
+  if (allRecipesDone) {
+    foundInDone = allRecipesDone.find((recipes) => recipes.id === actualId);
+  }
+  if (foundInDone) {
+    recipeIsDone = true;
+  }
+  return recipeIsDone;
+}
+
 function RecipeDetails() {
   const [recipe, setRecipe] = useState();
   const [recomendationRecipesList, setRecomendationRecipesList] = useState();
@@ -49,13 +87,26 @@ function RecipeDetails() {
     <section>
       <h1 className="display-4 text-center">RECIPE DETAILS</h1>
       <div>
-        {!recipe ? <p>loading</p> : (
+        {!recipe ? (
+          <div>
+            <p>loading</p>
+            {!btnStartShouldHide()
+              && <DetailsBtnStartRecipe
+                btnName={ btnStartGetName() }
+                detailsContext={ detailsContextProps }
+              />}
+          </div>
+        ) : (
           <div>
             <Details detailsContext={ detailsContextProps } />
             <div className="buttons-section">
               <DetailsBtnFavoriteRecipe />
               <DetailsBtnShareRecipe />
-              <DetailsBtnStartRecipe />
+              {!btnStartShouldHide()
+              && <DetailsBtnStartRecipe
+                btnName={ btnStartGetName() }
+                detailsContext={ detailsContextProps }
+              />}
             </div>
             <RecipeVideo detailsContext={ detailsContextProps } />
             <RecomendedRecipes detailsContext={ detailsContextProps } />
