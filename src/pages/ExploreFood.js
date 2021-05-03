@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import { Link, Redirect } from 'react-router-dom';
 
-import Button from 'react-bootstrap/Button';
-import Header from '../components/Header/index';
 import Menu from '../components/Menu';
+import Header from '../components/Header';
 import { getRandomFood } from '../services/FoodAPI';
 
 const ExploreFood = () => {

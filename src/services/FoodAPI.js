@@ -75,6 +75,16 @@ const getRandomFood = async () => {
   }
 };
 
+const getFoodById = async (id) => {
+  try {
+    const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+    const result = await fetch(url);
+    return await result.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const getFoodIngredientsList = async () => {
   try {
     const ingredientsEndpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -99,12 +109,13 @@ const getFoodIngredientThumbnail = async (food) => {
 
 export {
   getFoodAll,
+  getFoodById,
   getRandomFood,
   getFoodByName,
   getFoodByCategory,
   getFoodCategories,
-  getFoodByFirstLetter,
   getFoodByIngredient,
+  getFoodByFirstLetter,
   getFoodIngredientsList,
   getFoodIngredientThumbnail,
 };
