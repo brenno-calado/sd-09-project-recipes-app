@@ -1,95 +1,76 @@
-import React, { Component } from 'react';
-import ScrollMenu from 'react-horizontal-scrolling-menu';
+import React, { useEffect, useState } from 'react';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import '../css/HorizontalScrollMenu.css';
 
-class HorizontalScrollMenu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      menuItems: '',
-      ArrowLeft: '',
-      ArrowRight: '',
-      selected: 'item1',
-    };
-    this.MenuItem = this.MenuItem.bind(this);
-    this.Menu = this.Menu.bind(this);
-    this.Arrow = this.Arrow.bind(this);
-    this.onSelect = this.onSelect.bind(this);
-    this.test = this.test.bind(this);
-  }
+const HorizontalScrollMenu = ({ recommended }) => {
+  const [scrollX, setScrollX] = useState(0);
+  const [recommendedsRecipes, setRecommendedsRecipes] = useState();
 
-  componentDidMount() {
-    this.test();
-  }
+  const handleWithLeftArrowClick = () => {
+    const maxWidth = (recommendedsRecipes.length * 250);
+    const slides = 3;
+    let x = scrollX + Math.round(maxWidth / slides);
+    if (x > 0) {
+      x = 0;
+    }
+    setScrollX(x);
+  };
+  const handleWithRightArrowClick = () => {
+    const maxWidth = -(recommendedsRecipes.length * 250);
+    const slides = 3;
+    let x = scrollX;
+    x += Math.round(maxWidth / slides);
+    if (x === maxWidth) return;
+    setScrollX(x);
+  };
 
-  onSelect(key) {
-    this.setState({ selected: key });
-  }
+  useEffect(() => {
+    const magicNumber = 6;
+    setRecommendedsRecipes(recommended.slice(0, magicNumber));
+  }, [recommended]);
 
-  test() {
-    const { recommended } = this.props;
-    const { selected } = this.state;
-    this.setState({ menuItems: this.Menu(recommended, selected) });
-    this.setState({ ArrowLeft: this.Arrow({ text: '<', className: 'arrow-prev' }) });
-    this.setState({ ArrowRight: this.Arrow({ text: '>', className: 'arrow-next' }) });
-  }
-
-  MenuItem({ idMeal, strMealThumb, strMeal, selected, index }) {
-    return (
+  const renderList = () => (
+    <div className="recommendedArea-listarea">
       <div
-        className={ `menu-item ${selected ? 'active' : ''}` }
-        key={ idMeal }
-        data-testid={ `${index}-recomendation-card` }
+        className="recommendedArea-list"
+        style={
+          {
+            marginLeft: scrollX,
+            width: recommendedsRecipes.length * 250,
+          }
+        }
       >
-        <img
-          src={ strMealThumb }
-          alt="foto da receita"
-        />
-        <p>{strMeal}</p>
-      </div>);
-  }
-
-  Menu(list, selected) {
-    return list.map((el, index) => {
-      const { idMeal, strMealThumb, strMeal } = el;
-
-      return (
-        this.MenuItem({
-          text: { strMeal },
-          key: { idMeal },
-          selected: { selected },
-          img: { strMealThumb },
-          index,
-        })
-      );
-    });
-  }
-
-  Arrow({ text, className }) {
-    return (
-      <div
-        className={ className }
-      >
-        {text}
+        {recommendedsRecipes.length > 0 && recommendedsRecipes.map((recipe, index) => (
+          <div
+            className="item"
+            data-testid={ `${index}-recomendation-card` }
+            key={ recipe.idDrink }
+          >
+            <img
+              src={ recipe.strDrinkThumb }
+              alt="foto da receita"
+            />
+            <p>{ recipe.strDrink }</p>
+          </div>
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 
-  render() {
-    const { selected, menuItems, ArrowLeft, ArrowRight } = this.state;
-
-    return (
-      <div className="App">
-        <ScrollMenu
-          data={ menuItems }
-          arrowLeft={ ArrowLeft }
-          arrowRight={ ArrowRight }
-          selected={ selected }
-          onSelect={ this.onSelect }
-        />
+  return (
+    <section className="recommendedArea">
+      <div className="recommendedArea-left" onClick={ handleWithLeftArrowClick }>
+        <NavigateBeforeIcon style={ { fontSize: 25 } } />
       </div>
-    );
-  }
-}
+      <div className="recommendedArea-right" onClick={ handleWithRightArrowClick }>
+        <NavigateNextIcon style={ { fontSize: 25 } } />
+      </div>
+
+      { recommendedsRecipes !== undefined && renderList()}
+
+    </section>
+  );
+};
 
 export default HorizontalScrollMenu;
