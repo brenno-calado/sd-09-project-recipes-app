@@ -12,26 +12,28 @@ import {
 } from '../../services/api';
 import './search.css';
 
-const msgAlert = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+const msgAlertNoRecipe = (
+  'Sinto muito, não encontramos nenhuma receita para esses filtros.');
+const msgAlertMinLetter = 'Sua busca deve conter somente 1 (um) caracter';
 
 function searchByDrinks(infoSearch, setItems) {
   const { searchBy, text } = infoSearch;
   switch (searchBy) {
   case 'ingredients':
     requestDrinksByIngredients(text).then(({ drinks }) => {
-      if (drinks === null) alert(msgAlert);
+      if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
-    }).catch(() => alert(msgAlert));
+    }).catch(() => alert(msgAlertNoRecipe));
     break;
   case 'name':
     requestDrinksByName(text).then(({ drinks }) => {
-      if (drinks === null) alert(msgAlert);
+      if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
     });
     break;
   case 'firstLetter':
     requestDrinksByFirstLetter(text).then(({ drinks }) => {
-      if (drinks === null) alert(msgAlert);
+      if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
     });
     break;
@@ -46,19 +48,19 @@ function searchByMeals(infoSearch, setItems) {
   switch (searchBy) {
   case 'ingredients':
     requestMealsByIngredients(text).then(({ meals }) => {
-      if (meals === null) alert(msgAlert);
+      if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
     break;
   case 'name':
     requestMealsByName(text).then(({ meals }) => {
-      if (meals === null) alert(msgAlert);
+      if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
     break;
   case 'firstLetter':
     requestMealsByFirstLetter(text).then(({ meals }) => {
-      if (meals === null) alert(msgAlert);
+      if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
     break;
@@ -138,7 +140,7 @@ function Search({ setItems, type }) {
         type="button"
         onClick={ () => {
           if (infoSearch.searchBy === 'firstLetter' && infoSearch.text.length !== 1) {
-            alert('Sua busca deve conter somente 1 (um) caracter');
+            alert(msgAlertMinLetter);
           } else requestApiSearch(infoSearch, setItems);
         } }
       >

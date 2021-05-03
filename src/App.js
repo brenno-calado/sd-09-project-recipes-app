@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
+import NoFound from './components/noFound';
 
 //  Pages
 import {
@@ -46,6 +47,7 @@ function App() {
       <Route exact path="/perfil" component={ Profile } />
       <Route exact path="/receitas-feitas" component={ RecipesDone } />
       <Route exact path="/receitas-favoritas" component={ RcipesFavorites } />
+      <Route exact path="*" component={ NoFound } />
     </Switch>
   );
 }

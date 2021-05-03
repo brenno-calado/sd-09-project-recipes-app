@@ -10,6 +10,9 @@ const END_POINT_BY_CATEGORY_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/
 const END_POINT_BY_INGREDIENTS_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const END_POINT_BY_FIRST_LETTER_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 
+const END_POINT_AREA_MEALS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+const END_POINT_BY_AREA_MEALS = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
+
 export const requestMeals = async () => {
   const requestFech = await fetch(END_POINT_MEALS);
   const requestJson = await requestFech.json();
@@ -78,6 +81,18 @@ export const requestMealsByFirstLetter = async (letter) => {
 
 export const requestDrinksByFirstLetter = async (letter) => {
   const requestFech = await fetch(`${END_POINT_BY_FIRST_LETTER_DRINKS}${letter}`);
+  const requestJson = await requestFech.json();
+  return requestJson;
+};
+
+export const requestAreaMeals = async () => {
+  const requestFech = await fetch(END_POINT_AREA_MEALS);
+  const requestJson = await requestFech.json();
+  return requestJson;
+};
+
+export const requestMealsByArea = async (area) => {
+  const requestFech = await fetch(`${END_POINT_BY_AREA_MEALS}${area}`);
   const requestJson = await requestFech.json();
   return requestJson;
 };

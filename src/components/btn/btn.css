@@ -1,5 +1,7 @@
 .btn-category {
+  border-radius: 5px;
   font-size: 12px;
   margin: 2px;
+  padding: 3px 0;
   width: 100px;
 }
