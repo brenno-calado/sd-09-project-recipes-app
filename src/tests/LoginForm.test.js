@@ -1,6 +1,6 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../pages/Login';
 import renderWithRouter from './renderWithRouter';
 
 describe('Testa a existência dos componentes da tela de login', () => {
