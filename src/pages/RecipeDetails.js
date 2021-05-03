@@ -1,4 +1,4 @@
-import { object, string } from 'prop-types';
+import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { getFoodById } from '../services/FoodAPI';
@@ -13,59 +13,50 @@ const RecipeDetails = (props) => {
   const [recipeType, setRecipeType] = useState('');
   const [recipe, setRecipe] = useState([]);
   const { location: { pathname } } = props;
+  const { match: { params: { id } } } = props;
 
-  const getRecipeByType = async () => {
-    const { id } = props.match.params;
-
-    if (pathname.startsWith('/comidas')) {
-      try {
+  useEffect(() => {
+    const getRecipeByType = async () => {
+      if (pathname.startsWith('/comidas')) {
         const meals = await getFoodById(id);
         setRecipeType('Meal');
         setRecipe(meals.meals[0]);
-      } catch (error) {
-        console.log(error);
-      }
-    } else if (pathname.startsWith('/bebidas')) {
-      try {
+      } else if (pathname.startsWith('/bebidas')) {
         const drinks = await getDrinkById(id);
         setRecipeType('Drink');
         setRecipe(drinks.drinks[0]);
-      } catch (error) {
-        console.log(error);
       }
-    }
-  };
-
-  useEffect(() => {
+    };
     getRecipeByType();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [id, pathname]);
 
-  if (recipe.length === 0) return <div>Loading...</div>;
+  if (recipe.length === 0) {
+    return <div className="spinner-border text-primary" role="status" />;
+  }
 
   const recipeCategory = recipeType === 'Meal' ? 'strCategory' : 'strAlcoholic';
 
   const showVideo = () => {
-    if (recipeType === 'Meal') {
-      return (
-        <iframe
-          data-testid="video"
-          width="320"
-          height="240"
-          title={ recipe.strMeal }
-          src={ recipe.strYoutube
-            && `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
-          frameBorder="0"
-          allow="accelerometer;
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            gyroscope;
-            picture-in-picture"
-          allowFullScreen
-        />
-      );
-    }
+    if (recipeType === 'Drink') return null;
+
+    return (
+      <iframe
+        data-testid="video"
+        width="320"
+        height="240"
+        title={ recipe.strMeal }
+        src={ recipe.strYoutube
+          && `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
+        frameBorder="0"
+        allow="accelerometer;
+          autoplay;
+          clipboard-write;
+          encrypted-media;
+          gyroscope;
+          picture-in-picture"
+        allowFullScreen
+      />
+    );
   };
 
   return (
@@ -95,8 +86,6 @@ const RecipeDetails = (props) => {
 
 RecipeDetails.propTypes = {
   id: string,
-  match: object,
-  params: object,
 }.isRequired;
 
 export default RecipeDetails;

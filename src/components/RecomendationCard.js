@@ -7,27 +7,28 @@ import { getDrinksAll } from '../services/DrinksAPI';
 const RecomendationCard = (props) => {
   const [recommendations, setRecommendations] = useState([]);
   const [recommendedType, setRecommendedType] = useState('');
-
-  const getRecommendations = async () => {
-    const { recipeType } = props;
-    const arraySize = 6;
-
-    if (recipeType === 'Meal') {
-      setRecommendedType('Drink');
-      const drinks = await getDrinksAll();
-      setRecommendations(drinks.drinks.slice(0, arraySize));
-    } else if (recipeType === 'Drink') {
-      setRecommendedType('Meal');
-      const meals = await getFoodAll();
-      setRecommendations(meals.meals.slice(0, arraySize));
-    }
-  };
+  const { recipeType } = props;
 
   useEffect(() => {
+    const getRecommendations = async () => {
+      const arraySize = 6;
+
+      if (recipeType === 'Meal') {
+        setRecommendedType('Drink');
+        const drinks = await getDrinksAll();
+        setRecommendations(drinks.drinks.slice(0, arraySize));
+      } else if (recipeType === 'Drink') {
+        setRecommendedType('Meal');
+        const meals = await getFoodAll();
+        setRecommendations(meals.meals.slice(0, arraySize));
+      }
+    };
     getRecommendations();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  if (recommendations.length === 0) return 'Loading...';
+  }, [recipeType]);
+
+  if (recommendations.length === 0) {
+    return <div className="spinner-border text-primary" role="status" />;
+  }
 
   return (
     <div>
