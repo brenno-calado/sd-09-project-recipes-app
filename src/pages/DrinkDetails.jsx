@@ -24,7 +24,10 @@ function DrinkDetails({ match: { params: { id } } }) {
   const maxRecomendations = 6;
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const isFavorited = favoriteRecipes.some((obj) => obj.id === drinkId.idDrink);
+  const isFavorited = (
+    favoriteRecipes !== null ? favoriteRecipes.some(
+      (obj) => obj.id === drinkId.idDrink,
+    ) : false);
   const [favorited, setFavorited] = useState(isFavorited);
 
   function handleFavorite(item) {
@@ -36,7 +39,7 @@ function DrinkDetails({ match: { params: { id } } }) {
       setFavorited(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     } else {
-      const newFavorites = [...favorites, {
+      const newFavorites = [favorites, {
         id: item.idDrink,
         type: 'bebida',
         area: item.strArea,
@@ -106,8 +109,9 @@ function DrinkDetails({ match: { params: { id } } }) {
           </button>
           <button
             type="button"
-            data-testid="favorite-btn"
             onClick={ () => handleFavorite(drinkId) }
+            src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
+            data-testid="favorite-btn"
           >
             <img
               src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }

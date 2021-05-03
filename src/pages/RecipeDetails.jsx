@@ -25,7 +25,10 @@ function RecipeDetails({ match: { params: { id } } }) {
   const maxRecomendations = 6;
 
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const isFavorited = favoriteRecipes.some((obj) => obj.id === mealId.idMeal);
+  const isFavorited = (
+    favoriteRecipes !== null ? favoriteRecipes.some(
+      (obj) => obj.id === mealId.idMeal,
+    ) : false);
   const [favorited, setFavorited] = useState(isFavorited);
 
   function handleFavorite(item) {
@@ -37,7 +40,7 @@ function RecipeDetails({ match: { params: { id } } }) {
       setFavorited(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     } else {
-      const newFavorites = [...favorites, {
+      const newFavorites = [favorites, {
         id: item.idMeal,
         type: 'comida',
         area: item.strArea,
@@ -103,6 +106,7 @@ function RecipeDetails({ match: { params: { id } } }) {
           <button
             type="button"
             data-testid="favorite-btn"
+            src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
             onClick={ () => handleFavorite(mealId) }
           >
             <img
