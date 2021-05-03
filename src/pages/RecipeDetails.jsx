@@ -8,8 +8,6 @@ import RecipesContext from '../contexts/RecipesContext';
 import '../css/components/RecipeDetails.css';
 import RecipeHeader from '../components/recipeDetails/RecipeHeader';
 
-// PENDENTE: CAROUSEL DAS RECOMENDACOES
-
 function RecipeDetails({ match: { path, url, params: { id } } }) {
   const { recipe, setRecipe, isLoading, setLoading } = useContext(RecipesContext);
   const [buttonWillHide, setButtonWillHide] = useState(false);
