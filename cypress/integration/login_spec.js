@@ -28,7 +28,7 @@ describe.skip('4 - Desenvolva a tela de maneira que a pessoa deve conseguir escr
   });
 });
 
-describe.skip('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
+describe('5 - Desenvolva a tela de maneira que o formulário só seja válido após um email válido e uma senha de mais de 6 caracteres serem preenchidos', () => {
   it('O botão deve estar desativado se o email for inválido', () => {
     cy.visit('http://localhost:3000/');
 
