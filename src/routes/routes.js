@@ -11,7 +11,7 @@ import {
   ExplorerFoodsIngredients,
   ExplorerFoodsOrigin } from '../pages/Explorer';
 import { RecipesFavorite, RecipesMade } from '../pages/Recipes';
-import Profile from '../pages/Profile/Profile';
+import Profile from '../pages/Profile';
 import ExplorerDrinksIngredients from '../pages/Explorer/ExplorerDrinksIngredientes';
 
 function routes() {
