@@ -15,7 +15,7 @@ const DrinksFoodsRecipes = () => {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       addSearchBar(text, radio, false);
     }
-  }, [recipes]);
+  }, [addSearchBar, radio, recipes, seachClicked, text]);
 
   let id;
 
