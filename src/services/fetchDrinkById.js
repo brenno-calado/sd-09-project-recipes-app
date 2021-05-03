@@ -8,8 +8,7 @@ export const fetchDrinkById = async (ID) => {
   }
 };
 
-export const fetchRecommendedDrinkById = async (category = null) => {
-  console.log(category);
+export const fetchRecommendedDrinkById = async () => {
   const ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   try {
     const response = await fetch(`${ENDPOINT}`);
@@ -20,7 +19,6 @@ export const fetchRecommendedDrinkById = async (category = null) => {
       index += 1;
       return item;
     });
-    console.log(resultWithIndex);
     return resultWithIndex;
   } catch (error) {
     console.log(error);

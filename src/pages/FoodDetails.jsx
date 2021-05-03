@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
 import '../App.css';
@@ -9,6 +10,27 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
   const [recipe, setRecipe] = useState(null);
   const [ingredientToMeasure, setIngredientToMeasure] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [completed, setCompleted] = useState(true);
+  const [inProgress, setInProgress] = useState(false);
+
+  useEffect(() => {
+    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (local) {
+      const inProgressRecipe = Object.keys(local.meals)
+        .some((id) => id === match.params.id);
+      setInProgress(inProgressRecipe);
+    }
+  }, [match]);
+
+  useEffect(() => {
+    const completedRecipe = () => {
+      const local = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+      const isCompleted = local.some(({ id }) => id === match.params.id);
+      setCompleted(isCompleted);
+    };
+
+    completedRecipe();
+  }, [match]);
 
   useEffect(() => {
     const recipeID = match.params.id;
@@ -29,9 +51,10 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
   }, [match, recipe, recipes, history, getMealByIdDispatch]);
   const MAX_SLICE_YOUTUBE = 11;
   const MAX_SLICE = 6;
-  return loading ? (
-    <div>Loading...</div>
-  ) : (
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  return (
     <div>
       <div>
         <h2 data-testid="recipe-title">{recipe.strMeal}</h2>
@@ -73,14 +96,17 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
 
         {/* // O botão de iniciar receita deve possuir o
       atributo data-testid="start-recipe-btn"; */}
-        <button
-          className="init-btn"
-          type="button"
-          data-testid="start-recipe-btn"
-        >
-          Iniciar receita
-
-        </button>
+        { !completed && (
+          <Link to={ `/comidas/${match.params.id}/in-progress` }>
+            <button
+              className="init-btn"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              { inProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+            </button>
+          </Link>
+        )}
         {/* // O card de receitas recomendadas
       deve possuir o atributo data-testid="${index}-recomendation-card"; */}
         <div

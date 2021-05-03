@@ -1,0 +1,101 @@
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100vw;
+}
+
+.detailsImage {
+  width: 100%;
+  height: 40vh;
+}
+
+.headerDetails {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.detailsMainInfos {
+  padding: 2% 5%;
+}
+
+.detailsCategory {
+  color: rgba(251, 144, 22, 0.863);
+  font-size: 21px;
+}
+
+.detailsSubtitle {
+  padding: 2% 5%;
+  font-weight: 200;
+  margin-top: 2vh;
+  margin-bottom: 1%;
+}
+
+.ingredientsList {
+  list-style: none;
+  background-color: rgba(251, 144, 22, 0.575);
+  border-radius: 10px;
+  padding: 4%;
+  padding-bottom: 1%;
+  margin: 0 5%;
+}
+
+.instructions {
+  background-color: rgba(251, 144, 22, 0.575);
+  border-radius: 10px;
+  margin: 0 5%;
+  padding: 4%;
+  padding-bottom: 1%;
+  margin-bottom: 4%;
+}
+
+
+.gallery {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  white-space: nowrap;
+  width: 100%;
+  height: 200px;
+  margin-bottom: 12vh;
+}
+
+.gallery-cell {
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.418);
+  min-width: 40vw;
+  margin: 0 5%;
+  margin-bottom: 5px;
+}
+
+.gallery-cell h2 {
+  padding: 0px 0 5px 6px;
+  font-size: 24px;
+}
+
+.gallery-cell p {
+  margin: 0;
+  padding: 2px 0 0 6px;
+  color: rgba(251, 144, 22, 0.863);
+  font-size: 16px;
+}
+
+.image-recipe {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  height: 68%;
+}
+
+.init-btn {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  height: 8vh;
+  border: none;
+  background-color: rgb(251, 144, 22);
+  color: aliceblue;
+  font-weight: 700;
+  font-size: 20px;
+}
+
