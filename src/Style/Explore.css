@@ -1,0 +1,19 @@
+.explore-btn {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40%;
+}
+
+.btns-explore {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  margin-top: 5%;
+  margin-bottom: 20%;
+}
+
+.explore-btn-drink {
+  display: flex;
+  justify-items: center;
+  margin: 25%;
+}

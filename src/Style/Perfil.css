@@ -1,5 +1,6 @@
 .page-title { 
-  margin-right: 40%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .email {

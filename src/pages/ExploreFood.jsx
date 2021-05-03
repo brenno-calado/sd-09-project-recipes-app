@@ -26,19 +26,30 @@ function ExploreFood() {
   return (
     <div>
       <Header page="Explorar Comidas" />
-      <Link to="/explorar/comidas/ingredientes">
-        <button data-testid="explore-by-ingredient" type="button">
-          Por Ingredientes
+      <div>
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            data-testid="explore-by-ingredient"
+            type="button"
+            className="btns-explore"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <button data-testid="explore-by-area" type="button" className="btns-explore">
+            Por Local de Origem
+          </button>
+        </Link>
+        <button
+          className="btns-explore"
+          data-testid="explore-surprise"
+          type="button"
+          onClick={ onclick }
+        >
+          Me Surpreenda!
         </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button data-testid="explore-by-area" type="button">
-          Por Local de Origem
-        </button>
-      </Link>
-      <button data-testid="explore-surprise" type="button" onClick={ onclick }>
-        Me Surpreenda!
-      </button>
+      </div>
       <Footer />
     </div>
   );

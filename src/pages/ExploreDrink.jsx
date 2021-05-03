@@ -28,11 +28,20 @@ function ExploreDrink() {
     <div>
       <Header page="Explorar Bebidas" />
       <Link to="/explorar/bebidas/ingredientes">
-        <button data-testid="explore-by-ingredient" type="button">
+        <button
+          data-testid="explore-by-ingredient"
+          type="button"
+          className="explore-btn-drink"
+        >
           Por Ingredientes
         </button>
       </Link>
-      <button data-testid="explore-surprise" type="button" onClick={ onclick }>
+      <button
+        data-testid="explore-surprise"
+        type="button"
+        onClick={ onclick }
+        className="explore-btn-drink"
+      >
         Me Surpreenda!
       </button>
       <Footer />
