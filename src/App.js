@@ -9,6 +9,8 @@ import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import ExploreRecipes from './pages/ExploreRecipes';
 import ExploreIngredients from './pages/ExploreIngredients';
+import ExploreAreas from './pages/ExploreAreas';
+import NotFound from './pages/NotFound';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,13 +26,13 @@ function App() {
       <Route path="/bebidas/:id" component={ DrinkDetails } />
       <Route path="/explorar/comidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
+      <Route path="/explorar/comidas/area" component={ ExploreAreas } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
       <Route path="/explorar/comidas" component={ ExploreRecipes } />
       <Route path="/explorar/bebidas" component={ ExploreRecipes } />
       <Route path="/explorar" component={ Explore } />
       {/* <Route path="/comidas/:id/in-progress" component={} />
       <Route path="/bebidas/:id/in-progress" component={} />
-
-      <Route path="/explorar/comidas/area" component={} />
       <Route path="/receitas-feitas" component={} />
       <Route path="/receitas-favoritas" component={} /> */}
     </Switch>

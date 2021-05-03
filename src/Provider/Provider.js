@@ -15,7 +15,6 @@ function Provider({ children }) {
     async function fetchFoodsList() {
       try {
         setFetchingFoods(true);
-        // const endpoint = getFoodEndpoint();
         const endpoint = selectedFoodsCategory === 'All'
           ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
           : `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedFoodsCategory}`;
@@ -76,6 +75,21 @@ function Provider({ children }) {
     }
   }
 
+  async function fetchFoodsByArea(area) {
+    try {
+      setFetchingFoods(true);
+      const endpoint = area === 'All'
+        ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
+        : `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setFoodsList(jsonResponse.meals);
+      setFetchingFoods(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const contextValue = {
     login,
     setLogin,
@@ -89,6 +103,7 @@ function Provider({ children }) {
     setSelectedDrinksCategory,
     fetchFoodsByIngredient,
     fetchDrinksByIngredient,
+    fetchFoodsByArea,
   };
 
   return (

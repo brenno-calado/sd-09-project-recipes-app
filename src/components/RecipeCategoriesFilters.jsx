@@ -41,6 +41,7 @@ function RecipeCategoriesFilters({ type }) {
   }, [endpoint, type]);
 
   function handleCategoryFilterClick({ target: { value } }) {
+    console.log(value);
     const category = selectedCategory === value ? 'All' : value;
     setSelectedCategory(category);
   }
