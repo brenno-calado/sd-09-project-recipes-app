@@ -1,0 +1,15 @@
+.page-title { 
+  margin-right: 40%;
+}
+
+.email {
+  display: flex;
+  justify-content: center;
+  font-size: 200%;
+} 
+
+.btn-profile {
+  border-radius: 7%;
+  padding: 2%;
+  margin: 2%
+}
