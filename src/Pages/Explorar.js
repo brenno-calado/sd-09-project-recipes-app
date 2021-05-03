@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import MenuInferior from '../components/MenuInferior';
+import MenuInferior from '../Components/MenuInferior';
 
 function Explorar() {
   return (

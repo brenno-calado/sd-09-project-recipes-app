@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import MealCard from '../components/MealCard';
-import DrinkCard from '../components/DrinkCard';
+import MealCard from '../Components/MealCard';
+import DrinkCard from '../Components/DrinkCard';
 import { MyContext } from '../MyContext';
 import { fetchToMainScreen, categoriesList } from '../services/fetchAPI';
+import MenuInferior from '../Components/MenuInferior';
 
 export default function TelaPrincipal() {
   const { pathname } = useLocation();
@@ -37,6 +38,7 @@ export default function TelaPrincipal() {
   return (
     <div>
       {pathname === '/comidas' ? <MealCard /> : <DrinkCard /> }
+      <MenuInferior />
     </div>
   );
 }
