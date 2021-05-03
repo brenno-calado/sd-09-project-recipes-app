@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import 'react-bootstrap';
 import setLocalStorage from '../services/localStorage';
 import '../Style/Login.css';
 
@@ -24,6 +25,7 @@ function Login() {
 
   return (
     <div className="Login-body">
+      <h1> Minhas Receitas </h1>
       <label htmlFor="email">
         Digite o email:
         <input
@@ -44,7 +46,7 @@ function Login() {
           onChange={ (event) => setPassword(event.target.value) }
         />
       </label>
-      <Link to="/comidas">
+      <Link to="/comidas" id="btn-login">
         <button
           data-testid="login-submit-btn"
           type="button"

@@ -23,10 +23,11 @@ function Header({ page, search }) {
       <header>
         <img src={ Logo1 } alt="logo" className="logo-img" />
         <h1> Minhas Receitas</h1>
+        <Link to="/perfil">
+          <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
+        </Link>
       </header>
-      <Link to="/perfil">
-        <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
-      </Link>
+
       <h2 data-testid="page-title">{ page }</h2>
       { search
       && (

@@ -32,7 +32,7 @@ function RecipesList({ recipes, loading, path, isFilter }) {
   );
 
   return (
-    <div>
+    <div className="list">
       { (recipes.length === 1 && !isFilter)
       && <Redirect to={ `${path}/${recipes[0][`id${pageID}`]}` } /> }
       { path === '/comidas' ? renderFoods() : renderDrinks() }
