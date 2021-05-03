@@ -21,7 +21,8 @@ function ButtonReducer(state = INITIAL_STATE, action) {
   case INPROGRESSRECIPES_ACTION:
     return { ...state,
       inProgressRecipes: {
-        ...state.inProgressRecipes, [action.name]: action.test } };
+        ...state.inProgressRecipes,
+        ...action.progress } };
   default:
     return state;
   }

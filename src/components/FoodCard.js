@@ -7,7 +7,7 @@ class FoodCard extends React.Component {
   render() {
     const { food, index, testid, nameId } = this.props;
     return (
-      <Link to={ `comidas/${food.idMeal}` } className="link">
+      <Link to={ `/comidas/${food.idMeal}` } className="link">
         <div data-testid={ `${index}${testid}` } className="boxImg">
           <img
             src={ food.strMealThumb }
