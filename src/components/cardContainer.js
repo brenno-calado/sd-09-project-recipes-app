@@ -1,9 +1,8 @@
 import React from 'react';
 import { arrayOf } from 'prop-types';
 import Cards from './card';
-import Recomended from './recommendedRecipes';
 
-export default function CardContainer({ recipes, path, type }) {
+export default function CardContainer({ recipes, path }) {
   const size = 12;
   return (
     <div className="cards-container">
@@ -13,13 +12,7 @@ export default function CardContainer({ recipes, path, type }) {
         const name = path === '/comidas' ? 'strMeal' : 'strDrink';
 
         return (
-          type === 'recomendations' ? <Recomended
-            key={ `${path.replace('/', '')}-${index}` }
-            image={ recipe[image] }
-            name={ recipe[name] }
-            index={ index }
-            url={ `${path}/${recipe[id]}` }
-          /> : <Cards
+          <Cards
             key={ `${path.replace('/', '')}-${index}` }
             image={ recipe[image] }
             name={ recipe[name] }

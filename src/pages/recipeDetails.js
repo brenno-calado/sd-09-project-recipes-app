@@ -45,20 +45,18 @@ export default function RecipeDetails() {
           </h1>
           <button type="button" data-testid="share-btn">Compartilhar</button>
           <button type="button" data-testid="favorite-btn">Favoritar</button>
-          <h3
-            data-testid="recipe-category"
-          >
+          <h3 data-testid="recipe-category">
             {recipe[0].strCategory}
             {!isFood && recipe[0].strAlcoholic}
           </h3>
           <IngredientsList recipe={ recipe[0] } />
           <p data-testid="instructions">{recipe[0].strInstructions}</p>
           {isFood && <iframe data-testid="video" width="560" height="315" src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` } title={ recipe[0].strMeal } frameBorder="0" allow="accelerometer; encrypted-media; picture-in-picture" allowFullScreen />}
-          <StartButton />
           <CarouselContainer
             recipes={ recomendations.slice(0, limit) }
             path={ recPath }
           />
+          <StartButton />
         </div>)
       : <h1>Loading...</h1>
   );
