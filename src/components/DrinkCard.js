@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MyContext } from '../MyContext';
-import Header from './Header';
+import { Header } from '.';
 
 function DrinkCard() {
   const { data, categories, filterByCategory } = useContext(MyContext);

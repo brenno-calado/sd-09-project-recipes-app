@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
-import MealCard from '../Components/MealCard';
-import DrinkCard from '../Components/DrinkCard';
 import { MyContext } from '../MyContext';
 import { fetchToMainScreen, categoriesList } from '../services/fetchAPI';
-import MenuInferior from '../Components/MenuInferior';
+import { MenuInferior, MealCard, DrinkCard } from '../Components';
 
 export default function TelaPrincipal() {
   const { pathname } = useLocation();
