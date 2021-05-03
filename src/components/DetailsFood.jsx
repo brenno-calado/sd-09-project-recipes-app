@@ -33,8 +33,10 @@ function DetailsFood({ recipe, inProgressRecipes, handleClick, done }) {
   useEffect(() => {
     const getIngredients = () => {
       const ingredients = [];
-      const ingreQtt = Object.keys(recipe).filter((item) => item.includes('strIngredient'));
-      const measureQtt = Object.keys(recipe).filter((item) => item.includes('strMeasure'));
+      const ingreQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strIngredient'));
+      const measureQtt = Object.keys(recipe)
+        .filter((item) => item.includes('strMeasure'));
       ingreQtt.forEach((item, index) => {
         if (recipe[item] !== null && recipe[item] !== '') {
           ingredients.push({
