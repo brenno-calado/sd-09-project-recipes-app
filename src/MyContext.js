@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { searchByCategory } from './services/fetchAPI';
+import { searchByCategory, fetchToMainScreen } from './services/fetchAPI';
 
 const MyContext = createContext();
 
@@ -10,10 +10,24 @@ const MyContextProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [categorieSelected, setCategorieSelected] = useState('');
+  const [toggle, setToggle] = useState(false);
 
   const filterByCategory = ({ value }, typeFood) => {
-    searchByCategory(value, typeFood)
-      .then((result) => setData(result));
+    if (toggle && categorieSelected === value) {
+      fetchToMainScreen(typeFood).then((result) => {
+        setData(result);
+        setToggle(false);
+        setCategorieSelected(value);
+      });
+    } else {
+      searchByCategory(value, typeFood)
+        .then((result) => {
+          setData(result);
+          setToggle(true);
+          setCategorieSelected(value);
+        });
+    }
   };
 
   const clickShowBar = () => {

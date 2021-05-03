@@ -7,15 +7,15 @@ export function mealAPI(searchType, n) {
   case 'firstLetter':
     return fetch(firstLetterEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.meals));
   case 'name':
     return fetch(nameEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.meals));
   case 'ingrediente':
     return fetch(ingredientEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.meals));
   default:
     return false;
   }
@@ -24,21 +24,21 @@ export function mealAPI(searchType, n) {
 export function drinkAPI(searchType, n) {
   const firstLetterEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${n}`;
   const nameEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${n}`;
-  const ingredientEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/search.php?i=${n}`;
+  const ingredientEndPoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${n}`;
 
   switch (searchType) {
   case 'firstLetter':
     return fetch(firstLetterEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.drinks));
   case 'name':
     return fetch(nameEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.drinks));
   case 'ingrediente':
     return fetch(ingredientEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response));
+        .then((response) => response.drinks));
   default:
     return false;
   }
@@ -85,12 +85,12 @@ export function searchByCategory(category, typeFood) {
   const categoryEndPointDrink = (
     `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`
   );
-  if (typeFood === 'comidas') {
+  if (typeFood === '/comidas') {
     return fetch(categoryEndPointMeal)
       .then((promise) => promise.json()
         .then((response) => response.meals));
   }
-  if (typeFood === 'bebidas') {
+  if (typeFood === '/bebidas') {
     return fetch(categoryEndPointDrink)
       .then((promise) => promise.json()
         .then((response) => response.drinks));
