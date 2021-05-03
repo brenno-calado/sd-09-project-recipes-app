@@ -7,7 +7,7 @@ export default function Explorer() {
     <div>
       <Header title="Explorar" icon="false" currentPage="Foods" />
       Explorar
-    <Footer />
-</div>
+      <Footer />
+    </div>
   );
 }
