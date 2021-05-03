@@ -1,5 +1,5 @@
 .Login-body {
-  background-color:rgba(251, 144, 22, 0.863);
+  background-color: rgba(251, 144, 22, 0.863);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -13,8 +13,8 @@
   padding: 20px;
 }
 
-h1 { 
+h1 {
   display: flex;
   justify-content: center;
-  margin:60px;
+  margin: 60px;
 }
