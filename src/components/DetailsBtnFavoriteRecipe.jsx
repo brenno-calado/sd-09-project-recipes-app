@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
+// import { ReactComponent as WhiteHeart } from '../images/whiteHeartIcon.svg';
+// import { ReactComponent as BlackHeart } from '../images/blackHeartIcon.svg';
 
 function DetailsBtnFavoriteRecipe({ detailsContext }) {
   const { recipe } = detailsContext;
@@ -41,6 +43,22 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteListStorage));
   }
 
+  function btnFavoriteVerifier() {
+    const foundInStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const recipeId = (getPageFromURL() ? recipe.idMeal : recipe.idDrink);
+    let response = false;
+    if (foundInStorage) {
+      const foundRecipe = foundInStorage
+        .find((objInStorage) => objInStorage.id === recipeId);
+      if (foundRecipe) {
+        response = true;
+      }
+    }
+    return response;
+  }
+
+  console.log('LOOPEI');
+  console.log(btnFavoriteVerifier());
   return (
     <Button
       data-testid="favorite-btn"
@@ -48,6 +66,7 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
       color="primary"
       onClick={ handleSaveRecipe }
     >
+      {/* {isFavorite ? <BlackHeart /> : <WhiteHeart /> } */}
       Favorite it
     </Button>
   );

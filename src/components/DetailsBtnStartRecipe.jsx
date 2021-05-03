@@ -39,7 +39,7 @@ function DetailsBtnStartRecipe({ btnName, detailsContext }) {
 
   return (
     <div className="btnFixed-container">
-      <Link to={ `${window.location.pathname}/in-progress` }>
+      <Link to={ `${window.location.pathname}/in-progress` } params={ recipe }>
         <Button
           type="button"
           data-testid="start-recipe-btn"
