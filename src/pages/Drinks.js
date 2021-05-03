@@ -10,7 +10,7 @@ import {
 import '../App.css';
 import DrinkCards from '../components/DrinkCards';
 import { receiveCategoryDrink, receiveDataDrink } from '../redux/actions';
-import SearchBar from '../components/SearchBar';
+import Header from '../components/Header';
 
 function Drinks() {
   const [loading, isFetching] = useState(true);
@@ -84,7 +84,7 @@ function Drinks() {
 
   return (
     <>
-      <SearchBar />
+      <Header pageName="Bebidas" searchBtn />
       { loading ? <h1> Loading...</h1> : drinksCardsRender() }
       <FooterMenu />
     </>
