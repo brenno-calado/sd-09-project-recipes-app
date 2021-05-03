@@ -25,8 +25,9 @@ function DetailsBtnShareRecipe() {
         type="button"
         color="primary"
         onClick={ handleClickCopy }
+        className="btnpattern"
       >
-        Share
+        <span className="btnpatternText">Share it</span>
       </Button>
       <span className="tooltiptext" id="myTooltip" />
     </div>
