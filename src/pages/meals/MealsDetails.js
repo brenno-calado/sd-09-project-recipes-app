@@ -12,6 +12,7 @@ function MealsDetails() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [copy, setCopy] = useState(false);
 
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, true));
@@ -21,6 +22,13 @@ function MealsDetails() {
   const handleClick = () => {
     updateLocalStorage('inProgressRecipes', 'meals', id, []);
     setShouldRedirect(true);
+  };
+
+  const share = () => {
+    const { location: { href } } = window;
+    console.log(href);
+    navigator.clipboard.writeText(href);
+    setCopy(true);
   };
 
   const recipeInProgress = localStorage.inProgressRecipes && Object
@@ -36,7 +44,7 @@ function MealsDetails() {
     <section className="recipe-details">
       <img data-testid="recipe-photo" src={ strMealThumb } alt="recipe" />
       <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button data-testid="share-btn" type="button">
+      <button data-testid="share-btn" type="button" onClick={ share }>
         <img src={ shareIcon } alt="share icon" />
       </button>
       <button data-testid="favorite-btn" type="button">
@@ -61,6 +69,7 @@ function MealsDetails() {
       >
         { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
       </button>
+      { copy && <span>Link copiado!</span> }
     </section>
   );
 }
