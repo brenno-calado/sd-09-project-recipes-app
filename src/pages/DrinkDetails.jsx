@@ -39,15 +39,26 @@ function DrinkDetails({ match: { params: { id } } }) {
       setFavorited(true);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     } else {
-      const newFavorites = [...favorites, {
-        id: item.idDrink,
-        type: 'bebida',
-        area: item.strArea,
-        category: '',
-        alcoholicOrNot: item.strAlcoholic,
-        name: item.strDrink,
-        image: item.strDrinkThumb,
-      }];
+      const newFavorites = (
+        favorites !== null ? [...favorites,
+          {
+            id: item.idDrink,
+            type: 'bebida',
+            area: '',
+            category: item.strCategory,
+            alcoholicOrNot: item.strAlcoholic,
+            name: item.strDrink,
+            image: item.strDrinkThumb,
+          }] : [{
+          id: item.idDrink,
+          type: 'bebida',
+          area: '',
+          category: item.strCategory,
+          alcoholicOrNot: item.strAlcoholic,
+          name: item.strDrink,
+          image: item.strDrinkThumb,
+        }]
+      );
       setFavorited(false);
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
     }
@@ -113,10 +124,17 @@ function DrinkDetails({ match: { params: { id } } }) {
             src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
             data-testid="favorite-btn"
           >
-            <img
-              src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
-              alt="Favoritar"
-            />
+            {isFavorited ? (
+              <img
+                src={ blackHeartIcon }
+                alt="blackHeartIcon"
+              />
+            ) : (
+              <img
+                src={ whiteHeartIcon }
+                alt="whiteHeartIcon"
+              />
+            )}
           </button>
           <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
           <ul className="list-ingredients">
