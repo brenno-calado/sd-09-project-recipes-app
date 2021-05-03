@@ -5,14 +5,15 @@ import './header.css';
 import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 
-function index({ title, setSearch }) {
+function index({ title, setSearch, iconSearch = 'visible' }) {
   return (
     <div className="container-header">
       <Link to="/perfil" data-testid="profile-top-btn">
         <img src={ profileIcon } alt="profileIcon" />
       </Link>
-      <h2 data-testid="page-title">{ title }</h2>
+      <h2 className="title-header" data-testid="page-title">{ title }</h2>
       <button
+        style={ { visibility: iconSearch } }
         className="btn-search-header"
         type="button"
         data-testid="search-top-btn"
