@@ -17,10 +17,10 @@ function App() {
     <div className="meals">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas/:id/inprogress" component={ RecipeInProgress } />
+        <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/comidas/:id" component={ RecipeDetails } />
         <Route path="/comidas" component={ Foods } />
-        <Route path="/bebidas/:id/inprogress" component={ RecipeInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />

@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { fetchMealsById } from '../services/index';
+import {
+  fetchMealsById,
+  setFavoritesStorage,
+  setInProgressStorage,
+  setDoneStorage } from '../services/index';
+import {
+  filterIngredients,
+  saveMealAsFavorite,
+  checkRecipesInProgress,
+  checkDoneRecipes } from '../services/recipes';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,6 +18,9 @@ function RecipeDetails() {
   const [isFavorite, setFavorite] = useState(false);
   const [isFetching, setFetching] = useState(true);
   const [currentMeal, setCurrentMeal] = useState({});
+  const [urlCopied, setUrlCopied] = useState('');
+  const [prepareRecipe, setPrepare] = useState('Iniciar receita');
+
   const {
     strMeal,
     strMealThumb,
@@ -17,7 +29,6 @@ function RecipeDetails() {
     strYoutube,
   } = currentMeal;
   const recipeId = useParams();
-  // const currentMeal = Promise.resolve(fetchMealsById(recipeId.id));
 
   useEffect(() => {
     const fetchRecipeDetails = async () => {
@@ -25,34 +36,34 @@ function RecipeDetails() {
       setCurrentMeal(retrievedRecipe[0]);
       setFetching(false);
     };
+    const checkFavorites = (id) => {
+      const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      if (favoriteRecipes.some((recipe) => recipe.id === id)) setFavorite(true);
+    };
+    const checkInProgress = (id) => {
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const recipesInProgress = Object.entries(inProgressRecipes.meals);
+      if (recipesInProgress
+        .some((item) => item[0] === id)) setPrepare('Continuar Receita');
+    };
+    setDoneStorage();
+    setFavoritesStorage();
+    setInProgressStorage();
     fetchRecipeDetails();
+    checkInProgress(recipeId.id);
+    checkFavorites(recipeId.id);
   }, [recipeId.id]);
 
-  const filterIngredients = () => {
-    const recipeIngredients = Object
-      .entries(currentMeal).filter((key) => (
-        key[0].includes('Ingredient') && key[1] !== '' && key[1] !== null
-      ));
-    const recipeIngredientsMeasures = Object
-      .entries(currentMeal).filter((key) => (
-        key[0].includes('Measure') && key[1] !== '' && key[1] !== null
-      ));
-
-    const recipeIngredientsAndMeasures = [];
-    recipeIngredients.forEach((ingr, index) => {
-      recipeIngredientsAndMeasures
-        .push(`${ingr[1]}: ${recipeIngredientsMeasures[index][1]}`);
-    });
-    return recipeIngredientsAndMeasures
-      .map((item, index) => (
-        <li
-          key={ item }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          { item }
-        </li>
-      ));
-  };
+  const renderIngredientsList = (list) => (
+    list.map((item, index) => (
+      <li
+        key={ item }
+        data-testid={ `${index}-ingredient-name-and-measure` }
+      >
+        { item }
+      </li>
+    ))
+  );
 
   const renderVideoThumb = (url) => {
     if (url !== undefined) {
@@ -68,14 +79,40 @@ function RecipeDetails() {
   };
 
   const startRecipe = () => {
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (recipesInProgress === null || !recipesInProgress
-      .some((item) => item.idMeal === recipeId.id)) {
-      const setRecipesInProgress = [];
-      setRecipesInProgress.push(currentMeal);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(setRecipesInProgress));
-    }
+    checkRecipesInProgress(recipeId.id, 'meals', filterIngredients(currentMeal));
   };
+
+  const saveAsFavorite = () => {
+    setFavorite(!isFavorite);
+    saveMealAsFavorite(recipeId.id, currentMeal);
+  };
+
+  const onCopyText = () => {
+    const timeout = 1000;
+    setUrlCopied('Link copiado!');
+    setTimeout(() => {
+      setUrlCopied('');
+    }, timeout);
+  };
+
+  const copyToClipBoard = async () => {
+    onCopyText();
+    await navigator.clipboard
+      .writeText(`http://localhost:3000/comidas/${recipeId.id}`);
+  };
+
+  const renderStartButton = () => (
+    <Link to={ `${recipeId.id}/in-progress` }>
+      <button
+        className={ checkDoneRecipes(recipeId.id) ? 'hide-start-btn' : 'start-recipe' }
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ () => startRecipe() }
+      >
+        { prepareRecipe }
+      </button>
+    </Link>
+  );
 
   const renderRecipeDetails = () => (
     <div className="recipe-details">
@@ -86,37 +123,33 @@ function RecipeDetails() {
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">{ strMeal }</h1>
-      <div>
+      <div id="shareAndFavorite">
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ () => copyToClipBoard() }
         >
           <img src={ shareIcon } alt="compartilhar" />
         </button>
         <button
           type="button"
-          data-testid="favorite-btn"
-          onClick={ () => setFavorite(!isFavorite) }
+          onClick={ () => saveAsFavorite() }
         >
-          <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="Favorite" />
+          <img
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="Favorite"
+          />
         </button>
+        <span>{ urlCopied }</span>
       </div>
       <h2 data-testid="recipe-category">{`Categoria: ${strCategory}`}</h2>
       <ul>
-        { filterIngredients() }
+        { renderIngredientsList(filterIngredients(currentMeal)) }
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
       <section data-testid="video">{ renderVideoThumb(strYoutube) }</section>
-      <Link to={ `${recipeId.id}/in-progress` }>
-        <button
-          className="start-recipe"
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => startRecipe() }
-        >
-          Iniciar Receita
-        </button>
-      </Link>
+      { renderStartButton() }
       <section data-testid="0-recomendation-card">Recomendações</section>
     </div>
   );

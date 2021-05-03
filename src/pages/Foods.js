@@ -3,7 +3,11 @@ import { useSelector, connect, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import FooterMenu from '../components/FooterMenu';
-import { fetchMealsApi, fetchMealsCategories, fetchMealsByCategory } from '../services';
+import {
+  fetchMealsApi,
+  fetchMealsCategories,
+  fetchMealsByCategory } from '../services';
+
 import '../App.css';
 import MealCards from '../components/MealCards';
 import Header from '../components/Header';
@@ -52,7 +56,6 @@ function Foods() {
 
       return isFetching(false);
     }
-
     cardMount(categoryBtn);
   }, [categoryBtn, lastCategory, dispatch]);
 
