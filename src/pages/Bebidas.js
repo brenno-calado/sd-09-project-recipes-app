@@ -10,6 +10,7 @@ const drinkToRecipe = (drink) => ({
   // ...drink,
   thumbUrl: drink.strDrinkThumb,
   name: drink.strDrink,
+  url: `/bebidas/${drink.idDrink}`,
 });
 
 function Bebidas() {

@@ -10,6 +10,7 @@ const mealToRecipe = (meal) => ({
   // ...meal,
   thumbUrl: meal.strMealThumb,
   name: meal.strMeal,
+  url: `/comidas/${meal.idMeal}`,
 });
 
 function Comidas() {
