@@ -1,73 +1,68 @@
 import React from 'react';
+import './DetailsBtnFavoriteRecipe.css';
 import PropTypes from 'prop-types';
 import { Button } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
-// import { ReactComponent as WhiteHeart } from '../images/whiteHeartIcon.svg';
-// import { ReactComponent as BlackHeart } from '../images/blackHeartIcon.svg';
+import useHeartFill from '../hooks/useHeartFill';
+import { ReactComponent as WhiteHeart } from '../images/whiteHeartIcon.svg';
+import { ReactComponent as BlackHeart } from '../images/blackHeartIcon.svg';
+
+function constructFavoriteObject(recipeItem) {
+  const booleanPage = getPageFromURL();
+  const recipeId = (booleanPage ? recipeItem.idMeal : recipeItem.idDrink);
+  const typeRecipe = (booleanPage ? 'comida' : 'bebida');
+  const areaMeal = (booleanPage ? recipeItem.strArea : '');
+  const alcoholic = (booleanPage ? '' : recipeItem.strAlcoholic);
+  const recipeName = (booleanPage ? recipeItem.strMeal : recipeItem.strDrink);
+  const imageUrl = (booleanPage ? recipeItem.strMealThumb : recipeItem.strDrinkThumb);
+
+  const objectRecipe = {
+    id: recipeId,
+    type: typeRecipe,
+    area: areaMeal,
+    category: recipeItem.strCategory,
+    alcoholicOrNot: alcoholic,
+    name: recipeName,
+    image: imageUrl,
+  };
+  return objectRecipe;
+}
 
 function DetailsBtnFavoriteRecipe({ detailsContext }) {
   const { recipe } = detailsContext;
+  const [hearthFill, setShouldVerifyToFillHeart] = useHeartFill();
 
-  function constructFavoriteObject() {
-    const booleanPage = getPageFromURL();
-    const recipeId = (booleanPage ? recipe.idMeal : recipe.idDrink);
-    const typeRecipe = (booleanPage ? 'comida' : 'bebida');
-    const areaMeal = (booleanPage ? recipe.strArea : '');
-    const alcoholic = (booleanPage ? '' : recipe.strAlcoholic);
-    const recipeName = (booleanPage ? recipe.strMeal : recipe.strDrink);
-    const imageUrl = (booleanPage ? recipe.strMealThumb : recipe.strDrinkThumb);
-
-    const objectRecipe = {
-      id: recipeId,
-      type: typeRecipe,
-      area: areaMeal,
-      category: recipe.strCategory,
-      alcoholicOrNot: alcoholic,
-      name: recipeName,
-      image: imageUrl,
-    };
-    return objectRecipe;
-  }
-  function handleSaveRecipe() {
-    const objectToSave = constructFavoriteObject();
+  function handleSaveRemoveRecipe() {
+    const objectToSave = constructFavoriteObject(recipe);
     let favoriteListStorage = [];
     const foundInStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (foundInStorage) {
       if (!foundInStorage.find((objInStorage) => objInStorage.id === objectToSave.id)) {
-        favoriteListStorage.push(objectToSave);
+        favoriteListStorage = [...foundInStorage, objectToSave];
+      } else {
+        favoriteListStorage = foundInStorage
+          .filter((objInStorage) => objInStorage.id !== objectToSave.id);
       }
-      favoriteListStorage = [...foundInStorage, ...favoriteListStorage];
     } else {
       favoriteListStorage.push(objectToSave);
     }
+    console.log(favoriteListStorage);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteListStorage));
+    setShouldVerifyToFillHeart(true);
   }
 
-  function btnFavoriteVerifier() {
-    const foundInStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const recipeId = (getPageFromURL() ? recipe.idMeal : recipe.idDrink);
-    let response = false;
-    if (foundInStorage) {
-      const foundRecipe = foundInStorage
-        .find((objInStorage) => objInStorage.id === recipeId);
-      if (foundRecipe) {
-        response = true;
-      }
-    }
-    return response;
-  }
-
-  console.log('LOOPEI');
-  console.log(btnFavoriteVerifier());
+  console.log('LOOPEI', hearthFill);
   return (
     <Button
       data-testid="favorite-btn"
       type="button"
       color="primary"
-      onClick={ handleSaveRecipe }
+      onClick={ handleSaveRemoveRecipe }
+      className="btnpattern"
+      src={ hearthFill ? 'blackHeartIcon' : 'whiteHeartIcon' }
     >
-      {/* {isFavorite ? <BlackHeart /> : <WhiteHeart /> } */}
-      Favorite it
+      {hearthFill ? <BlackHeart /> : <WhiteHeart /> }
+      <span className="btnpatternText">Favorite it</span>
     </Button>
   );
 }
