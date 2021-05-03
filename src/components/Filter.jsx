@@ -1,11 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toggleCouldRedirectAction, getRecipesThunk } from '../Redux/actions';
+import { useLocation } from 'react-router-dom';
+import {
+  toggleCouldRedirectAction,
+  getRecipesThunk,
+  selectFilterAction,
+  getRecipesAction,
+} from '../Redux/actions';
+import { fetchRecipes } from '../services/fetchRecipes';
 
-function Filter({ filter, toggleCouldRedirect, testId, getRecipes, recipeType }) {
+function Filter({
+  filter,
+  testId,
+  getRecipes,
+  recipeType,
+  selectFilter,
+  currentFilter,
+  setRecipes,
+  toggleCouldRedirect,
+}) {
+  const { pathname } = useLocation();
   const handleClick = () => {
-    getRecipes(recipeType, filter);
+    const currentFilterValue = filter !== currentFilter ? filter : '';
+    const endpoint = pathname === '/comidas'
+      ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
+      : 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+    const typeOfList = pathname === '/comidas' ? 'meals' : 'drinks';
+
+    if (currentFilterValue === '') {
+      fetchRecipes(endpoint, typeOfList).then((data) => setRecipes(data));
+    } else {
+      getRecipes(recipeType, currentFilterValue);
+    }
+
+    selectFilter(currentFilterValue);
     toggleCouldRedirect(false);
   };
 
@@ -19,6 +49,12 @@ function Filter({ filter, toggleCouldRedirect, testId, getRecipes, recipeType })
 const mapDispatchToProps = (dispatch) => ({
   toggleCouldRedirect: (bool) => dispatch(toggleCouldRedirectAction(bool)),
   getRecipes: (recipes, category) => dispatch(getRecipesThunk(recipes, category)),
+  selectFilter: (newFilter) => dispatch(selectFilterAction(newFilter)),
+  setRecipes: (recipesList) => dispatch(getRecipesAction(recipesList)),
+});
+
+const mapStateToProps = (state) => ({
+  currentFilter: state.filter.currentFilter,
 });
 
 Filter.propTypes = {
@@ -26,4 +62,4 @@ Filter.propTypes = {
   getRecipes: PropTypes.func,
 }.isRequired;
 
-export default connect(null, mapDispatchToProps)(Filter);
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
