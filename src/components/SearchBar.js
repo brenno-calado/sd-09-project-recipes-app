@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import getFilteredRecipes from '../services/api';
+import RecipesContext from '../context/RecipesContext';
+import { getFilteredRecipes } from '../services/api';
 
 function SearchBar() {
   const [searchState, setSearchState] = useState({ search: '', radioButton: '' });
   const history = useHistory();
+  const { setDataFromApi } = useContext(RecipesContext);
 
   const handleChange = ({ target: { value } }) => {
     setSearchState({ ...searchState, search: value });
@@ -18,17 +20,29 @@ function SearchBar() {
     const { search, radioButton } = searchState;
     const { pathname } = history.location;
     const route = pathname.substr(1);
-    const recipes = await getFilteredRecipes(route, search, radioButton);
+    if (search.length > 1 && radioButton === 'primeira-letra') {
+      return alert('Sua busca deve conter somente 1 (um) caracter');
+    }
+    const getRecipes = await getFilteredRecipes(route, search, radioButton);
+    if (route === 'comidas') {
+      setDataFromApi({ recipes: getRecipes.meals, meal: route });
+    } else {
+      setDataFromApi({ recipes: getRecipes.drinks, meal: route });
+    }
 
     switch (route) {
     case 'comidas':
-      if (recipes.meals.length === 1) {
-        history.push(`/comidas/${recipes.meals[0].idMeal}`);
+      if (getRecipes.meals.length === 1) {
+        history.push(`/comidas/${getRecipes.meals[0].idMeal}`);
+      } else {
+        history.push('/comidas');
       }
       break;
     case 'bebidas':
-      if (recipes.drinks.length === 1) {
-        history.push(`/bebidas/${recipes.drinks[0].idDrink}`);
+      if (getRecipes.drinks.length === 1) {
+        history.push(`/bebidas/${getRecipes.drinks[0].idDrink}`);
+      } else {
+        history.push('/bebidas');
       }
       break;
     default:
