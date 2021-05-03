@@ -109,9 +109,9 @@ const SearchBar = ({
 };
 
 const mapStateToProps = (state) => ({
-  pathname: state.loginReducer.pathname,
-  data: state.loginReducer.data,
-  isFetched: state.loginReducer.isFetched,
+  pathname: state.recipesReducer.pathname,
+  data: state.recipesReducer.data,
+  isFetched: state.recipesReducer.isFetched,
 });
 
 const mapDispatchToProps = (dispatch) => ({
