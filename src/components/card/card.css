@@ -6,12 +6,12 @@
   flex-direction: column;
   justify-content: space-between;
   margin: 5px;
-  width: 160px;
+  width: 150px;
 
 }
 
 .img-card {
   border-radius: 15px;
   margin-bottom: 20px;
-  width: 155px;
+  width: 145px;
 }

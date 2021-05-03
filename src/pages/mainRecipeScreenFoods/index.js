@@ -18,7 +18,7 @@ class index extends Component {
     this.state = {
       meals: [],
       categories: [],
-      lastFilter: 'All',
+      lastFilter: '',
       statusSearch: false,
     };
   }
@@ -105,7 +105,9 @@ class index extends Component {
 
   render() {
     const { statusSearch, meals } = this.state;
-    if (meals.length === 1) return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    if (meals.length === 1 && statusSearch) {
+      return <Redirect to={ `/comidas/${meals[0].idMeal}` } />;
+    }
     return (
       <div>
         <Header title="Comidas" setSearch={ this.setSearch } />
