@@ -1,13 +1,13 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { LoginContext } from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Perfil() {
-  const { values } = useContext(LoginContext);
-  const { user } = values;
-  console.log(user);
+  const localStorageUser = localStorage.getItem('user');
+  const emailUser = JSON.parse(localStorageUser);
+  console.log(emailUser);
+
   const history = useHistory();
 
   const handleSubmitDone = () => {
@@ -18,16 +18,19 @@ function Perfil() {
     history.push('/receitas-favoritas');
   };
 
-  const handleSubmitLogin = () => {
+  const sendToHome = () => {
     history.push('/');
+    localStorage.clear();
   };
 
   return (
     <div>
       <spam
-        value={ values.user }
         data-testid="profile-email"
-      />
+      >
+        {emailUser.email}
+      </spam>
+      <br />
       <button
         type="button"
         data-testid="profile-done-btn"
@@ -47,7 +50,7 @@ function Perfil() {
       <button
         type="button"
         data-testid="profile-logout-btn"
-        onClick={ handleSubmitLogin }
+        onClick={ sendToHome }
       >
         Sair
       </button>
