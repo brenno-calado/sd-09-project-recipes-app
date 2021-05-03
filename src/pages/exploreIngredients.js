@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router';
 import Footer from '../components/footer';
 import Header from '../components/header';
 import CardContainer from '../components/cardContainer';
@@ -9,6 +10,7 @@ import getFoodsAndDrinks from '../services/servicesAPI';
 export default function ExploreFoodIngredients() {
   const { pathname } = window.location;
   const foodPath = '/explorar/comidas/ingredientes';
+  const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,10 +32,21 @@ export default function ExploreFoodIngredients() {
     (state) => (state.recipesReducer.ingredients),
   );
 
+  const redirectToMain = () => {
+    setRedirect(true);
+  };
+
+  if (redirect) return (<Redirect to={ `/${pathname.split('/')[2]}` } />);
+
   return (
     <>
       <Header page="Explorar Ingredientes" />
-      <CardContainer recipes={ ingredientList } path={ pathname } cardType="ingredient" />
+      <CardContainer
+        recipes={ ingredientList }
+        path={ pathname }
+        cardType="ingredient"
+        redirectCallback={ redirectToMain }
+      />
       <Footer />
     </>
   );

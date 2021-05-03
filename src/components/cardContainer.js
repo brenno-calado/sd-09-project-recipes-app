@@ -2,7 +2,7 @@ import React from 'react';
 import { arrayOf } from 'prop-types';
 import Cards from './card';
 
-export default function CardContainer({ recipes, path, cardType }) {
+export default function CardContainer({ recipes, path, cardType, redirectCallback }) {
   const size = 12;
 
   if (cardType === 'ingredient') {
@@ -21,6 +21,7 @@ export default function CardContainer({ recipes, path, cardType }) {
               index={ index }
               cardType={ cardType }
               url=""
+              redirectCallback={ redirectCallback }
             />
           );
         })}
