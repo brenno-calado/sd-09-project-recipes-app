@@ -45,8 +45,7 @@ const RecipeDetails = (props) => {
         width="320"
         height="240"
         title={ recipe.strMeal }
-        src={ recipe.strYoutube
-          && `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
+        src={ `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
         frameBorder="0"
         allow="accelerometer;
           autoplay;
