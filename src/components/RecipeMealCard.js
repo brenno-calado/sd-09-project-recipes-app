@@ -6,6 +6,7 @@ class RecipeMealCard extends React.Component {
     const { meal, index } = this.props;
     return (
       <div
+        className="recipe-card"
         data-testid={ `${index}-recipe-card` }
       >
         <img

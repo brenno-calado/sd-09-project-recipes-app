@@ -42,6 +42,52 @@ class SearchBar extends React.Component {
     return (
       <div>
         {searchInput && (
+<<<<<<< HEAD
+          <div>
+            <input
+              data-testid="search-input"
+              placeholder="Buscar"
+              onChange={ this.inputTextHandleChange }
+            />
+            <label htmlFor="ingredient">
+              <input
+                id="ingredient-search-radio"
+                type="radio"
+                data-testid="ingredient-search-radio"
+                name="radioSearchInput"
+                onChange={ this.handleChange }
+              />
+              Ingrediente
+            </label>
+            <label htmlFor="name">
+              <input
+                id="name-search-radio"
+                type="radio"
+                data-testid="name-search-radio"
+                name="radioSearchInput"
+                onChange={ this.handleChange }
+              />
+              Nome
+            </label>
+            <label htmlFor="first-letter">
+              <input
+                id="first-letter-search-radio"
+                type="radio"
+                data-testid="first-letter-search-radio"
+                name="radioSearchInput"
+                onChange={ this.handleChange }
+              />
+              Primeira letra
+            </label>
+            <button
+              type="button"
+              data-testid="exec-search-btn"
+              onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
+            >
+              Buscar
+            </button>
+          </div>)}
+=======
           <input
             data-testid="search-input"
             placeholder="Buscar"
@@ -85,6 +131,7 @@ class SearchBar extends React.Component {
         >
           Buscar
         </button>
+>>>>>>> 78da0ab813aa04c3c2f4f9c64d99a951322e497d
       </div>
     );
   }
