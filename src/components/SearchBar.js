@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import getFilteredRecipes from '../services/api';
+import { requestFoodAndDrinks } from '../services/api';
 
 function SearchBar() {
   const [searchState, setSearchState] = useState({ search: '', radioButton: '' });
@@ -18,7 +18,7 @@ function SearchBar() {
     const { search, radioButton } = searchState;
     const { pathname } = history.location;
     const route = pathname.substr(1);
-    getFilteredRecipes(route, search, radioButton);
+    requestFoodAndDrinks(route, search, radioButton);
   };
 
   return (

@@ -3,7 +3,7 @@ const URLBASE = {
   bebidas: 'https://www.thecocktaildb.com/api/json/v1/1',
 };
 
-export default async (mealtype, query, filter) => {
+export async function requestFoodAndDrinks(mealtype, query, filter) {
   let request = '';
 
   if (query && (filter === 'primeira-letra')) {
@@ -20,4 +20,10 @@ export default async (mealtype, query, filter) => {
 
   const response = await request.json();
   return response;
-};
+}
+
+export async function requestByIngredient(ingredient, mealtype) {
+  const url = mealtype === URLBASE;
+  const request = await fetch(`${url}/filter.php?i=${ingredient}`);
+  return request;
+}
