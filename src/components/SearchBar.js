@@ -1,18 +1,8 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import {
-  getMealsByFirstLetter,
-  getMealsByIngredient,
-  getMealsByName,
-} from '../services/apiMeals';
-import {
-  getDrinksByFirstLetter,
-  getDrinksByIngredient,
-  getDrinksByName,
-} from '../services/apiDrinks';
 import { RecipiesContext } from '../context/RecipiesContext';
-import RecipeList from './RecipeList';
+import * as api from '../services/api';
 
 export default function SearchBar({ isMealsPage }) {
   const {
@@ -35,39 +25,25 @@ export default function SearchBar({ isMealsPage }) {
     setRadioValue(target.value);
   };
 
-  const searchDrinks = async () => {
-    if (radioValue === 'ingredient') {
-      setSearchDrinksList(await getDrinksByIngredient(inputValue));
-    }
-    if (radioValue === 'name') {
-      setSearchDrinksList(await getDrinksByName(inputValue));
-    }
-    if (radioValue === 'first-letter') {
+  const searchRecipes = async () => {
+    let result;
+    switch (radioValue) {
+    case 'ingredient':
+      result = await api.getRecipesByIngredient(inputValue, isMealsPage);
+      break;
+    case 'name':
+      result = await api.getRecipesByName(inputValue, isMealsPage);
+      break;
+    case 'first-letter':
       if (inputValue.length > 1) {
         return alert('Sua busca deve conter somente 1 (um) caracter');
       }
-      setSearchDrinksList(await getDrinksByFirstLetter(inputValue));
+      result = await api.getRecipesByFirstLetter(inputValue, isMealsPage);
+      break;
+    default:
     }
-  };
-
-  const searchMeals = async () => {
-    if (radioValue === 'ingredient') {
-      setSearchMealsList(await getMealsByIngredient(inputValue));
-    }
-    if (radioValue === 'name') {
-      setSearchMealsList(await getMealsByName(inputValue));
-    }
-    if (radioValue === 'first-letter') {
-      if (inputValue.length > 1) {
-        return alert('Sua busca deve conter somente 1 (um) caracter');
-      }
-      setSearchMealsList(await getMealsByFirstLetter(inputValue));
-    }
-  };
-
-  const handleClickSearch = () => {
-    if (isMealsPage) return searchMeals();
-    return searchDrinks();
+    if (isMealsPage) setSearchMealsList(result);
+    else setSearchDrinksList(result);
   };
 
   const redirectDetails = () => {
@@ -82,9 +58,6 @@ export default function SearchBar({ isMealsPage }) {
   const showRecipies = () => {
     if (searchMealsList === null || searchDrinksList === null) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-    if (searchMealsList.length > 1 || searchDrinksList.length > 1) {
-      return <RecipeList />;
     }
   };
 
@@ -139,7 +112,7 @@ export default function SearchBar({ isMealsPage }) {
         <button
           data-testid="exec-search-btn"
           type="button"
-          onClick={ handleClickSearch }
+          onClick={ searchRecipes }
         >
           Buscar
         </button>
