@@ -5,7 +5,7 @@ import Footer from '../components/Footer';
 
 function Explorar() {
   return (
-    <div className="">
+    <div>
       <Link to="/explorar/comidas">
         <button
           className=""
