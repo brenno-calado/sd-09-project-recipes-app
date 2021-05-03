@@ -51,7 +51,7 @@ function Foods({ location: { state = false } }) {
 
   const render = () => (
     <div>
-      <Header name="Comidas" icon="true" currentPage="Foods" />
+      <Header title="Comidas" icon="true" currentPage="Foods" />
       <CategoryBtn
         label="Foods"
         onClickAll={ onClickAll }
