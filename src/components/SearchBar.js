@@ -60,9 +60,6 @@ export default function SearchBar({ isMealsPage }) {
     if (searchMealsList === null || searchDrinksList === null) {
       return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    if (searchMealsList.length > 1 || searchDrinksList.length > 1) {
-      return <RecipeList />;
-    }
   };
 
   return (

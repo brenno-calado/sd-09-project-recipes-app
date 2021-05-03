@@ -4,6 +4,7 @@ import SearchBar from '../components/SearchBar';
 import RecipeList from '../components/RecipeList';
 import { RecipiesContext } from '../context/RecipiesContext';
 import { getDrinksByName } from '../services/apiDrinks';
+import CategoryFilters from '../components/CategoryFilters';
 
 const drinkToRecipe = (drink) => ({
   // ...drink,
@@ -25,6 +26,7 @@ function Bebidas() {
     <div>
       <Header title="Bebidas" showButton />
       { showSearchBar && <SearchBar isMealsPage={ false } /> }
+      <CategoryFilters />
       <RecipeList listItems={ searchDrinksList && searchDrinksList.map(drinkToRecipe) } />
     </div>
   );

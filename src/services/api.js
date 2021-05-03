@@ -18,3 +18,8 @@ export function getRecipesByFirstLetter(letter, meals = false) {
   const url = `${apiUrl(meals)}/search.php?f=${letter}`;
   return fetchData(url).then((res) => res[recipeType(meals)]);
 }
+
+export function getCategories(meals = false) {
+  const url = `${apiUrl(meals)}/list.php?c=list`;
+  return fetchData(url).then((res) => res[recipeType(meals)]);
+}
