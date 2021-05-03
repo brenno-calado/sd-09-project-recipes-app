@@ -12,7 +12,7 @@ import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
 import ExploreFoods from './pages/ExploreFoods';
 import FavoriteRecipes from './pages/FavoriteRecipes';
-import RecipesDone from './pages/RecipesDone';
+import DoneRecipes from './pages/DoneRecipes';
 import ExploreOrigin from './pages/ExploreOrigin';
 import ExploreBeveragesIngredients from './pages/ExploreBeveragesIngredients';
 import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
@@ -38,7 +38,7 @@ function App() {
           <Route exact path="/explorar/bebidas" component={ ExploreBeverages } />
           <Route exact path="/perfil" component={ Profile } />
           <Route exact path="/explorar" component={ Explore } />
-          <Route exact path="/receitas-feitas" component={ RecipesDone } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
           <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route exact path="/bebidas/:id" component={ BeveragesDetails } />
           <Route

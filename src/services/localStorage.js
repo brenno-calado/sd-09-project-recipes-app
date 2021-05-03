@@ -50,7 +50,7 @@ export const sendDoneRecipeToLocalStorage = (type, recipe) => {
       name: strDrink,
       image: strDrinkThumb,
       doneDate: dateFormatting(),
-      tags: '',
+      tags: [],
     };
   }
   const myStorage = JSON.parse(localStorage.getItem('doneRecipes'));
