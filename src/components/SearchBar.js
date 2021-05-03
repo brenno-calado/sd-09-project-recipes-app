@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
+import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
-// import RecipeCard from './RecipeCard';
 import RecipesContext from '../Provider/RecipesContext';
 
 function SearchBar({ title }) {
   console.log(title);
   const {
-    setFoodsListBySearchResult, setDrinksListBySearchResult,
+    foodsList, drinksList, setFoodsListBySearchResult, setDrinksListBySearchResult,
   } = useContext(RecipesContext);
   const [textSearch, setTextSearch] = useState('');
   const [radioSearch, setRadioSearch] = useState();
@@ -19,11 +19,11 @@ function SearchBar({ title }) {
         : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
       const fetchResponse = await fetch(endpoint);
       const jsonResponse = await fetchResponse.json();
-      if (jsonResponse.meals === null && title === 'Comidas') {
+      if (jsonResponse.meals === null) {
         alert(alertMsg);
         return;
       }
-      if (jsonResponse.drinks === null && title === 'Bebidas') {
+      if (jsonResponse.drinks === null) {
         alert(alertMsg);
         return;
       }
@@ -45,7 +45,7 @@ function SearchBar({ title }) {
         alert(alertMsg);
         return;
       }
-      if (jsonResponse.drinks === null && title === 'Bebidas') {
+      if (jsonResponse.drinks === null) {
         alert(alertMsg);
         return;
       }
@@ -67,7 +67,7 @@ function SearchBar({ title }) {
         alert(alertMsg);
         return;
       }
-      if (jsonResponse.drinks === null && title === 'Bebidas') {
+      if (jsonResponse.drinks === null) {
         alert(alertMsg);
         return;
       }
@@ -92,6 +92,12 @@ function SearchBar({ title }) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
     }
+  }
+
+  if (foodsList.length === 1 || drinksList.length === 1) {
+    return title === 'Comidas'
+      ? <Redirect to={ `/comidas/${foodsList[0].idMeal}` } />
+      : <Redirect to={ `/bebidas/${drinksList[0].idDrink}` } />;
   }
 
   return (
