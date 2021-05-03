@@ -147,10 +147,8 @@ const mapDispatchToProps = (dispatch) => ({
   setDone: (done) => dispatch(doneRecipesAction(done)),
   setProgress: (progress, id) => dispatch(inProgressRecipesAction(progress, id)),
 });
-
 FoodDetails.propTypes = ({
   getFoodDetails: PropTypes.arrayOf(PropTypes.object),
   setFoodDetails: PropTypes.func,
 }).isRequired;
-
 export default connect(mapStateToProps, mapDispatchToProps)(FoodDetails);

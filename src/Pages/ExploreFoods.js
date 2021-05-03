@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import FooterSpec from '../components/FooterSpec';
 import { randomFoodDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
 
@@ -19,6 +20,7 @@ function ExploreFoods() {
 
   return (
     <div>
+      <Header titleHeader="Explorar Comidas" id="1" />
       <p>Aqui será renderizado o Header</p>
       <p>Explore Foods</p>
       <Link to="/explorar/comidas/ingredientes">
