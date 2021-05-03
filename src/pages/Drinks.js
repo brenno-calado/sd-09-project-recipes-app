@@ -10,6 +10,7 @@ import {
 import '../App.css';
 import DrinkCards from '../components/DrinkCards';
 import { receiveCategoryDrink, receiveDataDrink } from '../redux/actions';
+import Header from '../components/Header';
 
 function Drinks() {
   const [loading, isFetching] = useState(true);
@@ -68,6 +69,7 @@ function Drinks() {
   }
   return (
     <>
+      <Header pageName="Bebidas" searchBtn />
       { loading ? <h1> Loading...</h1> : DrinkCards(category, drinks, categoryCheck) }
       <FooterMenu />
     </>

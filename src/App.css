@@ -60,6 +60,20 @@
 .recipe-details {
   display: flex;
   flex-direction: column;
+  height: 100%;
+  padding: 8px;
+  width: 100%;
+}
+
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
+.hide-start-btn {
+  bottom: 0;
+  display: none;
+  position: fixed;
 }
 
 /*

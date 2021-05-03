@@ -4,14 +4,22 @@ import PropTypes from 'prop-types';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 
-function Header({ pageName }) {
+function Header({ pageName, searchBtn }) {
+  const renderSearchBtn = () => (
+    <button type="button">
+      <img
+        src={ searchIcon }
+        alt="search-icon"
+        data-testid="search-top-btn"
+      />
+    </button>
+  );
+
   return (
     <nav className="header-bar" data-testid="header-component">
-      <Link
-        to="/perfil"
-        data-testid="profile-top-btn"
-      >
+      <Link to="/perfil">
         <img
+          data-testid="profile-top-btn"
           src={ profileIcon }
           alt="profile-icon"
           className="header-icons"
@@ -22,17 +30,14 @@ function Header({ pageName }) {
       >
         { pageName }
       </h1>
-      <img
-        src={ searchIcon }
-        alt="search-icon"
-        data-testid="search-top-btn"
-      />
+      { searchBtn && renderSearchBtn() }
     </nav>
   );
 }
 
 Header.propTypes = {
   pageName: PropTypes.string.isRequired,
+  searchBtn: PropTypes.bool.isRequired,
 };
 
 export default Header;
