@@ -6,6 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { searchRecipe } from '../actions';
 import '../styles/Recipes.css';
 
+const MEAL = 'meal';
 const TWELVE = 12;
 
 function Recipes({
@@ -19,9 +20,6 @@ function Recipes({
       dispatchSearch(null, null, 'cocktail');
     }
   }, [category, dispatchSearch, recipesList]);
-  if (!recipesList) {
-    alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  }
 
   if (recipesList.length === 1 && redirect) {
     return recipesType === 'meal'
@@ -31,14 +29,16 @@ function Recipes({
 
   return (
     <div className="card-content">
-      {recipesType === 'meal'
+      {recipesType === MEAL
         ? recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <Link to={ `/comidas/${recipe.idMeal}` }>
+            <Link
+              to={ `/comidas/${recipe.idMeal}` }
+              key={ recipe.idMeal }
+              className="card align-items-center"
+            >
               <div
-                className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
-                key={ recipe.idMeal }
               >
                 <img
                   data-testid={ `${index}-card-img` }
@@ -55,11 +55,13 @@ function Recipes({
 
         : recipesList.map((recipe, index) => (
           index < TWELVE && (
-            <Link to={ `/bebidas/${recipe.idDrink}` }>
+            <Link
+              to={ `/bebidas/${recipe.idDrink}` }
+              key={ recipe.idDrink }
+              className="card align-items-center m-2 flex-wrap"
+            >
               <div
-                className="card align-items-center m-2 flex-wrap"
                 data-testid={ `${index}-recipe-card` }
-                key={ recipe.idDrink }
               >
                 <img
                   data-testid={ `${index}-card-img` }

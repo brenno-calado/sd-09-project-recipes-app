@@ -18,7 +18,7 @@ function Cocktails() {
       <Header page="Bebidas" />
       {toggledSearchBar && <SearchBar category="cocktail" />}
       <FilterButtons />
-      {isLoading ? <Loading /> : <Recipes />}
+      {isLoading ? <Loading /> : <Recipes path="/bebidas" />}
       <BottomMenu />
     </section>
   );

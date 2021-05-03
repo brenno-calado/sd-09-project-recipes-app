@@ -25,7 +25,6 @@ function Header({ page, hasSearchButton = true }) {
   const profileButton = () => (
     <Link to="/perfil">
       <input
-        // className="btn btn-primary btn-lg"
         data-testid="profile-top-btn"
         type="image"
         src={ profileIcon }
@@ -36,7 +35,6 @@ function Header({ page, hasSearchButton = true }) {
 
   const searchButton = () => (
     <input
-      // className="btn btn-success btn-lg"
       data-testid="search-top-btn"
       type="image"
       src={ searchIcon }
