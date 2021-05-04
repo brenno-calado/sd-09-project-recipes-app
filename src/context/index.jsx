@@ -17,6 +17,7 @@ function Provider({ children }) {
   const [toggleButton, setToggleButton] = useState(null);
   const [supriseId, setSurpriseId] = useState(null);
   const [favoriteRecipes, setFavoriteRecipes] = useState(storage);
+  const [ingredientOn, setIngreditOn] = useState('');
 
   const value = {
     data,
@@ -41,6 +42,8 @@ function Provider({ children }) {
     setSurpriseId,
     toggleButton,
     setToggleButton,
+    ingredientOn,
+    setIngreditOn,
   };
 
   return (
