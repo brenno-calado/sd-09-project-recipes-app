@@ -55,7 +55,7 @@ function Done() {
   };
 
   return (
-    <div id="Done-recipes">
+    <div className="Done-recipes">
       <Header title="Receitas Feitas" />
       <main>
         <section className="filters">
