@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { RecipiesContext } from '../context/RecipiesContext';
 import SearchBar from '../components/SearchBar';
+import Footer from '../components/Footer';
 
 function ExplorarOrigem() {
   const { showSearchBar } = useContext(RecipiesContext);
@@ -10,6 +11,7 @@ function ExplorarOrigem() {
     <div>
       <Header title="Explorar Origem" showExplorerButton />
       { showSearchBar && <SearchBar isMealsPage /> }
+      <Footer />
     </div>
   );
 }
