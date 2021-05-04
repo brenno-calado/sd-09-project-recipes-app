@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Button(props) {
-  const { children, onClick, testId, copiedOrFav, image } = props;
+  const { children, onClick } = props;
   return (
     <button
       type="button"
@@ -12,5 +12,10 @@ function Button(props) {
     </button>
   );
 }
+
+Button.propTypes = {
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Button;
