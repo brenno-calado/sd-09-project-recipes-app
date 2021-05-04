@@ -6,7 +6,7 @@ import { getItemLocalStorage,
   updateLocalStorage } from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function MealsDetails() {
   const { id } = useParams();
@@ -32,6 +32,23 @@ function MealsDetails() {
     setCopy(true);
   };
 
+  const favoriteRecipe = localStorage.favoriteRecipes && Object
+    .keys(getItemLocalStorage('favoriteRecipes')).includes(id);
+
+  const favorite = () => {
+    if (!favoriteRecipe) {
+      const favoriteItem = {
+        id,
+        type: 'comida',
+        area: data.strArea,
+        category: data.strCategory,
+        name: data.strDrink,
+        image: data.strDrinkThumb,
+      };
+      updateLocalStorage('favoriteRecipes', 'favoriteRecipes', favoriteItem);
+    }
+  };
+
   const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes').meals).includes(id);
 
@@ -48,8 +65,11 @@ function MealsDetails() {
       <button data-testid="share-btn" type="button" onClick={ share }>
         <img src={ shareIcon } alt="share icon" />
       </button>
-      <button data-testid="favorite-btn" type="button">
-        <img src={ whiteHeartIcon } alt="favorite icon" />
+      <button data-testid="favorite-btn" type="button" onClick={ favorite }>
+        <img
+          src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
+          alt="favorite icon"
+        />
       </button>
       <p data-testid="recipe-category">{ strCategory }</p>
       { ingredients.map((ingredient, index) => (
