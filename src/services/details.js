@@ -26,13 +26,13 @@ export function renderVideo(url, title) {
   }
 }
 
-export function saveAsFavorite(id, recipe) {
+export function saveAsFavorite(id, recipe, pathname) {
   if (localStorage.getItem('favoriteRecipes') === null) {
     localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   }
   const favoritesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (!favoritesList.some((item) => item.id === id)) {
-    const newFavorite = {
+    const newFavoriteFood = {
       id,
       type: 'comida',
       area: recipe.strArea || '',
@@ -41,7 +41,16 @@ export function saveAsFavorite(id, recipe) {
       name: recipe.strMeal,
       image: recipe.strMealThumb,
     };
-    favoritesList.push(newFavorite);
+    const newFavoriteDrink = {
+      id,
+      type: 'bebida',
+      area: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
+    favoritesList.push(pathname.includes('comidas') ? newFavoriteFood : newFavoriteDrink);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesList));
   } else {
     const newList = favoritesList.filter((item) => item.id !== id);

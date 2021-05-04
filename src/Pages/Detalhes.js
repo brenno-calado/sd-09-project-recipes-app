@@ -97,7 +97,7 @@ export default function Detalhes() {
 
   const saveFavorite = () => {
     setIsFavorite(!isFavorite);
-    saveAsFavorite(recipeId, data);
+    saveAsFavorite(recipeId, data, pathname);
   };
 
   if (isLoading) {
@@ -107,11 +107,15 @@ export default function Detalhes() {
     <div>
       <img
         className="recipe-image"
-        src={ data.strMealThumb }
-        alt={ data.strMeal }
+        src={ pathname.includes('comidas') ? data.strMealThumb : data.strDrinkThumb }
+        alt={ pathname.includes('comidas') ? data.strMeal : data.strDrink }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ data.strMeal }</h1>
+      <h1 data-testid="recipe-title">
+        { pathname.includes('comidas')
+          ? data.strMeal : data.strDrink
+        }
+      </h1>
       <button
         type="button"
         data-testid="share-btn"
