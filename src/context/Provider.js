@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import searchApi from '../services/RecipesApi';
+import searchCategories from '../services/CategoriesApi';
 
 const Provider = ({ children }) => {
   const [displaySearchBar, changeStatus] = useState({ status: false });
@@ -36,6 +37,15 @@ const Provider = ({ children }) => {
     setRecipes(recipesSearch);
   };
 
+  const [categories, setCategories] = useState([]);
+
+  const addCategories = async (typeCategory) => {
+    const limitCat = 5;
+    const categoriesSearch = await (searchCategories(typeCategory));
+    const arrayFilter = categoriesSearch.filter((category, index) => index < limitCat);
+    setCategories(arrayFilter);
+  };
+
   const context = {
     displaySearchBar,
     statusSearchBar,
@@ -43,6 +53,8 @@ const Provider = ({ children }) => {
     addSearchBar,
     recipes,
     addRecipes,
+    categories,
+    addCategories,
   };
 
   return (
