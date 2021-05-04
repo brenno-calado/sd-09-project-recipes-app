@@ -13,7 +13,7 @@ const Ingredients = ({ ingredientsList, explorerPath }) => (
             data-testid={ `${index}-ingredient-card` }
             key={ index }
           >
-            <Link key={ index } to={ `/${explorerPath}/${ingredient.name}` }>
+            <Link key={ index } to={ `/${explorerPath}` }>
               <Card.Img
                 variant="top"
                 src={ ingredient.thumbnailURL }

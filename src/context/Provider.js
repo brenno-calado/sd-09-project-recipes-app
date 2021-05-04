@@ -102,10 +102,12 @@ ${location.pathname}/${responseList[0][`id${recipesTypeSufix}`]}`);
   useEffect(() => {
     changeRecipesType();
     cleanCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   useEffect(() => {
     requestLists();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category, recipesType]);
 
   const contextValue = {

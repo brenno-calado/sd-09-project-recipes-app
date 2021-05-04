@@ -37,6 +37,8 @@ const Routes = () => (
     />
     <Route path="/comidas" component={ Food } />
     <Route path="/bebidas" component={ Drinks } />
+    <Route exact path="/explorar" component={ Explorer } />
+    <Route path="/perfil" component={ Profile } />
     <Route
       path="/explorar/comidas/ingredientes"
       render={ (props) => <ExploreIngredients { ...props } /> }
@@ -47,9 +49,7 @@ const Routes = () => (
     />
     <Route path="/explorar/comidas/area" component={ ExploreArea } />
     <Route path="/explorar/comidas" component={ ExploreFood } />
-    <Route path="/explorar/bebidas" component={ ExploreDrinks } />
-    <Route path="/explorar" component={ Explorer } />
-    <Route path="/perfil" component={ Profile } />
+    <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
     <Route path="/receitas-feitas" component={ CompletedRecipes } />
     <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
     <Route component={ NotFound } />
