@@ -34,6 +34,12 @@ function Foods() {
       .then(({ meals }) => setMeal(meals));
   }, [getRecipesByCategory]);
 
+  function handleButtonAll() {
+    getRecipes('themealdb')
+      .then(({ meals }) => setMeal(meals));
+    console.log(meal);
+  }
+
   useEffect(() => {
     getRecipesFoodsFilterByCategory(category)
       .then(({ meals }) => setListItemByCategory(meals || []));
@@ -42,21 +48,23 @@ function Foods() {
   function categoryButtom() {
     const five = 5;
     return (
-      meal.map(({ strCategory }, index) => (
-        index < five && (
-          <div className="categoty-btn">
-            <button
-              key={ strCategory }
-              type="button"
-              name={ strCategory }
-              data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClickButtonName({ target }) }
-            >
-              { strCategory }
-            </button>
-          </div>
-        )
-      ))
+      meal && (
+        meal.map(({ strCategory }, index) => (
+          index < five && (
+            <div className="categoty-btn">
+              <button
+                key={ strCategory }
+                type="button"
+                name={ strCategory }
+                data-testid={ `${strCategory}-category-filter` }
+                onClick={ ({ target }) => handleClickButtonName({ target }) }
+              >
+                { strCategory }
+              </button>
+            </div>
+          )
+        ))
+      )
     );
   }
 
@@ -65,7 +73,7 @@ function Foods() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ toggle }
+        onClick={ handleButtonAll }
       >
         All
       </button>
