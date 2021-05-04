@@ -51,12 +51,20 @@ function EmProcesso() {
         return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
       });
     return ingredients.map((ingredient, index) => (
-      <li
-        data-testid={ `${index}-ingredient-step` }
-        key={ ingredient }
-      >
-        {ingredient}
-      </li>
+      <>
+        <br />
+        <label
+          key={ ingredient }
+          htmlFor="ingredient"
+          data-testid={ `${index}-ingredient-step` }
+        >
+          { ingredient }
+          <input
+            type="checkbox"
+            name="ingredient"
+          />
+        </label>
+      </>
     ));
   }
 
