@@ -9,6 +9,7 @@ const MyContextProvider = ({ children }) => {
   const [resultAPI, setResultAPI] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categorieSelected, setCategorieSelected] = useState('');
   const [toggle, setToggle] = useState(false);
@@ -71,6 +72,8 @@ const MyContextProvider = ({ children }) => {
     setShowBar,
     filterByCategory,
     filterIngredients,
+    recommendations,
+    setRecommendations,
   };
   return (
     <MyContext.Provider value={ context }>

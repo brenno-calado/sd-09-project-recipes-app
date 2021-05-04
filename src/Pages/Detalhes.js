@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
-import { mealAPI, drinkAPI } from '../services/fetchAPI';
+import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,22 +9,34 @@ import shareIcon from '../images/shareIcon.svg';
 export default function Detalhes() {
   const { pathname } = useLocation();
   const recipeId = pathname.substring(pathname.lastIndexOf('/') + 1);
-  const { data, setData, isLoading,
-    setIsLoading, filterIngredients } = useContext(MyContext);
+  const {
+    data,
+    setData,
+    isLoading,
+    setIsLoading,
+    filterIngredients,
+    setRecommendations,
+    recommendations } = useContext(MyContext);
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
       mealAPI('id', recipeId).then((result) => {
         setData(result);
         setIsLoading(false);
+        fetchToMainScreen('/bebidas').then((recommendation) => {
+          setRecommendations(recommendation);
+        });
       });
     } else if (pathname.includes('bebidas')) {
       drinkAPI('id', recipeId).then((result) => {
         setData(result);
         setIsLoading(false);
+        fetchToMainScreen('/comidas').then((recommendation) => {
+          setRecommendations(recommendation);
+        });
       });
     }
-  }, [setIsLoading, setData, pathname, recipeId]);
+  }, [setIsLoading, setData, pathname, recipeId, setRecommendations]);
 
   const renderIngredientsList = (list) => (
     list.map((item, index) => (
@@ -48,6 +60,19 @@ export default function Detalhes() {
           title={ data.strMeal }
         />);
     }
+  };
+
+  const renderRecommendations = () => {
+    const limitRecommendationsRender = 6;
+    return (
+      <div>
+        {recommendations.map((element, index) => (
+          index <= limitRecommendationsRender ? (
+            <li data-testid={ `${index}-card-name` }>{ element.strMeal }</li>
+          ) : null
+        ))}
+      </div>
+    );
   };
 
   if (isLoading) {
@@ -79,7 +104,7 @@ export default function Detalhes() {
       </button>
       <h2 data-testid="recipe-category">{`Categoria: ${data.strCategory}`}</h2>
       <ul>
-        { renderIngredientsList(filterIngredients(data)) }
+        {renderIngredientsList(filterIngredients(data))}
       </ul>
       <p data-testid="instructions">{ data.strInstructions }</p>
       <button
@@ -88,8 +113,17 @@ export default function Detalhes() {
       >
         Iniciar Receita
       </button>
-      <section data-testid="video">{ renderVideo(data.strYoutube) }</section>
-      <section data-testid="0-recomendation-card">Recomendações</section>
+      <section data-testid="video">
+        {
+          pathname.includes('/comidas') ? renderVideo(data.strYoutube) : ''
+        }
+      </section>
+      <section data-testid="0-recomendation-card">
+        Recomendações
+        <ul>
+          { renderRecommendations() }
+        </ul>
+      </section>
     </div>
   );
 }
