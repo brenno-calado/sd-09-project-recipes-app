@@ -17,7 +17,8 @@ function MealsInProgress() {
     getData();
   }, [id]);
 
-  const checkBoxClick = () => {
+  const checkBoxClick = ({ target }) => {
+    target.parentElement.classList.toggle('selected');
     const allCheked = document.querySelectorAll('input[type=checkbox]');
     const ingredients = [];
     allCheked.forEach((checkbox) => {
@@ -66,18 +67,17 @@ function MealsInProgress() {
         data[ingredient] && data[ingredient].length ? (
           <label
             htmlFor={ ingredient }
-            data-testid={ `${index}-ingredient-name-and-measure` }
+            data-testid={ `${index}-ingredient-step` }
             key={ ingredient }
           >
             { `${data[ingredient]} ${data[measures[index]]}` }
-            <span data-testid={ `${index}-ingredient-step` }>
-              <input
-                id={ ingredient }
-                value={ ingredient }
-                type="checkbox"
-                onClick={ checkBoxClick }
-              />
-            </span>
+            <input
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              id={ ingredient }
+              value={ ingredient }
+              type="checkbox"
+              onClick={ checkBoxClick }
+            />
           </label>) : false
       )) }
       <p data-testid="instructions">{strInstructions}</p>

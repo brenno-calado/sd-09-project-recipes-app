@@ -7,6 +7,10 @@ img {
   height: 5rem;
 }
 
+.selected {
+  text-decoration: line-through;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
