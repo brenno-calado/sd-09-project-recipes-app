@@ -19,6 +19,7 @@ function DoneRecipes() {
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ () => handleFilter() }
+        disabled={ !storedRecipes }
       >
         All
       </button>
@@ -26,6 +27,7 @@ function DoneRecipes() {
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ () => handleFilter('comida') }
+        disabled={ !storedRecipes }
       >
         Food
       </button>
@@ -33,10 +35,11 @@ function DoneRecipes() {
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ () => handleFilter('bebida') }
+        disabled={ !storedRecipes }
       >
         Drinks
       </button>
-      { Object.keys(shownRecipes).length === 0 ? 'no done recipe stored'
+      { !shownRecipes ? <h5>no done recipe stored</h5>
         : shownRecipes.map((doneRecipe, index) => (
           <HorizontalCard key={ index } index={ index } doneRecipe={ doneRecipe } />)) }
     </>

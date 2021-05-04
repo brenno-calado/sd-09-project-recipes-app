@@ -44,8 +44,13 @@ function Header({ title, path, setResult }) {
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  setResult: PropTypes.func.isRequired,
+  path: PropTypes.string,
+  setResult: PropTypes.func,
+};
+
+Header.defaultProps = {
+  path: undefined,
+  setResult: undefined,
 };
 
 export default Header;
