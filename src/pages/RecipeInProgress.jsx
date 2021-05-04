@@ -7,12 +7,12 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 function RecipeInProgress() {
   const history = useHistory();
   const [favorite, setFavorite] = useState(false);
+  const [itemsChecked, setItemsChecked] = useState([]);
+  const [disableBtnFinished, setDisableBtnFinished] = useState(true);
 
-  const [image, setImage] = useState('');
-  const [title, setTitle] = useState('Title');
-  const [category, setCategories] = useState('Categoria');
   const [ingredients, setIngredient] = useState([]);
   const [instructions, setInstructions] = useState('');
+  const [details, setDetails] = useState({});
 
   const id = history.location.pathname.replace(/\D/g, '');
   const type = history.location.pathname.split('/')[1];
@@ -25,48 +25,93 @@ function RecipeInProgress() {
   }
 
   useEffect(() => {
+    console.log(ingredients.length)
+    console.log(itemsChecked.length)
+    if (ingredients.length === itemsChecked.length) {
+      return setDisableBtnFinished(false);
+    }
+    setDisableBtnFinished(true);
+  }, [ingredients, itemsChecked]);
+
+  useEffect(() => {
+    const objItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (objItems) {
+      const arrayItems = Object.values(Object.entries(objItems)[0][1])[0];
+      return setItemsChecked(arrayItems);
+    }
+  }, []);
+
+  useEffect(() => {
     if (type === 'comidas') {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ meals }) => {
-          setImage(meals[0].strMealThumb);
-          setTitle(meals[0].strMeal);
-          setCategories(meals[0].strCategory);
           filterIngredients(meals[0]);
           setInstructions(meals[0].strInstructions);
+          setDetails({
+            id,
+            type,
+            area: meals[0].strArea,
+            category: meals[0].strCategory,
+            alcoholicOrNot: '',
+            name: meals[0].strMeal,
+            image: meals[0].strMealThumb,
+          });
         });
     } else if (type === 'bebidas') {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ drinks }) => {
-          setImage(drinks[0].strDrinkThumb);
-          setTitle(drinks[0].strDrink);
-          setCategories(drinks[0].strCategory);
           filterIngredients(drinks[0]);
           setInstructions(drinks[0].strInstructions);
+          setDetails({
+            id,
+            type,
+            area: drinks[0].strArea,
+            category: drinks[0].strCategory,
+            alcoholicOrNot: drinks[0].strAlcoholic,
+            name: drinks[0].strDrink,
+            image: drinks[0].strDrinkThumb,
+          });
         });
     }
   }, [id, type]);
 
   function handleClick() {
     setFavorite(!favorite);
+    if (!favorite) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([details]));
+    } else {
+      localStorage.removeItem('favoriteRecipes');
+    }
   }
 
   function rendeImage() {
-    return (<img data-testid="recipe-photo" src={ image } alt="Imagem da receita" />);
+    return (
+      <img data-testid="recipe-photo" src={ details.image } alt="Imagem da receita" />);
   }
 
   function rendeTitle() {
-    return (<h2 data-testid="recipe-title">{title}</h2>);
+    return (<h2 data-testid="recipe-title">{details.title}</h2>);
   }
 
   function rendeCategory() {
-    return (<p data-testid="recipe-category">{category}</p>);
+    return (<p data-testid="recipe-category">{details.category}</p>);
   }
 
   function btnShare() {
+    const twelve = 12;
     return (
-      <button data-testid="share-btn" type="button">
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ async () => {
+          await navigator.clipboard
+            .writeText(`http://localhost:3000${history.location.pathname.slice(0, -twelve)}`);
+          alert('Link copiado!');
+          console.log(`http://localhost:3000${history.location.pathname.slice(0, -twelve)}`)
+        } }
+      >
         <img src={ shareIcon } alt="Compartilhar" />
       </button>
     );
@@ -84,8 +129,28 @@ function RecipeInProgress() {
     );
   }
 
+  function isChecked(target) {
+    if (type === 'comida') {
+      setItemsChecked([...itemsChecked, target.value]);
+      return localStorage.setItem('inProgressRecipes', JSON.stringify({
+        meals: { [id]: [...itemsChecked, target.value] } }));
+    }
+    return localStorage.setItem('inProgressRecipes', JSON.stringify({
+      cocktails: { [id]: [...itemsChecked, target.value] } }));
+  }
+
+  function disChecked(target) {
+    if (itemsChecked.includes(target.value)) {
+      setItemsChecked(itemsChecked.filter((item) => item !== target.value));
+    }
+  }
+
   function handleCheck({ target }) {
-    console.log(target.checked);
+    if (target.checked && !itemsChecked.includes(target.value)) {
+      setItemsChecked([...itemsChecked, target.value]);
+      return isChecked(target);
+    }
+    return disChecked(target);
   }
 
   function henderIngredients() {
@@ -104,6 +169,7 @@ function RecipeInProgress() {
               type="checkbox"
               onChange={ handleCheck }
               value={ ingredient }
+              checked={ itemsChecked.includes(ingredient) }
             />
             { ingredient }
           </label>
@@ -121,16 +187,13 @@ function RecipeInProgress() {
     );
   }
 
-  function handleFinished() {
-    console.log('#');
-  }
-
   function btnFinished() {
     return (
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        onClick={ handleFinished }
+        disabled={ disableBtnFinished }
+        onClick={ () => { history.push('/receitas-feitas'); } }
       >
         Finished
       </button>
