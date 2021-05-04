@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
+import RecipesContext from '../../../context/RecipesContext';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import Button from './Button';
 
 function ShareLikeButtons({ recipe, url }) {
-  const [copied, setCopied] = useState(false);
-  const [favorite, setFavorite] = useState(false);
   const [type, setType] = useState('');
+  const {
+    shareClick,
+    copied,
+    setFavorite,
+    favorite,
+    favoriteClick } = useContext(RecipesContext);
   const id = recipe.idMeal || recipe.idDrink;
 
   useState(() => {
@@ -44,27 +49,17 @@ function ShareLikeButtons({ recipe, url }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFav));
   }
 
-  const favoriteClick = () => (
-    (favorite ? removeFromFavorites() : addToFavorites())
-  );
-
-  const shareClick = () => {
-    const element = document.createElement('textarea');
-    element.value = `http://localhost:3000${url}`;
-    document.body.appendChild(element);
-    element.select();
-    document.execCommand('copy');
-    document.body.removeChild(element);
-    setCopied(true);
-  };
+  // const favoriteClick = () => (
+  //   (favorite ? removeFromFavorites() : addToFavorites())
+  // );
 
   return (
     <div>
-      <Button onClick={ shareClick }>
+      <Button onClick={ () => shareClick(url) }>
         <img data-testid="share-btn" src={ shareIcon } alt="share icon" height="25px" />
       </Button>
       { copied ? <p>Link copiado!</p> : null }
-      <Button onClick={ favoriteClick }>
+      <Button onClick={ () => favoriteClick(removeFromFavorites, addToFavorites) }>
         {favorite
           ? <img data-testid="favorite-btn" src={ blackHeart } alt="fav" height="25px" />
           : <img data-testid="favorite-btn" src={ whiteHeart } alt="fav" height="25px" />}

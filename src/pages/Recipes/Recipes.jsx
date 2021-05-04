@@ -17,17 +17,17 @@ const Recipes = (props) => {
   const [mealCategoryList, setMealCategoryList] = useState();
   const [filteredByCategoryArray, setfilteredByCategoryArray] = useState(undefined);
   const [loading, setLoading] = useState(true);
+  const { dispatchMeals } = props;
   const cinco = 5;
-
   useEffect(() => {
     async function fetchData() {
-      const { dispatchMeals } = props;
+      // const { dispatchMeals } = props;
       await fetchMealNameAPI('').then((response) => dispatchMeals(response));
       await fetchMealCategory().then((r) => setMealCategoryList(r));
       setLoading(false);
     }
     fetchData();
-  }, []); // aqui tinha como dependencia "props" que estava ocasionando um loop
+  }, [dispatchMeals]); // aqui tinha como dependencia "props" que estava ocasionando um loop
 
   function filterByCategory(category) {
     fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
