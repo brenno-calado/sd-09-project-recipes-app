@@ -13,7 +13,12 @@ function EmProgresso() {
    titulo: strMeal,
    categoria: strCategory
    */
+
   const ingredientsList = filterIngredients(data);
+
+  function markDoneOrNo({ target }) {
+    console.log(target, ingredientsList);
+  }
 
   function renderList(list) {
     return (
@@ -21,8 +26,13 @@ function EmProgresso() {
         <li
           key={ item }
           data-testid={ `${index}-ingredient-step` }
+          id={ index }
         >
-          <input type="checkbox" />
+          <input
+            id={ index }
+            type="checkbox"
+            onClick={ markDoneOrNo }
+          />
           { item }
         </li>
       ))
