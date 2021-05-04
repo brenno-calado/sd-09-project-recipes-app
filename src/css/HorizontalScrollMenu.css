@@ -31,24 +31,20 @@ transform: scale(1);
 position: absolute;
 width: 40px;
 height: 225px;
-background-color: rgba(0, 0, 0, 0.5);
 z-index: 99;
 display: flex;
 align-items: center;
 justify-content: center;
 overflow: hidden;
 cursor: pointer;
+outline: none;
 }
 
 
 .recommendedArea-left {
-left: 0;
+left: 20%;
 }
 
 .recommendedArea-right {
-right: 0;
-}
-.recommendedArea:hover .movieArea-left,
-.recommendedArea:hover .movieArea-right {
-opacity: 1;
+right: 20%;
 }
