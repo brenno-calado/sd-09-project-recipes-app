@@ -1,9 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
+import React, { /* useContext, */ useEffect, useState } from 'react';
+import { useLocation, useParams /* useHistory */ } from 'react-router-dom';
 import Loading from '../components/Loading';
-import Recommendations from '../components/Recommendations';
+/* import Recommendations from '../components/Recommendations'; */
 import { useRecipes } from '../hooks';
-import { RecipesContext } from '../context';
+/* import { RecipesContext } from '../context'; */
 import '../styles/Details.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
@@ -11,13 +11,13 @@ import LikeButton from '../components/LikeButton';
 function EmProcesso() {
   const { pathname } = useLocation();
   const { id } = useParams();
-  const history = useHistory();
+  /*  const history = useHistory(); */
 
   const [loading, setLoading] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
-  const [recommendations, setRecommendations] = useState([]);
+  const [/* recommendations */, setRecommendations] = useState([]);
 
-  const { values: { doneRecipes, inProgressRecipes } } = useContext(RecipesContext);
+  /* const { values: { doneRecipes, inProgressRecipes } } = useContext(RecipesContext); */
 
   const { getRecipes } = useRecipes();
 
