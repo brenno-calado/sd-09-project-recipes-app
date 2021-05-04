@@ -3,6 +3,8 @@ import { shape, string } from 'prop-types';
 import { getFoodDetailsById } from '../services/fetchApi';
 import CardeInProgress from '../components/CardInProgress';
 import useIngredientFoodList from '../hooks/useIngredientFoodList';
+import useHandleFavoriteFoods from '../hooks/useHandleFavoriteFoods';
+import useHandleCheckFoodValuesValues from '../utils/handleCheckFoodValuesValues';
 
 function FoodRecipeInProgress(props) {
   const { match } = props;
@@ -10,7 +12,26 @@ function FoodRecipeInProgress(props) {
   const { id } = params;
   const [isFetching, setIsFetching] = useState(false);
   const [apiData, setApiData] = useState();
+  const [mealLocal, setMealLocal] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+
   const [ingredientList] = useIngredientFoodList();
+  const [handleFavorite] = useHandleFavoriteFoods();
+  const [handleCheckFoodValuesValues, state] = useHandleCheckFoodValuesValues();
+
+  const favoriteParams = { apiData, id, mealLocal, favorite, setFavorite };
+
+  useEffect(() => {
+    const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (repositoresLocal) {
+      setMealLocal(repositoresLocal);
+      repositoresLocal.forEach(({ id: favoriteId }) => {
+        if (favoriteId === id) {
+          setFavorite(true);
+        }
+      });
+    }
+  }, [id]);
 
   useEffect(() => {
     getFoodDetailsById(id)
@@ -19,39 +40,6 @@ function FoodRecipeInProgress(props) {
         setIsFetching(true);
       });
   }, [id]);
-
-  function handleCheckedValue({ target }) {
-    if (target.checked) {
-      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const getFilteredLocal = getLocal && getLocal.meals[id]
-        .filter((item, index) => getLocal.meals[id].indexOf(item) === index);
-
-      const localFoods = {
-        meals: {
-          [id]: getLocal ? [...getFilteredLocal, target.name] : [target.name],
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localFoods));
-    }
-
-    if (!target.checked) {
-      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-      const removeLocal = getLocal && getLocal.meals[id]
-        .filter((item) => item !== target.name);
-
-      const localFoods = {
-        meals: {
-          [id]: removeLocal,
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localFoods));
-    }
-  }
 
   function renderInProgressMeal() {
     return (
@@ -69,8 +57,12 @@ function FoodRecipeInProgress(props) {
             title={ strMeal }
             category={ strCategory }
             instructions={ strInstructions }
+            favorite={ favorite }
+            handleFavorite={ () => handleFavorite(favoriteParams) }
+            state={ state }
+            id={ id }
           >
-            {ingredientList(apiData, match, handleCheckedValue)}
+            {ingredientList(apiData, match, handleCheckFoodValuesValues)}
 
           </CardeInProgress>
         ))
