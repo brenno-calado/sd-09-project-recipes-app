@@ -44,6 +44,9 @@ export default function Detalhes() {
         });
       });
     }
+    const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+    setIsFavorite(initialFavoriteState);
   }, [setIsLoading, setData, pathname, recipeId, setRecommendations, setType]);
 
   const previousSlide = (imgUrls) => {
@@ -127,15 +130,21 @@ export default function Detalhes() {
         <img
           data-testid="favorite-btn"
           src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="Favorite"
+          alt="Favorite Button"
         />
       </button>
-      <h2 data-testid="recipe-category">{`Categoria: ${data.strCategory}`}</h2>
+      <h2 data-testid="recipe-category">
+        Categoria:
+        {
+          pathname.includes('/comidas')
+            ? data.strCategory : data.strAlcoholic
+        }
+      </h2>
       <ul>
         {renderIngredientsList(filterIngredients(data))}
       </ul>
       <p data-testid="instructions">{ data.strInstructions }</p>
-      <section data-testid="video">
+      <section>
         {
           pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
         }
@@ -147,6 +156,11 @@ export default function Detalhes() {
       <button
         type="button"
         data-testid="start-recipe-btn"
+        style={ {
+          position: 'fixed',
+          bottom: 0,
+          zIndex: 1,
+        } }
       >
         Iniciar Receita
       </button>
