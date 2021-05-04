@@ -42,6 +42,9 @@ export default function SearchBar({ isMealsPage }) {
       break;
     default:
     }
+    if (!(result && result.length)) {
+      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+    }
     if (isMealsPage) setSearchMealsList(result);
     else setSearchDrinksList(result);
   };
@@ -54,21 +57,6 @@ export default function SearchBar({ isMealsPage }) {
       return history.push(`/bebidas/${searchDrinksList[0].idDrink}`);
     }
   };
-
-  const showRecipies = () => {
-    if (searchMealsList === null || searchDrinksList === null) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    }
-  };
-
-  /* const renderListOfIngredients = () => {
-    const ingredientsList = [];
-    for (let i = 1; i <= Number('20'); i += 1) {
-
-    }
-  };
-
-  console.log(searchMealsList[0] && searchMealsList[0]); */
 
   return (
     <div>
@@ -117,7 +105,6 @@ export default function SearchBar({ isMealsPage }) {
           Buscar
         </button>
         {redirectDetails()}
-        {showRecipies()}
       </div>
     </div>
   );

@@ -5,8 +5,7 @@ import RecipesDetailsCard from '../components/RecipeDetailsCard';
 function DetalhesComidas() {
   return (
     <main>
-      <h2>DetalhesComidas</h2>
-      <RecipesDetailsCard />
+      <RecipesDetailsCard isMeal />
     </main>
   );
 }
