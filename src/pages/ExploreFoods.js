@@ -3,28 +3,51 @@ import { Link } from 'react-router-dom';
 
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
+import { fetchMealsRandom } from '../services';
+import useRouter from '../hooks/router';
+
+async function surpriseID() {
+  const randonID = await fetchMealsRandom();
+  const { idMeal } = randonID[0];
+  return idMeal;
+}
 
 function ExploreFoods() {
+  const route = useRouter();
   return (
     <>
       <Header pageName="Explorar" searchBtn={ false } />
       <div className="explore-container">
         <Link to="/explorar/comidas/ingredientes">
-          <div className="explore-cards" data-testid="explore-by-ingredient">
+          <button
+            type="button"
+            className="explore-cards"
+            data-testid="explore-by-ingredient"
+          >
             Por Ingredientes
-          </div>
+          </button>
         </Link>
         <Link to="/explorar/comidas/area">
-          <div className="explore-cards" data-testid="explore-by-area">
+          <button
+            type="button"
+            className="explore-cards"
+            data-testid="explore-by-area"
+          >
             Por Local de Origem
-          </div>
+          </button>
         </Link>
-        <Link to="/explorar/comidas">
-          {/* pegar uma receita de comida aleatoriamente */}
-          <div className="explore-cards" data-testid="explore-surprise">
-            Me Surpreenda!
-          </div>
-        </Link>
+
+        <button
+          type="button"
+          className="explore-cards"
+          data-testid="explore-surprise"
+          onClick={ async () => {
+            route.push(`/comidas/${await surpriseID()}`);
+          } }
+        >
+          Me Surpreenda!
+        </button>
+
       </div>
       <FooterMenu />
     </>

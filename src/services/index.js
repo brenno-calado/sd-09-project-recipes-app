@@ -32,6 +32,14 @@ export async function fetchMealsById(id) {
   return data.meals;
 }
 
+export async function fetchMealsRandom() {
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+
+  return data.meals;
+}
+
 // DRINKS
 
 export async function fetchDrinksApi() {
@@ -59,6 +67,14 @@ export async function fetchDrinksByCategory(category) {
 
 export async function fetchDrinkById(id) {
   const data = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+
+  return data.drinks;
+}
+
+export async function fetchDrinksRandom() {
+  const data = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
     .then((response) => response.json())
     .catch((error) => console.log(error));
 

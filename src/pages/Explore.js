@@ -9,14 +9,14 @@ export default function Explore() {
       <Header pageName="Explorar" searchBtn={ false } />
       <div className="explore-container">
         <Link to="/explorar/comidas">
-          <div className="explore-cards" data-testid="explore-food">
+          <button type="button" className="explore-cards" data-testid="explore-food">
             Explorar Comidas
-          </div>
+          </button>
         </Link>
         <Link to="/explorar/bebidas">
-          <div className="explore-cards" data-testid="explore-drinks">
+          <button type="button" className="explore-cards" data-testid="explore-drinks">
             Explorar Bebidas
-          </div>
+          </button>
         </Link>
       </div>
       <FooterMenu />
