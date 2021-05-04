@@ -1,0 +1,69 @@
+@import url(./Paleta.css);
+
+/* Perfil button */
+#profile-top-btn {
+  position: fixed;
+  right: 10px;
+  top: 14px;
+  padding: 4px 8px 9px;
+  border-radius: 100%;
+  background-color: var(--colorInfo5);
+  box-shadow: var(--boxShadow6);
+  border: 0.1px solid var(--colorWarning4);
+}
+
+#profile-top-btn img {
+  width: 20px;
+}
+
+.page-title {
+  font-weight: 700;
+  padding: 10px;
+  background-color: var(--colorWarning2);
+  color: var(--colorInfo5);
+}
+
+
+.search-top-btn {
+  position: absolute;
+  right: 60px;
+  top: 18px;
+  padding: 1px 8px 5px 8px;
+  border-radius: 100%;
+  background-color: var(--colorInfo5);
+  box-shadow: var(--boxShadow6);
+  border: 0.1px solid var(--colorWarning4)
+}
+
+.search-top-btn img {
+  width: 15px;
+}
+
+.category-filter-tags[type=button] {
+  margin: 10px;
+  border-style: dashed;
+  font-weight: lighter;
+  padding: 0px 10px;
+  border-width: thin;
+  background-color: var(--colorInfo5);
+  box-shadow: var(--boxShadow4);
+}
+
+.recipe-card {
+  margin-top: 10px;
+}
+
+.listCard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.listCard a div {
+  margin: 0px 5px;
+}
+
+.listCard img {
+  width: 160px;
+  box-shadow: var(--boxShadow3);
+}

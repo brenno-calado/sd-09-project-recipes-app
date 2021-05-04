@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { getDrinksFromCategory } from '../services';
+import '../CSS/ComidasBebidas.css';
 
 const MAX_AMOUNT = 12;
 const CATEGORIES_NUMBER = 5;
@@ -32,6 +33,7 @@ function Bebidas() {
     <>
       <Header title="Bebidas" searchIcon />
       <button
+        className="category-filter-tags"
         data-testid="All-category-filter"
         type="button"
         onClick={ () => { setDrinksApiResults([]); setClicked({}); } }
@@ -41,6 +43,7 @@ function Bebidas() {
       { drinkCategories
         && drinkCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
           <button
+            className="category-filter-tags"
             data-testid={ `${strCategory}-category-filter` }
             key={ strCategory }
             type="button"
@@ -49,19 +52,21 @@ function Bebidas() {
             {strCategory}
           </button>
         )) }
-      { drinks && drinks.slice(0, MAX_AMOUNT).map((drink, index) => (
-        <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
-              width="100px"
-            />
-            <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
-          </div>
-        </Link>
-      )) }
+      <div className="listCard">
+        { drinks && drinks.slice(0, MAX_AMOUNT).map((drink, index) => (
+          <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
+            <div data-testid={ `${index}-recipe-card` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrink }
+                width="100px"
+              />
+              <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
+            </div>
+          </Link>
+        )) }
+      </div>
       <Footer />
     </>
   );
