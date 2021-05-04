@@ -15,18 +15,17 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
           data-testid={ `${index}-recipe-card` }
           className="card"
           style={ {
-            width: '7rem',
+            width: '15rem',
             alignItems: 'center',
             marginBottom: '5px',
-            marginTop: '10px',
-          } }
+            marginTop: '10px  ' } }
         >
           <img
             src={ drink.strDrinkThumb }
             data-testid={ `${index}-card-img` }
             alt={ `${drink.strDrink} recipe` }
             className="card-img-top"
-            style={ { width: '6rem', margin: '4px' } }
+            style={ { width: '14rem', margin: '4px' } }
           />
           <h5
             data-testid={ `${index}-card-name` }
@@ -42,6 +41,8 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
     <section
       className="container-cards"
       style={ {
+        zIndex: '1',
+        alignItems: 'center',
         justifyContent: 'space-around',
         margin: '5px',
       } }
@@ -53,7 +54,9 @@ export default function DrinkCards(categories, drinks, categoryCheck) {
           flexDirection: 'column',
           width: '100%',
           height: '100%',
+          marginTop: '30%',
           justifyContent: 'space-between',
+
         } }
       >
         <button
