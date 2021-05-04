@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 import Header from './Header';
 import { fetchToMainScreen } from '../services/fetchAPI';
-import MenuInferior from './MenuInferior';
 
 function MealCard() {
   const { data, categories, filterByCategory, setData } = useContext(MyContext);
@@ -56,7 +55,6 @@ function MealCard() {
           </div>
         ) : null
       ))}
-      <MenuInferior />
     </div>
   );
 }
