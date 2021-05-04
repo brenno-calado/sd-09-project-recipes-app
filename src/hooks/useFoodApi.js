@@ -10,6 +10,7 @@ const initialState = {
 function useFoodApi() {
   const { foods, setFoods } = useContext(context);
   const [filter, setFilter] = useState(initialState);
+
   useEffect(() => {
     if (filter.option && filter.searchTerm) {
       fetchApi('food', filter.option, filter.searchTerm).then(
