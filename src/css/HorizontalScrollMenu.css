@@ -6,45 +6,47 @@
   overflow-x: hidden;
   width: 499px;
 }
+
 .recommendedArea-list {
   display: flex;
   flex-direction: row;
   transition: all ease 0.4s;
 }
+
 .item {
-  display: inline-block;
   cursor: pointer;
+  display: inline-block;
 }
 
 .item img {
-width: 100%;
-transform: scale(0.9);
-transition: all ease 0.2s;
+  transform: scale(0.9);
+  transition: all ease 0.2s;
+  width: 100%;
 }
 
 .item img:hover {
-transform: scale(1);
+  transform: scale(1);
 }
 
 .recommendedArea-left,
 .recommendedArea-right {
-position: absolute;
-width: 40px;
-height: 225px;
-z-index: 99;
-display: flex;
-align-items: center;
-justify-content: center;
-overflow: hidden;
-cursor: pointer;
-outline: none;
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 225px;
+  justify-content: center;
+  overflow: hidden;
+  outline: none;
+  position: absolute;
+  width: 40px;
+  z-index: 99;
 }
 
 
 .recommendedArea-left {
-left: 20%;
+  left: 20%;
 }
 
 .recommendedArea-right {
-right: 20%;
+  right: 20%;
 }
