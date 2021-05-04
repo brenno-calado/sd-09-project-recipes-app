@@ -1,5 +1,5 @@
-import '../styles/mainScreen.css';
 import React from 'react';
+import '../styles/mainScreen.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filterFoodThunkAction, foodThunkAction } from '../action/FoodAndDrinkAction';

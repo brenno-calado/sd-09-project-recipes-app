@@ -1,0 +1,17 @@
+.btnLogin {
+  background: rgb(108, 227, 79);
+  height: 76px;
+  margin-top: 10px;
+  width: 339px;
+}
+
+input {
+  background: white;
+  border: 1px solid black;
+  box-sizing: border-box;
+  font-size: 20px;
+  height: 58px;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 293px;
+}
