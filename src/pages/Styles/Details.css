@@ -47,13 +47,12 @@ iframe {
 }
 
 .recomendations {
-  margin-bottom: 75px;
+  margin-bottom: 80px;
 }
 
 .carocel-recomendations {
   display: flex;
   gap: 15px;
-  /* overflow-x: scroll; */
   padding: 5px;
 }
 
