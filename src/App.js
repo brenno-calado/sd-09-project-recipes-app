@@ -13,7 +13,7 @@ import ExplorarComidasPorOrigem from './pages/ExploreMealsByOrigin';
 import ReceitasFeitas from './pages/RecipesMade';
 import ReceitasFavoritas from './pages/FavoriteRecipes';
 import Meals from './pages/Meals';
-import Details from './components/Details';
+import Details from './pages/Details';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -22,6 +22,14 @@ function App() {
   return (
     <Switch>
       <Route
+        path="/comidas/:id"
+        component={ (props) => <Details { ...props } type="meals" /> }
+      />
+      <Route
+        path="/bebidas/:id"
+        component={ (props) => <Details { ...props } type="drinks" /> }
+      />
+      <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorarIngredientesComida }
       />
@@ -29,11 +37,9 @@ function App() {
         path="/explorar/bebidas/ingredientes"
         component={ ExplorarIngredientesBebida }
       />
+      <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/comidas/area" component={ ExplorarComidasPorOrigem } />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
-      <Route path="/explorar/comidas" component={ ExplorarComidas } />
-      <Route path="/comidas/:id" render={ (props) => <Details { ...props } /> } />
-      <Route path="/bebidas/:id" render={ (props) => <Details { ...props } /> } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route path="/comidas" component={ Meals } />
