@@ -3,6 +3,8 @@ import { shape, string } from 'prop-types';
 import { getDrinkDetailsById } from '../services/fetchApi';
 import CardeInProgress from '../components/CardInProgress';
 import useIngredientList from '../hooks/useIngredientList';
+import useHandleFavoriteDrinks from '../hooks/useHandleFavoriteDrinks';
+import useHandleCheckDrinkValues from '../utils/handleCheckDrinkValues';
 
 function DrinkRecipeInProgress(props) {
   const { match } = props;
@@ -10,8 +12,24 @@ function DrinkRecipeInProgress(props) {
   const { id } = params;
   const [isFetching, setIsFetching] = useState(false);
   const [apiData, setApiData] = useState();
-
+  const [handleFavorite] = useHandleFavoriteDrinks();
+  const [drinksLocal, setDrinkLocal] = useState([]);
+  const [favorite, setFavorite] = useState(false);
+  const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
   const [ingredientList] = useIngredientList();
+  const [handleCheckDrinkValues] = useHandleCheckDrinkValues();
+
+  useEffect(() => {
+    const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (repositoresLocal) {
+      setDrinkLocal(repositoresLocal);
+      repositoresLocal.forEach(({ id: favoriteId }) => {
+        if (favoriteId === id) {
+          setFavorite(true);
+        }
+      });
+    }
+  }, [id]);
 
   useEffect(() => {
     getDrinkDetailsById(id)
@@ -21,50 +39,12 @@ function DrinkRecipeInProgress(props) {
       });
   }, [id]);
 
-  function handleCheckedValue({ target }) {
-    if (target.checked) {
-      const drinkId = apiData.drinks[0].idDrink;
-      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-      const getFilteredLocal = getLocal && getLocal.cocktails[drinkId]
-        .filter((item, index) => getLocal.cocktails[drinkId].indexOf(item) === index);
-
-      const localDrinks = {
-        cocktails: {
-          [drinkId]: getLocal ? [...getFilteredLocal, target.name] : [target.name],
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localDrinks));
-    }
-
-    if (!target.checked) {
-      const drinkId = apiData.drinks[0].idDrink;
-      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-      const removeLocal = getLocal && getLocal.cocktails[drinkId]
-        .filter((item) => item !== target.name);
-
-      const localDrinks = {
-        cocktails: {
-          [drinkId]: removeLocal,
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localDrinks));
-      console.log('descheck', getLocal);
-    }
-  }
-
   function renderInprogressDrink() {
     return (
       apiData.drinks && (
         apiData.drinks.map(({
           strDrinkThumb,
           strDrink,
-          // strCategory,
           strInstructions,
           strAlcoholic,
         }) => (
@@ -74,9 +54,11 @@ function DrinkRecipeInProgress(props) {
             title={ strDrink }
             category={ strAlcoholic }
             instructions={ strInstructions }
+            handleFavorite={ () => handleFavorite(favoriteParams) }
+            favorite={ favorite }
+            id={ id }
           >
-            {ingredientList(apiData, match, handleCheckedValue)}
-
+            {ingredientList(apiData, match, handleCheckDrinkValues)}
           </CardeInProgress>
         ))
       )
