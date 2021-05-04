@@ -9,11 +9,9 @@ import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
 const checkInitiatedDrinks = (inProgressDrinks, recipeId) => {
-  if (Object.values(inProgressDrinks).find((id) => id === recipeId)) {
-    console.log('achou');
+  if (Object.keys(inProgressDrinks).find((id) => id === recipeId)) {
     return true;
   }
-  console.log('nao achou');
   return false;
 };
 
@@ -34,8 +32,6 @@ const ProgressoBebidas = () => {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
-    // handleProgressRecipes,
-    // handleIngredientsUsed,
     favoriteRecipes,
     handleProgressDrink,
     inProgressDrinks,

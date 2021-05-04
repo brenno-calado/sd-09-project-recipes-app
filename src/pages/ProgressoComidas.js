@@ -14,13 +14,18 @@ const checkFavorite = (favoriteRecipes, recipeId) => {
 };
 
 const checkInitiatedMeals = (inProgressMeals, recipeId) => {
-  if (Object.values(inProgressMeals).find((id) => id === recipeId)) {
-    console.log('achou');
+  if (Object.keys(inProgressMeals).find((id) => id === recipeId)) {
     return true;
   }
-  console.log('nao achou');
   return false;
 };
+
+const showInitiatedIng = (inProgress, recipeId) => (
+  Object.entries(inProgress[recipeId]).map((ing, index) => {
+    const info = `${ing[0]}:${ing[1]}`;
+    return (<p key={ index }>{info}</p>);
+  })
+);
 
 const ProgressoComidas = () => {
   const [stepsFinished, setStepsFinished] = useState(1);
@@ -28,17 +33,14 @@ const ProgressoComidas = () => {
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
-  // const localData = JSON.parse(localStorage.getItem('inProgressMeals'));
   const [ingStatus, setIngStatus] = useState({});
 
   const {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
-    // handleProgressRecipes,
     inProgressMeals,
     handleProgressMeal,
-    handleIngredientsUsed,
     favoriteRecipes,
   } = useContext(AppContext);
 
@@ -145,16 +147,16 @@ const ProgressoComidas = () => {
               key={ index }
               setStepsFinished={ setStepsFinished }
               stepsFinished={ stepsFinished }
-              ingredientsUsed={ handleIngredientsUsed }
               inProgressRecipe={ handleProgressMeal }
               ingStatus={ ingStatus }
               setIngStatus={ setIngStatus }
               idRecipe={ idMeal }
-              type="meals"
+              // type="meals"
             />);
         }) }
       </div>
-      { checkInitiatedMeals(inProgressMeals, idMeal) && <p>Iniciado</p>}
+      { checkInitiatedMeals(inProgressMeals, idMeal)
+      && showInitiatedIng(inProgressMeals, idMeal)}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         type="button"

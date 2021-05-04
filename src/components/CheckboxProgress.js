@@ -55,7 +55,7 @@ CheckBoxProgress.propTypes = {
   stepsFinished: PropTypes.number.isRequired,
   setStepsFinished: PropTypes.func.isRequired,
   // ingredientsUsed: PropTypes.arrayOf(PropTypes.string).isRequired,
-  idRecipe: PropTypes.number.isRequired,
+  idRecipe: PropTypes.string.isRequired,
   inProgressRecipe: PropTypes.func.isRequired,
   ingStatus: PropTypes.shape({}).isRequired,
   setIngStatus: PropTypes.func.isRequired,
