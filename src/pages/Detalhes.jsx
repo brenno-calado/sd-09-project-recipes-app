@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
-import Card from '../components/Card';
+import Recommendations from '../components/Recommendations';
 import { useRecipes } from '../hooks';
 
 function Detalhes() {
@@ -52,10 +52,6 @@ function Detalhes() {
     ));
   }
 
-  function renderRecommendations() {
-    return <Card data={ recommendations } />;
-  }
-
   return (
     loading
       ? <p>LOADING...</p>
@@ -72,13 +68,11 @@ function Detalhes() {
           </p>
           <button type="button" data-testid="share-btn">Share</button>
           <button type="button" data-testid="favorite-btn">Add to favorites</button>
-          <ul>
-            { renderIngredients() }
-          </ul>
+          { renderIngredients() }
           <p data-testid="instructions">{recipeDetails.strInstructions}</p>
           {type[1] === 'Meal'
           && <a href={ recipeDetails.strYoutube } data-testid="video">Video</a>}
-          { renderRecommendations() }
+          <Recommendations data={ recommendations } />
           <button type="button" data-testid="start-recipe-btn">Start recipe</button>
         </main>
       )
