@@ -10,7 +10,7 @@ import {
   getRecipesFoodsFilterByCategory,
   getRecipesDrinksFilterByCategory,
   getRecipesByCategory,
-  getRecipesRandom} from '../services/fetchApi';
+  getRecipesRandom } from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
