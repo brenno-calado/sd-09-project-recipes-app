@@ -9,8 +9,8 @@
 }
 
 #Done-recipes .buttons * {
-  width: 30%;
   background: #c4c4c4;
+  width: 30%;
 }
 
 .Done-card {
@@ -26,9 +26,9 @@
 }
 
 .Done-card .info {
-  position: relative;
-  height: 143px;
   display: block;
+  height: 143px;
+  position: relative;
   width: 100%;
 }
 
@@ -45,13 +45,13 @@
 }
 
 .Done-card .top-text {
-  height: 18px;
-  width: 136px;
   color: #a9a9a9;
-  position: absolute;
-  top: 2px;
+  height: 18px;
   left: 5px;
+  position: absolute;
   text-align: left;
+  top: 2px;
+  width: 136px;
 }
 
 .Done-card .copied-link {
@@ -78,11 +78,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: 25px;
-  letter-spacing: 0.01em;
-  text-align: left;
-  position: absolute;
-  top: 23px;
   left: 5px;
+  letter-spacing: 0.01em;
+  position: absolute;
+  text-align: left;
+  top: 23px;
 }
 
 .Done-card .date {
@@ -91,11 +91,11 @@
   font-style: normal;
   font-weight: 400;
   line-height: 18px;
-  letter-spacing: 0.01em;
-  text-align: left;
-  position: absolute;
-  top: 75px;
   left: 5px;
+  letter-spacing: 0.01em;
+  position: absolute;
+  text-align: left;
+  top: 75px;
 }
 
 .Done-card .tags {
@@ -103,13 +103,13 @@
   justify-content: space-evenly;
   margin: 5px;
   position: absolute;
-  width: 100%;
   top: 95px;
+  width: 100%;
 }
 
 .Done-card .tag {
+  background: #ecdede;
+  border-radius: 12px;
   height: 20px;
   width: 57px;
-  border-radius: 12px;
-  background: #ecdede;
 }
