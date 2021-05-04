@@ -11,13 +11,21 @@ class index extends Component {
       shareClicked: false,
       favoriteIcon: false,
     };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.copyCurrentLink = this.copyCurrentLink.bind(this);
+    this.recipeData = this.recipeData.bind(this);
+    this.addFavoriteRecipe = this.addFavoriteRecipe.bind(this);
+    this.removeFavoriteRecipe = this.removeFavoriteRecipe.bind(this);
+    this.favoriteRecipeHandle = this.favoriteRecipeHandle.bind(this);
+    this.setIsRecipeFavorite = this.setIsRecipeFavorite.bind(this);
   }
 
   componentDidMount() {
     this.setIsRecipeFavorite();
   }
 
-  handleClick = ({ target: { name } }) => {
+  handleClick({ target: { name } }) {
     const { [name]: previous } = this.state;
     console.log(previous);
     this.setState({
@@ -25,20 +33,56 @@ class index extends Component {
     });
   }
 
-  copyCurrentLink = () => {
-    const { shareClicked } = this.state;
-    const url = window.location.href;
-
-    //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-    navigator.clipboard.writeText(url);
-
-    const actualShareState = shareClicked;
+  setIsRecipeFavorite() {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const { id } = this.props;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const found = favoriteRecipes.some((element) => element.id === id);
+    console.log(found);
     this.setState({
-      shareClicked: !actualShareState,
+      favoriteIcon: found,
     });
   }
 
-  recipeData = () => {
+  favoriteRecipeHandle() {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const recipe = this.recipeData();
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const found = favoriteRecipes.some((element) => element.id === recipe.id);
+    if (found) { this.removeFavoriteRecipe(); }
+    if (!found) { this.addFavoriteRecipe(); }
+    this.setIsRecipeFavorite();
+  }
+
+  removeFavoriteRecipe() {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const recipe = this.recipeData();
+
+    favoriteRecipes = favoriteRecipes.filter((element) => element.id !== recipe.id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    console.log('Desfavoritou');
+  }
+
+  addFavoriteRecipe() {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const recipe = this.recipeData();
+    console.log(recipe);
+    favoriteRecipes.push(recipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    console.log('Favoritou');
+  }
+
+  recipeData() {
     const { recipe } = this.props;
     const recipeData = {
       id: recipe.idMeal || recipe.idDrink,
@@ -52,52 +96,16 @@ class index extends Component {
     return recipeData;
   }
 
-  addFavoriteRecipe = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const recipe = this.recipeData();
-    console.log(recipe);
-    favoriteRecipes.push(recipe);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    console.log('Favoritou');
-  }
+  copyCurrentLink() {
+    const { shareClicked } = this.state;
+    const url = window.location.href;
 
-  removeFavoriteRecipe = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const recipe = this.recipeData();
+    //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    navigator.clipboard.writeText(url);
 
-    favoriteRecipes = favoriteRecipes.filter((element) => element.id !== recipe.id);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    console.log('Desfavoritou');
-  }
-
-  favoriteRecipeHandle = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    const recipe = this.recipeData();
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const found = favoriteRecipes.some((element) => element.id === recipe.id);
-    if (found) { this.removeFavoriteRecipe(); }
-    if (!found) { this.addFavoriteRecipe(); }
-    this.setIsRecipeFavorite();
-  }
-
-  setIsRecipeFavorite = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    const { id } = this.props;
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const found = favoriteRecipes.some((element) => element.id === id);
-    console.log(found);
+    const actualShareState = shareClicked;
     this.setState({
-      favoriteIcon: found,
+      shareClicked: !actualShareState,
     });
   }
 
