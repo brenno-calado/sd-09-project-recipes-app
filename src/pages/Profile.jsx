@@ -8,7 +8,9 @@ class Profile extends React.Component {
     return (
       <div>
         <Header title="Perfil" />
-        <p data-testid="profile-email">{localStorage.getItem('user')}</p>
+        <p data-testid="profile-email">
+          {JSON.parse(localStorage.getItem('user')).email}
+        </p>
         <Link to="/receitas-feitas">
           <button
             type="button"
