@@ -67,7 +67,6 @@ function Drinks() {
       <button
         type="button"
         data-testid="All-category-filter"
-        // onClick={ toggle }
       >
         All
       </button>
@@ -94,7 +93,6 @@ function Drinks() {
         {listDrinkByCategory.length
           ? createRender(listDrinkByCategory)
           : (initDrinks.length && (createRender(initDrinks))) }
-        {searchRender() }
         <BottomMenu />
       </>
     );

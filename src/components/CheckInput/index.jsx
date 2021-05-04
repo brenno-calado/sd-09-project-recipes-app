@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { string, number, func, arrayOf, shape } from 'prop-types';
 
 function CheckInput({ index, handleCheckedValue, item, match }) {
@@ -6,19 +6,6 @@ function CheckInput({ index, handleCheckedValue, item, match }) {
   const [checkedValue, setCheckedValue] = useState();
   const { params, path } = match;
   const { id } = params;
-  const [input, setInput] = useState([]);
-
-  useEffect(() => {
-    console.log(item);
-  }, []);
-
-  function handleDisableBtn() {
-    const test = [];
-    test.push(inputRef);
-    console.log(item);
-  }
-
-  console.log(checkedValue);
 
   useEffect(() => {
     if (path === '/bebidas/:id/in-progress') {
@@ -61,7 +48,7 @@ function CheckInput({ index, handleCheckedValue, item, match }) {
         name={ item }
         id={ `${index}-ingredientDrinkStep` }
         type="checkbox"
-        onChange={ (event) => { handleCheckedValue(event); handleDisableBtn(); } }
+        onChange={ (event) => { handleCheckedValue(event); } }
         key={ Math.random() }
         ref={ inputRef }
         checked={ checkedValue }
