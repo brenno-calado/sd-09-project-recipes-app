@@ -3,35 +3,40 @@ import PropTypes from 'prop-types';
 import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
 import { fetchMealById } from '../../services/fetchMealAPI';
 import RecommendedCard from '../../common/components/RecommendedCard';
+import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
 
 function RecipeDetails(props) {
-  const { match: { params: { id } } } = props;
+  const { match: { url, params: { id } } } = props;
+  const { history } = props;
   const [recommended, setRecommended] = useState([]);
-  const [displayRecommended, setDisplayRecommended] = useState();
   const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [meal, setMeal] = useState();
+  const [startContinueRecipe, setStartContinueRecipe] = useState('Start Recipe');
   const seis = 6;
   const idMeal = id;
 
-  async function fetchData() {
-    await fetchDrinkNameAPI('')
-      .then((response) => {
-        setRecommended(response.drinks.slice(0, seis));
-        setDisplayRecommended(response.drinks.slice(0, seis));
-      });
-    await fetchMealById(idMeal).then((response) => setMeal(response.meals[0]));
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      await fetchDrinkNameAPI('')
+        .then((response) => {
+          setRecommended(response.drinks.slice(0, seis));
+        });
+      await fetchMealById(idMeal).then((response) => setMeal(response.meals[0]));
+    }
     fetchData();
-  }, []);
+  }, [idMeal]);
 
   useEffect(() => {
     if (hidden.second > seis) {
       setHidden({ first: 0, second: 1 });
     }
   }, [hidden.second]);
+
+  function startRecipe() {
+    setStartContinueRecipe('Continuar Receita');
+    history.push(`/comidas/${idMeal}/in-progress`, meal);
+  }
 
   function showDetails() {
     const maxIngredient = 21;
@@ -68,14 +73,15 @@ function RecipeDetails(props) {
           alt="recipeImg"
           width="350px"
         />
-        <div>
-          <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
-          <h5 data-testid="recipe-category">
-            Category:
-            { meal.strCategory }
-          </h5>
-          <button data-testid="share-btn" type="button">Share</button>
-          <button data-testid="favorite-btn" type="button">♡</button>
+        <div className="header-container">
+          <div>
+            <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
+            <h5 data-testid="recipe-category">
+              Category:
+              { meal.strCategory }
+            </h5>
+          </div>
+          <ShareLikeButtons recipe={ meal } type="comida" url={ url } />
         </div>
         <div>
           <h4>Instructions</h4>
@@ -98,7 +104,7 @@ function RecipeDetails(props) {
         <h4>Recommended Recipes</h4>
         <div>
           <div style={ { display: 'flex', width: '401px' } }>
-            { recommended && displayRecommended
+            { recommended && recommended
               .slice(0, seis)
               .map((drink, index) => (
                 <RecommendedCard
@@ -113,15 +119,16 @@ function RecipeDetails(props) {
             type="button"
             onClick={ scrollRecommended }
           >
-            {'-->'}
+            ➜
           </button>
         </div>
         <button
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ startRecipe }
         >
-          Start Recipe
+          { startContinueRecipe }
         </button>
       </div>
     );
@@ -133,7 +140,11 @@ function RecipeDetails(props) {
 }
 
 RecipeDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),

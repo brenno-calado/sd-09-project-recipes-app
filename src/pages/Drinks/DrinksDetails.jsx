@@ -3,24 +3,26 @@ import PropTypes from 'prop-types';
 import { fetchMealNameAPI } from '../../services/fetchMealAPI';
 import { fetchDrinkById } from '../../services/fetchDrinkAPI';
 import RecommendedCard from '../../common/components/RecommendedCard';
+import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
 
 function DrinkDetails(props) {
-  const { match: { params: { id } } } = props;
+  const { match: { url, params: { id } } } = props;
+  const { history } = props;
   const [recommended, setRecommended] = useState([]);
   const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [drink, setDrink] = useState();
+  const [startContinueDrink, setStartContinueDrink] = useState('Start Recipe');
   const seis = 6;
   const idDrink = id;
 
-  async function fetchData() {
-    await fetchMealNameAPI('').then((response) => setRecommended(response.meals));
-    await fetchDrinkById(idDrink).then((response) => setDrink(response.drinks[0]));
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      await fetchMealNameAPI('').then((response) => setRecommended(response.meals));
+      await fetchDrinkById(idDrink).then((response) => setDrink(response.drinks[0]));
+    }
     fetchData();
-  }, []);
+  }, [idDrink]);
 
   useEffect(() => {
     if (hidden.second > seis) {
@@ -52,6 +54,11 @@ function DrinkDetails(props) {
     return <ul>{ingredients}</ul>;
   }
 
+  function startDrink() {
+    setStartContinueDrink('Continuar Receita');
+    history.push(`/bebidas/${idDrink}/in-progress`, drink);
+  }
+
   function renderDrink() {
     return (
       <div>
@@ -61,14 +68,15 @@ function DrinkDetails(props) {
           alt="recipeImg"
           width="350px"
         />
-        <div>
-          <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
-          <h5 data-testid="recipe-category">
-            Category:
-            { drink.strAlcoholic }
-          </h5>
-          <button data-testid="share-btn" type="button">Share</button>
-          <button data-testid="favorite-btn" type="button">♡</button>
+        <div className="header-container">
+          <div>
+            <h1 data-testid="recipe-title">{ drink.strDrink }</h1>
+            <h5 data-testid="recipe-category">
+              Category:
+              { drink.strAlcoholic }
+            </h5>
+          </div>
+          <ShareLikeButtons recipe={ drink } type="bebida" url={ url } />
         </div>
         <div>
           <h4>Instructions</h4>
@@ -96,15 +104,16 @@ function DrinkDetails(props) {
             type="button"
             onClick={ scrollRecommended }
           >
-            {'-->'}
+            ➜
           </button>
         </div>
         <button
           className="start-recipe-btn"
           data-testid="start-recipe-btn"
           type="button"
+          onClick={ startDrink }
         >
-          Start Recipe
+          { startContinueDrink }
         </button>
       </div>
     );
@@ -116,7 +125,11 @@ function DrinkDetails(props) {
 }
 
 DrinkDetails.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   match: PropTypes.shape({
+    url: PropTypes.string,
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
