@@ -63,18 +63,13 @@ function useClickFetch() {
     }
   }
 
-  async function handleFetchRecipes(type) {
-    const apiData = await getRecipes(type);
-    setRecipesData(apiData);
-  }
-
   return [
     recipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
     getInputValue,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
