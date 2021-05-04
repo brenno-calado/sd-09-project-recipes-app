@@ -28,7 +28,7 @@ function FavoriteRecipes() {
 
   return (
     <section>
-      <Header title="Receitas Feitas" />
+      <Header title="Receitas Favoritas" />
       { createButton('filter-by-all-btn', '', handleClick) }
       { createButton('filter-by-food-btn', 'comida', handleClick) }
       { createButton('filter-by-drink-btn', 'bebida', handleClick) }
