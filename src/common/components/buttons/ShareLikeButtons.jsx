@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
+import Button from './Button';
 
 function ShareLikeButtons({ recipe, url }) {
   const [copied, setCopied] = useState(false);
@@ -59,23 +60,15 @@ function ShareLikeButtons({ recipe, url }) {
 
   return (
     <div>
-      <button
-        type="button"
-        className="share-like-btn"
-        onClick={ shareClick }
-      >
+      <Button onClick={ shareClick }>
         <img data-testid="share-btn" src={ shareIcon } alt="share icon" height="25px" />
-      </button>
+      </Button>
       { copied ? <p>Link copiado!</p> : null }
-      <button
-        type="button"
-        className="share-like-btn"
-        onClick={ favoriteClick }
-      >
+      <Button onClick={ favoriteClick }>
         {favorite
           ? <img data-testid="favorite-btn" src={ blackHeart } alt="fav" height="25px" />
           : <img data-testid="favorite-btn" src={ whiteHeart } alt="fav" height="25px" />}
-      </button>
+      </Button>
     </div>
   );
 }

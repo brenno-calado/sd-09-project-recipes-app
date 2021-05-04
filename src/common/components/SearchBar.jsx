@@ -33,7 +33,7 @@ const SearchBar = (props) => {
       history.push(`/comidas/${idMeal}`, meals);
     }
     if (redirectDrink) {
-      const { idDrink } = drinks.drinks[0];
+      const { idDrink } = drinks[0];
       history.push(`/bebidas/${idDrink}`);
     }
   }, [redirectMeal, redirectDrink, meals, drinks, history]);

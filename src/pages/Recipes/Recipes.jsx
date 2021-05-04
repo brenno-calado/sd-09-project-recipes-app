@@ -27,7 +27,7 @@ const Recipes = (props) => {
       setLoading(false);
     }
     fetchData();
-  }, [props]);
+  }, []); // aqui tinha como dependencia "props" que estava ocasionando um loop
 
   function filterByCategory(category) {
     fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
