@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { arrayOf, string, func, bool } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
@@ -13,10 +13,10 @@ function CardeInProgress({
   favorite,
   children,
   handleFavorite,
-  id,
-  state,
+  // id,
+  // state,
 }) {
-  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+  // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   // useEffect(() => {
   //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -67,7 +67,6 @@ function CardeInProgress({
       </ul>
       <p data-testid="instructions">{instructions}</p>
       <button
-        disabled={ isBtnDisabled }
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"

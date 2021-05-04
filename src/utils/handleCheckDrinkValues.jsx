@@ -1,7 +1,4 @@
-import { useState } from 'react';
-
 function useHandleCheckDrinkValues() {
-  const [state, setState] = useState();
   function handleCheckDrinkValues({ target }, apiData) {
     if (target.checked) {
       const drinkId = apiData.drinks[0].idDrink;
@@ -36,9 +33,8 @@ function useHandleCheckDrinkValues() {
       localStorage.setItem('inProgressRecipes',
         JSON.stringify(localDrinks));
     }
-    // setState(JSON.parse(localStorage.getItem('inProgressRecipes')));
   }
-  return [handleCheckDrinkValues, state];
+  return [handleCheckDrinkValues];
 }
 
 export default useHandleCheckDrinkValues;
