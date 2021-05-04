@@ -1,13 +1,19 @@
 import React from 'react';
+import { shape } from 'prop-types';
 import { useRecipeContext } from '../../contexts/recipeContext';
 
-function SearchBar() {
-  const { isSearchBar } = useRecipeContext();
+function SearchBar({ children }) {
+  const {
+    isSearchBar,
+    handleCheck,
+    getInputValue } = useRecipeContext();
+
   return (
     <>
       {isSearchBar && (
         <label htmlFor="searchBtn">
           <input
+            onChange={ getInputValue }
             data-testid="search-input"
             type="text"
             id="searchBtn"
@@ -18,6 +24,9 @@ function SearchBar() {
         htmlFor="ingredientSearch"
       >
         <input
+          value="ingredient"
+          onChange={ handleCheck }
+          name="search"
           id="ingredientSearch"
           data-testid="ingredient-search-radio"
           type="radio"
@@ -28,6 +37,9 @@ function SearchBar() {
         htmlFor="nameSearch"
       >
         <input
+          value="name"
+          onChange={ handleCheck }
+          name="search"
           id="nameSearch"
           data-testid="name-search-radio"
           type="radio"
@@ -38,20 +50,21 @@ function SearchBar() {
         htmlFor="firstLetterSearch"
       >
         <input
+          value="firstLetter"
+          onChange={ handleCheck }
+          name="search"
           id="firstLetterSearch"
           data-testid="first-letter-search-radio"
           type="radio"
         />
         Primeira Letra
       </label>
-      <button
-        data-testid="exec-search-btn"
-        type="button"
-      >
-        Buscar
-      </button>
+      <div>{ children }</div>
     </>
   );
 }
+SearchBar.propTypes = {
+  children: shape().isRequired,
+};
 
 export default SearchBar;

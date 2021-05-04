@@ -1,15 +1,28 @@
 import React, { createContext, useContext, useState } from 'react';
 import { shape } from 'prop-types';
+import useClickFetch from '../hooks/useClickFetch';
 
 const RecipeContext = createContext();
 
 export function RecipeContextProvider({ children }) {
+  const [recipesData,
+    handleFetchFoodClick,
+    handleFetchDrinkClick,
+    handleCheck,
+    getInputValue,
+    handleFetchRecipes,
+    getRecipesByCategory,
+    getRecipesFoodsFilterByCategory,
+    getRecipesDrinksFilterByCategory,
+    getRecipesRandom] = useClickFetch();
+
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
   const [isSearchBar, setIsSearchBar] = useState(false);
 
   function handleChangeSearchBar() {
     setIsSearchBar(!isSearchBar);
+    console.log('clicado');
   }
 
   function handleLocalStorage() {
@@ -21,11 +34,21 @@ export function RecipeContextProvider({ children }) {
     handleLocalStorage,
     handleChangeSearchBar,
     isSearchBar,
+    handleCheck,
+    getInputValue,
+    handleFetchFoodClick,
+    handleFetchDrinkClick,
+    recipesData,
+    handleFetchRecipes,
+    getRecipesByCategory,
+    getRecipesFoodsFilterByCategory,
+    getRecipesDrinksFilterByCategory,
+    getRecipesRandom,
   };
 
   return (
     <RecipeContext.Provider value={ context }>
-      {children}
+      {children }
     </RecipeContext.Provider>
   );
 }

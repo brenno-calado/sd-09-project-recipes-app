@@ -1,12 +1,12 @@
 import React from 'react';
-import { Route } from 'react-router';
+import { Route } from 'react-router-dom';
 import Switch from 'react-bootstrap/esm/Switch';
 import { RecipeContextProvider } from './contexts/recipeContext';
 import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
-import FoodRecipe from './pages/FoodRecipe';
-import DrinksRecipe from './pages/DrinksRecipe';
+import FoodRecipeDetails from './pages/FoodRecipeDetails';
+import DrinkRecipeDetails from './pages/DrinkRecipeDetails';
 import FoodRecipeInProgress from './pages/FoodRecipeInProgress';
 import DrinkRecipeInProgress from './pages/DrinkRecipeInProgress';
 import Explore from './pages/Explore';
@@ -28,10 +28,26 @@ function App() {
         <Route path="/" exact component={ Login } />
         <Route path="/comidas" exact component={ Foods } />
         <Route path="/bebidas" exact component={ Drinks } />
-        <Route path="/comidas/id:" component={ FoodRecipe } />
-        <Route path="/bebidas/id:" component={ DrinksRecipe } />
-        <Route path="/comidas/id:/in-progress" component={ FoodRecipeInProgress } />
-        <Route path="/bebidas/id:/in-progress" component={ DrinkRecipeInProgress } />
+        <Route
+          exact
+          path="/comidas/:id"
+          render={ (props) => <FoodRecipeDetails { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id"
+          render={ (props) => <DrinkRecipeDetails { ...props } /> }
+        />
+        <Route
+          exact
+          path="/comidas/:id/in-progress"
+          render={ (props) => <FoodRecipeInProgress { ...props } /> }
+        />
+        <Route
+          exact
+          path="/bebidas/:id/in-progress"
+          render={ (props) => <DrinkRecipeInProgress { ...props } /> }
+        />
         <Route path="/explorar" exact component={ Explore } />
         <Route path="/explorar/comidas" exact component={ ExploreFoods } />
         <Route path="/explorar/bebidas" exact component={ ExploreDrinks } />
