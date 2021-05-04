@@ -17,7 +17,6 @@ import ExploreFoodIngredient from './Pages/ExploreFoodIngredients';
 import ExploreDrinkIngredient from './Pages/ExploreDrinkIngredients';
 import DoneRecipes from './Pages/DoneRecipes';
 import ExploreOrigin from './Pages/ExploreOrigin';
-import CreatedRecipes from './Pages/CreatedRecipes';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
 
 function App() {
@@ -38,7 +37,6 @@ function App() {
       <Route path="/bebidas" component={ Drinks } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
-      <Route exact path="/receitas-feitas" component={ CreatedRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
     </Switch>
   );
