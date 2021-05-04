@@ -5,6 +5,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verify, setVerify] = useState(true);
+  const [buttonStatus, setButtonStatus] = useState('login-btn-disabled');
   const [redirect, setRedirect] = useState(false);
   const seven = 7;
   const validEmailRegex = /\S+@\S+\.\S+/.test(email);
@@ -12,8 +13,10 @@ function Login() {
   useEffect(() => {
     if (validEmailRegex && password.length >= seven) {
       setVerify(false);
+      setButtonStatus('login-btn');
     } else {
       setVerify(true);
+      setButtonStatus('login-btn-disabled');
     }
   }, [email, password, validEmailRegex]);
 
@@ -27,31 +30,37 @@ function Login() {
 
   return (
     <div className="meals login-container">
-      <h1>Recipes App</h1>
-      <input
-        name="email"
-        type="email"
-        data-testid="email-input"
-        style={ { width: 300, marginBottom: 5 } }
-        className="form-control"
-        placeholder="email"
-        onChange={ (e) => setEmail(e.target.value) }
-      />
-      <input
-        name="password"
-        type="password"
-        data-testid="password-input"
-        style={ { width: 300, marginBottom: 5 } }
-        className="form-control"
-        placeholder="senha"
-        onChange={ (e) => setPassword(e.target.value) }
-      />
+      <h1 className="login-title">Recipes App</h1>
+      <label htmlFor="email-input" className="input-label">
+        Email
+        <input
+          name="email"
+          type="email"
+          id="email-input"
+          data-testid="email-input"
+          style={ { width: 300, marginBottom: 5 } }
+          className="login-input"
+          onChange={ (e) => setEmail(e.target.value) }
+        />
+      </label>
+      <label htmlFor="password-input" className="input-label">
+        Senha
+        <input
+          name="password"
+          type="password"
+          id="password-input"
+          data-testid="password-input"
+          style={ { width: 300, marginBottom: 5 } }
+          className="login-input"
+          onChange={ (e) => setPassword(e.target.value) }
+        />
+      </label>
       <button
         type="button"
         disabled={ verify }
         data-testid="login-submit-btn"
         style={ { width: 300 } }
-        className="btn btn-primary"
+        className={ buttonStatus }
         onClick={ () => setRedirect(true) }
       >
         Entrar

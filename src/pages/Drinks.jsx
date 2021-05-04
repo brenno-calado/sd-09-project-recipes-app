@@ -7,7 +7,9 @@ function Drinks() {
   return (
     <div>
       <Header title="Bebidas" />
-      <MainCards />
+      <main className="main-container">
+        <MainCards />
+      </main>
       <Footer />
     </div>
   );

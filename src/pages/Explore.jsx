@@ -8,8 +8,10 @@ function Explore() {
   return (
     <div>
       <Header title="Explorar" />
-      <ExploreFoodsButton />
-      <ExploreDrinksButton />
+      <main className="buttons-container">
+        <ExploreFoodsButton />
+        <ExploreDrinksButton />
+      </main>
       <Footer />
     </div>
   );

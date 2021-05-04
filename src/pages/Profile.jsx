@@ -9,10 +9,12 @@ function Profile() {
   return (
     <div>
       <Header title="Perfil" />
-      <h3>email@email.com</h3>
-      <DoneRecipesButton />
-      <FavoriteRecipesButton />
-      <LogoutButton />
+      <main className="buttons-container">
+        <h3>email@email.com</h3>
+        <DoneRecipesButton />
+        <FavoriteRecipesButton />
+        <LogoutButton />
+      </main>
       <Footer />
     </div>
   );

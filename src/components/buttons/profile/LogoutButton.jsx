@@ -7,7 +7,7 @@ function LogoutButton() {
     <button
       type="button"
       data-testid="profile-logout-btn"
-      className="btnz btn btn-primary"
+      className="basic-btn"
       onClick={ () => {
         history.push('/');
         localStorage.clear();
