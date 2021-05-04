@@ -5,8 +5,6 @@ import BottomMenu from '../components/BottomMenu';
 
 function Profile() {
   const preEmail = JSON.parse(localStorage.getItem('user'));
-  console.log(preEmail);
-  // const { email } = preEmail;
   const history = useHistory();
 
   function redirect({ target }) {
