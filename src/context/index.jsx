@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { setInitialLocalStorage } from '../services/localStorage';
 
 const context = createContext();
-const storage = setInitialLocalStorage();
 
 function Provider({ children }) {
   const [isLoading, setLoading] = useState(true);
@@ -16,7 +15,9 @@ function Provider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
   const [toggleButton, setToggleButton] = useState(null);
   const [supriseId, setSurpriseId] = useState(null);
-  const [favoriteRecipes, setFavoriteRecipes] = useState(storage);
+  const [favoriteRecipes, setFavoriteRecipes] = useState(
+    setInitialLocalStorage('favoriteRecipes'),
+  );
   const [ingredientOn, setIngreditOn] = useState('');
 
   const value = {
@@ -46,18 +47,11 @@ function Provider({ children }) {
     setIngreditOn,
   };
 
-  return (
-    <context.Provider value={ value }>
-      { children }
-    </context.Provider>
-  );
+  return <context.Provider value={ value }>{children}</context.Provider>;
 }
 
 Provider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export {
-  context,
-  Provider,
-};
+export { context, Provider };
