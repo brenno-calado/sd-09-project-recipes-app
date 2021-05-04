@@ -1,3 +1,15 @@
+export async function getRecipesRandom(type) {
+  const promise = await fetch(`https://www.${type}.com/api/json/v1/1/random.php`);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
 export async function getRecipesDrinksFilterByCategory(category) {
   const promise = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
   try {
