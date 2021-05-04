@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import Arrow from '../components/Arrow';
+import { renderIngredientsList, renderVideo } from '../services/details';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -17,6 +19,8 @@ export default function Detalhes() {
     filterIngredients,
     setRecommendations,
     recommendations } = useContext(MyContext);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(1);
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
@@ -38,39 +42,54 @@ export default function Detalhes() {
     }
   }, [setIsLoading, setData, pathname, recipeId, setRecommendations]);
 
-  const renderIngredientsList = (list) => (
-    list.map((item, index) => (
-      <li
-        key={ item }
-        data-testid={ `${index}-ingredient-name-and-measure` }
-      >
-        { item }
-      </li>
-    ))
-  );
-
-  const renderVideo = (url) => {
-    if (url !== undefined) {
-      const recipeUrl = url.split('=')[1];
-      return (
-        <iframe
-          width="600"
-          height="400"
-          src={ `https://www.youtube.com/embed/${recipeUrl}` }
-          title={ data.strMeal }
-        />);
-    }
-  };
-
   const renderRecommendations = () => {
     const limitRecommendationsRender = 6;
+    const imgUrls = [];
+    const previousSlide = () => {
+      const lastIndex = imgUrls.length - 1;
+      const shouldResetIndex = currentImageIndex === 0;
+      const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
+      setCurrentImageIndex(index);
+    };
+    const nextSlide = () => {
+      const lastIndex = imgUrls.length - 1;
+      const shouldResetIndex = currentImageIndex === lastIndex;
+      const index = shouldResetIndex ? 0 : currentImageIndex + 1;
+      setCurrentImageIndex(index);
+    };
+    recommendations.forEach((element, index) => (
+      index <= limitRecommendationsRender ? (
+        imgUrls.push(element.strMealThumb || element.strDrinkThumb)
+      ) : null
+    ));
     return (
       <div>
-        {recommendations.map((element, index) => (
-          index <= limitRecommendationsRender ? (
-            <li data-testid={ `${index}-card-name` }>{ element.strMeal }</li>
-          ) : null
-        ))}
+        <Arrow
+          clickFunction={ previousSlide }
+          glyph="&#9664;"
+        />
+        <span>
+          <img
+            src={ imgUrls[currentImageIndex - 1] }
+            alt="recommendation"
+            width="100"
+            height="100"
+            data-testid={ `${currentImageIndex - 1}-recomendation-card` }
+          />
+        </span>
+        <span>
+          <img
+            src={ imgUrls[currentImageIndex] }
+            alt="recommendation"
+            width="100"
+            height="100"
+            data-testid={ `${currentImageIndex}-recomendation-card` }
+          />
+        </span>
+        <Arrow
+          clickFunction={ nextSlide }
+          glyph="&#9654;"
+        />
       </div>
     );
   };
@@ -115,14 +134,12 @@ export default function Detalhes() {
       </button>
       <section data-testid="video">
         {
-          pathname.includes('/comidas') ? renderVideo(data.strYoutube) : ''
+          pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
         }
       </section>
       <section data-testid="0-recomendation-card">
         Recomendações
-        <ul>
-          { renderRecommendations() }
-        </ul>
+        { renderRecommendations() }
       </section>
     </div>
   );
