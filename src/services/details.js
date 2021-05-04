@@ -57,11 +57,3 @@ export function saveAsFavorite(id, recipe, pathname) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
   }
 }
-
-// export function copyText() {
-//   const timeout = 1000;
-//   setUrlCopied('Link copiado!');
-//   setTimeout(() => {
-//     setUrlCopied('');
-//   }, timeout);
-// }

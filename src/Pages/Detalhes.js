@@ -4,9 +4,9 @@ import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
 import Arrow from '../components/Arrow';
 import { renderIngredientsList, renderVideo, saveAsFavorite } from '../services/details';
+import ShareButton from '../components/ShareButton';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -119,12 +119,7 @@ export default function Detalhes() {
       <h1 data-testid="recipe-title">
         { data[`str${foodOrDrink}`] }
       </h1>
-      <button
-        type="button"
-        data-testid="share-btn"
-      >
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
+      <ShareButton />
       <button
         type="button"
         onClick={ saveFavorite }
