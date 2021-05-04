@@ -14,6 +14,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
+import RecomendedRecipes from '../components/RecomendedRecipes';
+
 function DrinkDetails() {
   const [isFavorite, setFavorite] = useState(false);
   const [isFetching, setFetching] = useState(true);
@@ -138,7 +140,10 @@ function DrinkDetails() {
   );
 
   return (
-    isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>
+    <>
+      {isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>}
+      <RecomendedRecipes reference="meals" />
+    </>
   );
 }
 
