@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import './Styles/Done.css';
@@ -88,12 +89,14 @@ function Done() {
           {filteredRecipes.map((recipe, index) => (
             <div key={ index } className="Done-card">
               <span>
-                <img
-                  className="image"
-                  src={ recipe.image }
-                  alt="Recipe"
-                  data-testid={ `${index}-horizontal-image` }
-                />
+                <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                  <img
+                    className="image"
+                    src={ recipe.image }
+                    alt="Recipe"
+                    data-testid={ `${index}-horizontal-image` }
+                  />
+                </Link>
               </span>
               <span className="info">
                 <div className="top-info">
@@ -120,9 +123,11 @@ function Done() {
                     <p className="copied-link">Link copiado!</p>
                   )}
                 </div>
-                <h3 className="name" data-testid={ `${index}-horizontal-name` }>
-                  {recipe.name}
-                </h3>
+                <Link to={ `/${recipe.type}s/${recipe.id}` }>
+                  <h3 className="name" data-testid={ `${index}-horizontal-name` }>
+                    {recipe.name}
+                  </h3>
+                </Link>
                 <p
                   className="date"
                   data-testid={ `${index}-horizontal-done-date` }
