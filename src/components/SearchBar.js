@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import setSearchOptions from '../redux/actions/search';
 import { fetchSearchRecipes } from '../redux/actions/recipes';
 
@@ -45,7 +45,7 @@ const renderRadioElementFor = ({ label, inputParams, callback }) => (
 );
 
 const SearchBar = () => {
-  const currentLocation = useHistory().location.pathname;
+  const { pathname: currentLocation } = useLocation();
   const isFoodsPage = currentLocation.includes('comida');
   const [searchText, setSearchText] = useState('');
   const [searchOption, setSearchOption] = useState('i');
