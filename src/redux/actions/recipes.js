@@ -19,6 +19,7 @@ export const fetchSearchRecipes = () => (
         const recipesValue = json[recipesKey];
         const recipes = recipesValue ? Object.values(json[recipesKey]) : null;
         dispatch(getRecipes(recipes));
-      });
+      })
+      .catch(() => dispatch(getRecipes(null)));
   }
 );
