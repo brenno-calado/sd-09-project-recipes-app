@@ -4,6 +4,7 @@ const getMealsByName = async (name) => {
   try {
     const mealDBReqByName = await fetch(`${MEAL_DB_BASE}search.php?s=${name}`);
     const respByNameJson = await mealDBReqByName.json();
+    // console.log('fetch', respByNameJson.meals);
     return respByNameJson.meals;
   } catch (error) {
     console.log('By name...', error);

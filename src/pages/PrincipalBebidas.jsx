@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import MealContext from '../context/MealContext';
 
 function PrincipalBebidas() {
@@ -30,6 +31,8 @@ function PrincipalBebidas() {
           <h4 data-testid={ `${index}-card-name` }>{ drink.strDrink }</h4>
         </div>
       ))}
+
+      <Footer />
     </div>
   );
 }
