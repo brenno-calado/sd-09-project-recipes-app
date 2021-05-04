@@ -69,7 +69,7 @@ const RecipeDetails = (props) => {
       />
       <p data-testid="recipe-title">{ recipe[`str${recipeType}`] }</p>
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton recipe={ recipe } recipeType={ recipeType } />
       <p data-testid="recipe-category">{ recipe[recipeCategory] }</p>
       <Ingredients recipe={ recipe } />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
