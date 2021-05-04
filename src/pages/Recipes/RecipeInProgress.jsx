@@ -22,7 +22,7 @@ function RecipeInProgress(props) {
     for (let index = 1; index < maxIngredient; index += 1) {
       if (meal[`strIngredient${index}`]) {
         ingredients = [...ingredients, (
-          <li key={ index } data-testid={ `${index - 1}-ingredient-step`}>
+          <li key={ index } data-testid={ `${index - 1}-ingredient-step` }>
             <label htmlFor={ meal[`strIngredient${index}`] }>
               <input
                 type="checkbox"
