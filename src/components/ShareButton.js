@@ -5,9 +5,9 @@ export default function ShareButton() {
   const [copied, setCopied] = useState(false);
 
   function copyLink() {
-    // const TIMEOUT = 3000;
+    const TIMEOUT = 3000;
     navigator.clipboard.writeText(window.location.href);
-    // setTimeout(() => setCopied(false), TIMEOUT);
+    setTimeout(() => setCopied(false), TIMEOUT);
     setCopied(true);
   }
 

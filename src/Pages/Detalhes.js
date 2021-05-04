@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -23,6 +23,7 @@ export default function Detalhes() {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
   const [foodOrDrink, setType] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
@@ -33,6 +34,9 @@ export default function Detalhes() {
         fetchToMainScreen('/bebidas').then((recommendation) => {
           setRecommendations(recommendation);
         });
+        const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+        setIsFavorite(initialFavoriteState);
       });
     } else if (pathname.includes('bebidas')) {
       drinkAPI('id', recipeId).then((result) => {
@@ -42,11 +46,11 @@ export default function Detalhes() {
         fetchToMainScreen('/comidas').then((recommendation) => {
           setRecommendations(recommendation);
         });
+        const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+        setIsFavorite(initialFavoriteState);
       });
     }
-    const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
-    setIsFavorite(initialFavoriteState);
   }, [setIsLoading, setData, pathname, recipeId, setRecommendations, setType]);
 
   const previousSlide = (imgUrls) => {
@@ -161,6 +165,7 @@ export default function Detalhes() {
           bottom: 0,
           zIndex: 1,
         } }
+        onClick={ () => history.push(`${pathname}/in-progress`) }
       >
         Iniciar Receita
       </button>
