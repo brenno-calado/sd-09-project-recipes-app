@@ -22,11 +22,13 @@ export default function Detalhes() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [foodOrDrink, setType] = useState('');
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
       mealAPI('id', recipeId).then((result) => {
         setData(result);
+        setType('Meal');
         setIsLoading(false);
         fetchToMainScreen('/bebidas').then((recommendation) => {
           setRecommendations(recommendation);
@@ -35,29 +37,32 @@ export default function Detalhes() {
     } else if (pathname.includes('bebidas')) {
       drinkAPI('id', recipeId).then((result) => {
         setData(result);
+        setType('Drink');
         setIsLoading(false);
         fetchToMainScreen('/comidas').then((recommendation) => {
           setRecommendations(recommendation);
         });
       });
     }
-  }, [setIsLoading, setData, pathname, recipeId, setRecommendations]);
+  }, [setIsLoading, setData, pathname, recipeId, setRecommendations, setType]);
+
+  const previousSlide = (imgUrls) => {
+    const lastIndex = imgUrls.length - 1;
+    const shouldResetIndex = currentImageIndex === 0;
+    const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
+    setCurrentImageIndex(index);
+  };
+
+  const nextSlide = (imgUrls) => {
+    const lastIndex = imgUrls.length - 1;
+    const shouldResetIndex = currentImageIndex === lastIndex;
+    const index = shouldResetIndex ? 0 : currentImageIndex + 1;
+    setCurrentImageIndex(index);
+  };
 
   const renderRecommendations = () => {
     const limitRecommendationsRender = 6;
     const imgUrls = [];
-    const previousSlide = () => {
-      const lastIndex = imgUrls.length - 1;
-      const shouldResetIndex = currentImageIndex === 0;
-      const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
-      setCurrentImageIndex(index);
-    };
-    const nextSlide = () => {
-      const lastIndex = imgUrls.length - 1;
-      const shouldResetIndex = currentImageIndex === lastIndex;
-      const index = shouldResetIndex ? 0 : currentImageIndex + 1;
-      setCurrentImageIndex(index);
-    };
     recommendations.forEach((element, index) => (
       index <= limitRecommendationsRender ? (
         imgUrls.push(element.strMealThumb || element.strDrinkThumb)
@@ -66,7 +71,7 @@ export default function Detalhes() {
     return (
       <div>
         <Arrow
-          clickFunction={ previousSlide }
+          clickFunction={ () => previousSlide(imgUrls) }
           glyph="&#9664;"
         />
         <span>
@@ -88,7 +93,7 @@ export default function Detalhes() {
           />
         </span>
         <Arrow
-          clickFunction={ nextSlide }
+          clickFunction={ () => nextSlide(imgUrls) }
           glyph="&#9654;"
         />
       </div>
@@ -107,14 +112,12 @@ export default function Detalhes() {
     <div>
       <img
         className="recipe-image"
-        src={ pathname.includes('comidas') ? data.strMealThumb : data.strDrinkThumb }
-        alt={ pathname.includes('comidas') ? data.strMeal : data.strDrink }
+        src={ data[`str${foodOrDrink}Thumb`] }
+        alt={ data[`str${foodOrDrink}`] }
         data-testid="recipe-photo"
       />
       <h1 data-testid="recipe-title">
-        { pathname.includes('comidas')
-          ? data.strMeal : data.strDrink
-        }
+        { data[`str${foodOrDrink}`] }
       </h1>
       <button
         type="button"
