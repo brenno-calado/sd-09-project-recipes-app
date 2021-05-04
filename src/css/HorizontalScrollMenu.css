@@ -28,15 +28,14 @@
   transform: scale(1);
 }
 
-.recommendedArea-left,
-.recommendedArea-right {
+.recommendedArea-left, .recommendedArea-right {
   align-items: center;
   cursor: pointer;
   display: flex;
   height: 225px;
   justify-content: center;
-  overflow: hidden;
   outline: none;
+  overflow: hidden;
   position: absolute;
   width: 40px;
   z-index: 99;
