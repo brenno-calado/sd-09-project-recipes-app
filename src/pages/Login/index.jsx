@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import * as S from './styled';
-import foodBackground from '../../images/foodbackground.png';
 import validationLogin from '../../validations/loginValidation';
 import { context } from '../../context';
+import logo from '../../images/logo.svg';
 
 function Login() {
   const [shouldRedirect, setShouldRedirect] = useState(false);
@@ -34,8 +34,8 @@ function Login() {
 
   return (
     <S.Container>
-      <S.BgImage src={ foodBackground } alt="background" />
       <S.Form>
+        <img src={ logo } alt="logo" />
         <input
           type="email"
           name="email"

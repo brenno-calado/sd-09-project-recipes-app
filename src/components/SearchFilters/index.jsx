@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import Filters from './styled';
+import * as S from './styled';
 import { context } from '../../context';
 
 const initialState = {
@@ -31,7 +31,7 @@ export default function SearchFilters({ setFilter }) {
   };
 
   return (
-    <Filters>
+    <S.Filters>
       <label htmlFor="name">
         Termo
         <input
@@ -41,38 +41,40 @@ export default function SearchFilters({ setFilter }) {
           onChange={ handleNewFilterSearchTerm }
         />
       </label>
-      <br />
-      <label htmlFor="ingredient">
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          checked={ options.option === 'ingredient' }
-          onChange={ handleNewFilterOption }
-          value="ingredient"
-        />
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          checked={ options.option === 'name' }
-          onChange={ handleNewFilterOption }
-          value="name"
-        />
-        Nome
-      </label>
-      <label htmlFor="first-letter">
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          checked={ options.option === 'letters' }
-          onChange={ handleNewFilterOption }
-          value="letters"
-        />
-        Primeira Letra
-      </label>
-      <br />
+
+      <S.RadiosContainer>
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            checked={ options.option === 'ingredient' }
+            onChange={ handleNewFilterOption }
+            value="ingredient"
+          />
+          Ingrediente
+        </label>
+        <label htmlFor="name">
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            checked={ options.option === 'name' }
+            onChange={ handleNewFilterOption }
+            value="name"
+          />
+          Nome
+        </label>
+        <label htmlFor="first-letter">
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            checked={ options.option === 'letters' }
+            onChange={ handleNewFilterOption }
+            value="letters"
+          />
+          Primeira Letra
+        </label>
+      </S.RadiosContainer>
+
       <button
         onClick={ setNewFilter }
         type="button"
@@ -80,7 +82,7 @@ export default function SearchFilters({ setFilter }) {
       >
         Buscar
       </button>
-    </Filters>
+    </S.Filters>
   );
 }
 

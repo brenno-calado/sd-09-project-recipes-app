@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import { context } from '../../context';
+import ButtonsContainer from './styled';
 
 function CategoriesButtons(props) {
   const { type } = props;
@@ -53,7 +54,7 @@ function CategoriesButtons(props) {
   };
 
   return (
-    <>
+    <ButtonsContainer>
       <button
         type="button"
         name="all"
@@ -75,7 +76,7 @@ function CategoriesButtons(props) {
           </button>
         ))
       }
-    </>
+    </ButtonsContainer>
   );
 }
 
