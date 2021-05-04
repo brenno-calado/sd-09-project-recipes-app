@@ -1,0 +1,22 @@
+.btnpattern {
+  height: 45px;
+  margin: 0 20px 20px 0;
+  width: 140px;
+}
+
+.btnpattern:hover {
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgb(66, 66, 66);
+}
+
+.btnpatternText {
+  padding-left: 10px;
+}
+
+.tooltiptext {
+  background-color: burlywood;
+  border-radius: 3px;
+  margin: 3px;
+  position: absolute;
+  z-index: 1;
+}
