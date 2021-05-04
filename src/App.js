@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
 import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
+import RecipeMain from './pages/RecipeMain';
 
 function App() {
   return (
@@ -14,7 +15,9 @@ function App() {
           <Route exact path="/" component={ Login } />
           <Route path="/comidas/:id/" component={ RecipeDetails } />
           <Route path="/bebidas/:id/" component={ RecipeDetails } />
-          <Route path="/comidas" />
+          <Route path="/comidas" component={ RecipeMain } />
+          <Route path="/bebidas" component={ RecipeMain } />
+
         </Switch>
       </BrowserRouter>
     </MealsAndDrinkProvider>
