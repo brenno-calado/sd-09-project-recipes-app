@@ -21,22 +21,18 @@ function searchByDrinks(infoSearch, setItems) {
   switch (searchBy) {
   case 'ingredients':
     requestDrinksByIngredients(text).then(({ drinks }) => {
-      // eslint-disable-next-line no-alert
       if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
-    // eslint-disable-next-line no-alert
     }).catch(() => alert(msgAlertNoRecipe));
     break;
   case 'name':
     requestDrinksByName(text).then(({ drinks }) => {
-      // eslint-disable-next-line no-alert
       if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
     });
     break;
   case 'firstLetter':
     requestDrinksByFirstLetter(text).then(({ drinks }) => {
-      // eslint-disable-next-line no-alert
       if (drinks === null) alert(msgAlertNoRecipe);
       else setItems(drinks);
     });
@@ -52,21 +48,18 @@ function searchByMeals(infoSearch, setItems) {
   switch (searchBy) {
   case 'ingredients':
     requestMealsByIngredients(text).then(({ meals }) => {
-      // eslint-disable-next-line no-alert
       if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
     break;
   case 'name':
     requestMealsByName(text).then(({ meals }) => {
-      // eslint-disable-next-line no-alert
       if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
     break;
   case 'firstLetter':
     requestMealsByFirstLetter(text).then(({ meals }) => {
-      // eslint-disable-next-line no-alert
       if (meals === null) alert(msgAlertNoRecipe);
       else setItems(meals);
     });
@@ -147,7 +140,6 @@ function Search({ setItems, type }) {
         type="button"
         onClick={ () => {
           if (infoSearch.searchBy === 'firstLetter' && infoSearch.text.length !== 1) {
-            // eslint-disable-next-line no-alert
             alert(msgAlertMinLetter);
           } else requestApiSearch(infoSearch, setItems);
         } }
