@@ -22,7 +22,7 @@ function DrinkRecipeDetails(props) {
   const [ingredientList] = useIngredientList();
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [handleFavorite] = useHandleFavoriteDrinks();
-  const [drinksLocal, setMealLocal] = useState([]);
+  const [drinksLocal, setDrinkLocal] = useState([]);
 
   const six = 6;
   const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
@@ -30,7 +30,7 @@ function DrinkRecipeDetails(props) {
   useEffect(() => {
     const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (repositoresLocal) {
-      setMealLocal(repositoresLocal);
+      setDrinkLocal(repositoresLocal);
       repositoresLocal.forEach(({ id: favoriteId }) => {
         if (favoriteId === id) {
           setFavorite(true);
@@ -68,6 +68,7 @@ function DrinkRecipeDetails(props) {
             strAlcoholic,
           }) => (
             <CardDetails
+              favorite={ favorite }
               shouldVideoApear={ false }
               key={ idDrink }
               image={ strDrinkThumb }
@@ -76,7 +77,6 @@ function DrinkRecipeDetails(props) {
               categoryText={ strCategory }
               instructions={ strInstructions }
               handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
-              favorite={ favorite }
             >
               {apiData && ingredientList(apiData, match)}
             </CardDetails>

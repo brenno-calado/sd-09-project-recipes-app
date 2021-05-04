@@ -9,7 +9,8 @@ function useHandleFavoriteFoods() {
         strMeal,
         strMealThumb,
       }) => {
-        const meals = { id: idMeal,
+        const meals = {
+          id: idMeal,
           type: 'comida',
           area: strArea,
           category: strCategory,
