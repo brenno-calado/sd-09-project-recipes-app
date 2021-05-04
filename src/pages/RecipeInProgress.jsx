@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ShareRecipeButton from '../components/ShareRecipeButton';
@@ -21,6 +21,7 @@ function RecipeInProgress({
   isFetchingRecipe,
   loading,
 }) {
+  const [toggle, setToggle] = useState(false);
   const { location: { pathname } } = history;
 
   useEffect(() => {
@@ -61,9 +62,9 @@ function RecipeInProgress({
           { recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic }
         </p>
       </div>
-      <IngredientsListInProgress pathname={ pathname } />
+      <IngredientsListInProgress pathname={ pathname } setToggle={ setToggle } />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
-      <FinishRecipeButton />
+      <FinishRecipeButton toggle={ toggle } />
     </div>
   );
 }

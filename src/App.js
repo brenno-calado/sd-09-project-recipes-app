@@ -7,6 +7,7 @@ import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Details from './pages/Details';
 import RecipeInProgress from './pages/RecipeInProgress';
+import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/explorar/comidas" component={ Explore } />
         <Route path="/explorar/bebidas" component={ Explore } />
         <Route path="/explorar" component={ Explore } />
+        <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/bebidas" component={ Cocktails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/perfil" component={ Profile } />

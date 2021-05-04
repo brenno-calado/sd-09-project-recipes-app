@@ -10,7 +10,6 @@ import {
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
-  IS_ASSEMBLE,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -206,9 +205,4 @@ export function cocktailsRecommendedThunk() {
 export const saveIngredients = (ingredients) => ({
   type: SAVE_INGREDIENTS,
   ingredients,
-});
-
-export const inProgressIsAssembled = (bool) => ({
-  type: IS_ASSEMBLE,
-  bool,
 });

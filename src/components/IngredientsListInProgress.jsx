@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { inProgressIsAssembled } from '../redux/actions';
+import { setLocalStorage } from '../helpers/VerifyRecipeStatus';
 
-function IngredientsListInProgress({ recipe, recipeType, isAssembled }) {
+function IngredientsListInProgress({ recipe, recipeType, setToggle }) {
   const [ingredients, setIngredients] = useState([]);
   const [checkIngredients, setCheckIngredients] = useState({});
 
-  const mountState = (array) => {
-    const newState = array.reduce((acc, ingredient) => {
-      if (ingredient !== '' && ingredient !== 'null') acc[ingredient] = false;
-      return acc;
-    }, {});
-    setCheckIngredients(newState);
-    if (localStorage.getItem('inProgressRecipes') !== null
-    && localStorage.getItem('inProgressRecipes') !== undefined) {
+  const getStateFromLocalStorage = (newState) => {
+    setLocalStorage(recipe, recipeType);
+    if (localStorage.getItem('inProgressRecipes') !== null) {
       const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      console.log(inProgress);
+      if (recipeType === 'comidas'
+      && Object.keys(inProgress.meals[recipe.idMeal]).length === 0) {
+        const { meals } = inProgress;
+        meals[recipe.idMeal] = newState;
+      }
+      if (recipeType === 'bebidas'
+      && Object.keys(inProgress.cocktails[recipe.idDrink]).length === 0) {
+        const { cocktails } = inProgress;
+        cocktails[recipe.idDrink] = newState;
+      }
       if (recipeType === 'comidas'
         && Object.keys(inProgress.meals[recipe.idMeal]).length !== 0) {
         const { meals } = inProgress;
@@ -28,7 +34,15 @@ function IngredientsListInProgress({ recipe, recipeType, isAssembled }) {
       }
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
     }
-    isAssembled(true);
+  };
+
+  const mountState = (array) => {
+    const newState = array.reduce((acc, ingredient) => {
+      if (ingredient !== '' && ingredient !== 'null') acc[ingredient] = false;
+      return acc;
+    }, {});
+    setCheckIngredients(newState);
+    getStateFromLocalStorage(newState);
   };
 
   const getIngredients = () => {
@@ -66,6 +80,7 @@ function IngredientsListInProgress({ recipe, recipeType, isAssembled }) {
         });
       }
       localStorage.setItem('inProgressRecipes', JSON.stringify(object));
+      setToggle((prevState) => !prevState);
       return ({
         ...checkIngredients,
         [name]: checked,
@@ -113,13 +128,10 @@ const mapStateToProps = (state) => ({
   recipeType: state.recipesReducer.recipeType,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  isAssembled: (bool) => dispatch(inProgressIsAssembled(bool)),
-});
-
 IngredientsListInProgress.propTypes = {
   recipe: PropTypes.objectOf().isRequired,
   recipeType: PropTypes.string.isRequired,
+  setToggle: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(IngredientsListInProgress);
+export default connect(mapStateToProps)(IngredientsListInProgress);
