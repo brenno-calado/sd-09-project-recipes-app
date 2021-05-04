@@ -33,3 +33,9 @@ export const fetchMealsByCategory = async (strCategory) => {
     .catch((error) => error);
   return search;
 };
+
+export const fetchListAllIngredientsFoods = async () => {
+  const ingredientes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const response = await ingredientes.json();
+  return response;
+};
