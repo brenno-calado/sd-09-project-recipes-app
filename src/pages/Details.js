@@ -62,7 +62,10 @@ class MealDetails extends React.Component {
           }
           {
             (details.strYoutube
-              && <div data-testid="video"><YouTube videoId={ getVideoId(details.strYoutube) } /></div>) || null
+              && (
+                <div data-testid="video">
+                  <YouTube videoId={ getVideoId(details.strYoutube) } />
+                </div>)) || null
           }
           <div className="details-buttons">
             <button
