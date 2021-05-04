@@ -37,7 +37,6 @@ const MyContextProvider = ({ children }) => {
     } else {
       setShowBar(true);
     }
-    // (showBar ? setShowBar(false) : setShowBar(true))
   };
 
   function filterIngredients(recipe) {

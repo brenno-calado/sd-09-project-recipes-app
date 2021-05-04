@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 // import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -126,12 +127,15 @@ export default function Detalhes() {
         {renderIngredientsList(filterIngredients(data))}
       </ul>
       <p data-testid="instructions">{ data.strInstructions }</p>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar Receita
-      </button>
+      <Link to="/in-progress">
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ () => localStorage.setItem('data', JSON.stringify(data)) }
+        >
+          Iniciar Receita
+        </button>
+      </Link>
       <section data-testid="video">
         {
           pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
