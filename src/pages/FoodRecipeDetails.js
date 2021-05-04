@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect } from 'react-router';
-
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
 } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
@@ -11,6 +10,7 @@ import styles from './recipeDetails.module.css';
 import useIngredientFoodList from '../hooks/useIngredientFoodList';
 import useShouldRedirect from '../hooks/useShoulRedirect';
 import useHandleFavoriteFoods from '../hooks/useHandleFavoriteFoods';
+import useHandleCheckFoodValuesValues from '../utils/handleCheckFoodValuesValues';
 
 function FoodRecipeDetails(props) {
   const { match } = props;
@@ -23,6 +23,7 @@ function FoodRecipeDetails(props) {
   const [ingredientList] = useIngredientFoodList();
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [handleFavorite] = useHandleFavoriteFoods();
+  const [handleCheckFoodValuesValues] = useHandleCheckFoodValuesValues();
   const [mealLocal, setMealLocal] = useState([]);
   const six = 6;
 
@@ -80,7 +81,7 @@ function FoodRecipeDetails(props) {
               handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
               favorite={ favorite }
             >
-              { apiData && ingredientList(apiData, match)}
+              { apiData && ingredientList(apiData, match, handleCheckFoodValuesValues)}
             </CardDetails>
           ))
         )}
