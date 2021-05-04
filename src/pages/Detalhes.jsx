@@ -83,7 +83,14 @@ function Detalhes() {
           {type[1] === 'Meal'
           && <a href={ recipeDetails.strYoutube } data-testid="video">Video</a>}
           <Recommendations data={ recommendations } />
-          <button type="button" data-testid="start-recipe-btn">Start recipe</button>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="details__button--start"
+          >
+            Start recipe
+
+          </button>
         </main>
       )
 
