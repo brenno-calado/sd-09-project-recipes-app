@@ -10,6 +10,7 @@ function RenderRecipeCards({
   cardsLimit,
 }) {
   const history = useHistory();
+  
 
   const handleCardClick = (recipe, kind) => {
     if (kind === 'meals') {

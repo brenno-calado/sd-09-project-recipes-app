@@ -56,7 +56,7 @@ const SearchBar = (props) => {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
     }
-    dispatchMeals(comidas.meals);
+    dispatchMeals({ meals: comidas.meals });
     verifyMealsQuantity(comidas.meals);
   };
 
@@ -78,7 +78,7 @@ const SearchBar = (props) => {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
     }
-    dispatchDrinks(bebidas.drinks);
+    dispatchDrinks({ drinks: bebidas.drinks });
     verifyDrinksQuantity(bebidas.drinks);
   };
 
