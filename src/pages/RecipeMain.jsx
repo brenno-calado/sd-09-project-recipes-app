@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 
@@ -25,12 +26,15 @@ const renderCards = (recipes, filter) => {
     return false;
   })
     .map((recipe, index) => (
-      <RecipeCard
-        image={ recipe.strMealThumb }
-        recipeName={ recipe.strMeal }
-        index={ index }
-        key={ index }
-      />
+      <Link to={ `/comidas/${recipe.idMeal}` } key={ index }>
+        <RecipeCard
+          image={ recipe.strMealThumb }
+          recipeName={ recipe.strMeal }
+          idRecipe={ recipe.idMeal }
+          index={ index }
+          key={ index }
+        />
+      </Link>
     )));
 };
 
