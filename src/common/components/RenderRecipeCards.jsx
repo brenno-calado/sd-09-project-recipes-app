@@ -18,25 +18,26 @@ function RenderRecipeCards({
   };
 
   function renderCard(theChosenOne) {
-    return theChosenOne[kindOfFood].slice(0, cardsLimit).map((meal, index) => (
-      <button
-        key={ index }
-        type="button"
-        onClick={ () => handleCardClick(meal, kindOfFood) }
-      >
-        <RecipeCard
+    return (
+      theChosenOne.slice(0, cardsLimit).map((meal, index) => (
+        <button
           key={ index }
-          index={ index }
-          recipe={ meal }
-        />
-      </button>
-    ));
+          type="button"
+          onClick={ () => handleCardClick(meal, kindOfFood) }
+        >
+          <RecipeCard
+            key={ index }
+            index={ index }
+            recipe={ meal }
+          />
+        </button>
+      )));
   }
 
   return (
     <div>
       {
-        array ? renderCard(array) : renderCard(list)
+        array ? renderCard(array[kindOfFood]) : renderCard(list[kindOfFood])
       }
     </div>
   );
