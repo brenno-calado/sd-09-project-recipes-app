@@ -67,7 +67,7 @@ function Drinks() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ getRecipesByCategory('thecocktaildb') }
+        onClick={ () => setListDrinkByCategory([]) }
       >
         All
       </button>

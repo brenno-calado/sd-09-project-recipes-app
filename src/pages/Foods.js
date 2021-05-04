@@ -37,12 +37,6 @@ function Foods() {
       .then(({ meals }) => setMeal(meals));
   }, [getRecipesByCategory]);
 
-  //function handleButtonAll() {
-  //  getRecipes('themealdb')
-  //    .then(({ meals }) => setMeal(meals));
-  //  console.log(meal);
-  //}
-
   useEffect(() => {
     getRecipesFoodsFilterByCategory(category)
       .then(({ meals }) => setListItemByCategory(meals || []));
