@@ -12,10 +12,8 @@ import ExploreFoodOrDrink from './pages/exploreFoodOrDrink';
 import ExploreIngredients from './pages/exploreIngredients';
 import ExploreFoodByLocal from './pages/exploreFoodByLocal';
 import Profile from './pages/profile';
-import DoneRecipes from './pages/doneRecipes';
-import FavoriteRecipes from './pages/favoriteRecipes';
+import DoneAndFavRecipes from './pages/doneAndFavRecipes';
 import Page404 from './pages/page404';
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -36,8 +34,8 @@ function App() {
       <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/comidas/area" component={ ExploreFoodByLocal } />
       <Route path="/perfil" component={ Profile } />
-      <Route path="/receitas-feitas" component={ DoneRecipes } />
-      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route path="/receitas-feitas" component={ DoneAndFavRecipes } />
+      <Route path="/receitas-favoritas" component={ DoneAndFavRecipes } />
       <Route path="/*" component={ Page404 } />
     </Switch>
   );
