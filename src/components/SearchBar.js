@@ -93,16 +93,18 @@ function SearchBar({ title }) {
       }
     }
   }
-
-  if (foodsList.length === 1 || drinksList.length === 1) {
-    return title === 'Comidas'
-      ? <Redirect to={ `/comidas/${foodsList[0].idMeal}` } />
-      : <Redirect to={ `/bebidas/${drinksList[0].idDrink}` } />;
+  function redirectIfIsOne() {
+    if (foodsList.length === 1 || drinksList.length === 1) {
+      return title === 'Comidas'
+        ? <Redirect to={ `/comidas/${foodsList[0].idMeal}` } />
+        : <Redirect to={ `/bebidas/${drinksList[0].idDrink}` } />;
+    }
   }
 
   return (
 
     <div className="searchbar">
+      {redirectIfIsOne()}
       <label htmlFor="search">
         Search
         <input
