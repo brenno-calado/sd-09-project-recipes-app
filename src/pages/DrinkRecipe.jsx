@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import { fetchDetailsDrink, fetchAllDrinks } from '../service/cocktailAPI';
-import RecipeCard from '../components/RecipeCard';
+import Recommendations from '../components/Recommendations';
+import { fetchDetailsDrink } from '../service/cocktailAPI';
+import { fetchAllMeals } from '../service/mealAPI';
+import '../App.css';
 
-function DrinkRecipe({ match: { path, params: { id } } }) {
+function DrinkRecipe({ match: { params: { id } } }) {
   const [copy, setCopy] = useState(false);
-  const [drink, setDrink] = useState([]);
+  const [drinking, setDrinking] = useState([]);
   const [recomendedDrink, setRecomendedDrink] = useState([]);
 
   const maxResult = 6;
@@ -15,14 +17,14 @@ function DrinkRecipe({ match: { path, params: { id } } }) {
   useEffect(() => {
     const fetchDrink = async () => {
       const drinkArray = await fetchDetailsDrink(id);
-      setDrink(drinkArray.meals[0]);
+      setDrinking(drinkArray.drinks[0]);
     };
     fetchDrink();
   }, [id]);
 
   useEffect(() => {
     const fetchRecomended = async () => {
-      const recomendedArray = await fetchAllDrinks();
+      const recomendedArray = await fetchAllMeals();
       setRecomendedDrink(recomendedArray.meals);
     };
     fetchRecomended();
@@ -30,36 +32,15 @@ function DrinkRecipe({ match: { path, params: { id } } }) {
 
   const listIngredients = () => {
     const list = [];
-    if (drink.length !== 0) {
-      for (let index = 1; drink[`strIngredient${index}`] !== ''; index += 1) {
+    if (drinking.length !== 0) {
+      for (let index = 1; drinking[`strIngredient${index}`] !== null; index += 1) {
         list.push(`
-          ${drink[`strIngredient${index}`]} - ${drink[`strMeasure${index}`]}
+          ${drinking[`strIngredient${index}`]} - ${drinking[`strMeasure${index}`]}
         `);
       }
       return list;
     } return null;
   };
-
-  function sliceYoutube() {
-    const { strYoutube } = drink;
-    const equalSignIndex = 32;
-    const slicedYoutube = strYoutube.slice(equalSignIndex);
-    return slicedYoutube;
-  }
-
-  function recomended() {
-    return recomendedDrink.slice(0, maxResult)
-      .map((meal, index) => (
-        <RecipeCard
-          data-testid={ `${index}-recomendation-card` }
-          index={ index }
-          key={ meal.idMeal }
-          name={ meal.strMeal }
-          image={ meal.strMealThumb }
-          path={ path }
-          id={ meal.idMeal }
-        />));
-  }
 
   function msgShare({ target: { id: ide } }) {
     if (ide === 'share') {
@@ -70,67 +51,64 @@ function DrinkRecipe({ match: { path, params: { id } } }) {
 
   return (
     <div>
-      { drink.length !== 0 ? (
+      { drinking.length !== 0 ? (
         <>
           <img
+            width="100%"
             alt="recipe"
             data-testid="recipe-photo"
-            src={ drink.strMealThumb }
+            src={ drinking.strDrinkThumb }
           />
-          <h3
-            data-testid="recipe-title"
-          >
-            {drink.strMeal}
-          </h3>
-          <button
-            id="share"
-            type="button"
-            data-testid="share-btn"
-          >
-            {copy ? msgShare() : (<img src={ shareIcon } alt="Share" />) }
-          </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-          >
-            <img src={ whiteHeartIcon } alt="Favorit" />
-          </button>
-          <span data-testid="recipe-category">{drink.strCategory}</span>
-          <h4>ingredientes</h4>
-          <ul>
-            {listIngredients().map((ingredient, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ingredient}
-              </li>
-            ))}
-          </ul>
-          <h4>Instruções</h4>
-          <p data-testid="instructions">{drink.strInstructions}</p>
-          <h3>Video</h3>
-          <iframe
-            data-testid="video"
-            className="center"
-            width="300"
-            height="315"
-            src={ `http://www.youtube.com/embed/${sliceYoutube()}` }
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer;
-              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-          <br />
-          <h3>Recomendação</h3>
-          {recomended()}
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-          >
-            Iniciar Receita
-          </button>
+          <div className="heading">
+            <h3
+              data-testid="recipe-title"
+            >
+              {drinking.strDrink}
+            </h3>
+            <button
+              id="share"
+              type="button"
+              data-testid="share-btn"
+            >
+              {copy ? msgShare() : (<img src={ shareIcon } alt="Share" />) }
+            </button>
+            <button
+              type="button"
+              data-testid="favorite-btn"
+            >
+              <img src={ whiteHeartIcon } alt="Favorit" />
+            </button>
+          </div>
+          <article className="recipe-body">
+            <span
+              data-testid="recipe-category"
+            >
+              {`${drinking.strCategory} - ${drinking.strAlcoholic}`}
+            </span>
+            <h4>Ingredientes</h4>
+            <ul className="ingredients-list">
+              {listIngredients().map((ingredient, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {ingredient}
+                </li>
+              ))}
+            </ul>
+            <h4>Instruções</h4>
+            <p data-testid="instructions">{drinking.strInstructions}</p>
+            <br />
+            <h3>Recomendação</h3>
+            <Recommendations recommendations={ recomendedDrink.slice(0, maxResult) } />
+            <button
+              className="start-recipe-btn"
+              type="button"
+              data-testid="start-recipe-btn"
+            >
+              Iniciar Receita
+            </button>
+          </article>
         </>
       ) : null }
     </div>
@@ -139,7 +117,6 @@ function DrinkRecipe({ match: { path, params: { id } } }) {
 
 DrinkRecipe.propTypes = {
   match: PropTypes.shape({
-    path: PropTypes.string.isRequired,
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),

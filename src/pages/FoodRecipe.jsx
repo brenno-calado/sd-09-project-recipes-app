@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import RecipeCard from '../components/RecipeCard';
-import { fetchDetailsFood, fetchAllMeals } from '../service/mealAPI';
+import Recommendations from '../components/Recommendations';
+import { fetchDetailsFood } from '../service/mealAPI';
+import { fetchAllDrinks } from '../service/cocktailAPI';
+import '../App.css';
 
-function FoodRecipe({ match: { path, params: { id } } }) {
+function FoodRecipe({ match: { params: { id } } }) {
   const [copy, setCopy] = useState(false);
   const [food, setFood] = useState([]);
-  const [recomendedFood, setRecomendedFood] = useState([]);
+  const [recomendedDrink, setRecomendedDrink] = useState([]);
 
   const maxResult = 6;
 
@@ -22,8 +24,8 @@ function FoodRecipe({ match: { path, params: { id } } }) {
 
   useEffect(() => {
     const fetchRecomended = async () => {
-      const recomendedArray = await fetchAllMeals();
-      setRecomendedFood(recomendedArray.meals);
+      const recomendedArray = await fetchAllDrinks();
+      setRecomendedDrink(recomendedArray.drinks);
     };
     fetchRecomended();
   }, []);
@@ -45,20 +47,6 @@ function FoodRecipe({ match: { path, params: { id } } }) {
     const equalSignIndex = 32;
     const slicedYoutube = strYoutube.slice(equalSignIndex);
     return slicedYoutube;
-  }
-
-  function recomended() {
-    return recomendedFood.slice(0, maxResult)
-      .map((meal, index) => (
-        <RecipeCard
-          key={ meal.idMeal }
-          index={ index }
-          name={ meal.strMeal }
-          image={ meal.strMealThumb }
-          path={ path }
-          id={ meal.idMeal }
-        />
-      ));
   }
 
   function msgShare({ target: { id: ide } }) {
@@ -124,18 +112,19 @@ function FoodRecipe({ match: { path, params: { id } } }) {
             <iframe
               data-testid="video"
               className="center"
-              width="310"
+              width="100%"
               height="315"
               src={ `http://www.youtube.com/embed/${sliceYoutube()}` }
               title="YouTube video player"
               frameBorder="0"
               allow="accelerometer;
-                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
             <h3>Recomendação</h3>
-            {recomended()}
+            <Recommendations recommendations={ recomendedDrink.slice(0, maxResult) } />
             <button
+              className="start-recipe-btn"
               type="button"
               data-testid="start-recipe-btn"
             >
@@ -150,7 +139,6 @@ function FoodRecipe({ match: { path, params: { id } } }) {
 
 FoodRecipe.propTypes = {
   match: PropTypes.shape({
-    path: PropTypes.string.isRequired,
     params: PropTypes.shape({
       id: PropTypes.string.isRequired,
     }),

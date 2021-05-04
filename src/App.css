@@ -81,6 +81,15 @@
   box-shadow: 0 5px 5px silver;
 }
 
+.start-recipe-btn {
+  background-color: #6ce34f;
+  bottom: 0;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
 @keyframes shake {
 
   0% {

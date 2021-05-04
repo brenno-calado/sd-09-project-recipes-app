@@ -1,0 +1,40 @@
+.recommendations-box {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.recommended-box {
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  flex: 0 0 auto;
+  height: 172px;
+  margin: 10px;
+  width: 161px;
+}
+
+.recommended-box-image {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 6px 6px 0 0;
+  height: 109px;
+  width: 161px;
+}
+
+.recommended-box-category {
+  color: darkgray;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0 5px;
+}
+
+.recommended-box-name {
+  color: black;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 5px;
+}
+
+/* https://codeburst.io/how-to-create-horizontal-scrolling-containers-d8069651e9c6 */
