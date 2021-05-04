@@ -5,11 +5,13 @@ import {
   fetchMealApi,
   fetchMealsCategories,
   fetchMealsByCategory,
+  fetchMealsList,
 } from '../services/MealApi';
 import {
   fetchCocktailApi,
   fetchCocktailsCategories,
   fetchCocktailsByCategory,
+  fetchCocktailsList,
 } from '../services/CocktailApi';
 
 const { Provider } = RecipesAppContext;
@@ -54,9 +56,8 @@ function RecipesAppProvider({ children }) {
   };
 
   const getRecipes = async () => {
-    const paramObj = { searchText: '', filter: 'name' };
-    const apiMealsResponse = await fetchMealApi(paramObj);
-    const apiCocktailsResponse = await fetchCocktailApi(paramObj);
+    const apiMealsResponse = await fetchMealsList();
+    const apiCocktailsResponse = await fetchCocktailsList();
     setMealsRecipes(apiMealsResponse);
     setMealsBkp(apiMealsResponse);
     setCocktailsRecipes(apiCocktailsResponse);
