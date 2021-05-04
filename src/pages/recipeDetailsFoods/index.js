@@ -20,6 +20,13 @@ class index extends Component {
       video: '',
       recommendedDrinks: ['Teste1'],
     };
+    this.getMealImage = this.getMealImage.bind(this);
+    this.getIngredients = this.getIngredients.bind(this);
+    this.getIngredientsQuantity = this.getIngredientsQuantity.bind(this);
+    this.getInsructions = this.getInsructions.bind(this);
+    this.getTitle = this.getTitle.bind(this);
+    this.getCategory = this.getCategory.bind(this);
+    this.getRecommendations = this.getRecommendations.bind(this);
   }
 
   async componentDidMount() {
@@ -47,13 +54,13 @@ class index extends Component {
     });
   }
 
-  getMealImage = () => {
+  getMealImage() {
     const { mealData } = this.state;
     if (!mealData) { return loadingImage; }
     return mealData.strMealThumb;
   }
 
-  getIngredients = () => {
+  getIngredients() {
     const { mealData } = this.state;
     if (!mealData) { return ['Carregando']; }
     const ingredients = Object.entries(mealData)
@@ -64,7 +71,7 @@ class index extends Component {
     return ingredients;
   }
 
-  getIngredientsQuantity = () => {
+  getIngredientsQuantity() {
     const { mealData } = this.state;
     if (!mealData) { return ['Carregando']; }
     const ingredientsQuantity = Object.entries(mealData)
@@ -75,7 +82,7 @@ class index extends Component {
     return ingredientsQuantity;
   }
 
-  getInsructions = () => {
+  getInsructions() {
     const { mealData } = this.state;
     if (!mealData) { return 'Carregando'; }
     return mealData.strInstructions;
@@ -90,19 +97,19 @@ class index extends Component {
     return response.meals[0];
   }
 
-  getTitle = () => {
+  getTitle() {
     const { mealData } = this.state;
     if (!mealData) { return 'Carregando'; }
     return mealData.strMeal;
   }
 
-  getCategory = () => {
+  getCategory() {
     const { mealData } = this.state;
     if (!mealData) { return 'Carregando'; }
     return mealData.strCategory;
   }
 
-  getRecommendations = () => {
+  getRecommendations() {
     const { recommendedDrinks } = this.state;
     return recommendedDrinks;
   }

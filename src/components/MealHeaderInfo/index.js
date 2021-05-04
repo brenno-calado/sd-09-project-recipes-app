@@ -11,13 +11,20 @@ class index extends Component {
       shareClicked: false,
       favoriteIcon: false,
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.copyCurrentLink = this.copyCurrentLink.bind(this);
+    this.recipeData = this.recipeData.bind(this);
+    this.addFavoriteRecipe = this.addFavoriteRecipe.bind(this);
+    this.removeFavoriteRecipe = this.removeFavoriteRecipe.bind(this);
+    this.favoriteRecipeHandle = this.favoriteRecipeHandle.bind(this);
+    this.setIsRecipeFavorite = this.setIsRecipeFavorite.bind(this);
   }
 
   componentDidMount() {
     this.setIsRecipeFavorite();
   }
 
-  handleClick = ({ target: { name } }) => {
+  handleClick({ target: { name } }) {
     const { [name]: previous } = this.state;
     console.log(previous);
     this.setState({
@@ -25,34 +32,20 @@ class index extends Component {
     });
   }
 
-  copyCurrentLink = () => {
-    const { shareClicked } = this.state;
-    const url = window.location.href;
-
-    //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-    navigator.clipboard.writeText(url);
-
-    const actualShareState = shareClicked;
+  setIsRecipeFavorite() {
+    if (!localStorage.getItem('favoriteRecipes')) {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+    }
+    const { id } = this.props;
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const found = favoriteRecipes.some((element) => element.id === id);
+    console.log(found);
     this.setState({
-      shareClicked: !actualShareState,
+      favoriteIcon: found,
     });
   }
 
-  recipeData = () => {
-    const { recipe } = this.props;
-    const recipeData = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: recipe.idMeal ? 'comida' : 'bebida',
-      area: recipe.strArea ? recipe.strArea : '',
-      category: recipe.strCategory ? recipe.strCategory : '',
-      alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
-      name: recipe.strMeal ? recipe.strMeal : recipe.strDrink,
-      image: recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb,
-    };
-    return recipeData;
-  }
-
-  addFavoriteRecipe = () => {
+  addFavoriteRecipe() {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
@@ -64,7 +57,7 @@ class index extends Component {
     console.log('Favoritou');
   }
 
-  removeFavoriteRecipe = () => {
+  removeFavoriteRecipe() {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
@@ -76,7 +69,7 @@ class index extends Component {
     console.log('Desfavoritou');
   }
 
-  favoriteRecipeHandle = () => {
+  favoriteRecipeHandle() {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
@@ -88,17 +81,29 @@ class index extends Component {
     this.setIsRecipeFavorite();
   }
 
-  setIsRecipeFavorite = () => {
-    if (!localStorage.getItem('favoriteRecipes')) {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([]));
-    }
-    const { id } = this.props;
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const found = favoriteRecipes.some((element) => element.id === id);
-    console.log(found);
+  copyCurrentLink() {
+    const { shareClicked } = this.state;
+    const url = window.location.href;
+    //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    navigator.clipboard.writeText(url);
+    const actualShareState = shareClicked;
     this.setState({
-      favoriteIcon: found,
+      shareClicked: !actualShareState,
     });
+  }
+
+  recipeData() {
+    const { recipe } = this.props;
+    const recipeData = {
+      id: recipe.idMeal || recipe.idDrink,
+      type: recipe.idMeal ? 'comida' : 'bebida',
+      area: recipe.strArea ? recipe.strArea : '',
+      category: recipe.strCategory ? recipe.strCategory : '',
+      alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
+      name: recipe.strMeal ? recipe.strMeal : recipe.strDrink,
+      image: recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb,
+    };
+    return recipeData;
   }
 
   render() {

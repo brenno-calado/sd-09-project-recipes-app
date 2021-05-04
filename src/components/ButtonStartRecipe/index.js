@@ -5,6 +5,17 @@ import PropTypes from 'prop-types';
 
 let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 class index extends Component {
+  constructor(props) {
+    super(props);
+    this.recipe = this.recipe.bind(this);
+    this.makeRecipeDone = this.makeRecipeDone.bind(this);
+    this.startRecipe = this.startRecipe.bind(this);
+    this.isAlreadyDone = this.isAlreadyDone.bind(this);
+    this.isAlreadyStarted = this.isAlreadyStarted.bind(this);
+    this.buttonStartRecipe = this.buttonStartRecipe.bind(this);
+    this.buttonContinueRecipe = this.buttonContinueRecipe.bind(this);
+  }
+
   getCurrentDate() {
     //  https://tecadmin.net/get-current-date-time-javascript/
     const today = new Date();
@@ -12,7 +23,7 @@ class index extends Component {
     return date;
   }
 
-  recipe = () => {
+  recipe() {
     const { recipe } = this.props;
     console.log(recipe);
     if (recipe) { console.log(recipe); }
@@ -30,7 +41,7 @@ class index extends Component {
     return data;
   }
 
-  makeRecipeDone = () => {
+  makeRecipeDone() {
     let recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (!recipesDone) {
       localStorage.setItem('doneRecipes', JSON.stringify([]));
@@ -41,7 +52,7 @@ class index extends Component {
     this.forceUpdate();
   }
 
-  startRecipe = () => {
+  startRecipe() {
     const { ingredients } = this.props;
     if (!inProgressRecipes) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
@@ -63,7 +74,7 @@ class index extends Component {
     this.forceUpdate();
   }
 
-  isAlreadyDone = () => {
+  isAlreadyDone() {
     const { id } = this.props;
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     if (recipesDone) {
@@ -72,7 +83,7 @@ class index extends Component {
     return false;
   }
 
-  isAlreadyStarted = () => {
+  isAlreadyStarted() {
     const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!recipesInProgress) { return; }
     const recipe = this.recipe();
@@ -92,7 +103,7 @@ class index extends Component {
     }
   }
 
-  buttonStartRecipe = () => {
+  buttonStartRecipe() {
     const currentUrl = window.location.pathname;
     console.log(currentUrl);
     return (
@@ -109,16 +120,18 @@ class index extends Component {
     );
   }
 
-  buttonContinueRecipe = () => (
-    <button
-      data-testid="start-recipe-btn"
-      type="button"
-      className="start-recipe-btn"
-      onClick={ console.log('Continua receita') }
-    >
-      Continuar Receita
-    </button>
-  )
+  buttonContinueRecipe() {
+    return (
+      <button
+        data-testid="start-recipe-btn"
+        type="button"
+        className="start-recipe-btn"
+        onClick={ console.log('Continua receita') }
+      >
+        Continuar Receita
+      </button>
+    );
+  }
 
   render() {
     if (this.isAlreadyStarted()) { return (this.buttonContinueRecipe()); }
