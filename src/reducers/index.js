@@ -2,13 +2,13 @@ import { combineReducers } from 'redux';
 import recipes from './recipes';
 import drinkCategoriesList from './drinkCategoryList';
 import mealCategoriesList from './mealCategoryList';
-import setExploredIngredient from './ingredient';
+import apiParameters from './apiParameters';
 
 const rootReducer = combineReducers({
   recipes,
   drinkCategoriesList,
   mealCategoriesList,
-  setExploredIngredient,
+  apiParameters,
 });
 
 export default rootReducer;

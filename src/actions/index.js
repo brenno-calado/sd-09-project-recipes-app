@@ -8,6 +8,10 @@ export const MEAL = 'MEAL';
 export const DRINK = 'DRINK';
 export const REDIRECT = 'REDIRECT';
 export const INGREDIENT = 'INGREDIENT';
+export const LOADING = 'LOADING';
+export const RECIPE_TYPE = 'RECIPE_TYPE';
+export const RECIPE_QUERY = 'RECIPE_QUERY';
+export const RECIPE_CASE = 'RECIPE_CASE';
 
 export const setRedirect = () => ({
   type: REDIRECT,
@@ -28,7 +32,18 @@ const mealCategoryList = (categories) => ({
   type: MEAL,
   categories,
 });
-
+export const recipeType = (mealOrDrink) => ({
+  type: RECIPE_TYPE,
+  mealOrDrink,
+});
+export const recipeQuery = (query) => ({
+  type: RECIPE_QUERY,
+  query,
+});
+export const recipeCase = (searchBy) => ({
+  type: RECIPE_CASE,
+  searchBy,
+});
 const drinkCategoryList = (categories) => ({
   type: DRINK,
   categories,
@@ -54,6 +69,11 @@ export function requestDrinkCategoryList() {
     return dispatch(drinkCategoryList(categoryList));
   };
 }
+
+export const loadFlag = (bool) => ({
+  type: LOADING,
+  bool,
+});
 
 export const clearList = () => ({
   type: CLEAR_LIST,

@@ -1,51 +1,35 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import Loading from './Loading';
 import { searchRecipe } from '../actions';
-import RecipesContext from '../contexts/RecipesContext';
 import '../styles/Recipes.css';
 
 const MEAL = 'meal';
 const TWELVE = 12;
 
-// const condicionais = (category, dispatchSearch, recipesList, setLoading) => {
-//   if (category === '/comidas' && recipesList.length === 0) {
-//     setLoading(true);
-//     dispatchSearch(null, null, 'meal');
-//     setLoading(false);
-//   }
-//   if (category === '/bebidas' && recipesList.length === 0) {
-//     setLoading(true);
-//     dispatchSearch(null, null, 'cocktail');
-//     setLoading(false);
-//   }
-// };
-
 function Recipes({
-  recipesList = [], recipesType, dispatchSearch, redirect }) {
-  const { isLoading, setLoading } = useContext(RecipesContext);
-  const [first, setFirst] = useState(true);
+  recipesList = [],
+  recipesType,
+  dispatchSearch,
+  redirect,
+  load,
+  type,
+  query,
+  searchBy }) {
   const category = useLocation().pathname;
   useEffect(() => {
-    if (category === '/comidas' && first) {
-      setFirst(false);
-      dispatchSearch(null, null, 'meal');
+    if (category === '/comidas' && recipesList.length === 0) {
+      dispatchSearch(searchBy, query, type);
     }
-    if (category === '/bebidas' && recipesList.length === 0 && first) {
-      setFirst(false);
-      dispatchSearch(null, null, 'cocktail');
+    if (category === '/bebidas' && recipesList.length === 0) {
+      dispatchSearch(searchBy, query, type);
     }
-    // condicionais(category, dispatchSearch, recipesList, setLoading);
-  }, [category, dispatchSearch, recipesList, setLoading, first]);
+  }, [category, dispatchSearch, recipesList, type, query, searchBy]);
 
-  // useEffect(() => {
-  //   setLoading(false);
-  // }, []);
-  console.log(isLoading);
-  if (isLoading && recipesList.length === 0) return <Loading />;
+  if (load) return <Loading />;
   if (recipesList.length === 1 && redirect) {
     return recipesType === 'meal'
       ? <Redirect to={ `/comidas/${recipesList[0].idMeal}` } />
@@ -117,12 +101,16 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = ({
-  recipes: { recipesType, recipesList, redirect },
-  setExploredIngredient: { ingredient } }) => ({
+  recipes: { recipesType, recipesList, redirect, load },
+  apiParameters: { type, query, searchBy },
+}) => ({
   recipesType,
   recipesList,
   redirect,
-  ingredient,
+  load,
+  type,
+  query,
+  searchBy,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);

@@ -6,11 +6,14 @@ import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import '../css/components/BottomMenu.css';
-import { clearList } from '../actions';
+import { clearList, recipeCase, recipeQuery, recipeType } from '../actions';
 
-function BottomMenu({ deleteRecipesList }) {
-  const handleClick = () => {
+function BottomMenu({ deleteRecipesList, setRecipeType, setRecipeQuery, setRecipeCase }) {
+  const handleClick = (type, query, searchBy) => {
     deleteRecipesList();
+    setRecipeType(type);
+    setRecipeQuery(query);
+    setRecipeCase(searchBy);
   };
 
   return (
@@ -19,7 +22,7 @@ function BottomMenu({ deleteRecipesList }) {
         <button
           type="button"
           className="btn-footer"
-          onClick={ handleClick }
+          onClick={ () => handleClick('cocktail', null, null) }
         >
           <img
             src={ drinkIcon }
@@ -40,7 +43,7 @@ function BottomMenu({ deleteRecipesList }) {
         <button
           type="button"
           className="btn-footer"
-          onClick={ handleClick }
+          onClick={ () => handleClick('meal', null, null) }
         >
           <img src={ mealIcon } alt="Meal Icon" data-testid="food-bottom-btn" />
         </button>
@@ -51,10 +54,16 @@ function BottomMenu({ deleteRecipesList }) {
 
 const mapDispatchToProps = (dispatch) => ({
   deleteRecipesList: () => dispatch(clearList()),
+  setRecipeType: (type) => dispatch(recipeType(type)),
+  setRecipeQuery: (query) => dispatch(recipeQuery(query)),
+  setRecipeCase: (searchBy) => dispatch(recipeCase(searchBy)),
 });
 
 BottomMenu.propTypes = {
   deleteRecipesList: PropTypes.func,
+  setRecipeType: PropTypes.func,
+  setRecipeQuery: PropTypes.func,
+  setRecipeCase: PropTypes.func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(BottomMenu);
