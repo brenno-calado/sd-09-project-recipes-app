@@ -20,7 +20,7 @@ export function mealAPI(searchType, n) {
   case 'id':
     return fetch(idEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response.meals));
+        .then((response) => response.meals[0]));
   default:
     return false;
   }
@@ -48,7 +48,7 @@ export function drinkAPI(searchType, n) {
   case 'id':
     return fetch(idEndPoint)
       .then((promise) => promise.json()
-        .then((response) => response.drinks));
+        .then((response) => response.drinks[0]));
   default:
     return false;
   }
