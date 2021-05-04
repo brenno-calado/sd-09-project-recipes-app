@@ -7,6 +7,7 @@ export const CLEAR_LIST = 'CLEAR_LIST';
 export const MEAL = 'MEAL';
 export const DRINK = 'DRINK';
 export const REDIRECT = 'REDIRECT';
+export const INGREDIENT = 'INGREDIENT';
 
 export const setRedirect = () => ({
   type: REDIRECT,
@@ -16,6 +17,11 @@ const receiveRecipes = (recipesList, category) => ({
   type: FETCH_RECIPES,
   recipesType: category,
   recipesList,
+});
+
+export const exploredIngredient = (ingredient) => ({
+  type: INGREDIENT,
+  ingredient,
 });
 
 const mealCategoryList = (categories) => ({

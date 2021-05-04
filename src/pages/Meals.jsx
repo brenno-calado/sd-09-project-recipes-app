@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 import Recipes from '../components/Recipes';
 import SearchBar from '../components/SearchBar';
 import RecipesContext from '../contexts/RecipesContext';
@@ -10,7 +10,7 @@ import FilterButtons from '../components/FilterButtons';
 function Meals() {
   const {
     toggledSearchBar,
-    isLoading,
+    // isLoading,
   } = useContext(RecipesContext);
 
   return (
@@ -18,7 +18,8 @@ function Meals() {
       <Header page="Comidas" />
       {toggledSearchBar && <SearchBar category="meal" />}
       <FilterButtons />
-      {isLoading ? <Loading /> : <Recipes /> }
+      {/* {isLoading ? <Loading /> : <Recipes /> } */}
+      <Recipes />
       <BottomMenu />
     </section>
   );

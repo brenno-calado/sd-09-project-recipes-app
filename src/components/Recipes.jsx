@@ -1,26 +1,51 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
+import Loading from './Loading';
 import { searchRecipe } from '../actions';
+import RecipesContext from '../contexts/RecipesContext';
 import '../styles/Recipes.css';
 
 const MEAL = 'meal';
 const TWELVE = 12;
 
+// const condicionais = (category, dispatchSearch, recipesList, setLoading) => {
+//   if (category === '/comidas' && recipesList.length === 0) {
+//     setLoading(true);
+//     dispatchSearch(null, null, 'meal');
+//     setLoading(false);
+//   }
+//   if (category === '/bebidas' && recipesList.length === 0) {
+//     setLoading(true);
+//     dispatchSearch(null, null, 'cocktail');
+//     setLoading(false);
+//   }
+// };
+
 function Recipes({
   recipesList = [], recipesType, dispatchSearch, redirect }) {
+  const { isLoading, setLoading } = useContext(RecipesContext);
+  const [first, setFirst] = useState(true);
   const category = useLocation().pathname;
   useEffect(() => {
-    if (category === '/comidas' && recipesList.length === 0) {
+    if (category === '/comidas' && first) {
+      setFirst(false);
       dispatchSearch(null, null, 'meal');
     }
-    if (category === '/bebidas' && recipesList.length === 0) {
+    if (category === '/bebidas' && recipesList.length === 0 && first) {
+      setFirst(false);
       dispatchSearch(null, null, 'cocktail');
     }
-  }, [category, dispatchSearch, recipesList]);
+    // condicionais(category, dispatchSearch, recipesList, setLoading);
+  }, [category, dispatchSearch, recipesList, setLoading, first]);
 
+  // useEffect(() => {
+  //   setLoading(false);
+  // }, []);
+  console.log(isLoading);
+  if (isLoading && recipesList.length === 0) return <Loading />;
   if (recipesList.length === 1 && redirect) {
     return recipesType === 'meal'
       ? <Redirect to={ `/comidas/${recipesList[0].idMeal}` } />
@@ -91,10 +116,13 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-const mapStateToProps = ({ recipes: { recipesType, recipesList, redirect } }) => ({
+const mapStateToProps = ({
+  recipes: { recipesType, recipesList, redirect },
+  setExploredIngredient: { ingredient } }) => ({
   recipesType,
   recipesList,
   redirect,
+  ingredient,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Recipes);
