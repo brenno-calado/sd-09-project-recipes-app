@@ -8,6 +8,7 @@ function SearchBar() {
     radio: null,
     text: '',
   });
+  const [buttonStatus, setButtonStatus] = useState('exec-search-btn-disabled');
 
   const { setSearchFilter, searchFilter } = useContext(MyContext);
   const { pathname } = useLocation();
@@ -15,6 +16,9 @@ function SearchBar() {
 
   const handleChange = ({ target: { value, name } }) => {
     setInput({ ...input, [name]: value });
+    if (input.radio !== null) {
+      setButtonStatus('exec-search-btn');
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -86,6 +90,7 @@ function SearchBar() {
         type="text"
         name="text"
         data-testid="search-input"
+        className="search-input"
         onChange={ (e) => handleChange(e) }
       />
       <div className="radio-container">
@@ -132,6 +137,7 @@ function SearchBar() {
       <button
         type="button"
         data-testid="exec-search-btn"
+        className={ buttonStatus }
         disabled={ !input.radio }
         onClick={ handleClick }
       >

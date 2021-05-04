@@ -7,7 +7,7 @@ function DoneRecipesButton() {
     <button
       type="button"
       data-testid="profile-done-btn"
-      className="btn btn-primary"
+      className="basic-btn"
       onClick={ () => history.push('/receitas-feitas') }
     >
       Receitas Feitas

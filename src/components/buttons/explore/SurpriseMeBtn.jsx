@@ -5,7 +5,7 @@ function SurpriseMeBtn() {
     <button
       type="button"
       data-testid="explore-surprise"
-      className="btn btn-primary"
+      className="basic-btn"
     >
       Me Surpreenda!
     </button>

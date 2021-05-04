@@ -7,7 +7,7 @@ function ExploreFoodsAreaBtn() {
     <button
       type="button"
       data-testid="explore-by-area"
-      className="btn btn-primary"
+      className="basic-btn"
       // onClick={ history.push('/explorar/comidas/area') }
     >
       Por Local de Origem

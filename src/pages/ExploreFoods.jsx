@@ -10,9 +10,11 @@ function ExploreFoods() {
   return (
     <div>
       <Header title="Explorar Comidas" />
-      <ExploreFoodsIngredientsBtn />
-      <ExploreFoodsAreaBtn />
-      <SurpriseMeBtn />
+      <main className="buttons-container">
+        <ExploreFoodsIngredientsBtn />
+        <ExploreFoodsAreaBtn />
+        <SurpriseMeBtn />
+      </main>
       <Footer />
     </div>
   );

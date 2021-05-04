@@ -13,13 +13,14 @@ function MainCards() {
         searchFilter.length > 1
           ? searchFilter.slice(0, MAX_NUMBER_OF_CARDS_12).map((curr, index) => (
             <Link to={ path } key={ index }>
-              <div data-testid={ `${index}-recipe-card` }>
+              <div data-testid={ `${index}-recipe-card` } className="card">
                 <img
                   src={ curr.strMealThumb || curr.strDrinkThumb }
                   alt=""
                   data-testid={ `${index}-card-img` }
+                  className="card-img"
                 />
-                <p data-testid={ `${index}-card-name` }>
+                <p data-testid={ `${index}-card-name` } className="card-name">
                   { curr.strMeal || curr.strDrink }
                 </p>
               </div>

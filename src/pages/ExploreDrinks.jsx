@@ -9,8 +9,10 @@ function ExploreDrinks() {
   return (
     <div>
       <Header title="Explorar Bebidas" />
-      <ExploreDrinksIngredientsButton />
-      <SurpriseMeBtn />
+      <main className="buttons-container">
+        <ExploreDrinksIngredientsButton />
+        <SurpriseMeBtn />
+      </main>
       <Footer />
     </div>
   );

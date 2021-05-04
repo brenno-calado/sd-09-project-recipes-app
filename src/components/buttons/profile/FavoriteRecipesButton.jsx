@@ -7,7 +7,7 @@ function FavoriteRecipesButton() {
     <button
       type="button"
       data-testid="profile-favorite-btn"
-      className="btn btn-primary"
+      className="basic-btn"
       onClick={ () => history.push('/receitas-favoritas') }
     >
       Receitas Favoritas
