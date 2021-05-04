@@ -19,6 +19,7 @@ class FoodCards extends React.Component {
 
   componentDidMount() {
     this.callMeal();
+    localStorage.removeItem('id');
   }
 
   componentWillUnmount() {

@@ -19,6 +19,7 @@ class CocktailCards extends React.Component {
 
   componentDidMount() {
     this.callCocktail();
+    localStorage.removeItem('id');
   }
 
   componentWillUnmount() {
