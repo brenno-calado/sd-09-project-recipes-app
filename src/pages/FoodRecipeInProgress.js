@@ -61,6 +61,7 @@ function FoodRecipeInProgress(props) {
             handleFavorite={ () => handleFavorite(favoriteParams) }
             state={ state }
             id={ id }
+            match={ match }
           >
             {ingredientList(apiData, match, handleCheckFoodValuesValues)}
 

@@ -13,9 +13,36 @@ function CardeInProgress({
   favorite,
   children,
   handleFavorite,
-  // id,
+  id,
+  match,
   // state,
 }) {
+  function endRecipeButton() {
+    const newDate = new Date();
+    const date = newDate.getDate();
+    const month = newDate.getMonth() + 1;
+    const year = newDate.getFullYear();
+    const currentDate = (`${date}/${month}/${year}`);
+    if (match.path === '/bebidas/:id/in-progress') {
+      const doneDrink = {
+        kind: 'drink',
+        date: currentDate,
+        id,
+      };
+      const vari = JSON.parse(localStorage.getItem('doneRecipes'));
+      localStorage.setItem('doneRecipes',
+        JSON.stringify(localStorage.length > 0 ? [...vari, doneDrink] : [doneDrink]));
+    }
+    if (match.path === '/comidas/:id/in-progress') {
+      const doneFood = {
+        kind: 'food',
+        date: currentDate,
+        id,
+      };
+      localStorage.setItem('doneRecipes',
+        JSON.stringify(localStorage.length > 0 ? [...doneFood] : [doneFood]));
+    }
+  }
   // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
 
   // useEffect(() => {
@@ -70,6 +97,7 @@ function CardeInProgress({
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"
+        onClick={ endRecipeButton }
       >
         Finalizar receita
       </button>
