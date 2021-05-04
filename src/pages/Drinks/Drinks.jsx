@@ -17,19 +17,17 @@ const Drinks = (props) => {
   const [drinksCategoryList, setDrinksCategoryList] = useState();
   const [filteredByCategoryArray, setFilteredBYCategoryArray] = useState(undefined);
   const [loading, setLoading] = useState(true);
-
   const cinco = 5;
 
-  async function fetchData() {
-    const { dispatchDrinks } = props;
-    await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
-    await fetchDrinkCategory().then((r) => setDrinksCategoryList(r));
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      const { dispatchDrinks } = props;
+      await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
+      await fetchDrinkCategory().then((r) => setDrinksCategoryList(r));
+      setLoading(false);
+    }
     fetchData();
-  }, []);
+  }, [props]);
 
   function filterByCategory(category) {
     fetchDrinksFilteredByCategory(category).then(setFilteredBYCategoryArray);
@@ -42,7 +40,6 @@ const Drinks = (props) => {
   }
 
   if (drinks.length === 1) {
-    console.log(drinks);
     history.push(`/bebidas/${drinks[0].idDrink}`, drinks[0]);
     return null;
   }

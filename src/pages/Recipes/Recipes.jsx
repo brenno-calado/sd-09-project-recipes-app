@@ -19,16 +19,15 @@ const Recipes = (props) => {
   const [loading, setLoading] = useState(true);
   const cinco = 5;
 
-  async function fetchData() {
-    const { dispatchMeals } = props;
-    await fetchMealNameAPI('').then((response) => dispatchMeals(response));
-    await fetchMealCategory().then((r) => setMealCategoryList(r));
-    setLoading(false);
-  }
-
   useEffect(() => {
+    async function fetchData() {
+      const { dispatchMeals } = props;
+      await fetchMealNameAPI('').then((response) => dispatchMeals(response));
+      await fetchMealCategory().then((r) => setMealCategoryList(r));
+      setLoading(false);
+    }
     fetchData();
-  }, []);
+  }, [props]);
 
   function filterByCategory(category) {
     fetchFilteredByCategory(category).then(setfilteredByCategoryArray);
