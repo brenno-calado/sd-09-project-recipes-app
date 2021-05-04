@@ -1,17 +1,14 @@
-import { func } from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { RecipiesContext } from '../context/RecipiesContext';
+import { randomMeal, randomDrink } from '../services/api';
 
-function randomRecipe(type) {
-  // const { searchMealsList } = useContext(RecipiesContext);
-  // console.log(searchMealsList);
+async function randomRecipe(type) {
   if (type === 'food') {
-    const listMeals = [{ idMeal: '52977' }, { idMeal: '52978' }];
-    const randomElement = listMeals[Math.floor(Math.random() * listMeals.length)];
-    const surpriseMeal = randomElement.idMeal;
-    // window.location.href = (`http://localhost:3000/comidas/${surpriseMeal}`);
-    console.log(searchMealsList);
+    const mealNumber = await randomMeal();
+    window.location.href = (`http://localhost:3000/comidas/${mealNumber}`);
+  } else {
+    const drinkNumber = await randomDrink();
+    window.location.href = (`http://localhost:3000/bebidas/${drinkNumber}`);
   }
 }
 
