@@ -90,11 +90,11 @@ function Foods() {
   }
 
   return (
-    <div className="test2">
+    <>
       <Header pageName="Comidas" searchBtn />
       { loading ? <h1> Loading...</h1> : foodCardsRender() }
       <FooterMenu />
-    </div>
+    </>
   );
 }
 
