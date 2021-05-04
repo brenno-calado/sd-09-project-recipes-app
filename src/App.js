@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import Explore from './pages/Explore';
+import Favorites from './pages/Favorites';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/comidas" component={ Foods } />
         <Route path="/bebidas" component={ Drinks } />
         <Route path="/explorar" component={ Explore } />
+        <Route path="/receitas-favoritas" component={ Favorites } />
       </Switch>
     </div>
   );
