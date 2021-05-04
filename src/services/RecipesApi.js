@@ -42,4 +42,18 @@ async function searchApi(typeRecipe, typeSearch, itemSearch) {
   return recipesSearch.drinks;
 }
 
+export const getRandomFood = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const getRandomDrink = async () => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
 export default searchApi;
