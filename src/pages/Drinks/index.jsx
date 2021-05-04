@@ -10,23 +10,16 @@ import CategoriesButtons from '../../components/SearchButtons';
 
 export default function Drinks() {
   const {
-    drinks, setDrinks, categories, setCategories, ingredientOn, setIngreditOn,
+    drinks, setDrinks, categories, setCategories,
   } = useContext(context);
-  let selector = 'name';
-  let searchName = '';
 
   const { drinks: drinksHook, setFilter: setFilterHook } = useDrinkApi();
   const uniqueRecipe = drinks && drinks.length === 1;
   const moreThanOneRecipes = drinks && drinks.length > 1;
 
   useEffect(() => {
-    if (ingredientOn !== '') {
-      selector = 'ingredient';
-      searchName = ingredientOn;
-    }
-
     const lengthOfList = 12;
-    fetchApi('cocktail', selector, searchName).then((res) => {
+    fetchApi('cocktail', 'name', '').then((res) => {
       const fetchDrinks = res.drinks
         .filter((drink) => res.drinks.indexOf(drink) < lengthOfList);
       setDrinks(fetchDrinks);
@@ -38,8 +31,6 @@ export default function Drinks() {
         .filter((drink) => res.drinks.indexOf(drink) < lengthOfCategories);
       setCategories(fetchCategories);
     });
-
-    setIngreditOn('');
   }, [setDrinks, setCategories]);
 
   return (
