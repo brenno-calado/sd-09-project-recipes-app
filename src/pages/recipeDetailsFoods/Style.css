@@ -40,7 +40,7 @@
 }
 
 .background-gray li {
-  list-style-type: '- ';
+  list-style-type: none;
 }
 
 .recipe-video {

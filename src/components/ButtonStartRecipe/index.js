@@ -42,7 +42,6 @@ class index extends Component {
   }
 
   startRecipe = () => {
-    const { ingredients } = this.props;
     if (!inProgressRecipes) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {},
@@ -54,9 +53,9 @@ class index extends Component {
     const recipe = this.recipe();
 
     if (recipe.type === 'comida') {
-      inProgressRecipes.meals[recipe.id] = ingredients;
+      inProgressRecipes.meals[recipe.id] = [];
     } else if (recipe.type === 'bebida') {
-      inProgressRecipes.cocktails[recipe.id] = ingredients;
+      inProgressRecipes.cocktails[recipe.id] = [];
     }
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
@@ -133,7 +132,6 @@ class index extends Component {
 
 index.propTypes = {
   recipe: PropTypes.objectOf().isRequired,
-  ingredients: PropTypes.arrayOf().isRequired,
   id: PropTypes.number.isRequired,
 };
 
