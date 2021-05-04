@@ -1,15 +1,22 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 import { RecipeContext } from '../../Context';
 import IngredientList from '../IngredientList/IngredientList';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import './RecipeMealDetailComponent.css';
 import RecommendedRecipies from '../RecommendedRecipies/RecommendedRecepies';
+import FaveMealBtn from '../FaveMealBtn/FaveMealBtn';
+
+const copy = require('clipboard-copy');
 
 function RecipeMealDetailComponent({ pageType }) {
   const { recipeSpec } = useContext(RecipeContext);
+  const [done, setDone] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [showCopyMsg, setShowCopyMsg] = useState(false);
   const {
+    idMeal,
     strMeal,
     strCategory,
     strMealThumb,
@@ -20,6 +27,25 @@ function RecipeMealDetailComponent({ pageType }) {
   if (strYoutube) {
     youTubeCode = strYoutube.replace('https://www.youtube.com/watch?v=', '');
   }
+
+  useEffect(() => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes && doneRecipes.length > 0) {
+      setDone(doneRecipes.some((recipe) => recipe.id === idMeal));
+    }
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inProgressRecipes && Object.keys(inProgressRecipes.meals).length > 0) {
+      setInProgress(Object.keys(inProgressRecipes.meals)
+        .some((recipe) => recipe === idMeal));
+    }
+  }, [setDone, setInProgress, idMeal]);
+
+  const copyFunction = () => {
+    const recipeLink = `http://localhost:3000/comidas/${idMeal}`;
+    copy(recipeLink);
+    setShowCopyMsg(true);
+  };
+
   return (
     <div>
       <img
@@ -30,21 +56,16 @@ function RecipeMealDetailComponent({ pageType }) {
       <section className="recipe-detail-title-container">
         <h2 data-testid="recipe-title">{ strMeal }</h2>
         <div>
-          <button type="button">
+          <button type="button" onClick={ () => copyFunction() }>
             <img
               src={ shareIcon }
               alt="botão de compartilhar"
               data-testid="share-btn"
             />
           </button>
-          <button type="button">
-            <img
-              src={ whiteHeartIcon }
-              alt="botão de compartilhar"
-              data-testid="favorite-btn"
-            />
-          </button>
+          <FaveMealBtn />
         </div>
+        { (showCopyMsg) && <span>Link copiado!</span>}
       </section>
       <p data-testid="recipe-category">{ strCategory }</p>
       <IngredientList />
@@ -61,11 +82,17 @@ function RecipeMealDetailComponent({ pageType }) {
         data-testid="video"
       />
       <RecommendedRecipies category={ strCategory } pageType={ pageType } />
-      <div className="start-recipe-container">
-        <button type="button" data-testid="start-recipe-btn">
-          Iniciar Receita
-        </button>
-      </div>
+      {(!done) && (
+        <Link to={ `${idMeal}/in-progress` }>
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+          >
+            {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        </Link>
+      )}
     </div>
   );
 }
