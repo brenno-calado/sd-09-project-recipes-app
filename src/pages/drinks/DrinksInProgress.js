@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
-import { updateLocalStorage } from '../../services/localStorageService';
+import { getItemLocalStorage, updateLocalStorage }
+  from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-// import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -45,6 +46,23 @@ function DrinksInProgress() {
     setShouldRedirect(true);
   };
 
+  const favoriteRecipe = localStorage.favoriteRecipes && Object
+    .keys(getItemLocalStorage('favoriteRecipes')).includes(id);
+
+  const favorite = () => {
+    // if (!favoriteRecipe) {
+    const favoriteItem = {
+      id,
+      type: 'bebida',
+      category: data.strCategory,
+      alcoholicOrNot: data.strAlcoholic,
+      name: data.strDrink,
+      image: data.strDrinkThumb,
+    };
+    updateLocalStorage('favoriteRecipes', 'favoriteRecipes', favoriteItem);
+    // }
+  };
+
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
@@ -58,8 +76,11 @@ function DrinksInProgress() {
       <button data-testid="share-btn" type="button">
         <img src={ shareIcon } alt="share icon" />
       </button>
-      <button data-testid="favorite-btn" type="button">
-        <img src={ whiteHeartIcon } alt="favorite icon" />
+      <button data-testid="favorite-btn" type="button" onClick={ favorite }>
+        <img
+          src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
+          alt="favorite icon"
+        />
       </button>
       <p data-testid="recipe-category">{ strAlcoholic }</p>
       { ingredients.map((ingredient, index) => (
