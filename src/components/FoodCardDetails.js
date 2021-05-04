@@ -131,7 +131,7 @@ class FoodCardDetails extends React.Component {
           data-testid="recipe-category"
           className="sub"
         >
-          {getFoodDetails.strAlcoholic}
+          {getFoodDetails.strCategory}
         </p>
       </div>
     );
