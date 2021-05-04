@@ -1,36 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
+import { Context } from '../../context';
 import { getItemLocalStorage, updateLocalStorage }
   from '../../services/localStorageService';
+import IngredientsContainer from '../../components/IngredientsContainer';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function DrinksInProgress() {
   const { id } = useParams();
+  const { disableButton } = useContext(Context);
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [disableButton, setDisableButton] = useState(true);
 
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
     getData();
   }, [id]);
-
-  const checkBoxClick = ({ target }) => {
-    target.parentElement.classList.toggle('selected');
-    const allCheked = document.querySelectorAll('input[type=checkbox]');
-    const ingredients = [];
-    allCheked.forEach((checkbox) => {
-      if (checkbox.checked) {
-        ingredients.push(checkbox.parentElement.innerText);
-      }
-    });
-    updateLocalStorage('inProgressRecipes', 'cocktails', id, ingredients);
-    if (allCheked.length === ingredients.length) setDisableButton(false);
-    else setDisableButton(true);
-  };
 
   const handleClick = () => {
     const doneRecipe = {
@@ -64,8 +52,6 @@ function DrinksInProgress() {
     // }
   };
 
-  const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
-  const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
 
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
@@ -84,23 +70,9 @@ function DrinksInProgress() {
         />
       </button>
       <p data-testid="recipe-category">{ strAlcoholic }</p>
-      { ingredients.map((ingredient, index) => (
-        data[ingredient] && data[ingredient].length ? (
-          <label
-            htmlFor={ ingredient }
-            data-testid="ingredient-step"
-            key={ ingredient }
-          >
-            { `${data[ingredient]} ${data[measures[index]]}` }
-            <input
-              data-testid={ `${index}-ingredient-name-and-measure` }
-              id={ ingredient }
-              value={ ingredient }
-              type="checkbox"
-              onClick={ checkBoxClick }
-            />
-          </label>) : false
-      )) }
+
+      <IngredientsContainer data={ data } />
+
       <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="finish-recipe-btn"

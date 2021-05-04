@@ -5,10 +5,11 @@ const Context = createContext();
 
 const Provider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [disableButton, setDisableButton] = useState(true);
 
   const updateData = async (api) => setData(await api);
 
-  const contextValue = { data, updateData };
+  const contextValue = { data, updateData, disableButton, setDisableButton };
 
   return (
     <Context.Provider value={ contextValue }>
