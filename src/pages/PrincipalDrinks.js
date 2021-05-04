@@ -17,8 +17,7 @@ function PrincipalDrinks() {
       setSelectedCategory(categoryValue);
       if (selectedCategory === categoryValue) setToggle(false);
       else {
-        fetchDrinks('category', category)
-          .then((response) => setFilteredDrinks(response));
+        fetchDrinks('category', category).then((response) => setFilteredDrinks(response));
         setToggle(true);
       }
     } else setToggle(false);
@@ -33,35 +32,41 @@ function PrincipalDrinks() {
   }, []);
 
   const cardLimit = 12;
-  const drinksMap = toggle ? Object.values(filteredDrinks)[0] : Object.values(drinks)[0];
+  const drinksMap = toggle
+    ? Object.values(filteredDrinks)[0]
+    : Object.values(drinks)[0];
   return (
     <div>
       <Header title="Bebidas" />
-      <RecipeCategory type="drinks" toggleFunc={ toggleFunc } setToggle={ setToggle } />
-      {drinksMap && drinksMap.map((recipe, index) => {
-        if (index < cardLimit) {
-          return (
-            <div
-              key={ recipe.idDrink }
-              data-testid={ `${index}-recipe-card` }
-              onClick={ () => redirectToDetails(recipe.idDrink) }
-              onKeyPress={ () => redirectToDetails(recipe.idDrink) }
-              role="button"
-              tabIndex="0"
-              style={ { cursor: 'pointer' } }
-            >
-              <img
-                src={ recipe.strDrinkThumb }
-                alt="recipe"
-                data-testid={ `${index}-card-img` }
-              />
-              <h3 data-testid={ `${index}-card-name` }>{ recipe.strDrink }</h3>
-            </div>
-
-          );
-        }
-        return 'drink';
-      })}
+      <RecipeCategory
+        type="drinks"
+        toggleFunc={ toggleFunc }
+        setToggle={ setToggle }
+      />
+      {drinksMap
+        && drinksMap.map((recipe, index) => {
+          if (index < cardLimit) {
+            return (
+              <div
+                key={ recipe.idDrink }
+                data-testid={ `${index}-recipe-card` }
+                onClick={ () => redirectToDetails(recipe.idDrink) }
+                onKeyPress={ () => redirectToDetails(recipe.idDrink) }
+                role="button"
+                tabIndex="0"
+                style={ { cursor: 'pointer' } }
+              >
+                <img
+                  src={ recipe.strDrinkThumb }
+                  alt="recipe"
+                  data-testid={ `${index}-card-img` }
+                />
+                <h3 data-testid={ `${index}-card-name` }>{recipe.strDrink}</h3>
+              </div>
+            );
+          }
+          return 'drink';
+        })}
       <Footer />
     </div>
   );

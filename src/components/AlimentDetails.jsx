@@ -9,9 +9,10 @@ import { getIngredients } from '../services/functions';
 import '../styles/alimentDetails.css';
 
 function AlimentDetails({ data, recomendation }) {
+  console.log(data);
   const { pathname } = useLocation();
-  const ingredients = getIngredients(data[0], 'strIngredient');
-  const ingredientsMeasures = getIngredients(data[0], 'strMeasure');
+  const ingredients = getIngredients(data[0] || {}, 'strIngredient');
+  const ingredientsMeasures = getIngredients(data[0] || {}, 'strMeasure');
   if (pathname.includes('/comidas')) {
     const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = data[0];
     return (
