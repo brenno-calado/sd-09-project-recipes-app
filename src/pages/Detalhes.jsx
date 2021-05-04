@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+import Loading from '../components/Loading';
 import Recommendations from '../components/Recommendations';
 import { useRecipes } from '../hooks';
+import '../styles/Details.css';
 
 function Detalhes() {
   const { pathname } = useLocation();
@@ -54,20 +56,28 @@ function Detalhes() {
 
   return (
     loading
-      ? <p>LOADING...</p>
+      ? <Loading />
       : (
         <main>
           <img
             src={ recipeDetails[`str${type[1]}Thumb`] }
             alt={ recipeDetails[`str${type[1]}`] }
             data-testid="recipe-photo"
+            className="details__image"
           />
-          <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
-          <p data-testid="recipe-category">
-            {type[1] === 'Drink' ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
-          </p>
-          <button type="button" data-testid="share-btn">Share</button>
-          <button type="button" data-testid="favorite-btn">Add to favorites</button>
+          <div className="details__horizontal-container">
+            <div>
+              <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
+              <p data-testid="recipe-category">
+                {type[1] === 'Drink'
+                  ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+              </p>
+            </div>
+            <div>
+              <button type="button" data-testid="share-btn">Share</button>
+              <button type="button" data-testid="favorite-btn">Add to favorites</button>
+            </div>
+          </div>
           { renderIngredients() }
           <p data-testid="instructions">{recipeDetails.strInstructions}</p>
           {type[1] === 'Meal'

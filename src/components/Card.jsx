@@ -37,6 +37,7 @@ function Card({ data }) {
                 alt={ `imagem de ${element.strMeal}` }
                 data-testid={ `${index}-card-img` }
                 src={ element[`str${category()}Thumb`] }
+                className="card__image"
               />
               <p data-testid={ `${index}-${titleDataTestID()}` }>
                 { element[`str${category()}`] }

@@ -1,0 +1,8 @@
+.details__image {
+  width: 100%;
+}
+
+.details__horizontal-container {
+  display: flex;
+  justify-content: space-between;
+}
