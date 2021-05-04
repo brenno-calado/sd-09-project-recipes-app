@@ -37,11 +37,11 @@ function Foods() {
       .then(({ meals }) => setMeal(meals));
   }, [getRecipesByCategory]);
 
-  function handleButtonAll() {
-    getRecipes('themealdb')
-      .then(({ meals }) => setMeal(meals));
-    console.log(meal);
-  }
+  //function handleButtonAll() {
+  //  getRecipes('themealdb')
+  //    .then(({ meals }) => setMeal(meals));
+  //  console.log(meal);
+  //}
 
   useEffect(() => {
     getRecipesFoodsFilterByCategory(category)
@@ -76,7 +76,7 @@ function Foods() {
       <button
         type="button"
         data-testid="All-category-filter"
-        onClick={ handleButtonAll }
+        onClick={ () => setListItemByCategory([]) }
       >
         All
       </button>
