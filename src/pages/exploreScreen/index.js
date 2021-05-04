@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
 
-import profileIcon from '../../images/profileIcon.svg';
+import profileIcon from '../../images/newIcons/profileIcon.svg';
 
 class ExplorerScreen extends Component {
   constructor(props) {

@@ -1,7 +1,13 @@
 .start-recipe-btn {
-  background-color: #6ce34f;
+  background-color: #2a9d8f;
+  border: none;
   bottom: 0;
+  color: whitesmoke;
+  font-size: 20px;
+  height: 50px;
   left: 50%;
+  padding: 10px 0;
   position: fixed;
   transform: translateX(-50%);
+  width: 100vw;
 }
