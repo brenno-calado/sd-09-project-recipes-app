@@ -54,7 +54,7 @@ function Login() {
       <form>
         Login
         <input
-          type="text"
+          type="email"
           data-testid="email-input"
           placeholder="Email"
           name="login"
@@ -63,7 +63,7 @@ function Login() {
           value={ state.login }
         />
         <input
-          type="text"
+          type="password"
           data-testid="password-input"
           placeholder="Senha"
           name="password"
