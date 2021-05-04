@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealNameAPI } from '../../services/fetchMealAPI';
 import { fetchDrinkById } from '../../services/fetchDrinkAPI';
-import RecipeCard from '../../common/components/RecipeCard';
+import RecommendedCard from '../../common/components/RecommendedCard';
+import '../../common/styles/detailsStyles.css';
 
 function DrinkDetails(props) {
   const { match: { params: { id } } } = props;
   const [recommended, setRecommended] = useState([]);
+  const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [drink, setDrink] = useState();
   const seis = 6;
   const idDrink = id;
@@ -19,6 +21,19 @@ function DrinkDetails(props) {
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (hidden.second > seis) {
+      setHidden({ first: 0, second: 1 });
+    }
+  }, [hidden.second]);
+
+  const scrollRecommended = () => {
+    setHidden((state) => ({
+      first: state.first + 2,
+      second: state.second + 2,
+    }));
+  };
 
   function showDetails() {
     const maxIngredient = 21;
@@ -63,19 +78,34 @@ function DrinkDetails(props) {
           <h4>Ingredients</h4>
           { showDetails() }
         </div>
+        <h4>Recommended Recipes</h4>
         <div>
-          <h4>Recommended Recipes</h4>
-          <div>
+          <div style={ { display: 'flex', width: '401px' } }>
             { recommended && recommended
               .slice(0, seis)
               .map((meal, index) => (
-                <div key={ index } data-testid={ `${index}-recomendation-card` }>
-                  <RecipeCard recipe={ meal } />
-                </div>
+                <RecommendedCard
+                  recipe={ meal }
+                  index={ index }
+                  key={ index }
+                  hidden={ hidden }
+                />
               ))}
           </div>
+          <button
+            type="button"
+            onClick={ scrollRecommended }
+          >
+            {'-->'}
+          </button>
         </div>
-        <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+        <button
+          className="start-recipe-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }

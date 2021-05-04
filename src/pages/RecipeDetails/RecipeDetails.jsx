@@ -2,23 +2,36 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
 import { fetchMealById } from '../../services/fetchMealAPI';
-import RecipeCard from '../../common/components/RecipeCard';
+import RecommendedCard from '../../common/components/RecommendedCard';
+import '../../common/styles/detailsStyles.css';
 
 function RecipeDetails(props) {
   const { match: { params: { id } } } = props;
   const [recommended, setRecommended] = useState([]);
+  const [displayRecommended, setDisplayRecommended] = useState();
+  const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [meal, setMeal] = useState();
   const seis = 6;
   const idMeal = id;
 
   async function fetchData() {
-    await fetchDrinkNameAPI('').then((response) => setRecommended(response.drinks));
+    await fetchDrinkNameAPI('')
+      .then((response) => {
+        setRecommended(response.drinks.slice(0, seis));
+        setDisplayRecommended(response.drinks.slice(0, seis));
+      });
     await fetchMealById(idMeal).then((response) => setMeal(response.meals[0]));
   }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (hidden.second > seis) {
+      setHidden({ first: 0, second: 1 });
+    }
+  }, [hidden.second]);
 
   function showDetails() {
     const maxIngredient = 21;
@@ -37,6 +50,13 @@ function RecipeDetails(props) {
     return <ul>{ingredients}</ul>;
   }
 
+  const scrollRecommended = () => {
+    setHidden((state) => ({
+      first: state.first + 2,
+      second: state.second + 2,
+    }));
+  };
+
   function renderMeal() {
     const recipeURL = meal.strYoutube;
     const recipeEndPoint = recipeURL.split('.com/');
@@ -48,7 +68,6 @@ function RecipeDetails(props) {
           alt="recipeImg"
           width="350px"
         />
-        { console.log(meal.strMealThumb) }
         <div>
           <h1 data-testid="recipe-title">{ meal.strMeal }</h1>
           <h5 data-testid="recipe-category">
@@ -76,19 +95,34 @@ function RecipeDetails(props) {
             title="recipeVideo"
           />
         </div>
+        <h4>Recommended Recipes</h4>
         <div>
-          <h4>Recommended Recipes</h4>
-          <div>
-            { recommended && recommended
+          <div style={ { display: 'flex', width: '401px' } }>
+            { recommended && displayRecommended
               .slice(0, seis)
               .map((drink, index) => (
-                <div key={ index } data-testid={ `${index}-recomendation-card` }>
-                  <RecipeCard recipe={ drink } />
-                </div>
+                <RecommendedCard
+                  recipe={ drink }
+                  index={ index }
+                  key={ index }
+                  hidden={ hidden }
+                />
               ))}
           </div>
+          <button
+            type="button"
+            onClick={ scrollRecommended }
+          >
+            {'-->'}
+          </button>
         </div>
-        <button data-testid="start-recipe-btn" type="button">Start Recipe</button>
+        <button
+          className="start-recipe-btn"
+          data-testid="start-recipe-btn"
+          type="button"
+        >
+          Start Recipe
+        </button>
       </div>
     );
   }
