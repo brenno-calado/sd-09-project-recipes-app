@@ -46,7 +46,6 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
     } else {
       favoriteListStorage.push(objectToSave);
     }
-    console.log(favoriteListStorage);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteListStorage));
     setShouldVerifyToFillHeart(true);
   }
