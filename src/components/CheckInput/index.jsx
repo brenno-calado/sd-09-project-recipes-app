@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { string, number, func, arrayOf, shape } from 'prop-types';
 
 function CheckInput({ index, handleCheckedValue, item, match }) {
@@ -48,7 +48,7 @@ function CheckInput({ index, handleCheckedValue, item, match }) {
         name={ item }
         id={ `${index}-ingredientDrinkStep` }
         type="checkbox"
-        onChange={ handleCheckedValue }
+        onChange={ (event) => { handleCheckedValue(event); } }
         key={ Math.random() }
         ref={ inputRef }
         checked={ checkedValue }
