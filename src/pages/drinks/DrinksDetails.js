@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { MealsRecomendations } from '../../components';
+import IngredientsContainer from '../../components/IngredientsContainer';
 import { getItemLocalStorage,
   updateLocalStorage } from '../../services/localStorageService';
 import shareIcon from '../../images/shareIcon.svg';
@@ -52,8 +53,6 @@ function DrinksDetails() {
     }
   };
 
-  const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
-  const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
 
   if (shouldRedirect) return <Redirect to={ `/bebidas/${id}/in-progress` } />;
@@ -72,13 +71,8 @@ function DrinksDetails() {
         />
       </button>
       <p data-testid="recipe-category">{ strAlcoholic }</p>
-      { ingredients.map((ingredient, index) => (
-        data[ingredient] && data[ingredient].length ? (
-          <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
-            { `${data[ingredient]} ${data[measures[index]]}` }
-          </p>
-        ) : false
-      )) }
+
+      <IngredientsContainer data={ data } />
       <p data-testid="instructions">{strInstructions}</p>
       <button
         data-testid="start-recipe-btn"
