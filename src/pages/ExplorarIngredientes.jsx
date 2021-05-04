@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import BottomMenu from '../components/BottomMenu';
 import Header from '../components/Header';
 import fetchIngredients from '../services/fetchIngredients';
-import { searchRecipe, loadFlag, recipeCase, recipeQuery, recipeType } from '../actions';
+import { searchRecipe,
+  loadFlag, recipeCase, recipeQuery, recipeType, clearList } from '../actions';
 
 const TWELVE = 12;
 
@@ -13,7 +14,8 @@ const ExplorarIngredientes = ({
   setLoading,
   setRecipeCase,
   setRecipeQuery,
-  setRecipeType }) => {
+  setRecipeType,
+  clear }) => {
   const url = useLocation().pathname;
   const [ingredients, setIngredients] = useState([]);
   useEffect(() => {
@@ -34,6 +36,7 @@ const ExplorarIngredientes = ({
     setRecipeCase('Ingrediente');
     setRecipeQuery(ingredient);
     setRecipeType(type);
+    clear();
     setLoading(false);
   };
 
@@ -95,7 +98,7 @@ const ExplorarIngredientes = ({
 
   return (
     <>
-      <Header />
+      <Header page="Explorar Ingredientes" hasSearchButton={ false } />
       {url.includes('comidas') ? renderMealCards() : renderDrinkCards() }
       <BottomMenu />
     </>
@@ -108,6 +111,7 @@ ExplorarIngredientes.propTypes = {
   setRecipeType: PropTypes.func,
   setRecipeQuery: PropTypes.func,
   setRecipeCase: PropTypes.func,
+  clear: PropTypes.func,
 }.isRequired;
 
 const mapDispatchToProps = (dispatch) => ({
@@ -116,6 +120,7 @@ const mapDispatchToProps = (dispatch) => ({
   setRecipeType: (type) => dispatch(recipeType(type)),
   setRecipeQuery: (query) => dispatch(recipeQuery(query)),
   setRecipeCase: (searchBy) => dispatch(recipeCase(searchBy)),
+  clear: () => dispatch(clearList()),
 });
 
 export default connect(null, mapDispatchToProps)(ExplorarIngredientes);

@@ -22,10 +22,10 @@ function Recipes({
   const category = useLocation().pathname;
   useEffect(() => {
     if (category === '/comidas' && recipesList.length === 0) {
-      dispatchSearch(searchBy, query, type);
+      dispatchSearch(searchBy, query, 'meal');
     }
     if (category === '/bebidas' && recipesList.length === 0) {
-      dispatchSearch(searchBy, query, type);
+      dispatchSearch(searchBy, query, 'cocktail');
     }
   }, [category, dispatchSearch, recipesList, type, query, searchBy]);
 
