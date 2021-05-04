@@ -18,6 +18,7 @@ const StartRecipeButton = (props) => {
   useEffect(() => {
     changeRecipesType();
     checkRecipesInProgress(recipesType, id, setProgress);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id, recipesType]);
 
   return (
