@@ -16,8 +16,6 @@ function ReceitasFeitas() {
     setDoneRecipes(getDoneRecipes());
   }, []);
 
-  console.log('xablau');
-
   const filtersRecipes = (keyword) => (
     doneRecipes.filter(({ type }) => type === keyword)
   );
