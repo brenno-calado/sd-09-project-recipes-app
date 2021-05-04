@@ -25,3 +25,34 @@ export function renderVideo(url, title) {
       />);
   }
 }
+
+export function saveAsFavorite(id, recipe) {
+  if (localStorage.getItem('favoriteRecipes') === null) {
+    localStorage.setItem('favoriteRecipes', JSON.stringify([]));
+  }
+  const favoritesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (!favoritesList.some((item) => item.id === id)) {
+    const newFavorite = {
+      id,
+      type: 'comida',
+      area: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    };
+    favoritesList.push(newFavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoritesList));
+  } else {
+    const newList = favoritesList.filter((item) => item.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
+  }
+}
+
+// export function copyText() {
+//   const timeout = 1000;
+//   setUrlCopied('Link copiado!');
+//   setTimeout(() => {
+//     setUrlCopied('');
+//   }, timeout);
+// }

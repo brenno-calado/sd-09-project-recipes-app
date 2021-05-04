@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import Arrow from '../components/Arrow';
-import { renderIngredientsList, renderVideo } from '../services/details';
+import { renderIngredientsList, renderVideo, saveAsFavorite } from '../services/details';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -21,6 +21,7 @@ export default function Detalhes() {
     recommendations } = useContext(MyContext);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
@@ -94,6 +95,11 @@ export default function Detalhes() {
     );
   };
 
+  const saveFavorite = () => {
+    setIsFavorite(!isFavorite);
+    saveAsFavorite(recipeId, data);
+  };
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -114,10 +120,11 @@ export default function Detalhes() {
       </button>
       <button
         type="button"
+        onClick={ saveFavorite }
       >
         <img
           data-testid="favorite-btn"
-          src={ whiteHeartIcon }
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
           alt="Favorite"
         />
       </button>
@@ -126,21 +133,21 @@ export default function Detalhes() {
         {renderIngredientsList(filterIngredients(data))}
       </ul>
       <p data-testid="instructions">{ data.strInstructions }</p>
+      <section data-testid="video">
+        {
+          pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
+        }
+      </section>
+      <section>
+        Recomendações
+        { renderRecommendations() }
+      </section>
       <button
         type="button"
         data-testid="start-recipe-btn"
       >
         Iniciar Receita
       </button>
-      <section data-testid="video">
-        {
-          pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
-        }
-      </section>
-      <section data-testid="0-recomendation-card">
-        Recomendações
-        { renderRecommendations() }
-      </section>
     </div>
   );
 }
