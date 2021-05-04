@@ -4,9 +4,10 @@ import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 
-function ShareLikeButtons({ recipe, type, url }) {
+function ShareLikeButtons({ recipe, url }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [type, setType] = useState('');
   const id = recipe.idMeal || recipe.idDrink;
 
   useState(() => {
@@ -14,6 +15,7 @@ function ShareLikeButtons({ recipe, type, url }) {
       const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const isFav = favorites.find((item) => item.id === id);
       setFavorite(isFav);
+      return (recipe.idMeal ? setType('comida') : setType('bebida'));
     }
     verifyFavorite();
   });
@@ -80,7 +82,6 @@ function ShareLikeButtons({ recipe, type, url }) {
 
 ShareLikeButtons.propTypes = {
   url: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     idMeal: PropTypes.string,
     idDrink: PropTypes.string,
