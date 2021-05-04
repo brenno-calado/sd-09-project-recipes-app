@@ -73,26 +73,24 @@
 }
 
 .Done-card .name {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 21px;
   font-style: normal;
   font-weight: 400;
   left: 5px;
-  line-height: 25px;
   letter-spacing: 0.01em;
+  line-height: 25px;
   position: absolute;
   text-align: left;
   top: 23px;
 }
 
 .Done-card .date {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
   left: 5px;
-  line-height: 18px;
   letter-spacing: 0.01em;
+  line-height: 18px;
   position: absolute;
   text-align: left;
   top: 75px;
