@@ -31,26 +31,28 @@ function Comidas() {
   return (
     <>
       <Header title="Comidas" searchIcon />
-      <button
-        className="category-filter-tags"
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ () => { setFoodApiResults([]); setClicked([]); } }
-      >
-        All
-      </button>
-      { foodCategories
-        && foodCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
-          <button
-            className="category-filter-tags"
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-            type="button"
-            onClick={ () => handleClick(strCategory) }
-          >
-            {strCategory}
-          </button>
-        )) }
+      <div className="buttons">
+        <button
+          className="category-filter-tags"
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => { setFoodApiResults([]); setClicked([]); } }
+        >
+          All
+        </button>
+        { foodCategories
+          && foodCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
+            <button
+              className="category-filter-tags"
+              data-testid={ `${strCategory}-category-filter` }
+              key={ strCategory }
+              type="button"
+              onClick={ () => handleClick(strCategory) }
+            >
+              {strCategory}
+            </button>
+          )) }
+      </div>
       <div className="listCard">
         { foods && foods.slice(0, MAX_AMOUNT).map((food, index) => (
           <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>

@@ -3,6 +3,11 @@
   padding: 0;
 }
 
+a p {
+  color: black;
+  text-decoration: none;
+}
+
 /* perfil footer */
 .optionsPerfil {
   bottom: 0;

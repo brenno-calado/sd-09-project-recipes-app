@@ -1,16 +1,16 @@
 .header {
-  width: 100%;
+  background-color: rgb(250, 250, 250);
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  background-color: rgb(250, 250, 250);
+  width: 100%;
 }
 
 .profile-img {
   filter: invert(58%) sepia(71%) saturate(566%) hue-rotate(320deg) brightness(101%) contrast(98%);
   height: 25px;
-  margin-top: 10px;
   margin-left: 5px;
+  margin-top: 10px;
 }
 
 .header h1 {
@@ -26,5 +26,6 @@
 .search-img {
   filter: invert(58%) sepia(71%) saturate(566%) hue-rotate(320deg) brightness(101%) contrast(98%);
   height: 25px;
-  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
 }

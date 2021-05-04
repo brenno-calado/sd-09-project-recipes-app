@@ -32,26 +32,28 @@ function Bebidas() {
   return (
     <>
       <Header title="Bebidas" searchIcon />
-      <button
-        className="category-filter-tags"
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ () => { setDrinksApiResults([]); setClicked({}); } }
-      >
-        All
-      </button>
-      { drinkCategories
-        && drinkCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
-          <button
-            className="category-filter-tags"
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-            type="button"
-            onClick={ () => handleClick(strCategory) }
-          >
-            {strCategory}
-          </button>
-        )) }
+      <div className="buttons">
+        <button
+          className="category-filter-tags"
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => { setDrinksApiResults([]); setClicked({}); } }
+        >
+          All
+        </button>
+        { drinkCategories
+          && drinkCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
+            <button
+              className="category-filter-tags"
+              data-testid={ `${strCategory}-category-filter` }
+              key={ strCategory }
+              type="button"
+              onClick={ () => handleClick(strCategory) }
+            >
+              {strCategory}
+            </button>
+          )) }
+      </div>
       <div className="listCard">
         { drinks && drinks.slice(0, MAX_AMOUNT).map((drink, index) => (
           <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
