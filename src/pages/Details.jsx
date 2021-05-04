@@ -63,10 +63,8 @@ function Details({
         <p data-testid="recipe-category">
           { recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic }
         </p>
-        {/* <p data-testid="recipe-category">{ recipe.strCategory }</p> */}
-        {/* { recipeType === 'cocktails' && <p>{ recipe.strAlcoholic }</p>} */}
       </div>
-      <IngredientsList />
+      <IngredientsList pathname={ pathname } />
       <div>
         <p data-testid="instructions">{ recipe.strInstructions }</p>
         <div>
@@ -84,10 +82,6 @@ function Details({
 const mapStateToProps = (state) => ({
   recipe: state.recipeDetailsReducer.recipe,
   recipeType: state.recipesReducer.recipeType,
-  startedMeals: state.recipeDetailsReducer.startedMeals,
-  startedCocktails: state.recipeDetailsReducer.startedCocktails,
-  finishedMeals: state.recipeDetailsReducer.finishedMeals,
-  finishedCocktails: state.recipeDetailsReducer.finishedCocktails,
   isFetchingRecipe: state.recipeDetailsReducer.isFetchingRecipe,
 });
 

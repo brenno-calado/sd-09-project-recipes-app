@@ -30,7 +30,7 @@ function IngredientsList({ recipe, saveIngredientsDispatcher }) {
         {
           recipe.length !== 0 && ingredients !== undefined
           && ingredients.map((ingredient, index) => {
-            if (ingredient[0] === '') {
+            if (ingredient[0] === '' || ingredient[0] === 'null') {
               return;
             }
             return (
