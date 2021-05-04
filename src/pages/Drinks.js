@@ -10,11 +10,11 @@ import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 function Drinks() {
   const [drink, setDrink] = useState([]);
   const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
+  const [initDrinks, setInitDrinks] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
-
   const { handleFetchDrinkClick,
     recipesData,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesDrinksFilterByCategory } = useRecipeContext();
 
@@ -26,8 +26,9 @@ function Drinks() {
   }, [recipesData]);
 
   useEffect(() => {
-    handleFetchRecipes('thecocktaildb');
-  }, [handleFetchRecipes]);
+    getRecipes('thecocktaildb')
+      .then(({ drinks }) => setInitDrinks(drinks));
+  }, [getRecipes]);
 
   useEffect(() => {
     getRecipesByCategory('thecocktaildb')
@@ -41,6 +42,7 @@ function Drinks() {
 
   function categoryButtom() {
     const five = 5;
+    console.log();
     return (
       drink.map(({ strCategory }, index) => (
         index < five && (
@@ -91,7 +93,8 @@ function Drinks() {
         {categoryButtom() }
         {listDrinkByCategory.length
           ? createRender(listDrinkByCategory)
-          : (recipesData.drinks && (createRender(recipesData.drinks))) }
+          : (initDrinks.length && (createRender(initDrinks))) }
+        {searchRender() }
         <BottomMenu />
       </>
     );
