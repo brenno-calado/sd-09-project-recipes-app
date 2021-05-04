@@ -1,12 +1,13 @@
-import { FETCH_RECIPES, CLEAR_LIST, REDIRECT } from '../actions';
+import { FETCH_RECIPES, CLEAR_LIST, REDIRECT, LOADING } from '../actions';
 
 const INITIAL_STATE = {
   recipesType: '',
   recipesList: [],
   redirect: false,
+  load: false,
 };
 
-const recipes = (state = INITIAL_STATE, { type, recipesList, recipesType }) => {
+const recipes = (state = INITIAL_STATE, { type, recipesList, recipesType, bool }) => {
   switch (type) {
   case FETCH_RECIPES:
     if (recipesList === null) {
@@ -31,6 +32,11 @@ const recipes = (state = INITIAL_STATE, { type, recipesList, recipesType }) => {
     return {
       ...state,
       redirect: true,
+    };
+  case LOADING:
+    return {
+      ...state,
+      load: bool,
     };
   default:
     return state;
