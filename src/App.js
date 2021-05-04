@@ -29,6 +29,7 @@ function App() {
       <Route path="/bebidas/:id" component={ Details } />
       <Route path="/bebidas" component={ Beverages } />
       <Route path="/explorar/comidas/area" component={ Areas } />
+      <Route path="/explorar/bebidas/area" component={ Areas } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ Ingredients }
