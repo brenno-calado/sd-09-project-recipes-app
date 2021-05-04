@@ -45,6 +45,18 @@ const fetchDrinkByIngredients = async () => {
   return drinksIngredients.drinks;
 };
 
+const fetchMeals = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  const mealsData = await response.json();
+  return mealsData.meals;
+};
+
+const fetchDrinks = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  const drinksData = await response.json();
+  return drinksData.drinks;
+};
+
 const fetchApi = {
   fetchMealCategories,
   fetchMealByArea,
@@ -54,6 +66,8 @@ const fetchApi = {
   fetchDrinkByIngredients,
   fetchMealByFilter,
   fetchDrinkByFilter,
+  fetchMeals,
+  fetchDrinks,
 };
 
 export default fetchApi;
