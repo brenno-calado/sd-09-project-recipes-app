@@ -16,7 +16,7 @@ const footerStyle = {
 const Footer = () => {
   const history = useHistory();
   return (
-    <footer data-testid="footer" style={ footerStyle }>
+    <footer className="footer" data-testid="footer" style={ footerStyle }>
       <button type="button" onClick={ () => history.push(DRINKS) }>
         <img
           data-testid="drinks-bottom-btn"
