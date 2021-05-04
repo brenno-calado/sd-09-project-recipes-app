@@ -70,8 +70,8 @@ class FoodDetails extends React.Component {
     let nameButton = 'Iniciar Receita';
     let classButton = true;
 
-    if (getInProgress && Object.values(getInProgress.meals)
-      .find((progress) => Object.keys(progress)[0] === id)) {
+    if (getInProgress && Object.keys(Object.values(getInProgress)[1])
+      .find((progress) => progress === id)) {
       nameButton = 'Continuar Receita';
     }
 
@@ -103,7 +103,7 @@ class FoodDetails extends React.Component {
             title={ getFoodDetails.strMeal }
             width="340"
             height="165"
-            src={ getFoodDetails.strYoutube }
+            src={ getFoodDetails.strYoutube && `https://www.youtube.com/embed/${getFoodDetails.strYoutube.split('=')[1]}` }
             frameBorder="0"
             allowFullScreen
             data-testid="video"
