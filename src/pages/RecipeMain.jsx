@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
+import { getPageFromURL as isFoodPage } from '../services/others';
 
 const handleRecipes = (data) => {
   const maxRecipes = 12;
@@ -25,17 +26,23 @@ const renderCards = (recipes, filter) => {
     if (recipe.strCategory === filter) return true;
     return false;
   })
-    .map((recipe, index) => (
-      <Link to={ `/comidas/${recipe.idMeal}` } key={ index }>
-        <RecipeCard
-          image={ recipe.strMealThumb }
-          recipeName={ recipe.strMeal }
-          idRecipe={ recipe.idMeal }
-          index={ index }
-          key={ index }
-        />
-      </Link>
-    )));
+    .map((recipe, index) => {
+      const page = isFoodPage() ? '/comidas/' : '/bebidas/';
+      const recipeId = isFoodPage() ? recipe.idMeal : recipe.idDrink;
+      const recipeImg = isFoodPage() ? recipe.strMealThumb : recipe.strDrinkThumb;
+      const recipeName = isFoodPage() ? recipe.strMeal : recipe.strDrink;
+      return (
+        <Link to={ `${page}${recipeId}` } key={ index }>
+          <RecipeCard
+            image={ recipeImg }
+            recipeName={ recipeName }
+            idRecipe={ recipeId }
+            index={ index }
+            key={ index }
+          />
+        </Link>
+      );
+    }));
 };
 
 const renderFilter = (categories, filter, setFilter) => {
@@ -55,17 +62,17 @@ const renderFilter = (categories, filter, setFilter) => {
 };
 
 function RecipeMain() {
-  const { meals } = useContext(MealsAndDrinkContext);
+  const { meals, drinks } = useContext(MealsAndDrinkContext);
   const [currentRecipes, setCurrentRecipes] = useState([]);
   const [currentCategories, setCurrentCategories] = useState([]);
   const [filter, setFilter] = useState(0);
 
   useEffect(() => {
-    const recipes = meals ? handleRecipes(meals) : [];
-    const categories = meals ? handleCategories(meals) : [];
+    const recipes = isFoodPage() ? handleRecipes(meals) : handleRecipes(drinks);
+    const categories = isFoodPage() ? handleCategories(meals) : handleCategories(drinks);
     setCurrentRecipes(recipes);
     setCurrentCategories(categories);
-  }, [meals]);
+  }, [meals, drinks]);
 
   return (
     <div className="main-container">
