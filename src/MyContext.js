@@ -9,6 +9,7 @@ const MyContextProvider = ({ children }) => {
   const [resultAPI, setResultAPI] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categorieSelected, setCategorieSelected] = useState('');
   const [toggle, setToggle] = useState(false);
@@ -39,6 +40,24 @@ const MyContextProvider = ({ children }) => {
     // (showBar ? setShowBar(false) : setShowBar(true))
   };
 
+  function filterIngredients(recipe) {
+    const recipeIngredients = Object
+      .entries(recipe).filter((key) => (
+        key[0].includes('Ingredient') && key[1] !== '' && key[1] !== null
+      ));
+    const recipeIngredientsMeasures = Object
+      .entries(recipe).filter((key) => (
+        key[0].includes('Measure') && key[1] !== '' && key[1] !== null
+      ));
+    const recipeIngredientsAndMeasures = [];
+    recipeIngredients.forEach((ingr, index) => {
+      recipeIngredientsAndMeasures
+        .push(`${ingr[1]}: ${recipeIngredientsMeasures[index][1]}`);
+    });
+    return recipeIngredientsAndMeasures;
+  }
+  // Source of the algorithm https://github.com/tryber/sd-09-project-recipes-app/pull/483/files /
+
   const context = {
     data,
     categories,
@@ -52,6 +71,9 @@ const MyContextProvider = ({ children }) => {
     setCategories,
     setShowBar,
     filterByCategory,
+    filterIngredients,
+    recommendations,
+    setRecommendations,
   };
   return (
     <MyContext.Provider value={ context }>
