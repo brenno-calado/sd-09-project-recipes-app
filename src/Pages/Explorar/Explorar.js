@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 
-import MenuInferior from '../components/MenuInferior';
+import MenuInferior from '../../components/MenuInferior';
 
 function Explorar() {
   return (
     <div>
       <Header />
-      <Link to="/comidas">
+      <Link to="/explorarcomidas">
         <button
           data-testid="explore-food"
           type="button"
@@ -16,7 +16,7 @@ function Explorar() {
           Explorar Comidas
         </button>
       </Link>
-      <Link to="/bebidas">
+      <Link to="/explorarbebidas">
         <button
           data-testid="explore-drinks"
           type="button"
