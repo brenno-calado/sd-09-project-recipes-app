@@ -3,6 +3,7 @@ import {
   FETCHING_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  IS_ASSEMBLE,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
   isRecommendedFetched: false,
   startedRecipes: [],
   ingredients: [],
+  isAssembled: false,
   isFavorite: null,
 };
 
@@ -30,6 +32,8 @@ function recipeDetailsReducer(state = INITIAL_STATE, action) {
     return ({ ...state, recommended: action.data });
   case SAVE_INGREDIENTS:
     return ({ ...state, ingredients: action.ingredients });
+  case IS_ASSEMBLE:
+    return ({ ...state, isAssembled: true });
   default:
     return state;
   }

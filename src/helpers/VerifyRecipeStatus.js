@@ -28,3 +28,15 @@ export const verifyIfRecipeWasFinished = (recipe) => {
   ));
   if (mealsFinished || cocktailsFinished) return ('finished');
 };
+
+export const startRecipe = (recipe, recipeType) => {
+  const startedRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const { cocktails, meals } = startedRecipes;
+  if (recipeType === 'comidas' && !meals[recipe.idMeal]) {
+    meals[recipe.idMeal] = {};
+  }
+  if (recipeType === 'bebidas' && !cocktails[recipe.idDrink]) {
+    cocktails[recipe.idDrink] = {};
+  }
+  localStorage.setItem('inProgressRecipes', JSON.stringify(startedRecipes));
+};
