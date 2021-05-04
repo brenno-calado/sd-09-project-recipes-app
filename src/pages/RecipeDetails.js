@@ -2,10 +2,10 @@ import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { getFoodById } from '../services/FoodAPI';
-import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import { getDrinkById } from '../services/DrinksAPI';
 import FavoriteButton from '../components/FavoriteButton';
+import Ingredients from '../components/IngredientsDetails';
 import StartRecipeButton from '../components/StartRecipeButton';
 import RecomendationCard from '../components/RecomendationCard';
 
@@ -45,8 +45,7 @@ const RecipeDetails = (props) => {
         width="320"
         height="240"
         title={ recipe.strMeal }
-        src={ recipe.strYoutube
-          && `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
+        src={ `https://www.youtube.com/embed/${recipe.strYoutube.split('=')[1]}` }
         frameBorder="0"
         allow="accelerometer;
           autoplay;

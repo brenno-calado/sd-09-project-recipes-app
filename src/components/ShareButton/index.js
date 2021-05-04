@@ -1,6 +1,6 @@
 import React from 'react';
 
-import shareIcon from '../images/shareIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
 
 const ShareButton = () => (
   <div>

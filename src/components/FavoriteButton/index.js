@@ -1,6 +1,6 @@
 import React from 'react';
 
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 
 const FavoriteButton = () => (
   <div>
