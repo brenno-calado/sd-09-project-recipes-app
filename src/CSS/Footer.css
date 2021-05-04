@@ -1,0 +1,9 @@
+.optionsPerfil {
+  background-color: var(--colorWarning3);
+  height: 65px;
+  opacity: 85%;
+}
+
+.optionsPerfil img {
+  height: 35px;
+}

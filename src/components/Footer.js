@@ -4,6 +4,7 @@ import React from 'react';
 import exploreIcon from '../images/exploreIcon.svg';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import '../CSS/Footer.css';
 
 function Footer() {
   // const [foods, setFoods] = useState('');

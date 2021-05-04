@@ -13,7 +13,7 @@
 }
 
 #profile-top-btn img {
-  width: 20px;
+  width: 50px;
 }
 
 .page-title {
@@ -51,16 +51,24 @@
 
 .recipe-card {
   margin-top: 10px;
+  border: 1px solid red;
 }
 
 .listCard {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .listCard a div {
   margin: 0px 5px;
+}
+
+.listCard p {
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
 }
 
 .listCard img {
