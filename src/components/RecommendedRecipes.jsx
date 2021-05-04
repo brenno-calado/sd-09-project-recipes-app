@@ -40,19 +40,19 @@ function RecommendedRecipes({
     verifyFetch();
   }, [recommended, verifyFetch]);
 
-  const recommendedMeals = data.map((recipe, index) => (
-    <div
-      key={ recipe.idMeal }
-      data-testid={ `${index}-recomendation-card` }
-      className="recommendation-card"
-    >
-      <img
-        src={ recipe.strMealThumb }
-        alt="foto da receita"
-      />
-      <p>{recipe.strMeal}</p>
-    </div>
-  ));
+  // const recommendedMeals = data.map((recipe, index) => (
+  //   <div
+  //     key={ recipe.idMeal }
+  //     data-testid={ `${index}-recomendation-card` }
+  //     className="recommendation-card"
+  //   >
+  //     <img
+  //       src={ recipe.strMealThumb }
+  //       alt="foto da receita"
+  //     />
+  //     <p>{recipe.strMeal}</p>
+  //   </div>
+  // ));
 
   // const recommendedDrinks = data.map((recipe, index) => (
   //   <div

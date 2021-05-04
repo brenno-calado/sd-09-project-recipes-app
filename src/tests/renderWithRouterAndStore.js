@@ -13,8 +13,7 @@ export const getStore = (initialState) => {
   return createStore(rootReducer, initialState, applyMiddleware(thunk));
 };
 
-export default function renderWithRouterAndStore
-(
+export default function renderWithRouterAndStore(
   component,
   routesConfig = {},
   initialState = {},
