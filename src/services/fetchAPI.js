@@ -100,3 +100,31 @@ export const fetchDrinksRecomendation = async () => {
   const resultFinal = drinks.filter((_, index) => index < returnNumber);
   return resultFinal;
 };
+
+export const fetchRandomFood = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const fetchRandomDrink = async () => {
+  const url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
+export const fetchAreas = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result.meals;
+};
+
+export const fetchFoodByArea = async (area) => {
+  const url = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result.meals;
+};

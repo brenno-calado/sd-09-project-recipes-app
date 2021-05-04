@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import shareIcon from '../images/shareIcon.svg';
 import '../styles/recomendation.css';
 
-function ShareButton() {
+function ShareButton({ dataTestId, urlCopied }) {
   const [shouldCopy, setShouldCopy] = useState('hidden');
 
   function handleClick() {
-    const { href } = window.location;
-    console.log(href);
-    navigator.clipboard.writeText(href);
+    navigator.clipboard.writeText(urlCopied);
     setShouldCopy('');
   }
+
   return (
     <div>
       <button
         type="button"
-        data-testid="share-btn"
+        src={ shareIcon }
         onClick={ handleClick }
       >
-        Compartilhar
+        <img
+          src={ shareIcon }
+          alt="share"
+          data-testid={ dataTestId }
+        />
       </button>
       <p className={ shouldCopy }>Link copiado!</p>
     </div>
   );
 }
+
+ShareButton.propTypes = {
+  dataTestId: PropTypes.string.isRequired,
+  urlCopied: PropTypes.string.isRequired,
+};
 
 export default ShareButton;
