@@ -39,6 +39,10 @@ export default function RecipesProvider({ children }) {
       addRecipeToFavorites(recipeObj) {
         setFavoriteRecipes([...favoriteRecipes, recipeObj]);
       },
+      removeRecipeFromFavorites(recipeObj) {
+        const { id } = recipeObj;
+        setFavoriteRecipes([...favoriteRecipes.filter((recipe) => recipe.id !== id)]);
+      },
       addRecipeToInProgress(recipeObj) {
         setInProgressRecipes([...inProgressRecipes, recipeObj]);
       },

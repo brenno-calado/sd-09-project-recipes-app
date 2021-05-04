@@ -5,6 +5,8 @@ import Recommendations from '../components/Recommendations';
 import { useRecipes } from '../hooks';
 import { RecipesContext } from '../context';
 import '../styles/Details.css';
+import ShareButton from '../components/ShareButton';
+import LikeButton from '../components/LikeButton';
 
 function Detalhes() {
   const { pathname } = useLocation();
@@ -61,7 +63,6 @@ function Detalhes() {
   function renderStartButtonText() {
     const recipes = type[0] === 'comidas'
       ? inProgressRecipes.meals : inProgressRecipes.cocktails;
-    console.log(type[0], recipes);
     return Object.keys(recipes).find((recipeID) => recipeID === id)
       ? 'Continuar Receita' : 'Iniciar Receita';
   }
@@ -86,8 +87,8 @@ function Detalhes() {
               </p>
             </div>
             <div>
-              <button type="button" data-testid="share-btn">Share</button>
-              <button type="button" data-testid="favorite-btn">Add to favorites</button>
+              <LikeButton recipeDetails={ recipeDetails } />
+              <ShareButton />
             </div>
           </div>
           { renderIngredients() }
