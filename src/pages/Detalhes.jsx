@@ -67,11 +67,11 @@ function Detalhes() {
             data-testid="recipe-photo"
           />
           <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
-          {type[1] === 'Drink'
-          && <p>{recipeDetails.strAlcoholic}</p>}
+          <p data-testid="recipe-category">
+            {type[1] === 'Drink' ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+          </p>
           <button type="button" data-testid="share-btn">Share</button>
           <button type="button" data-testid="favorite-btn">Add to favorites</button>
-          <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
           <ul>
             { renderIngredients() }
           </ul>
