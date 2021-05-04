@@ -13,7 +13,7 @@ export default function useRecipes() {
     case 'category':
       return mealsAPI.fetchByCategory(searchInput);
     default:
-      return [];
+      return mealsAPI.fecthByID(searchInput);
     }
   }
 
@@ -28,7 +28,7 @@ export default function useRecipes() {
     case 'category':
       return cocktailsAPI.fetchByCategory(searchInput);
     default:
-      return [];
+      return cocktailsAPI.fetchByID(searchInput);
     }
   }
 

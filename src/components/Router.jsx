@@ -17,8 +17,8 @@ export default function Router() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ ReceitasPrincipal } />
       <Route exact path="/bebidas" component={ ReceitasPrincipal } />
-      <Route exact path="/comidas/:id-da-receita" component={ Detalhes } />
-      <Route exact path="/bebidas/:id-da-receita" component={ Detalhes } />
+      <Route exact path="/comidas/:id" component={ Detalhes } />
+      <Route exact path="/bebidas/:id" component={ Detalhes } />
       <Route
         exact
         path="/comidas/:id-da-receita/in-progress"

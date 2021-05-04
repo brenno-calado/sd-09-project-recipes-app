@@ -1,32 +1,45 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { arrayOf, shape } from 'prop-types';
 import '../styles/Card.css';
-import { Link, useLocation } from 'react-router-dom';
-import { RecipesContext } from '../context';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-function Card() {
-  const { values: { recipesResult } } = useContext(RecipesContext);
+function Card({ data }) {
   const { pathname } = useLocation();
-  const category = pathname.includes('comidas') ? 'Meal' : 'Drink';
+  const params = useParams();
+
+  const isInMainPage = !Object.keys(params).length;
+  const category = () => {
+    if (isInMainPage) return pathname.includes('comidas') ? 'Meal' : 'Drink';
+    return pathname.includes('comidas') ? 'Drink' : 'Meal';
+  };
+  const cardDataTestID = () => {
+    if (isInMainPage) return 'recipe-card';
+    return 'recomendation-card';
+  };
+  const titleDataTestID = () => {
+    if (isInMainPage) return 'recipe-name';
+    return 'recomendation-title';
+  };
   const DOZE = 12;
 
   return (
     <>
-      { recipesResult
+      { data
         .filter((_, index) => index < DOZE)
         .map((element, index) => (
           <section
             className="recipe-card"
-            data-testid={ `${index}-recipe-card` }
-            key={ element[`id${category}`] }
+            data-testid={ `${index}-${cardDataTestID()}` }
+            key={ `${element[`str${category()}`]}${index}` }
           >
-            <Link to={ `${pathname}/${element[`id${category}`]}` }>
+            <Link to={ `${pathname}/${element[`id${category()}`]}` }>
               <img
                 alt={ `imagem de ${element.strMeal}` }
                 data-testid={ `${index}-card-img` }
-                src={ element[`str${category}Thumb`] }
+                src={ element[`str${category()}Thumb`] }
               />
-              <p data-testid={ `${index}-card-name` }>
-                { element[`str${category}`] }
+              <p data-testid={ `${index}-${titleDataTestID()}` }>
+                { element[`str${category()}`] }
               </p>
             </Link>
           </section>
@@ -34,5 +47,9 @@ function Card() {
     </>
   );
 }
+
+Card.propTypes = {
+  data: arrayOf(shape()),
+}.isRequired;
 
 export default Card;
