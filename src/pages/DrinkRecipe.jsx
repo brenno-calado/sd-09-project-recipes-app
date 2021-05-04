@@ -10,7 +10,7 @@ import '../App.css';
 function DrinkRecipe({ match: { params: { id } } }) {
   const [copy, setCopy] = useState(false);
   const [drinking, setDrinking] = useState([]);
-  const [recomendedDrink, setRecomendedDrink] = useState([]);
+  const [recomendedFood, setRecomendedFood] = useState([]);
 
   const maxResult = 6;
 
@@ -25,7 +25,7 @@ function DrinkRecipe({ match: { params: { id } } }) {
   useEffect(() => {
     const fetchRecomended = async () => {
       const recomendedArray = await fetchAllMeals();
-      setRecomendedDrink(recomendedArray.meals);
+      setRecomendedFood(recomendedArray.meals);
     };
     fetchRecomended();
   }, []);
@@ -100,7 +100,7 @@ function DrinkRecipe({ match: { params: { id } } }) {
             <p data-testid="instructions">{drinking.strInstructions}</p>
             <br />
             <h3>Recomendação</h3>
-            <Recommendations recommendations={ recomendedDrink.slice(0, maxResult) } />
+            <Recommendations recommendations={ recomendedFood.slice(0, maxResult) } />
             <button
               className="start-recipe-btn"
               type="button"
