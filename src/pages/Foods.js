@@ -4,7 +4,7 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import createRender from '../utils/headerfoods';
+import createRender from '../utils/headerFoods';
 import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 
 function Foods() {
@@ -60,6 +60,18 @@ function Foods() {
     );
   }
 
+  function filterAllButtom() {
+    return (
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ toggle }
+      >
+        All
+      </button>
+    );
+  }
+
   function header() {
     return (
       <>
@@ -75,7 +87,8 @@ function Foods() {
             Buscar
           </button>
         </SearchBar>
-        {categoryButtom() }
+        { filterAllButtom() }
+        { categoryButtom() }
         { listItemByCategory.length
           ? createRender(listItemByCategory)
           : (recipesData.meals && (createRender(recipesData.meals))) }
