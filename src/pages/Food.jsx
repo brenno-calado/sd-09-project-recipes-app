@@ -3,31 +3,42 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { fetchAllMeals, fetchCategoryMeals } from '../service/mealAPI';
+import { fetchAllMeals, fetchCategoryMeals, fetchMealsByCategory,
+} from '../service/mealAPI';
 import useResult from '../effects/useResult';
 import useCategory from '../effects/useCategory';
 import CategoryButton from '../components/CategoryButton';
+import Footer from '../components/Footer';
 
 function Food({ match: { path } }) {
-  const [result, setResult] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [filter, setFilter] = useState([]);
+  const [result, setResult] = useState({});
+  const [categories, setCategories] = useState({});
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [filter, setFilter] = useState({});
   const maxResult = 12;
 
   useCategory(fetchCategoryMeals, setCategories);
   useResult(fetchAllMeals, setResult);
 
+  const toggleCategory = async (strCategory, id) => {
+    if (!selectedCategory || selectedCategory !== id) {
+      const toFilter = await fetchMealsByCategory(strCategory);
+      setSelectedCategory(id);
+      return setFilter(toFilter);
+    }
+    setSelectedCategory('');
+    return setFilter([]);
+  };
+
   const renderCategories = () => {
-    if (categories.length === 0) return;
+    if (Object.keys(categories).length === 0) return;
     const maxCategories = 5;
     return categories.meals.slice(0, maxCategories)
       .map(({ strCategory }) => (
         <CategoryButton
           key={ strCategory }
           strCategory={ strCategory }
-          setFilter={ setFilter }
-          path={ path }
+          toggleCategory={ toggleCategory }
         />));
   };
 
@@ -38,17 +49,18 @@ function Food({ match: { path } }) {
         key={ meal.idMeal }
         name={ meal.strMeal }
         image={ meal.strMealThumb }
+        path={ path }
+        id={ meal.idMeal }
       />
     ));
 
   const renderFilter = () => {
-    if (filter.meals === undefined) return 'loading...';
-    console.log(filter.meals.slice(0, maxResult));
+    if (Object.keys(filter).length === 0) return 'loading...';
     return renderRecipeCards(filter);
   };
 
   const renderResult = () => {
-    if (result.length === 0) return '...loading';
+    if (Object.keys(result).length === 0) return '...loading';
     if (result.meals === null) {
       return window
         .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -63,11 +75,23 @@ function Food({ match: { path } }) {
   return (
     <div className="center">
       <Header title="Comidas" path={ path } setResult={ setResult } />
-      <section className="categories-container">{ renderCategories() }</section>
+      <section className="categories-container">
+        { renderCategories() }
+        <button
+          type="button"
+          onClick={ () => {
+            setSelectedCategory('');
+            return setFilter([]);
+          } }
+          data-testid="All-category-filter"
+        >
+          All
+        </button>
+      </section>
       <section
         className="card-container"
       >
-        { filter.length === 0 ? renderResult() : renderFilter() }
+        { Object.keys(filter).length === 0 ? renderResult() : renderFilter() }
       </section>
       <Footer />
     </div>
