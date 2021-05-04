@@ -169,8 +169,6 @@ const AppProvider = ({ children }) => {
     drinkIngredients,
     doneRecipes,
     inProgressRecipes,
-    inProgressDrinks,
-    inProgressMeals,
     // xablau,
     setFoodApiResults,
     setDrinksApiResults,

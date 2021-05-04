@@ -7,9 +7,9 @@ const CheckBoxProgress = ({
   stepsFinished,
   inProgressRecipe, idRecipe, ingStatus, setIngStatus,
 }) => {
-  const [strikeThrough, setStrikeThrough] = useState(false);
   const ing = `${ingredient.name} ${ingredient.measure === null
     ? '' : ingredient.measure}`;
+  const [strikeThrough, setStrikeThrough] = useState(ingStatus[ing]);
 
   const checkStep = () => {
     if (!strikeThrough) {
@@ -17,14 +17,12 @@ const CheckBoxProgress = ({
       setStepsFinished(stepsFinished + 1);
       inProgressRecipe({ ...ingStatus, [ing]: true }, idRecipe);
       setIngStatus({ ...ingStatus, [ing]: true });
-      // ingredientsUsed(ing);
     }
     if (strikeThrough) {
       setStrikeThrough(!strikeThrough);
       setStepsFinished(stepsFinished - 1);
       inProgressRecipe({ ...ingStatus, [ing]: false }, idRecipe);
       setIngStatus({ ...ingStatus, [ing]: false });
-      // ingredientsUsed(ing);
     }
   };
 
@@ -39,6 +37,7 @@ const CheckBoxProgress = ({
         id={ index }
         type="checkbox"
         data-testid={ `${index}-ingredient-step` }
+        defaultChecked={ strikeThrough }
         onClick={ checkStep }
         value={ ing }
       />
@@ -54,12 +53,10 @@ CheckBoxProgress.propTypes = {
   index: PropTypes.number.isRequired,
   stepsFinished: PropTypes.number.isRequired,
   setStepsFinished: PropTypes.func.isRequired,
-  // ingredientsUsed: PropTypes.arrayOf(PropTypes.string).isRequired,
   idRecipe: PropTypes.string.isRequired,
   inProgressRecipe: PropTypes.func.isRequired,
   ingStatus: PropTypes.shape({}).isRequired,
   setIngStatus: PropTypes.func.isRequired,
-  // type: PropTypes.string.isRequired,
 };
 
 export default CheckBoxProgress;

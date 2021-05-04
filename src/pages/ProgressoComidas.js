@@ -13,33 +13,24 @@ const checkFavorite = (favoriteRecipes, recipeId) => {
   return false;
 };
 
-const checkInitiatedMeals = (inProgressMeals, recipeId) => {
-  if (Object.keys(inProgressMeals).find((id) => id === recipeId)) {
-    return true;
-  }
-  return false;
-};
-
-const showInitiatedIng = (inProgress, recipeId) => (
-  Object.entries(inProgress[recipeId]).map((ing, index) => {
-    const info = `${ing[0]}:${ing[1]}`;
-    return (<p key={ index }>{info}</p>);
-  })
-);
-
 const ProgressoComidas = () => {
-  const [stepsFinished, setStepsFinished] = useState(1);
   const [idDetails, setIdDetails] = useState([]);
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
-  const [ingStatus, setIngStatus] = useState({});
+  const [ingStatus, setIngStatus] = useState(
+    JSON.parse(localStorage.getItem('inProgressMeals'))[id]
+  || {},
+  );
+  const doneLength = Object.values(ingStatus).filter(
+    (status) => status === true,
+  ).length + 1;
+  const [stepsFinished, setStepsFinished] = useState(doneLength);
 
   const {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
-    inProgressMeals,
     handleProgressMeal,
     favoriteRecipes,
   } = useContext(AppContext);
@@ -155,8 +146,6 @@ const ProgressoComidas = () => {
             />);
         }) }
       </div>
-      { checkInitiatedMeals(inProgressMeals, idMeal)
-      && showInitiatedIng(inProgressMeals, idMeal)}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         type="button"

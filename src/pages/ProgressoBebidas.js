@@ -8,33 +8,30 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
-const checkInitiatedDrinks = (inProgressDrinks, recipeId) => {
-  if (Object.keys(inProgressDrinks).find((id) => id === recipeId)) {
-    return true;
-  }
-  return false;
-};
-
 const checkFavorite = (favoriteRecipes, recipeId) => {
   if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
   return false;
 };
 
 const ProgressoBebidas = () => {
-  const [stepsFinished, setStepsFinished] = useState(1);
   const [idDetails, setIdDetails] = useState([]);
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
-  const [ingStatus, setIngStatus] = useState({});
-
+  const [ingStatus, setIngStatus] = useState(
+    JSON.parse(localStorage.getItem('inProgressDrinks'))[id]
+    || {},
+  );
+  const doneLength = Object.values(ingStatus).filter(
+    (status) => status === true,
+  ).length + 1;
+  const [stepsFinished, setStepsFinished] = useState(doneLength);
   const {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
     favoriteRecipes,
     handleProgressDrink,
-    inProgressDrinks,
   } = useContext(AppContext);
 
   let stepsLimit = 1;
@@ -150,7 +147,6 @@ const ProgressoBebidas = () => {
           );
         }) }
       </div>
-      { checkInitiatedDrinks(inProgressDrinks, idDrink) && <p>Iniciado</p>}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         type="button"
