@@ -1,4 +1,4 @@
-const fetchApi = async (params) => {
+export const fetchApi = async (params) => {
   const paramsKey = Object.keys(params)[0];
   const domain = params.isFoodsPage ? 'meal' : 'cocktail';
   const query = paramsKey === 'i' ? 'filter' : 'search';
@@ -8,4 +8,16 @@ const fetchApi = async (params) => {
   return request.json();
 };
 
-export default fetchApi;
+export const genericFetch = async (foods) => {
+  const apiName = foods ? 'meal' : 'cocktail';
+  const endpoint = `https://www.the${apiName}db.com/api/json/v1/1/search.php?s=`;
+  const response = await fetch(endpoint);
+  return response.json();
+};
+
+export const categoriesFetch = async (foods) => {
+  const apiName = foods ? 'meal' : 'cocktail';
+  const endpoint = `https://www.the${apiName}db.com/api/json/v1/1/list.php?c=list`;
+  const response = await fetch(endpoint);
+  return response.json();
+};
