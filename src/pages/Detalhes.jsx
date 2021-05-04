@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Recommendations from '../components/Recommendations';
 import { useRecipes } from '../hooks';
+import { RecipesContext } from '../context';
 import '../styles/Details.css';
 
 function Detalhes() {
   const { pathname } = useLocation();
   const { id } = useParams();
+  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recommendations, setRecommendations] = useState([]);
+
+  const { values: { doneRecipes, inProgressRecipes } } = useContext(RecipesContext);
 
   const { getRecipes } = useRecipes();
 
@@ -54,6 +58,14 @@ function Detalhes() {
     ));
   }
 
+  function renderStartButtonText() {
+    const recipes = type[0] === 'comidas'
+      ? inProgressRecipes.meals : inProgressRecipes.cocktails;
+    console.log(type[0], recipes);
+    return Object.keys(recipes).find((recipeID) => recipeID === id)
+      ? 'Continuar Receita' : 'Iniciar Receita';
+  }
+
   return (
     loading
       ? <Loading />
@@ -83,14 +95,18 @@ function Detalhes() {
           {type[1] === 'Meal'
           && <a href={ recipeDetails.strYoutube } data-testid="video">Video</a>}
           <Recommendations data={ recommendations } />
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="details__button--start"
-          >
-            Start recipe
+          { !doneRecipes.find(({ id: doneRecipeID }) => id === doneRecipeID)
+          && (
 
-          </button>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="details__button--start"
+              onClick={ () => history.push(`/${type[0]}/${id}/in-progress`) }
+            >
+              { renderStartButtonText() }
+            </button>
+          ) }
         </main>
       )
 

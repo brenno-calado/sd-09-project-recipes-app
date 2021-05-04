@@ -7,11 +7,17 @@ import getCategories from '../../services/categoriesAPI';
 
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
-  const [doneRecipes, setDoneRecipes] = useState([]);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [inProgressRecipes, setInProgressRecipes] = useState({
-    cocktails: {}, meals: {},
-  });
+  const [doneRecipes, setDoneRecipes] = useState(
+    JSON.parse(localStorage.getItem('doneRecipes')) || [],
+  );
+  const [favoriteRecipes, setFavoriteRecipes] = useState(
+    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
+  );
+  const [inProgressRecipes, setInProgressRecipes] = useState(
+    JSON.parse(localStorage.getItem('inProgressRecipes')) || {
+      cocktails: {}, meals: {},
+    },
+  );
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
@@ -41,7 +47,7 @@ export default function RecipesProvider({ children }) {
 
   useEffect(() => {
     Object.keys(value.values).forEach((key) => (
-      localStorage.setItem(key, value.values[key])
+      localStorage.setItem(key, JSON.stringify(value.values[key]))
     ));
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
