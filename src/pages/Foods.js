@@ -6,15 +6,17 @@ import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
 import createRender from '../utils/headerfoods';
 import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
+import RecipeCard from '../components/RecepiCard';
 
 function Foods() {
   const [meal, setMeal] = useState([]);
   const [listItemByCategory, setListItemByCategory] = useState([]);
+  const [initFood, setInitFood] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
-
+  const twelve = 12;
   const { handleFetchFoodClick,
     recipesData,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory } = useRecipeContext();
 
@@ -26,8 +28,9 @@ function Foods() {
   }, [recipesData]);
 
   useEffect(() => {
-    handleFetchRecipes('themealdb');
-  }, [handleFetchRecipes]);
+    getRecipes('themealdb')
+      .then(({ meals }) => setInitFood(meals));
+  }, [getRecipes]);
 
   useEffect(() => {
     getRecipesByCategory('themealdb')
@@ -78,7 +81,21 @@ function Foods() {
         {categoryButtom() }
         { listItemByCategory.length
           ? createRender(listItemByCategory)
-          : (recipesData.meals && (createRender(recipesData.meals))) }
+          : (initFood && (createRender(initFood))) }
+
+        {recipesData.meals && recipesData.Meals
+          .map(({ idMeal, strMealThumb, strMeal }, index) => (
+            index < twelve && (
+              <RecipeCard
+                key={ idMeal }
+                image={ strMealThumb }
+                name={ strMeal }
+                recipeCArdId={ `${index}-recipe-card` }
+                cardImageId={ `${index}-card-img` }
+                cardNameId={ `${index}-card-name` }
+              />
+            )
+          )) }
         <BottomMenu />
       </>
     );

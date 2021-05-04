@@ -10,7 +10,7 @@ import {
   getRecipesFoodsFilterByCategory,
   getRecipesDrinksFilterByCategory,
   getRecipesByCategory,
-  getRecipesRandom} from '../services/fetchApi';
+  getRecipesRandom } from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
@@ -63,18 +63,13 @@ function useClickFetch() {
     }
   }
 
-  async function handleFetchRecipes(type) {
-    const apiData = await getRecipes(type);
-    setRecipesData(apiData);
-  }
-
   return [
     recipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
     getInputValue,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
