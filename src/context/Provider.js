@@ -47,8 +47,9 @@ const Provider = ({ children }) => {
       : checkType(getFoodByCategory, getDrinksByCategory, category)
   );
 
-  const handleResponseFromSearch = (response) => {
+  const handleResponseFromSearch = (response = {}) => {
     const listSize = 12;
+
     const responseList = response[recipesType];
 
     if (!responseList) {
@@ -111,6 +112,7 @@ ${location.pathname}/${responseList[0][`id${recipesTypeSufix}`]}`);
 
   const contextValue = {
     recipes,
+    location,
     category,
     categories,
     recipesTypeSufix,
