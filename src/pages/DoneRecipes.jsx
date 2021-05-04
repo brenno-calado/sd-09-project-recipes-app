@@ -13,7 +13,7 @@ function DoneRecipes() {
   };
 
   return (
-    <>
+    <div className="center">
       <Header title=" Receitas Feitas" />
       <button
         type="button"
@@ -39,10 +39,10 @@ function DoneRecipes() {
       >
         Drinks
       </button>
-      { !shownRecipes ? <h5>no done recipe stored</h5>
+      { !shownRecipes ? <h4>no done recipe stored</h4>
         : shownRecipes.map((doneRecipe, index) => (
           <HorizontalCard key={ index } index={ index } doneRecipe={ doneRecipe } />)) }
-    </>
+    </div>
 
   );
 }
