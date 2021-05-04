@@ -29,11 +29,11 @@ const SearchBar = (props) => {
   const { meals, drinks } = props;
   useEffect(() => {
     if (redirectMeal) {
-      const { idMeal } = meals[0];
+      const { idMeal } = meals.meals[0];
       history.push(`/comidas/${idMeal}`, meals);
     }
     if (redirectDrink) {
-      const { idDrink } = drinks[0];
+      const { idDrink } = drinks.drinks[0];
       history.push(`/bebidas/${idDrink}`);
     }
   }, [redirectMeal, redirectDrink, meals, drinks, history]);
@@ -56,7 +56,7 @@ const SearchBar = (props) => {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
     }
-    dispatchMeals(comidas.meals);
+    dispatchMeals({ meals: comidas.meals });
     verifyMealsQuantity(comidas.meals);
   };
 
@@ -78,7 +78,7 @@ const SearchBar = (props) => {
         return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
       }
     }
-    dispatchDrinks(bebidas.drinks);
+    dispatchDrinks({ drinks: bebidas.drinks });
     verifyDrinksQuantity(bebidas.drinks);
   };
 
