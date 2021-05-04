@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes, { string } from 'prop-types';
 import { Link } from 'react-router-dom';
 import share from '../../images/shareIcon.svg';
+import './style.css';
 
 const copy = require('clipboard-copy');
 
@@ -16,35 +17,46 @@ const HorizontalCard = ({ index, doneRecipe }) => {
   };
 
   return (
-    <article className="horizontal-card">
+    <article className="horizontal-card silver-shadow">
       <Link to={ `/${doneRecipe.type}s/${doneRecipe.id}` }>
         <img
           src={ doneRecipe.image }
           alt={ doneRecipe.name }
-          width="40%"
+          width="120px"
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <section>
-        <p data-testid={ `${index}-horizontal-top-text` }>
+      <section className="card-text">
+        <span data-testid={ `${index}-horizontal-top-text` }>
           {`${doneRecipe.area} - ${doneRecipe.category} ${doneRecipe.alcoholicOrNot}`}
-        </p>
+        </span>
         <Link to={ `/${doneRecipe.type}s/${doneRecipe.id}` }>
-          <h4 data-testid={ `${index}-horizontal-name` }>{doneRecipe.name}</h4>
+          <span className="bold" data-testid={ `${index}-horizontal-name` }>
+            {doneRecipe.name}
+          </span>
         </Link>
-        <button
-          src={ share }
-          type="button"
-          data-testid={ `${index}-horizontal-share-btn` }
-          onClick={ () => copyLink() }
-        >
-          <img src={ share } alt={ share } width="20px" />
-        </button>
-        { !copied ? null : <span>Link copiado!</span>}
-        <p data-testid={ `${index}-horizontal-done-date` }>{doneRecipe.doneDate}</p>
+        <div>
+          <button
+            src={ share }
+            type="button"
+            data-testid={ `${index}-horizontal-share-btn` }
+            onClick={ () => copyLink() }
+            className="share-btn"
+          >
+            <img src={ share } alt={ share } width="20px" />
+          </button>
+          { !copied ? null : <span className="copied">Link copiado!</span>}
+        </div>
+        <span className="bold" data-testid={ `${index}-horizontal-done-date` }>
+          {`Made in ${doneRecipe.doneDate}`}
+        </span>
         { doneRecipe.tags.length === 0 ? null
           : doneRecipe.tags.map((tagName) => (
-            <span key={ index } data-testid={ `${index}-${tagName}-horizontal-tag` }>
+            <span
+              key={ index }
+              data-testid={ `${index}-${tagName}-horizontal-tag` }
+              className="tag"
+            >
               {tagName}
             </span>))}
       </section>
