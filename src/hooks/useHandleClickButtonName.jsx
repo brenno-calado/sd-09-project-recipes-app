@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
 function useHandleClickButtonName() {
-  const [checked, setChecked] = useState(false);
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState('');
 
-  const handleClickButtonName = ({ target }, toggle) => {
+  const handleClickButtonName = ({ target }) => {
     setCategory(target.name);
-    setChecked(!checked);
-    toggle();
+    if (category === target.name) {
+      setCategory('');
+    } else {
+      // setCategory(target.name);
+    }
   };
-  return [handleClickButtonName, checked, category];
+  return [handleClickButtonName, category];
 }
 
 export default useHandleClickButtonName;

@@ -10,7 +10,7 @@ import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 function Drinks() {
   const [drink, setDrink] = useState([]);
   const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
-  const [handleClickButtonName, checked, category] = useHandleClickButtonName();
+  const [handleClickButtonName, category] = useHandleClickButtonName();
 
   const { handleFetchDrinkClick,
     recipesData,
@@ -35,13 +35,9 @@ function Drinks() {
   }, [getRecipesByCategory]);
 
   useEffect(() => {
-    if (checked) {
-      getRecipesDrinksFilterByCategory(category)
-        .then(({ drinks }) => setListDrinkByCategory(drinks || []));
-    }
-  }, [category, checked]);
-
-  const toggle = () => { if (checked) setListDrinkByCategory([]); };
+    getRecipesDrinksFilterByCategory(category)
+      .then(({ drinks }) => setListDrinkByCategory(drinks || []));
+  }, [category]);
 
   function categoryButtom() {
     const five = 5;
@@ -54,7 +50,7 @@ function Drinks() {
               type="button"
               name={ strCategory }
               data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClickButtonName({ target }, toggle) }
+              onClick={ ({ target }) => handleClickButtonName({ target }) }
             >
               { strCategory }
             </button>
