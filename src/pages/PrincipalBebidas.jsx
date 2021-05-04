@@ -6,8 +6,10 @@ import Footer from '../components/Footer';
 import MealContext from '../context/MealContext';
 
 function PrincipalBebidas() {
-  const { foods } = useContext(MealContext);
+  let { foods } = useContext(MealContext);
+  foods = foods || []; // Refatorar para resolver problema de assincronicidade
   const cardsLimit = 12;
+
   return (
     <div>
       {foods.length === 1

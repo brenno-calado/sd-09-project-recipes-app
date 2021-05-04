@@ -28,6 +28,7 @@ const MealProvider = ({ children }) => {
   }
 
   function foodFilter(input) {
+    console.log(radio);
     if (radio === 'name') {
       getMealsByName(inputValue)
         .then((response) => {
