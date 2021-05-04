@@ -2,11 +2,13 @@ const COCKTAIL_BY_NAME = 'https://www.thecocktaildb.com/api/json/v1/1/search.php
 const COCKTAIL_BY_FIRST_LETTER = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?f=';
 const COCKTAIL_BY_INGREDIENT = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=';
 const COCKTAIL_BY_CATEGORY = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
+const COCKTAIL_BY_ID = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 export default {
   async fetchByName(name) {
     try {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_NAME}${name}`);
+      console.log(recipesHTTP);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
         return recipesJSON.drinks;
@@ -54,6 +56,19 @@ export default {
         return recipesJSON.drinks;
       }
       throw new Error('Falha ao buscar receitas por categoria =(');
+    } catch (error) {
+      return { message: error.message };
+    }
+  },
+
+  async fetchByID(id) {
+    try {
+      const recipesHTTP = await fetch(`${COCKTAIL_BY_ID}${id}`);
+      if (recipesHTTP.ok) {
+        const recipesJSON = await recipesHTTP.json();
+        return recipesJSON.drinks[0];
+      }
+      throw new Error('Falha ao buscar receitas por ID =(');
     } catch (error) {
       return { message: error.message };
     }
