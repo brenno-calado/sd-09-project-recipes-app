@@ -5,23 +5,25 @@ import '../CSS/ProgressoBebidas.css';
 const CheckBoxProgress = ({
   ingredient, index, setStepsFinished,
   stepsFinished, ingredientsUsed,
-  inProgressRecipe, idRecipe, type,
+  inProgressRecipe, idRecipe, type, ingStatus, setIngStatus,
 }) => {
   const [strikeThrough, setStrikeThrough] = useState(false);
   const ing = `${ingredient.name} ${ingredient.measure === null
     ? '' : ingredient.measure}`;
+  // setIngStatus({ ...ingStatus, [ing]: false });
 
   const checkStep = () => {
     if (!strikeThrough) {
       setStrikeThrough(!strikeThrough);
       setStepsFinished(stepsFinished + 1);
-      inProgressRecipe(type, idRecipe);
+      inProgressRecipe({ ...ingStatus, [ing]: true }, idRecipe);
       ingredientsUsed(ing);
     }
     if (strikeThrough) {
       setStrikeThrough(!strikeThrough);
       setStepsFinished(stepsFinished - 1);
-      inProgressRecipe(type, idRecipe);
+      // inProgressRecipe(type, idRecipe);
+      inProgressRecipe({ ...ingStatus, [ing]: false }, idRecipe);
       ingredientsUsed(ing);
     }
   };

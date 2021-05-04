@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
   const [doneRecipes, setDoneRecipes] = useState(
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
-  const [xablau, setXablau] = useState('');
+  // const [xablau, setXablau] = useState('');
 
   const [inProgressRecipes, setInProgressRecipes] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
@@ -133,7 +133,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    setXablau(Math.random());
+    // setXablau(Math.random());
   }, [favoriteRecipes]);
 
   useEffect(() => {
@@ -169,7 +169,7 @@ const AppProvider = ({ children }) => {
     drinkIngredients,
     doneRecipes,
     inProgressRecipes,
-    xablau,
+    // xablau,
     setFoodApiResults,
     setDrinksApiResults,
     favoriteRecipe,
