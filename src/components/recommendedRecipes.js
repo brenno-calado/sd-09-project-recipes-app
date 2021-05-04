@@ -1,13 +1,12 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import Card from 'react-bootstrap/Card';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default function Recomended({ url, index, image, name }) {
-  console.log('lista de recomendados', index);
   return (
     <Link to={ url }>
-      <Card data-testid={ `${index}-recomendation-card` }>
+      <Card className="m-1" data-testid={ `${index}-recomendation-card` }>
         <Card.Img
           variant="top"
           data-testid={ `${index}-recomendation-img` }

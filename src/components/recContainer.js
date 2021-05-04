@@ -1,6 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CardGroup } from 'react-bootstrap';
 import Recomended from './recommendedRecipes';
 
 export default function CarouselContainer({ recipes, path }) {
@@ -26,13 +27,19 @@ export default function CarouselContainer({ recipes, path }) {
       {recipes && (
         <Carousel>
           <Carousel.Item>
-            { recipeMap(itemOne, 0) }
+            <CardGroup className="d-flex wrap">
+              { recipeMap(itemOne, 0) }
+            </CardGroup>
           </Carousel.Item>
           <Carousel.Item>
-            { recipeMap(itemTwo, 2) }
+            <CardGroup className="d-flex wrap">
+              { recipeMap(itemTwo, 2) }
+            </CardGroup>
           </Carousel.Item>
           <Carousel.Item>
-            { recipeMap(itemThree, four) }
+            <CardGroup className="d-flex wrap">
+              { recipeMap(itemThree, four) }
+            </CardGroup>
           </Carousel.Item>
         </Carousel>
       )}

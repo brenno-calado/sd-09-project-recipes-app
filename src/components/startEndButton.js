@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function StartButton() {
-  console.log('botao');
   const fixed = {
     position: 'fixed',
     bottom: 0,
@@ -10,6 +9,7 @@ export default function StartButton() {
   return (
     <button
       style={ fixed }
+      className="btn btn-info border border-info"
       type="button"
       data-testid="start-recipe-btn"
     >

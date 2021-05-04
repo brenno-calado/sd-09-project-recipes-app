@@ -2,27 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function IngredientsList({ recipe }) {
-  console.log(recipe);
-  let ingredients = [];
-  const limit = 20;
-  for (let i = 1; i <= limit; i += 1) {
+  const headers = Object.keys(recipe);
+  const ingredients = headers.filter((i) => i.includes('strIngredient'));
+  const ingredientList = ingredients.map((ing, index) => {
     const newIngredient = {
-      item: recipe[`strIngredient${i}`],
-      measure: recipe[`strMeasure${i}`],
+      item: recipe[ing],
+      measure: recipe[`strMeasure${index + 1}`],
     };
-    if (!newIngredient.item) {
-      break;
-    }
-    if (newIngredient.measure === null) {
-      newIngredient.measure = '';
-    }
-    console.log(newIngredient);
-    ingredients = [...ingredients, newIngredient];
-  }
-  console.log('lista de ingredientes:', ingredients);
+    if (!newIngredient.item) return null;
+    if (!newIngredient.measure) newIngredient.measure = '';
+    return newIngredient;
+  });
+  const allIngredients = ingredientList.filter((i) => i !== null);
   return (
     <ul>
-      {ingredients.map((ing, index) => {
+      {allIngredients.map((ing, index) => {
         if (ing.measure.length > 1) {
           return (
             <li
