@@ -36,7 +36,7 @@ const Login = () => {
 
   return (
     <div>
-      { logged && <Redirect to="/recipes" /> }
+      { logged && <Redirect to="/receitas" /> }
       <form>
         <label htmlFor="email-input">
           Email
