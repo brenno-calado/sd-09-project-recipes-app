@@ -2,10 +2,10 @@ import { string } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 
 import { getFoodById } from '../services/FoodAPI';
-import Ingredients from '../components/Ingredients';
 import ShareButton from '../components/ShareButton';
 import { getDrinkById } from '../services/DrinksAPI';
 import FavoriteButton from '../components/FavoriteButton';
+import Ingredients from '../components/IngredientsDetails';
 import StartRecipeButton from '../components/StartRecipeButton';
 import RecomendationCard from '../components/RecomendationCard';
 

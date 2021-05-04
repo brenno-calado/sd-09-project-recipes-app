@@ -2,8 +2,8 @@ import { string } from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 
-import { getFoodAll } from '../services/FoodAPI';
-import { getDrinksAll } from '../services/DrinksAPI';
+import { getFoodAll } from '../../services/FoodAPI';
+import { getDrinksAll } from '../../services/DrinksAPI';
 
 const RecomendationCard = (props) => {
   const [recommendations, setRecommendations] = useState([]);
@@ -33,7 +33,7 @@ const RecomendationCard = (props) => {
 
   return (
     <div>
-      <Carousel indicators={ false } controls={ false }>
+      <Carousel indicators={ false } controls={ false } interval="3000">
         {
           recommendations.map((recipe, index) => (
             <Carousel.Item
