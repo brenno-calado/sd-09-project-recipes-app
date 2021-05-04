@@ -35,7 +35,6 @@ function Foods() {
   }, [getRecipesByCategory]);
 
   useEffect(() => {
-    console.log(category);
     getRecipesFoodsFilterByCategory(category)
       .then(({ meals }) => setListItemByCategory(meals || []));
   }, [category]);

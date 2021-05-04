@@ -5,7 +5,6 @@ function useHandleClickButtonName() {
 
   const handleClickButtonName = ({ target }) => {
     setCategory(target.name);
-    console.log(category);
     if (category === target.name) {
       setCategory('');
     } else {
