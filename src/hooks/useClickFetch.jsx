@@ -9,7 +9,8 @@ import {
   getDrinkByFirstLetter,
   getRecipesFoodsFilterByCategory,
   getRecipesDrinksFilterByCategory,
-  getRecipesByCategory } from '../services/fetchApi';
+  getRecipesByCategory,
+  getRecipesRandom } from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
@@ -77,6 +78,7 @@ function useClickFetch() {
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
+    getRecipesRandom,
   ];
 }
 
