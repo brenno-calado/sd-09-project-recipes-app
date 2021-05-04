@@ -5,7 +5,8 @@ import BottomMenu from '../components/BottomMenu';
 
 function Profile() {
   const preEmail = JSON.parse(localStorage.getItem('user'));
-  const { email } = preEmail;
+  console.log(preEmail);
+  // const { email } = preEmail;
   const history = useHistory();
 
   function redirect({ target }) {
@@ -28,7 +29,7 @@ function Profile() {
       <HeaderFoods hassearchbar={ false }>
         <h1 data-testid="page-title">Perfil</h1>
       </HeaderFoods>
-      <h2 data-testid="profile-email">{email}</h2>
+      <h2 data-testid="profile-email">{preEmail && preEmail.email}</h2>
       <button
         type="button"
         name="feitas"
