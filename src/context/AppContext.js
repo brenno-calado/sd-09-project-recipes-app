@@ -169,6 +169,8 @@ const AppProvider = ({ children }) => {
     drinkIngredients,
     doneRecipes,
     inProgressRecipes,
+    inProgressDrinks,
+    inProgressMeals,
     // xablau,
     setFoodApiResults,
     setDrinksApiResults,
@@ -178,6 +180,7 @@ const AppProvider = ({ children }) => {
     handleProgressRecipes,
     handleIngredientsUsed,
     handleProgressMeal,
+    handleProgressDrink,
   };
   return (
     <AppContext.Provider value={ context }>

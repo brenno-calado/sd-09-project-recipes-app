@@ -13,6 +13,15 @@ const checkFavorite = (favoriteRecipes, recipeId) => {
   return false;
 };
 
+const checkInitiatedMeals = (inProgressMeals, recipeId) => {
+  if (Object.values(inProgressMeals).find((id) => id === recipeId)) {
+    console.log('achou');
+    return true;
+  }
+  console.log('nao achou');
+  return false;
+};
+
 const ProgressoComidas = () => {
   const [stepsFinished, setStepsFinished] = useState(1);
   const [idDetails, setIdDetails] = useState([]);
@@ -26,7 +35,8 @@ const ProgressoComidas = () => {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
-    handleProgressRecipes,
+    // handleProgressRecipes,
+    inProgressMeals,
     handleProgressMeal,
     handleIngredientsUsed,
     favoriteRecipes,
@@ -144,6 +154,7 @@ const ProgressoComidas = () => {
             />);
         }) }
       </div>
+      { checkInitiatedMeals(inProgressMeals, idMeal) && <p>Iniciado</p>}
       <p data-testid="instructions">{strInstructions}</p>
       <button
         type="button"
