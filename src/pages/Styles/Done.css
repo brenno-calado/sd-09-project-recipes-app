@@ -2,13 +2,13 @@
   padding: 5px;
 }
 
-#Done-recipes .buttons {
+#Done-recipes .filters {
   display: flex;
   justify-content: space-evenly;
   padding-top: 10px;
 }
 
-#Done-recipes .buttons * {
+#Done-recipes .filter {
   background: #c4c4c4;
   width: 30%;
 }

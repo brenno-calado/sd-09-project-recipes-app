@@ -58,8 +58,9 @@ function Done() {
     <div id="Done-recipes">
       <Header title="Receitas Feitas" />
       <main>
-        <section className="buttons">
+        <section className="filters">
           <button
+            className="filter"
             data-testid="filter-by-all-btn"
             type="button"
             name=""
@@ -68,6 +69,7 @@ function Done() {
             All
           </button>
           <button
+            className="filter"
             data-testid="filter-by-food-btn"
             type="button"
             name="comida"
@@ -76,6 +78,7 @@ function Done() {
             Food
           </button>
           <button
+            className="filter"
             data-testid="filter-by-drink-btn"
             type="button"
             name="bebida"
