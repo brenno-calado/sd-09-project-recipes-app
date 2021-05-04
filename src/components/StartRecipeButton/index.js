@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 import {
   addRecipeInProgress,
-  checkRecipesInProgress } from '../services/inProgressRecipes';
-import RecipesContext from '../context/RecipesContext';
-import './css/StartRecipeButton.css';
+  checkRecipesInProgress } from '../../services/inProgressRecipes';
+import RecipesContext from '../../context/RecipesContext';
+import './styles.css';
 
 const StartRecipeButton = (props) => {
   const { pathname } = props;
