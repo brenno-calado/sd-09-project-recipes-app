@@ -8,7 +8,7 @@ class DetalhesComida extends React.Component {
   constructor() {
     super();
     this.state = {
-      recipeId: 52772,
+      recipeId: 53053,
       recipe: {},
     };
 
@@ -34,6 +34,7 @@ class DetalhesComida extends React.Component {
 
   ingredientHELL(recipe) {
     const keys = Object.entries(recipe);
+    const result = [];
     console.log(keys);
     const filteredIng = keys.filter((key) => key[0].includes('strIngredient'));
     const filteredMeasures = keys.filter((key) => key[0].includes('strMeasure'));
@@ -46,16 +47,20 @@ class DetalhesComida extends React.Component {
     }
     console.log(filteredIng);
     console.log(filteredMeasures);
-
+    for (let i = 0; i < filteredIng.length; i += 1) {
+      result.push(
+        `${filteredIng[i][1]} - ${filteredMeasures[i][1]}`,
+      );
+    }
+    console.log(result);
     return (
-      <ul>
-        { filteredIng.forEach((ing, index) => (
-          <li
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {`Ingrediente ${index}: ${filteredMeasures[index][1]} de ${ing[1]}`}
-          </li>))}
-      </ul>
+      result.map((ing, index) => (
+        <li
+          data-testid={ `${index}-ingredient-name-and-measure` }
+          key={ index }
+        >
+          { ing }
+        </li>))
     );
   }
 
@@ -78,7 +83,9 @@ class DetalhesComida extends React.Component {
         </button>
         <h3 data-testid="recipe-category">{ recipe.strCategory }</h3>
         <h2>Ingredientes:</h2>
-        { this.ingredientHELL(recipe) }
+        <ul>
+          { this.ingredientHELL(recipe) }
+        </ul>
         <p data-testid="instructions">
           { recipe.strInstructions }
         </p>

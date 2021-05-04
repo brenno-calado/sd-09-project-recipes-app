@@ -27,10 +27,11 @@ function App() {
       <main className="main">
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/comidas" component={ PrincipalComidas } />
-          <Route path="/bebidas" component={ PrincipalBebidas } />
+          <Route exact path="/comidas" component={ PrincipalComidas } />
+          <Route exact path="/bebidas" component={ PrincipalBebidas } />
 
-          <Route path="/comidas/id-da-receita" component={ DetalhesComida } />
+          {/* <Route path="/comidas/id-da-receita" component={ DetalhesComida } /> */}
+          <Route path="/comidas/52772" component={ DetalhesComida } />
 
           <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } />
 
