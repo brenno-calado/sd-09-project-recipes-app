@@ -6,6 +6,8 @@ function Provider(props) {
   const [filter, setFilter] = useState('');
   const [inputText, setInputText] = useState('');
   const [shouldRedirect, setShouldRedirect] = useState({ meals: false, drinks: false });
+  const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   const handleClick = (e) => {
     const { target } = e;
@@ -46,6 +48,20 @@ function Provider(props) {
     }
   };
 
+  const shareClick = (url) => {
+    const element = document.createElement('textarea');
+    element.value = `http://localhost:3000${url}`;
+    document.body.appendChild(element);
+    element.select();
+    document.execCommand('copy');
+    document.body.removeChild(element);
+    setCopied(true);
+  };
+
+  const favoriteClick = (remove, add) => (
+    (favorite ? remove() : add())
+  );
+
   const context = {
     filter,
     inputText,
@@ -58,6 +74,11 @@ function Provider(props) {
     verifyMealsQuantity,
     verifyDrinksQuantity,
     handleSearch,
+    copied,
+    favorite,
+    shareClick,
+    favoriteClick,
+    setFavorite,
     // itShouldRedirect,
   };
 

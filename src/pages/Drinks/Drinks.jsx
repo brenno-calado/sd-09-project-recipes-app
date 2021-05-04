@@ -17,17 +17,17 @@ const Drinks = (props) => {
   const [drinksCategoryList, setDrinksCategoryList] = useState();
   const [filteredByCategoryArray, setFilteredBYCategoryArray] = useState(undefined);
   const [loading, setLoading] = useState(true);
+  const { dispatchDrinks } = props;
   const cinco = 5;
 
   useEffect(() => {
     async function fetchData() {
-      const { dispatchDrinks } = props;
       await fetchDrinkNameAPI('').then((response) => dispatchDrinks(response));
       await fetchDrinkCategory().then((r) => setDrinksCategoryList(r));
       setLoading(false);
     }
     fetchData();
-  }, [props]);
+  }, [dispatchDrinks]);
 
   function filterByCategory(category) {
     fetchDrinksFilteredByCategory(category).then(setFilteredBYCategoryArray);
