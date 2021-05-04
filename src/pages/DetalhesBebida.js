@@ -7,34 +7,14 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
-const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-
-const checkDoneRecipes = (recipeId) => {
+const checkDoneRecipes = (doneRecipes, recipeId) => {
   if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
     return true;
   }
   return false;
 };
 
-const handleFavorite = (idDetails, favoriteRecipe, removeFromFavorite, checkFavorite) => {
-  const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = idDetails;
-  if (!checkFavorite(idDrink)) {
-    favoriteRecipe({
-      id: idDrink,
-      type: 'bebida',
-      area: '',
-      category: strCategory,
-      alcoholicOrNot: strAlcoholic,
-      name: strDrink,
-      image: strDrinkThumb,
-    });
-  } else {
-    removeFromFavorite(idDrink);
-  }
-};
-
-const handleButtonName = (id) => {
+const handleButtonName = (inProgressRecipes, id) => {
   if (inProgressRecipes) {
     if (inProgressRecipes.cocktails) {
       return inProgressRecipes.cocktails[id] ? 'Continuar Receita' : 'Iniciar Receita';
@@ -47,6 +27,9 @@ const DetalhesBebida = () => {
   const {
     favoriteRecipe,
     removeFromFavorite,
+    doneRecipes,
+    inProgressRecipes,
+    favoriteRecipes,
   } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -93,9 +76,25 @@ const DetalhesBebida = () => {
   };
 
   const checkFavorite = (recipeId) => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+    if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
     return false;
+  };
+
+  const handleFavorite = () => {
+    const { idDrink, strAlcoholic, strCategory, strDrink, strDrinkThumb } = idDetails;
+    if (!checkFavorite(idDrink)) {
+      favoriteRecipe({
+        id: idDrink,
+        type: 'bebida',
+        area: '',
+        category: strCategory,
+        alcoholicOrNot: strAlcoholic,
+        name: strDrink,
+        image: strDrinkThumb,
+      });
+    } else {
+      removeFromFavorite(idDrink);
+    }
   };
 
   const handleShare = () => {
@@ -123,7 +122,7 @@ const DetalhesBebida = () => {
         type="button"
         onClick={
           () => (
-            handleFavorite(idDetails, favoriteRecipe, removeFromFavorite, checkFavorite))
+            handleFavorite())
         }
       >
         <img
@@ -151,14 +150,14 @@ const DetalhesBebida = () => {
           <p data-testid={ `${index}-recomendation-title` }>{food.strMeal}</p>
         </div>
       )) }
-      { !checkDoneRecipes(idDrink) && (
+      { !checkDoneRecipes(doneRecipes, idDrink) && (
         <Link to={ `${id}/in-progress` }>
           <button
             type="button"
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
           >
-            { handleButtonName(idDrink) }
+            { handleButtonName(inProgressRecipes, idDrink) }
           </button>
         </Link>
       ) }

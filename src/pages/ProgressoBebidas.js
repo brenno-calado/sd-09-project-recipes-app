@@ -8,9 +8,8 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
-const checkFavorite = (recipeId) => {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+const checkFavorite = (favoriteRecipes, recipeId) => {
+  if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
   return false;
 };
 
@@ -20,7 +19,6 @@ const ProgressoBebidas = () => {
   const { id } = useParams();
   const [redirect, setRedirect] = useState(false);
   const [linkShared, setLinkShared] = useState(false);
-  // const localData = JSON.parse(localStorage.getItem('inProgressMeals'));
 
   const {
     favoriteRecipe,
@@ -28,6 +26,7 @@ const ProgressoBebidas = () => {
     finishRecipe,
     handleProgressRecipes,
     handleIngredientsUsed,
+    favoriteRecipes,
   } = useContext(AppContext);
 
   let stepsLimit = 1;
@@ -65,7 +64,7 @@ const ProgressoBebidas = () => {
 
   const handleFavorite = () => {
     const { idDrink, strDrink, strAlcoholic, strCategory, strDrinkThumb } = idDetails;
-    if (!checkFavorite(idDrink)) {
+    if (!checkFavorite(favoriteRecipes, idDrink)) {
       favoriteRecipe({
         id: idDrink,
         type: 'bebida',
@@ -118,7 +117,7 @@ const ProgressoBebidas = () => {
       <button type="button" onClick={ handleFavorite }>
         <img
           data-testid="favorite-btn"
-          src={ checkFavorite(idDrink) ? blackHeartImg : whiteHeartImg }
+          src={ checkFavorite(favoriteRecipes, idDrink) ? blackHeartImg : whiteHeartImg }
           alt="Favoritas"
         />
       </button>

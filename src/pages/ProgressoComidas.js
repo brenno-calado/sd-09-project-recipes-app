@@ -8,9 +8,8 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
-const checkFavorite = (recipeId) => {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+const checkFavorite = (favoriteRecipes, recipeId) => {
+  if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
   return false;
 };
 
@@ -28,6 +27,7 @@ const ProgressoComidas = () => {
     finishRecipe,
     handleProgressRecipes,
     handleIngredientsUsed,
+    favoriteRecipes,
   } = useContext(AppContext);
 
   let stepsLimit = 1;
@@ -65,7 +65,7 @@ const ProgressoComidas = () => {
 
   const handleFavorite = () => {
     const { idMeal, strMeal, strArea, strCategory, strMealThumb } = idDetails;
-    if (!checkFavorite(idMeal)) {
+    if (!checkFavorite(favoriteRecipes, idMeal)) {
       favoriteRecipe({
         id: idMeal,
         type: 'comida',
@@ -118,7 +118,7 @@ const ProgressoComidas = () => {
       <button type="button" onClick={ handleFavorite }>
         <img
           data-testid="favorite-btn"
-          src={ checkFavorite(idMeal) ? blackHeartImg : whiteHeartImg }
+          src={ checkFavorite(favoriteRecipes, idMeal) ? blackHeartImg : whiteHeartImg }
           alt="Favoritas"
         />
       </button>

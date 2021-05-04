@@ -7,16 +7,12 @@ import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 
-const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
-
-const checkFavorite = (recipeId) => {
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-  if (favorites.find((recipe) => recipe.id === recipeId)) return true;
+const checkFavorite = (favoriteRecipes, recipeId) => {
+  if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
   return false;
 };
 
-const checkDoneRecipes = (recipeId) => {
+const checkDoneRecipes = (doneRecipes, recipeId) => {
   if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
     return true;
   }
@@ -31,7 +27,7 @@ const replaceVideoUrl = (idDetails) => {
   }
 };
 
-const handleButtonName = (id) => {
+const handleButtonName = (inProgressRecipes, id) => {
   if (inProgressRecipes) {
     if (inProgressRecipes.meals) {
       return inProgressRecipes.meals[id] ? 'Continuar Receita' : 'Iniciar Receita';
@@ -44,6 +40,9 @@ const DetalhesComida = () => {
   const {
     favoriteRecipe,
     removeFromFavorite,
+    doneRecipes,
+    inProgressRecipes,
+    favoriteRecipes,
   } = useContext(AppContext);
   const { id } = useParams();
   const { pathname } = useLocation();
@@ -92,7 +91,7 @@ const DetalhesComida = () => {
 
   const handleFavorite = () => {
     const { idMeal, strMeal, strArea, strCategory, strMealThumb } = idDetails;
-    if (!checkFavorite(idMeal)) {
+    if (!checkFavorite(favoriteRecipes, idMeal)) {
       favoriteRecipe({
         id: idMeal,
         type: 'comida',
@@ -125,7 +124,7 @@ const DetalhesComida = () => {
       <button type="button" onClick={ handleFavorite }>
         <img
           data-testid="favorite-btn"
-          src={ checkFavorite(idMeal) ? blackHeartImg : whiteHeartImg }
+          src={ checkFavorite(favoriteRecipes, idMeal) ? blackHeartImg : whiteHeartImg }
           alt="Favoritas"
         />
       </button>
@@ -153,14 +152,14 @@ const DetalhesComida = () => {
           <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
         </div>
       )) }
-      { !checkDoneRecipes(idMeal) && (
+      { !checkDoneRecipes(doneRecipes, idMeal) && (
         <Link to={ `${id}/in-progress` }>
           <button
             type="button"
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
           >
-            { handleButtonName(idMeal) }
+            { handleButtonName(inProgressRecipes, idMeal) }
           </button>
         </Link>
       ) }
