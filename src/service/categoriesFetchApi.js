@@ -1,16 +1,16 @@
-const fetchDefaultApi = async () => {
+const categoriesfetchApi = async () => {
   if (window.location.pathname === '/comidas') {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+    const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
     const json = await response.json();
     return json.meals;
   }
 
   if (window.location.pathname === '/bebidas') {
     console.log('bebidas');
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const json = await response.json();
     return json.drinks;
   }
 };
 
-export default fetchDefaultApi;
+export default categoriesfetchApi;
