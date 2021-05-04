@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import DoneMealCard from '../components/DoneMealCard';
 import DoneDrinkCard from '../components/DoneDrinkCard';
+import { AppContext } from '../context/AppContext';
 
 function ReceitasFeitas() {
-  const localData = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const { doneRecipes } = useContext(AppContext);
   const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
 
@@ -25,21 +26,21 @@ function ReceitasFeitas() {
   };
 
   const showFilteredMeal = () => (
-    localData.filter((meal) => {
+    doneRecipes.filter((meal) => {
       switch (filterName) {
       case 'All':
-        return localData;
+        return doneRecipes;
       case 'Food':
         return meal.type === 'comida';
       case 'Drinks':
         return meal.type === 'bebida';
       default:
-        return localData;
+        return doneRecipes;
       }
     })
   );
 
-  const arrRecipes = filterName ? showFilteredMeal() : localData;
+  const arrRecipes = filterName ? showFilteredMeal() : doneRecipes;
 
   return (
     <div>

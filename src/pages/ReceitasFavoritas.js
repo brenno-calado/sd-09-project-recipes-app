@@ -6,8 +6,7 @@ import FavoriteMealCard from '../components/FavoriteMealCard';
 import FavoriteDrinkCard from '../components/FavoriteDrinkCard';
 
 function Perfil() {
-  const { removeFromFavorite } = useContext(AppContext);
-  const localData = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+  const { removeFromFavorite, favoriteRecipes } = useContext(AppContext);
   const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
 
@@ -31,21 +30,21 @@ function Perfil() {
   };
 
   const showFilteredMeal = () => (
-    localData.filter((meal) => {
+    favoriteRecipes.filter((meal) => {
       switch (filterName) {
       case 'All':
-        return localData;
+        return favoriteRecipes;
       case 'Food':
         return meal.type === 'comida';
       case 'Drinks':
         return meal.type === 'bebida';
       default:
-        return localData;
+        return favoriteRecipes;
       }
     })
   );
 
-  const arrRecipes = filterName ? showFilteredMeal() : localData;
+  const arrRecipes = filterName ? showFilteredMeal() : favoriteRecipes;
 
   return (
     <div>
