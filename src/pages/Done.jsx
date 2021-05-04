@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 function Done() {
   const [doneRecipes, setDoneRecipes] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [copiedLink, setCopiedLink] = useState('');
 
   useEffect(() => {
     const list = [
@@ -43,6 +44,12 @@ function Done() {
   const filter = ({ target: { name } }) => {
     const filtered = doneRecipes.filter((recipe) => recipe.type.includes(name));
     setFilteredRecipes(filtered);
+  };
+
+  const copyLink = async (id, type) => {
+    const link = `http://localhost:3000/${type}s/${id}`;
+    setCopiedLink(id);
+    return navigator.clipboard.writeText(link);
   };
 
   return (
@@ -90,11 +97,14 @@ function Done() {
                   ? `${recipe.area} - ${recipe.category}`
                   : recipe.alcoholicOrNot}
               </p>
-              <img
-                src={ shareIcon }
-                alt="Share"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
+              <button type="button" onClick={ () => copyLink(recipe.id, recipe.type) }>
+                <img
+                  src={ shareIcon }
+                  alt="Share"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                />
+              </button>
+              { recipe.id === copiedLink && 'Link copiado!' }
             </div>
             <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
             <p data-testid={ `${index}-horizontal-done-date` }>
