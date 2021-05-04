@@ -13,10 +13,9 @@ class InProgress extends React.Component {
     this.buttonChecked = this.buttonChecked.bind(this);
     this.renderButton = this.renderButton.bind(this);
     this.checkedFunction = this.checkedFunction.bind(this);
+    this.doneRecipe = this.doneRecipe.bind(this);
 
     this.state = {
-      isChecked: 0,
-      totalInput: 1,
       progressChecked: [],
     };
   }
@@ -93,7 +92,7 @@ class InProgress extends React.Component {
           id={ `ingredient${index}` }
           name={ index }
           checked={ progressChecked.includes(index) }
-          onClick={ this.buttonChecked }
+          onChange={ this.buttonChecked }
         />
         {
           measureFilter[index]
@@ -107,7 +106,6 @@ class InProgress extends React.Component {
 
   buttonChecked() {
     const ingredients = document.querySelectorAll('input');
-    this.setState({ isChecked: 0, totalInput: ingredients.length });
 
     let progressChecked = [];
 
@@ -115,9 +113,6 @@ class InProgress extends React.Component {
       ingredients.forEach((ingredient, index) => {
         if (ingredient.checked) {
           progressChecked = [...progressChecked, index];
-          this.setState((prevState) => ({
-            isChecked: prevState.isChecked + 1,
-          }));
         }
       });
     }
@@ -125,8 +120,43 @@ class InProgress extends React.Component {
     this.setState({ progressChecked: [...progressChecked] });
   }
 
+  doneRecipe() {
+    const { match: { params: { id } }, getFoodDetails } = this.props;
+    const localDone = JSON.parse(localStorage.getItem('doneRecipes'));
+    const dNow = new Date();
+
+    if (localDone && localDone.find((done) => done.id === id)) {
+      return;
+    }
+
+    let doneRecipes = [];
+    const done = {
+      id,
+      type: 'comida',
+      area: getFoodDetails.strArea,
+      category: getFoodDetails.strCategory,
+      alcoholicOrNot: '',
+      name: getFoodDetails.strMeal,
+      image: getFoodDetails.strMealThumb,
+      doneDate: `${dNow.getDate()}/${dNow.getMonth()}/${dNow.getFullYear()}`,
+      tags: getFoodDetails.strTags.split(','),
+    };
+
+    if (localDone) {
+      doneRecipes = [
+        ...localDone,
+        done,
+      ];
+    } else {
+      doneRecipes = [done];
+    }
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }
+
   renderButton() {
-    const { isChecked, totalInput } = this.state;
+    const { progressChecked } = this.state;
+    const ingredients = document.querySelectorAll('input');
+
     return (
       <section className="bottom">
         <Link to="/receitas-feitas">
@@ -134,7 +164,8 @@ class InProgress extends React.Component {
             type="button"
             className="btnBottom button_start"
             data-testid="finish-recipe-btn"
-            disabled={ isChecked !== totalInput }
+            disabled={ progressChecked.length !== ingredients.length }
+            onClick={ this.doneRecipe }
           >
             Finalizar receita
           </button>
