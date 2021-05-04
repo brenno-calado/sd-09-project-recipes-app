@@ -108,20 +108,6 @@ class index extends Component {
     });
   }
 
-  recipeData() {
-    const { recipe } = this.props;
-    const recipeData = {
-      id: recipe.idMeal || recipe.idDrink,
-      type: recipe.idMeal ? 'comida' : 'bebida',
-      area: recipe.strArea ? recipe.strArea : '',
-      category: recipe.strCategory ? recipe.strCategory : '',
-      alcoholicOrNot: recipe.strAlcoholic ? recipe.strAlcoholic : '',
-      name: recipe.strMeal ? recipe.strMeal : recipe.strDrink,
-      image: recipe.strMealThumb ? recipe.strMealThumb : recipe.strDrinkThumb,
-    };
-    return recipeData;
-  }
-
   render() {
     const { title, category } = this.props;
     const { shareClicked, favoriteIcon } = this.state;
