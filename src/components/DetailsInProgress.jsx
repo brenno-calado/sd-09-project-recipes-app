@@ -23,32 +23,33 @@ function DetailsInProgress() {
 
   console.log(recipe);
 
-  // function renderIngredientsInProgress() {
-  //   const maxIngredients = 20;
-  //   const ingredientsList = [];
-  //   ingredientsList.map((ingredient, index) => {
-  //     if (recipe[`strIngredient${index}`]) {
-  //       ingredientsList[index] = (
-  //         <label htmlFor={ `${index}` }>
-  //           <input type="checkbox" id={ `${index}` } data-testid={ `${index - 1}-ingredient-name-and-measure` } key={ index } />
-  //           <span>{`${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`}</span>
-  //         </label>
-  //       );
-  //     }
-  //   });
-
-  //   return ingredientsList
-  //     .filter((ingr) => ingr.props.children !== null
-  //       && ingr.props.children !== ''
-  //       && ingr.props.children !== undefined);
-  // }
+  function renderIngredientsInProgress() {
+    const maxIngredients = 20;
+    const ingredientsList = [];
+    for (let index = 1; index < maxIngredients; index += 1) {
+      if (recipe[`strIngredient${index}`]) {
+        ingredientsList[index] = (
+          <li data-testid={`${index}-ingredient-step`}>
+            <input type="checkbox" id={`${index}-ingredient-step`} />
+            <label htmlFor={`${index}-ingredient-step`} >
+              {`${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`}
+            </label>
+          </li>
+        );
+      }
+    }
+    return ingredientsList
+      .filter((ingr) => ingr.props.children !== null
+        && ingr.props.children !== ''
+        && ingr.props.children !== undefined);
+  }
 
   return (
     !recipe
       ? <p>loading</p>
       : (
         <div>
-          {/* {
+          {
             getPageFromURL()
               ? (
                 <img data-testid="recipe-photo" src={ recipe.strMealThumb } alt="img" />
@@ -56,7 +57,7 @@ function DetailsInProgress() {
               : (
                 <img data-testid="recipe-photo" src={ recipe.strDrinkThumb } alt="img" />
               )
-          } */}
+          }
           {
             getPageFromURL()
               ? (
@@ -79,8 +80,8 @@ function DetailsInProgress() {
           }
           <h4>Ingredients</h4>
           <div>
-            <ul>
-              {/* { renderIngredientsInProgress() } */}
+            <ul className="ingredients-in-progess">
+              { renderIngredientsInProgress() }
             </ul>
           </div>
           <div>
