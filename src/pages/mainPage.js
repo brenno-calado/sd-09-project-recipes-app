@@ -5,6 +5,7 @@ import {
   categoriesMeals,
   listDrinks,
   listMeals,
+  getOneIngredient,
 } from '../actions';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
@@ -44,7 +45,11 @@ export default function MainPageFood() {
     },
   };
 
+  const listByIngredient = useSelector((state) => (
+    state.recipesReducer.selectedIngredient));
+
   const fetchDispatch = async (fetchParam, fetchValue, value) => {
+    console.log([type, fetchParam, value]);
     const fetch = await getFoodsAndDrinks(type, fetchParam, value);
     dispatch(fetchValues[type][fetchValue](fetch));
   };
@@ -62,11 +67,18 @@ export default function MainPageFood() {
   }, [path]);
 
   useEffect(() => {
-    if (type) {
+    if (type && listByIngredient === '') {
       fetchDispatch('getAll', 'all');
       fetchDispatch('getByCategory', 'categories');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    if (type && listByIngredient !== '') {
+      fetchDispatch('getIngredientByValue', 'all', listByIngredient);
+      fetchDispatch('getByCategory', 'categories');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return () => {
+      dispatch(getOneIngredient(''));
+    };
   }, [type]);
 
   const selectCategoryButton = async (value) => {
@@ -106,7 +118,7 @@ export default function MainPageFood() {
           selected={ catSelected }
           callback={ selectCategoryButton }
         />
-        <CardContainer recipes={ recipes } path={ pathname } />
+        <CardContainer recipes={ recipes } path={ pathname } cardType="recipes" />
       </main>
       <Footer />
     </>

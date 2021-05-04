@@ -17,6 +17,7 @@ export default function ExploreFoodOrDrink() {
   const varRota = pathname.split('/')[2];
   const typeOfID = varRota === 'comidas' ? 'idMeal' : 'idDrink';
   const typeOfSearch = varRota === 'comidas' ? 'meals' : 'drinks';
+  const pageTitle = varRota === 'comidas' ? 'Comidas' : 'Bebidas';
 
   const handleRandomExplore = async () => {
     const [generateRandom] = await getFoodsAndDrinks(typeOfSearch, 'getRandom');
@@ -30,7 +31,7 @@ export default function ExploreFoodOrDrink() {
 
   return (
     <>
-      <Header page="Explorar" />
+      <Header page={ `Explorar ${pageTitle}` } />
       <div className="exploreButton-wrapper">
         <Link to={ `${pathname}/ingredientes` }>
           <Button

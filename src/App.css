@@ -116,6 +116,15 @@
   width: 100%;
 }
 
+
+/* Perfil */
+.perfil {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
 .mainPage-wrapper {
   margin-bottom: 60px;
 }
