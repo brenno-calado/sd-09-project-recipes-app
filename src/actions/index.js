@@ -3,6 +3,7 @@ import fetchDetails from '../service/fetchDetails';
 import fetchDefaultApi from '../service/defautFetchApi';
 import categoriesfetchApi from '../service/categoriesFetchApi';
 import fetchRecipeByCategory from '../service/fetchRecipeByCategory';
+import fetchRecipeInProgressApi from '../service/fetchRecipeInProgressApi';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
@@ -73,3 +74,14 @@ export const setIsCategoryToTrueAction = () => ({
 export const setIsCategoryToFalseAction = () => ({
   type: 'SET_ISCATEGORY_TO_FALSE',
 });
+
+const reciveInProgressApiResponse = (inProgressApiReponse) => ({
+  type: 'RECIVE_RECIPE_IN_PROGRESS',
+  recipeInProgress: inProgressApiReponse,
+});
+
+export const fetchRecipeInProgressAction = (id) => (dispatch) => {
+  fetchRecipeInProgressApi(id)
+    .then((inProgressApiReponse) => (
+      dispatch(reciveInProgressApiResponse(inProgressApiReponse))));
+};
