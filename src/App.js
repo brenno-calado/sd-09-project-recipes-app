@@ -16,7 +16,7 @@ import {
   ExploreFoods,
   ExploreDrinks,
   IngredientsFoods,
-  ingredientsDrinks,
+  IngredientsDrinks,
   ExploreByLocalOrigin,
   Profile,
   RecipesDone,
@@ -40,7 +40,7 @@ function App() {
       <Route
         exact
         path="/explorar/bebidas/ingredientes"
-        component={ ingredientsDrinks }
+        component={ IngredientsDrinks }
       />
       <Route exact path="/explorar/comidas/area" component={ ExploreByLocalOrigin } />
       <Route exact path="/perfil" component={ Profile } />
