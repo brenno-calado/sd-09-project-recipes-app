@@ -20,7 +20,6 @@ class Drinks extends React.Component {
       setDrinks,
       getDrinkBoolean,
       getDrinkName } = this.props;
-
     return (
       <div className="main">
         <Header titleHeader="Bebidas" id="0" />

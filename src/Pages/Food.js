@@ -21,7 +21,6 @@ class Food extends React.Component {
       setFood,
       getFoodBoolean,
       getFoodName } = this.props;
-
     return (
       <div className="main">
         <Header titleHeader="Comidas" id="0" />
