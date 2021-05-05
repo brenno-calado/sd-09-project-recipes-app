@@ -30,7 +30,11 @@ function PrincipalComidas() {
               style={ { width: '150px' } }
             />
           </Link>
-          <h4 data-testid={ `${index}-card-name` }>{ food.strMeal }</h4>
+          <Link
+            to={ `/comidas/${food.idMeal}` }
+          >
+            <h4 data-testid={ `${index}-card-name` }>{ food.strMeal }</h4>
+          </Link>
         </div>
       ))}
 
