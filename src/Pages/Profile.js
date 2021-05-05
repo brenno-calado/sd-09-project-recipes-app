@@ -66,7 +66,9 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  history: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({ email: state.User.email });

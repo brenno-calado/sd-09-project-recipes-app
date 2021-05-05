@@ -13,7 +13,7 @@ class DetailsFood extends React.Component {
   constructor() {
     super();
     this.recomendar = this.recomendar.bind(this);
-    this.lista = this.lista.bind(this);
+    this.createList = this.createList.bind(this);
     this.favoriteOk = this.favoriteOk.bind(this);
     this.buttonStartOrContinue = this.buttonStartOrContinue.bind(this);
     this.state = {
@@ -87,7 +87,7 @@ class DetailsFood extends React.Component {
     );
   }
 
-  lista() {
+  createList() {
     const { meal, pounds, igredients } = this.state;
     return (
       <ol>
@@ -178,7 +178,7 @@ class DetailsFood extends React.Component {
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
-        {this.lista()}
+        {this.createList()}
         <p data-testid="instructions">{strInstructions}</p>
         <ReactPlayer url={ strYoutube } data-testid="video" />
         {this.recomendar()}
