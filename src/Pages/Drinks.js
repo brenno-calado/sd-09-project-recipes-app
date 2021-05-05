@@ -19,7 +19,6 @@ class Drinks extends React.Component {
       setDrinks,
       getDrinkBoolean,
       getDrinkName } = this.props;
-
     return (
       <div className="main">
         <h1>Drinks</h1>

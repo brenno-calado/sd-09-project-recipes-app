@@ -20,7 +20,6 @@ class Food extends React.Component {
       setFood,
       getFoodBoolean,
       getFoodName } = this.props;
-
     return (
       <div className="main">
         <h1>Food</h1>
