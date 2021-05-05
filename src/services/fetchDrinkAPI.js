@@ -55,3 +55,13 @@ export const fetchDrinkById = async (drinkId) => {
     console.log(error);
   }
 };
+
+export const fetchRandomDrink = async () => {
+  try {
+    const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+    const drink = await fetch(endPoint).then((response) => response.json());
+    return drink;
+  } catch (error) {
+    console.log(error);
+  }
+};

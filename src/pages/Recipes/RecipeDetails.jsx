@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { fetchDrinkNameAPI } from '../../services/fetchDrinkAPI';
 import { fetchMealById } from '../../services/fetchMealAPI';
+import RecipesContext from '../../context/RecipesContext';
 import RecommendedCard from '../../common/components/RecommendedCard';
 import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
@@ -12,7 +13,13 @@ function RecipeDetails(props) {
   const [recommended, setRecommended] = useState([]);
   const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [meal, setMeal] = useState();
-  const [startContinueRecipe, setStartContinueRecipe] = useState('Start Recipe');
+  const [inProgress, setInProgress] = useState(false);
+  const {
+    verification,
+    setVerification,
+    addProgressToLocalStorage,
+    verifyInProgress,
+  } = useContext(RecipesContext);
   const seis = 6;
   const idMeal = id;
 
@@ -24,8 +31,9 @@ function RecipeDetails(props) {
         });
       await fetchMealById(idMeal).then((response) => setMeal(response.meals[0]));
     }
+    verifyInProgress(idMeal, 'meals');
     fetchData();
-  }, [idMeal]);
+  }, [verifyInProgress, idMeal]);
 
   useEffect(() => {
     if (hidden.second > seis) {
@@ -33,10 +41,12 @@ function RecipeDetails(props) {
     }
   }, [hidden.second]);
 
-  function startRecipe() {
-    setStartContinueRecipe('Continuar Receita');
-    history.push(`/comidas/${idMeal}/in-progress`, meal);
-  }
+  useEffect(() => {
+    if (verification) { setInProgress(true); }
+    return () => {
+      setVerification(false);
+    };
+  }, [setInProgress, verification, setVerification]);
 
   function showDetails() {
     const maxIngredient = 21;
@@ -61,6 +71,12 @@ function RecipeDetails(props) {
       second: state.second + 2,
     }));
   };
+
+  function startRecipe() {
+    setInProgress(true);
+    history.push(`/comidas/${idMeal}/in-progress`, meal);
+    return (inProgress ? null : addProgressToLocalStorage(id, 'meals'));
+  }
 
   function renderMeal() {
     const recipeURL = meal.strYoutube;
@@ -128,7 +144,7 @@ function RecipeDetails(props) {
           type="button"
           onClick={ startRecipe }
         >
-          { startContinueRecipe }
+          { inProgress ? 'Continuar Receita' : 'Start Recipe' }
         </button>
       </div>
     );
