@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import { divide } from 'lodash';
 
 class Header extends React.Component {
   render() {
@@ -58,8 +59,46 @@ class Header extends React.Component {
       );
     };
 
-    return headerComponent();
-  }
+    return (
+      <div>
+        { headerComponent() }
+        <div className="box-search">
+          <input
+            data-testid="search-input"
+            placeholder="Buscar Receita"
+            className="buscar-receita">  
+          </input>
+          <label>
+            <input
+              className="radio-btn-1"
+              data-testid="ingredient-search-radio"
+              type="radio">
+            </input> Ingrediente
+          </label>
+          <label>
+            <input
+              className="radio-btn-2"
+              data-testid="name-search-radio"
+              type="radio">
+            </input> Nome
+          </label>
+          <label>
+            <input
+              className="radio-btn-3"
+              data-testid="first-letter-search-radio"
+              type="radio">
+            </input> Primeira letra
+          </label>
+          <button
+            className="btn-buscar"
+            data-testid="exec-search-btn"
+          >
+            Buscar
+          </button>
+        </div>  
+      </div>
+
+    )}
 }
 
 Header.propTypes = ({

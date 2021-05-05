@@ -11,6 +11,8 @@
   width: 360px;
 }
 
+
+
 .profile-btn {
   border: none;
   height: 30px;
@@ -40,4 +42,27 @@
   left: 317px;
   top: 12px;
   width: 30px;
+}
+
+.buscar-receita {
+  background: #FFFFFF;
+  border: 1px solid #000000;
+  bottom: 62.86%;
+  box-sizing: border-box;
+  height: 31px;
+  left: 10px;
+  position: absolute;
+  top: 7.62%;
+  width: 342px;
+}
+
+.btn-buscar {
+  background: #c4c4c4;
+  bottom: 5.71%;
+  height: 25px;
+  left: 10px;
+  position: absolute;
+  right: 73.61%;
+  top: 74px;;
+  width: 85px;
 }
