@@ -4,7 +4,7 @@ import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/SearchBar.css';
 
 function SearchBar() {
-  const [inputs, setInputs] = useState({ searchText: '' });
+  const [inputs, setInputs] = useState({ searchText: '', filter: 'ingredient' });
   const { handleSearchClick } = useContext(RecipesAppContext);
   const location = useLocation();
 
@@ -30,6 +30,7 @@ function SearchBar() {
             id="ingredient-search-radio"
             data-testid="ingredient-search-radio"
             onChange={ handleChange }
+            checked
           />
           Ingrediente
         </label>
