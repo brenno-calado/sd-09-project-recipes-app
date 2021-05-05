@@ -42,9 +42,6 @@ function RecomendationCards({ path }) {
     return setRecomendations([]); // ComponentWillUnmount
   }, [path, setRecomendations]);
 
-  /*   console.log('Recomendacoes:');
-  console.log(recomendations); */
-
   const renderRecomendations = () => (
     <Carousel responsive={ responsive }>
       {recomendations.map((recomendation, index) => (
@@ -74,7 +71,5 @@ function RecomendationCards({ path }) {
 RecomendationCards.propTypes = {
   path: PropTypes.string,
 }.isRequired;
-
-/* <span data-testid="0-recomendation-card">card</span> */
 
 export default RecomendationCards;

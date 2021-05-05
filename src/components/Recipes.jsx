@@ -21,7 +21,7 @@ function Recipes({
   searchBy }) {
   const category = useLocation().pathname;
   useEffect(() => {
-    if (category === '/comidas' && recipesList.length === 0) {
+    if (category.includes('comidas') && recipesList.length === 0) {
       dispatchSearch(searchBy, query, 'meal');
     }
     if (category === '/bebidas' && recipesList.length === 0) {

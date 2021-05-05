@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import RecipesContext from '../../contexts/RecipesContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FavoriteButton({ recipe, id }) {
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(RecipesContext);
   const [isFavorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function FavoriteButton({ recipe, id }) {
       setFavorite(true);
     }
     setFavoriteRecipes(storage);
-  }, [id]);
+  }, [id, setFavoriteRecipes]);
 
   const favoriteRecipe = () => {
     const recipeInfo = {
@@ -30,13 +31,17 @@ function FavoriteButton({ recipe, id }) {
     };
 
     if (isFavorite) {
+      const found = favoriteRecipes.find((currentRecipe) => currentRecipe.id === id);
+      favoriteRecipes.splice(favoriteRecipes.indexOf(found), 1);
       localStorage.setItem('favoriteRecipes',
-        JSON.stringify(favoriteRecipes.splice(favoriteRecipes.length - 1)));
+        JSON.stringify(favoriteRecipes));
       setFavorite(false);
+      setFavoriteRecipes(favoriteRecipes);
     } else {
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecipes, recipeInfo]));
       setFavorite(true);
+      setFavoriteRecipes([...favoriteRecipes, recipeInfo]);
     }
   };
 
