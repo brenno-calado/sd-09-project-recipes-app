@@ -20,14 +20,14 @@ function RecipesList({ recipes, loading, path, isFilter }) {
   const renderFoods = () => (
     recipes.map(
       (recipe, index) => index < MAX_RECIPES
-      && <RecipeItemFoods recipe={ recipe } index={ index } />,
+      && <RecipeItemFoods key={ index } recipe={ recipe } index={ index } />,
     )
   );
 
   const renderDrinks = () => (
     recipes.map(
       (recipe, index) => index < MAX_RECIPES
-      && <RecipeItemDrinks recipe={ recipe } index={ index } />,
+      && <RecipeItemDrinks key={ index } recipe={ recipe } index={ index } />,
     )
   );
 

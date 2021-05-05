@@ -1,21 +1,21 @@
 import { fetchDrinkById, fetchRecommendedDrinkById } from '../services/fetchDrinkById';
 
-export const IS_FETCHING = 'IS_FETCHING';
-export const IS_RESOLVED = 'IS_RESOLVED';
+export const IS_FETCHING_DETAILS = 'IS_FETCHING_DETAILS';
+export const IS_RESOLVED_DETAILS = 'IS_RESOLVED_DETAILS';
 export const IS_RESOLVED_RECOMMENDED_FOODS = 'IS_RESOLVED_RECOMMENDED_FOODS';
-export const IS_REJECTED = 'IS_REJECTED';
+export const IS_REJECTED_DETAILS = 'IS_REJECTED_DETAILS';
 
 const isFetching = () => ({
-  type: IS_FETCHING,
+  type: IS_FETCHING_DETAILS,
 });
 
 const isRejected = (error) => ({
-  type: IS_REJECTED,
+  type: IS_REJECTED_DETAILS,
   error,
 });
 
 const isResolved = (data) => ({
-  type: IS_RESOLVED,
+  type: IS_RESOLVED_DETAILS,
   data,
 });
 

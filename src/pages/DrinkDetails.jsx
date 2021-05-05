@@ -49,9 +49,11 @@ function DrinkDetails({
   }, [match, recipe, recipes, history, getDrinkByIdDispatch]);
 
   const MAX_SLICE = 6;
+
   if (loading) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className="detailsPage">
       <img
@@ -84,7 +86,12 @@ function DrinkDetails({
         <ul className="ingredientsList">
           {ingredientToMeasure
             .map((item) => item.ingredient && (
-              <li>{`- ${item.ingredient} - ${item.measure}`}</li>
+              <li
+                data-testid={ `${item.index}-ingredient-name-and-measure` }
+                key={ item.index }
+              >
+                {`${item.ingredient} - ${item.measure}`}
+              </li>
             ))}
         </ul>
       </div>
@@ -131,9 +138,9 @@ function DrinkDetails({
 }
 
 const mapStateToProps = (state) => ({
-  recipes: state.setData.data,
-  recommendedFoods: state.setData.recommendedFoods,
-  loading: state.setData.loading,
+  recipes: state.setDetails.data,
+  recommendedFoods: state.setDetails.recommendedFoods,
+  loading: state.setDetails.loading,
 });
 const mapDispatchToProps = (dispatch) => ({
   getDrinkByIdDispatch: (ID) => dispatch(getDrinkById(ID)),

@@ -32,12 +32,12 @@ body {
 }
 
 .ingredientsList {
-  list-style: none;
+  /* list-style: none; */
   background-color: rgba(251, 144, 22, 0.575);
   border-radius: 10px;
   padding: 4%;
-  padding-bottom: 1%;
   margin: 0 5%;
+  padding-left: 7%;
 }
 
 .instructions {
@@ -58,15 +58,24 @@ body {
   width: 100%;
   height: 200px;
   margin-bottom: 12vh;
+  padding-right: 5%;
 }
 
 .gallery-cell {
   display: inline-block;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.418);
-  min-width: 40vw;
-  margin: 0 5%;
+  min-width: 37vw;
+  margin: 0 3%;
   margin-bottom: 5px;
+}
+
+.gallery-cell:nth-child(1) {
+  margin-left: 5%;
+}
+
+.gallery-cell:nth-child(6) {
+  margin-right: 50%;
 }
 
 .gallery-cell h2 {
@@ -99,3 +108,7 @@ body {
   font-size: 20px;
 }
 
+iframe {
+  width: 90%;
+  margin: 0 5%;
+}
