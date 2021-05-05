@@ -14,7 +14,9 @@ export function RecipeContextProvider({ children }) {
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
-    getRecipesRandom] = useClickFetch();
+    getRecipesRandom,
+    getLocations,
+    getRecipesByLocations] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -44,6 +46,8 @@ export function RecipeContextProvider({ children }) {
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
     getRecipesRandom,
+    getLocations,
+    getRecipesByLocations,
   };
 
   return (

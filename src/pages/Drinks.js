@@ -81,7 +81,6 @@ function Drinks() {
         {listDrinkByCategory.length
           ? createRender(listDrinkByCategory)
           : (initDrinks.length && (createRender(initDrinks))) }
-        {searchRender() }
         <BottomMenu />
       </>
     );
