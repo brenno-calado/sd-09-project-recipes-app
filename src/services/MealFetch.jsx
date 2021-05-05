@@ -7,7 +7,7 @@ const getMealsByName = async (name) => {
     // console.log('fetch', respByNameJson.meals);
     return respByNameJson.meals;
   } catch (error) {
-    console.log('By name...', error);
+    console.log('Meal By name...', error);
   }
 };
 
@@ -17,7 +17,7 @@ const getMealByFirstLetter = async (letter) => {
     const respByLetterJson = await mealDBReqByLetter.json();
     return respByLetterJson.meals;
   } catch (error) {
-    console.log('By letter...', error);
+    console.log('Meal By letter...', error);
   }
 };
 
@@ -27,7 +27,18 @@ const getMealByIngredients = async (ingredient) => {
     const respByIngredientJson = await mealDBByIngredient.json();
     return respByIngredientJson.meals;
   } catch (error) {
-    console.log('By ingredient...', error);
+    console.log('Meal By ingredient...', error);
+  }
+};
+
+const getMealByCategory = async () => {
+  try {
+    const mealByCategory = await fetch(`${MEAL_DB_BASE}list.php?c=list`);
+    const respByCategoryJson = await mealByCategory.json();
+    // console.log(respByCategoryJson.meals);
+    return respByCategoryJson.meals;
+  } catch (error) {
+    console.log('Meal By category...', error);
   }
 };
 
@@ -37,7 +48,7 @@ const getMealsRandom = async () => {
     const respRandomJson = await mealDBReqRandom.json();
     return respRandomJson.meals;
   } catch (error) {
-    console.log('Random...', error);
+    console.log('Meal Random...', error);
   }
 };
 
@@ -46,4 +57,5 @@ export {
   getMealsRandom,
   getMealByFirstLetter,
   getMealByIngredients,
+  getMealByCategory,
 };

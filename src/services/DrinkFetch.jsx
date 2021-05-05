@@ -6,7 +6,7 @@ const getDrinkByName = async (name) => {
     const respByNameJson = await reqDrinkByName.json();
     return respByNameJson.drinks;
   } catch (error) {
-    console.log('By name...', error);
+    console.log('Drink By name...', error);
   }
 };
 
@@ -16,7 +16,7 @@ const getDrinkByFirstLetter = async (letter) => {
     const respByLetter = await reqDrinkByLetter.json();
     return respByLetter.drinks;
   } catch (error) {
-    console.log('By letter', error);
+    console.log('Drink By letter', error);
   }
 };
 
@@ -26,7 +26,18 @@ const getDrinkByIngredients = async (ingredient) => {
     const respByIngredient = await reqDrinkByIngred.json();
     return respByIngredient.drinks;
   } catch (error) {
-    console.log('By ingredient...', error);
+    console.log('Drink By ingredient...', error);
+  }
+};
+
+const getDrinkByCategory = async () => {
+  try {
+    const drinkByCategory = await fetch(`${DRINK_DB_BASE}list.php?c=list`);
+    const respByCategoryJson = await drinkByCategory.json();
+    console.log(respByCategoryJson.drinks);
+    return respByCategoryJson.drinks;
+  } catch (error) {
+    console.log('Drink By category...', error);
   }
 };
 
@@ -36,7 +47,7 @@ const getDrinkRandom = async () => {
     const respRandomJson = await reqDrinkRandom.json();
     return respRandomJson.drinks;
   } catch (error) {
-    console.log('Random...', error);
+    console.log('Drink Random...', error);
   }
 };
 
@@ -44,5 +55,6 @@ export {
   getDrinkByName,
   getDrinkByFirstLetter,
   getDrinkByIngredients,
+  getDrinkByCategory,
   getDrinkRandom,
 };
