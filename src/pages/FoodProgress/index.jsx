@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import * as S from '../../components/Details/styled';
 import TitleContainer from '../../components/Details/TitleContainer';
@@ -7,12 +8,10 @@ import {
   ingredientsArray,
   measureArray,
   sources,
-  sourcesRecomendations,
 } from '../../components/Details/services';
 
 export default function FoodProgress(props) {
   const [details, setDetails] = useState(null);
-  const [recomendation, setRecomendation] = useState(null);
 
   const {
     match: { params, path },
@@ -42,43 +41,21 @@ export default function FoodProgress(props) {
         <h4>Ingredients:</h4>
         {details
           && ingredientsArray(details).map((item, index) => (
-            <li
+            <label
               key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
+              htmlFor={ index }
+              data-testid={ `${index}-ingredient-step` }
             >
+              <input
+                id={ index }
+                type="checkbox"
+              />
               {measureArray(details)[index]}
               &nbsp;
               <strong>{item}</strong>
-            </li>
+            </label>
           ))}
       </ul>
-      <p data-testid="instructions">{details && details.strInstructions}</p>
-      {typePath === 'food' && (
-        <iframe
-          src={ details && details.strYoutube }
-          data-testid="video"
-          title="video"
-        />
-      )}
-      <S.RecomendationContainer>
-        {recomendation
-          && recomendation.map((recipe, index) => (
-            <S.Card key={ index } data-testid={ `${index}-recomendation-card` }>
-              <img
-                src={ sourcesRecomendations(
-                  'strMealThumb',
-                  'strDrinkThumb',
-                  recipe,
-                  typePath,
-                ) }
-                alt="recomendations"
-              />
-              <h3 data-testid={ `${index}-recomendation-title` }>
-                {sourcesRecomendations('strMeal', 'strDrink', recipe, typePath)}
-              </h3>
-            </S.Card>
-          ))}
-      </S.RecomendationContainer>
       <S.StartButton
         type="button"
         data-testid="start-recipe-btn"
@@ -89,3 +66,11 @@ export default function FoodProgress(props) {
     </S.Container>
   );
 }
+
+FoodProgress.propTypes = {
+  id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+    path: PropTypes.string.isRequired,
+  }).isRequired,
+};
