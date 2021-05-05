@@ -9,6 +9,7 @@ function ExplorarComidas() {
   const [meal, setMeal] = useState('');
   useEffect(() => {
     const fetch = async () => {
+      console.log('entrou no useEffect');
       const random = await fetchRandomRecipe('meal');
       setMeal(random.meals[0]);
     };

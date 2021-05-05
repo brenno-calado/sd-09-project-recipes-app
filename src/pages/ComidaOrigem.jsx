@@ -38,16 +38,15 @@ function ComidaOrigem({ foodArea, areas, searchArea, foodCase, clear, foodType }
         >
           All
         </option>
-        {areas.map(({ strArea }) => (
-          areas.length > 0 && (
-            <option
-              key={ strArea }
-              data-testid={ `${strArea}-option` }
-              value={ strArea }
-            >
-              {strArea}
-            </option>
-          )))}
+        {(areas || []).map(({ strArea }) => (
+          <option
+            key={ strArea }
+            data-testid={ `${strArea}-option` }
+            value={ strArea }
+          >
+            {strArea}
+          </option>
+        ))}
       </select>
     </div>
   );
