@@ -4,7 +4,7 @@ export const IS_FETCHING = 'IS_FETCHING';
 export const IS_RESOLVED = 'IS_RESOLVED';
 export const IS_REJECTED = 'IS_REJECTED';
 
-const isFetching = () => ({
+export const isFetching = () => ({
   type: IS_FETCHING,
 });
 

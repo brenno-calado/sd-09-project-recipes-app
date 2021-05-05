@@ -17,7 +17,7 @@ function ShareAndFavo({ match, recipe }) {
   const handleShare = () => {
     navigator.clipboard.writeText(`http://localhost:3000${match.url}`);
     setCopy(true);
-    const timeoutToCopy = 3000;
+    const timeoutToCopy = 1500;
     setTimeout(() => {
       setCopy(false);
     }, timeoutToCopy);
@@ -33,7 +33,6 @@ function ShareAndFavo({ match, recipe }) {
       name: recipe[`str${location}`],
       image: recipe[`str${location}Thumb`],
     };
-    console.log(favorites);
     if (favorites[0].id) {
       localStorage.setItem(
         'favoriteRecipes', JSON.stringify([...favorites, storeRecipe]),

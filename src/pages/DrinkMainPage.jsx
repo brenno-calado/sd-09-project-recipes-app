@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipesList from '../components/RecipesList';
-import { searchBarFetch } from '../actions/searchBar';
+import { searchBarFetch, isFetching } from '../actions/searchBar';
 import { filtersFetch } from '../actions/filters';
 import Filters from '../components/Filters';
 
-function DrinkMainPage({ match, setRecipes, setFilters, ingredient }) {
+function DrinkMainPage({ match, setRecipes, setFilters, ingredient, setLoadingExit }) {
   useEffect(() => {
     if (ingredient) {
       setRecipes({ searchValue: ingredient, query: 'i', page: 'Bebidas' });
@@ -16,7 +16,8 @@ function DrinkMainPage({ match, setRecipes, setFilters, ingredient }) {
       setRecipes({ searchValue: '', query: 's', page: 'Bebidas' });
     }
     setFilters('Bebidas');
-  }, [setRecipes, setFilters, ingredient]);
+  }, [setRecipes, setFilters, setLoadingExit, ingredient]);
+
   return (
     <div>
       <Header page="Bebidas" search />
@@ -34,6 +35,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setRecipes: (search) => dispatch(searchBarFetch(search)),
   setFilters: (page) => dispatch(filtersFetch(page)),
+  setLoadingExit: () => dispatch(isFetching()),
 });
 
 DrinkMainPage.propTypes = {

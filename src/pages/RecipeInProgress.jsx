@@ -3,11 +3,12 @@ import { string, object, func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getItemById } from '../actions/itemById';
-import RecipeList from '../components/RecipeList';
+import RecipeCheckboxes from '../components/RecipeCheckboxes';
 import ShareAndFavo from '../components/ShareAndFavo';
 import { handleDone } from '../services/localStorage';
+import '../Style/RecipesInProgress.css';
 
-function FoodInProgress(
+function RecipeInProgress(
   { match: { path, params, url }, setItem, item, loading, checks },
 ) {
   const [disable, setDisable] = useState();
@@ -42,27 +43,70 @@ function FoodInProgress(
   if (!item) return <h3>Loading....</h3>;
 
   const type = path.includes('/comidas') ? 'meals' : 'drinks';
+  if (!item[type]) return <h3>Loading...</h3>;
   const query = path.includes('/comidas') ? 'Meal' : 'Drink';
   const recipe = item[type][0];
   const newType = type === 'meals' ? type : 'cocktails';
   const MAX_URL = -12;
   const newUrl = url.slice(0, MAX_URL);
+  const MAX_SLICE_YOUTUBE = 11;
 
   return (
-    <div>
+    <div className="detailsPage">
       <img
         src={ recipe[`str${query}Thumb`] }
-        alt="Recipe"
+        alt="recipe"
         data-testid="recipe-photo"
+        className="detailsImage"
       />
-      <h2 data-testid="recipe-title">{ recipe[`str${query}`] }</h2>
-      <h3 data-testid="recipe-category">{ recipe.strCategory }</h3>
-      <ShareAndFavo match={ { path, params, url: newUrl } } recipe={ recipe } />
-      <RecipeList item={ recipe } type={ newType } query={ query } />
-      <p data-testid="instructions">{ recipe.strInstructions}</p>
+      <div className="headerDetails">
+        <div className="detailsMainInfos">
+          <h2
+            data-testid="recipe-title"
+            className="detailsTitle"
+          >
+            { recipe[`str${query}`] }
+          </h2>
+          <h2
+            data-testid="recipe-category"
+            className="detailsCategory"
+          >
+            {recipe.strAlcoholic || recipe.strCategory}
+          </h2>
+        </div>
+        <div>
+          <ShareAndFavo match={ { path, params, url: newUrl } } recipe={ recipe } />
+        </div>
+      </div>
+      <h3 className="detailsSubtitle">Ingredientes</h3>
+      <RecipeCheckboxes item={ recipe } type={ newType } query={ query } />
+      <h3 className="detailsSubtitle">Instructions</h3>
+      <div className="instructions">
+        <p data-testid="instructions">{recipe.strInstructions}</p>
+      </div>
+      { recipe.strYoutube && (
+        <div>
+          <h3 className="detailsSubtitle">Video</h3>
+          <iframe
+            width="560"
+            className="progressVideo"
+            height="315"
+            data-testid="video"
+            src={ `https://www.youtube.com/embed/${recipe.strYoutube
+              .slice(recipe
+                .strYoutube.length - MAX_SLICE_YOUTUBE, recipe.strYoutube.length)}` }
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay;
+          clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      ) }
       <Link to="/receitas-feitas">
         <button
           type="button"
+          className="finishBtn"
           data-testid="finish-recipe-btn"
           disabled={ disable }
           onClick={ () => handleDone(recipe, query) }
@@ -84,7 +128,7 @@ const mapStateToProps = (state) => ({
   checks: state.setChecks.checks,
 });
 
-FoodInProgress.propTypes = {
+RecipeInProgress.propTypes = {
   setItem: func,
   item: object,
   loading: bool,
@@ -93,4 +137,4 @@ FoodInProgress.propTypes = {
   checks: object,
 }.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(FoodInProgress);
+export default connect(mapStateToProps, mapDispatchToProps)(RecipeInProgress);

@@ -10,7 +10,6 @@ import Filters from '../components/Filters';
 
 function FoodMainPage({ match, setRecipes, setFilters, ingredient }) {
   useEffect(() => {
-    console.log(ingredient);
     if (ingredient) {
       setRecipes({ searchValue: ingredient, query: 'i', page: 'Comidas' });
     } else {

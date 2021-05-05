@@ -6,6 +6,7 @@ import setItem from './item';
 import setChecks from './checks';
 import setIngredients from './ingredients';
 import setAreas from './area';
+import setDetails from './details';
 
 const rootReduce = combineReducers({
   setData,
@@ -15,6 +16,7 @@ const rootReduce = combineReducers({
   setChecks,
   setIngredients,
   setAreas,
+  setDetails,
 });
 
 export default rootReduce;
