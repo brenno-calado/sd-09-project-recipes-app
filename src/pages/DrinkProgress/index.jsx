@@ -66,3 +66,11 @@ export default function DrinkProgress(props) {
     </S.Container>
   );
 }
+
+DrinkProgress.propTypes = {
+  id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+    path: PropTypes.string.isRequired,
+  }).isRequired,
+};

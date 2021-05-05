@@ -86,3 +86,11 @@ export default function FoodProgress(props) {
     </S.Container>
   );
 }
+
+FoodProgress.propTypes = {
+  id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+    path: PropTypes.string.isRequired,
+  }).isRequired,
+};
