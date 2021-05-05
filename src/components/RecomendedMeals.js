@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
 
-const RecomendedDrinks = () => {
-  const [drinks, setDrinks] = useState([]);
+const RecomendedMeals = () => {
+  const [meals, setMeals] = useState([]);
   const limit = 6;
 
   useEffect(() => {
-    const fetchDrinks = async () => {
+    const fetchMeals = async () => {
       try {
-        const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
         const result = await response.json();
-        setDrinks(result.drinks.slice(0, limit));
+        setMeals(result.meals.slice(0, limit));
       } catch (error) {
         return Error(error);
       }
     };
-    fetchDrinks();
+    fetchMeals();
   }, []);
+
   return (
     <div className="recommendations-box">
       {
-        drinks.map((drink, index) => (
+        meals.map((meal, index) => (
           <div
             className="recommended-box"
             data-testid={ `${index}-recomendation-card` }
@@ -28,25 +29,24 @@ const RecomendedDrinks = () => {
           >
             <img
               className="recommended-box-image"
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrink }
+              src={ meal.strMealThumb }
+              alt={ meal.strMeal }
             />
             <div>
-              <span className="recommended-box-category">{drink.strAlcoholic}</span>
-              <span>{drink.strDrink}</span>
+              <span className="recommended-box-category">{meal.strCategory}</span>
+              <span>{meal.strMeal}</span>
               <p
                 className="recommended-box-name"
                 data-testid={ `${index}-recomendation-title` }
               >
-                {drink.strDrink}
+                {meal.strMeal}
               </p>
             </div>
           </div>
         ))
       }
     </div>
-
   );
 };
 
-export default RecomendedDrinks;
+export default RecomendedMeals;
