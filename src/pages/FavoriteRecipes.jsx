@@ -6,7 +6,6 @@ function FavoriteRecipes() {
   const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 
   const [shownRecipes, setShownRecipes] = useState(storedRecipes);
-  console.log(shownRecipes.length);
 
   const handleFilter = (filter) => {
     if (filter === undefined) return setShownRecipes(storedRecipes);
@@ -46,7 +45,7 @@ function FavoriteRecipes() {
       >
         Drinks
       </button>
-      { shownRecipes.length === 0 ? <h4>no favorite recipe stored</h4>
+      { !shownRecipes || shownRecipes.length === 0 ? <h4>no favorite recipe stored</h4>
         : shownRecipes.map((recipe, index) => (
           <HorizontalCard
             key={ index }
