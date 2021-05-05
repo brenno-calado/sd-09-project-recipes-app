@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { requestApiMeals } from '../redux/actions';
@@ -20,6 +20,7 @@ class FoodCards extends React.Component {
 
   componentDidMount() {
     this.callMeal();
+    localStorage.removeItem('id');
   }
 
   componentWillUnmount() {
@@ -56,6 +57,7 @@ class FoodCards extends React.Component {
         <div
           key={ index }
           data-testid={ `${index}-recipe-card` }
+          className="cardRecipe"
         >
           <Link to={ `/comidas/${meal.idMeal}` }>
             <img
@@ -81,6 +83,9 @@ class FoodCards extends React.Component {
       <div className="cardContainer">
         <ShowCategories name="Comidas" searchResult={ this.updateSearchedMeal } />
         { this.createCards() }
+        { meals.length === 1
+          ? <Redirect to={ `/comidas/${meals[0].idMeal}` } />
+          : ''}
       </div>
     );
   }
@@ -89,6 +94,7 @@ class FoodCards extends React.Component {
 FoodCards.propTypes = {
   meals: PropTypes.shape({
     map: PropTypes.func.isRequired,
+    length: PropTypes.number.isRequired,
   }).isRequired,
   getMeals: PropTypes.func.isRequired,
 };

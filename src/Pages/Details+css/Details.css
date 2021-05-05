@@ -17,3 +17,11 @@
   right: 0%;
   top: 90%;
 }
+
+.invisible {
+  bottom: 0;
+  position: fixed;
+  right: 0%;
+  top: 90%;
+  visibility: hidden;
+}

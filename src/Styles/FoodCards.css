@@ -1,9 +1,10 @@
 .foodCards {
-  height: 100px;
-  width: 100px;
+  height: auto;
+  width: 35vh;
 }
 
 .cardContainer {
-  display: grid;
-  grid-template-columns: 33vw 33vw 33vw;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }

@@ -114,3 +114,8 @@ export const requestApiCocktailsbyIngredient = (input) => async (dispatch) => {
     return console.log(error);
   }
 };
+
+export const addObj = (obj) => ({
+  type: 'ADD_obj',
+  obj,
+});

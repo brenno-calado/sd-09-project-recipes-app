@@ -4,8 +4,8 @@ export async function fetchMealsAPI() {
   return meals;
 }
 
-export async function fetchMealsAPIbyName(input) {
-  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${input}`);
+export async function fetchMealsAPIbyName(nome) {
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${nome}`);
   const meals = await response.json();
   return meals;
 }
@@ -28,8 +28,8 @@ export async function fetchCocktailAPI() {
   return cocktails;
 }
 
-export async function fetchCocktailAPIbyName(input) {
-  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${input}`);
+export async function fetchCocktailAPIbyName(nome) {
+  const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${nome}`);
   const meals = await response.json();
   return meals;
 }
