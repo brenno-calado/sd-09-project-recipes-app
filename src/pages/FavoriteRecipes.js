@@ -9,7 +9,7 @@ function FavoriteRecipes() {
 
   useEffect(() => {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteRecipe = favoriteRecipes.map((
+    const favoriteRecipe = favoriteRecipes && favoriteRecipes.map((
       { type, id, image, name, category, area, alcoholicOrNot,
       }, index,
     ) => {
@@ -55,7 +55,7 @@ function FavoriteRecipes() {
 
   function renderFood() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteRecipe = favoriteRecipes.map((
+    const favoriteRecipe = favoriteRecipes && favoriteRecipes.map((
       { type, id, image, name, category, area,
       }, index,
     ) => {
@@ -80,7 +80,7 @@ function FavoriteRecipes() {
 
   function renderDrink() {
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteRecipe = favoriteRecipes.map((
+    const favoriteRecipe = favoriteRecipes && favoriteRecipes.map((
       { type, id, image, name, area, alcoholicOrNot,
       }, index,
     ) => {
