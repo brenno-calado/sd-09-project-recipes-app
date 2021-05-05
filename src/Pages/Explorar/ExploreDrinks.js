@@ -10,14 +10,12 @@ function ExploreDrinks() {
         <Link
           data-testid="explore-by-ingredient"
           to="/explorar/bebidas/ingredientes"
-          className="explore-btn"
         >
           Por Ingredientes
         </Link>
         <Link
           data-testid="explore-surprise"
           to="/"
-          className="explore-btn"
         >
           Me Surpreenda!
         </Link>
