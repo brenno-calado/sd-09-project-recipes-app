@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { string, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
-import Logo1 from '../images/Logo1.png';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -21,21 +20,19 @@ function Header({ page, search }) {
   return (
     <div>
       <header>
-        <img src={ Logo1 } alt="logo" className="logo-img" />
-        <h1> Minhas Receitas</h1>
-      </header>
-      <div className="header-bar">
-        <Link to="/perfil">
-          <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
-        </Link>
-        <h2 data-testid="page-title" className="page-title">{ page }</h2>
-        { search
+        <div className="header-bar">
+          <Link to="/perfil">
+            <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
+          </Link>
+          <h4 data-testid="page-title" className="page-title">{ page }</h4>
+          { search
       && (
         <button type="button" onClick={ HandleSearch }>
           <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
         </button>
       )}
-      </div>
+        </div>
+      </header>
       { searchBar && <SearchBar page={ page } /> }
     </div>
   );

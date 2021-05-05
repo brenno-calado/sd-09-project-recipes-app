@@ -10,3 +10,11 @@
   justify-content: space-between;
   padding: 20px;
 }
+
+.card {
+  display: inline-block;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.418);
+  min-width: 40vw;
+  margin-bottom: 10%;
+}

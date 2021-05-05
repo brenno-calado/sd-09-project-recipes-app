@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { arrayOf } from 'prop-types';
+import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { filteredFetch } from '../actions/filterList';
 import { searchBarFetch } from '../actions/searchBar';
@@ -25,17 +26,19 @@ function Filters({ filters, path, setFiltered, setRecipes }) {
 
   return (
     <div>
-      <h4 className="title-filters">Filtros</h4>
-      <button
+
+      <Button
+        variant="outline-dark"
         type="button"
         data-testid="All-category-filter"
         onClick={ () => setRecipes({ searchValue: '', query: 's', page: type }) }
         className="filters-btn"
       >
         All
-      </button>
+      </Button>
       { filters.map(({ strCategory }, index) => index < FILTER_LIMIT && (
-        <button
+        <Button
+          variant="outline-dark"
           type="button"
           className="filters-btn"
           key={ strCategory }
@@ -44,7 +47,7 @@ function Filters({ filters, path, setFiltered, setRecipes }) {
           data-testid={ `${strCategory}-category-filter` }
         >
           { strCategory }
-        </button>
+        </Button>
       )) }
     </div>
   );

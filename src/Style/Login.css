@@ -1,21 +1,26 @@
 #btn-login {
   display: flex;
-  justify-content: center;
   padding: 2%;
+  justify-content: center;
 }
 
 .Login-body {
-  background-color: rgba(251, 144, 22, 0.863);
+  background-image:url('../images/pexels-rfstudio-3621212\ \(1\).jpg');
   display: flex;
   flex-direction: column;
+  justify-content: center;
   height: 100vh;
-  justify-content: center;
-  padding: 20%;
+  padding: 30%;
+  padding-bottom: 60%;
 }
 
-
-h1 {
+.title-login {
   display: flex;
-  justify-content: center;
-  margin: 60px;
+  font-family: 'Andika New Basic', sans-serif;
+  margin-right: 20px;
+  text-shadow: 3px 2px 2px  rgb(14, 13, 13);
+  color:rgb(255, 255, 255);
+  margin-bottom: 20%
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Andika+New+Basic:ital@1&display=swap');

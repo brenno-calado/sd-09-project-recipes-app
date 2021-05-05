@@ -1,22 +1,8 @@
-header {
-  background-color: rgba(251, 144, 22, 0.863);
-  display: flex;
-  justify-content: center;
-}
-
-h1 {
-  color: aliceblue;
-  display: flex;
-  margin-top: 50px;
-}
-
-.logo-img {
-  height: 200px;
-  width: 200px;
-}
 
 .header-bar {
-  border-bottom: solid 1px black;
+  background-color: #4d9079ec;
+  height: 35px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5%;
 }
