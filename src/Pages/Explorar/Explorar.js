@@ -8,7 +8,7 @@ function Explorar() {
   return (
     <div>
       <Header />
-      <Link to="/explorarcomidas">
+      <Link to="/explorar/comidas">
         <button
           data-testid="explore-food"
           type="button"
