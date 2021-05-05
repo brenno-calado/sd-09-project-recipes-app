@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealNameAPI } from '../../services/fetchMealAPI';
 import { fetchDrinkById } from '../../services/fetchDrinkAPI';
+import RecipesContext from '../../context/RecipesContext';
 import RecommendedCard from '../../common/components/RecommendedCard';
 import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
@@ -12,7 +13,14 @@ function DrinkDetails(props) {
   const [recommended, setRecommended] = useState([]);
   const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [drink, setDrink] = useState();
-  const [startContinueDrink, setStartContinueDrink] = useState('Start Recipe');
+  const [inProgress, setInProgress] = useState(false);
+  const {
+    // isInProgress,
+    addProgressToLocalStorage,
+    verifyInProgress,
+    verification,
+    setVerification,
+  } = useContext(RecipesContext);
   const seis = 6;
   const idDrink = id;
 
@@ -22,13 +30,25 @@ function DrinkDetails(props) {
       await fetchDrinkById(idDrink).then((response) => setDrink(response.drinks[0]));
     }
     fetchData();
-  }, [idDrink]);
+    verifyInProgress(idDrink, 'cocktails');
+  }, [idDrink, verifyInProgress]);
 
   useEffect(() => {
     if (hidden.second > seis) {
       setHidden({ first: 0, second: 1 });
     }
   }, [hidden.second]);
+
+  // useEffect(() => (
+  //   (verifyInProgress(id, 'cocktails')) ? setInProgress(true) : null
+  // ), [verifyInProgress, id]);
+
+  useEffect(() => {
+    if (verification) { setInProgress(true); }
+    return () => {
+      setVerification(false);
+    };
+  }, [setInProgress, verification, setVerification]);
 
   const scrollRecommended = () => {
     setHidden((state) => ({
@@ -55,10 +75,10 @@ function DrinkDetails(props) {
   }
 
   function startDrink() {
-    setStartContinueDrink('Continuar Receita');
+    setInProgress(true);
     history.push(`/bebidas/${idDrink}/in-progress`, drink);
+    return (inProgress ? null : addProgressToLocalStorage(id, 'cocktails'));
   }
-
   function renderDrink() {
     return (
       <div>
@@ -113,7 +133,7 @@ function DrinkDetails(props) {
           type="button"
           onClick={ startDrink }
         >
-          { startContinueDrink }
+          { inProgress ? 'Continuar Receita' : 'Start Recipe' }
         </button>
       </div>
     );

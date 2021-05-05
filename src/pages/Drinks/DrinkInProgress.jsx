@@ -5,8 +5,9 @@ import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
 
 function DrinkInProgress(props) {
-  const { match: { url, params: { id } } } = props;
+  const { history, match: { url, params: { id } } } = props;
   const [drink, setDrink] = useState();
+  const [newURL, setNewURL] = useState();
   const idDrink = id;
 
   useEffect(() => {
@@ -14,7 +15,9 @@ function DrinkInProgress(props) {
       await fetchDrinkById(idDrink).then((response) => setDrink(response.drinks[0]));
     }
     fetchData();
-  }, [idDrink, id]);
+    const path = url.split('/in-progress');
+    setNewURL(path[0]);
+  }, [idDrink, url]);
 
   function renderIngredients() {
     const maxIngredient = 21;
@@ -40,6 +43,10 @@ function DrinkInProgress(props) {
     return <ul style={ { listStyleType: 'none', padding: 0 } }>{ingredients}</ul>;
   }
 
+  function finishHandler() {
+    history.push('/receitas-feitas');
+  }
+
   function renderDrink() {
     return (
       <div>
@@ -57,7 +64,7 @@ function DrinkInProgress(props) {
               { drink.strAlcoholic }
             </h5>
           </div>
-          <ShareLikeButtons recipe={ drink } type="bebida" url={ url } />
+          <ShareLikeButtons recipe={ drink } type="bebida" url={ newURL } />
         </div>
         <div>
           <h4>Ingredients</h4>
@@ -71,7 +78,7 @@ function DrinkInProgress(props) {
           className="finish-recipe-btn"
           data-testid="finish-recipe-btn"
           type="button"
-          // onClick={ finishRecipe }
+          onClick={ finishHandler }
         >
           Finish Recipe
         </button>

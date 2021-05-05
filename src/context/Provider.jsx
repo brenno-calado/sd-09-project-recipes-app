@@ -8,6 +8,7 @@ function Provider(props) {
   const [shouldRedirect, setShouldRedirect] = useState({ meals: false, drinks: false });
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [verification, setVerification] = useState(false);
 
   const handleClick = (e) => {
     const { target } = e;
@@ -37,8 +38,6 @@ function Provider(props) {
   };
 
   const handleSearch = (value, filterMeals, filterDrinks) => {
-    // const { value } = props;
-    // console.log(value);
     switch (value) {
     case 'comidas':
       return filterMeals();
@@ -49,18 +48,29 @@ function Provider(props) {
   };
 
   const shareClick = (url) => {
-    const element = document.createElement('textarea');
-    element.value = `http://localhost:3000${url}`;
-    document.body.appendChild(element);
-    element.select();
-    document.execCommand('copy');
-    document.body.removeChild(element);
+    const text = `http://localhost:3000${url}`;
+    navigator.clipboard.writeText(text);
     setCopied(true);
   };
 
   const favoriteClick = (remove, add) => (
     (favorite ? remove() : add())
   );
+
+  function addProgressToLocalStorage(recipeId, type) {
+    const progress = JSON.parse(localStorage.getItem('inProgressRecipes'))
+    || { cocktails: {}, meals: {} };
+    progress[type][recipeId] = [];
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progress));
+  }
+
+  function verifyInProgress(id, type) {
+    const progress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (progress) {
+      const inProgress = progress[type][id];
+      return (inProgress ? setVerification(true) : null);
+    }
+  }
 
   const context = {
     filter,
@@ -79,7 +89,10 @@ function Provider(props) {
     shareClick,
     favoriteClick,
     setFavorite,
-    // itShouldRedirect,
+    addProgressToLocalStorage,
+    verification,
+    setVerification,
+    verifyInProgress,
   };
 
   const { children } = props;

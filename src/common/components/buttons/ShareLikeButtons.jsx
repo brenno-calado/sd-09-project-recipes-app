@@ -8,6 +8,7 @@ import Button from './Button';
 
 function ShareLikeButtons({ recipe, url }) {
   const [type, setType] = useState('');
+  // const [copied, setCopied] = useState(false);
   const {
     shareClick,
     copied,
@@ -57,13 +58,14 @@ function ShareLikeButtons({ recipe, url }) {
     <div>
       <Button onClick={ () => shareClick(url) }>
         <img data-testid="share-btn" src={ shareIcon } alt="share icon" height="25px" />
+        {/* <textarea className="js-copytextarea">{ `http://localhost:3000${url}` }</textarea> */}
       </Button>
-      { copied ? <p>Link copiado!</p> : null }
       <Button onClick={ () => favoriteClick(removeFromFavorites, addToFavorites) }>
         {favorite
           ? <img data-testid="favorite-btn" src={ blackHeart } alt="fav" height="25px" />
           : <img data-testid="favorite-btn" src={ whiteHeart } alt="fav" height="25px" />}
       </Button>
+      { copied ? <p>Link copiado!</p> : null }
     </div>
   );
 }
