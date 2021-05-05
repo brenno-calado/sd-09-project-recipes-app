@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, func, bool } from 'prop-types';
+import { string, func, bool, number } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
 import shareIcon from '../../images/shareIcon.svg';
@@ -73,7 +73,7 @@ function RecipeDoneCard(
 RecipeDoneCard.propTypes = {
   image: string,
   name: string,
-  index: string,
+  index: number,
   doneData: string,
   category: string,
   tagName: string,
@@ -81,6 +81,7 @@ RecipeDoneCard.propTypes = {
   id: string,
   setFavorite: func,
   favorite: bool,
+  type: string,
 };
 
 RecipeDoneCard.defaultProps = {
@@ -94,6 +95,7 @@ RecipeDoneCard.defaultProps = {
   id: '',
   setFavorite: () => {},
   favorite: bool,
+  type: '',
 };
 
 export default RecipeDoneCard;

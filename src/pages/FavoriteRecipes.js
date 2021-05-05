@@ -61,7 +61,7 @@ function FavoriteRecipes() {
     ) => {
       if (type === 'comida') {
         return (<RecipeDoneCard
-          key={ id }
+          key={ Math.random() }
           image={ image }
           name={ name }
           index={ index }
@@ -86,7 +86,7 @@ function FavoriteRecipes() {
     ) => {
       if (type === 'bebida') {
         return (<RecipeDoneCard
-          key={ id }
+          key={ Math.random() }
           image={ image }
           name={ name }
           index={ index - 1 }
