@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import searchImg from '../images/searchIcon.svg';
 import profileImg from '../images/profileIcon.svg';
+import searchImg from '../images/searchIcon.svg';
 import { RecipiesContext } from '../context/RecipiesContext';
 
 function CreateHeader({ title, showExplorerButton }) {
