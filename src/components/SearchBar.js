@@ -4,7 +4,9 @@ import RecipesContext from '../context/RecipesContext';
 
 const SearchBar = () => {
   const pathName = useLocation().pathname.split('/');
-  const { searchBar, addSearchBar, addRecipes } = useContext(RecipesContext);
+  const { searchBar, addSearchBar, addRecipes,
+    addStatusSearch } = useContext(RecipesContext);
+
   const { text, radio } = searchBar;
 
   const handleChangeText = ({ target }) => {
@@ -20,6 +22,7 @@ const SearchBar = () => {
       if (radio === 'first-letter' && text.length !== 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
       } else {
+        addStatusSearch(false);
         addRecipes(pathName[1], radio, text);
         addSearchBar('', radio, true);
       }

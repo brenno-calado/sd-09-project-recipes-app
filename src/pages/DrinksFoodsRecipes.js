@@ -4,10 +4,12 @@ import Header from '../components/Header';
 import MenuInferior from '../components/MenuInferior';
 import RecipesContext from '../context/RecipesContext';
 import ListRecipes from '../components/ListRecipes';
+import CategoriesBar from '../components/CategoriesBar';
 
 const DrinksFoodsRecipes = () => {
   const pathName = useLocation().pathname.split('/');
-  const { recipes, searchBar, addSearchBar, addRecipes } = useContext(RecipesContext);
+  const { recipes, searchBar, addSearchBar, addRecipes,
+    statusSearch } = useContext(RecipesContext);
   const { text, radio, seachClicked } = searchBar;
 
   useEffect(() => {
@@ -36,7 +38,10 @@ const DrinksFoodsRecipes = () => {
   return (
     <div>
       <Header />
-      { recipes.length === 1 && (<Redirect to={ `/${pathName[1]}/${id}` } />) }
+      <CategoriesBar />
+      { console.log(statusSearch)}
+      { recipes.length === 1 && !statusSearch && (
+        <Redirect to={ `/${pathName[1]}/${id}` } />) }
       { recipes.length > 0 && (<ListRecipes />) }
       <MenuInferior />
     </div>
