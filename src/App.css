@@ -191,11 +191,11 @@
 }
 
 .fav-card .recipe-img {
+  height: 144px;
   left: 0;
   position: absolute;
   top: 0;
   width: 130px;
-  height: 144px;
 }
 
 .btn-container {
