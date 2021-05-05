@@ -26,10 +26,12 @@ function CategoriesBtn() {
   const handleClick = async ({ target }) => {
     setSelectedCategory(target.value);
     if (selectedCategory !== target.value) {
+      console.log('passou');
       setCategoryApiResult(target.value);
-      setSelected(selected);
+      setSelected(true);
     } else {
-      setSelected(!selected);
+      setSelected(false);
+      setSearchFilter([]);
     }
   };
 
