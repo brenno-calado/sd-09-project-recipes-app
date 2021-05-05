@@ -13,11 +13,15 @@ function DrinksDetails() {
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
     getData();
+    setFavoriteRecipe(localStorage.favoriteRecipes
+      && getItemLocalStorage('favoriteRecipes')
+        .some(({ id: idItem }) => idItem === id));
   }, [id]);
 
   const recipeInProgress = localStorage.inProgressRecipes && Object
@@ -36,21 +40,24 @@ function DrinksDetails() {
     setCopy(true);
   };
 
-  const favoriteRecipe = localStorage.favoriteRecipes && Object
-    .keys(getItemLocalStorage('favoriteRecipes')).includes(id);
-
   const favorite = () => {
     if (!favoriteRecipe) {
       const favoriteItem = {
         id,
-        type: 'bebida',
+        type: 'comida',
+        area: data.strArea,
         category: data.strCategory,
-        alcoholicOrNot: data.strAlcoholic,
         name: data.strDrink,
         image: data.strDrinkThumb,
       };
-      updateLocalStorage('favoriteRecipes', 'favoriteRecipes', favoriteItem);
+      updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
+    } else {
+      const newFavoriteArray = localStorage.favoriteRecipes
+        && getItemLocalStorage('favoriteRecipes')
+          .filter(({ id: idItem }) => idItem !== id);
+      updateLocalStorage('updateFavoriteRecipes', null, newFavoriteArray);
     }
+    setFavoriteRecipe(!favoriteRecipe);
   };
 
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
@@ -64,7 +71,12 @@ function DrinksDetails() {
       <button data-testid="share-btn" type="button" onClick={ share }>
         <img src={ shareIcon } alt="share icon" />
       </button>
-      <button data-testid="favorite-btn" type="button" onClick={ favorite }>
+      <button
+        data-testid="favorite-btn"
+        type="button"
+        onClick={ favorite }
+        src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
+      >
         <img
           src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
           alt="favorite icon"
