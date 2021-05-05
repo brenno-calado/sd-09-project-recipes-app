@@ -48,21 +48,24 @@ function RecipeList({ item, sendChecks, type, query }) {
     while (max) {
       if (!item[`strIngredient${index}`]) return ingredients;
       ingredients.push(
-        <label
-          htmlFor={ `strIngredient${index}` }
-          data-testid={ `${index - 1}-ingredient-step` }
-          className={ checkboxes[`strIngredient${index}`] && 'check' }
-        >
-          <input
-            className="check"
-            type="checkbox"
-            checked={ checkboxes[`strIngredient${index}`] }
-            id={ `strIngredient${index}` }
-            name={ `strIngredient${index}` }
-            onChange={ handleChanges }
-          />
-          {`${item[`strIngredient${index}`]} - ${item[`strMeasure${index}`]}`}
-        </label>,
+        <div className="list">
+          <label
+            htmlFor={ `strIngredient${index}` }
+            data-testid={ `${index - 1}-ingredient-step` }
+            className={ checkboxes[`strIngredient${index}`] && 'check' }
+          >
+            <input
+              className="check"
+              type="checkbox"
+              checked={ checkboxes[`strIngredient${index}`] }
+              id={ `strIngredient${index}` }
+              name={ `strIngredient${index}` }
+              onChange={ handleChanges }
+            />
+            {`${item[`strIngredient${index}`]} - ${item[`strMeasure${index}`]}`}
+          </label>
+          ,
+        </div>,
       );
       index += 1;
     }

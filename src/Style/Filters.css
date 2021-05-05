@@ -1,9 +1,5 @@
-.title-filters {
-  display: flex;
-  justify-content: center;
-}
-
 .filters-btn {
-  background-color: rgb(251, 251, 251);
-  padding: 2.5%;
+  /* background-color: #f78154; */
+  padding: 2%;
+  padding-top: 2%;
 }

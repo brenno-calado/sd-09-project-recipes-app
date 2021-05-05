@@ -1,19 +1,8 @@
-.explore-btn {
+.btn-explorer {
+  background: ghostwhite;
+  border-color: black;
+  color: #4d9079ec;
   display: flex;
-  justify-content: space-around;
-  margin-top: 40%;
+  margin: 30%;
 }
 
-.btns-explore {
-  align-items: center;
-  display: flex;
-  margin-bottom: 20%;
-  margin-top: 5%;
-  padding: 2%;
-}
-
-.explore-btn-drink {
-  display: flex;
-  justify-items: center;
-  margin: 25%;
-}
