@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import RecipeInProgress from './RecipeInProgress';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -61,6 +60,8 @@ function Login() {
     localStorage.setItem('mealsToken', '1');
     localStorage.setItem('cocktailsToken', '1');
     localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      meals: {}, cocktails: {} }));
   }
 
   function renderLoginButton() {
@@ -86,7 +87,6 @@ function Login() {
       { renderEmailInput() }
       { renderPasswordInput() }
       { renderLoginButton() }
-      { RecipeInProgress() }
     </div>
   );
 }
