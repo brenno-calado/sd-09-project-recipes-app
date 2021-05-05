@@ -2,13 +2,11 @@ import {
   FOOD_ACTION,
   DRINKS_ACTION,
   FILTERFOOD_ACTION,
-  FILTERORIGIN_ACTION,
   FILTERDRINKS_ACTION } from '../action/FoodAndDrinkAction';
 
 const INITIAL_STATE = {
   food: [],
   filterFood: [],
-  filterOrigin: [],
   foodName: '',
   foodBoolean: false,
   drinks: [],
@@ -26,8 +24,6 @@ function FoodAndDrinkReducer(state = INITIAL_STATE, action) {
       foodBoolean: action.foodBoolean };
   case FILTERFOOD_ACTION:
     return { ...state, filterFood: action.filterFood };
-  case FILTERORIGIN_ACTION:
-    return { ...state, filterOrigin: action.filterOrigin };
   case DRINKS_ACTION:
     return { ...state,
       drinks: action.drinks,

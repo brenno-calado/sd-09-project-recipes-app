@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/mainScreen.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterOriginThunkAction, foodThunkAction } from '../action/FoodAndDrinkAction';
+import { filterFoodThunkAction, foodThunkAction } from '../action/OriginAction';
 import Header from '../components/Header';
 import FoodCard from '../components/FoodCard';
 import FooterSpec from '../components/FooterSpec';
@@ -11,17 +11,13 @@ class ExploreOrigin extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      value: 'All',
-    };
-
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const { setFood, setFilterOrigin, getFoodBoolean, getFoodName } = this.props;
+    const { setFood, setFilterFood, getFoodBoolean, getFoodName } = this.props;
     setFood('', getFoodBoolean, getFoodName);
-    setFilterOrigin();
+    setFilterFood();
   }
 
   handleChange(event) {
@@ -32,15 +28,8 @@ class ExploreOrigin extends React.Component {
   }
 
   render() {
-    const {
-      getFood,
-      getFilterOrigin,
-      // setFood,
-      // getFoodBoolean,
-      // getFoodName,
-    } = this.props;
+    const { getFood, getFilterFood } = this.props;
 
-    const { value } = this.state;
     const { handleChange } = this;
     console.log(getFood);
     return (
@@ -48,25 +37,21 @@ class ExploreOrigin extends React.Component {
         <Header titleHeader="Explorar Origem" id="0" />
         <aside className="aside">
           <select
-            value={ value }
+            value="All"
             data-testid="explore-by-area-dropdown"
             onChange={ handleChange }
           >
             <option data-testid="All-option">All</option>
-            { getFilterOrigin.map((filter, index) => (
+            { getFilterFood.map((filter, index) => (
               <option
                 key={ `${filter}${index}` }
                 data-testid={ `${filter.strArea}-option` }
                 value={ filter.strArea }
-                // value={ () => setFood(filter.strArea, getFoodBoolean, getFoodName) }
               >
                 { filter.strArea }
               </option>
             )) }
           </select>
-          {/*
-            onClick={ () => setFood(filter.strCategory, getFoodBoolean, getFoodName) }
-          */}
         </aside>
         <section className="mainBox">
           { getFood.map((food, index) => (
@@ -87,8 +72,7 @@ class ExploreOrigin extends React.Component {
 
 const mapStateToProps = (state) => ({
   getFood: state.FoodAndDrinkReducer.food,
-  // getFilterFood: state.FoodAndDrinkReducer.filterFood,
-  getFilterOrigin: state.FoodAndDrinkReducer.filterOrigin,
+  getFilterFood: state.FoodAndDrinkReducer.filterFood,
   getFoodName: state.FoodAndDrinkReducer.foodName,
   getFoodBoolean: state.FoodAndDrinkReducer.foodBoolean,
 });
@@ -97,13 +81,12 @@ const mapDispatchToProps = (dispatch) => ({
   setFood: (food, foodBoolean, foodName) => dispatch(
     foodThunkAction(food, foodBoolean, foodName),
   ),
-  // setFilterFood: () => dispatch(filterFoodThunkAction()),
-  setFilterOrigin: () => dispatch(filterOriginThunkAction()),
+  setFilterFood: () => dispatch(filterFoodThunkAction()),
 });
 
 ExploreOrigin.propTypes = ({
   setFood: PropTypes.func,
-  setFilterOrigin: PropTypes.func,
+  setFilterFood: PropTypes.func,
   getFood: PropTypes.arrayOf(PropTypes.object),
 }).isRequired;
 
