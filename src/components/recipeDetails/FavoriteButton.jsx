@@ -31,13 +31,17 @@ function FavoriteButton({ recipe, id }) {
     };
 
     if (isFavorite) {
+      const found = favoriteRecipes.find((currentRecipe) => currentRecipe.id === id);
+      favoriteRecipes.splice(favoriteRecipes.indexOf(found), 1);
       localStorage.setItem('favoriteRecipes',
-        JSON.stringify(favoriteRecipes.splice(favoriteRecipes.length - 1)));
+        JSON.stringify(favoriteRecipes));
       setFavorite(false);
+      setFavoriteRecipes(favoriteRecipes);
     } else {
       localStorage.setItem('favoriteRecipes',
         JSON.stringify([...favoriteRecipes, recipeInfo]));
       setFavorite(true);
+      setFavoriteRecipes([...favoriteRecipes, recipeInfo]);
     }
   };
 

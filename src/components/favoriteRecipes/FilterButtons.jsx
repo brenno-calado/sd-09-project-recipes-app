@@ -1,40 +1,36 @@
-import React, { useContext } from 'react';
-import RecipesContext from '../../contexts/RecipesContext';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function FilterButtons() {
-  const { favoriteRecipes } = useContext(RecipesContext);
-  console.log(favoriteRecipes);
-
-  const filterBy = () => {
-    console.log('oi');
-    console.log('testando');
-  };
-
+function FilterButtons({ renderRecipes }) {
   return (
     <>
       <button
-        data-testid="filter-by-food-btn"
+        data-testid="filter-by-all-btn"
         type="button"
-        onClick={ filterBy }
+        onClick={ renderRecipes }
       >
         All
       </button>
       <button
         data-testid="filter-by-food-btn"
         type="button"
-        onClick={ filterBy }
+        onClick={ () => renderRecipes('comida') }
       >
         Food
       </button>
       <button
         data-testid="filter-by-drink-btn"
         type="button"
-        onClick={ filterBy }
+        onClick={ () => renderRecipes('bebida') }
       >
         Drinks
       </button>
     </>
   );
 }
+
+FilterButtons.propTypes = {
+  renderRecipes: PropTypes.func,
+}.isRequired;
 
 export default FilterButtons;
