@@ -5,12 +5,11 @@
 }
 
 .Profile .email {
-  font-family: Roboto;
-  line-height: 35px;
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
-  letter-spacing: 0em;
+  letter-spacing: 0;
+  line-height: 35px;
   padding: 10px;
   text-align: center;
 }
@@ -30,7 +29,7 @@
   font-size: 25px;
   font-style: normal;
   font-weight: 400;
-  letter-spacing: 0em;
+  letter-spacing: 0;
   line-height: 29px;
   outline: none;
   padding: 10px;
