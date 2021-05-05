@@ -47,14 +47,14 @@ const RecipeInProgress = ({ match }) => {
   const { params } = match;
   const { id } = params;
   let recipeType = ((match.url).split('/'))[1];
-  recipeType = recipeType === 'comidas' ? 'meal' : 'drink';
+  recipeType = recipeType === 'comidas' ? 'Meal' : 'Drink';
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getRecipeByType = async () => {
       let data = {};
-      if (recipeType === 'meal') {
+      if (recipeType === 'Meal') {
         data = await getFoodById(id);
         setRecipe(data.meals[0]);
       } else {
@@ -117,13 +117,15 @@ const RecipeInProgress = ({ match }) => {
               <h4>Instructions</h4>
               { recipe.strInstructions }
             </div>
+            <FavoriteButton
+              recipe={ recipe }
+              recipeType={ recipeType }
+              data-testid="favorite-btn"
+            />
           </div>
         )}
       <ShareButton
         data-testid="share-btn"
-      />
-      <FavoriteButton
-        data-testid="favorite-btn"
       />
       <br />
       <Button
