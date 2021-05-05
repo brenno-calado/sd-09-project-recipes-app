@@ -5,7 +5,6 @@ import fetchApi from '../services/index';
 
 function MainCards() {
   const { searchFilter, setHandleCards, handleCards } = useContext(MyContext);
-  const path = '';
   const MAX_NUMBER_OF_CARDS_12 = 12;
   const { pathname } = useLocation();
 
@@ -29,7 +28,7 @@ function MainCards() {
       {
         searchFilter.length >= 1
           ? searchFilter.slice(0, MAX_NUMBER_OF_CARDS_12).map((curr, index) => (
-            <Link to={ path } key={ index }>
+            <Link to={ `${pathname}/${curr.idMeal || curr.idDrink}` } key={ index }>
               <div data-testid={ `${index}-recipe-card` } className="card">
                 <img
                   src={ curr.strMealThumb || curr.strDrinkThumb }
@@ -43,7 +42,7 @@ function MainCards() {
               </div>
             </Link>
           )) : handleCards.slice(0, MAX_NUMBER_OF_CARDS_12).map((item, index) => (
-            <Link to={ path } key={ index }>
+            <Link to={ `${pathname}/${item.idMeal || item.idDrink}` } key={ index }>
               <div data-testid={ `${index}-recipe-card` } className="card">
                 <img
                   src={ item.strMealThumb || item.strDrinkThumb }

@@ -25,19 +25,27 @@ function CategoriesBtn() {
 
   const handleClick = async ({ target }) => {
     setSelectedCategory(target.value);
-    if (selectedCategory !== target.value) {
+    if (selectedCategory !== target.value && target.value !== 'All') {
       console.log('passou');
       setCategoryApiResult(target.value);
-      setSelected(true);
+      setSelected(!selected);
     } else {
-      setSelected(false);
+      setSelected(selected);
       setSearchFilter([]);
     }
   };
 
   return (
     <div className="categories-button">
-      <button type="button" className="basic-btn">All</button>
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        className="basic-btn"
+        value="All"
+        onClick={ (e) => handleClick(e) }
+      >
+        All
+      </button>
       {
         pathname === '/comidas'
           ? mealCategories.slice(0, MAX_NUMBER_OF_CARDS_5).map((mealCategory, index) => (
