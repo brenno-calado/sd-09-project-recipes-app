@@ -38,7 +38,9 @@ const Login = (props) => {
   };
 
   return (
-    <>
+    <div
+      data-testid="test-login"
+    >
       <input
         data-testid="email-input"
         id="userEmail"
@@ -65,7 +67,7 @@ const Login = (props) => {
           Entrar
         </button>
       </Link>
-    </>
+    </div>
   );
 };
 

@@ -63,10 +63,11 @@ Header.defaultProps = {
   isSearchEnable: true,
   value: undefined,
   history: undefined,
+  title: undefined,
 };
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   isSearchEnable: PropTypes.bool,
   value: PropTypes.string,
   history: PropTypes.shape({}),
