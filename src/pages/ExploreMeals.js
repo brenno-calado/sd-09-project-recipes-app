@@ -7,7 +7,6 @@ class ExplorarComidas extends Component {
   render() {
     const searchIcon = false;
     return (
-<<<<<<< HEAD
       <div>
         <Header title="Explorar Comidas" searchIcon={ searchIcon } />
         <Link
@@ -28,13 +27,8 @@ class ExplorarComidas extends Component {
         >
           Me Surpreenda!
         </Link>
-      </div>
-=======
-      <>
-        <Header title="Explorar Comidas" searchIcon={ searchIcon } />
         <FooterMenu />
-      </>
->>>>>>> 78da0ab813aa04c3c2f4f9c64d99a951322e497d
+      </div>
     );
   }
 }

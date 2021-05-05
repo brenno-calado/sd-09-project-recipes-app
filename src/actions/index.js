@@ -34,6 +34,8 @@ export const setIsLoading = () => ({
 
 export const fetchMealRecipeDetails = (id) => (dispatch) => (
   fetchDetails(id, 'meal')
+);
+
 export const setCategories = (categories) => ({
   type: 'SET_CATEGORIES',
   categories,
