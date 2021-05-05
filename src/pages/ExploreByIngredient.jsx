@@ -99,7 +99,7 @@ const ExploreByIngredients = ({
 
   const redirectTeste = () => {
     console.log('teste');
-    return <Redirect to={ redirectPath } />
+    return <Redirect to={ redirectPath } />;
   };
 
   return (

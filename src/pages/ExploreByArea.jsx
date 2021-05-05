@@ -28,7 +28,6 @@ const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher })
     if (selectOption === 'All') {
       mealsDispatcher();
     }
-
   }, [selectOption]);
 
   const handleChange = ({ target: { value } }) => {
