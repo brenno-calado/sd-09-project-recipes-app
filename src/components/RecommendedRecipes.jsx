@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mealsRecommendedThunk, cocktailsRecommendedThunk } from '../redux/actions';
@@ -11,10 +11,10 @@ function RecommendedRecipes({
   mealsThunkDispatcher,
   cocktailsThunkDispatcher,
   recipeType,
-  isRecommendedFetched,
   recommended,
+  // isRecommendedFetched,
 }) {
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
 
   const verifyRecipeType = useCallback(() => {
     if (recipeType === 'comidas') {
@@ -25,20 +25,20 @@ function RecommendedRecipes({
     }
   }, [recipeType, cocktailsThunkDispatcher, mealsThunkDispatcher]);
 
-  const verifyFetch = useCallback(() => {
-    if (isRecommendedFetched) {
-      const magicNumber = 6;
-      setData(recommended.slice(0, magicNumber));
-    }
-  }, [isRecommendedFetched, setData, recommended]);
+  // const verifyFetch = useCallback(() => {
+  //   if (isRecommendedFetched) {
+  //     const magicNumber = 6;
+  //     setData(recommended.slice(0, magicNumber));
+  //   }
+  // }, [isRecommendedFetched, setData, recommended]);
 
   useEffect(() => {
     verifyRecipeType();
   }, [verifyRecipeType]);
 
-  useEffect(() => {
-    verifyFetch();
-  }, [recommended, verifyFetch]);
+  // useEffect(() => {
+  //   verifyFetch();
+  // }, [recommended, verifyFetch]);
 
   // const recommendedMeals = data.map((recipe, index) => (
   //   <div
@@ -78,8 +78,8 @@ function RecommendedRecipes({
 
 const mapStateToProps = (state) => ({
   recipeType: state.recipesReducer.recipeType,
-  isRecommendedFetched: state.recipeDetailsReducer.isRecommendedFetched,
   recommended: state.recipeDetailsReducer.recommended,
+  // isRecommendedFetched: state.recipeDetailsReducer.isRecommendedFetched,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -91,8 +91,8 @@ RecommendedRecipes.propTypes = {
   mealsThunkDispatcher: PropTypes.func.isRequired,
   cocktailsThunkDispatcher: PropTypes.func.isRequired,
   recipeType: PropTypes.string.isRequired,
-  isRecommendedFetched: PropTypes.bool.isRequired,
   recommended: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // isRecommendedFetched: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecommendedRecipes);

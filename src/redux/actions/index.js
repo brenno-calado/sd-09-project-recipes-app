@@ -10,6 +10,7 @@ import {
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  SEND_DONE_RECIPES,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -205,4 +206,9 @@ export function cocktailsRecommendedThunk() {
 export const saveIngredients = (ingredients) => ({
   type: SAVE_INGREDIENTS,
   ingredients,
+});
+
+export const sendDoneRecipes = (recipes) => ({
+  type: SEND_DONE_RECIPES,
+  recipes,
 });
