@@ -15,6 +15,9 @@ function Provider({ children }) {
   const [isSearching, setIsSearching] = useState(false);
   const [toggleButton, setToggleButton] = useState(null);
   const [supriseId, setSurpriseId] = useState(null);
+  const [doneRecipes, setDoneRecipes] = useState(
+    setInitialLocalStorage('doneRecipes'),
+  );
   const [favoriteRecipes, setFavoriteRecipes] = useState(
     setInitialLocalStorage('favoriteRecipes'),
   );
@@ -25,6 +28,8 @@ function Provider({ children }) {
     setData,
     drinks,
     setDrinks,
+    doneRecipes,
+    setDoneRecipes,
     favoriteRecipes,
     setFavoriteRecipes,
     isSearching,

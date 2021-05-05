@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import fetchApi from '../../services';
 import * as S from './styled';
 import TitleContainer from './TitleContainer';
 import {
   pathName,
-  ingredientsArray, measureArray, sources, sourcesRecomendations } from './services';
+  ingredientsArray,
+  measureArray,
+  sources,
+  sourcesRecomendations,
+} from './services';
+import {
+  setInitialLocalStorage,
+  updateLocalStorageItem,
+} from '../../services/localStorage';
+import { context } from '../../context';
+
+setInitialLocalStorage('inProgressRecipes');
 
 export default function Details(props) {
   const [details, setDetails] = useState(null);
   const [recomendation, setRecomendation] = useState(null);
-  const { match: { params, path } } = props;
+  const { setDoneRecipes } = useContext(context);
+  const [redirect, setRedirect] = useState(false);
+  const {
+    match: { params, path },
+  } = props;
 
   const {
     typePath,
@@ -36,6 +52,18 @@ export default function Details(props) {
     });
   }, [recomendationPath, recomendationName, selectorPath]);
 
+  const handleStart = () => {
+    setRedirect(true);
+    return path.includes('comida')
+      ? updateLocalStorageItem('inProgressRecipes', {
+        [details.idMeal]: ingredientsArray(details),
+      })
+      : updateLocalStorageItem('inProgressRecipes', {
+        [details.idDrink]: ingredientsArray(details),
+      });
+  };
+
+  if (redirect) return <Redirect to={ `${details.idDrink || details.idMeal}` } />;
   return (
     <S.Container>
       <S.ThumbNail
@@ -89,7 +117,11 @@ export default function Details(props) {
             </S.Card>
           ))}
       </S.RecomendationContainer>
-      <S.StartButton type="button" data-testid="start-recipe-btn">
+      <S.StartButton
+        type="button"
+        data-testid="start-recipe-btn"
+        onClick={ handleStart }
+      >
         Iniciar Receita
       </S.StartButton>
     </S.Container>

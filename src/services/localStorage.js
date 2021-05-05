@@ -20,6 +20,7 @@ export const updateLocalStorageItem = (key, recipe) => {
   let output = [];
   if (localStorage.getItem(key)) setInitialLocalStorage(key);
   const storage = JSON.parse(localStorage.getItem(key));
+  console.log(storage);
   if (
     storage.find(
       (recipeStored) => recipeStored.id === recipe.id,
