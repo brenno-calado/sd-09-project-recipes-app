@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import RecipesContext from '../../contexts/RecipesContext';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function FavoriteButton({ recipe, id }) {
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(RecipesContext);
   const [isFavorite, setFavorite] = useState(false);
 
   useEffect(() => {
@@ -16,7 +17,7 @@ function FavoriteButton({ recipe, id }) {
       setFavorite(true);
     }
     setFavoriteRecipes(storage);
-  }, [id]);
+  }, [id, setFavoriteRecipes]);
 
   const favoriteRecipe = () => {
     const recipeInfo = {

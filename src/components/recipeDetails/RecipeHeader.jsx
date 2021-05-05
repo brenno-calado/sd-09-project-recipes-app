@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FavoriteButton from './FavoriteButton';
-import shareIcon from '../../images/shareIcon.svg';
-
-const copy = require('clipboard-copy');
+import ShareButton from './ShareButton';
 
 function RecipeHeader({ path, url, recipe, id }) {
-  const [hasCopied, setHasCopied] = useState(false);
-
-  const copyShareLink = async () => {
-    copy(`http://localhost:3000${url}`);
-    setHasCopied(true);
-  };
-
   return (
     <>
       <img
@@ -26,15 +17,7 @@ function RecipeHeader({ path, url, recipe, id }) {
       >
         {(path.includes('bebidas') && recipe.strAlcoholic) || recipe.strCategory}
       </h5>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ copyShareLink }
-      >
-        { hasCopied
-          ? <span>Link copiado!</span>
-          : <img src={ shareIcon } alt="Compartilhar" />}
-      </button>
+      <ShareButton url={ url } />
       <FavoriteButton recipe={ recipe } id={ id } />
     </>
   );
