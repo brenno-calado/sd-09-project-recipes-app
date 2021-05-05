@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 import getAllRecipes from '../../services/allRecipesAPI';
-import usePathLocation from '../../hooks/usePathLocation';
+import { usePathLocation } from '../../hooks';
 import getCategories from '../../services/categoriesAPI';
+import areasAPI from '../../services/areasAPI';
 
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
@@ -18,6 +19,7 @@ export default function RecipesProvider({ children }) {
       cocktails: {}, meals: {},
     },
   );
+  const [areas, setAreas] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
@@ -30,6 +32,7 @@ export default function RecipesProvider({ children }) {
       inProgressRecipes,
       isFetching,
       categories,
+      areas,
     },
     actions: {
       setRecipesResult,
@@ -68,6 +71,23 @@ export default function RecipesProvider({ children }) {
     fetchAllRecipes();
     getCategories(pathLocation)
       .then((response) => setCategories(response));
+  }, [pathLocation]);
+
+  useEffect(() => {
+    if (pathLocation === 'explorar') {
+      const fetchAreas = () => {
+        setIsFetching(true);
+        areasAPI.getAreas()
+          .then(
+            ((response) => {
+              const areasResopnse = response.map(({ strArea }) => strArea);
+              return setAreas(areasResopnse);
+            }),
+            (error) => setAreas(error),
+          ).finally(() => setIsFetching(false));
+      };
+      fetchAreas();
+    }
   }, [pathLocation]);
 
   return (
