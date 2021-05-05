@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import DetailsBtnFinishRecipeInProgress from './DetailsBtnFinishRecipeInProgress';
 
 function IngredientsInProgress({ detailsContext }) {
   const { recipe } = detailsContext;
+  const [ingredientsInProgress, setIngredientsInProgress] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
+
+  const populateStorage = () => {
+    const { id } = recipe;
+    const path = window.location.pathname;
+    const cocktailsObj = { cocktails: {
+      [id]: ingredientsInProgress,
+    },
+    };
+    const mealsObject = { meals: {
+      [id]: ingredientsInProgress,
+    },
+    };
+
+    if (path.includes('comidas')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({ mealsObject }));
+    } localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktailsObj }));
+  };
+
+  const handleChange = (e) => {
+    console.log(e.target);
+    const { strIngredient } = e.target;
+    setIsChecked(!isChecked);
+    setIngredientsInProgress((prevState) => [...prevState, strIngredient]);
+    populateStorage();
+  };
+
   function renderIngredientsInProgress() {
     const maxIngredients = 20;
     const ingredientsList = [];
@@ -10,7 +39,11 @@ function IngredientsInProgress({ detailsContext }) {
       if (recipe[`strIngredient${index}`]) {
         ingredientsList[index] = (
           <li data-testid={ `${index}-ingredient-step` }>
-            <input type="checkbox" id={ `${index}-ingredient-step` } />
+            <input
+              type="checkbox"
+              id={ `${index}-ingredient-step` }
+              onChange={ (e) => handleChange(e) }
+            />
             <label htmlFor={ `${index}-ingredient-step` }>
               {`${recipe[`strIngredient${index}`]} - ${recipe[`strMeasure${index}`]}`}
             </label>
@@ -40,10 +73,13 @@ function IngredientsInProgress({ detailsContext }) {
     </div>
   );
 
+  const props = { recipe, isChecked };
+
   return (
     <div>
       { renderIngredients() }
       { renderInstructions() }
+      <DetailsBtnFinishRecipeInProgress detailsContext={ props } />
     </div>
   );
 }

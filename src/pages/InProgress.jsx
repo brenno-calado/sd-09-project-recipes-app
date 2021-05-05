@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './InProgress.css';
 import { useParams } from 'react-router-dom';
+import { Container, Jumbotron } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
 import { fetchOneMeal, fetchOneDrink } from '../services/api';
 import DetailsBtnShareRecipe from '../components/DetailsBtnShareRecipe';
 import DetailsBtnFavoriteRecipe from '../components/DetailsBtnFavoriteRecipe';
 import IngredientsInProgress from '../components/in-progress/IngredientsInProgress';
-import DetailsBtnFinishRecipeInProgress
-  from '../components/in-progress/DetailsBtnFinishRecipeInProgress';
 import InProgressHeaderDetails from '../components/in-progress/InProgressHeaderDetails';
 
 function InProgress() {
@@ -34,13 +33,14 @@ function InProgress() {
     !recipe
       ? <p>loading</p>
       : (
-        <main>
-          <InProgressHeaderDetails detailsContext={ props } />
-          <DetailsBtnShareRecipe detailsContext={ props } />
-          <DetailsBtnFavoriteRecipe detailsContext={ props } />
-          <IngredientsInProgress detailsContext={ props } />
-          <DetailsBtnFinishRecipeInProgress />
-        </main>
+        <Jumbotron>
+          <Container>
+            <InProgressHeaderDetails detailsContext={ props } />
+            <DetailsBtnShareRecipe detailsContext={ props } />
+            <DetailsBtnFavoriteRecipe detailsContext={ props } />
+            <IngredientsInProgress detailsContext={ props } />
+          </Container>
+        </Jumbotron>
       )
   );
 }
