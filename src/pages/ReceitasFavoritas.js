@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ReceitasFavoritas() {
   return (
-    <Header title="Receitas Favoritas" showButton={ false } />
+    <Header title="Receitas Favoritas" showExplorerButton={ false } />
   );
 }
 

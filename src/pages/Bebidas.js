@@ -26,7 +26,7 @@ function Bebidas() {
 
   return (
     <div>
-      <Header title="Bebidas" showButton />
+      <Header title="Bebidas" showExplorerButton />
       { showSearchBar && <SearchBar isMealsPage={ false } /> }
       <CategoryFilters />
       <RecipeList listItems={ searchDrinksList && searchDrinksList.map(drinkToRecipe) } />

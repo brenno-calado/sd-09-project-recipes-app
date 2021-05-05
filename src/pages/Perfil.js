@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 function Perfil() {
   return (
     <div>
-      <Header title="Perfil" showButton={ false } />
+      <Header title="Perfil" showExplorerButton={ false } />
       <Footer />
     </div>
   );

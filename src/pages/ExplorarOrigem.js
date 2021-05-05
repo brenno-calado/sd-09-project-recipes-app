@@ -9,7 +9,7 @@ function ExplorarOrigem() {
   const { showSearchBar } = useContext(RecipiesContext);
   return (
     <div>
-      <Header title="Explorar Origem" showButton />
+      <Header title="Explorar Origem" showExplorerButton />
       { showSearchBar && <SearchBar isMealsPage /> }
       <Footer />
     </div>
