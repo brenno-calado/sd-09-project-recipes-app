@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import SearchFoodsAPI from '../services/SearchFoodsAPI';
 import SearchDrinksAPI from '../services/SearchDrinksAPI';
 import myContext from '../context/myContext';
+import '../css/HeaderSearchBar.css';
 
 export default function HeaderSearchBar() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,62 +47,59 @@ export default function HeaderSearchBar() {
   };
 
   return (
-    <div>
-      <fieldset>
-        <legend>Barra de Busca</legend>
-        <label htmlFor="search-input">
-          <input
-            type="text"
-            id="search-input"
-            data-testid="search-input"
-            placeholder="digite aqui o termo da busca"
-            onChange={ ({ target: { value: searchText } }) => (
-              setSearchTerm(searchText)) }
-          />
-        </label>
-        <br />
-        <label htmlFor="ingredient">
-          <input
-            type="radio"
-            name="search-term"
-            id="ingredient"
-            data-testid="ingredient-search-radio"
-            value="ingredient"
-            onChange={ handleMyChoice }
-          />
-          Ingredient
-        </label>
-        <label htmlFor="name">
-          <input
-            type="radio"
-            name="search-term"
-            id="name"
-            data-testid="name-search-radio"
-            value="name"
-            onChange={ handleMyChoice }
-          />
-          Name
-        </label>
-        <label htmlFor="first-letter">
-          <input
-            type="radio"
-            name="search-term"
-            id="first-letter"
-            data-testid="first-letter-search-radio"
-            value="first-letter"
-            onChange={ handleMyChoice }
-          />
-          First Letter
-        </label>
-        <br />
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ clickSearchButton }
-        >
-          Click Me
-        </button>
-      </fieldset>
+    <div className="header-search-bar-container">
+      <label htmlFor="search-input">
+        <input
+          type="text"
+          id="search-input"
+          data-testid="search-input"
+          placeholder="digite aqui o termo da busca"
+          onChange={ ({ target: { value: searchText } }) => (
+            setSearchTerm(searchText)) }
+        />
+      </label>
+      <br />
+      <label htmlFor="ingredient">
+        <input
+          type="radio"
+          name="search-term"
+          id="ingredient"
+          data-testid="ingredient-search-radio"
+          value="ingredient"
+          onChange={ handleMyChoice }
+        />
+        Ingredient
+      </label>
+      <label htmlFor="name">
+        <input
+          type="radio"
+          name="search-term"
+          id="name"
+          data-testid="name-search-radio"
+          value="name"
+          onChange={ handleMyChoice }
+        />
+        Name
+      </label>
+      <label htmlFor="first-letter">
+        <input
+          type="radio"
+          name="search-term"
+          id="first-letter"
+          data-testid="first-letter-search-radio"
+          value="first-letter"
+          onChange={ handleMyChoice }
+        />
+        First Letter
+      </label>
+      <br />
+      <button
+        type="button"
+        data-testid="exec-search-btn"
+        onClick={ clickSearchButton }
+      >
+        Search
+      </button>
     </div>
   );
 }

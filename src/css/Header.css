@@ -1,0 +1,20 @@
+header {
+  align-items: center;
+  background-color: rgb(27, 67, 50);
+  display: flex;
+  font-size: 1.4em;
+  height: 58px;
+  justify-content: space-between;
+  margin: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.header-link > img {
+  height: 35px;
+}
+
+.title {
+  color: white;
+}

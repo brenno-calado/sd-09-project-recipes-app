@@ -4,15 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import HeaderSearchBar from './HeaderSearchBar';
 import searchIcon from '../images/searchIcon.svg';
-
-const headerStyle = {
-  margin: 'auto',
-  position: 'fixed',
-  top: '0px',
-  // width: '100%',
-  // display: 'flex',
-  // justifyContent: 'space-between',
-};
+import '../css/Header.css';
 
 export default function Header(props) {
   const { title } = props;
@@ -24,23 +16,26 @@ export default function Header(props) {
   };
 
   return (
-    <header style={ headerStyle }>
-      <Link to="/perfil">
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
-      </Link>
-      <span data-testid="page-title">{title}</span>
-
-      { (pathname === '/comidas' || pathname === '/bebidas'
-      || pathname === '/explorar/comidas/area')
-        && <input
-          src={ searchIcon }
-          type="image"
-          data-testid="search-top-btn"
-          onClick={ handleClickSearchButton }
-          alt=""
-        />}
+    <div>
+      <header>
+        <Link to="/perfil" className="header-link">
+          <img data-testid="profile-top-btn" src={ profileIcon } alt="" />
+        </Link>
+        <span data-testid="page-title" className="title">{title}</span>
+        { (pathname === '/comidas' || pathname === '/bebidas'
+        || pathname === '/explorar/comidas/area')
+          ? (
+            <input
+              src={ searchIcon }
+              type="image"
+              data-testid="search-top-btn"
+              onClick={ handleClickSearchButton }
+              alt=""
+            />
+          ) : (<div />)}
+      </header>
       {searchButton ? <HeaderSearchBar /> : null}
-    </header>
+    </div>
   );
 }
 

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import rockGlass from '../images/rockGlass.svg';
+import '../css/Login.css';
+import 'react-bootstrap';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -24,7 +26,7 @@ export default function Login() {
   };
 
   return (
-    <div className="meals">
+    <div className="login-body">
       <span className="logo">TRYBE</span>
       <object
         className="rocksGlass"
@@ -33,31 +35,33 @@ export default function Login() {
       >
         Glass
       </object>
-      <label htmlFor="email-user">
-        Email:
-        <input
-          id="email-user"
-          type="text"
-          data-testid="email-input"
-          onChange={ ({ target: { value: valueEmail } }) => (
-            setEmail(valueEmail)) }
-        />
-      </label>
-      <label htmlFor="password-user">
-        Password:
-        <input
-          id="password-user"
-          type="password"
-          data-testid="password-input"
-          onChange={ ({ target: { value: valuePassword } }) => (
-            setPassword(valuePassword)) }
-        />
-      </label>
-      <Link to="/comidas">
+      <input
+        id="email-user"
+        type="text"
+        data-testid="email-input"
+        placeholder="email"
+        className="input-field"
+        onChange={ ({ target: { value: valueEmail } }) => (
+          setEmail(valueEmail)) }
+      />
+      <input
+        id="password-user"
+        type="password"
+        data-testid="password-input"
+        placeholder="password"
+        className="input-field"
+        onChange={ ({ target: { value: valuePassword } }) => (
+          setPassword(valuePassword)) }
+      />
+      <Link
+        to="/comidas"
+        id="login-button"
+      >
         <button
           type="button"
           data-testid="login-submit-btn"
           onClick={ handleClick }
+          className="login-button"
           disabled={ !validateFields() }
         >
           Login

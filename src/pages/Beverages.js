@@ -7,6 +7,7 @@ import {
   fetchDrinksAPI,
   fetchDrinksCategoryAPI,
 } from '../services/fetchDrinksAPI';
+import '../css/Beverages.css';
 
 const imgStyle = {
   maxWidth: '150x',
@@ -17,7 +18,7 @@ const imgStyle = {
 // a tela é 360 x 640
 const containerStyle = {
   overflowY: 'scroll',
-  width: '300px',
+  width: '100%',
   maxHeight: '300px',
   marginTop: '100px',
 };
@@ -51,25 +52,27 @@ export default function Beverages() {
   };
 
   return (
-    <div>
+    <div className="beverages-body">
       <Header title="Bebidas" />
-      <button
-        type="button"
-        onClick={ handleClick }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {categories.map(({ strCategory }) => (
+      <div className="filter-button-container">
         <button
           type="button"
-          key={ strCategory }
           onClick={ handleClick }
-          data-testid={ `${strCategory}-category-filter` }
+          data-testid="All-category-filter"
         >
-          { strCategory }
+          All
         </button>
-      ))}
+        {categories.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            onClick={ handleClick }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            { strCategory }
+          </button>
+        ))}
+      </div>
       <div style={ containerStyle }>
         {recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
           <Link key={ idDrink } to={ `/bebidas/${idDrink}` }>
