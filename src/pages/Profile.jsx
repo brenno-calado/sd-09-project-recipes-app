@@ -5,10 +5,13 @@ import Header from '../components/Header';
 
 class Profile extends React.Component {
   render() {
+    const user = JSON.parse(localStorage.getItem('user'));
     return (
       <div>
         <Header title="Perfil" />
-        <p data-testid="profile-email">{localStorage.getItem('user')}</p>
+        <p data-testid="profile-email">
+          {!user ? null : user.email}
+        </p>
         <Link to="/receitas-feitas">
           <button
             type="button"

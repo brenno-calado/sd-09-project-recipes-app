@@ -32,9 +32,27 @@
   width: 100%;
 }
 
+.input, .button {
+  border: 1px solid silver;
+  border-radius: 10px;
+  margin: 1em auto 0;
+  padding: 0.5em 20px;
+  width: 250px;
+}
+
+.button:enabled {
+  background-color: #0b8053;
+  color: aliceblue;
+}
+
+.button:enabled:hover {
+  background-color: rgb(129, 230, 196);
+  color: black;
+}
+
 .meals {
   align-items: center;
-  background: #0fa36b;
+  background: #0b8053;
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -45,7 +63,6 @@
 }
 
 .meals > .logo {
-  animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;
   font-size: 3em;

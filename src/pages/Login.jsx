@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import recipeSVG from '../images/recipe.svg';
 
 class Login extends React.Component {
   constructor() {
@@ -34,8 +35,11 @@ class Login extends React.Component {
   render() {
     const { email, buttonDisable } = this.state;
     return (
-      <div>
+      <div className="meals">
+        <h1 className="logo">Recipe App</h1>
+        <img className="rocksGlass" src={ recipeSVG } alt="logo" type="image/svg+xml" />
         <input
+          className="input"
           type="email"
           name="email"
           value={ email }
@@ -44,6 +48,7 @@ class Login extends React.Component {
           onChange={ this.handleChangeEmail }
         />
         <input
+          className="input"
           type="password"
           name="senha"
           data-testid="password-input"
@@ -52,6 +57,7 @@ class Login extends React.Component {
         />
         <Link to="/comidas">
           <input
+            className="button"
             type="button"
             value="Entrar"
             disabled={ buttonDisable }

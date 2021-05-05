@@ -1,0 +1,40 @@
+.bold {
+  display: block;
+  font-weight: 800;
+}
+
+.card-text {
+  margin-left: 5px;
+  text-align: left;
+}
+
+.copied {
+  text-align: center;
+}
+
+.horizontal-card {
+  border: 1px solid silver;
+  border-radius: 20px;
+  display: flex;
+  margin: 10px;
+  overflow: hidden;
+  width: 300px;
+}
+
+.share-btn {
+  border: none;
+  display: inline;
+  margin: 0 2px;
+  padding: 0 2px;
+  position: sticky;
+  width: 30px;
+  z-index: 2;
+}
+
+.tag {
+  background-color: lightcoral;
+  border: 1px solid lightcoral;
+  border-radius: 6px;
+  margin: 5px;
+  padding: 0 5px;
+}
