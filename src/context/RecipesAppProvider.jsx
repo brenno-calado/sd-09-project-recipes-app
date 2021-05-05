@@ -5,13 +5,15 @@ import {
   fetchMealApi,
   fetchMealsCategories,
   fetchMealsByCategory,
-  fetchMealsList,
+  fetchMealsWithId,
+  fetchMealRecomendation,
 } from '../services/MealApi';
 import {
   fetchCocktailApi,
   fetchCocktailsCategories,
   fetchCocktailsByCategory,
-  fetchCocktailsList,
+  fetchDrinksWithId,
+  fetchDrinksRecomendation,
 } from '../services/CocktailApi';
 
 const { Provider } = RecipesAppContext;
@@ -28,6 +30,10 @@ function RecipesAppProvider({ children }) {
   const [cocktailsBkp, setCocktailsBkp] = useState([]);
   const [mealCategoryBkp, setMealCategoryBkp] = useState(null);
   const [cocktailCategoryBkp, setCocktailCategoryBkp] = useState(null);
+  const [mealId, setMealId] = useState({});
+  const [drinkId, setDrinkId] = useState({});
+  const [drinkRecomendation, setDrinkRecomendation] = useState([]);
+  const [mealRecomendation, setMealRecomendation] = useState([]);
 
   const handleSearchClick = async (inputs, pathname) => {
     const { searchText, filter } = inputs;
@@ -56,8 +62,8 @@ function RecipesAppProvider({ children }) {
   };
 
   const getRecipes = async () => {
-    const apiMealsResponse = await fetchMealsList();
-    const apiCocktailsResponse = await fetchCocktailsList();
+    const apiMealsResponse = await fetchMealRecomendation();
+    const apiCocktailsResponse = await fetchDrinksRecomendation();
     setMealsRecipes(apiMealsResponse);
     setMealsBkp(apiMealsResponse);
     setCocktailsRecipes(apiCocktailsResponse);
@@ -102,9 +108,31 @@ function RecipesAppProvider({ children }) {
     }
   };
 
+  const getMealId = async (id) => {
+    const resolve = await fetchMealsWithId(id);
+    setMealId(resolve[0]);
+  };
+
+  const getDrinkId = async (id) => {
+    const resolve = await fetchDrinksWithId(id);
+    setDrinkId(resolve[0]);
+  };
+
+  const getDrinksRecomendation = async () => {
+    const resolve = await fetchDrinksRecomendation();
+    setDrinkRecomendation(resolve);
+  };
+
+  const getMealRecomendation = async () => {
+    const resolve = await fetchMealRecomendation();
+    setMealRecomendation(resolve);
+  };
+
   useEffect(() => {
     getRecipes();
     getCategories();
+    getDrinksRecomendation();
+    getMealRecomendation();
   }, []);
 
   const contextValue = {
@@ -115,10 +143,18 @@ function RecipesAppProvider({ children }) {
     isFetching,
     mealsCategories,
     cocktailsCategories,
+    mealId,
+    drinkId,
+    drinkRecomendation,
+    mealRecomendation,
+    setMealId,
+    setDrinkId,
     setShowSearchBar,
     handleSearchClick,
     handleMealCategoryClick,
     handleCocktailCategoryClick,
+    getMealId,
+    getDrinkId,
   };
 
   return (

@@ -15,12 +15,12 @@ import {
 import {
   fetchMealApi,
   fetchMealsCategories,
-  fetchMealsList,
+  fetchMealRecomendation,
 } from '../services/MealApi';
 import {
   fetchCocktailApi,
   fetchCocktailsCategories,
-  fetchCocktailsList,
+  fetchDrinksRecomendation,
 } from '../services/CocktailApi';
 
 window.MutationObserver = MutationObserver;
@@ -30,11 +30,11 @@ const SEARCH = 'Buscar';
 const SEARCH_BUTTON = 'search-top-btn';
 
 jest.mock('../services/MealApi');
-fetchMealsList.mockImplementation(() => Promise.resolve(meals.meals));
+fetchMealRecomendation.mockImplementation(() => Promise.resolve(meals.meals));
 fetchMealsCategories.mockImplementation(() => Promise.resolve(mealCategories.meals));
 
 jest.mock('../services/CocktailApi');
-fetchCocktailsList.mockImplementation(() => Promise.resolve(drinks.drinks));
+fetchDrinksRecomendation.mockImplementation(() => Promise.resolve(drinks.drinks));
 fetchCocktailsCategories.mockImplementation(() => Promise
   .resolve(drinksCategories.drinks));
 

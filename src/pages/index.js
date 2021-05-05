@@ -7,6 +7,8 @@ import ExploreFoods from './ExploreFoods';
 import ExploreDrinks from './ExploreDrinks';
 import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
+import RecipeDetails from './RecipeDetails';
+import DrinkDetails from './DrinkDetails';
 
 export {
   Login,
@@ -18,4 +20,6 @@ export {
   ExploreDrinks,
   DoneRecipes,
   FavoriteRecipes,
+  RecipeDetails,
+  DrinkDetails,
 };

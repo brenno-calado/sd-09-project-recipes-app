@@ -13,22 +13,22 @@ import {
 } from './mocks';
 import {
   fetchMealsCategories,
-  fetchMealsList,
+  fetchMealRecomendation,
 } from '../services/MealApi';
 import {
   fetchCocktailsCategories,
-  fetchCocktailsList,
+  fetchDrinksRecomendation,
   fetchCocktailsByCategory,
 } from '../services/CocktailApi';
 
 window.MutationObserver = MutationObserver;
 
 jest.mock('../services/MealApi');
-fetchMealsList.mockImplementation(() => Promise.resolve(meals.meals));
+fetchMealRecomendation.mockImplementation(() => Promise.resolve(meals.meals));
 fetchMealsCategories.mockImplementation(() => Promise.resolve(mealCategories.meals));
 
 jest.mock('../services/CocktailApi');
-fetchCocktailsList.mockImplementation(() => Promise.resolve(drinks.drinks));
+fetchDrinksRecomendation.mockImplementation(() => Promise.resolve(drinks.drinks));
 fetchCocktailsCategories.mockImplementation(() => Promise
   .resolve(drinksCategories.drinks));
 fetchCocktailsByCategory.mockImplementation(() => Promise
