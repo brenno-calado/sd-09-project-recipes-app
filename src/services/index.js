@@ -40,6 +40,14 @@ export async function fetchMealsRandom() {
   return data.meals;
 }
 
+export async function fetchIngredientsMeal() {
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+
+  return data.meals;
+}
+
 // DRINKS
 
 export async function fetchDrinksApi() {

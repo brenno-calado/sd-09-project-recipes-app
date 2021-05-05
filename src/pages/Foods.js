@@ -21,8 +21,6 @@ function Foods() {
 
   const router = useRouter();
 
-  console.log(router.pathname);
-
   const [lastCategory, checkCategory] = useState(undefined);
 
   const meals = useSelector((state) => state.foodReducer.meals);
