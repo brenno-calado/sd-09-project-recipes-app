@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -8,13 +8,16 @@ import MealContext from '../context/MealContext';
 
 function PrincipalBebidas() {
   const { drinkFilter } = useContext(MealContext);
+
   let { foods } = useContext(MealContext);
   foods = foods || []; // Refatorar para resolver problema de assincronicidade
   const cardsLimit = 12;
 
+  const drinkFilterCallBack = useCallback(() => drinkFilter(), [drinkFilter]);
+
   useEffect(() => {
-    drinkFilter();
-  });
+    drinkFilterCallBack();
+  }, []);
 
   return (
     <>

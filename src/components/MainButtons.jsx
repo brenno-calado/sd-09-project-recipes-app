@@ -37,7 +37,7 @@ function MainButtons() {
     if (drinkPage) {
       getDrinkCategorys().then((response) => setCategorys(response));
     }
-  });
+  }, []);
 
   return (
     <>

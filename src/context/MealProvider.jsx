@@ -56,6 +56,7 @@ const MealProvider = ({ children }) => {
           if (response < 1) return alert(notFound);
           setFoods(response);
         });
+      console.log('olá');
     }
 
     if (radio === 'ingredient') {
