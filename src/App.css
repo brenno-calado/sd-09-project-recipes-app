@@ -86,8 +86,8 @@
 }
 
 .login-btn:hover {
- background: var(--linear-gradient-3);
- transform: scale(1.04); 
+  background: var(--linear-gradient-3);
+  transform: scale(1.04);
 }
 
 .header-container {
@@ -139,7 +139,7 @@
   box-shadow: var(--short-shadow);
   margin-bottom: 10px;
   padding: 10px;
-  transition: .6s;
+  transition: 0.6s;
   width: 300px;
 }
 
@@ -183,7 +183,7 @@
   margin-top: 10px;
   padding: 10px;
   text-align: center;
-  transition: .6s;
+  transition: 0.6s;
   width: 300px;
 }
 
@@ -220,4 +220,20 @@
 .basic-btn:hover {
   background: var(--linear-gradient-3);
   transform: scale(1.04);
+}
+
+.start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+.recipe-photo {
+  width: 340px;
+}
+
+.carousel-container {
+  margin-bottom: 100px;
+}
+
+.carousel-img {
+  width: 300px;
 }
