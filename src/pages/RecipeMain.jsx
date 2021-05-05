@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import BottomNav from '../components/BottomNav';
 import RecipeCard from '../components/RecipeCard';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 import { getPageFromURL as isFoodPage } from '../services/others';
@@ -66,7 +68,7 @@ function RecipeMain() {
   const [currentRecipes, setCurrentRecipes] = useState([]);
   const [currentCategories, setCurrentCategories] = useState([]);
   const [filter, setFilter] = useState(0);
-
+  const headerTitle = isFoodPage() ? 'Comidas' : 'Bebidas';
   useEffect(() => {
     const recipes = isFoodPage() ? handleRecipes(meals) : handleRecipes(drinks);
     const categories = isFoodPage() ? handleCategories(meals) : handleCategories(drinks);
@@ -76,8 +78,10 @@ function RecipeMain() {
 
   return (
     <div className="main-container">
+      <Header title={ headerTitle } />
       {renderFilter(currentCategories, filter, setFilter)}
       {renderCards(currentRecipes, currentCategories[filter])}
+      <BottomNav />
     </div>
   );
 }
