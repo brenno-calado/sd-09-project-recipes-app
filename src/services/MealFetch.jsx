@@ -31,9 +31,20 @@ const getMealByIngredients = async (ingredient) => {
   }
 };
 
-const getMealByCategory = async () => {
+const getMealCategorys = async () => {
   try {
-    const mealByCategory = await fetch(`${MEAL_DB_BASE}list.php?c=list`);
+    const mealCategorys = await fetch(`${MEAL_DB_BASE}list.php?c=list`);
+    const respCategorysJson = await mealCategorys.json();
+    // console.log(respByCategoryJson.meals);
+    return respCategorysJson.meals;
+  } catch (error) {
+    console.log('Meal By category...', error);
+  }
+};
+
+const getMealsByCategory = async (category) => {
+  try {
+    const mealByCategory = await fetch(`${MEAL_DB_BASE}filter.php?c=${category}`);
     const respByCategoryJson = await mealByCategory.json();
     // console.log(respByCategoryJson.meals);
     return respByCategoryJson.meals;
@@ -57,5 +68,6 @@ export {
   getMealsRandom,
   getMealByFirstLetter,
   getMealByIngredients,
-  getMealByCategory,
+  getMealCategorys,
+  getMealsByCategory,
 };

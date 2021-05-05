@@ -30,11 +30,22 @@ const getDrinkByIngredients = async (ingredient) => {
   }
 };
 
-const getDrinkByCategory = async () => {
+const getDrinkCategorys = async () => {
   try {
-    const drinkByCategory = await fetch(`${DRINK_DB_BASE}list.php?c=list`);
+    const drinkCategorys = await fetch(`${DRINK_DB_BASE}list.php?c=list`);
+    const respCategorysJson = await drinkCategorys.json();
+    // console.log(respCategorysJson.drinks);
+    return respCategorysJson.drinks;
+  } catch (error) {
+    console.log('Drink By category...', error);
+  }
+};
+
+const getDrinkByCategory = async (category) => {
+  try {
+    const drinkByCategory = await fetch(`${DRINK_DB_BASE}filter.php?c=${category}`);
     const respByCategoryJson = await drinkByCategory.json();
-    console.log(respByCategoryJson.drinks);
+    // console.log(respByCategoryJson.drinks);
     return respByCategoryJson.drinks;
   } catch (error) {
     console.log('Drink By category...', error);
@@ -55,6 +66,7 @@ export {
   getDrinkByName,
   getDrinkByFirstLetter,
   getDrinkByIngredients,
+  getDrinkCategorys,
   getDrinkByCategory,
   getDrinkRandom,
 };
