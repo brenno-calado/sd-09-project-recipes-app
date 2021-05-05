@@ -42,7 +42,6 @@ class SearchBar extends React.Component {
     return (
       <div>
         {searchInput && (
-<<<<<<< HEAD
           <div>
             <input
               data-testid="search-input"
@@ -82,18 +81,16 @@ class SearchBar extends React.Component {
             <button
               type="button"
               data-testid="exec-search-btn"
-              onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
+              onClick={ () => fetchRecipesAction(radioSearchInput, searchInputValue) }
             >
               Buscar
             </button>
           </div>)}
-=======
-          <input
-            data-testid="search-input"
-            placeholder="Buscar"
-            onChange={ this.inputTextHandleChange }
-          />
-        )}
+        <input
+          data-testid="search-input"
+          placeholder="Buscar"
+          onChange={ this.inputTextHandleChange }
+        />
         <label htmlFor="ingredient">
           <input
             id="ingredient"
@@ -131,7 +128,6 @@ class SearchBar extends React.Component {
         >
           Buscar
         </button>
->>>>>>> 78da0ab813aa04c3c2f4f9c64d99a951322e497d
       </div>
     );
   }
