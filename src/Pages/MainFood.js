@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Components/Header';
 import FoodCards from '../Components/FoodCards';
+import ShowArea from '../Components/ShowArea';
 import Footer from '../Components/Footer';
 
 class MainFood extends Component {
@@ -9,6 +10,7 @@ class MainFood extends Component {
       <>
         <Header name="Comidas" />
         <FoodCards />
+        <ShowArea />
         <Footer />
       </>
     );

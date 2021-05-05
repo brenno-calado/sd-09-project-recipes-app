@@ -7,6 +7,7 @@ import {
   fetchMealsAPIbyName,
   fetchMealsAPIbyLetter,
   fetchMealsAPIbyIngredient,
+  fetchFoodByArea,
   fetchCocktailAPIbyName,
   fetchCocktailAPIbyLetter,
   fetchCocktailAPIbyIngredient,
@@ -58,6 +59,16 @@ export const requestApiMealsIngredient = (input) => async (dispatch) => {
   dispatch(requestMeals());
   try {
     const response = await fetchMealsAPIbyIngredient(input);
+    return dispatch(requestMeals(response.meals));
+  } catch (error) {
+    return console.log(error);
+  }
+};
+
+export const requestApiMealsArea = (input) => async (dispatch) => {
+  dispatch(requestMeals());
+  try {
+    const response = await fetchFoodByArea(input);
     return dispatch(requestMeals(response.meals));
   } catch (error) {
     return console.log(error);
