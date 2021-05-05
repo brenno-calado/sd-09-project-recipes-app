@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import RecipeDetails from './pages/RecipeDetails';
+import RecipesDone from './pages/RecipesDone';
 import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
 import RecipeMain from './pages/RecipeMain';
 
@@ -17,7 +18,7 @@ function App() {
           <Route path="/bebidas/:id/" component={ RecipeDetails } />
           <Route path="/comidas" component={ RecipeMain } />
           <Route path="/bebidas" component={ RecipeMain } />
-
+          <Route path="/receitas-feitas" component={ RecipesDone } />
         </Switch>
       </BrowserRouter>
     </MealsAndDrinkProvider>

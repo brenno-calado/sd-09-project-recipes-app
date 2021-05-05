@@ -46,12 +46,10 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
     } else {
       favoriteListStorage.push(objectToSave);
     }
-    console.log(favoriteListStorage);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteListStorage));
     setShouldVerifyToFillHeart(true);
   }
 
-  console.log('LOOPEI', hearthFill);
   return (
     <Button
       data-testid="favorite-btn"

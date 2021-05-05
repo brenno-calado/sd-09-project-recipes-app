@@ -63,7 +63,7 @@ function RecipeDetails() {
     } else {
       found = await fetchDrinksAcompaniments();
     }
-    setRecomendationRecipesList(found.splice(0, maxLengthRecomendedRecipes));
+    setRecomendationRecipesList(found.slice(0, maxLengthRecomendedRecipes));
   }
 
   useEffect(() => {
