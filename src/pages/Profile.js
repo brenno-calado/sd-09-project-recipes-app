@@ -11,7 +11,7 @@ class Perfil extends React.Component {
       <div>
         <Header title="Perfil" />
         <div>
-          <h3 data-testid="profile-email">{getEmail.email}</h3>
+          <h3 data-testid="profile-email">{getEmail && getEmail.email}</h3>
           <button
             type="button"
             data-testid="profile-done-btn"

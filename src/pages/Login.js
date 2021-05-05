@@ -26,7 +26,7 @@ class Login extends React.Component {
 
   validate(email, password) {
     const MIN_PASSWORD_LENGTH = 6;
-    const emailValidationRegExp = new RegExp(/\S+@\S+\.\S+/);
+    const emailValidationRegExp = new RegExp(/^.+@[a-z]+(\.[a-z]{2,3}){1,2}$/g);
     return (
       (password.length > MIN_PASSWORD_LENGTH)
       && (emailValidationRegExp.test(email))
