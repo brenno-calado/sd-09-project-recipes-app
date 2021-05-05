@@ -2,18 +2,14 @@ import React from 'react';
 import ExploreButtonsDrinks from '../components/ExploreButtonsDrinks';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../css/ExploreBeverages.css';
 
-class ExploreBeverages extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header title="Explorar Bebidas" />
-        <p>Esta é a pagina de explorar bebidas.</p>
-        <ExploreButtonsDrinks />
-        <Footer />
-      </div>
-    );
-  }
-}
+const ExploreBeverages = () => (
+  <div className="explore-beverages-body">
+    <Header title="Explorar Bebidas" />
+    <ExploreButtonsDrinks />
+    <Footer />
+  </div>
+);
 
 export default ExploreBeverages;

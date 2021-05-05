@@ -15,14 +15,6 @@ const imgStyle = {
   margin: 'auto',
 };
 
-// a tela é 360 x 640
-const containerStyle = {
-  overflowY: 'scroll',
-  width: '100%',
-  maxHeight: '300px',
-  marginTop: '100px',
-};
-
 export default function Beverages() {
   const { recipesDrinks, drinkCategories, setRecipesDrinks } = useContext(myContext);
   const [toggle, setToggle] = useState('');
@@ -52,9 +44,9 @@ export default function Beverages() {
   };
 
   return (
-    <div className="beverages-body">
+    <div className="drinks-body">
       <Header title="Bebidas" />
-      <div className="filter-button-container">
+      <div className="drinks-filter-container">
         <button
           type="button"
           onClick={ handleClick }
@@ -73,18 +65,21 @@ export default function Beverages() {
           </button>
         ))}
       </div>
-      <div style={ containerStyle }>
+      <div className="drinks-recipe-container">
         {recipes.map(({ idDrink, strDrink, strDrinkThumb }, index) => (
-          <Link key={ idDrink } to={ `/bebidas/${idDrink}` }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ strDrinkThumb }
-                alt={ strDrink }
-                data-testid={ `${index}-card-img` }
-                style={ imgStyle }
-              />
-              <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
-            </div>
+          <Link
+            key={ idDrink }
+            to={ `/bebidas/${idDrink}` }
+            className="drinks-recipe-card"
+            data-testid={ `${index}-recipe-card` }
+          >
+            <img
+              src={ strDrinkThumb }
+              alt={ strDrink }
+              data-testid={ `${index}-card-img` }
+              style={ imgStyle }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strDrink }</p>
           </Link>
         ))}
       </div>

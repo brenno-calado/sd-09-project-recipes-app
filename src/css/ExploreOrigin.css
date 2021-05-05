@@ -1,4 +1,4 @@
-.drinks-body {
+.explore-origin-body {
   background-color: rgb(45, 106, 79);
   display: flex;
   flex-direction: column;
@@ -7,19 +7,11 @@
   text-align: center;
 }
 
-.drinks-filter-container {
-  margin: 58px 0 0;
-  width: 100%;
+.explore-origin-select {
+  margin: 60px 0 10px;
 }
 
-.drinks-filter-container > button {
-  font-size: 15px;
-  height: 30px;
-  margin: 5px;
-  width: 150px;
-}
-
-.drinks-recipe-container {
+.explore-origin-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -29,7 +21,7 @@
   width: 100%;
 }
 
-.drinks-recipe-card {
+.explore-origin-card {
   background-color: rgb(255, 252, 235);
   border-radius: 6px;
   box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.45);
@@ -41,14 +33,13 @@
   width: 150px;
 }
 
-
-.drinks-recipe-card > img {
+.explore-origin-card > img {
   margin: auto;
   max-height: 150px;
   max-width: 150px;
 }
 
-.drinks-recipe-card > p {
+.explore-origin-card > p {
   color: black;
   font-weight : 600;
 }

@@ -1,0 +1,35 @@
+.explore-drink-ingredients-body {
+  background-color: rgb(45, 106, 79);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+.explore-drink-ingredients-container {
+  margin-bottom: 40px;
+  margin-top: 58px;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.drink-ingredients-card {
+  align-items: center;
+  background-color: rgb(255, 252, 235);
+  border-radius: 6px;
+  box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: space-around;
+  margin: 10px auto;
+  width: 250px;
+}
+
+.drink-ingredients-card > button {
+  background-color: rgb(0, 155, 82);
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  height: 55px;
+  margin-right: 5px;
+  width: 100px;
+}

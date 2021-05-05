@@ -5,9 +5,9 @@ import Footer from '../components/Footer';
 import '../css/Explore.css';
 
 const Explore = () => (
-  <div className="explore-container">
+  <div className="explore-body">
     <Header title="Explorar" />
-    <div className="button-container">
+    <div className="explore-button-container">
       <Link to="/explorar/comidas">
         <button
           type="button"
