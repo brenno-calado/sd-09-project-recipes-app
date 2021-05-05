@@ -1,30 +1,30 @@
 .Login {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
   height: 100vh;
   width: 100vw;
 }
 
 .Login .form {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 80%;
 }
 
 .Login .input {
+  box-sizing: border-box;
   margin: 10px;
   width: 100%;
-  box-sizing: border-box;
 }
 
 .Login .button {
-  margin: 10px;
-  width: 100%;
   background-color: #6ce34f;
   border: none;
-  outline: none;
   color: black;
+  margin: 10px;
+  outline: none;
   padding: 10px;
+  width: 100%;
 }
