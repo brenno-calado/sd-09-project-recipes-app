@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import * as S from '../../components/Details/styled';
@@ -12,6 +13,8 @@ import {
 
 export default function FoodProgress(props) {
   const [details, setDetails] = useState(null);
+  const teste = ingredientsArray(details);
+  console.log(teste);
 
   const {
     match: { params, path },
@@ -57,13 +60,12 @@ export default function FoodProgress(props) {
           ))}
       </ul>
       <p data-testid="instructions">{details && details.strInstructions}</p>
-      <S.StartButton
-        type="button"
+      <Link
         data-testid="finish-recipe-btn"
-        onClick=""
+        to="/receitas-feitas"
       >
         Finalizar Receita
-      </S.StartButton>
+      </Link>
     </S.Container>
   );
 }
