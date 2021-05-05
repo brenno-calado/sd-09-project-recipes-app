@@ -48,7 +48,14 @@ export const fetchCocktailsById = (id) => {
 };
 
 export const fetchRandomCocktails = () => {
-  const endpoint = 'www.thecocktaildb.com/api/json/v1/1/random.php';
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.drinks);
+};
+
+export const fetchIngredientsCocktails = () => {
+  const endpoint = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
   return fetch(endpoint)
     .then((response) => response.json())
     .then((data) => data.drinks);

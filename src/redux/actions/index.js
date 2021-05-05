@@ -8,9 +8,8 @@ import {
   FAILURE_CATEGORIES,
   FETCHING_RECIPE,
   SUCCESS_RECIPE,
-  SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
-  SUCCESS_RANDOM_RECOMMENDED,
+  SUCCESS_RECOMMENDED,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -20,7 +19,6 @@ import {
   fetchInitialMeals,
   fetchMealsByCategory,
   fetchMealsById,
-  fetchRandomMeals,
 } from '../../services/mealsAPI';
 import {
   cocktailsByIngredient,
@@ -30,7 +28,6 @@ import {
   fetchInitialCocktails,
   fetchCocktailsByCategory,
   fetchCocktailsById,
-  fetchRandomCocktails,
 } from '../../services/cocktailsAPI';
 
 export const savePath = (pathname, recipeType) => ({
@@ -39,16 +36,21 @@ export const savePath = (pathname, recipeType) => ({
   recipeType,
 });
 
-const fetching = () => ({
+export const fetching = () => ({
   type: FETCHING,
 });
 
-const sucessFetch = (data) => ({
+const successRecommended = (data) => ({
+  type: SUCCESS_RECOMMENDED,
+  data,
+});
+
+export const sucessFetch = (data) => ({
   type: SUCCESS_FETCH,
   data,
 });
 
-const failureFetch = (error) => ({
+export const failureFetch = (error) => ({
   type: FAILURE_FETCH,
   error,
 });
@@ -182,24 +184,10 @@ export function cocktailsByIdThunk(id) {
   };
 }
 
-const successRecommended = (data) => ({
-  type: SUCCESS_RECOMMENDED,
-  data,
+export const saveIngredients = (ingredients) => ({
+  type: SAVE_INGREDIENTS,
+  ingredients,
 });
-
-const successRandomRecommendes = (data) => ({
-  type: SUCCESS_RANDOM_RECOMMENDED,
-  data,
-});
-
-export function mealsRecommendedThunk() {
-  return (dispatch) => {
-    dispatch(fetching());
-    return fetchInitialMeals()
-      .then((data) => dispatch(successRecommended(data)))
-      .catch((error) => dispatch(failureFetch(error)));
-  };
-}
 
 export function cocktailsRecommendedThunk() {
   return (dispatch) => {
@@ -209,24 +197,11 @@ export function cocktailsRecommendedThunk() {
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
-
-export function recipeSurpriseThunk(type) {
+export function mealsRecommendedThunk() {
   return (dispatch) => {
     dispatch(fetching());
-    if (type === 'comidas') {
-      return fetchRandomMeals()
-        .then((data) => dispatch(successRandomRecommendes(data)))
-        .catch((error) => dispatch(failureFetch(error)));
-    }
-    if (type === 'bebidas') {
-      return fetchRandomCocktails()
-        .then((data) => dispatch(successRandomRecommendes(data)))
-        .catch((error) => dispatch(failureFetch(error)));
-    }
+    return fetchInitialMeals()
+      .then((data) => dispatch(successRecommended(data)))
+      .catch((error) => dispatch(failureFetch(error)));
   };
 }
-
-export const saveIngredients = (ingredients) => ({
-  type: SAVE_INGREDIENTS,
-  ingredients,
-});

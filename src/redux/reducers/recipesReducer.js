@@ -45,6 +45,7 @@ function recipesReducer(state = INITIAL_STATE, action) {
       isFetched: true,
     });
   case FAILURE_FETCH:
+    console.log(action);
     return ({
       ...state,
       data: [],
