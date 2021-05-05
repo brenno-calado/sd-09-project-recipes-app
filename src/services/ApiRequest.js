@@ -95,3 +95,27 @@ export async function fetchCocktailByCategory(category) {
   const cocktailByCategory = await response.json();
   return cocktailByCategory;
 }
+
+export async function fetchFoodIng() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+  const foodIng = await response.json();
+  return foodIng;
+}
+
+export async function fetchCocktailIng() {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+  const cocktailsIng = await response.json();
+  return cocktailsIng;
+}
+
+export async function fetchFoodArea() {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const foodArea = await response.json();
+  return foodArea;
+}
+
+export async function fetchFoodByArea(area) {
+  const response = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const mealArea = await response.json();
+  return mealArea;
+}

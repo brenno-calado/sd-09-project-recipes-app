@@ -29,7 +29,7 @@ function Header({ name }) {
             />
           </Link>
           <span data-testid="page-title">{name}</span>
-          { name.includes('Explorar') || name.includes('Receitas')
+          { name.includes('Explorar' || 'Receitas')
             ? ''
             : (
               <button

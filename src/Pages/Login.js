@@ -42,7 +42,7 @@ class Login extends Component {
 
   createLocalStorage() {
     const { email } = this.state;
-    localStorage.setItem('user', JSON.stringify(email));
+    localStorage.setItem('user', email);
     localStorage.setItem('mealsToken', 1);
     localStorage.setItem('cocktailsToken', 1);
   }

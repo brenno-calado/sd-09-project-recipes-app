@@ -81,6 +81,22 @@ class SearchBar extends Component {
     }
   }
 
+  showIngRadio() {
+    return (
+      <label htmlFor="ingredient-radio">
+        <input
+          type="radio"
+          id="ingredient-radio"
+          name="radioValue"
+          value="ingredient"
+          data-testid="ingredient-search-radio"
+          onClick={ this.handleChange }
+        />
+        Ingrediente
+      </label>
+    );
+  }
+
   render() {
     const { input } = this.state;
     return (
@@ -93,17 +109,9 @@ class SearchBar extends Component {
           value={ input }
           onChange={ this.handleChange }
         />
-        <label htmlFor="ingredient-radio">
-          <input
-            type="radio"
-            id="ingredient-radio"
-            name="radioValue"
-            value="ingredient"
-            data-testid="ingredient-search-radio"
-            onClick={ this.handleChange }
-          />
-          Ingrediente
-        </label>
+        {window.location.pathname === '/explorar/comidas/area'
+          ? ''
+          : this.showIngRadio()}
         <label htmlFor="name-radio">
           <input
             type="radio"
