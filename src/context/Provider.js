@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 import searchApi from '../services/RecipesApi';
 import searchCategories from '../services/CategoriesApi';
+import searchByCategory from '../services/CategoryApi';
 
 const Provider = ({ children }) => {
   const [displaySearchBar, changeStatus] = useState({ status: false });
@@ -37,12 +38,17 @@ const Provider = ({ children }) => {
     setRecipes(recipesSearch);
   };
 
+  const addByCategory = async (typeRecipe, category) => {
+    const byCategorySearch = await (searchByCategory(typeRecipe, category));
+    setRecipes(byCategorySearch);
+  };
+
   const [categories, setCategories] = useState([]);
 
-  const addCategories = async (typeCategory) => {
+  const addCategories = async (typeRecipe) => {
     const limitCat = 5;
-    const categoriesSearch = await (searchCategories(typeCategory));
-    const arrayFilter = categoriesSearch.filter((category, index) => index < limitCat);
+    const categoriesSearch = await (searchCategories(typeRecipe));
+    const arrayFilter = categoriesSearch.filter((cat, index) => index < limitCat);
     setCategories(arrayFilter);
   };
 
@@ -55,6 +61,7 @@ const Provider = ({ children }) => {
     addRecipes,
     categories,
     addCategories,
+    addByCategory,
   };
 
   return (
