@@ -16,11 +16,11 @@ function App() {
     <MyContextProvider>
       <Router>
         <Switch>
+          <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/comidas/:id" component={ Detalhes } />
           <Route path="/bebidas/:id" component={ Detalhes } />
           <Route path="/explorar" component={ Explorar } />
-          <Route path="/explorarbebidas" component={ ExploreDrinks } />
-          <Route path="/explorarcomidas" component={ ExploreFoods } />
           <Route path="/comidas" component={ TelaPrincipal } />
           <Route path="/bebidas" component={ TelaPrincipal } />
           <Route path="/perfil" component={ Perfil } />

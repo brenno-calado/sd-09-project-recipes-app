@@ -15,13 +15,6 @@ function ExploreDrinks() {
           Por Ingredientes
         </Link>
         <Link
-          data-testid="explore-by-area"
-          to="/explorar/bebidas/area"
-          className="explore-btn"
-        >
-          Por Local de Origem
-        </Link>
-        <Link
           data-testid="explore-surprise"
           to="/"
           className="explore-btn"
