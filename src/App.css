@@ -151,6 +151,20 @@
   color: white;
 }
 
+.explore-cards {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 25px;
+  transition: 0.4s;
+}
+
+.explore-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  justify-content: space-around;
+  width: 400px;
+}
 
 .start-recipe {
   bottom: 0;
@@ -204,3 +218,4 @@
     width: '360px';
   }
 }
+
