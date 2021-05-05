@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
-import { ReactComponent as ShareIcon } from '../images/shareIcon.svg';
+// import RecomendedBtnFavorite from './RecomendedBtnFavorite';
 
 function createRedirectPath(recipe) {
   return `/${recipe.type}s/${recipe.id}`;
@@ -44,9 +44,10 @@ function createTagElements(recipeDone, index) {
   return arrayOfElements;
 }
 
-function createCard(recipeDone, index) {
+function createCard(recipeDone, index, typeRecipe) {
   const tagElements = createTagElements(recipeDone, index);
   const redirectPath = createRedirectPath(recipeDone);
+  console.log(typeRecipe, 'typefdp');
   return (
     <Card
       style={ { width: '18rem' } }
@@ -76,6 +77,8 @@ function createCard(recipeDone, index) {
         <Card.Text data-testid={ `${index}-horizontal-done-date` }>
           { recipeDone.doneDate }
         </Card.Text>
+        {typeRecipe === 'done' ? ''
+          : (<p>oi</p>)}
         {tagElements}
         <Button
           data-testid={ `${index}-horizontal-share-btn` }
@@ -83,7 +86,7 @@ function createCard(recipeDone, index) {
           src="shareIcon"
           onClick={ handleClickCopy }
         >
-          <ShareIcon />
+          Share
         </Button>
         <span />
       </Card.Body>
@@ -91,11 +94,13 @@ function createCard(recipeDone, index) {
   );
 }
 
-function RecipesDoneCards({ recipesDoneList }) {
+function RecipesDoneCards({ recipesDoneList, doneOrFavorite }) {
+  const { typeRecipe } = doneOrFavorite;
   return (
     !recipesDoneList ? (<p>Nenhuma Receita Concluida</p>) : (
       <section>
-        {recipesDoneList.map((recipe, index) => createCard(recipe, index))}
+        {recipesDoneList
+          .map((recipe, index) => createCard(recipe, index, typeRecipe))}
       </section>)
   );
 }

@@ -1,28 +1,27 @@
 import React, { useState } from 'react';
-import './RecipesDone.css';
 import { Button } from 'react-bootstrap';
 import RecipesDoneCards from '../components/RecipesDoneCards';
 
-function RecipesDone() {
-  const recipesDoneList = JSON.parse(localStorage.getItem('doneRecipes'));
-  const [mainRecipesDoneList] = useState(recipesDoneList);
-  const [filteredRecipesDoneList, setFilteredRecipesDoneList] = useState(recipesDoneList);
+function RecipesFavorite() {
+  const favoriteList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [mainRecipesFavoriteList] = useState(favoriteList);
+  const [filterRecipesFavList, setFilterRecipesFavList] = useState(favoriteList);
 
   function filterListByType(type) {
-    if (!mainRecipesDoneList) {
-      return alert('Nenhuma receita está concluída - não há filtros disponiveis');
+    if (!mainRecipesFavoriteList) {
+      return alert('Nenhuma receita favoritada - não há filtros disponiveis');
     }
     if (type === 'all') {
-      setFilteredRecipesDoneList(mainRecipesDoneList);
+      setFilterRecipesFavList(mainRecipesFavoriteList);
     } else {
-      const newList = mainRecipesDoneList.filter((recipe) => recipe.type === type);
-      setFilteredRecipesDoneList(newList);
+      const newList = mainRecipesFavoriteList.filter((recipe) => recipe.type === type);
+      setFilterRecipesFavList(newList);
     }
   }
 
   return (
     <section>
-      <h1>Recipes Done</h1>
+      <h1>Favorites Recipes</h1>
       <hr />
       <div className="buttons-section">
         <Button
@@ -51,11 +50,11 @@ function RecipesDone() {
         </Button>
       </div>
       <RecipesDoneCards
-        recipesDoneList={ filteredRecipesDoneList }
-        doneOrFavorite={ { typeRecipe: 'done' } }
+        recipesDoneList={ filterRecipesFavList }
+        doneOrFavorite={ { typeRecipe: 'favorite' } }
       />
     </section>
   );
 }
 
-export default RecipesDone;
+export default RecipesFavorite;
