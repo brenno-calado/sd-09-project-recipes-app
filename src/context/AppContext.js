@@ -179,6 +179,8 @@ const AppProvider = ({ children }) => {
     handleIngredientsUsed,
     handleProgressMeal,
     handleProgressDrink,
+    inProgressDrinks,
+    inProgressMeals,
   };
   return (
     <AppContext.Provider value={ context }>

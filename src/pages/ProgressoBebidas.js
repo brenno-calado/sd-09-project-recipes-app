@@ -13,26 +13,29 @@ const checkFavorite = (favoriteRecipes, recipeId) => {
   return false;
 };
 
+const getInfoIngredients = (inProgress, recipeId) => {
+  if (inProgress[recipeId]) return inProgress[recipeId];
+  return {};
+};
+
 const ProgressoBebidas = () => {
-  const [idDetails, setIdDetails] = useState([]);
-  const { id } = useParams();
-  const [redirect, setRedirect] = useState(false);
-  const [linkShared, setLinkShared] = useState(false);
-  const [ingStatus, setIngStatus] = useState(
-    JSON.parse(localStorage.getItem('inProgressDrinks'))[id]
-    || {},
-  );
-  const doneLength = Object.values(ingStatus).filter(
-    (status) => status === true,
-  ).length + 1;
-  const [stepsFinished, setStepsFinished] = useState(doneLength);
   const {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
     favoriteRecipes,
     handleProgressDrink,
+    inProgressDrinks,
   } = useContext(AppContext);
+  const [idDetails, setIdDetails] = useState([]);
+  const { id } = useParams();
+  const [redirect, setRedirect] = useState(false);
+  const [linkShared, setLinkShared] = useState(false);
+  const [ingStatus, setIngStatus] = useState(getInfoIngredients(inProgressDrinks, id));
+  const doneLength = Object.values(ingStatus).filter(
+    (status) => status === true,
+  ).length + 1;
+  const [stepsFinished, setStepsFinished] = useState(doneLength);
 
   let stepsLimit = 1;
   const getIngredients = () => {

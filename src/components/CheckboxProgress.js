@@ -27,21 +27,22 @@ const CheckBoxProgress = ({
   };
 
   return (
-    <label
-      htmlFor={ index }
-      key={ ingredient.name }
-      className={ strikeThrough ? 'cross' : null }
-    >
-      {ing}
-      <input
-        id={ index }
-        type="checkbox"
-        data-testid={ `${index}-ingredient-step` }
-        defaultChecked={ strikeThrough }
-        onClick={ checkStep }
-        value={ ing }
-      />
-    </label>
+    <div data-testid={ `${index}-ingredient-step` }>
+      <label
+        htmlFor={ index }
+        key={ ingredient.name }
+        className={ strikeThrough ? 'cross' : null }
+      >
+        {ing}
+        <input
+          id={ index }
+          type="checkbox"
+          defaultChecked={ strikeThrough }
+          onClick={ checkStep }
+          value={ ing }
+        />
+      </label>
+    </div>
   );
 };
 
