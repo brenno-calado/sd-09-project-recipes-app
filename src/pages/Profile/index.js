@@ -17,7 +17,7 @@ function Perfil() {
         <span
           data-testid="profile-email"
         >
-          {userEmail.email}
+          { userEmail.email }
         </span>
         <div>
           <button
@@ -26,7 +26,7 @@ function Perfil() {
           >
             <Link to="/receitas-feitas">
               Receitas Feitas
-          </Link>
+            </Link>
           </button>
           <button
             data-testid="profile-favorite-btn"
@@ -34,16 +34,16 @@ function Perfil() {
           >
             <Link to="/receitas-favoritas">
               Receitas Favoritas
-          </Link>
+            </Link>
           </button>
           <button
             data-testid="profile-logout-btn"
             type="button"
-            onClick={logout}
+            onClick={ logout }
           >
             <Link to="/">
               Sair
-          </Link>
+            </Link>
           </button>
         </div>
       </section>
