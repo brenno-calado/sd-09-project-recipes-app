@@ -16,6 +16,7 @@ const MealProvider = ({ children }) => {
   const [foods, setFoods] = useState([]);
   const [radio, setRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [recipeDt, setRecipeDt] = useState({});
 
   const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -92,6 +93,8 @@ const MealProvider = ({ children }) => {
     inputValue,
     foodFilter,
     drinkFilter,
+    recipeDt,
+    setRecipeDt,
   };
 
   return (
