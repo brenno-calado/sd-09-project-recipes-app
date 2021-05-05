@@ -1,0 +1,19 @@
+.profile-button {
+  background-color: rgb(196, 196, 196);
+  height: 53px;
+  margin-bottom: 10px;
+  width: 329px;
+}
+
+.profile-email {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 35px;
+  margin: 10px 0;
+}
+
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}

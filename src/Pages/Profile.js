@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import '../styles/Profile.css';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import FooterSpec from '../components/FooterSpec';
 
 class Profile extends Component {
@@ -14,15 +16,32 @@ class Profile extends Component {
 
   render() {
     const user = JSON.parse(localStorage.getItem('user'));
-    const { email } = user;
+    let notEmail = 'email@mail.com';
+    if (user) {
+      const { email } = user;
+      notEmail = email;
+    }
     return (
-      <div>
-        <p data-testid="profile-email">{ email }</p>
+      <div className="profile-main">
+        <Header titleHeader="Perfil" id="1" />
+        <p
+          data-testid="profile-email"
+          className="profile-email"
+        >
+          { notEmail }
+        </p>
         <Link to="/receitas-feitas">
-          <button type="button" data-testid="profile-done-btn">Receitas Feitas</button>
+          <button
+            className="profile-button"
+            type="button"
+            data-testid="profile-done-btn"
+          >
+            Receitas Feitas
+          </button>
         </Link>
         <Link to="/receitas-favoritas">
           <button
+            className="profile-button"
             type="button"
             data-testid="profile-favorite-btn"
           >
@@ -31,6 +50,7 @@ class Profile extends Component {
         </Link>
         <Link to="/">
           <button
+            className="profile-button"
             type="button"
             data-testid="profile-logout-btn"
             onClick={ this.exitAndClearLocalStorage }

@@ -1,0 +1,18 @@
+.check {
+  border: 1px solid black;
+  margin-right: 10px;
+  width: 22.63px;
+}
+
+.labelProgress {
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -30px;
+}
+
+.recipe {
+  display: flex;
+  flex-direction: column;
+}

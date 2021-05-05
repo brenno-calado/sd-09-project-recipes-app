@@ -8,7 +8,7 @@
   left: 20px;
   line-height: 37px;
   position: absolute;
-  top: 58px;
+  top: 81px;
   width: 322px;
 }
 
@@ -22,6 +22,10 @@
   left: 19px;
   line-height: 37px;
   position: absolute;
-  top: 173px;
+  top: 196px;
   width: 322px;
+}
+
+.explorer {
+  margin-top: 58px;
 }

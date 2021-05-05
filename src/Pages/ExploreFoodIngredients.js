@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import FooterSpec from '../components/FooterSpec';
 
 function ExploreFoodIngredients() {
   const [ingredientNames, setNames] = useState([]);
@@ -41,7 +43,11 @@ function ExploreFoodIngredients() {
   );
 
   return (
-    <div>{ renderIngredients() }</div>
+    <div>
+      <Header titleHeader="Explorar Ingredientes" id="1" />
+      <div>{ renderIngredients() }</div>
+      <FooterSpec />
+    </div>
   );
 }
 

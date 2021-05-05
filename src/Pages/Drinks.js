@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { drinksThunkAction, filterDrinksThunkAction } from '../action/FoodAndDrinkAction';
+import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
 import FooterSpec from '../components/FooterSpec';
 
@@ -21,7 +22,7 @@ class Drinks extends React.Component {
       getDrinkName } = this.props;
     return (
       <div className="main">
-        <h1>Drinks</h1>
+        <Header titleHeader="Bebidas" id="0" />
         <aside className="aside">
           <button
             className="button"

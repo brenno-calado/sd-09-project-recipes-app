@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/Login.css';
 import { Link } from 'react-router-dom';
 import rockGlass from '../images/rockGlass.svg';
 
@@ -80,6 +81,7 @@ class Login extends Component {
         />
         <Link to="/comidas">
           <button
+            className="btnLogin"
             type="button"
             data-testid="login-submit-btn"
             disabled={ disabled }

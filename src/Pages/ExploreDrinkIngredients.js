@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Header from '../components/Header';
 
 function ExploreDrinkIngredients() {
   const [ingredientNames, setNames] = useState([]);
@@ -37,7 +38,10 @@ function ExploreDrinkIngredients() {
   );
 
   return (
-    <div>{ renderIngredients() }</div>
+    <div>
+      <Header titleHeader="Explorar Ingredientes" id="1" />
+      <div>{ renderIngredients() }</div>
+    </div>
   );
 }
 
