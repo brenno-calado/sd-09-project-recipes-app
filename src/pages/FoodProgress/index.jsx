@@ -13,8 +13,7 @@ import {
 
 export default function FoodProgress(props) {
   const [details, setDetails] = useState(null);
-  const teste = ingredientsArray(details);
-  console.log(teste);
+  const [counter, setCounter] = useState(0);
 
   const {
     match: { params, path },
@@ -27,6 +26,14 @@ export default function FoodProgress(props) {
   useEffect(() => {
     fetchApi(typePath, 'details', id).then((res) => setDetails(res[selectorPath][0]));
   }, [id, typePath, selectorPath]);
+
+  const handle = ({ target }) => {
+    if (target.checked) {
+      setCounter(counter + 1);
+    } else {
+      setCounter(counter - 1);
+    }
+  };
 
   return (
     <S.Container>
@@ -52,6 +59,7 @@ export default function FoodProgress(props) {
               <input
                 id={ index }
                 type="checkbox"
+                onClick={ handle }
               />
               {measureArray(details)[index]}
               &nbsp;
@@ -60,12 +68,21 @@ export default function FoodProgress(props) {
           ))}
       </ul>
       <p data-testid="instructions">{details && details.strInstructions}</p>
+      {/* {
+        (ingredientsArray(details) === counter)
+      }
+      <button
+        type="button"
+        disabled={ ingredientsArray(details) < counter }
+      >
+        ok */}
       <Link
         data-testid="finish-recipe-btn"
         to="/receitas-feitas"
       >
         Finalizar Receita
       </Link>
+      {/* </button> */}
     </S.Container>
   );
 }
