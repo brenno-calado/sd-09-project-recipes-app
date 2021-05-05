@@ -208,11 +208,6 @@ export function mealsRecommendedThunk() {
   };
 }
 
-export const saveIngredients = (ingredients) => ({
-  type: SAVE_INGREDIENTS,
-  ingredients,
-});
-
 export const sendDoneRecipes = (recipes) => ({
   type: SEND_DONE_RECIPES,
   recipes,
