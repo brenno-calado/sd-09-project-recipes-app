@@ -9,7 +9,8 @@ import RecipeHeader from '../components/RecipeHeader';
 import RecipeInstructions from '../components/RecipeInstructions';
 
 import {
-  fetchMealById, fetchDrinkById, fetchDrinks, fetchMeals,
+  fetchMealById, fetchDrinkById,
+  // fetchDrinks, fetchMeals,
 } from '../services/APIEndpoints';
 
 import 'react-multi-carousel/lib/styles.css';
