@@ -18,20 +18,21 @@
   display: flex;
   margin: 10px;
   overflow: hidden;
-  width: 320px;
+  width: 300px;
 }
 
 .share-btn {
+  border: none;
   display: inline;
-  margin: 0;
-  padding: 0;
+  margin: 0 2px;
+  padding: 0 2px;
   position: sticky;
   width: 30px;
   z-index: 2;
 }
 
 .tag {
-  background-color: salmon;
+  background-color: lightcoral;
   border: 1px solid lightcoral;
   border-radius: 6px;
   margin: 5px;

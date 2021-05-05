@@ -29,7 +29,7 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
         {`Made in ${recipe.doneDate}`}
       </span>
       { !recipe.tags ? null
-        : recipe.tags.map((tagName) => (
+        : recipe.tags.slice(0, 2).map((tagName) => (
           <span
             className="tag"
             key={ tagName }
@@ -46,6 +46,7 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
       type="button"
       data-testid={ `${index}-horizontal-favorite-btn` }
       onClick={ () => removeFav(index) }
+      className="share-btn"
     >
       <img src={ blackHeart } alt={ blackHeart } />
     </button>
@@ -78,6 +79,7 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
           type="button"
           data-testid={ `${index}-horizontal-share-btn` }
           onClick={ () => copyLink() }
+          className="share-btn"
         >
           <img src={ share } alt={ share } width="20px" />
         </button>
