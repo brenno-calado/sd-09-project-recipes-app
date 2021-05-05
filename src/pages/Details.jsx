@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import ReactPlayer from 'react-player/youtube';
-import Carousel from 'react-multi-carousel'; // lib usada para o requisito 37
+// import Carousel from 'react-multi-carousel'; // lib usada para o requisito 37
 
 import RecipeHeader from '../components/RecipeHeader';
 import RecipeInstructions from '../components/RecipeInstructions';
@@ -18,7 +18,7 @@ import '../styles/Details.css';
 export default function Details({ match: { url, params: { id } } }) {
   const [recipe, setRecipe] = useState({});
   const [recipeType, setRecipeType] = useState('comidas');
-  const [recomendations, setRecomendations] = useState([]);
+  // const [recomendations, setRecomendations] = useState([]);
 
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
 
@@ -33,46 +33,46 @@ export default function Details({ match: { url, params: { id } } }) {
       ? 'Continuar Receita' : 'Iniciar Receita';
   };
 
-  const showRecipeRecomendations = () => {
-    const maxRecomendations = 6;
-    const filterRecomendations = recomendations.slice(0, maxRecomendations);
-    return filterRecomendations;
-  };
+  // const showRecipeRecomendations = () => {
+  //   const maxRecomendations = 6;
+  //   const filterRecomendations = recomendations.slice(0, maxRecomendations);
+  //   return filterRecomendations;
+  // };
 
   const ingredients = Object.keys(recipe)
     .filter((ingredient) => ingredient.includes('strIngredient') && recipe[ingredient]);
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 3,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-      slidesToSlide: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 2,
-      slidesToSlide: 2,
-    },
-  };
+  // const responsive = {
+  //   desktop: {
+  //     breakpoint: { max: 3000, min: 1024 },
+  //     items: 3,
+  //     slidesToSlide: 3,
+  //   },
+  //   tablet: {
+  //     breakpoint: { max: 1024, min: 464 },
+  //     items: 2,
+  //     slidesToSlide: 2,
+  //   },
+  //   mobile: {
+  //     breakpoint: { max: 464, min: 0 },
+  //     items: 2,
+  //     slidesToSlide: 2,
+  //   },
+  // };
 
   useEffect(() => {
     async function getRecipe() {
       if (url.includes('comidas')) {
         const { meals } = await fetchMealById(id);
-        const { drinks } = await fetchDrinks();
+        // const { drinks } = await fetchDrinks();
         setRecipe(meals[0]);
-        setRecomendations(drinks);
+        // setRecomendations(drinks);
       } else {
         const { drinks } = await fetchDrinkById(id);
-        const { meals } = await fetchMeals();
+        // const { meals } = await fetchMeals();
         setRecipeType('bebidas');
         setRecipe(drinks[0]);
-        setRecomendations(meals);
+        // setRecomendations(meals);
       }
     }
 
@@ -108,7 +108,7 @@ export default function Details({ match: { url, params: { id } } }) {
         />
       )}
 
-      <Carousel
+      {/* <Carousel
         responsive={ responsive }
         removeArrowOnDeviceType={ ['tablet', 'mobile'] }
       >
@@ -133,7 +133,7 @@ export default function Details({ match: { url, params: { id } } }) {
             </p>
           </div>
         ))}
-      </Carousel>
+      </Carousel> */}
 
       {
         doneRecipes
