@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
 function RecipesProvider({ children }) {
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [toggledSearchBar, setToggledSearchBar] = useState(false);
   const [toggledProfileButton, setToggledProfileButton] = useState(true);
   const [toggledSearchButton, setToggledSearchButton] = useState(true);

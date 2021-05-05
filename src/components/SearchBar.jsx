@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { searchRecipe, setRedirect } from '../actions';
-import RecipesContext from '../contexts/RecipesContext';
+// import RecipesContext from '../contexts/RecipesContext';
 
 const SEARCH_INITIAL_STATE = {
   searchType: '',
@@ -11,7 +11,7 @@ const SEARCH_INITIAL_STATE = {
 
 function SearchBar({ dispatchSearch, category, dispatchRedirect }) {
   const [search, setSearch] = useState(SEARCH_INITIAL_STATE);
-  const { setLoading } = useContext(RecipesContext);
+  // const { setLoading } = useContext(RecipesContext);
 
   const handleChange = ({ target: { name, value } }) => (
     setSearch({ ...search, [name]: value })
@@ -21,9 +21,9 @@ function SearchBar({ dispatchSearch, category, dispatchRedirect }) {
     if (search.searchType === 'Primeira Letra' && search.searchText.length !== 1) {
       return alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    setLoading(true);
+    // setLoading(true);
     await dispatchSearch(search.searchType, search.searchText, category);
-    setLoading(false);
+    // setLoading(false);
     dispatchRedirect();
   };
 

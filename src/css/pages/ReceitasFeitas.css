@@ -1,0 +1,6 @@
+.done-recipes-container {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  width: 100%;
+}
