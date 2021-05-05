@@ -20,13 +20,10 @@ export const verifyIfRecipeWasStarted = (recipe) => {
 
 export const verifyIfRecipeWasFinished = (recipe) => {
   const finishedRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-  const mealsFinished = finishedRecipes.some((item) => (
-    item.idMeal === recipe.idMeal
+  const result = finishedRecipes.find((item) => (
+    item.id === recipe.idMeal || item.id === recipe.idDrink
   ));
-  const cocktailsFinished = finishedRecipes.some((item) => (
-    item.idDrink === recipe.idDrink
-  ));
-  if (mealsFinished || cocktailsFinished) return ('finished');
+  if (result !== undefined) return ('finished');
 };
 
 export const startRecipe = (recipe, recipeType) => {

@@ -28,11 +28,58 @@ function FinishRecipeButton({ recipe, recipeType, toggle }) {
     verifyRecipeState();
   }, [toggle]);
 
+  const tags = (recipeTags) => {
+    if (recipeTags === null) {
+      return [];
+    }
+    if (recipeTags.includes(',')) {
+      return recipeTags.split(',');
+    }
+    if (!recipeTags.includes(',')) {
+      return [recipeTags];
+    }
+  };
+
+  const handleClick = () => {
+    const finishedMealRecipe = {
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+      doneDate: new Date().toLocaleString(),
+      tags: tags(recipe.strTags),
+    };
+    const finishedDrinkRecipe = {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+      doneDate: new Date().toLocaleString(),
+      tags: tags(recipe.strTags),
+      // tags: recipe.strTags === null ? [] : [...recipe.strTags.split()],
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (recipeType === 'comidas') {
+      const newArray = [...doneRecipes, finishedMealRecipe];
+      localStorage.setItem('doneRecipes', JSON.stringify(newArray));
+    }
+    if (recipeType === 'bebidas') {
+      const newArray = [...doneRecipes, finishedDrinkRecipe];
+      localStorage.setItem('doneRecipes', JSON.stringify(newArray));
+    }
+  };
+
   const finishRecipeButton = (
     <Link to="/receitas-feitas">
       <button
         type="button"
-        onClick={ () => {} }
+        onClick={ handleClick }
         data-testid="finish-recipe-btn"
         disabled={ !renderButton }
       >
