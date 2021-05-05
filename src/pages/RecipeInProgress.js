@@ -1,20 +1,36 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
+import PropTypes from 'prop-types';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { getFoodById } from '../services/FoodAPI';
+import { getDrinkById } from '../services/DrinksAPI';
 
-const getIngredientsList = (recipe) => {
-  const INFERIOR_ING_LIMIT = 9;
-  const SUPERIOR_ING_LIMIT = 29;
-  const SUPERIOR_MEA_LIMIT = 49;
-  const ingedientValues = (Object.values(recipe)).slice(
-    INFERIOR_ING_LIMIT, SUPERIOR_ING_LIMIT,
-  );
-  const measuresValues = (Object.values(recipe)).slice(
-    SUPERIOR_ING_LIMIT, SUPERIOR_MEA_LIMIT,
-  );
+const getIngredientsList = (recipe, recipeType) => {
+  const MEAL_ING_LIMIT_INF = 9;
+  const MEAL_ING_LIMIT_SUP = 29;
+  const MEAL_MEA_LIMIT_SUP = 49;
+  const DRINK_ING_LIMIT_INF = 17;
+  const DRINK_ING_LIMIT_SUP = 32;
+  const DRINK_MEA_LIMIT_SUP = 47;
+  let ingedientValues = [];
+  let measuresValues = [];
+  if (recipeType === 'meal') {
+    ingedientValues = (Object.values(recipe)).slice(
+      MEAL_ING_LIMIT_INF, MEAL_ING_LIMIT_SUP,
+    );
+    measuresValues = (Object.values(recipe)).slice(
+      MEAL_ING_LIMIT_SUP, MEAL_MEA_LIMIT_SUP,
+    );
+  } else {
+    ingedientValues = (Object.values(recipe)).slice(
+      DRINK_ING_LIMIT_INF, DRINK_ING_LIMIT_SUP,
+    );
+    measuresValues = (Object.values(recipe)).slice(
+      DRINK_ING_LIMIT_SUP, DRINK_MEA_LIMIT_SUP,
+    );
+  }
   const ingredientsCheckBox = [];
   ingedientValues.forEach((ingredient, index) => {
     if (ingredient && ingredient.length) {
@@ -31,7 +47,7 @@ const getIngredientsList = (recipe) => {
               data-testid={ `${index}-ingredient-step` }
               id="flexCheckDefault"
             />
-            { `${ingredient} - ${measuresValues[index]}` }
+            { `${ingredient} - ${measuresValues[index] || 'To taste'}` }
           </label>
         </div>,
       );
@@ -43,17 +59,26 @@ const getIngredientsList = (recipe) => {
 
 const RecipeInProgress = ({ match }) => {
   const { params } = match;
+  const { id } = params;
+  let recipeType = ((match.url).split('/'))[1];
+  recipeType = recipeType === 'comidas' ? 'meal' : 'drink';
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const getMealById = async () => {
-      const data = await getFoodById(params.id);
-      setRecipe(data.meals[0]);
+    const getRecipeByType = async () => {
+      let data = {};
+      if (recipeType === 'meal') {
+        data = await getFoodById(id);
+        setRecipe(data.meals[0]);
+      } else {
+        data = await getDrinkById(id);
+        setRecipe(data.drinks[0]);
+      }
       setIsLoading(false);
     };
-    if (isLoading) getMealById();
-  }, [recipe, params, isLoading]);
+    if (isLoading) getRecipeByType();
+  }, [recipe, params, isLoading, id, recipeType]);
 
   return (
     <div>
@@ -67,7 +92,7 @@ const RecipeInProgress = ({ match }) => {
           <div>
             <figure className="figure" data-testid="recipe-photo">
               <img
-                src={ recipe.strMealThumb }
+                src={ recipe.strMealThumb || recipe.strDrinkThumb }
                 width="360"
                 className="figure-img img-fluid rounded"
                 alt="Recipe"
@@ -76,7 +101,7 @@ const RecipeInProgress = ({ match }) => {
             <h1
               data-testid="recipe-title"
             >
-              { recipe.strMeal }
+              { recipe.strMeal || recipe.strDrink}
             </h1>
             <h4
               className="text-secondary"
@@ -87,7 +112,7 @@ const RecipeInProgress = ({ match }) => {
             <br />
             <div className="container-fluid">
               <h4>Ingredients</h4>
-              { getIngredientsList(recipe) }
+              { getIngredientsList(recipe, recipeType) }
             </div>
             <div
               className="container-fluid"
@@ -115,5 +140,7 @@ const RecipeInProgress = ({ match }) => {
     </div>
   );
 };
-
+RecipeInProgress.propTypes = {
+  match: PropTypes.shape().isRequired,
+};
 export default RecipeInProgress;
