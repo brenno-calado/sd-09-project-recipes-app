@@ -46,7 +46,7 @@ const Drinks = (props) => {
 
   return (
     <div>
-      <Header title="Bebidas" value="bebidas" history={ history } isSearchEnable />
+      <Header title="Bebidas" value="bebidas" history={ history } />
       {
         drinksCategoryList && drinksCategoryList.drinks
           .slice(0, cinco)
