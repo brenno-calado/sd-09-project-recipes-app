@@ -94,3 +94,4 @@ FoodProgress.propTypes = {
     path: PropTypes.string.isRequired,
   }).isRequired,
 };
+// Agora vai
