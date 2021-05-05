@@ -10,7 +10,7 @@ import Explore from './pages/Explore';
 import Profile from './pages/Profile';
 import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
-import RecipeInProgress from './components/RecipeInProgress';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function App() {
   return (

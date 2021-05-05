@@ -22,7 +22,7 @@ function RecommendedRecipes({ reference }) {
       let recommendations = [];
       if (reference === 'meals') recommendations = await fetchMealsApi();
       if (reference === 'drinks') recommendations = await fetchDrinksApi();
-      setFetching(false);
+      // setFetching(false);
       return setRecommendations(recommendations.slice(0, numberOfElements));
     };
     fetchRecommendations();

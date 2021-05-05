@@ -179,6 +179,23 @@
   justify-content: space-between;
 }
 
+.ingredients-checkbox {
+  display: flex;
+  flex-direction: column;
+}
+
+.checked-ingredient {
+  text-decoration: line-through;
+}
+
+.unchecked-ingredient {
+  text-decoration: none;
+}
+
+.done-recipe {
+  bottom: 0;
+  position: fixed;
+}
 
 @media only screen and ( min-width : 600px ) {
 
