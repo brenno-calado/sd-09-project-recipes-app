@@ -3,10 +3,19 @@ import PropTypes from 'prop-types';
 
 import './style.css';
 
+const INITIAL_PROGRESSRECIPES = {
+  cocktails: {},
+  meals: {},
+};
+
 class index extends Component {
   handleIngredient({ target }) {
     console.log(this.isIngredientDone(target.name));
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgressRecipes) {
+      this.createInProgressRecipes();
+      inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    }
     const { meals, cocktails } = inProgressRecipes;
     const { id, recipeType } = this.props;
     if (this.isIngredientDone(target.name)) {
@@ -25,32 +34,42 @@ class index extends Component {
     }
     if (!this.isIngredientDone(target.name)) {
       if (recipeType === 'comidas') {
-        meals[id] = [...meals[id], target.name];
+        if (!meals[id]) {
+          meals[id] = [target.name];
+        } else {
+          meals[id] = [...meals[id], target.name];
+        }
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
         return this.forceUpdate();
       }
       if (recipeType === 'bebidas') {
-        cocktails[id] = [...cocktails[id], target.name];
+        if (!cocktails[id]) {
+          cocktails[id] = [target.name];
+        } else {
+          cocktails[id] = [...cocktails[id], target.name];
+        }
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
         return this.forceUpdate();
       }
     }
-    // console.log();
-    // target.defaultChecked = true;
-    // if (target.parentNode.style.textDecoration !== 'line-through') {
-    //   target.parentNode.style.textDecoration = 'line-through';
-    // } else { target.parentNode.style.textDecoration = 'none'; }
+  }
+
+  createInProgressRecipes() {
+    localStorage.setItem('inProgressRecipes', JSON.stringify(INITIAL_PROGRESSRECIPES));
   }
 
   isIngredientDone(ingredient) {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (!inProgressRecipes) { return false; }
     const { meals, cocktails } = inProgressRecipes;
     const { id, recipeType } = this.props;
     if (recipeType === 'comidas') {
+      if (!meals[id]) { return false; }
       const isIngredientDone = meals[id].some((element) => element === ingredient);
       return isIngredientDone;
     }
     if (recipeType === 'bebidas') {
+      if (!cocktails[id]) { return false; }
       const isIngredientDone = cocktails[id].some((element) => element === ingredient);
       return isIngredientDone;
     }
@@ -73,17 +92,20 @@ class index extends Component {
         <h3>Ingredientes</h3>
         <div className="background-gray">
           <ul>
-            {ingredients.map((ingredient, indexNumber) => (
-              <li
-                key={ ingredient }
-                data-testid={ `${indexNumber}-ingredient-name-and-measure` }
-                className={ this.isIngredientDone(ingredient) ? 'ingredient-done' : null }
-              >
-                {this.checkbox(ingredient)}
-                {ingredient}
-                {' - '}
-                {quantities[indexNumber]}
-              </li>))}
+            {ingredients.map((ingredient, indexNumber) => {
+              if (ingredient === 'carregando') { return; }
+              return (
+                <li
+                  key={ ingredient }
+                  className={ this.isIngredientDone(ingredient) ? 'ingredient-done' : null }
+                  data-testid={ `${indexNumber}-ingredient-step` }
+                >
+                  { ingredient !== 'Carregando' ? this.checkbox(ingredient) : null}
+                  {ingredient}
+                  {' - '}
+                  {quantities[indexNumber]}
+                </li>);
+            })}
           </ul>
         </div>
       </div>
