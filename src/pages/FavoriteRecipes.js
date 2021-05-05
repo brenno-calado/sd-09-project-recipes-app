@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../css/FavoriteRecipes.css';
 
 const FavoriteRecipes = () => {
   const myStorageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -15,91 +16,100 @@ const FavoriteRecipes = () => {
   };
 
   return (
-    <div>
+    <div className="favorite-recipes-container">
       <Header title="Receitas Favoritas" />
-      <button type="button" data-testid="filter-by-all-btn">
-        All
-      </button>
-      <button type="button" data-testid="filter-by-food-btn">
-        Food
-      </button>
-      <button type="button" data-testid="filter-by-drink-btn">
-        Drinks
-      </button>
+      <div className="filter-button-container-favorite">
+        <button type="button" data-testid="filter-by-all-btn">
+          All
+        </button>
+        <button type="button" data-testid="filter-by-food-btn">
+          Food
+        </button>
+        <button type="button" data-testid="filter-by-drink-btn">
+          Drinks
+        </button>
+      </div>
+      { shareButton ? <span>Link copiado!</span> : null }
       {myStorageFavorite.map(
         ({ id, image, type, name, category, area, alcoholicOrNot }, index) => (
           type === 'comida'
             ? (
-              <div key={ type }>
-                { shareButton ? <span>Link copiado!</span> : null }
-                <span
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { `${area} - ${category}` }
-                </span>
+              <div key={ type } className="favorite-recipe-card">
                 <img
                   src={ image }
                   alt="comida"
                   data-testid={ `${index}-horizontal-image` }
                 />
-                <span
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  { name }
-                </span>
-                <button
-                  type="button"
-                  onClick={ clickShare }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    src={ shareIcon }
-                    alt={ `/${type}s/${id}` }
-                  />
-                </button>
-                <button type="button">
-                  <img
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                    src={ blackHeartIcon }
-                    alt="favorite"
-                  />
-                </button>
+                <div className="itens-favorite-recipe-card">
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    { `${area} - ${category}` }
+                  </p>
+                  <p
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </p>
+                  <div className="container-buttons">
+                    <button
+                      type="button"
+                      onClick={ clickShare }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt={ `/${type}s/${id}` }
+                      />
+                    </button>
+                    <button type="button">
+                      <img
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        src={ blackHeartIcon }
+                        alt="favorite"
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
             ) : (
-              <div key={ type }>
-                <button
-                  type="button"
-                  onClick={ clickShare }
-                >
-                  <img
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    src={ shareIcon }
-                    alt={ `${type}s/${id}` }
-                  />
-                </button>
-                <button type="button">
-                  <img
-                    data-testid={ `${index}-horizontal-favorite-btn` }
-                    src={ blackHeartIcon }
-                    alt="favorite"
-                  />
-                </button>
-                { shareButton ? <span>Link copiado!</span> : null }
+              <div key={ type } className="favorite-recipe-card">
                 <img
                   src={ image }
                   alt="bebida"
                   data-testid={ `${index}-horizontal-image` }
                 />
-                <span
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { alcoholicOrNot }
-                </span>
-                <span
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  { name }
-                </span>
+                <div className="itens-favorite-recipe-card">
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                  >
+                    { alcoholicOrNot }
+                  </p>
+                  <p
+                    data-testid={ `${index}-horizontal-name` }
+                  >
+                    { name }
+                  </p>
+                  <div className="container-buttons">
+                    <button
+                      type="button"
+                      onClick={ clickShare }
+                    >
+                      <img
+                        data-testid={ `${index}-horizontal-share-btn` }
+                        src={ shareIcon }
+                        alt={ `${type}s/${id}` }
+                      />
+                    </button>
+                    <button type="button">
+                      <img
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        src={ blackHeartIcon }
+                        alt="favorite"
+                      />
+                    </button>
+                  </div>
+                </div>
               </div>
             )
         ),
