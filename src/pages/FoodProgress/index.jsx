@@ -75,7 +75,7 @@ export default function FoodProgress(props) {
         type="button"
         disabled={ ingredientsArray(details) < counter }
       >
-        ok */}
+      */}
       <Link
         data-testid="finish-recipe-btn"
         to="/receitas-feitas"
