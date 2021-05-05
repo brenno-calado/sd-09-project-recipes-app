@@ -1,8 +1,8 @@
 const INITIAL_STATE = {};
 
-const drinkRecipeDetails = (state = INITIAL_STATE, action) => {
+const mealRecipeDetails = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  case 'STORE_DRINK_RECIPE_DETAILS':
+  case 'STORE_MEAL_RECIPE_DETAILS':
     return {
       ...state,
       [action.id]: action.recipeDetails,
@@ -12,4 +12,4 @@ const drinkRecipeDetails = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default drinkRecipeDetails;
+export default mealRecipeDetails;

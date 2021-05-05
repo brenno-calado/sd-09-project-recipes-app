@@ -1,7 +1,27 @@
 import React from 'react';
 import { objectOf } from 'prop-types';
+import '../Style/recipeInProgress/style.css';
 
 class CheckBoxIngredients extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+    };
+    this.changeListItemClass = this.changeListItemClass.bind(this);
+  }
+
+  componentDidMount() {
+    this.createState();
+  }
+
+  createState() {
+    this.recoverIngredients().forEach((_, index) => {
+      this.setState({
+        [`checkBoxClass${index}`]: false,
+      });
+    });
+  }
+
   recoverIngredients() {
     const { recipeObj } = this.props;
     const ingredientsArray = [];
@@ -28,8 +48,13 @@ class CheckBoxIngredients extends React.Component {
     return measureArray;
   }
 
+  changeListItemClass({ target }) {
+    this.setState({ [target.name]: target.checked });
+  }
+
   render() {
     const ingredients = this.recoverIngredients();
+    const checkBoxClass = this.state;
     const measure = this.recoverMeasure();
     return (
       <div>
@@ -37,11 +62,15 @@ class CheckBoxIngredients extends React.Component {
           <label
             key={ index }
             htmlFor={ ingredient }
-            className="ingredient-list"
+            className={ checkBoxClass[`checkBoxClass${index}`]
+              ? 'done-ingredient-list'
+              : 'undone-ingretient-list' }
           >
             <input
               type="checkbox"
               data-testid={ `${index}-ingredient-step` }
+              onChange={ this.changeListItemClass }
+              name={ `checkBoxClass${index}` }
             />
             {ingredient}
             -

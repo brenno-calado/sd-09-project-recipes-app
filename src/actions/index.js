@@ -33,6 +33,10 @@ export const setIsLoading = () => ({
   type: 'SET_ISLOADING',
 });
 
+export const fetchMealRecipeDetails = (id) => (dispatch) => (
+  fetchDetails(id, 'meal')
+);
+
 export const setCategories = (categories) => ({
   type: 'SET_CATEGORIES',
   categories,
@@ -46,15 +50,17 @@ export const categoriesfetchApiAction = () => (dispatch) => {
 export const fetchFoodRecipeDetails = (id) => (dispatch) => (
   fetchDetails('food', id)
     .then((recipesApiReponse) => dispatch({
-      type: 'STORE_FOOD_RECIPE_DETAILS',
-      recipeDetails: recipesApiReponse,
+      type: 'STORE_MEAL_RECIPE_DETAILS',
+      id,
+      recipeDetails: (recipesApiReponse.meals && recipesApiReponse.meals[0]) || null,
     })));
 
 export const fetchDrinkRecipeDetails = (id) => (dispatch) => (
-  fetchDetails('drink', id)
+  fetchDetails(id, 'drink')
     .then((recipesApiReponse) => dispatch({
       type: 'STORE_DRINK_RECIPE_DETAILS',
-      recipeDetails: recipesApiReponse,
+      id,
+      recipeDetails: (recipesApiReponse.drinks && recipesApiReponse.drinks[0]) || null,
     })));
 
 export const fetchRecipesByCategoryAction = (categorie, category) => (dispatch) => {
