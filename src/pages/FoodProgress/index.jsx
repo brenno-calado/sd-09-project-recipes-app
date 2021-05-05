@@ -14,6 +14,7 @@ import {
 export default function FoodProgress(props) {
   const [details, setDetails] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [redirect, setRedirect] = useState(false);
 
   const {
     match: { params, path },
