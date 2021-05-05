@@ -14,6 +14,7 @@ function DrinksDetails() {
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [favoriteRecipe, setFavoriteRecipe] = useState(false);
+  const [doneRecipe, setDoneRecipe] = useState(false);
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
@@ -21,6 +22,9 @@ function DrinksDetails() {
     getData();
     setFavoriteRecipe(localStorage.favoriteRecipes
       && getItemLocalStorage('favoriteRecipes')
+        .some(({ id: idItem }) => idItem === id));
+    setDoneRecipe(localStorage.doneRecipes
+      && getItemLocalStorage('doneRecipes')
         .some(({ id: idItem }) => idItem === id));
   }, [id]);
 
@@ -87,14 +91,15 @@ function DrinksDetails() {
 
       <IngredientsContainer data={ data } />
       <p data-testid="instructions">{strInstructions}</p>
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="btn-initial"
-        onClick={ handleClick }
-      >
-        { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
-      </button>
+      { !doneRecipe && (
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="btn-initial"
+          onClick={ handleClick }
+        >
+          { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
+        </button>) }
       <MealsRecomendations />
       { copy && <span>Link copiado!</span> }
     </section>
