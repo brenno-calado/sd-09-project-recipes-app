@@ -10,7 +10,7 @@ import MealVideo from '../../components/MealVideo';
 import MealRecommendations from '../../components/MealRecommendations';
 import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
-import loadingImage from '../../images/Figura-Loading-PNG.png';
+import loadingImage from '../../images/loading_food.gif';
 
 class index extends Component {
   constructor(props) {

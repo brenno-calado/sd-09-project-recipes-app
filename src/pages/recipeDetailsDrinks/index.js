@@ -8,7 +8,7 @@ import MealInstructions from '../../components/MealInstructions';
 import MealRecommendations from '../../components/MealRecommendations';
 import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
-import loadingImage from '../../images/Figura-Loading-PNG.png';
+import loadingImage from '../../images/loading_drink.gif';
 
 class index extends Component {
   constructor(props) {
