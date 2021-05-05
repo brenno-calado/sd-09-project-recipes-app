@@ -13,22 +13,29 @@ const checkFavorite = (favoriteRecipes, recipeId) => {
   return false;
 };
 
-const ProgressoComidas = () => {
-  const [stepsFinished, setStepsFinished] = useState(1);
-  const [idDetails, setIdDetails] = useState([]);
-  const { id } = useParams();
-  const [redirect, setRedirect] = useState(false);
-  const [linkShared, setLinkShared] = useState(false);
-  // const localData = JSON.parse(localStorage.getItem('inProgressMeals'));
+const getInfoIngredients = (inProgress, recipeId) => {
+  if (inProgress[recipeId]) return inProgress[recipeId];
+  return {};
+};
 
+const ProgressoComidas = () => {
   const {
     favoriteRecipe,
     removeFromFavorite,
     finishRecipe,
-    handleProgressRecipes,
-    handleIngredientsUsed,
+    handleProgressMeal,
     favoriteRecipes,
+    inProgressMeals,
   } = useContext(AppContext);
+  const [idDetails, setIdDetails] = useState([]);
+  const { id } = useParams();
+  const [redirect, setRedirect] = useState(false);
+  const [linkShared, setLinkShared] = useState(false);
+  const [ingStatus, setIngStatus] = useState(getInfoIngredients(inProgressMeals, id));
+  const doneLength = Object.values(ingStatus).filter(
+    (status) => status === true,
+  ).length + 1;
+  const [stepsFinished, setStepsFinished] = useState(doneLength);
 
   let stepsLimit = 1;
   const getIngredients = () => {
@@ -133,10 +140,11 @@ const ProgressoComidas = () => {
               key={ index }
               setStepsFinished={ setStepsFinished }
               stepsFinished={ stepsFinished }
-              ingredientsUsed={ handleIngredientsUsed }
-              inProgressRecipe={ handleProgressRecipes }
+              inProgressRecipe={ handleProgressMeal }
+              ingStatus={ ingStatus }
+              setIngStatus={ setIngStatus }
               idRecipe={ idMeal }
-              type="meals"
+              // type="meals"
             />);
         }) }
       </div>

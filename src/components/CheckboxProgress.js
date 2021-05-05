@@ -4,43 +4,45 @@ import '../CSS/ProgressoBebidas.css';
 
 const CheckBoxProgress = ({
   ingredient, index, setStepsFinished,
-  stepsFinished, ingredientsUsed,
-  inProgressRecipe, idRecipe, type,
+  stepsFinished,
+  inProgressRecipe, idRecipe, ingStatus, setIngStatus,
 }) => {
-  const [strikeThrough, setStrikeThrough] = useState(false);
   const ing = `${ingredient.name} ${ingredient.measure === null
     ? '' : ingredient.measure}`;
+  const [strikeThrough, setStrikeThrough] = useState(ingStatus[ing]);
 
   const checkStep = () => {
     if (!strikeThrough) {
       setStrikeThrough(!strikeThrough);
       setStepsFinished(stepsFinished + 1);
-      inProgressRecipe(type, idRecipe);
-      ingredientsUsed(ing);
+      inProgressRecipe({ ...ingStatus, [ing]: true }, idRecipe);
+      setIngStatus({ ...ingStatus, [ing]: true });
     }
     if (strikeThrough) {
       setStrikeThrough(!strikeThrough);
       setStepsFinished(stepsFinished - 1);
-      inProgressRecipe(type, idRecipe);
-      ingredientsUsed(ing);
+      inProgressRecipe({ ...ingStatus, [ing]: false }, idRecipe);
+      setIngStatus({ ...ingStatus, [ing]: false });
     }
   };
 
   return (
-    <label
-      htmlFor={ index }
-      key={ ingredient.name }
-      className={ strikeThrough ? 'cross' : null }
-    >
-      {ing}
-      <input
-        id={ index }
-        type="checkbox"
-        data-testid={ `${index}-ingredient-step` }
-        onClick={ checkStep }
-        value={ ing }
-      />
-    </label>
+    <div data-testid={ `${index}-ingredient-step` }>
+      <label
+        htmlFor={ index }
+        key={ ingredient.name }
+        className={ strikeThrough ? 'cross' : null }
+      >
+        {ing}
+        <input
+          id={ index }
+          type="checkbox"
+          defaultChecked={ strikeThrough }
+          onClick={ checkStep }
+          value={ ing }
+        />
+      </label>
+    </div>
   );
 };
 
@@ -52,10 +54,10 @@ CheckBoxProgress.propTypes = {
   index: PropTypes.number.isRequired,
   stepsFinished: PropTypes.number.isRequired,
   setStepsFinished: PropTypes.func.isRequired,
-  ingredientsUsed: PropTypes.arrayOf(PropTypes.string).isRequired,
-  idRecipe: PropTypes.number.isRequired,
+  idRecipe: PropTypes.string.isRequired,
   inProgressRecipe: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
+  ingStatus: PropTypes.shape({}).isRequired,
+  setIngStatus: PropTypes.func.isRequired,
 };
 
 export default CheckBoxProgress;

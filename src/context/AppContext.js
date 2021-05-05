@@ -23,7 +23,7 @@ const AppProvider = ({ children }) => {
   const [doneRecipes, setDoneRecipes] = useState(
     JSON.parse(localStorage.getItem('doneRecipes')) || [],
   );
-  const [xablau, setXablau] = useState('');
+  // const [xablau, setXablau] = useState('');
 
   const [inProgressRecipes, setInProgressRecipes] = useState(
     JSON.parse(localStorage.getItem('inProgressRecipes')) || {},
@@ -32,6 +32,37 @@ const AppProvider = ({ children }) => {
   const [drinkIngredients, setDrinkIngredients] = useState([]);
   const [ingredientsUsed, setIngredientsUsed] = useState([]);
 
+  // teste
+
+  const [inProgressDrinks, setInProgressDrinks] = useState(
+    JSON.parse(localStorage.getItem('inProgressDrinks')) || {},
+  );
+  const [inProgressMeals, setInProgressMeals] = useState(
+    JSON.parse(localStorage.getItem('inProgressMeals')) || {},
+  );
+
+  const handleProgressDrink = (recipe, id) => {
+    setInProgressDrinks({
+      ...inProgressDrinks,
+      [id]: recipe,
+    });
+  };
+  const handleProgressMeal = (recipe, id) => {
+    setInProgressMeals({
+      ...inProgressMeals,
+      [id]: recipe,
+    });
+  };
+
+  useEffect(() => {
+    localStorage.setItem('inProgressDrinks', JSON.stringify(inProgressDrinks));
+  }, [inProgressDrinks]);
+
+  useEffect(() => {
+    localStorage.setItem('inProgressMeals', JSON.stringify(inProgressMeals));
+  }, [inProgressMeals]);
+
+  // fim do teste
   const handleProgressRecipes = (type, id) => {
     setInProgressRecipes({
       ...inProgressRecipes,
@@ -102,7 +133,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    setXablau(Math.random());
+    // setXablau(Math.random());
   }, [favoriteRecipes]);
 
   useEffect(() => {
@@ -138,7 +169,7 @@ const AppProvider = ({ children }) => {
     drinkIngredients,
     doneRecipes,
     inProgressRecipes,
-    xablau,
+    // xablau,
     setFoodApiResults,
     setDrinksApiResults,
     favoriteRecipe,
@@ -146,6 +177,10 @@ const AppProvider = ({ children }) => {
     finishRecipe,
     handleProgressRecipes,
     handleIngredientsUsed,
+    handleProgressMeal,
+    handleProgressDrink,
+    inProgressDrinks,
+    inProgressMeals,
   };
   return (
     <AppContext.Provider value={ context }>
