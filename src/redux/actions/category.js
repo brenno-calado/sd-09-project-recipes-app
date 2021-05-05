@@ -19,7 +19,6 @@ const fetchCategories = (foods) => (
       .then((response) => {
         const categories = Object.entries(response)[0][1];
         dispatch(getCategories(categories));
-        console.log(categories);
       });
   }
 );
