@@ -3,15 +3,10 @@ import MealContext from '../context/MealContext';
 
 function SearchBar() {
   const {
+    handleChange,
     handleChangeRadio,
     filters,
-    inputValue,
-    setInputValue,
   } = useContext(MealContext);
-
-  function handleChange({ target: { value } }) {
-    setInputValue(value);
-  }
 
   return (
     <div>
@@ -51,7 +46,7 @@ function SearchBar() {
       <button
         data-testid="exec-search-btn"
         type="button"
-        onClick={ () => filters(inputValue) }
+        onClick={ () => filters() }
       >
         Buscar
       </button>

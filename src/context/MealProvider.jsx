@@ -13,19 +13,28 @@ import {
 } from '../services/DrinkFetch';
 
 const MealProvider = ({ children }) => {
-  const [foods, setFoods] = useState();
-  const [drinks, setDrinks] = useState();
+  const [foods, setFoods] = useState([]);
   const [radio, setRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
+
+  const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
+
+  function handleChange({ target: { value } }) {
+    setInputValue(value);
+  }
 
   function handleChangeRadio({ target: { value } }) {
     setRadio(value);
   }
 
   function foodFilter(input) {
+    console.log(radio);
     if (radio === 'name') {
-      getMealsByName(input)
-        .then((response) => setFoods(response));
+      getMealsByName(inputValue)
+        .then((response) => {
+          if (response < 1) return alert(notFound);
+          setFoods(response);
+        });
     }
 
     if (radio === 'ingredient') {
@@ -37,14 +46,17 @@ const MealProvider = ({ children }) => {
       getMealByFirstLetter(input)
         .then((response) => setFoods(response));
     } else if (radio === 'letter' && input.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      return alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
 
   function drinkFilter(input) {
     if (radio === 'name') {
       getDrinkByName(input)
-        .then((response) => setFoods(response));
+        .then((response) => {
+          if (response < 1) return alert(notFound);
+          setFoods(response);
+        });
     }
 
     if (radio === 'ingredient') {
@@ -56,30 +68,29 @@ const MealProvider = ({ children }) => {
       getDrinkByFirstLetter(input)
         .then((response) => setFoods(response));
     } else if (radio === 'letter' && input.length > 1) {
-      alert('Sua busca deve conter somente 1 (um) caracter');
+      return alert('Sua busca deve conter somente 1 (um) caracter');
     }
   }
 
-  function filters(input) {
+  function filters() {
     if (window.location.href.match(/comidas$/)) {
-      foodFilter(input);
+      foodFilter(inputValue);
     }
 
     if (window.location.href.match(/bebidas$/)) {
-      drinkFilter(input);
+      drinkFilter(inputValue);
     }
   }
 
   const context = {
     foods,
     setFoods,
-    drinks,
-    setDrinks,
     radio,
     handleChangeRadio,
+    handleChange,
     filters,
     inputValue,
-    setInputValue,
+    foodFilter,
   };
 
   return (
