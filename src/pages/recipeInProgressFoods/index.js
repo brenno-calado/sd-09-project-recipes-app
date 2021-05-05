@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import ImageHeader from '../../components/MealHeaderImage';
 import HeaderInformations from '../../components/MealHeaderInfo';
-import Ingredients from '../../components/MealIngredients';
+import IngredientsChecklist from '../../components/IngredientesChecklist';
 import Instructions from '../../components/MealInstructions';
 
 import { requestMealData, requestDrinkData } from '../../services/api';
@@ -40,7 +40,6 @@ class index extends Component {
         recipeData: recipeData.drinks[0],
       });
     }
-    console.log(recipeData.drinks[0]);
   }
 
   getMealImage = () => {
@@ -91,7 +90,7 @@ class index extends Component {
 
   render() {
     const { mealData } = this.state;
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id, recipeType } } } = this.props;
     return (
       <div>
         <ImageHeader
@@ -103,7 +102,10 @@ class index extends Component {
           recipe={ mealData }
           id={ id }
         />
-        <Ingredients
+        <IngredientsChecklist
+          id={ id }
+          recipeType={ recipeType }
+          ingredients={ this.getIngredients() }
           quantities={ this.getIngredientsQuantity() }
           isChecklist
         />

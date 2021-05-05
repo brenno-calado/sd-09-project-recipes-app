@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './style.css';
 
 class index extends Component {
-  dataTestId(isChecklist, indexNumber) {
-    if (isChecklist) { return (`${indexNumber}-ingredient-step`); }
-    return (`${indexNumber}-ingredient-name-and-measure`);
-  }
-
   render() {
-    const { ingredients, quantities, isChecklist } = this.props;
+    const { ingredients, quantities } = this.props;
     return (
       <div>
         <h3>Ingredientes</h3>
@@ -18,10 +12,8 @@ class index extends Component {
             {ingredients.map((ingredient, indexNumber) => (
               <li
                 key={ ingredient }
-                data-testid={ this.dataTestId(isChecklist, indexNumber) }
+                data-testid={ `${indexNumber}-ingredient-name-and-measure` }
               >
-                {isChecklist ? <input type="checkbox" /> : '- '}
-                {isChecklist ? ' ' : null}
                 {ingredient}
                 {' - '}
                 {quantities[indexNumber]}
@@ -36,7 +28,6 @@ class index extends Component {
 index.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
   quantities: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isChecklist: PropTypes.bool.isRequired,
 };
 
 export default index;
