@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import RecomendedFoods from '../components/RecomendedFoods';
+import RecomendedMeals from '../components/RecomendedMeals';
+import '../App.css';
 
 const DrinkDetails = ({ match: { params: { id } } }) => {
   const [recipe, setRecipe] = useState({});
@@ -124,6 +125,7 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
 
   const renderStartRecipeButton = () => (
     <button
+      className="footer"
       type="button"
       data-testid="start-recipe-btn"
     >
@@ -140,7 +142,7 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
       { renderFavoriteButton() }
       { renderRecipeIngredients() }
       { renderRecipeInstructions() }
-      <RecomendedFoods />
+      <RecomendedMeals />
       { renderStartRecipeButton() }
     </div>
   );
