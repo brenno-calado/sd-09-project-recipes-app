@@ -7,20 +7,7 @@ import {
   fetchFoodsAPI,
   fetchFoodsCategoryAPI,
 } from '../services/fetchFoodsAPI';
-
-const imgStyle = {
-  maxWidth: '150x',
-  maxHeight: '150px',
-  margin: 'auto',
-};
-
-// a tela é 360 x 640
-const containerStyle = {
-  overflowY: 'scroll',
-  width: '300px',
-  maxHeight: '300px',
-  marginTop: '100px',
-};
+import '../css/Foods.css';
 
 export default function Foods() {
   const { recipesFoods, foodCategories, setRecipesFoods } = useContext(myContext);
@@ -51,37 +38,41 @@ export default function Foods() {
   };
 
   return (
-    <div>
+    <div className="foods-body">
       <Header title="Comidas" />
-      <button
-        type="button"
-        onClick={ handleClick }
-        data-testid="All-category-filter"
-      >
-        All
-      </button>
-      {categories.map(({ strCategory }) => (
+      <div className="filter-button-container">
         <button
           type="button"
-          key={ strCategory }
           onClick={ handleClick }
-          data-testid={ `${strCategory}-category-filter` }
+          data-testid="All-category-filter"
         >
-          { strCategory }
+          All
         </button>
-      ))}
-      <div style={ containerStyle }>
+        {categories.map(({ strCategory }) => (
+          <button
+            type="button"
+            key={ strCategory }
+            onClick={ handleClick }
+            data-testid={ `${strCategory}-category-filter` }
+          >
+            { strCategory }
+          </button>
+        ))}
+      </div>
+      <div className="recipe-container">
         {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <Link key={ idMeal } to={ `/comidas/${idMeal}` }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ strMealThumb }
-                style={ imgStyle }
-                alt={ strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
-            </div>
+          <Link
+            key={ idMeal }
+            to={ `/comidas/${idMeal}` }
+            className="recipe-card"
+            data-testid={ `${index}-recipe-card` }
+          >
+            <img
+              src={ strMealThumb }
+              alt={ strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
           </Link>
         ))}
       </div>

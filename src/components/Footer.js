@@ -3,18 +3,10 @@ import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
-
-const footerStyle = {
-  bottom: '0px',
-  margin: 'auto',
-  position: 'fixed',
-  // width: '100%',
-  // display: 'flex',
-  // justifyContent: 'space-between',
-};
+import '../css/Footer.css';
 
 const Footer = () => (
-  <footer data-testid="footer" style={ footerStyle }>
+  <footer data-testid="footer">
     <Link to="/bebidas">
       <img data-testid="drinks-bottom-btn" src={ drinkIcon } alt="Drink Shortcut" />
     </Link>
