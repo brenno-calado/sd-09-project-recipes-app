@@ -23,6 +23,7 @@ class Recommendations extends React.Component {
               <Carousel.Item
                 interval={ 3000 }
                 key={ index }
+                data-testid={ `${index}-recomendation-card` }
               >
                 <RecommendationCard recommendationRecipe={ recipe } index={ index } />
               </Carousel.Item>

@@ -7,14 +7,14 @@ class RecommendationCard extends React.Component {
     console.log(recommendationRecipe);
     const query = window.location.pathname.includes('comidas') ? 'Drink' : 'Meal';
     return (
-      <div
-        data-testid={ `${index}-recomendation-card` }
-      >
+      <div>
         <img
           src={ recommendationRecipe[`str${query}Thumb`] }
           alt={ recommendationRecipe[`str${query}`] }
         />
-        <p>{recommendationRecipe[`str${query}`]}</p>
+        <p data-testid={ `${index}-recomendation-title` }>
+          {recommendationRecipe[`str${query}`]}
+        </p>
       </div>
     );
   }
