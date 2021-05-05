@@ -4,7 +4,7 @@ import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
-import createRender from '../utils/headerfoods';
+import createRender from '../utils/headerFoods';
 import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
 import RecipeCard from '../components/RecepiCard';
 
@@ -45,21 +45,35 @@ function Foods() {
   function categoryButtom() {
     const five = 5;
     return (
-      meal.map(({ strCategory }, index) => (
-        index < five && (
-          <div className="categoty-btn">
-            <button
-              key={ strCategory }
-              type="button"
-              name={ strCategory }
-              data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClickButtonName({ target }) }
-            >
-              { strCategory }
-            </button>
-          </div>
-        )
-      ))
+      meal && (
+        meal.map(({ strCategory }, index) => (
+          index < five && (
+            <div className="categoty-btn">
+              <button
+                key={ strCategory }
+                type="button"
+                name={ strCategory }
+                data-testid={ `${strCategory}-category-filter` }
+                onClick={ ({ target }) => handleClickButtonName({ target }) }
+              >
+                { strCategory }
+              </button>
+            </div>
+          )
+        ))
+      )
+    );
+  }
+
+  function filterAllButtom() {
+    return (
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setListItemByCategory([]) }
+      >
+        All
+      </button>
     );
   }
 
@@ -78,7 +92,8 @@ function Foods() {
             Buscar
           </button>
         </SearchBar>
-        {categoryButtom() }
+        { filterAllButtom() }
+        { categoryButtom() }
         { listItemByCategory.length
           ? createRender(listItemByCategory)
           : (initFood && (createRender(initFood))) }

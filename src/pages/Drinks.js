@@ -62,6 +62,18 @@ function Drinks() {
     );
   }
 
+  function filterAllButtom() {
+    return (
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => setListDrinkByCategory([]) }
+      >
+        All
+      </button>
+    );
+  }
+
   function header() {
     return (
       <>
@@ -77,6 +89,7 @@ function Drinks() {
             Buscar
           </button>
         </SearchBar>
+        { filterAllButtom() }
         {categoryButtom() }
         {listDrinkByCategory.length
           ? createRender(listDrinkByCategory)

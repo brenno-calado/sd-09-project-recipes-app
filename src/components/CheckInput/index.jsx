@@ -1,17 +1,19 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { string, number, func, arrayOf } from 'prop-types';
+import React, { useRef, useEffect, useState } from 'react';
+import { string, number, func, arrayOf, shape } from 'prop-types';
 
-function CheckInput({ index, handleCheckedValue, item, apiData }) {
+function CheckInput({ index, handleCheckedValue, item, match }) {
   const inputRef = useRef(null);
   const [checkedValue, setCheckedValue] = useState();
+  const { params, path } = match;
+  const { id } = params;
 
   useEffect(() => {
-    if (apiData.drinks) {
-      const { drinks } = apiData;
+    if (path === '/bebidas/:id/in-progress') {
       const localElements = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-      if (localElements !== null) {
-        localElements.cocktails[drinks[0].idDrink].forEach((element) => {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(localElements || { cocktails: { [id]: [] } }));
+      if (localElements) {
+        localElements.cocktails[id].forEach((element) => {
           if (inputRef.current.name === element) {
             inputRef.current.checked = true;
             setCheckedValue(inputRef.current.checked = true);
@@ -19,14 +21,15 @@ function CheckInput({ index, handleCheckedValue, item, apiData }) {
         });
       }
     }
-  }, [apiData, inputRef]);
+  }, [id, path]);
 
   useEffect(() => {
-    if (apiData.meals) {
+    if (path === '/comidas/:id/in-progress') {
       const localElements = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      const { meals } = apiData;
-      if (localElements !== null) {
-        localElements.meals[meals[0].idMeal].forEach((localItem) => {
+      localStorage.setItem('inProgressRecipes',
+        JSON.stringify(localElements || { meals: { [id]: [] } }));
+      if (localElements) {
+        localElements.meals[id].forEach((localItem) => {
           if (inputRef.current.name === localItem) {
             inputRef.current.checked = true;
             setCheckedValue(inputRef.current.checked = true);
@@ -34,26 +37,24 @@ function CheckInput({ index, handleCheckedValue, item, apiData }) {
         });
       }
     }
-  }, [apiData, inputRef]);
+  }, [id, path]);
 
   return (
-    <div style={ { display: 'flex', flexDirection: 'column' } }>
-      <label
-        data-testid={ `${index}-ingredient-step` }
-        htmlFor={ `${index}-ingredientDrinkStep` }
-      >
-        <input
-          name={ item }
-          id={ `${index}-ingredientDrinkStep` }
-          type="checkbox"
-          onChange={ handleCheckedValue }
-          key={ Math.random() }
-          ref={ inputRef }
-          checked={ checkedValue }
-        />
-        { item }
-      </label>
-    </div>
+    <label
+      data-testid={ `${index}-ingredient-step` }
+      htmlFor={ `${index}-ingredientDrinkStep` }
+    >
+      <input
+        name={ item }
+        id={ `${index}-ingredientDrinkStep` }
+        type="checkbox"
+        onChange={ (event) => { handleCheckedValue(event); } }
+        key={ Math.random() }
+        ref={ inputRef }
+        checked={ checkedValue }
+      />
+      { item }
+    </label>
   );
 }
 
@@ -61,16 +62,20 @@ CheckInput.propTypes = {
   index: number,
   handleCheckedValue: func,
   item: arrayOf(string),
-  drinks: func,
-  apiData: Object,
+  params: shape(),
+  match: shape(),
+  path: string,
+  id: string,
 };
 
 CheckInput.defaultProps = {
   index: 0,
   handleCheckedValue: () => {},
   item: '',
-  drinks: null,
-  apiData: null,
+  params: {},
+  match: {},
+  path: '',
+  id: '',
 };
 
 export default CheckInput;

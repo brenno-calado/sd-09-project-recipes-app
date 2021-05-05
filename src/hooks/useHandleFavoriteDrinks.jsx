@@ -9,7 +9,8 @@ function useHandleFavoriteDrinks() {
         strDrink,
         strDrinkThumb,
       }) => {
-        const drinks = { id: idDrink,
+        const drinks = {
+          id: idDrink,
           type: 'bebida',
           area: '',
           category: strCategory,
@@ -28,7 +29,6 @@ function useHandleFavoriteDrinks() {
         JSON.stringify(localStorageItem));
     }
   }
-
   return [handleFavorite];
 }
 
