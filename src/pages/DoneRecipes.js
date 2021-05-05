@@ -1,10 +1,12 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const DoneRecipes = () => {
   const index = 0;
   const image = 0;
   return (
     <div>
+      <Header />
       <button
         type="button"
         data-testid="filter-by-all-btn"
