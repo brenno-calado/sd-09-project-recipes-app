@@ -28,8 +28,7 @@ const MealProvider = ({ children }) => {
   }
 
   function foodFilter(input) {
-    console.log(radio);
-    if (radio === 'name') {
+    if (radio === 'name' || radio === '') {
       getMealsByName(inputValue)
         .then((response) => {
           if (response < 1) return alert(notFound);
@@ -51,8 +50,8 @@ const MealProvider = ({ children }) => {
   }
 
   function drinkFilter(input) {
-    if (radio === 'name') {
-      getDrinkByName(input)
+    if (radio === 'name' || radio === '') {
+      getDrinkByName(inputValue)
         .then((response) => {
           if (response < 1) return alert(notFound);
           setFoods(response);
@@ -91,6 +90,7 @@ const MealProvider = ({ children }) => {
     filters,
     inputValue,
     foodFilter,
+    drinkFilter,
   };
 
   return (

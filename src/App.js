@@ -10,7 +10,7 @@ import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
-// import DetalhesComida from './pages/DetalhesComida';
+import DetalhesComida from './pages/DetalhesComida';
 import DetalhesBebida from './pages/DetalhesBebida';
 import Perfil from './pages/Perfil';
 import PrincipalComidas from './pages/PrincipalComidas';
@@ -32,7 +32,7 @@ function App() {
 
           <Route
             path="/comidas/:id"
-            render={ (props) => <ExplorarComidas { ...props } /> }
+            component={ DetalhesComida }
           />
 
           <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } />
