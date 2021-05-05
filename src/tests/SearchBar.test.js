@@ -1,65 +1,81 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
+import { screen, waitFor, act } from '@testing-library/react';
+import MutationObserver from '@sheerun/mutationobserver-shim';
 import renderWithRouter from './helpers/renderWithRouter';
-import { MainFoods } from '../pages';
-import { screen, waitFor } from '@testing-library/react';
+import { MainDrinks, MainFoods } from '../pages';
 import {
   meals,
   mealsByIngredient,
   mealCategories,
-  cocktails,
-  cocktailsCategories,
+  drinks,
+  drinksCategories,
+  drinksByIngredient,
 } from './mocks';
-import { act } from '@testing-library/react';
-import { fetchMealApi, fetchMealsCategories, fetchMealsList } from '../services/MealApi';
-import { fetchCocktailApi, fetchCocktailsCategories, fetchCocktailsList } from '../services/CocktailApi';
+import {
+  fetchMealApi,
+  fetchMealsCategories,
+  fetchMealsList,
+} from '../services/MealApi';
+import {
+  fetchCocktailApi,
+  fetchCocktailsCategories,
+  fetchCocktailsList,
+} from '../services/CocktailApi';
+
+window.MutationObserver = MutationObserver;
+
+const FIRST_LETTER = 'Primeira Letra';
+const SEARCH = 'Buscar';
+const SEARCH_BUTTON = 'search-top-btn';
 
 jest.mock('../services/MealApi');
 fetchMealsList.mockImplementation(() => Promise.resolve(meals.meals));
 fetchMealsCategories.mockImplementation(() => Promise.resolve(mealCategories.meals));
-fetchMealApi.mockImplementation(() => Promise.resolve(mealsByIngredient.meals));
+
 jest.mock('../services/CocktailApi');
-fetchCocktailsList.mockImplementation(() => Promise.resolve(cocktails.drinks));
-//fetchCocktailApi.mockImplementation(() => Promise.resolve(cocktails.drinks));
-fetchCocktailsCategories.mockImplementation(() => Promise.resolve(cocktailsCategories.drinks));
+fetchCocktailsList.mockImplementation(() => Promise.resolve(drinks.drinks));
+fetchCocktailsCategories.mockImplementation(() => Promise
+  .resolve(drinksCategories.drinks));
 
 describe('Testing <SearchBar /> functionality', () => {
   it('should show / hide the search bar', async () => {
     await act(async () => {
       renderWithRouter(<MainFoods />);
-    })
+    });
 
     expect(screen.queryByRole('textbox')).toBe(null);
     expect(screen.queryByLabelText('Ingrediente')).toBe(null);
     expect(screen.queryByLabelText('Nome')).toBe(null);
-    expect(screen.queryByLabelText('Primeira Letra')).toBe(null);
-    expect(screen.queryByRole('button', { name: 'Buscar' })).toBe(null);
+    expect(screen.queryByLabelText(FIRST_LETTER)).toBe(null);
+    expect(screen.queryByRole('button', { name: SEARCH })).toBe(null);
 
-    const showSearchButton = screen.getByTestId('search-top-btn');
+    const showSearchButton = screen.getByTestId(SEARCH_BUTTON);
 
     userEvent.click(showSearchButton);
 
     expect(screen.queryByRole('textbox')).toBeInTheDocument();
     expect(screen.queryByLabelText('Ingrediente')).toBeInTheDocument();
     expect(screen.queryByLabelText('Nome')).toBeInTheDocument();
-    expect(screen.queryByLabelText('Primeira Letra')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Buscar' })).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Buscar' })).toBeDisabled();
+    expect(screen.queryByLabelText(FIRST_LETTER)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: SEARCH })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: SEARCH })).toBeDisabled();
 
     userEvent.click(showSearchButton);
 
     expect(screen.queryByRole('textbox')).toBe(null);
     expect(screen.queryByLabelText('Ingrediente')).toBe(null);
     expect(screen.queryByLabelText('Nome')).toBe(null);
-    expect(screen.queryByLabelText('Primeira Letra')).toBe(null);
-    expect(screen.queryByRole('button', { name: 'Buscar' })).toBe(null);
+    expect(screen.queryByLabelText(FIRST_LETTER)).toBe(null);
+    expect(screen.queryByRole('button', { name: SEARCH })).toBe(null);
   });
-  it('Should fetch by ingredient name', async () => {
+  it('Should fetch by meal ingredient', async () => {
+    fetchMealApi.mockResolvedValue(mealsByIngredient.meals);
     await act(async () => {
-      renderWithRouter(<MainFoods />);
+      renderWithRouter(<MainFoods />, '/comidas');
     });
 
-    const showSearchButton = screen.getByTestId('search-top-btn');
+    const showSearchButton = screen.getByTestId(SEARCH_BUTTON);
 
     userEvent.click(showSearchButton);
 
@@ -71,9 +87,31 @@ describe('Testing <SearchBar /> functionality', () => {
     userEvent.click(filter);
     userEvent.click(searchButton);
 
-    await waitFor(() =>screen.findByText('Brown Stew Chicken'));
+    await waitFor(() => expect(fetchMealApi).toHaveBeenCalled());
 
-    expect(global.fetch).toBeCalledTimes(3);  
-    // // expect(global.fetch).toBeCalledWith('https://www.themealdb.com/api/json/v1/1/filter.php?i=Chicken');
+    expect(screen.queryByText('Brown Stew Chicken')).toBeInTheDocument();
+  });
+  it('Should fetch by drink ingredient', async () => {
+    fetchCocktailApi.mockImplementation(() => Promise.resolve(drinksByIngredient.drinks));
+
+    await act(async () => {
+      renderWithRouter(<MainDrinks />, '/bebidas');
+    });
+
+    const showSearchButton = screen.getByTestId(SEARCH_BUTTON);
+
+    userEvent.click(showSearchButton);
+
+    const searchText = screen.getByTestId('search-input');
+    const filter = screen.getByTestId('ingredient-search-radio');
+    const searchButton = screen.getByTestId('exec-search-btn');
+
+    userEvent.type(searchText, 'Light rum');
+    userEvent.click(filter);
+    userEvent.click(searchButton);
+
+    await waitFor(() => expect(fetchCocktailApi).toHaveBeenCalled());
+
+    expect(screen.queryByText('151 Florida Bushwacker')).toBeInTheDocument();
   });
 });

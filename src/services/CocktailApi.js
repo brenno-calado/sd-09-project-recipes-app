@@ -17,7 +17,7 @@ export async function fetchCocktailApi({ searchText, filter }) {
 }
 
 export async function fetchCocktailsList() {
-  const apiResponse = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=`)
+  const apiResponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
     .then((data) => data.json());
   return apiResponse.drinks;
 }

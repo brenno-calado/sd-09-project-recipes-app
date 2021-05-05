@@ -17,7 +17,7 @@ export async function fetchMealApi({ searchText, filter }) {
 }
 
 export async function fetchMealsList() {
-  const apiResponse = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)
+  const apiResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
     .then((data) => data.json());
   return apiResponse.meals;
 }
