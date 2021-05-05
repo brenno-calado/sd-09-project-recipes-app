@@ -33,8 +33,8 @@ class SearchBar extends Component {
   async fetchByLocation() {
     const location = window.location.pathname;
     return location.includes('comida')
-      ? this.fetchMealsByRadioValue()
-      : this.fetchDrinksByRadioValue();
+      ? (this.fetchMealsByRadioValue())
+      : (this.fetchDrinksByRadioValue());
   }
 
   async fetchDrinksByRadioValue() {
@@ -129,7 +129,9 @@ class SearchBar extends Component {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ this.fetchByLocation }
+          onClick={ () => {
+            this.fetchByLocation();
+          } }
         >
           Buscar
         </button>

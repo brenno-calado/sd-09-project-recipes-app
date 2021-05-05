@@ -4,7 +4,6 @@ import { fetchMealCategories, fetchCocktailsCategories } from '../services/ApiRe
 
 function ShowCategories({ name, searchResult }) {
   const [categories, setCategories] = useState([]);
-
   const getCategories = useCallback(async (apiRequest) => {
     const getmealsCategory = await apiRequest();
     if (name === 'Comidas') setCategories(getmealsCategory.meals);

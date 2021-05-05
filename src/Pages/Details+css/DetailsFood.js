@@ -13,7 +13,7 @@ class DetailsFood extends React.Component {
   constructor() {
     super();
     this.recomendar = this.recomendar.bind(this);
-    this.lista = this.lista.bind(this);
+    this.createList = this.createList.bind(this);
     this.favoriteOk = this.favoriteOk.bind(this);
     this.buttonStartOrContinue = this.buttonStartOrContinue.bind(this);
     this.state = {
@@ -59,7 +59,7 @@ class DetailsFood extends React.Component {
       });
   }
 
-  recomend() {
+  recomendar() {
     const { cooktails } = this.state;
     const num = 5;
     return (
