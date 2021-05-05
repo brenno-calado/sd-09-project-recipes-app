@@ -52,6 +52,12 @@ const Provider = ({ children }) => {
     setCategories(arrayFilter);
   };
 
+  const [statusSearch, setStatusSearch] = useState(false);
+
+  const addStatusSearch = (status) => {
+    setStatusSearch(status);
+  };
+
   const context = {
     displaySearchBar,
     statusSearchBar,
@@ -62,6 +68,8 @@ const Provider = ({ children }) => {
     categories,
     addCategories,
     addByCategory,
+    statusSearch,
+    addStatusSearch,
   };
 
   return (

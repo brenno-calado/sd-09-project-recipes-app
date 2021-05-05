@@ -8,7 +8,8 @@ import CategoriesBar from '../components/CategoriesBar';
 
 const DrinksFoodsRecipes = () => {
   const pathName = useLocation().pathname.split('/');
-  const { recipes, searchBar, addSearchBar, addRecipes } = useContext(RecipesContext);
+  const { recipes, searchBar, addSearchBar, addRecipes,
+    statusSearch } = useContext(RecipesContext);
   const { text, radio, seachClicked } = searchBar;
 
   useEffect(() => {
@@ -16,7 +17,6 @@ const DrinksFoodsRecipes = () => {
       addRecipes(pathName[1], 'name', '');
     }
   }, []);
-
 
   useEffect(() => {
     if (recipes.length === 0 && seachClicked) {
@@ -39,7 +39,9 @@ const DrinksFoodsRecipes = () => {
     <div>
       <Header />
       <CategoriesBar />
-      { recipes.length === 1 && (<Redirect to={ `/${pathName[1]}/${id}` } />) }
+      { console.log(statusSearch)}
+      { recipes.length === 1 && !statusSearch && (
+        <Redirect to={ `/${pathName[1]}/${id}` } />) }
       { recipes.length > 0 && (<ListRecipes />) }
       <MenuInferior />
     </div>

@@ -4,7 +4,8 @@ import RecipesContext from '../context/RecipesContext';
 
 const CategoriesBar = () => {
   const pathName = useLocation().pathname.split('/');
-  const { categories, addCategories, addByCategory } = useContext(RecipesContext);
+  const { categories, addCategories, addByCategory,
+    addStatusSearch } = useContext(RecipesContext);
 
   const loadCategories = () => {
     addCategories(pathName[1]);
@@ -15,6 +16,7 @@ const CategoriesBar = () => {
   }, []);
 
   const handleClick = ({ target }) => {
+    addStatusSearch(true);
     addByCategory(pathName[1], target.value);
   };
 

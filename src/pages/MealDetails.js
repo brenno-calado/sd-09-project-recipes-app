@@ -146,7 +146,7 @@ const MealDetails = ({ match: { params: { id } } }) => {
   );
 
   return (
-    <div data-testid="0-recipe-card">
+    <div>
       { renderRecipePhoto() }
       { renderRecipeTitle() }
       { renderRecipeCategory() }
