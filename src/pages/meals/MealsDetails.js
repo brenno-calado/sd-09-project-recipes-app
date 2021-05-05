@@ -42,8 +42,9 @@ function MealsDetails() {
         type: 'comida',
         area: data.strArea,
         category: data.strCategory,
-        name: data.strDrink,
-        image: data.strDrinkThumb,
+        alcoholicOrNot: '',
+        name: data.strMeal,
+        image: data.strMealThumb,
       };
       updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
     } else {

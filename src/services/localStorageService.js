@@ -11,7 +11,7 @@ export const updateLocalStorage = (action, key, data, value) => {
   switch (action) {
   case 'doneOrFavoriteRecipes':
     localStorage[key] = JSON.stringify([
-      ...JSON.parse(localStorage[key]),
+      ...JSON.parse(localStorage[key] || '[]'),
       data,
     ]);
     break;

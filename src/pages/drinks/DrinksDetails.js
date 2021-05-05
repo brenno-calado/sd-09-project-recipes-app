@@ -44,9 +44,10 @@ function DrinksDetails() {
     if (!favoriteRecipe) {
       const favoriteItem = {
         id,
-        type: 'comida',
-        area: data.strArea,
-        category: data.strCategory,
+        type: 'bebida',
+        area: '',
+        category: 'Cocktail',
+        alcoholicOrNot: data.strAlcoholic,
         name: data.strDrink,
         image: data.strDrinkThumb,
       };
