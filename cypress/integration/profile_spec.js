@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { describe } from 'mocha';
+
 describe('Profile screen', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/perfil', {
@@ -20,7 +22,7 @@ describe('Profile screen', () => {
     });
   });
 
-  describe.only('82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipo', () => {
+  describe.skip('82 - Implemente os elementos da a tela de perfil respeitando os atributos descritos no protótipo', () => {
     it('Todos o data-testid do email e de todos os botões', () => {
       cy.get('[data-testid="profile-email"]');
       cy.get('[data-testid="profile-done-btn"]');
@@ -29,13 +31,13 @@ describe('Profile screen', () => {
     });
   });
 
-  describe('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
+  describe.skip('83 - Implemente a solução de maneira que o e-mail da pessoa usuária deve estar visível', () => {
     it('O e-mail armazenado em localStorage está visível', () => {
       cy.get('[data-testid="profile-email"]').contains('email@mail.com');
     });
   });
 
-  describe('84 - Implemente 3 botões: um de nome "Receitas Feitas", um de nome "Receitas Favoritas" e um de nome "Sair"', () => {
+  describe.skip('84 - Implemente 3 botões: um de nome "Receitas Feitas", um de nome "Receitas Favoritas" e um de nome "Sair"', () => {
     it('A tela contêm todos os 3 botões', () => {
       cy.get('[data-testid="profile-done-btn"]').contains('Receitas Feitas');
       cy.get('[data-testid="profile-favorite-btn"]').contains('Receitas Favoritas');
