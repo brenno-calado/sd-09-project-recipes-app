@@ -14,6 +14,23 @@ const MyContextProvider = ({ children }) => {
   const [categorieSelected, setCategorieSelected] = useState('');
   const [toggle, setToggle] = useState(false);
 
+  function getKeysIngredints() {
+    const keysData = Object.keys(data);
+    const allIngredients = keysData.filter((key) => key.includes('Ingredient'));
+    const ingredintsWithValue = allIngredients.filter((newKey) => data[newKey]);
+    const ingredients = ingredintsWithValue.map((ingredient) => data[ingredient]);
+
+    const allMeasure = keysData.filter((key) => key.includes('Measure'));
+    const measuresWithValue = allMeasure.filter((newKey) => data[newKey]);
+    const measures = measuresWithValue.map((ingredient) => data[ingredient]);
+
+    const myObjResult = {
+      ingredients,
+      measures,
+    };
+    return myObjResult;
+  }
+
   const filterByCategory = ({ value }, typeFood) => {
     if (toggle && categorieSelected === value) {
       fetchToMainScreen(typeFood).then((result) => {
@@ -61,18 +78,19 @@ const MyContextProvider = ({ children }) => {
     data,
     categories,
     showBar,
-    clickShowBar,
     resultAPI,
-    setResultAPI,
     isLoading,
+    recommendations,
+    clickShowBar,
+    setResultAPI,
     setIsLoading,
     setData,
     setCategories,
     setShowBar,
     filterByCategory,
     filterIngredients,
-    recommendations,
     setRecommendations,
+    getKeysIngredints,
   };
   return (
     <MyContext.Provider value={ context }>

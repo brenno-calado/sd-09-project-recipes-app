@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { /* useHistory, */ useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -23,7 +24,7 @@ export default function Detalhes() {
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const [isFavorite, setIsFavorite] = useState(false);
   const [foodOrDrink, setType] = useState('');
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
@@ -157,18 +158,20 @@ export default function Detalhes() {
         Recomendações
         { renderRecommendations() }
       </section>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        style={ {
-          position: 'fixed',
-          bottom: 0,
-          zIndex: 1,
-        } }
-        onClick={ () => history.push(`${pathname}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `${pathname}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          style={ {
+            position: 'fixed',
+            bottom: 0,
+            zIndex: 1,
+          } }
+          // onClick={ () => history.push(`${pathname}/in-progress`) }
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }

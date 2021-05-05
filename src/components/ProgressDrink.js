@@ -4,33 +4,47 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function EmProgresso() {
-  const { data, getKeysIngredints } = useContext(MyContext);
+  const { data } = useContext(MyContext);
 
   /*
-   imagem: strMealThumb,
-   titulo: strMeal,
+   imagem: strDrinkThumb,
+   titulo: strDrink,
    categoria: strCategory
+   Alcoolica: strAlcoholic
   */
-  const { ingredients, measures } = getKeysIngredints();
-  const renderList = () => (
-    ingredients.map((item, index) => (
-      <li key={ item }>
-        <input type="checkbox" className="mr-2" />
-        { `${item}: ${measures[index]}` }
-      </li>
-    ))
-  );
+
+  // const ingredientsList = filterIngredients(data);
+
+  // function renderList(list) {
+  //   return (
+  //     list.map((item, index) => (
+  //       <li
+  //         key={ item }
+  //         data-testid={ `${index}-ingredient-step` }
+  //         id={ index }
+  //       >
+  //         <input
+  //           className="mr-2"
+  //           id={ index }
+  //           type="checkbox"
+  //           // onClick={  }
+  //         />
+  //         { item }
+  //       </li>
+  //     ))
+  //   );
+  // }
 
   return (
     <div className="container">
       <img
-        src={ data.strMealThumb }
-        alt={ data.strMeal }
+        src={ data.strDrinkThumb }
+        alt={ data.strDrink }
         data-testid="recipe-photo"
         className="img-thumbnail img-fluid"
       />
       <div className="d-flex">
-        <h1 data-testid="recipe-title">{ data.strMeal }</h1>
+        <h1 data-testid="recipe-title">{ data.strDrink }</h1>
         <button
           data-testid="share-btn"
           type="button"
@@ -48,7 +62,8 @@ function EmProgresso() {
       </div>
       <h2 data-testid="recipe-category">{ data.strCategory }</h2>
       <ul className="list-unstyled ml-2">
-        { renderList() }
+        {/* {renderList(ingredientsList)} */}
+        deve renderizar a lista
       </ul>
       <p className="text-justify" data-testid="instructions">{ data.strInstructions }</p>
       <button

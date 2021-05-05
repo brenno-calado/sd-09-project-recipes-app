@@ -15,7 +15,8 @@ function App() {
     <MyContextProvider>
       <Router>
         <Switch>
-          <Route path="/in-progress" component={ EmProgresso } />
+          <Route path="/comidas/:id/in-progress" component={ EmProgresso } />
+          <Route path="/bebidas/:id/in-progress" component={ EmProgresso } />
           <Route path="/comidas/:id" component={ Detalhes } />
           <Route path="/bebidas/:id" component={ Detalhes } />
           <Route path="/explorar" component={ Explorar } />
