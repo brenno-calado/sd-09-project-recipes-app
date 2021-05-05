@@ -29,7 +29,6 @@ function useHandleFavoriteDrinks() {
         JSON.stringify(localStorageItem));
     }
   }
-  console.log('clicado no favorito');
   return [handleFavorite];
 }
 
