@@ -56,12 +56,13 @@ export default function FoodProgress(props) {
             </label>
           ))}
       </ul>
+      <p data-testid="instructions">{details && details.strInstructions}</p>
       <S.StartButton
         type="button"
-        data-testid="start-recipe-btn"
+        data-testid="finish-recipe-btn"
         onClick=""
       >
-        Iniciar Receita
+        Finalizar Receita
       </S.StartButton>
     </S.Container>
   );
