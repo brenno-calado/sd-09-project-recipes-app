@@ -24,7 +24,6 @@ class Drinks extends React.Component {
     return (
       <div className="main">
         <Header titleHeader="Bebidas" id="0" />
-        <h1>Drinks</h1>
         <aside className="aside">
           <button
             className="button"

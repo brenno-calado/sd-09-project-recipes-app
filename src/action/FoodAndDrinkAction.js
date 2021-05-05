@@ -45,6 +45,18 @@ export const filterFoodThunkAction = () => async (dispatch) => {
   return dispatch(getFilterFoodAction(result.meals.slice(0, magicNumberFilter)));
 };
 
+export const FILTERORIGIN_ACTION = 'FILTERORIGIN_ACTION';
+
+const getFilterOriginAction = (filterOrigin) => ({
+  type: FILTERORIGIN_ACTION, filterOrigin });
+
+export const filterOriginThunkAction = () => async (dispatch) => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return dispatch(getFilterOriginAction(result.meals));
+};
+
 export const DRINKS_ACTION = 'DRINKS_ACTION';
 
 const getDrinksAction = (drinks, drinkBoolean, drinkName) => ({

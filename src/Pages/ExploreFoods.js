@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import '../styles/ExploreFoods.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -21,27 +22,35 @@ function ExploreFoods() {
   return (
     <div>
       <Header titleHeader="Explorar Comidas" id="1" />
-      <p>Aqui será renderizado o Header</p>
-      <p>Explore Foods</p>
-      <Link to="/explorar/comidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-        >
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to="/explorar/comidas/area">
-        <button type="button" data-testid="explore-by-area">Por Local de Origem</button>
-      </Link>
-      <Link to={ `/comidas/${foodDetails.idMeal}` }>
-        <button
-          type="button"
-          data-testid="explore-surprise"
-        >
-          Me Surpreenda!
-        </button>
-      </Link>
+      <div className="main-explore-foods">
+        <Link to="/explorar/comidas/ingredientes">
+          <button
+            className="btnExploreFoods"
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <button
+            className="btnExploreFoods"
+            type="button"
+            data-testid="explore-by-area"
+          >
+            Por Local de Origem
+          </button>
+        </Link>
+        <Link to={ `/comidas/${foodDetails.idMeal}` }>
+          <button
+            className="btnExploreFoods"
+            type="button"
+            data-testid="explore-surprise"
+          >
+            Me Surpreenda!
+          </button>
+        </Link>
+      </div>
       <FooterSpec />
     </div>
   );

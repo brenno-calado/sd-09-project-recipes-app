@@ -15,8 +15,12 @@ class Profile extends Component {
   }
 
   render() {
-    // const user = JSON.parse(localStorage.getItem('user'));
-    // const { email } = user;
+    const user = JSON.parse(localStorage.getItem('user'));
+    let notEmail = 'email@mail.com';
+    if (user) {
+      const { email } = user;
+      notEmail = email;
+    }
     return (
       <div className="profile-main">
         <Header titleHeader="Perfil" id="1" />
@@ -24,7 +28,7 @@ class Profile extends Component {
           data-testid="profile-email"
           className="profile-email"
         >
-          {/* { email } */}
+          { notEmail }
         </p>
         <Link to="/receitas-feitas">
           <button

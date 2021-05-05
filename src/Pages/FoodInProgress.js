@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/InProgress.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { inProgressRecipesAction } from '../action/ButtonAction';
@@ -83,11 +84,13 @@ class InProgress extends React.Component {
 
     const totalIngredient = ingredientFilter.map((ingredient, index) => (
       <label
+        className="labelProgress"
         key={ ingredient }
         htmlFor={ `ingredient${index}` }
         data-testid={ `${index}-ingredient-step` }
       >
         <input
+          className="check"
           type="checkbox"
           id={ `ingredient${index}` }
           name={ index }

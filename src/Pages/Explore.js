@@ -1,5 +1,5 @@
-import '../styles/BtnExploreFood.css';
 import React from 'react';
+import '../styles/BtnExploreFood.css';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import FooterSpec from '../components/FooterSpec';
@@ -8,7 +8,7 @@ function Explore() {
   return (
     <div>
       <Header titleHeader="Explorar" />
-      <p>Aqui vai ser renderizado o Header</p>
+      <br />
       <Link to="/explorar/comidas">
         <button
           type="button"
