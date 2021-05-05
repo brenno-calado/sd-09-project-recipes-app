@@ -2,7 +2,26 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 155px;
+  height: 25vh;
+  width: 100vw;
+}
+
+.back-button {
+  background-color: rgb(42, 157, 143, 0.75);
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  height: 30px;
+  margin: 5px 0 0 5px;
+  position: fixed;
+}
+
+.back-button img {
+  vertical-align: top;
+}
+
+.back-button:focus {
+  outline: none;
 }
 
 .recipe-details-box {
@@ -14,6 +33,7 @@
 
 .recipe-details-box img {
   margin: 3px 0 0 11px;
+  width: 32px;
 }
 
 .recipe-details h2 {
@@ -31,8 +51,9 @@
 }
 
 .background-gray {
-  background-color: #ececec;
+  background-color: #e9c46a;
   border-radius: 10px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 21px;
   font-weight: 400;
   margin: 10px;
@@ -41,6 +62,10 @@
 
 .background-gray li {
   list-style-type: none;
+}
+
+.recipe-video {
+  text-align: center;
 }
 
 .recipe-video {
