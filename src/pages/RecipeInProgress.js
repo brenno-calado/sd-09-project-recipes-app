@@ -7,54 +7,40 @@ import FavoriteButton from '../components/FavoriteButton';
 import { getFoodById } from '../services/FoodAPI';
 import { getDrinkById } from '../services/DrinksAPI';
 
-const getIngredientsList = (recipe, recipeType) => {
-  const MEAL_ING_LIMIT_INF = 9;
-  const MEAL_ING_LIMIT_SUP = 29;
-  const MEAL_MEA_LIMIT_SUP = 49;
-  const DRINK_ING_LIMIT_INF = 17;
-  const DRINK_ING_LIMIT_SUP = 32;
-  const DRINK_MEA_LIMIT_SUP = 47;
-  let ingedientValues = [];
-  let measuresValues = [];
-  if (recipeType === 'meal') {
-    ingedientValues = (Object.values(recipe)).slice(
-      MEAL_ING_LIMIT_INF, MEAL_ING_LIMIT_SUP,
-    );
-    measuresValues = (Object.values(recipe)).slice(
-      MEAL_ING_LIMIT_SUP, MEAL_MEA_LIMIT_SUP,
-    );
-  } else {
-    ingedientValues = (Object.values(recipe)).slice(
-      DRINK_ING_LIMIT_INF, DRINK_ING_LIMIT_SUP,
-    );
-    measuresValues = (Object.values(recipe)).slice(
-      DRINK_ING_LIMIT_SUP, DRINK_MEA_LIMIT_SUP,
-    );
-  }
+const getIngredientsList = (recipe, handleIngredientsCheckBox) => {
+  const ingredientsValues = [];
+  const measuresValues = [];
+  Object.keys(recipe).forEach((key) => {
+    if (key.startsWith('strIngredient')) {
+      ingredientsValues.push(recipe[key]);
+    }
+    if (key.startsWith('strMeasure')) {
+      measuresValues.push(recipe[key]);
+    }
+  });
   const ingredientsCheckBox = [];
-  ingedientValues.forEach((ingredient, index) => {
+  ingredientsValues.forEach((ingredient, index) => {
     if (ingredient && ingredient.length) {
       ingredientsCheckBox.push(
-        <div className="form-check">
-          <label
-            className="form-check-label"
-            htmlFor="flexCheckDefault"
-          >
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="teste"
-              data-testid={ `${index}-ingredient-step` }
-              id="flexCheckDefault"
-            />
-            { `${ingredient} - ${measuresValues[index] || 'To taste'}` }
-          </label>
-        </div>,
+        <label
+          className="form-check-label"
+          htmlFor={ index }
+          data-testid={ `${index}-ingredient-step` }
+        >
+          <input
+            className="form-check-input"
+            onClick={ (event) => handleIngredientsCheckBox(event) }
+            type="checkbox"
+            id={ index }
+          />
+          { `${ingredient} - ${measuresValues[index] || 'To taste'}` }
+        </label>,
       );
     }
   });
   return ingredientsCheckBox.map(
-    (checkBox, index) => (<div key={ `id${index}` }>{ checkBox }</div>));
+    (checkBox, index) => (<div key={ `id${index}` }>{ checkBox }</div>),
+  );
 };
 
 const RecipeInProgress = ({ match }) => {
@@ -79,6 +65,13 @@ const RecipeInProgress = ({ match }) => {
     };
     if (isLoading) getRecipeByType();
   }, [recipe, params, isLoading, id, recipeType]);
+
+  const handleIngredientsCheckBox = ({ target }) => {
+    const stripedClass = 'line-through';
+    const currentClass = target.parentElement.style.textDecoration;
+    target.parentElement.style.textDecoration = stripedClass === currentClass
+      ? 'none' : stripedClass;
+  };
 
   return (
     <div>
@@ -112,7 +105,9 @@ const RecipeInProgress = ({ match }) => {
             <br />
             <div className="container-fluid">
               <h4>Ingredients</h4>
-              { getIngredientsList(recipe, recipeType) }
+              <div className="form-check">
+                { getIngredientsList(recipe, handleIngredientsCheckBox) }
+              </div>
             </div>
             <div
               className="container-fluid"
