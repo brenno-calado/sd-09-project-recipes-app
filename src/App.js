@@ -20,6 +20,7 @@ import ProcessoBebida from './pages/ProcessoBebida';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Login from './pages/Login';
+import DetalhesComida from './pages/DetalhesComida';
 
 function App() {
   return (
@@ -30,12 +31,9 @@ function App() {
           <Route exact path="/comidas" component={ PrincipalComidas } />
           <Route exact path="/bebidas" component={ PrincipalBebidas } />
 
-          <Route
-            path="/comidas/:id"
-            render={ (props) => <ExplorarComidas { ...props } /> }
-          />
+          <Route path="/comidas/:id" component={ DetalhesComida } />
 
-          <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } />
+          <Route path="/bebidas/:id" component={ DetalhesBebida } />
 
           <Route
             path="/comidas/id-da-receita/in-progress"

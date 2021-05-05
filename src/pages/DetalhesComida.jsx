@@ -1,38 +1,16 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+import MealContext from '../context/MealContext';
 import shareImg from '../images/shareIcon.svg';
 import noFav from '../images/blackHeartIcon.svg';
-// import { includes } from 'lodash-es';
-// import yesFav from '../images/whiteHeartIcon.svg';
 
-class DetalhesComida extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      recipeId: 53053,
-      recipe: {},
-    };
+function DetalhesComida() {
+  const { recipeDt, setRecipeDt } = useContext(MealContext);
+  const idReceita = useRouteMatch('/comidas/:id');
+  const { id } = idReceita.params;
+  console.log('id da receita:', id);
 
-    this.ingredientHELL = this.ingredientHELL.bind(this);
-  }
-
-  componentDidMount() {
-    this.fetchRecipe();
-  }
-
-  async fetchRecipe() {
-    const { recipeId } = this.state;
-    try {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`);
-      const responseJson = await response.json();
-      const recipe = await responseJson.meals[0];
-      console.log(recipe);
-      this.setState({ recipe });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  ingredientHELL(recipe) {
+  function ingredientHELL(recipe) {
     const keys = Object.entries(recipe);
     const result = [];
     console.log(keys);
@@ -64,41 +42,57 @@ class DetalhesComida extends React.Component {
     );
   }
 
-  render() {
-    const { recipe } = this.state;
-    console.log(recipe);
-    return (
-      <div>
-        <img
-          data-testid="recipe-photo"
-          src={ recipe.strMealThumb }
-          alt="imagem da comida"
-        />
-        <h1 data-testid="recipe-title">{ recipe.strMeal }</h1>
-        <button data-testid="share-btn" type="button">
-          <img src={ shareImg } alt="Share" />
-        </button>
-        <button data-testid="favorite-btn" type="button">
-          <img src={ noFav } alt="Favorite" />
-        </button>
-        <h3 data-testid="recipe-category">{ recipe.strCategory }</h3>
-        <h2>Ingredientes:</h2>
-        <ul>
-          { this.ingredientHELL(recipe) }
-        </ul>
-        <p data-testid="instructions">
-          { recipe.strInstructions }
-        </p>
+  useEffect(() => {
+    async function fetchRecipe() {
+      try {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+        const responseJson = await response.json();
+        const recipe = await responseJson.meals[0];
+        console.log(recipe);
+        setRecipeDt(recipe);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchRecipe();
+  }, [setRecipeDt, id]);
 
-        <video data-testid="video" width="320" height="240" controls muted>
-          <source src={ recipe.strYoutube } type="video/mp4" />
-        </video>
+  console.log('The recipe:', recipeDt);
+  return (
+    <div>
+      <img
+        data-testid="recipe-photo"
+        src={ recipeDt.strMealThumb }
+        alt="imagem da comida"
+      />
+      <h1 data-testid="recipe-title">{ recipeDt.strMeal }</h1>
+      <button data-testid="share-btn" type="button">
+        <img src={ shareImg } alt="Share" />
+      </button>
+      <button data-testid="favorite-btn" type="button">
+        <img src={ noFav } alt="Favorite" />
+      </button>
+      <h3 data-testid="recipe-category">{ recipeDt.strCategory }</h3>
+      <h2>Ingredientes:</h2>
+      <ul>
+        { ingredientHELL(recipeDt) }
+      </ul>
+      <p data-testid="instructions">
+        { recipeDt.strInstructions }
+      </p>
 
-        {/* Receitas Recomendadas devera ser um componente separado. */}
-        <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
-      </div>
-    );
-  }
+      <iframe
+        data-testid="video"
+        width="425"
+        height="240"
+        src={ recipeDt.strYoutube }
+        title="Video"
+      />
+
+      {/* Receitas Recomendadas devera ser um componente separado. */}
+      <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+    </div>
+  );
 }
 
 export default DetalhesComida;
