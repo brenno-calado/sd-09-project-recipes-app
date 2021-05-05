@@ -46,7 +46,7 @@ const Recipes = (props) => {
 
   return (
     <>
-      <Header title="Comidas" value="comidas" history={ history } />
+      <Header title="Comidas" value="comidas" history={ history } isSearchEnable />
       {
         mealCategoryList && mealCategoryList.meals
           .slice(0, cinco)
