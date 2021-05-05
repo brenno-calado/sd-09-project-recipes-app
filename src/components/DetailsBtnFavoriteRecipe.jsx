@@ -50,7 +50,6 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
     setShouldVerifyToFillHeart(true);
   }
 
-  console.log('LOOPEI', hearthFill);
   return (
     <Button
       data-testid="favorite-btn"

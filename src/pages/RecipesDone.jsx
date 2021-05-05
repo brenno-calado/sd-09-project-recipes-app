@@ -3,29 +3,6 @@ import './RecipesDone.css';
 import { Button } from 'react-bootstrap';
 import RecipesDoneCards from '../components/RecipesDoneCards';
 
-const doneRecipe = {
-  id: '52765',
-  type: 'comida',
-  area: 'Mexican',
-  category: 'Chicken',
-  alcoholicOrNot: '',
-  name: 'Chicken Enchilada Casserole',
-  image: 'https://www.themealdb.com/images/media/meals/qtuwxu1468233098.jpg',
-  doneDate: '',
-  tags: 'Casserole,Cheasy,Meat',
-};
-
-function handleToStorage(objectToSave) {
-  const foundInStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-  let favoriteListStorage = [];
-  if (foundInStorage) {
-    favoriteListStorage = [...foundInStorage, objectToSave];
-  } else {
-    favoriteListStorage.push(objectToSave);
-  }
-  localStorage.setItem('doneRecipes', JSON.stringify(favoriteListStorage));
-}
-
 function RecipesDone() {
   const recipesDoneList = JSON.parse(localStorage.getItem('doneRecipes'));
   const [mainRecipesDoneList] = useState(recipesDoneList);
@@ -46,10 +23,6 @@ function RecipesDone() {
   return (
     <section>
       <h1>Recipes Done</h1>
-      <hr />
-      <button type="button" onClick={ () => handleToStorage(doneRecipe) }>
-        ADD STORAGE
-      </button>
       <hr />
       <div className="buttons-section">
         <Button
