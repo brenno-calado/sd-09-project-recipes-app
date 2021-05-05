@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Palanquin:wght@100;400;700&display=swap') ;
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css') ;
+
+:root {
+
+  --colorText1: #2e2f37;
+
+  --colorText2: #535867;
+
+  --colorText3: #82889e;
+
+  --colorText4: #bfc6dc;
+
+  --colorText5: white;
+
+  --colorPrimary1: #111342;
+
+  --colorPrimary2: #282a62;
+
+  --colorPrimary3: #393a73;
+
+  --colorPrimary4: #9495d3;
+
+  --colorPrimary5: #dedff7;
+
+  --colorInfo1: #0a3175;
+
+  --colorInfo2: #0f46a5;
+
+  --colorInfo3: #307dfb;
+
+  --colorInfo4: #a7c8fd;
+
+  --colorInfo5: #e1ecfe;
+
+  --colorSuccess1: #193c34;
+
+  --colorSuccess2: #146354;
+
+  --colorSuccess3: #24997f;
+
+  --colorSuccess4: #59dbb7;
+
+  --colorSuccess5: #e1f9f2;
+
+  --colorWarning1: #b53833;
+
+  --colorWarning2: #d95948;
+
+  --colorWarning3: #fd8061;
+
+  --colorWarning4: #fec0a0;
+
+  --colorWarning5: #ffeedf;
+
+  --colorDanger1: #5a053d;
+
+  --colorDanger2: #870e46;
+
+  --colorDanger3: #bcc147;
+
+  --colorDanger4: #ea727b;
+
+  --colorDanger5: #fbd5d0;
+
+  --fontPalanquin: 'Palanquin' , sans-serif;
+
+  --boxShadow1: 0 0 0 rgba(110, 116, 134, 0.32);
+
+  --boxShadow2: 0 1px 4px rgba(110, 116, 134, 0.12);
+
+  --boxShadow3: 0 3px 6px rgba(110, 116, 134, 0.24);
+
+  --boxShadow4: 0 8px 10px rgba(110, 116, 134, 0.24);
+
+  --boxShadow5: 0 16px 24px rgba(110, 116, 134, 0.24);
+
+  --boxShadow6: 0 24px 24px rgba(110, 116, 134, 0.32);
+
+}

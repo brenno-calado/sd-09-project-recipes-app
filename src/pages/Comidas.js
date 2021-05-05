@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { AppContext } from '../context/AppContext';
 import { getFoodsFromCategory } from '../services';
+import '../CSS/ComidasBebidas.css';
 
 const MAX_AMOUNT = 12;
 const CATEGORIES_NUMBER = 5;
@@ -30,37 +31,43 @@ function Comidas() {
   return (
     <>
       <Header title="Comidas" searchIcon />
-      <button
-        data-testid="All-category-filter"
-        type="button"
-        onClick={ () => { setFoodApiResults([]); setClicked([]); } }
-      >
-        All
-      </button>
-      { foodCategories
-        && foodCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
-          <button
-            data-testid={ `${strCategory}-category-filter` }
-            key={ strCategory }
-            type="button"
-            onClick={ () => handleClick(strCategory) }
-          >
-            {strCategory}
-          </button>
+      <div className="buttons">
+        <button
+          className="category-filter-tags"
+          data-testid="All-category-filter"
+          type="button"
+          onClick={ () => { setFoodApiResults([]); setClicked([]); } }
+        >
+          All
+        </button>
+        { foodCategories
+          && foodCategories.slice(0, CATEGORIES_NUMBER).map(({ strCategory }) => (
+            <button
+              className="category-filter-tags"
+              data-testid={ `${strCategory}-category-filter` }
+              key={ strCategory }
+              type="button"
+              onClick={ () => handleClick(strCategory) }
+            >
+              {strCategory}
+            </button>
+          )) }
+      </div>
+      <div className="listCard">
+        { foods && foods.slice(0, MAX_AMOUNT).map((food, index) => (
+          <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
+            <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={ food.strMealThumb }
+                alt={ food.strMeal }
+                width="100px"
+              />
+              <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
+            </div>
+          </Link>
         )) }
-      { foods && foods.slice(0, MAX_AMOUNT).map((food, index) => (
-        <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
-          <div data-testid={ `${index}-recipe-card` }>
-            <img
-              data-testid={ `${index}-card-img` }
-              src={ food.strMealThumb }
-              alt={ food.strMeal }
-              width="100px"
-            />
-            <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
-          </div>
-        </Link>
-      )) }
+      </div>
       <Footer />
     </>
   );

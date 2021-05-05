@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import profile from '../images/profileIcon.svg';
 import search from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../CSS/Header.css';
 
 const Header = ({ title, searchIcon }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
@@ -13,9 +14,10 @@ const Header = ({ title, searchIcon }) => {
   };
 
   return (
-    <>
+    <header className="header">
       <Link to="/perfil">
         <img
+          className="profile-img"
           data-testid="profile-top-btn"
           src={ profile }
           alt="Profile"
@@ -25,6 +27,7 @@ const Header = ({ title, searchIcon }) => {
       {searchIcon && (
         <button type="button" onClick={ toogleSearchBar }>
           <img
+            className="search-img"
             data-testid="search-top-btn"
             src={ search }
             alt="Search Icon"
@@ -33,7 +36,7 @@ const Header = ({ title, searchIcon }) => {
       )}
 
       { showSearchBar && <SearchBar title={ title } /> }
-    </>
+    </header>
   );
 };
 
