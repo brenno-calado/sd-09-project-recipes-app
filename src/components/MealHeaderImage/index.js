@@ -4,15 +4,14 @@ import PropTypes from 'prop-types';
 import arrowBackIcon from '../../images/newIcons/arrowBack.svg';
 
 class index extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.historyBack = this.historyBack.bind(this);
-  // }
+  constructor(props) {
+    super(props);
+    this.historyBack = this.historyBack.bind(this);
+  }
 
-  /* historyBack() {
-    const { history } = this.props;
-    history.back();
-  } */
+  historyBack() {
+    window.history.back();
+  }
 
   render() {
     const { image } = this.props;
@@ -34,7 +33,7 @@ class index extends Component {
         <button
           type="button"
           className="back-button"
-          // onClick={ this.historyBack }
+          onClick={ this.historyBack }
         >
           <img src={ arrowBackIcon } alt="Botão voltar" />
         </button>
