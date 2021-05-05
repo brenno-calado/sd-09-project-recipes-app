@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import share from '../../images/shareIcon.svg';
 // import whiteHeart from '../../images/whiteHeartIcon.svg';
 import blackHeart from '../../images/blackHeartIcon.svg';
+import './style.css';
 
 const copy = require('clipboard-copy');
 
@@ -21,10 +22,19 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
 
   const doneCard = () => (
     <>
-      <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+      <span
+        className="bold"
+        data-testid={ `${index}-horizontal-done-date` }
+      >
+        {`Made in ${recipe.doneDate}`}
+      </span>
       { !recipe.tags ? null
         : recipe.tags.map((tagName) => (
-          <span key={ tagName } data-testid={ `${index}-${tagName}-horizontal-tag` }>
+          <span
+            className="tag"
+            key={ tagName }
+            data-testid={ `${index}-${tagName}-horizontal-tag` }
+          >
             {tagName}
           </span>))}
     </>
@@ -42,21 +52,26 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
   );
 
   return (
-    <article className="horizontal-card">
+    <article className="horizontal-card silver-shadow">
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
         <img
           src={ recipe.image }
           alt={ recipe.name }
-          width="40%"
+          width="120px"
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <section>
-        <p data-testid={ `${index}-horizontal-top-text` }>
+      <section className="card-text">
+        <span data-testid={ `${index}-horizontal-top-text` }>
           {`${recipe.area} - ${recipe.category} ${recipe.alcoholicOrNot}`}
-        </p>
+        </span>
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
-          <h4 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h4>
+          <span
+            className="bold"
+            data-testid={ `${index}-horizontal-name` }
+          >
+            {recipe.name}
+          </span>
         </Link>
         <button
           src={ share }
@@ -66,7 +81,7 @@ const HorizontalCard = ({ index, recipe, removeFav }) => {
         >
           <img src={ share } alt={ share } width="20px" />
         </button>
-        { !copied ? null : <span>Link copiado!</span>}
+        { !copied ? null : <span className="copied">Link copiado!</span>}
         { Object.keys(recipe).length === favObjectLength ? favCard() : doneCard()}
       </section>
     </article>

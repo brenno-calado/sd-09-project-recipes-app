@@ -39,9 +39,11 @@ function DoneRecipes() {
       >
         Drinks
       </button>
-      { !shownRecipes ? <h4>no done recipe stored</h4>
-        : shownRecipes.map((recipe, index) => (
-          <HorizontalCard key={ index } index={ index } recipe={ recipe } />)) }
+      <div className="card-container">
+        { !shownRecipes ? <h4>no done recipe stored</h4>
+          : shownRecipes.map((doneRecipe, index) => (
+            <HorizontalCard key={ index } index={ index } recipe={ recipe } />)) }
+      </div>
     </div>
 
   );
