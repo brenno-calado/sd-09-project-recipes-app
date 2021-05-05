@@ -19,7 +19,6 @@ import FoodsByIngredients from './pages/FoodsByIngredients';
 import DrinksByIngredients from './pages/DrinksByIngredients';
 import FoodsByArea from './pages/FoodsByArea';
 
-
 function App() {
   return (
     <div className="meals">
