@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../css/Profile.css';
 
 const Profile = () => {
   const getUserEmail = () => {
@@ -16,10 +17,10 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div className="profile-container">
       <Header title="Perfil" />
-      <h4 data-testid="profile-email">{ userEmail }</h4>
-      <div>
+      <div className="profile-information">
+        <h2 data-testid="profile-email">{ userEmail }</h2>
         <Link to="/receitas-feitas">
           <button
             data-testid="profile-done-btn"
@@ -28,8 +29,6 @@ const Profile = () => {
             Receitas Feitas
           </button>
         </Link>
-      </div>
-      <div>
         <Link to="/receitas-favoritas">
           <button
             data-testid="profile-favorite-btn"
@@ -38,16 +37,16 @@ const Profile = () => {
             Receitas Favoritas
           </button>
         </Link>
+        <Link to="/">
+          <button
+            data-testid="profile-logout-btn"
+            type="button"
+            onClick={ clearStorage }
+          >
+            Sair
+          </button>
+        </Link>
       </div>
-      <Link to="/">
-        <button
-          data-testid="profile-logout-btn"
-          type="button"
-          onClick={ clearStorage }
-        >
-          Sair
-        </button>
-      </Link>
       <Footer />
     </div>
   );
