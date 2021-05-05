@@ -10,6 +10,8 @@ import {
   SUCCESS_RECIPE,
   SAVE_INGREDIENTS,
   SUCCESS_RECOMMENDED,
+  SEND_DONE_RECIPES,
+  SEND_FAVORITE_RECIPES,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -205,3 +207,18 @@ export function mealsRecommendedThunk() {
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
+
+export const saveIngredients = (ingredients) => ({
+  type: SAVE_INGREDIENTS,
+  ingredients,
+});
+
+export const sendDoneRecipes = (recipes) => ({
+  type: SEND_DONE_RECIPES,
+  recipes,
+});
+
+export const sendFavoriteRecipes = (recipes) => ({
+  type: SEND_FAVORITE_RECIPES,
+  recipes,
+});

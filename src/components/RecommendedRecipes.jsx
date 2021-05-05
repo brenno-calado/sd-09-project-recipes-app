@@ -26,10 +26,6 @@ function RecommendedRecipes({
     verifyRecipeType();
   }, [verifyRecipeType]);
 
-  useEffect(() => {
-    verifyFetch();
-  }, [recommended, verifyFetch]);
-
   return (
     <section className="recommendation-container">
       <HorizontalScrollMenu recommended={ recommended } />
