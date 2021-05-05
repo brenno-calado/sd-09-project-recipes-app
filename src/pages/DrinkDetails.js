@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import RecomendedMeals from '../components/RecomendedMeals';
+import '../App.css';
 
 const DrinkDetails = ({ match: { params: { id } } }) => {
   const [recipe, setRecipe] = useState({});
@@ -19,6 +21,7 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
 
   const renderRecipePhoto = () => (
     <img
+      style={ { width: 30, height: 30 } }
       src={ recipe.strDrinkThumb }
       data-testid="recipe-photo"
       alt="Foto do prato"
@@ -120,14 +123,9 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
     </div>
   );
 
-  const renderRecomendedRecipes = () => (
-    <div
-      data-testid="0-recomendation-card"
-    />
-  );
-
   const renderStartRecipeButton = () => (
     <button
+      className="footer"
       type="button"
       data-testid="start-recipe-btn"
     >
@@ -144,7 +142,7 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
       { renderFavoriteButton() }
       { renderRecipeIngredients() }
       { renderRecipeInstructions() }
-      { renderRecomendedRecipes() }
+      <RecomendedMeals />
       { renderStartRecipeButton() }
     </div>
   );
