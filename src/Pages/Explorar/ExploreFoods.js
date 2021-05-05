@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
+import MenuInferior from '../../components/MenuInferior';
 
 function ExploreFoods() {
   return (
@@ -26,6 +27,7 @@ function ExploreFoods() {
           Me Surpreenda!
         </Link>
       </div>
+      <MenuInferior />
     </>
   );
 }
