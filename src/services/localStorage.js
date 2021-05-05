@@ -1,32 +1,31 @@
-export const deleteLocalStorageItem = (key, recipe) => {
-  const storage = JSON.parse(localStorage.getItem(key));
+export const deleteLocalStorageItem = (recipe) => {
+  const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const deletedStorage = storage.filter(
     (recipeItem) => recipeItem.id !== recipe.id,
   );
-  localStorage.setItem(key, deletedStorage);
+  localStorage.setItem('favoriteRecipes', deletedStorage);
   return deletedStorage;
 };
 
-export const setInitialLocalStorage = (key) => {
-  const storage = localStorage.getItem(key);
+export const setInitialLocalStorage = () => {
+  const storage = localStorage.getItem('favoriteRecipes');
   if (storage) {
     return JSON.parse(storage);
   }
-  localStorage.setItem(key, JSON.stringify([]));
+  localStorage.setItem('favoriteRecipes', JSON.stringify([]));
   return [];
 };
 
-export const updateLocalStorageItem = (key, recipe) => {
+export const updateLocalStorageItem = (recipe) => {
   let output = [];
-  if (localStorage.getItem(key)) setInitialLocalStorage(key);
-  const storage = JSON.parse(localStorage.getItem(key));
-  console.log(storage);
+  if (localStorage.getItem('favoriteRecipes')) setInitialLocalStorage();
+  const storage = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (
     storage.find(
       (recipeStored) => recipeStored.id === recipe.id,
     )
-  ) output = deleteLocalStorageItem(key, recipe);
+  ) output = deleteLocalStorageItem(recipe);
   else output = [...storage, recipe];
-  localStorage.setItem(key, JSON.stringify(output));
+  localStorage.setItem('favoriteRecipes', JSON.stringify(output));
   return output;
 };
