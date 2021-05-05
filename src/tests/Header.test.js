@@ -6,7 +6,7 @@ import Header from '../components/Header';
 describe('Testando componente Header', () => {
   it(`9 - Implemente os elementos do header na tela principal de receitas,
   respeitando os atributos descritos no protótipo`, () => {
-    const { getByTestId } = RenderWithRouter(<Header />);
+    const { getByTestId } = RenderWithRouter(<Header pageName="Comidas" searchBtn />);
     expect(getByTestId('profile-top-btn')).toBeInTheDocument();
     expect(getByTestId('search-top-btn')).toBeInTheDocument();
     expect(getByTestId('page-title')).toBeInTheDocument();
@@ -14,7 +14,8 @@ describe('Testando componente Header', () => {
 
   it(`10 - Implemente um ícone para a tela de perfil,
   um título e um ícone para a busca, caso exista no protótipo`, () => {
-    const { getByAltText, getByText } = RenderWithRouter(<Header pageName="Comidas" />);
+    const { getByAltText,
+      getByText } = RenderWithRouter(<Header pageName="Comidas" searchBtn />);
     expect(getByAltText('profile-icon')).toBeInTheDocument();
     expect(getByAltText('search-icon')).toBeInTheDocument();
     expect(getByText('Comidas')).toBeInTheDocument();
@@ -32,7 +33,7 @@ describe('Testando componente Header', () => {
   //   const { getByRole,
   //     getByTestId,
   //     getByAltText,
-  //   } = RenderWithRouter(<Header pageName="Perfil" />);
+  //   } = RenderWithRouter(<Header pageName="Perfil" searchBtn />);
 
   //   userEvent.click(getByAltText('search-icon'));
   //   expect(getByTestId('search-input')).toBeInTheDocument();

@@ -76,7 +76,7 @@ function SearchBar() {
   }
 
   return (
-    <div data-testid="search-top-btn">
+    <div data-testid="search-top-btn" className="search-bar-container">
       <div className="search-bar">
         <input
           type="text"
