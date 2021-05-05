@@ -17,8 +17,7 @@ function PrincipalFoods() {
       setSelectedCategory(categoryValue);
       if (selectedCategory === categoryValue) setToggle(false);
       else {
-        fetchFoods('category', category)
-          .then((response) => setFilteredMeals(response));
+        fetchFoods('category', category).then((response) => setFilteredMeals(response));
         setToggle(true);
       }
     } else setToggle(false);
@@ -33,35 +32,41 @@ function PrincipalFoods() {
   }, []);
 
   const cardLimit = 12;
-  const foodsMap = toggle ? Object.values(filteredMeals)[0] : Object.values(foods)[0];
+  const foodsMap = toggle
+    ? Object.values(filteredMeals)[0]
+    : Object.values(foods)[0];
   return (
     <>
       <Header title="Comidas" />
-      <RecipeCategory type="meals" toggleFunc={ toggleFunc } setToggle={ setToggle } />
-      {foodsMap && foodsMap.map((recipe, index) => {
-        if (index < cardLimit) {
-          return (
-            <div
-              key={ recipe.idMeal }
-              data-testid={ `${index}-recipe-card` }
-              onClick={ () => redirectToDetails(recipe.idMeal) }
-              onKeyPress={ () => redirectToDetails(recipe.idMeal) }
-              role="button"
-              tabIndex="0"
-              style={ { cursor: 'pointer' } }
-            >
-              <img
-                src={ recipe.strMealThumb }
-                alt="recipe"
-                data-testid={ `${index}-card-img` }
-              />
-              <h3 data-testid={ `${index}-card-name` }>{ recipe.strMeal }</h3>
-            </div>
-
-          );
-        }
-        return 'food';
-      })}
+      <RecipeCategory
+        type="meals"
+        toggleFunc={ toggleFunc }
+        setToggle={ setToggle }
+      />
+      {foodsMap
+        && foodsMap.map((recipe, index) => {
+          if (index < cardLimit) {
+            return (
+              <div
+                key={ recipe.idMeal }
+                data-testid={ `${index}-recipe-card` }
+                onClick={ () => redirectToDetails(recipe.idMeal) }
+                onKeyPress={ () => redirectToDetails(recipe.idMeal) }
+                role="button"
+                tabIndex="0"
+                style={ { cursor: 'pointer' } }
+              >
+                <img
+                  src={ recipe.strMealThumb }
+                  alt="recipe"
+                  data-testid={ `${index}-card-img` }
+                />
+                <h3 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h3>
+              </div>
+            );
+          }
+          return 'food';
+        })}
       <Footer />
     </>
   );

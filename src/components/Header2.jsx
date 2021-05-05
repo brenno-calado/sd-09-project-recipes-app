@@ -21,7 +21,11 @@ function Header2({ title }) {
 }
 
 Header2.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
+};
+
+Header2.defaultProps = {
+  title: null,
 };
 
 export default Header2;

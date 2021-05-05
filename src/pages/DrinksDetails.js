@@ -10,22 +10,25 @@ function DrinksDetails() {
 
   const [data, setData] = useState([]);
   const [recomendation, setRecomendation] = useState();
-
-  async function getData() {
-    const { drinks } = await fetchDrinksDetails(idDrink);
-    const recomendations = await fetchFoodsRecomendation();
-    setRecomendation(recomendations);
-    setData(drinks);
-  }
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getData();
-  }, []);
+    async function getData() {
+      const { drinks } = await fetchDrinksDetails(idDrink);
+      console.log(drinks);
+      const recomendations = await fetchFoodsRecomendation();
+      setRecomendation(recomendations);
+      setData(drinks);
+      setLoading(false);
+    }
+    if (!data || !data.length) getData();
+  }, [idDrink, data.length, data]);
 
+  console.log('antes da 24', data);
   return (
-    data.length > 0
-      ? <AlimentDetails data={ data } recomendation={ recomendation } />
-      : <div>Loading...</div>);
+    loading
+      ? <div>Loading...</div>
+      : <AlimentDetails data={ data } recomendation={ recomendation } />);
 }
 
 export default DrinksDetails;
