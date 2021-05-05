@@ -10,11 +10,10 @@
 
 .logo {
   animation: shake 1.5s infinite ease;
-  color: aliceblue;
+  color: rgb(82,183,136);
   font-family: Montserrat , sans-serif;
   font-size: 3em;
   font-weight: 900;
-  color: rgb(82,183,136);
 }
 
 .rocksGlass {

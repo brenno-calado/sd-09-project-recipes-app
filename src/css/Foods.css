@@ -8,19 +8,19 @@
 }
 
 .filter-button-container {
-  width: 100%;
   margin: 58px 0px 0px 0px;
+  width: 100%;
 }
 
 .filter-button-container > button {
+  margin: 5px; 
   width: 100px;
-  margin: 5px;
 }
 
 .recipe-container {
-  justify-content: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 40px;
   max-height: 100vh;
   overflow-y: scroll;
@@ -32,17 +32,17 @@
   border-radius: 6px;
   box-shadow: -3px 5px 5px rgba(0,0,0,0.45);
   display: flex;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
+  height: 225px;
   margin: 8px ;
   width: 150px;
-  height: 225px;
 }
 
 .recipe-card > img {
+  margin: auto;
   max-width: 150px;
   max-height: 150px;
-  margin: auto;
 }
 
 .recipe-card > p {
