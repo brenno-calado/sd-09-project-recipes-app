@@ -1,21 +1,14 @@
-.explore-body {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: center;
-}
-
-.explore-button-container {
+.explore-drink-buttons-container {
   align-items: center;
   display: flex;
   flex-direction: column;
 }
 
-.explore-button-container > a > button {
+.explore-drink-buttons-container > a > button {
   background-color: rgb(0, 155, 82);
   border-radius: 4px;
   color: white;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   height: 45px;
   margin: 25px;

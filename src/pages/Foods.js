@@ -40,7 +40,7 @@ export default function Foods() {
   return (
     <div className="foods-body">
       <Header title="Comidas" />
-      <div className="filter-button-container">
+      <div className="foods-filter-container">
         <button
           type="button"
           onClick={ handleClick }
@@ -59,12 +59,12 @@ export default function Foods() {
           </button>
         ))}
       </div>
-      <div className="recipe-container">
+      <div className="foods-recipe-container">
         {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
           <Link
             key={ idMeal }
             to={ `/comidas/${idMeal}` }
-            className="recipe-card"
+            className="foods-recipe-card"
             data-testid={ `${index}-recipe-card` }
           >
             <img

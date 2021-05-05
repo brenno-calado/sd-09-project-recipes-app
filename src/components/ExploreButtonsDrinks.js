@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../css/ExploreButtonsDrinks.css';
 
 const ExploreButtonsDrinks = () => {
   const [myDrink, setMyDrink] = useState([]);
@@ -16,7 +17,7 @@ const ExploreButtonsDrinks = () => {
   }, []);
 
   return (
-    <div>
+    <div className="explore-drink-buttons-container">
       <Link to="/explorar/bebidas/ingredientes">
         <button
           type="button"

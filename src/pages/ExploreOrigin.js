@@ -4,20 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import myContext from '../context/myContext';
 import { fetchFoodsAPI } from '../services/fetchFoodsAPI';
-
-const imgStyle = {
-  maxWidth: '150x',
-  maxHeight: '150px',
-  margin: 'auto',
-};
-
-// a tela é 360 x 640
-const containerStyle = {
-  overflowY: 'scroll',
-  width: '300px',
-  maxHeight: '300px',
-  marginTop: '100px',
-};
+import '../css/ExploreOrigin.css';
 
 const ExploreOrigin = () => {
   const { foodAreas, recipesFoods, setRecipesFoods } = useContext(myContext);
@@ -41,11 +28,12 @@ const ExploreOrigin = () => {
   };
 
   return (
-    <div>
+    <div className="explore-origin-body">
       <Header title="Explorar Origem" />
       <select
         data-testid="explore-by-area-dropdown"
         onChange={ handleOriginChange }
+        className="explore-origin-select"
       >
         <option key="All" data-testid="All-option">All</option>
         { foodAreas.map((area) => (
@@ -59,18 +47,20 @@ const ExploreOrigin = () => {
         )) }
       </select>
 
-      <div style={ containerStyle }>
+      <div className="explore-origin-container">
         {recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
-          <Link key={ idMeal } to={ `/comidas/${idMeal}` }>
-            <div data-testid={ `${index}-recipe-card` }>
-              <img
-                src={ strMealThumb }
-                style={ imgStyle }
-                alt={ strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-              <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
-            </div>
+          <Link
+            key={ idMeal }
+            to={ `/comidas/${idMeal}` }
+            data-testid={ `${index}-recipe-card` }
+            className="explore-origin-card"
+          >
+            <img
+              src={ strMealThumb }
+              alt={ strMeal }
+              data-testid={ `${index}-card-img` }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
           </Link>
         ))}
       </div>

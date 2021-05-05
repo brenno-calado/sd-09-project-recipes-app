@@ -7,17 +7,17 @@
   text-align: center;
 }
 
-.filter-button-container {
+.foods-filter-container {
   margin: 58px 0 0;
   width: 100%;
 }
 
-.filter-button-container > button {
+.foods-filter-container > button {
   margin: 5px;
   width: 100px;
 }
 
-.recipe-container {
+.foods-recipe-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -27,7 +27,7 @@
   width: 100%;
 }
 
-.recipe-card {
+.foods-recipe-card {
   background-color: rgb(255, 252, 235);
   border-radius: 6px;
   box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.45);
@@ -39,12 +39,13 @@
   width: 150px;
 }
 
-.recipe-card > img {
+.foods-recipe-card > img {
   margin: auto;
   max-height: 150px;
   max-width: 150px;
 }
 
-.recipe-card > p {
+.foods-recipe-card > p {
   color: black;
+  font-weight : 600;
 }
