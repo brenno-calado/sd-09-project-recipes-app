@@ -25,7 +25,6 @@ export default function DrinkProgress(props) {
   useEffect(() => {
     fetchApi(typePath, 'details', id).then((res) => setDetails(res[selectorPath][0]));
   }, [id, typePath, selectorPath]);
-
   return (
     <S.Container>
       <S.ThumbNail
@@ -67,11 +66,3 @@ export default function DrinkProgress(props) {
     </S.Container>
   );
 }
-
-DrinkProgress.propTypes = {
-  id: PropTypes.string.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.objectOf(PropTypes.string),
-    path: PropTypes.string.isRequired,
-  }).isRequired,
-};
