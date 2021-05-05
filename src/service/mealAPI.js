@@ -27,7 +27,6 @@ export const fetchSearchMeals = async (filter, text) => {
 
 export const fetchMealsByCategory = async (strCategory) => {
   const URL = `${mealsByCategoryAPI}${strCategory}`;
-  console.log(URL);
   const search = await fetch(URL)
     .then((response) => response.json().then((data) => data))
     .catch((error) => error);

@@ -33,7 +33,6 @@ function Drinks({ match: { path } }) {
   const renderCategories = () => {
     if (Object.keys(categories).length === 0) return;
     const maxCategories = 5;
-    console.log(categories);
     return categories.drinks.slice(0, maxCategories)
       .map(({ strCategory }) => (
         <CategoryButton
@@ -56,7 +55,6 @@ function Drinks({ match: { path } }) {
     ));
 
   const renderFilter = () => {
-    console.log(filter.drinks);
     if (Object.keys(filter).length === undefined) return 'loading...';
     return renderRecipeCards(filter);
   };

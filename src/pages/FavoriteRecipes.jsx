@@ -20,7 +20,7 @@ function FavoriteRecipes() {
 
   return (
     <div className="center">
-      <Header title=" Receitas Feitas" />
+      <Header title=" Receitas Favoritas" />
       <button
         type="button"
         data-testid="filter-by-all-btn"
