@@ -29,6 +29,10 @@ export function getRecipesByCategory(category, meals) {
   return fetchData(url).then((res) => res[recipeType(meals)]);
 }
 
+export function getRecipesById(id, meals) {
+  const url = `${apiUrl(meals)}/lookup.php?i=${id}`;
+  return fetchData(url).then((res) => res[recipeType(meals)]);
+
 export async function randomMeal() {
   const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
   const results = await (response.json());
