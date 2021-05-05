@@ -89,7 +89,7 @@ Recipes.defaultProps = {
 Recipes.propTypes = {
   meals: PropTypes.arrayOf(PropTypes.string),
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    push: PropTypes.func,
   }).isRequired,
   dispatchMeals: PropTypes.func.isRequired,
 };

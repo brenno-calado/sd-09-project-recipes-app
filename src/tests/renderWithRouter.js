@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import { render } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import store from './store';
+import store from '../store';
 
 const renderWithRouter = (component) => {
   const history = createMemoryHistory();

@@ -26,6 +26,7 @@ const Header = (props) => {
   return (
     <>
       <header
+        data-testid="test-header"
         style={ {
           display: 'flex',
           justifyContent: 'space-between',
@@ -60,13 +61,15 @@ const Header = (props) => {
 
 Header.defaultProps = {
   isSearchEnable: true,
+  value: undefined,
+  history: undefined,
 };
 
 Header.propTypes = {
   title: PropTypes.string.isRequired,
   isSearchEnable: PropTypes.bool,
-  value: PropTypes.string.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  value: PropTypes.string,
+  history: PropTypes.shape({}),
 };
 
 export default Header;
