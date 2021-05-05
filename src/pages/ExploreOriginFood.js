@@ -8,7 +8,7 @@ function ExploreOriginFood() {
   const { getRecipesByLocations, getLocations, getRecipes } = useRecipeContext();
   const [initFood, setInitFood] = useState([]);
   const [foodLocations, setLocations] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('All');
   const twelve = 12;
   const type = 'comidas';
 
@@ -27,7 +27,6 @@ function ExploreOriginFood() {
   }, [getLocations]);
 
   useEffect(() => {
-    console.log(selectedCountry);
     getRecipes('themealdb')
       .then(({ meals }) => (
         selectedCountry === 'All' && setInitFood(meals)));
@@ -43,7 +42,6 @@ function ExploreOriginFood() {
           data-testid="explore-by-area-dropdown"
           onChange={ handleChange }
         >
-          { console.log(initFood) }
           { foodLocations.map(({ strArea, idMeal }) => (
             <option
               key={ idMeal }
