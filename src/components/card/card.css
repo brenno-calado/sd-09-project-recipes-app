@@ -17,15 +17,12 @@
 }
 
 .nameCard {
-<<<<<<< HEAD
-=======
   align-items: center;
   display: flex;
   height: 100%;
 }
 
 .nameCard h4 {
->>>>>>> main-group-7
   color: whitesmoke;
   font-size: 20px;
   text-align: center;

@@ -52,12 +52,8 @@ class index extends Component {
     this.forceUpdate();
   }
 
-<<<<<<< HEAD
-  startRecipe = () => {
-=======
   startRecipe() {
     const { ingredients } = this.props;
->>>>>>> main-group-7
     if (!inProgressRecipes) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {},
