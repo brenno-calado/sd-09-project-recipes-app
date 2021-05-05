@@ -36,7 +36,7 @@ function Done() {
         tags: [],
       },
     ];
-    localStorage.setItem('doneRecipes', JSON.stringify(list));
+    // localStorage.setItem('doneRecipes', JSON.stringify(list));
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
     setDoneRecipes(recipes);
