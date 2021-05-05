@@ -26,7 +26,7 @@ function Provider({ children }) {
         console.error(error);
       }
     }
-    fetchFoodsList();
+    if (selectedFoodsCategory) fetchFoodsList();
   }, [selectedFoodsCategory]);
 
   useEffect(() => {
@@ -44,8 +44,51 @@ function Provider({ children }) {
         console.error(error);
       }
     }
-    fetchDrinksList();
+    if (selectedDrinksCategory) fetchDrinksList();
   }, [selectedDrinksCategory]);
+
+  async function fetchFoodsByIngredient(ingredient) {
+    try {
+      setFetchingFoods(true);
+      const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setFoodsList(jsonResponse.meals);
+      setFetchingFoods(false);
+      setSelectedFoodsCategory('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function fetchDrinksByIngredient(ingredient) {
+    try {
+      setFetchingDrinks(true);
+      const endpoint = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setDrinksList(jsonResponse.drinks);
+      setFetchingDrinks(false);
+      setSelectedDrinksCategory('');
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function fetchFoodsByArea(area) {
+    try {
+      setFetchingFoods(true);
+      const endpoint = area === 'All'
+        ? 'https://www.themealdb.com/api/json/v1/1/search.php?s='
+        : `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+      const fetchResponse = await fetch(endpoint);
+      const jsonResponse = await fetchResponse.json();
+      setFoodsList(jsonResponse.meals);
+      setFetchingFoods(false);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function setFoodsListBySearchResult(recipeList) {
     setFoodsList(recipeList);
@@ -55,7 +98,6 @@ function Provider({ children }) {
   function setDrinksListBySearchResult(recipeList) {
     setDrinksList(recipeList);
     selectedDrinksCategory('');
-    console.log(recipeList);
   }
   const contextValue = {
     login,
@@ -68,6 +110,9 @@ function Provider({ children }) {
     setSelectedFoodsCategory,
     selectedDrinksCategory,
     setSelectedDrinksCategory,
+    fetchFoodsByIngredient,
+    fetchDrinksByIngredient,
+    fetchFoodsByArea,
     setFoodsListBySearchResult,
     setDrinksListBySearchResult,
   };
