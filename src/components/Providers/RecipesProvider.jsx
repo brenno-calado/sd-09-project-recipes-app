@@ -20,6 +20,7 @@ export default function RecipesProvider({ children }) {
     },
   );
   const [areas, setAreas] = useState([]);
+  const [areaFilter, setAreaFilter] = useState('');
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
@@ -33,6 +34,7 @@ export default function RecipesProvider({ children }) {
       isFetching,
       categories,
       areas,
+      areaFilter,
     },
     actions: {
       setRecipesResult,
@@ -49,6 +51,7 @@ export default function RecipesProvider({ children }) {
       addRecipeToInProgress(recipeObj) {
         setInProgressRecipes([...inProgressRecipes, recipeObj]);
       },
+      setAreaFilter,
     },
   };
 

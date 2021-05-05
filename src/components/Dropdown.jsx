@@ -2,10 +2,23 @@ import React, { useContext } from 'react';
 import { RecipesContext } from '../context';
 
 export default function Dropdown() {
-  const { values: { areas } } = useContext(RecipesContext);
+  const {
+    values: { areas, areaFilter }, actions: { setAreaFilter },
+  } = useContext(RecipesContext);
+
+  async function filterRecipes(e) {
+    const { value } = e.target;
+    setAreaFilter(value);
+  }
 
   return (
-    <select name="area" id="recipe-area" data-testid="explore-by-area-dropdown">
+    <select
+      name="area"
+      id="recipe-area"
+      data-testid="explore-by-area-dropdown"
+      onChange={ filterRecipes }
+      value={ areaFilter }
+    >
       <option value="">All</option>
       {
         Array.isArray(areas)
