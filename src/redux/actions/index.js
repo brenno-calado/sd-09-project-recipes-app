@@ -11,6 +11,7 @@ import {
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
   SEND_DONE_RECIPES,
+  SEND_FAVORITE_RECIPES,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -210,5 +211,10 @@ export const saveIngredients = (ingredients) => ({
 
 export const sendDoneRecipes = (recipes) => ({
   type: SEND_DONE_RECIPES,
+  recipes,
+});
+
+export const sendFavoriteRecipes = (recipes) => ({
+  type: SEND_FAVORITE_RECIPES,
   recipes,
 });

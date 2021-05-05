@@ -1,7 +1,8 @@
-import { SEND_DONE_RECIPES } from '../actions/actionTypes';
+import { SEND_DONE_RECIPES, SEND_FAVORITE_RECIPES } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   doneRecipes: [],
+  favoriteRecipes: [],
 };
 
 function doneFavoriteReducer(state = INITIAL_STATE, action) {
@@ -10,6 +11,11 @@ function doneFavoriteReducer(state = INITIAL_STATE, action) {
     return ({
       ...state,
       doneRecipes: action.recipes,
+    });
+  case SEND_FAVORITE_RECIPES:
+    return ({
+      ...state,
+      favoriteRecipes: action.recipes,
     });
   default:
     return state;
