@@ -38,9 +38,10 @@ function Done() {
     // ];
     // localStorage.setItem('doneRecipes', JSON.stringify(list));
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    setDoneRecipes(recipes);
-    setFilteredRecipes(recipes);
+    if (recipes) {
+      setDoneRecipes(recipes);
+      setFilteredRecipes(recipes);
+    }
   }, []);
 
   const filter = ({ target: { name } }) => {

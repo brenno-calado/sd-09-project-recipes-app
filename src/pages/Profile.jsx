@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import './Styles/Profile.css';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const [email, setEmail] = useState('');
+
+  useEffect(() => {
+    const getEmail = JSON.parse(localStorage.getItem('user'));
+    if (getEmail) setEmail(getEmail.email);
+  }, []);
 
   const handleClick = () => {
     localStorage.clear();
