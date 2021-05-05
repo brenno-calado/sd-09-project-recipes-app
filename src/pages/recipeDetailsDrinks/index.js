@@ -8,7 +8,7 @@ import MealInstructions from '../../components/MealInstructions';
 import MealRecommendations from '../../components/MealRecommendations';
 import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
-import loadingImage from '../../images/Figura-Loading-PNG.png';
+import loadingImage from '../../images/loading_drink.gif';
 
 class index extends Component {
   constructor(props) {
@@ -17,7 +17,6 @@ class index extends Component {
       drinkData: false,
       recommendedDrinks: ['Teste1'],
     };
-
     this.getDrinkImage = this.getDrinkImage.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.getInsructions = this.getInsructions.bind(this);

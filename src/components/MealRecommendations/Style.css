@@ -4,6 +4,7 @@
 .recommendations-box {
   display: flex;
   flex-wrap: nowrap;
+  margin-bottom: 50px;
   overflow-x: auto;
 }
 

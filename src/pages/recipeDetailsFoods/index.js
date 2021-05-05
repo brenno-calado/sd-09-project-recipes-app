@@ -10,7 +10,7 @@ import MealVideo from '../../components/MealVideo';
 import MealRecommendations from '../../components/MealRecommendations';
 import ButtonStartRecipe from '../../components/ButtonStartRecipe';
 
-import loadingImage from '../../images/Figura-Loading-PNG.png';
+import loadingImage from '../../images/loading_food.gif';
 
 class index extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class index extends Component {
       video: '',
       recommendedDrinks: ['Teste1'],
     };
-
     this.getMealImage = this.getMealImage.bind(this);
     this.getIngredients = this.getIngredients.bind(this);
     this.getIngredientsQuantity = this.getIngredientsQuantity.bind(this);

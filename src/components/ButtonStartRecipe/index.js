@@ -7,7 +7,6 @@ let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
 class index extends Component {
   constructor(props) {
     super(props);
-
     this.recipe = this.recipe.bind(this);
     this.makeRecipeDone = this.makeRecipeDone.bind(this);
     this.startRecipe = this.startRecipe.bind(this);

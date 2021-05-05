@@ -84,7 +84,7 @@ function Search({ setItems, type }) {
         className="input-search"
         data-testid="search-input"
         type="text"
-        placeholder="Buscar Reaceitas"
+        placeholder="Buscar Receitas"
         value={ infoSearch.text }
         onChange={
           (evt) => setInfoSearch({ ...infoSearch, text: evt.target.value })

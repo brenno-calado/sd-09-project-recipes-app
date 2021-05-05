@@ -1,3 +1,8 @@
+.container-cardHorizontal {
+  border-radius: 15px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
 .container-btns-favoriteRecipe {
   display: flex;
   justify-content: space-around;

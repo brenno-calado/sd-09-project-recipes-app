@@ -11,7 +11,6 @@ class index extends Component {
       shareClicked: false,
       favoriteIcon: false,
     };
-
     this.handleClick = this.handleClick.bind(this);
     this.copyCurrentLink = this.copyCurrentLink.bind(this);
     this.recipeData = this.recipeData.bind(this);

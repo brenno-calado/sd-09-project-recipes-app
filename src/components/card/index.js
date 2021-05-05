@@ -15,7 +15,9 @@ function index({ image, name, id, type, indexCard }) {
         alt="product"
         data-testid={ `${indexCard}-card-img` }
       />
-      <h4 className="nameCard" data-testid={ `${indexCard}-card-name` }>{ name }</h4>
+      <div className="nameCard">
+        <h4 data-testid={ `${indexCard}-card-name` }>{ name }</h4>
+      </div>
     </Link>
   );
 }

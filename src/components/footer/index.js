@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './footer.css';
 
-import mealIcon from '../../images/mealIcon.svg';
-import exploreIcon from '../../images/exploreIcon.svg';
-import drinkIcon from '../../images/drinkIcon.svg';
+import mealIcon from '../../images/newIcons/mealIcon.svg';
+import exploreIcon from '../../images/newIcons/exploreIcon.svg';
+import drinkIcon from '../../images/newIcons/drinkIcon.svg';
 
 function index() {
   return (
