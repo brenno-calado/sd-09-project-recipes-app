@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import './ProfileScreen.css';
 import Header from '../../Components/Header/Header';
 import Footer from '../../Components/Footer/Footer';
 
@@ -21,9 +22,9 @@ function ProfileScreen() {
   };
 
   return (
-    <div className="profile-container">
+    <div className="profile-container-main">
       <Header title="Perfil" />
-      <div>
+      <section>
         <div>
           <span data-testid="profile-email">{userEmail.email}</span>
         </div>
@@ -48,7 +49,7 @@ function ProfileScreen() {
         >
           Sair
         </button>
-      </div>
+      </section>
       <Footer />
     </div>
   );

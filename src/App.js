@@ -12,7 +12,7 @@ import ExploreForIngredient from './Pages/ExploreForIngredient/ExploreForIngredi
 import ExploreForArea from './Pages/ExploreForArea/ExploreForArea';
 import ProfileScreen from './Pages/ProfileScreen/ProfileScreen';
 import
-FavoriteRecipiesScreen from './Pages/FavoriteRecipiesScreen/FavoriteRecipiesScreeen';
+FavoriteRecipesScreen from './Pages/FavoriteRecipesScreen/FavoriteRecipesScreeen';
 import DoneRecipiesScreen from './Pages/DoneRecipesScreen/DoneRecipiesScreen';
 import RecipeDetailsScreen from './Pages/RecipeDetailsScreen/RecipeDetailsScreen';
 import InProgressRecipe from './Pages/InProgressRecipe/InProgressRecipe';
@@ -46,7 +46,7 @@ function App() {
         component={ NotFound }
       />
       <Route exact path="/perfil" component={ ProfileScreen } />
-      <Route exact path="/receitas-favoritas" component={ FavoriteRecipiesScreen } />
+      <Route exact path="/receitas-favoritas" component={ FavoriteRecipesScreen } />
       <Route exact path="/receitas-feitas" component={ DoneRecipiesScreen } />
       {/* <Route component={ NotFound } /> */}
     </Switch>
