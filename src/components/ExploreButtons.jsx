@@ -35,6 +35,7 @@ function Buttons({ origin }) {
     <>
       <Link to="/explorar/bebidas/ingredientes">
         <button
+          id="ingredient-drinks-link"
           data-testid="explore-by-ingredient"
           type="button"
         >
@@ -42,6 +43,7 @@ function Buttons({ origin }) {
         </button>
       </Link>
       <button
+        id="surprise-drinks-link"
         data-testid="explore-surprise"
         type="button"
       >

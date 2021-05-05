@@ -118,24 +118,25 @@ function DrinkDetails({ match: { params: { id } } }) {
           >
             { copied ? renderMessage() : (<img src={ shareIcon } alt="Compartilhar" />) }
           </button>
-          <button
-            type="button"
-            onClick={ () => handleFavorite(drinkId) }
-            src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
-            data-testid="favorite-btn"
-          >
-            {isFavorited ? (
-              <img
-                src={ blackHeartIcon }
-                alt="blackHeartIcon"
-              />
-            ) : (
-              <img
-                src={ whiteHeartIcon }
-                alt="whiteHeartIcon"
-              />
-            )}
-          </button>
+          {isFavorited ? (
+            <button
+              type="button"
+              onClick={ () => handleFavorite(drinkId) }
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+            >
+              <img src={ blackHeartIcon } alt="blackHeartIcon" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={ () => handleFavorite(drinkId) }
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+            >
+              <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+            </button>
+          )}
           <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
           <ul className="list-ingredients">
             { ingredientsList().map((ingredients, index) => (

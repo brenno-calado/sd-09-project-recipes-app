@@ -65,7 +65,14 @@ function MainFoods() {
         { (!(isFetching) && mealsRecipes === null) && (
           <p className="not-found-message">Meal Not Found</p>
         ) }
-        { (isFetching) && (<p className="loading-message">Loading...</p>) }
+        { (isFetching) && (
+          <p
+            className="loading-message"
+            data-testid="loading-message"
+          >
+            Loading...
+          </p>
+        ) }
       </div>
       <BottomMenu />
     </>

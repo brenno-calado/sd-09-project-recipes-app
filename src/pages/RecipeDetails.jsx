@@ -114,24 +114,25 @@ function RecipeDetails({ match: { params: { id } } }) {
           >
             { copied ? renderMessage() : (<img src={ shareIcon } alt="Compartilhar" />) }
           </button>
-          <button
-            type="button"
-            data-testid="favorite-btn"
-            src={ (isFavorited) ? blackHeartIcon : whiteHeartIcon }
-            onClick={ () => handleFavorite(mealId) }
-          >
-            {isFavorited ? (
-              <img
-                src={ blackHeartIcon }
-                alt="blackHeartIcon"
-              />
-            ) : (
-              <img
-                src={ whiteHeartIcon }
-                alt="whiteHeartIcon"
-              />
-            )}
-          </button>
+          {isFavorited ? (
+            <button
+              type="button"
+              onClick={ () => handleFavorite(mealId) }
+              data-testid="favorite-btn"
+              src={ blackHeartIcon }
+            >
+              <img src={ blackHeartIcon } alt="blackHeartIcon" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={ () => handleFavorite(mealId) }
+              data-testid="favorite-btn"
+              src={ whiteHeartIcon }
+            >
+              <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
+            </button>
+          )}
           <span data-testid="recipe-category">{ mealId.strCategory }</span>
           <ul className="list-ingredients">
             { ingredientsList().map((ingredients, index) => (

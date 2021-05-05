@@ -62,9 +62,8 @@ function RecipesAppProvider({ children }) {
   };
 
   const getRecipes = async () => {
-    const paramObj = { searchText: '', filter: 'name' };
-    const apiMealsResponse = await fetchMealApi(paramObj);
-    const apiCocktailsResponse = await fetchCocktailApi(paramObj);
+    const apiMealsResponse = await fetchMealRecomendation();
+    const apiCocktailsResponse = await fetchDrinksRecomendation();
     setMealsRecipes(apiMealsResponse);
     setMealsBkp(apiMealsResponse);
     setCocktailsRecipes(apiCocktailsResponse);
