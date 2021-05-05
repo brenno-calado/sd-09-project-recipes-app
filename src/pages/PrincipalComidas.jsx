@@ -7,7 +7,7 @@ function PrincipalComidas() {
 
   useEffect(() => {
     foodFilter();
-  }, []);
+  });
 
   return (
     <div>
