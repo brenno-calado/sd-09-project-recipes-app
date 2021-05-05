@@ -68,7 +68,7 @@ class DoneRecipes extends React.Component {
           </button>
         </section>
         <section>
-          {recipeDone.map((done, index) => (
+          {recipeDone && recipeDone.map((done, index) => (
             <CardDone key={ `${done}${index}` } done={ done } index={ index } />
           ))}
         </section>
