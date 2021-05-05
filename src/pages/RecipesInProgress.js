@@ -6,8 +6,7 @@ import { fetchRecipeInProgressAction } from '../actions';
 
 class RecipesInProgress extends React.Component {
   componentDidMount() {
-    const { fetchRecipeInProgress } = this.props;
-    const { match } = this.props;
+    const { fetchRecipeInProgress, match } = this.props;
     fetchRecipeInProgress(match.params.id);
   }
 

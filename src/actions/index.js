@@ -1,9 +1,10 @@
 import fetchRecipes from '../service/recepiesApi';
-import fetchDetails from '../service/fetchDetails';
+import fetchRecipeById from '../service/fetchDetails';
 import fetchDefaultApi from '../service/defautFetchApi';
 import categoriesfetchApi from '../service/categoriesFetchApi';
 import fetchRecipeByCategory from '../service/fetchRecipeByCategory';
 import fetchRecipeInProgressApi from '../service/fetchRecipeInProgressApi';
+import recommendationsFetch from '../service/recommendationsFetch';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
@@ -33,10 +34,6 @@ export const setIsLoading = () => ({
   type: 'SET_ISLOADING',
 });
 
-export const fetchMealRecipeDetails = (id) => (dispatch) => (
-  fetchDetails(id, 'meal')
-);
-
 export const setCategories = (categories) => ({
   type: 'SET_CATEGORIES',
   categories,
@@ -46,22 +43,6 @@ export const categoriesfetchApiAction = () => (dispatch) => {
   categoriesfetchApi()
     .then((recipesApiReponse) => dispatch(setCategories(recipesApiReponse)));
 };
-
-export const fetchFoodRecipeDetails = (id) => (dispatch) => (
-  fetchDetails('food', id)
-    .then((recipesApiReponse) => dispatch({
-      type: 'STORE_MEAL_RECIPE_DETAILS',
-      id,
-      recipeDetails: (recipesApiReponse.meals && recipesApiReponse.meals[0]) || null,
-    })));
-
-export const fetchDrinkRecipeDetails = (id) => (dispatch) => (
-  fetchDetails(id, 'drink')
-    .then((recipesApiReponse) => dispatch({
-      type: 'STORE_DRINK_RECIPE_DETAILS',
-      id,
-      recipeDetails: (recipesApiReponse.drinks && recipesApiReponse.drinks[0]) || null,
-    })));
 
 export const fetchRecipesByCategoryAction = (categorie, category) => (dispatch) => {
   if (categorie !== category) {
@@ -90,4 +71,24 @@ export const fetchRecipeInProgressAction = (id) => (dispatch) => {
   fetchRecipeInProgressApi(id)
     .then((inProgressApiReponse) => (
       dispatch(reciveInProgressApiResponse(inProgressApiReponse))));
+};
+
+const reciveDetailsRecipe = (recipesApiReponse) => ({
+  type: 'RECIPE_DETAILS',
+  recipeDetails: recipesApiReponse,
+});
+
+export const fetchRecipeByIdAction = (id) => (dispatch) => {
+  fetchRecipeById(id)
+    .then((recipesApiReponse) => dispatch(reciveDetailsRecipe(recipesApiReponse)));
+};
+
+const reciveFetchRecommendations = (recipesApiReponse) => ({
+  type: 'RECOMMENDATIONS_FETCH',
+  recommendations: recipesApiReponse,
+});
+
+export const recommendationsFetchAction = () => (dispatch) => {
+  recommendationsFetch()
+    .then((recipesApiReponse) => dispatch(reciveFetchRecommendations(recipesApiReponse)));
 };

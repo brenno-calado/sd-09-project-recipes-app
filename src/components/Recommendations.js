@@ -1,53 +1,44 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import _ from 'lodash';
+import { Carousel } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { objectOf } from 'prop-types';
+import RecommendationCard from './RecommendationCard';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Recommendations extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-    };
-  }
-
-  componentDidMount() {
-    const { type } = this.props;
-    const { data } = this.state;
-    if (!data) {
-      if (type === 'meals') {
-        fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
-          .then((response) => response.json())
-          .then((responseData) => this.setState({ data: responseData.drinks }));
-      }
-      if (type === 'drinks') {
-        fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
-          .then((response) => response.json())
-          .then((responseData) => this.setState({ data: responseData.meals }));
-      }
-    }
+  filterRecommendations() {
+    const { recommendations } = this.props;
+    const mxmRecommendations = 6;
+    const recommendationsArray = recommendations
+      .filter((_, index) => index < mxmRecommendations);
+    return recommendationsArray;
   }
 
   render() {
-    const { data } = this.state;
-    const RECOMMENDATIONS_COUNT = 6;
-    return ((!data)
-      ? <h1 style={ { textAlign: 'center' } }>Carregando recomendações...</h1>
-      : (
-        _.take(data, RECOMMENDATIONS_COUNT).map((recomendation, index) => (
-          <p
-            data-testid={ `${index}-recomendation-card` }
-            key={ index }
-          >
-            Recommendation Placer
-          </p>
-        ))
-      )
+    return (
+      <div>
+        <Carousel>
+          { this.filterRecommendations()
+            .map((recipe, index) => (
+              <Carousel.Item
+                interval={ 3000 }
+                key={ index }
+              >
+                <RecommendationCard recommendationRecipe={ recipe } index={ index } />
+              </Carousel.Item>
+            )) }
+        </Carousel>
+      </div>
     );
   }
 }
 
-Recommendations.propTypes = {
-  type: PropTypes.oneOf(['drinks', 'meals']).isRequired,
-};
+const mapStateToProps = (state) => ({
+  recommendations: state.recipeDetails.recommendations,
+});
 
-export default Recommendations;
+Recommendations.propTypes = {
+  recommendations: objectOf,
+}.isRequired;
+
+export default connect(mapStateToProps)(Recommendations);
