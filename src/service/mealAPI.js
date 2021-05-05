@@ -3,6 +3,7 @@ const allMealsAPI = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 const allMealsCategoriesAPI = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
 const mealsByCategoryAPI = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const detailsIdFood = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const randomRecipe = 'https://www.themealdb.com/api/json/v1/1/random.php';
 
 export const fetchDetailsFood = async (id) => {
   const res = await fetch(`${detailsIdFood}${id}`)
@@ -46,4 +47,10 @@ export const fetchListAllIngredientsFoods = async () => {
   const ingredientes = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
   const response = await ingredientes.json();
   return response;
+};
+
+export const fetchRandomRecipe = async () => {
+  const random = await fetch(randomRecipe);
+  const result = await random.json();
+  return result;
 };

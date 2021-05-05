@@ -3,6 +3,7 @@ const allDrinksAPI = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s='
 const allDrinksCategoriesAPI = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
 const drinksByCategoryAPI = 'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=';
 const detailsIdDrink = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const randomRecipe = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
 
 export const fetchDetailsDrink = async (id) => {
   const res = await fetch(`${detailsIdDrink}${id}`)
@@ -45,4 +46,10 @@ export const fetchListAllIngredientsDriks = async () => {
   const ingredientes = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
   const response = await ingredientes.json();
   return response;
+};
+
+export const fetchRandomDrink = async () => {
+  const random = await fetch(randomRecipe);
+  const result = await random.json();
+  return result;
 };
