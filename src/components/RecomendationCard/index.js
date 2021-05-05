@@ -33,7 +33,7 @@ const RecomendationCard = (props) => {
 
   return (
     <div>
-      <Carousel indicators={ false } controls={ false } interval="3000">
+      <Carousel indicators={ false } controls={ false } interval={ 3000 }>
         {
           recommendations.map((recipe, index) => (
             <Carousel.Item
