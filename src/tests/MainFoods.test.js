@@ -43,7 +43,7 @@ describe('Testing <MainFoods /> functionality', () => {
     expect(screen.queryByRole('button', { name: 'Dessert' })).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Goat' })).toBeInTheDocument();
   });
-  it('Should alternate between the meat category and the initial meals', async () => {
+  it('Should alternate between the meat category and initial list', async () => {
     await act(async () => {
       renderWithRouter(<MainFoods />, '/comidas');
     });
