@@ -27,11 +27,11 @@ function Header() {
     setShowBar(false);
     title = 'Explorar';
     break;
-  case '/explorarbebidas':
+  case '/explorar/bebidas':
     setShowBar(false);
     title = 'Explorar Bebidas';
     break;
-  case '/explorarcomidas':
+  case '/explorar/comidas':
     setShowBar(false);
     title = 'Explorar Comidas';
     break;
