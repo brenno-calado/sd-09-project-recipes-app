@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
+import Carousel from 'react-bootstrap/Carousel';
 import copy from 'clipboard-copy';
 import { getDrinkIdDetails, getFoods } from '../services';
 import { AppContext } from '../context/AppContext';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
+import '../CSS/Detalhes.css';
 
 const checkDoneRecipes = (doneRecipes, recipeId) => {
   if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
@@ -23,6 +25,33 @@ const handleButtonName = (inProgressRecipes, id) => {
   }
 };
 
+const getIngredients = (idDetails) => {
+  const ingredients = Object.entries(idDetails).filter(
+    (details) => {
+      const condition1 = details[0].includes('Ingredient');
+      const condition2 = details[1] !== '' && details[1] !== null;
+      return condition1 && condition2;
+    },
+  );
+  const measure = Object.entries(idDetails).filter(
+    (details) => details[0].includes('Measure'),
+  );
+  const ingredientsArray = ingredients.reduce((acc, curr, index) => {
+    acc.push({ name: curr[1], index });
+    return acc;
+  }, []);
+  const measuresArray = measure.reduce((acc, curr, index) => {
+    acc.push({ measure: curr[1], index });
+    return acc;
+  }, []);
+
+  return ingredientsArray.map((ingredient) => {
+    const measurament = measuresArray
+      .filter((quantity) => ingredient.index === quantity.index);
+    return { name: ingredient.name, measure: measurament[0].measure };
+  });
+};
+
 const DetalhesBebida = () => {
   const {
     favoriteRecipe,
@@ -36,33 +65,6 @@ const DetalhesBebida = () => {
   const [idDetails, setIdDetails] = useState([]);
   const [linkShared, setLinkShared] = useState(false);
   const [recomendations, setRecomendations] = useState([]);
-
-  const getIngredients = () => {
-    const ingredients = Object.entries(idDetails).filter(
-      (details) => {
-        const condition1 = details[0].includes('Ingredient');
-        const condition2 = details[1] !== '' && details[1] !== null;
-        return condition1 && condition2;
-      },
-    );
-    const measure = Object.entries(idDetails).filter(
-      (details) => details[0].includes('Measure'),
-    );
-    const ingredientsArray = ingredients.reduce((acc, curr, index) => {
-      acc.push({ name: curr[1], index });
-      return acc;
-    }, []);
-    const measuresArray = measure.reduce((acc, curr, index) => {
-      acc.push({ measure: curr[1], index });
-      return acc;
-    }, []);
-
-    return ingredientsArray.map((ingredient) => {
-      const measurament = measuresArray
-        .filter((quantity) => ingredient.index === quantity.index);
-      return { name: ingredient.name, measure: measurament[0].measure };
-    });
-  };
 
   const fetchDetails = async (identification) => {
     const results = await getDrinkIdDetails(identification);
@@ -111,45 +113,69 @@ const DetalhesBebida = () => {
   const { strDrinkThumb, strDrink, strAlcoholic, strInstructions, idDrink } = idDetails;
 
   return (
-    <div>
-      <img src={ strDrinkThumb } alt={ strDrink } data-testid="recipe-photo" />
-      <h2 data-testid="recipe-title">{strDrink}</h2>
-      <button type="button" onClick={ () => handleShare() }>
-        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
-      </button>
-      { linkShared && <p>Link copiado!</p> }
-      <button
-        type="button"
-        onClick={
-          () => (
-            handleFavorite())
-        }
-      >
+    <div className="recipe-details">
+      <div className="img-card">
         <img
-          data-testid="favorite-btn"
-          src={ checkFavorite(idDrink) ? blackHeartImg : whiteHeartImg }
-          alt="Favoritar"
+          className="recipe-img"
+          src={ strDrinkThumb }
+          alt={ strDrink }
+          data-testid="recipe-photo"
         />
-      </button>
-      <p data-testid="recipe-category">{strAlcoholic}</p>
-      { idDetails && getIngredients().map((ingredient, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient.name }>
-          {`${ingredient.name} ${ingredient.measure === null ? '' : ingredient.measure}`}
-        </p>
-      )) }
-      <p data-testid="instructions">{strInstructions}</p>
-      <p>Comidas Recomendadas</p>
-      { recomendations.map((food, index) => (
-        <div data-testid={ `${index}-recomendation-card` } key={ food.idMeal }>
-          <img
-            data-testid={ `${index}-recomendation-img` }
-            src={ food.strMealThumb }
-            alt={ food.strMeal }
-            width="100px"
-          />
-          <p data-testid={ `${index}-recomendation-title` }>{food.strMeal}</p>
+      </div>
+      <div className="card-content">
+        <div className="header-div">
+          <h2 data-testid="recipe-title">{strDrink}</h2>
+          <button type="button" onClick={ () => handleShare() }>
+            <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
+          </button>
+          <button
+            type="button"
+            onClick={
+              () => (
+                handleFavorite())
+            }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ checkFavorite(idDrink) ? blackHeartImg : whiteHeartImg }
+              alt="Favoritar"
+            />
+          </button>
         </div>
-      )) }
+        { linkShared && <p>Link copiado!</p> }
+        <h4 data-testid="recipe-category">{strAlcoholic}</h4>
+        <h4>Ingredientes</h4>
+        <ul>
+          { idDetails && getIngredients(idDetails).map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient.name }
+            >
+              {`${ingredient.name} ${ingredient.measure === null
+                ? '' : ingredient.measure}`}
+            </li>
+          )) }
+        </ul>
+        <p data-testid="instructions">{strInstructions}</p>
+        <h4 className="itens-recomendados">Comidas Recomendadas</h4>
+        <Carousel className="carousel">
+          { recomendations && recomendations.map((food, index) => (
+            <Carousel.Item key={ food.idMeal }>
+              <div data-testid={ `${index}-recomendation-card` }>
+                <img
+                  data-testid={ `${index}-recomendation-img` }
+                  src={ food.strMealThumb }
+                  alt={ food.strMeal }
+                  width="200px"
+                />
+                <Carousel.Caption>
+                  <p data-testid={ `${index}-recomendation-title` }>{food.strMeal}</p>
+                </Carousel.Caption>
+              </div>
+            </Carousel.Item>
+          )) }
+        </Carousel>
+      </div>
       { !checkDoneRecipes(doneRecipes, idDrink) && (
         <Link to={ `${id}/in-progress` }>
           <button
