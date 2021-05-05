@@ -26,3 +26,22 @@ export const getFilteredRecipes = async (mealtype, query, filter) => {
   console.log(response);
   return response;
 };
+
+export const getMealsCatergories = async (url) => {
+  const request = await fetch(`${URLBASE[url]}/list.php?c=list`)
+    .then((response) => response.json());
+  console.log(url);
+  if (url === 'comidas') {
+    const { meals } = request;
+    return meals;
+  }
+  const { drinks } = request;
+  return drinks;
+};
+
+export const getRecipesByCategories = (url, category) => {
+  const request = fetch(`${URLBASE[url]}/filter.php?c=${category}`)
+    .then((response) => response.json()
+      .then((data) => data));
+  return request;
+};
