@@ -38,8 +38,6 @@ function Provider(props) {
   };
 
   const handleSearch = (value, filterMeals, filterDrinks) => {
-    // const { value } = props;
-    // console.log(value);
     switch (value) {
     case 'comidas':
       return filterMeals();
@@ -95,7 +93,6 @@ function Provider(props) {
     verification,
     setVerification,
     verifyInProgress,
-    // itShouldRedirect,
   };
 
   const { children } = props;

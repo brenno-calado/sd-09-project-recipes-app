@@ -14,7 +14,6 @@ function RecipeDetails(props) {
   const [hidden, setHidden] = useState({ first: 0, second: 1 });
   const [meal, setMeal] = useState();
   const [inProgress, setInProgress] = useState(false);
-  // const [startContinueRecipe, setStartContinueRecipe] = useState('Start Recipe');
   const {
     verification,
     setVerification,

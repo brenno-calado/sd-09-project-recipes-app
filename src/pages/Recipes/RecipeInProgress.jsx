@@ -5,7 +5,7 @@ import ShareLikeButtons from '../../common/components/buttons/ShareLikeButtons';
 import '../../common/styles/detailsStyles.css';
 
 function RecipeInProgress(props) {
-  const { match: { url, params: { id } } } = props;
+  const { history, match: { url, params: { id } } } = props;
   const [meal, setMeal] = useState();
   const [newURL, setNewURL] = useState();
   const idMeal = id;
@@ -43,6 +43,10 @@ function RecipeInProgress(props) {
     return <ul style={ { listStyleType: 'none', padding: 0 } }>{ingredients}</ul>;
   }
 
+  function finishHandler() {
+    history.push('/receitas-feitas');
+  }
+
   function renderMeal() {
     return (
       <div>
@@ -74,7 +78,7 @@ function RecipeInProgress(props) {
           className="finish-recipe-btn"
           data-testid="finish-recipe-btn"
           type="button"
-          // onClick={ finishRecipe }
+          onClick={ finishHandler }
         >
           Finish Recipe
         </button>
