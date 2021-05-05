@@ -5,6 +5,7 @@ import { GrFavorite } from 'react-icons/gr';
 import { useParams } from 'react-router';
 import ReactPlayer from 'react-player';
 import { getRecipesById } from '../services/api';
+import RecomendationList from './RecomedationsList';
 
 const getIngredientsAndMeasure = (recipe) => {
   let ingredientsList = [];
@@ -13,7 +14,7 @@ const getIngredientsAndMeasure = (recipe) => {
       ingredient: recipe[`strIngredient${i}`],
       measure: recipe[`strMeasure${i}`],
     };
-    if (newItem && newItem.ingredient.length === 0) break;
+    if (newItem.ingredient === null || newItem.ingredient.length === 0) break;
     ingredientsList = [...ingredientsList, newItem];
   }
   return ingredientsList;
@@ -25,8 +26,8 @@ function RecipesDetailsCard({ isMeal }) {
 
   useEffect(() => {
     async function getRecipe() {
-      const recipe = await getRecipesById(id, isMeal);
-      setRecipeDetails(recipe[0]);
+      const request = await getRecipesById(id, isMeal);
+      setRecipeDetails(request[0]);
     }
     getRecipe();
   }, [id, isMeal, setRecipeDetails]);
@@ -51,26 +52,34 @@ function RecipesDetailsCard({ isMeal }) {
         data-testid="recipe-photo"
         width="300"
       />
-      <h1 data-testid="recipe-title">
+      <h2 data-testid="recipe-title">
         { isMeal ? recipeDetails.strMeal : recipeDetails.strDrink }
-      </h1>
+      </h2>
       <button type="button" data-testid="share-btn">
         <AiOutlineShareAlt />
       </button>
       <button type="button" data-testid="favorite-btn">
         <GrFavorite />
       </button>
-      <h2 data-testid="recipe-category">{recipeDetails.strCategory }</h2>
-      Ingredientes
+      <h3 data-testid="recipe-category">
+        {isMeal ? recipeDetails.strCategory : recipeDetails.strAlcoholic}
+      </h3>
+      <h4>Ingredientes</h4>
       <ul>
         {renderIngredientsAndMeasure()}
       </ul>
+      <h4>Instruções</h4>
       <p data-testid="instructions">{recipeDetails.strInstructions}</p>
       <div data-testid="video">
         {isMeal && <ReactPlayer url={ recipeDetails.strYoutube } />}
       </div>
-      {/* <div data-testid={ `${index}-recomendation-card` }>Recomendações</div> */}
-      <button type="button" data-testid="start-recipe-btn">
+      <h4>Recomendadas</h4>
+      <RecomendationList isMeal={ !isMeal } />
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="fixed-bottom btn btn-primary btn-block"
+      >
         Iniciar receita
       </button>
     </section>
