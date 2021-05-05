@@ -40,3 +40,7 @@ export async function randomDrink() {
   const results = await (response.json());
   return (results.drinks[0].idDrink);
 }
+export function getRecipesById(id, meals) {
+  const url = `${apiUrl(meals)}/lookup.php?i=${id}`;
+  return fetchData(url).then((res) => res[recipeType(meals)]);
+}

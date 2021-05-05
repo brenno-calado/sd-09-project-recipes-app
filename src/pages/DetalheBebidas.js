@@ -1,9 +1,12 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import RecipesDetailsCard from '../components/RecipeDetailsCard';
 
 function DetalhesBebidas() {
   return (
-    <h2>DetalhesBebidas</h2>
+    <main>
+      <RecipesDetailsCard />
+    </main>
   );
 }
 
