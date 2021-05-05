@@ -66,6 +66,6 @@ function RecomendedRecipes({ detailsContext }) {
   );
 }
 
-RecomendedRecipes.propTypes = { recipesList: PropTypes.array }.isRequired;
+RecomendedRecipes.propTypes = { detailsContext: PropTypes.array }.isRequired;
 
 export default RecomendedRecipes;
