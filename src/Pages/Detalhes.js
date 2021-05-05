@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
-// import blackHeartIcon from '../images/blackHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
 import Arrow from '../components/Arrow';
-import { renderIngredientsList, renderVideo } from '../services/details';
+import { renderIngredientsList, renderVideo, saveAsFavorite } from '../services/details';
+import ShareButton from '../components/ShareButton';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -22,42 +21,55 @@ export default function Detalhes() {
     recommendations } = useContext(MyContext);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [foodOrDrink, setType] = useState('');
+  const history = useHistory();
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
       mealAPI('id', recipeId).then((result) => {
         setData(result);
+        setType('Meal');
         setIsLoading(false);
         fetchToMainScreen('/bebidas').then((recommendation) => {
           setRecommendations(recommendation);
         });
+        const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+        setIsFavorite(initialFavoriteState);
       });
     } else if (pathname.includes('bebidas')) {
       drinkAPI('id', recipeId).then((result) => {
         setData(result);
+        setType('Drink');
         setIsLoading(false);
         fetchToMainScreen('/comidas').then((recommendation) => {
           setRecommendations(recommendation);
         });
+        const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+        setIsFavorite(initialFavoriteState);
       });
     }
-  }, [setIsLoading, setData, pathname, recipeId, setRecommendations]);
+  }, [setIsLoading, setData, pathname, recipeId, setRecommendations, setType]);
+
+  const previousSlide = (imgUrls) => {
+    const lastIndex = imgUrls.length - 1;
+    const shouldResetIndex = currentImageIndex === 0;
+    const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
+    setCurrentImageIndex(index);
+  };
+
+  const nextSlide = (imgUrls) => {
+    const lastIndex = imgUrls.length - 1;
+    const shouldResetIndex = currentImageIndex === lastIndex;
+    const index = shouldResetIndex ? 0 : currentImageIndex + 1;
+    setCurrentImageIndex(index);
+  };
 
   const renderRecommendations = () => {
     const limitRecommendationsRender = 6;
     const imgUrls = [];
-    const previousSlide = () => {
-      const lastIndex = imgUrls.length - 1;
-      const shouldResetIndex = currentImageIndex === 0;
-      const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
-      setCurrentImageIndex(index);
-    };
-    const nextSlide = () => {
-      const lastIndex = imgUrls.length - 1;
-      const shouldResetIndex = currentImageIndex === lastIndex;
-      const index = shouldResetIndex ? 0 : currentImageIndex + 1;
-      setCurrentImageIndex(index);
-    };
     recommendations.forEach((element, index) => (
       index <= limitRecommendationsRender ? (
         imgUrls.push(element.strMealThumb || element.strDrinkThumb)
@@ -66,7 +78,7 @@ export default function Detalhes() {
     return (
       <div>
         <Arrow
-          clickFunction={ previousSlide }
+          clickFunction={ () => previousSlide(imgUrls) }
           glyph="&#9664;"
         />
         <span>
@@ -88,11 +100,16 @@ export default function Detalhes() {
           />
         </span>
         <Arrow
-          clickFunction={ nextSlide }
+          clickFunction={ () => nextSlide(imgUrls) }
           glyph="&#9654;"
         />
       </div>
     );
+  };
+
+  const saveFavorite = () => {
+    setIsFavorite(!isFavorite);
+    saveAsFavorite(recipeId, data, pathname);
   };
 
   if (isLoading) {
@@ -102,49 +119,56 @@ export default function Detalhes() {
     <div>
       <img
         className="recipe-image"
-        src={ data.strMealThumb }
-        alt={ data.strMeal }
+        src={ data[`str${foodOrDrink}Thumb`] }
+        alt={ data[`str${foodOrDrink}`] }
         data-testid="recipe-photo"
       />
-      <h1 data-testid="recipe-title">{ data.strMeal }</h1>
+      <h1 data-testid="recipe-title">
+        { data[`str${foodOrDrink}`] }
+      </h1>
+      <ShareButton />
       <button
         type="button"
-        data-testid="share-btn"
-      >
-        <img src={ shareIcon } alt="compartilhar" />
-      </button>
-      <button
-        type="button"
+        onClick={ saveFavorite }
       >
         <img
           data-testid="favorite-btn"
-          src={ whiteHeartIcon }
-          alt="Favorite"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Favorite Button"
         />
       </button>
-      <h2 data-testid="recipe-category">{`Categoria: ${data.strCategory}`}</h2>
+      <h2 data-testid="recipe-category">
+        Categoria:
+        {
+          pathname.includes('/comidas')
+            ? data.strCategory : data.strAlcoholic
+        }
+      </h2>
       <ul>
         {renderIngredientsList(filterIngredients(data))}
       </ul>
       <p data-testid="instructions">{ data.strInstructions }</p>
-      <Link to="/in-progress">
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ () => localStorage.setItem('data', JSON.stringify(data)) }
-        >
-          Iniciar Receita
-        </button>
-      </Link>
-      <section data-testid="video">
+      <section>
         {
           pathname.includes('/comidas') ? renderVideo(data.strYoutube, data.strMeal) : ''
         }
       </section>
-      <section data-testid="0-recomendation-card">
+      <section>
         Recomendações
         { renderRecommendations() }
       </section>
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        style={ {
+          position: 'fixed',
+          bottom: 0,
+          zIndex: 1,
+        } }
+        onClick={ () => history.push(`${pathname}/in-progress`) }
+      >
+        Iniciar Receita
+      </button>
     </div>
   );
 }
