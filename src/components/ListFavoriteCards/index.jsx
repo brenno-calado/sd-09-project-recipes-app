@@ -14,7 +14,7 @@ function ListFavoriteCards({ favorite = [], handleFavoriteState }) {
   const [clipboard, setClipboard] = useState(false);
 
   const handleFavorite = (item) => {
-    const newState = updateLocalStorageItem(item);
+    const newState = updateLocalStorageItem('favoriteRecipes', item);
     handleFavoriteState(newState);
   };
 
@@ -35,7 +35,6 @@ function ListFavoriteCards({ favorite = [], handleFavoriteState }) {
       </span>
       <Link to={ `/${item.type}s/${item.id}` }>
         <img
-          style={ { width: '10%' } }
           data-testid={ `${index}-horizontal-image` }
           src={ item.image }
           alt={ `${item.name}-done-recipe` }
