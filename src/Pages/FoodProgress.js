@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Share from '../Components/Share';
 import FavoriteButton from '../Components/FavoriteButton';
 import { fetchMealDetailsAPI } from '../services/ApiRequest';
+import { addObj } from '../redux/actions';
 
 const MAX_NUMBER_INGREDIENTS = 8;
 class FoodProgress extends Component {
@@ -13,7 +15,9 @@ class FoodProgress extends Component {
     this.state = {
       meal: {},
       igredients: [],
+      ok: false,
     };
+    this.foodFavorit = this.foodFavorit.bind(this);
     this.sumblimeText = this.sumblimeText.bind(this);
     this.checkedItems = this.checkedItems.bind(this);
   }
@@ -22,10 +26,20 @@ class FoodProgress extends Component {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
+    const { addObjFood } = this.props;
 
     fetchMealDetailsAPI(id)
       .then(({ meals }) => {
-        this.setState({ meal: meals[0] });
+        addObjFood({
+          id: meals[0].idMeal,
+          type: 'comida',
+          area: meals[0].strArea,
+          category: meals[0].strCategory,
+          alcoholicOrNot: '',
+          name: meals[0].strMeal,
+          image: meals[0].strMealThumb,
+        });
+        this.setState({ meal: meals[0], ok: true });
         const ingredients = Object.keys(meals[0])
           .filter((key) => key.includes('strIngredient'));
         this.setState({ igredients: ingredients });
@@ -54,6 +68,11 @@ class FoodProgress extends Component {
     });
   }
 
+  foodFavorit() {
+    const { ok } = this.state;
+    if (ok) return <FavoriteButton />
+  }
+
   render() {
     const { meal, igredients } = this.state;
     // const { match } = this.props;
@@ -63,7 +82,7 @@ class FoodProgress extends Component {
       <div>
         <h1>Comidas em Progresso</h1>
         <Share />
-        <FavoriteButton />
+        {this.foodFavorit()}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
@@ -111,6 +130,11 @@ FoodProgress.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  addObjFood: PropTypes.func.isRequired,
 };
 
-export default FoodProgress;
+const mapDispatchToProps = (dispatch) => ({
+  addObjFood: (obj) => dispatch(addObj(obj)),
+});
+
+export default connect(null, mapDispatchToProps)(FoodProgress);

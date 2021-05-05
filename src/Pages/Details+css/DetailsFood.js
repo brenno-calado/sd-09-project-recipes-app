@@ -173,7 +173,6 @@ class DetailsFood extends React.Component {
     return (
       <div>
         <h1>Detalhes</h1>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
         {this.favoriteOk()}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{strMeal}</h2>
