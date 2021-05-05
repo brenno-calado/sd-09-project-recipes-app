@@ -27,7 +27,7 @@ function MainCards() {
   return (
     <div className="main-container">
       {
-        searchFilter.length > 1
+        searchFilter.length >= 1
           ? searchFilter.slice(0, MAX_NUMBER_OF_CARDS_12).map((curr, index) => (
             <Link to={ path } key={ index }>
               <div data-testid={ `${index}-recipe-card` } className="card">

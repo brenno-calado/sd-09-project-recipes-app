@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router';
 import DrinkIcon from '../images/drinkIcon.svg';
 import ExploreIcon from '../images/exploreIcon.svg';
 import MealIcon from '../images/mealIcon.svg';
+import MyContext from '../context/context';
 
 function Footer() {
   const history = useHistory();
+  const { setSearchFilter } = useContext(MyContext);
+  const clearCardsApiResult = () => {
+    setSearchFilter([]);
+    history.push('/bebidas');
+  };
+
   return (
     <footer
       data-testid="footer"
@@ -16,7 +23,7 @@ function Footer() {
         data-testid="drinks-bottom-btn"
         className="main-buttons"
         src="drinkIcon"
-        onClick={ () => { history.push('/bebidas'); } }
+        onClick={ clearCardsApiResult }
       >
         <img src={ DrinkIcon } alt="drinks" />
       </button>
