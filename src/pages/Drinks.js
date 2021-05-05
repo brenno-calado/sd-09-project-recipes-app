@@ -6,12 +6,14 @@ import { useRecipeContext } from '../contexts/recipeContext';
 import BottomMenu from '../components/BottomMenu';
 import createRender from '../utils/headerDrinks';
 import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
+import RecipeCard from '../components/RecepiCard';
 
 function Drinks() {
   const [drink, setDrink] = useState([]);
   const [listDrinkByCategory, setListDrinkByCategory] = useState([]);
   const [initDrinks, setInitDrinks] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
+  const twelve = 12;
   const { handleFetchDrinkClick,
     recipesData,
     getRecipes,
@@ -42,7 +44,6 @@ function Drinks() {
 
   function categoryButtom() {
     const five = 5;
-    console.log();
     return (
       drink.map(({ strCategory }, index) => (
         index < five && (
@@ -94,6 +95,21 @@ function Drinks() {
         {listDrinkByCategory.length
           ? createRender(listDrinkByCategory)
           : (initDrinks.length && (createRender(initDrinks))) }
+
+        {recipesData.drinks && recipesData.drinks
+          .map(({ idDrink, strDrinkThumb, strDrink }, index) => (
+            index < twelve && (
+              <RecipeCard
+                key={ idDrink }
+                image={ strDrinkThumb }
+                name={ strDrink }
+                recipeCArdId={ `${index}-recipe-card` }
+                cardImageId={ `${index}-card-img` }
+                cardNameId={ `${index}-card-name` }
+              />
+            )
+          )) }
+
         <BottomMenu />
       </>
     );

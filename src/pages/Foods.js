@@ -118,6 +118,7 @@ function Foods() {
 
   if (recipesData.meals) {
     const mealId = recipesData.meals.map(({ idMeal }) => idMeal);
+    console.log(mealId);
     return recipesData.meals.length === 1 ? (<Redirect to={ `/comidas/${mealId}` } />)
       : header();
   }
