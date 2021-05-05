@@ -31,7 +31,7 @@ function MealsInProgress() {
       doneDate: new Date().toLocaleDateString(),
       tags: data.strTags.split(','),
     };
-    updateLocalStorage('doneRecipes', 'doneRecipes', doneRecipe);
+    updateLocalStorage('doneOrFavoriteRecipes', 'doneRecipes', doneRecipe);
     setShouldRedirect(true);
   };
 
@@ -48,7 +48,7 @@ function MealsInProgress() {
       name: data.strDrink,
       image: data.strDrinkThumb,
     };
-    updateLocalStorage('doneRecipesOrFavorite', 'favoriteRecipes', favoriteItem);
+    updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
     // }
   };
 

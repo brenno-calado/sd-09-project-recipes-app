@@ -9,11 +9,14 @@ export const startLocalStorage = (email) => {
 
 export const updateLocalStorage = (action, key, data, value) => {
   switch (action) {
-  case 'doneRecipes' || 'favoriteRecipes':
+  case 'doneOrFavoriteRecipes':
     localStorage[key] = JSON.stringify([
-      ...JSON.parse(localStorage[key]),
+      ...JSON.parse(localStorage[key] || '[]'),
       data,
     ]);
+    break;
+  case 'updateFavoriteRecipes':
+    localStorage.favoriteRecipes = JSON.stringify(data);
     break;
   case 'inProgressRecipes':
     localStorage.inProgressRecipes = JSON.stringify({
