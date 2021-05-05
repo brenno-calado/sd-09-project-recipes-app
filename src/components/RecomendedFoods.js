@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import '../App.css';
 
 const RecomendedFoods = () => {
   const [cocktails, setCocktails] = useState([]);
@@ -37,21 +37,28 @@ const RecomendedFoods = () => {
       <div>
         {
           cocktails.map((item, index) => (
-            <Link
-              to={ `/comidas/${item.idMeal}` }
-              key={ index }
+            <div
+              className="recommended-box"
               data-testid={ `${index}-recomendation-card` }
+              key={ index }
             >
-              <h2 data-testid={ `${index}-recomendation-title` }>{ item.strMeal }</h2>
               <img
+                className="recommended-box-image"
                 src={ item.strMealThumb }
                 alt={ item.strMeal }
               />
               <div>
-                <span>{item.strCategory}</span>
+                <span className="recommended-box-category">{item.strCategory}</span>
                 <span>{item.strMeal}</span>
+                <p
+                  className="recommended-box-name"
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {item.strMeal}
+
+                </p>
               </div>
-            </Link>
+            </div>
           ))
         }
       </div>
