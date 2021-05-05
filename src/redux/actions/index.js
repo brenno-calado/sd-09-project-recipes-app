@@ -10,6 +10,7 @@ import {
   SUCCESS_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  SUCCESS_RANDOM_RECOMMENDED,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -19,6 +20,7 @@ import {
   fetchInitialMeals,
   fetchMealsByCategory,
   fetchMealsById,
+  fetchRandomMeals,
 } from '../../services/mealsAPI';
 import {
   cocktailsByIngredient,
@@ -28,6 +30,7 @@ import {
   fetchInitialCocktails,
   fetchCocktailsByCategory,
   fetchCocktailsById,
+  fetchRandomCocktails,
 } from '../../services/cocktailsAPI';
 
 export const savePath = (pathname, recipeType) => ({
@@ -184,6 +187,11 @@ const successRecommended = (data) => ({
   data,
 });
 
+const successRandomRecommendes = (data) => ({
+  type: SUCCESS_RANDOM_RECOMMENDED,
+  data,
+});
+
 export function mealsRecommendedThunk() {
   return (dispatch) => {
     dispatch(fetching());
@@ -199,6 +207,22 @@ export function cocktailsRecommendedThunk() {
     return fetchInitialCocktails()
       .then((data) => dispatch(successRecommended(data)))
       .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+
+export function recipeSurpriseThunk(type) {
+  return (dispatch) => {
+    dispatch(fetching());
+    if (type === 'comidas') {
+      return fetchRandomMeals()
+        .then((data) => dispatch(successRandomRecommendes(data)))
+        .catch((error) => dispatch(failureFetch(error)));
+    }
+    if (type === 'bebidas') {
+      return fetchRandomCocktails()
+        .then((data) => dispatch(successRandomRecommendes(data)))
+        .catch((error) => dispatch(failureFetch(error)));
+    }
   };
 }
 

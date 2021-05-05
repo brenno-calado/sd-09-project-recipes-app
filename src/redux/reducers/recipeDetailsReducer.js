@@ -3,6 +3,7 @@ import {
   FETCHING_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  SUCCESS_RANDOM_RECOMMENDED,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
   startedRecipes: [],
   ingredients: [],
   isFavorite: null,
+  randomRecommended: [],
 };
 
 function recipeDetailsReducer(state = INITIAL_STATE, action) {
@@ -28,6 +30,9 @@ function recipeDetailsReducer(state = INITIAL_STATE, action) {
     });
   case SUCCESS_RECOMMENDED:
     return ({ ...state, recommended: action.data });
+  case SUCCESS_RANDOM_RECOMMENDED:
+    console.log(action);
+    return ({ ...state, randomRecommended: action.data });
   case SAVE_INGREDIENTS:
     return ({ ...state, ingredients: action.ingredients });
   default:

@@ -8,7 +8,9 @@ import Explore from './pages/Explore';
 import Details from './pages/Details';
 import RecipeInProgress from './pages/RecipeInProgress';
 import DoneRecipes from './pages/DoneRecipes';
-import FavoritesRecipes from './pages/FavoritesRecipes';
+import ExploreFoodsOrDrinks from './pages/ExploreFoodsOrDrinks';
+import ExploreByIngredient from './pages/ExploreByIngredient';
+import ExploreByArea from './pages/ExploreByArea';
 
 function App() {
   return (
@@ -18,14 +20,13 @@ function App() {
         <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/comidas/:id" component={ Details } />
         <Route path="/bebidas/:id" component={ Details } />
-        <Route path="/explorar/comidas/area" component={ Explore } />
-        <Route path="/explorar/bebidas/ingredientes" component={ Explore } />
-        <Route path="/explorar/comidas/ingredientes" component={ Explore } />
-        <Route path="/explorar/comidas" component={ Explore } />
-        <Route path="/explorar/bebidas" component={ Explore } />
+        <Route path="/explorar/comidas/area" component={ ExploreByArea } />
+        <Route path="/explorar/bebidas/ingredientes" component={ ExploreByIngredient } />
+        <Route path="/explorar/comidas/ingredientes" component={ ExploreByIngredient } />
+        <Route path="/explorar/comidas" component={ ExploreFoodsOrDrinks } />
+        <Route path="/explorar/bebidas" component={ ExploreFoodsOrDrinks } />
         <Route path="/explorar" component={ Explore } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
-        <Route path="/receitas-favoritas" component={ FavoritesRecipes } />
         <Route path="/bebidas" component={ Cocktails } />
         <Route path="/comidas" component={ Meals } />
         <Route path="/perfil" component={ Profile } />

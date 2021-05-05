@@ -1,34 +1,35 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { savePath } from '../redux/actions';
-import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
-import Footer from '../components/Footer';
+import { savePath } from '../redux/actions';
 
-function Cocktails({ pathnameDispatcher, location }) {
+const ExploreByIngredients = ({ pathnameDispatcher, location }) => {
   useEffect(() => {
     const { pathname } = location;
-    pathnameDispatcher(pathname);
+    if (pathname.includes('/comidas')) {
+      pathnameDispatcher('/comidas');
+    }
+    if (pathname.includes('/bebidas')) {
+      pathnameDispatcher('/bebidas');
+    }
   }, [location, pathnameDispatcher]);
 
   return (
     <div>
-      <h1 data-testid="page-title">Bebidas</h1>
-      <Header />
+      Explorar Por Ingredientes
       <RecipeList />
-      <Footer />
     </div>
   );
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
   pathnameDispatcher: (pathname) => dispatch(savePath(pathname)),
 });
 
-Cocktails.propTypes = {
+ExploreByIngredients.propTypes = {
   pathnameDispatcher: PropTypes.func.isRequired,
   location: PropTypes.string.isRequired,
 };
 
-export default connect(null, mapDispatchToProps)(Cocktails);
+export default connect(null, mapDispatchToProps)(ExploreByIngredients);
