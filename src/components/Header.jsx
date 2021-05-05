@@ -10,7 +10,7 @@ const toggleSearchBar = (searchBarView, setSearchBarView) => {
 
 const Header = (props) => {
   const { title } = props;
-  const [searchBarView, setSearchBarView] = useState(false);
+  const [searchBarView, setSearchBarView] = useState(true);
   return (
     <header>
       <img
