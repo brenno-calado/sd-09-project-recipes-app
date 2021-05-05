@@ -1,4 +1,5 @@
 import fetchRecipesData from '../services/fetchRecipesData';
+import fetchByArea from '../services/fetchByArea';
 import { fetchMealCategoryList,
   fetchDrinkCategoryList } from '../services/fetchCategoryList';
 
@@ -12,6 +13,7 @@ export const LOADING = 'LOADING';
 export const RECIPE_TYPE = 'RECIPE_TYPE';
 export const RECIPE_QUERY = 'RECIPE_QUERY';
 export const RECIPE_CASE = 'RECIPE_CASE';
+export const AREA = 'AREA';
 
 export const setRedirect = () => ({
   type: REDIRECT,
@@ -48,6 +50,18 @@ const drinkCategoryList = (categories) => ({
   type: DRINK,
   categories,
 });
+
+export const areaList = (areas) => ({
+  type: AREA,
+  areas,
+});
+
+export function setArea() {
+  return async (dispatch) => {
+    const area = await fetchByArea();
+    return dispatch(areaList(area));
+  };
+}
 
 export function searchRecipe(type, text, category) {
   return async (dispatch) => {

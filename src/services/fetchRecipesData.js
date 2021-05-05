@@ -12,6 +12,8 @@ const checkSearchType = (type, text, category) => {
     return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${text}`;
   case 'meal':
     return `https://www.themealdb.com/api/json/v1/1/filter.php?c=${text}`;
+  case 'area':
+    return `https://www.themealdb.com/api/json/v1/1/filter.php?a=${text}`;
   default:
     return `https://www.the${category}db.com/api/json/v1/1/search.php?s=`;
   }
