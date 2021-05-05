@@ -8,8 +8,8 @@ import {
   FAILURE_CATEGORIES,
   FETCHING_RECIPE,
   SUCCESS_RECIPE,
-  SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  SUCCESS_RECOMMENDED,
   SEND_DONE_RECIPES,
   SEND_FAVORITE_RECIPES,
 } from './actionTypes';
@@ -38,16 +38,21 @@ export const savePath = (pathname, recipeType) => ({
   recipeType,
 });
 
-const fetching = () => ({
+export const fetching = () => ({
   type: FETCHING,
 });
 
-const sucessFetch = (data) => ({
+const successRecommended = (data) => ({
+  type: SUCCESS_RECOMMENDED,
+  data,
+});
+
+export const sucessFetch = (data) => ({
   type: SUCCESS_FETCH,
   data,
 });
 
-const failureFetch = (error) => ({
+export const failureFetch = (error) => ({
   type: FAILURE_FETCH,
   error,
 });
@@ -181,24 +186,23 @@ export function cocktailsByIdThunk(id) {
   };
 }
 
-const successRecommended = (data) => ({
-  type: SUCCESS_RECOMMENDED,
-  data,
+export const saveIngredients = (ingredients) => ({
+  type: SAVE_INGREDIENTS,
+  ingredients,
 });
-
-export function mealsRecommendedThunk() {
-  return (dispatch) => {
-    dispatch(fetching());
-    return fetchInitialMeals()
-      .then((data) => dispatch(successRecommended(data)))
-      .catch((error) => dispatch(failureFetch(error)));
-  };
-}
 
 export function cocktailsRecommendedThunk() {
   return (dispatch) => {
     dispatch(fetching());
     return fetchInitialCocktails()
+      .then((data) => dispatch(successRecommended(data)))
+      .catch((error) => dispatch(failureFetch(error)));
+  };
+}
+export function mealsRecommendedThunk() {
+  return (dispatch) => {
+    dispatch(fetching());
+    return fetchInitialMeals()
       .then((data) => dispatch(successRecommended(data)))
       .catch((error) => dispatch(failureFetch(error)));
   };

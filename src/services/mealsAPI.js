@@ -53,3 +53,24 @@ export const fetchRandomMeals = () => {
     .then((response) => response.json())
     .then((data) => data.meals);
 };
+
+export const fetchIngredientsMeals = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};
+
+export const fetchAreaMeals = () => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};
+
+export const fetchByArea = (area) => {
+  const endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  return fetch(endpoint)
+    .then((response) => response.json())
+    .then((data) => data.meals);
+};

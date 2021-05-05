@@ -4,25 +4,18 @@ import { connect } from 'react-redux';
 import { savePath } from '../redux/actions';
 import Header from '../components/Header';
 import RecipeList from '../components/RecipeList';
-import CategoryFilter from '../components/CategoryFilter';
 import Footer from '../components/Footer';
 
 function Cocktails({ pathnameDispatcher, location }) {
   useEffect(() => {
     const { pathname } = location;
-    if (pathname === '/comidas') {
-      pathnameDispatcher(pathname, 'comidas');
-    }
-    if (pathname === '/bebidas') {
-      pathnameDispatcher(pathname, 'bebidas');
-    }
-  }, []);
+    pathnameDispatcher(pathname);
+  }, [location, pathnameDispatcher]);
 
   return (
     <div>
       <h1 data-testid="page-title">Bebidas</h1>
       <Header />
-      <CategoryFilter />
       <RecipeList />
       <Footer />
     </div>
@@ -30,7 +23,7 @@ function Cocktails({ pathnameDispatcher, location }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  pathnameDispatcher: (pathname, recipeType) => dispatch(savePath(pathname, recipeType)),
+  pathnameDispatcher: (pathname) => dispatch(savePath(pathname)),
 });
 
 Cocktails.propTypes = {
