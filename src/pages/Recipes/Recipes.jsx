@@ -82,8 +82,12 @@ const mapStateToProps = (state) => ({
   meals: state.searchReducer.meals,
 });
 
+Recipes.defaultProps = {
+  meals: undefined,
+};
+
 Recipes.propTypes = {
-  meals: PropTypes.arrayOf(PropTypes.string).isRequired,
+  meals: PropTypes.arrayOf(PropTypes.string),
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,

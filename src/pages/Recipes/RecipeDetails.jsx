@@ -155,6 +155,10 @@ function RecipeDetails(props) {
   );
 }
 
+RecipeDetails.defaultProps = {
+  recipe: undefined,
+};
+
 RecipeDetails.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
@@ -174,7 +178,7 @@ RecipeDetails.propTypes = {
     srtInstructions: PropTypes.string,
     srtSource: PropTypes.string,
     srtMeasure: PropTypes.string,
-  }).isRequired,
+  }),
 };
 
 export default RecipeDetails;

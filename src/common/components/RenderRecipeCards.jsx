@@ -47,10 +47,10 @@ RenderRecipeCards.defaultProps = {
 };
 
 RenderRecipeCards.propTypes = ({
-  array: PropTypes.arrayOf(PropTypes.any),
-  list: PropTypes.arrayOf(PropTypes.any),
+  array: PropTypes.shape({}),
+  list: PropTypes.shape({}),
   kindOfFood: PropTypes.string.isRequired,
-  cardsLimit: PropTypes.number.isRequired,
+  cardsLimit: PropTypes.string.isRequired,
 });
 
 export default RenderRecipeCards;
