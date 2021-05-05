@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import './Styles/Recipes.css';
 
 function Login() {
   const [state, setState] = useState({
@@ -50,7 +51,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className="Login">
       <form>
         Login
         <input
