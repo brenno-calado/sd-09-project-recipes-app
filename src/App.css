@@ -1,5 +1,5 @@
 :root {
-  
+
   --light-blue: rgb(215, 240, 255);
 
   --light-pink: rgb(240, 215, 255);
@@ -8,11 +8,13 @@
 
   --soft-blue: rgb(170, 190, 240);
 
-  --large-shadow:  8px 8px 8px rgba(230, 110, 110, 0.4);
+  --large-shadow: 8px 8px 8px rgba(230, 110, 110, 0.4);
 
-  --linear-gradient-1: linear-gradient(120deg, rgb(240, 210, 255), rgb(210, 240, 255), rgb(240, 210, 255));
+  --linear-gradient-1:
+    linear-gradient(120deg, rgb(240, 210, 255), rgb(210, 240, 255), rgb(240, 210, 255));
 
-  --linear-gradient-2: linear-gradient(120deg, rgb(240, 210, 255), white, rgb(210, 240, 255));
+  --linear-gradient-2: 
+    linear-gradient(120deg, rgb(240, 210, 255), white, rgb(210, 240, 255));
 
   --linear-gradient-3: linear-gradient(120deg, var(--soft-blue), var(--soft-purple));
 
@@ -58,8 +60,8 @@
 }
 
 .login-input:focus {
-  outline: none;
   border-bottom: solid 3px var(--light-pink);
+  outline: none;
 }
 
 .login-btn {
