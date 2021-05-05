@@ -17,11 +17,10 @@ function ShowCategories({ name, searchResult }) {
   }, [getCategories, name]);
 
   const numberOfCategories = 5;
-
   return (
     <div>
       {!categories
-        ? <div>letter</div>
+        ? <div />
         : categories.map(
           (category, index) => (index < numberOfCategories
             && (
@@ -36,8 +35,10 @@ function ShowCategories({ name, searchResult }) {
           ),
         )}
       <button
-        type="button"
+        data-testid="All-category-filter"
+        key="All"
         onClick={ () => searchResult('All') }
+        type="button"
       >
         All
       </button>

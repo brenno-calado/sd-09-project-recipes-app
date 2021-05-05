@@ -1,16 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { fetchDrinkDetailsAPI, fetchMealsAPI } from '../../services/ApiRequest';
+import FavoriteButton from '../../Components/FavoriteButton';
+import Share from '../../Components/Share';
+import { addObj } from '../../redux/actions';
 
 class DetailsDrinks extends React.Component {
   constructor() {
     super();
     this.recomendar = this.recomendar.bind(this);
+    this.favoriteOk = this.favoriteOk.bind(this);
+    this.buttonStartOrContinue = this.buttonStartOrContinue.bind(this);
     this.state = {
       drink: {},
       igredients: [],
       pounds: [],
       foods: [],
+      ok: false,
     };
   }
 
@@ -18,9 +26,20 @@ class DetailsDrinks extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
+    const { addObjDrink } = this.props;
+
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
-        this.setState({ drink: drinks[0] });
+        addObjDrink({
+          id: drinks[0].idDrink,
+          type: 'bebida',
+          area: '',
+          category: drinks[0].strCategory,
+          alcoholicOrNot: drinks[0].strAlcoholic,
+          name: drinks[0].strDrink,
+          image: drinks[0].strDrinkThumb,
+        });
+        this.setState({ drink: drinks[0], ok: true });
         const ingr = Object.keys(drinks[0]).filter((key) => key.includes('strIngredient'))
           .filter((value) => drinks[0][value] !== ' '
             && drinks[0][value] !== '' && drinks[0][value] !== null);
@@ -35,6 +54,19 @@ class DetailsDrinks extends React.Component {
       .then(({ meals }) => {
         this.setState({ foods: meals });
       });
+  }
+
+  favoriteOk() {
+    const { ok } = this.state;
+    if (ok === true) {
+      return (
+        <di>
+          <FavoriteButton />
+          <Share />
+        </di>
+      );
+    }
+    return null;
   }
 
   recomendar() {
@@ -56,14 +88,64 @@ class DetailsDrinks extends React.Component {
     );
   }
 
+  buttonStartOrContinue() {
+    const { drink, ok } = this.state;
+    let response = '';
+    if (ok === true) {
+      const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+      const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (doneRecipes !== null) {
+        response = doneRecipes.some((recipe) => recipe.id === drink.idDrink);
+        if (response === true) {
+          return (
+            <button
+              className="invisible"
+              data-testid="start-recipe-btn"
+              type="button"
+            >
+              Continuar Receita
+            </button>
+          );
+        }
+      }
+      if (inProgressRecipes !== null) {
+        const keysDrinks = Object.keys(inProgressRecipes.cocktails)
+          .some((key) => key === drink.idDrink);
+        if (keysDrinks === true) {
+          return (
+            <Link to={ `/bebidas/${drink.idDrink}/in-progress` }>
+              <button
+                className="fix"
+                data-testid="start-recipe-btn"
+                type="button"
+              >
+                Continuar Receita
+              </button>
+            </Link>
+          );
+        }
+      }
+      return (
+        <Link to={ `/bebidas/${drink.idDrink}/in-progress` }>
+          <button
+            className="fix"
+            data-testid="start-recipe-btn"
+            type="button"
+          >
+            Iniciar Receita
+          </button>
+        </Link>
+      );
+    }
+  }
+
   render() {
     const { drink, igredients, pounds } = this.state;
     const { strAlcoholic, strDrinkThumb, strDrink, strInstructions } = drink;
     return (
       <div>
         <h1>Detalhes</h1>
-        <button type="button" data-testid="share-btn">Compartilhar</button>
-        <button type="button" data-testid="favorite-btn">Favoritar</button>
+        {this.favoriteOk()}
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
         <h2 data-testid="recipe-title">{strDrink}</h2>
         <h3 data-testid="recipe-category">{strAlcoholic}</h3>
@@ -79,22 +161,21 @@ class DetailsDrinks extends React.Component {
         </ol>
         <p data-testid="instructions">{strInstructions}</p>
         {this.recomendar()}
-        <button
-          className="fix"
-          data-testid="start-recipe-btn"
-          type="button"
-        >
-          Iniciar Receita
-        </button>
+        {this.buttonStartOrContinue()}
       </div>
     );
   }
 }
 
 DetailsDrinks.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.objectOf.isRequired,
-  }).isRequired,
+  match: PropTypes.objectOf.isRequired,
+  params: PropTypes.objectOf.isRequired,
+  id: PropTypes.string.isRequired,
+  addObjDrink: PropTypes.func.isRequired,
 };
 
-export default DetailsDrinks;
+const mapDispatchToProps = (dispatch) => ({
+  addObjDrink: (obj) => dispatch(addObj(obj)),
+});
+
+export default connect(null, mapDispatchToProps)(DetailsDrinks);

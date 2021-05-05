@@ -14,11 +14,13 @@ class CocktailCards extends React.Component {
     this.updateSearchedDrink = this.updateSearchedDrink.bind(this);
     this.state = {
       filteredByCategories: [],
+      toggleCategory: '',
     };
   }
 
   componentDidMount() {
     this.callCocktail();
+    localStorage.removeItem('id');
   }
 
   componentWillUnmount() {
@@ -31,10 +33,14 @@ class CocktailCards extends React.Component {
   }
 
   async updateSearchedDrink(category) {
-    const categoryResponse = await fetchCocktailByCategory(category);
-    this.setState({
-      filteredByCategories: categoryResponse.drinks,
-    });
+    const { toggleCategory } = this.state;
+    this.setState({ toggleCategory: category });
+    if (category === toggleCategory) this.setState({ filteredByCategories: null });
+    else if (category === 'All') this.setState({ filteredByCategories: null });
+    else {
+      const categoryResponse = await fetchCocktailByCategory(category);
+      this.setState({ filteredByCategories: categoryResponse.drinks });
+    }
   }
 
   createCards() {
