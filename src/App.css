@@ -6,8 +6,26 @@
   max-width: 640px;
 }
 
+.category {
+  color: darkgray;
+  margin: 0 5px;
+}
+
 .center {
   text-align: center;
+}
+
+.heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 2px 5px;
+}
+
+.ingredients-list {
+  background-color: lightgray;
+  border: 1px solid lightgray;
+  border-radius: 10px;
 }
 
 .full-width {
@@ -34,6 +52,21 @@
   font-weight: 900;
 }
 
+.recipe-body {
+  margin: 5px;
+}
+
+.recipe-card {
+  border: 1px solid silver;
+  border-radius: 20px;
+  margin: 6px;
+  overflow: hidden;
+}
+
+.recipe-title {
+  margin: 1em 10px;
+}
+
 .rocksGlass {
   animation: shake 1s infinite ease;
   max-height: 80vh;
@@ -46,6 +79,15 @@
 
 .silver-shadow {
   box-shadow: 0 5px 5px silver;
+}
+
+.start-recipe-btn {
+  background-color: #6ce34f;
+  bottom: 0;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  width: 100%;
 }
 
 @keyframes shake {
