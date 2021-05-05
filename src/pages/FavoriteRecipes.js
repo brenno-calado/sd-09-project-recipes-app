@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import HeaderFoods from '../components/HeaderFoods';
 import RecipeDoneCard from '../components/RecipeDoneCard';
+import renderDrink from '../utils/renderDrink';
+import renderFood from '../utils/renderFood';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
@@ -50,60 +52,12 @@ function FavoriteRecipes() {
   function handleButtonFilterName({ target }) {
     const { name } = target;
     setButtonSelect(name);
-    console.log(name);
   }
 
-  function renderFood() {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteRecipe = favoriteRecipes && favoriteRecipes.map((
-      { type, id, image, name, category, area,
-      }, index,
-    ) => {
-      if (type === 'comida') {
-        return (<RecipeDoneCard
-          key={ Math.random() }
-          image={ image }
-          name={ name }
-          index={ index }
-          category={ category }
-          area={ area }
-          id={ id }
-          setFavorite={ setFavorite }
-          favorite={ favorite }
-          type={ type }
-        />);
-      }
-      return '';
-    });
-    return favoriteRecipe;
-  }
-
-  function renderDrink() {
-    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const favoriteRecipe = favoriteRecipes && favoriteRecipes.map((
-      { type, id, image, name, area, alcoholicOrNot,
-      }, index,
-    ) => {
-      if (type === 'bebida') {
-        return (<RecipeDoneCard
-          key={ Math.random() }
-          image={ image }
-          name={ name }
-          index={ index - 1 }
-          category={ alcoholicOrNot }
-          area={ area }
-          id={ id }
-          setFavorite={ setFavorite }
-          favorite={ favorite }
-          type={ type }
-        />);
-      }
-      return '';
-    });
-    return favoriteRecipe;
-  }
-  const renderFoods = buttonSelect === 'food' ? renderFood() : favorites;
-  const renderDrinks = buttonSelect === 'drink' ? renderDrink() : favorites;
+  const renderFoods = buttonSelect === 'food'
+    ? renderFood(favorite, setFavorite) : favorites;
+  const renderDrinks = buttonSelect === 'drink'
+    ? renderDrink(favorite, setFavorite) : favorites;
   return (
     <>
       <HeaderFoods hassearchbar={ false }>
