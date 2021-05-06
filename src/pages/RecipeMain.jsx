@@ -87,13 +87,9 @@ function RecipeMain() {
     handleCategories(setCurrentCategories);
   }, []);
   useEffect(() => {
-    getFilteredRecipes(recipes, currentCategories[filter], setRecipes);
-    if (isFoodPage()) {
-      setRecipes(meals);
-    } else {
-      setRecipes(drinks);
-    }
-  }, [filter, meals, drinks]);
+    const currentRecipes = isFoodPage() ? meals : drinks;
+    getFilteredRecipes(currentRecipes, currentCategories[filter], setRecipes);
+  }, [filter, meals, drinks, currentCategories]);
 
   return (
     <div className="main-container">
