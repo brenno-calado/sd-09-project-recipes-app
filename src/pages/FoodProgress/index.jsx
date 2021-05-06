@@ -12,6 +12,9 @@ import {
 } from '../../components/Details/services';
 
 export default function FoodProgress(props) {
+  const data = new Date();
+  const dataToday = `${data.getDay()}/${data.getDay()}/${data.getDay()}`;
+  console.log(dataToday);
   const [details, setDetails] = useState(null);
   const [counter, setCounter] = useState(0);
   const [redirect, setRedirect] = useState(false);
@@ -37,12 +40,25 @@ export default function FoodProgress(props) {
   };
 
   const doneRecipe = () => {
+    // const recipeFinished = {
+    //   id: '',
+    //   type: comida-ou-bebida,
+    //   area: area-da-receita-ou-texto-vazio,
+    //   category: categoria-da-receita-ou-texto-vazio,
+    //   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio,
+    //   name: nome-da-receita,
+    //   image: imagem-da-receita,
+    //   doneDate: quando-a-receita-foi-concluida,
+    //   tags: array-de-tags-da-receita-ou-array-vazio
+    // }
+
     setRedirect(true);
     // Aqui tem que ser atualizado;
   };
 
-  console.log(ingredientsArray(details));
-  console.log(counter);
+  console.log(details);
+  console.log(data.toDateString());
+
   return (
     <S.Container>
       <S.ThumbNail
@@ -76,7 +92,6 @@ export default function FoodProgress(props) {
           ))}
       </ul>
       <p data-testid="instructions">{details && details.strInstructions}</p>
-
       <button
         type="button"
         data-testid="finish-recipe-btn"
