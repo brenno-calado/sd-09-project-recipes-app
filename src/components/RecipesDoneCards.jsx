@@ -101,7 +101,7 @@ function createCard(recipe, index, typeRecipe) {
 function RecipesDoneCards({ recipesDoneList, doneOrFavorite }) {
   const { typeRecipe } = doneOrFavorite;
   return (
-    !recipesDoneList ? (<p>Nenhuma Receita Concluida</p>) : (
+    !recipesDoneList ? (<p>Nenhuma receita a ser listada</p>) : (
       <section>
         {recipesDoneList
           .map((recipe, index) => createCard(recipe, index, typeRecipe))}
