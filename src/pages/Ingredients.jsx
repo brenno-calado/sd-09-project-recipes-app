@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { func } from 'prop-types';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -60,5 +61,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: (url) => dispatch(fetchSearch(url)),
   doNotFetch: () => dispatch(dontFetch()),
 });
+
+Ingredients.propTypes = {
+  fetchRecipes: func,
+  doNotFetch: func,
+}.isRequired;
 
 export default connect(null, mapDispatchToProps)(Ingredients);
