@@ -1,0 +1,43 @@
+@keyframes floatIcon {
+
+  from {
+    margin-top: 20px;
+  }
+
+  to {
+    margin-top: 50px;
+  }
+}
+
+.buttons-section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttons-section button {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.7em;
+  height: 35px;
+  margin-left: 15px;
+  padding: 3px;
+}
+
+.app-icon-section {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.icon {
+  animation-direction: alternate-reverse;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-name: floatIcon;
+  animation-timing-function: ease;
+}
