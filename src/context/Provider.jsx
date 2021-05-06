@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
@@ -9,6 +9,7 @@ function Provider(props) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [verification, setVerification] = useState(false);
+  const [doneFav, setDoneFav] = useState([]);
 
   const handleClick = (e) => {
     const { target } = e;
@@ -72,6 +73,16 @@ function Provider(props) {
     }
   }
 
+  function filterBy(string) {
+    const filtered = doneFav.filter((recipe) => recipe.type === string);
+    setDoneFav(filtered);
+  }
+
+  const resetFilter = useCallback((tp) => {
+    const recipes = JSON.parse(localStorage.getItem(tp)) || [];
+    setDoneFav(recipes);
+  }, []);
+
   const context = {
     filter,
     inputText,
@@ -93,6 +104,10 @@ function Provider(props) {
     verification,
     setVerification,
     verifyInProgress,
+    doneFav,
+    setDoneFav,
+    filterBy,
+    resetFilter,
   };
 
   const { children } = props;
