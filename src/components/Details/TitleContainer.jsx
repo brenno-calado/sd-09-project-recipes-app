@@ -32,7 +32,7 @@ function TitleContainer({
     typePath === 'food' ? item[meal] : item[drink]);
 
   const handleFavorite = () => {
-    const newState = updateLocalStorageItem({
+    const newState = updateLocalStorageItem('favoriteRecipes', {
       id: item.idMeal || item.idDrink,
       type: path.includes('comida') ? 'comida' : 'bebida',
       area: item.strArea || '',
