@@ -17,7 +17,7 @@ function PrincipalBebidas() {
 
   useEffect(() => {
     drinkFilterCallBack();
-  }, []);
+  });
 
   return (
     <>

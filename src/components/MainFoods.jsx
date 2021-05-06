@@ -17,7 +17,7 @@ function MainFoods() {
 
   useEffect(() => {
     foodFilterCallBack();
-  }, []);
+  });
 
   return (
     <>
