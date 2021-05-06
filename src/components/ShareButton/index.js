@@ -1,14 +1,15 @@
-import React, { useContext, useState, useEffect } from 'react';
 import copy from 'clipboard-copy';
+import { number } from 'prop-types';
+import React, { useState, useEffect } from 'react';
 
-import RecipesContext from '../../context/RecipesContext';
 import shareIcon from '../../images/shareIcon.svg';
+
 import './ShareButton.css';
 
-const ShareButton = () => {
-  const { location } = useContext(RecipesContext);
+const ShareButton = (props) => {
   const [copied, setCopied] = useState(false);
-  const URL = `http://localhost:3000${location.pathname}`;
+
+  const { dataTestIdIndex, URL } = props;
 
   const copyUrl = () => {
     const sucessPromise = copy(URL);
@@ -27,12 +28,22 @@ const ShareButton = () => {
 
   return (
     <div>
-      <button type="button" className="share-button" onClick={ () => copyUrl() }>
+      <button
+        type="button"
+        src={ shareIcon }
+        className="share-button"
+        onClick={ () => copyUrl() }
+        data-testid={ `${dataTestIdIndex}-horizontal-share-btn` }
+      >
         <img data-testid="share-btn" src={ shareIcon } alt="Compartilhar" />
       </button>
       { copied && <span>Link copiado!</span> }
     </div>
   );
 };
+
+ShareButton.propTypes = {
+  dataTestIdIndex: number,
+}.isRequired;
 
 export default ShareButton;
