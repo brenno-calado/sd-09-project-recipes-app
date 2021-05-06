@@ -4,7 +4,6 @@ import { objectOf } from 'prop-types';
 class RecommendationCard extends React.Component {
   render() {
     const { recommendationRecipe, index } = this.props;
-    console.log(recommendationRecipe);
     const query = window.location.pathname.includes('comidas') ? 'Drink' : 'Meal';
     return (
       <div>
