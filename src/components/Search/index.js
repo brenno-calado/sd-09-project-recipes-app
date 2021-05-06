@@ -1,54 +1,100 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { FoodCtx } from '../../context/contextFood';
+import { DrinkCtx } from '../../context/contextDrink';
+
 import './Search.css';
 
-function Search() {
+function Search({ currentPage }) {
+  const { setFilterFood } = useContext(FoodCtx);
+  const { setFilterDrink } = useContext(DrinkCtx);
+  const [inputChange, setInputChange] = useState({
+    inputSearch: '',
+    selectedFilter: '',
+  });
+
+  function handleChange({ target: { name, value } }) {
+    setInputChange({
+      ...inputChange,
+      [name]: value,
+    });
+  }
+
+  function handleClick() {
+    const { inputSearch, selectedFilter } = inputChange;
+
+    if (selectedFilter === 'first' && inputSearch.length > 1) {
+      alert('Sua busca deve conter somente 1 (um) caracter');
+      setInputChange({
+        ...inputChange,
+        inputSearch: '',
+      });
+      return;
+    }
+    if (currentPage === 'Foods') {
+      setFilterFood({
+        key: selectedFilter,
+        value: inputSearch,
+      });
+      return;
+    }
+    setFilterDrink({
+      key: selectedFilter,
+      value: inputSearch,
+    });
+  }
+
   return (
     <div className="search-container">
-      <form onSubmit={ ' ' }>
-        <input
-          onChange={ ' ' }
-          type="text"
-          value={ ' ' }
-          className="input-search"
-          data-testid="search-input"
-        />
-        <section className="radio">
-          <label htmlFor="ingredients">
-            Ingredientes:
-            <input
-              data-testid="ingredient-search-radio"
-              type="radio"
-              value="ing"
-              onChange={ ' ' }
-              name="filter"
-              id="ingredients"
-            />
-          </label>
-          <label htmlFor="name">
-            Nome:
-            <input
-              data-testid="name-search-radio"
-              type="radio"
-              value="name"
-              onChange={ ' ' }
-              name="filter"
-              id="name"
-            />
-          </label>
-          <label htmlFor="first">
-            Primeira Letra:
-            <input
-              data-testid="first-letter-search-radio"
-              type="radio"
-              value="first"
-              onChange={ ' ' }
-              id="first"
-              name="filter"
-            />
-          </label>
-        </section>
-        <button data-testid="exec-search-btn" type="submit">Buscar</button>
-      </form>
+      <input
+        type="text"
+        data-testid="search-input"
+        onChange={ handleChange }
+        className="input-search"
+        name="inputSearch"
+        value={ inputChange.inputSearch }
+      />
+      <section className="radio">
+        <label htmlFor="ingredients">
+          Ingredientes:
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            onChange={ handleChange }
+            name="selectedFilter"
+            value="ing"
+            id="ingredients"
+          />
+        </label>
+        <label htmlFor="name">
+          Nome:
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            onChange={ handleChange }
+            name="selectedFilter"
+            value="name"
+            id="name"
+          />
+        </label>
+        <label htmlFor="first">
+          Primeira Letra:
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            onChange={ handleChange }
+            name="selectedFilter"
+            value="first"
+            id="first"
+          />
+        </label>
+      </section>
+      <button
+        data-testid="exec-search-btn"
+        type="submit"
+        onClick={ handleClick }
+      >
+        Buscar
+      </button>
     </div>
   );
 }
