@@ -71,9 +71,9 @@ const fetch = (url) => Promise.resolve({
     )
       return Promise.resolve(oneDrink);
 
-    if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=soup')
+    if (url === 'https://www.themealdb.com/api/json/v1/1/search.php?s=soup') 
       return Promise.resolve(soupMeals);
-
+ 
     if (url === 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef')
       return Promise.resolve(beefMeals);
 

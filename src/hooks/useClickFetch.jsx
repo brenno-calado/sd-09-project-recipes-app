@@ -37,6 +37,7 @@ function useClickFetch() {
     if (checkValue === 'name') {
       const apiData = await getRecipeByName(inputValue);
       setRecipesData(apiData);
+      console.log(apiData);
     }
     if (checkValue === 'firstLetter') {
       if (inputValue.length > 1) {
@@ -67,6 +68,7 @@ function useClickFetch() {
 
   return [
     recipesData,
+    setRecipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,

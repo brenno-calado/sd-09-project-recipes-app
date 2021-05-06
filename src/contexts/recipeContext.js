@@ -6,6 +6,7 @@ const RecipeContext = createContext();
 
 export function RecipeContextProvider({ children }) {
   const [recipesData,
+    setRecipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
@@ -41,6 +42,7 @@ export function RecipeContextProvider({ children }) {
     handleFetchFoodClick,
     handleFetchDrinkClick,
     recipesData,
+    setRecipesData,
     getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
