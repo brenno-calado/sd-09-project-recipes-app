@@ -1,14 +1,39 @@
 .header {
-  align-items: center;
-  background: #c4c4c4;
   display: flex;
-  flex-direction: row;
-  height: 58px;
-  justify-content: space-between;
+  flex-direction: column;
   position: fixed;
   top: 0;
   width: 360px;
   z-index: 1;
+}
+
+.main-header {
+  align-items: center;
+  background: #c4c4c4;
+  display: flex;
+  justify-content: space-between;
+  width: 360px;
+}
+
+.header-search {
+  background-color: white;
+  width: 360px;
+  margin: 0 10px;
+}
+
+.search-text {
+  margin: 5px 0;
+  width: 340px;
+}
+
+.search-radio {
+  width: 340px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-input-radio {
+  margin: 0 5px;
 }
 
 .profile-btn {
@@ -35,6 +60,11 @@
 }
 
 .search-btn {
+  background-color:  #c4c4c4;
+  border: none;
+}
+
+.search-image {
   border: none;
   display: flex;
   flex-grow: 1;

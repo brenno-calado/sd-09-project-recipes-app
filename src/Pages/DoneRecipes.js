@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { doneRecipesAction } from '../action/ButtonAction';
 import CardDone from '../components/CardDone';
+import FooterSpec from '../components/FooterSpec';
 import Header from '../components/Header';
-import '../styles/DoneRecipes.css';
 
 class DoneRecipes extends React.Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class DoneRecipes extends React.Component {
     return (
       <div>
         <Header titleHeader="Receitas Feitas" />
-        <section className="sectionBtn">
+        <section>
           <button
             type="button"
             data-testid="filter-by-all-btn"
@@ -75,6 +75,7 @@ class DoneRecipes extends React.Component {
             <CardDone key={ `${done}${index}` } done={ done } index={ index } />
           ))}
         </section>
+        <FooterSpec />
       </div>
     );
   }
