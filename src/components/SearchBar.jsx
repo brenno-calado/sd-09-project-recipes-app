@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { fetchMeal, fetchDrink } from '../services/api';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 import { getPageFromURL } from '../services/others';
@@ -12,7 +12,7 @@ const defaultSearchFilters = {
 
 function SearchBar() {
   const [searchFilters, setSearchFilters] = useState(defaultSearchFilters);
-  const { meals, setMeals, drinks, setDrinks } = useContext(MealsAndDrinkContext);
+  const { setMeals, setDrinks } = useContext(MealsAndDrinkContext);
 
   function handleChange({ target }) {
     const obj = { ...searchFilters };
@@ -36,20 +36,6 @@ function SearchBar() {
       setDrinks(drinkList);
     }
   }
-
-  useEffect(() => {
-    async function searchMealsAndDrinksInit() {
-      if (meals.length === 0) {
-        const mealList = await fetchMeal({ nome: true, inputSearch: '' });
-        setMeals(mealList);
-      }
-      if (drinks.length === 0) {
-        const drinkList = await fetchDrink({ nome: true, inputSearch: '' });
-        setDrinks(drinkList);
-      }
-    }
-    searchMealsAndDrinksInit();
-  }, [meals, drinks, setMeals, setDrinks]);
 
   return (
     <div>

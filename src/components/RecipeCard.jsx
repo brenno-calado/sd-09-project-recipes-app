@@ -7,11 +7,11 @@ function RecipeCard(props) {
   return (
     <div data-testid={ `${index}-recipe-card` }>
       <Card style={ { width: '18rem' } }>
-        <div data-testid={ `${index}-recipe-img` }>
-          <Card.Img variant="top" src={ image } />
+        <div>
+          <Card.Img data-testid={ `${index}-card-img` } variant="top" src={ image } />
         </div>
         <Card.Body>
-          <div data-testid={ `${index}-recipe-name` }>
+          <div data-testid={ `${index}-card-name` }>
             <Card.Title>{recipeName}</Card.Title>
           </div>
         </Card.Body>
