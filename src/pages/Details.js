@@ -13,9 +13,11 @@ class Details extends React.Component {
     super();
     this.state = {
       isStartedRecipe: false,
+      renderBtn: true,
     };
     this.handleClick = this.handleClick.bind(this);
     this.setStartOrContinueBtn = this.setStartOrContinueBtn.bind(this);
+    this.removeStartBtn = this.removeStartBtn.bind(this);
   }
 
   componentDidMount() {
@@ -23,6 +25,7 @@ class Details extends React.Component {
     fetchRecipeById(match.params.id);
     recommendationsFetch();
     this.setStartOrContinueBtn();
+    this.removeStartBtn();
   }
 
   handleClick() {
@@ -48,29 +51,38 @@ class Details extends React.Component {
         cocktails: { [recipe[0].idDrink]: ingredientsArray },
       };
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObject)); */
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObject));  */
   }
 
   setStartOrContinueBtn() {
     const { match } = this.props;
-    const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const path = window.location.pathname;
-    if (storage) {
+    if (inProgress) {
       if (path.includes('/comidas')) {
-        const isStarted = Object.keys(storage.meals).some((id) => (
+        const isStarted = Object.keys(inProgress.meals).some((id) => (
           id === match.params.id));
         this.setState({ isStartedRecipe: isStarted });
       } else {
-        const isStarted = Object.keys(storage.cocktails).some((id) => (
+        const isStarted = Object.keys(inProgress.cocktails).some((id) => (
           id === match.params.id));
         this.setState({ isStartedRecipe: isStarted });
       }
     }
   }
 
+  removeStartBtn() {
+    const { match } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      const isDone = doneRecipes.some((recipe) => recipe.id === match.params.id);
+      this.setState({ renderBtn: !isDone });
+    }
+  }
+
   render() {
     const { recipe, match, recommendations } = this.props;
-    const { isStartedRecipe } = this.state;
+    const { isStartedRecipe, renderBtn } = this.state;
     if (!recipe[0] && !recommendations[0]) return <p>Loading...</p>;
     return (
       <div>
@@ -86,14 +98,17 @@ class Details extends React.Component {
             height="200"
           />}
         <Recommendations />
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="start-btn"
-          onClick={ this.handleClick }
-        >
-          {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-        </button>
+        {renderBtn
+        && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-btn"
+            onClick={ this.handleClick }
+          >
+            {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+          </button>
+        )}
       </div>
     );
   }
