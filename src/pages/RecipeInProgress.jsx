@@ -1,99 +1,95 @@
-import React, { useEffect, useState } from 'react';
+import { objectOf } from 'prop-types';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import IngredientsList from '../components/IngredientsList';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import getRecipe from '../services/apiServices';
+import AppContext from '../contextApi/context';
 
 const RecipeInProgress = (props) => {
-  const [recipe, setRecipe] = useState({});
-  const [ingredients, setIngredients] = useState();
-
+  const { getIngredients, handleFavorites, favoriteRecipes } = useContext(AppContext);
   const { id } = useParams();
   const { location: { pathname } } = props;
-  let isMeal = false;
-  let isDrink = false;
-
-  if (pathname.includes('comidas')) {
-    isMeal = true;
-  } else if (pathname.includes('bebidas')) {
-    isDrink = true;
-  }
-
-  useEffect(() => {
-    let url = '';
-    if (isMeal) {
-      url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-    }
-    if (isDrink) {
-      url = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-    }
-    fetch(url).then((response) => {
-      response.json().then((data) => {
-        if (data.meals) {
-          setRecipe(data.meals[0]);
-        }
-        if (data.drinks) {
-          setRecipe(data.drinks[0]);
-        }
-      });
-    });
-  }, [id, isDrink, isMeal]);
+  const [recipe, setRecipe] = useState({});
+  const [ingredients, setIngredients] = useState();
+  const [typeRecipe] = useState(() => {
+    if (pathname.includes('comidas')) return ['meals', 'comida', 'Meal'];
+    if (pathname.includes('bebidas')) return ['drinks', 'bebida', 'Drink'];
+  });
+  const [isCopied, setIsCopiedStatus] = useState(false);
+  const [isFavorite, setIsFavoriteStatus] = useState(false);
 
   useEffect(() => {
-    let newIngredients = [];
-    if (recipe) {
-      Object.keys(recipe).forEach((item) => {
-        if (item.includes('strIngredient') && recipe[item]) {
-          newIngredients = [
-            ...newIngredients,
-            recipe[item],
-          ];
-        }
-      });
-      setIngredients(newIngredients);
+    if (recipe) setIngredients(getIngredients(recipe));
+  }, [getIngredients, recipe]);
+
+  useEffect(() => {
+    getRecipe(id, typeRecipe[0]).then((data) => setRecipe(data));
+  }, [id, typeRecipe]);
+
+  useEffect(() => {
+    if (favoriteRecipes.find((favorite) => favorite.id === id)) {
+      setIsFavoriteStatus(true);
+    } else {
+      setIsFavoriteStatus(false);
     }
-  }, [recipe]);
+  }, [favoriteRecipes, id]);
+
+  const copyToClipboard = () => {
+    const maxIndex = window.location.href.lastIndexOf('/');
+    navigator.clipboard.writeText(window.location.href.slice(0, maxIndex));
+    setIsCopiedStatus(true);
+  };
+
+  const favoriteRecipe = () => {
+    const newFavorite = {
+      id,
+      type: typeRecipe[1],
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe[`str${typeRecipe[2]}`],
+      image: recipe[`str${typeRecipe[2]}Thumb`],
+    };
+    handleFavorites(newFavorite);
+  };
 
   return (
     <div>
       <img
         data-testid="recipe-photo"
         style={ { width: '25vw' } }
-        src={ isMeal ? recipe.strMealThumb : recipe.strDrinkThumb }
+        src={ recipe[`str${typeRecipe[2]}Thumb`] }
         alt="recipe thumbnail"
       />
       <h2 data-testid="recipe-title">
-        { isMeal ? recipe.strMeal : recipe.strDrink }
+        { recipe[`str${typeRecipe[2]}`]}
       </h2>
       <div>
         <button
           type="button"
           data-testid="share-btn"
+          onClick={ copyToClipboard }
         >
-          Compartilhar
+          { isCopied ? 'Link copiado!' : 'Copiar Link'}
         </button>
-        <button
-          type="button"
-          data-testid="favorite-btn"
-        >
-          Favoritar
+        <button type="button" onClick={ favoriteRecipe }>
+          <img
+            type="button"
+            data-testid="favorite-btn"
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite icon"
+          />
         </button>
       </div>
       <p data-testid="recipe-category">{`Categoria: ${recipe.strCategory}`}</p>
-      <div>
-        <h4>Ingredientes</h4>
-        { ingredients && ingredients.map((ingredient, index) => (
-          <label
-            htmlFor={ ingredient }
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              type="checkbox"
-              name={ ingredient }
-              value={ ingredient }
-            />
-            {ingredient}
-          </label>
-        ))}
-      </div>
+      { ingredients
+        && (
+          <IngredientsList
+            ingredients={ ingredients }
+            type={ typeRecipe[0] === 'drinks' ? 'cocktails' : typeRecipe }
+          />) }
       <div>
         <h4>Instruções</h4>
         <p data-testid="instructions">{recipe.strInstructions}</p>
@@ -102,5 +98,9 @@ const RecipeInProgress = (props) => {
     </div>
   );
 };
+
+RecipeInProgress.propTypes = {
+  location: objectOf(),
+}.isRequired;
 
 export default RecipeInProgress;
