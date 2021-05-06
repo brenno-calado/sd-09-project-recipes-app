@@ -49,24 +49,21 @@ export default function Details(props) {
 
   const handleStart = () => {
     setRedirect(true);
-    setInProgressRecipes((prevState) => {
-      console.log(prevState);
-      return path.includes('comida')
-        ? updateLocalStorageItemInProgress('inProgressRecipes', {
-          ...prevState,
-          meals: {
-            ...prevState.meals,
-            [details.idMeal]: [],
-          },
-        })
-        : updateLocalStorageItemInProgress('inProgressRecipes', {
-          ...prevState,
-          cocktails: {
-            ...prevState.cocktails,
-            [details.idDrink]: [],
-          },
-        });
-    });
+    setInProgressRecipes((prevState) => (path.includes('comida')
+      ? updateLocalStorageItemInProgress('inProgressRecipes', {
+        ...prevState,
+        meals: {
+          ...prevState.meals,
+          [details.idMeal]: [],
+        },
+      })
+      : updateLocalStorageItemInProgress('inProgressRecipes', {
+        ...prevState,
+        cocktails: {
+          ...prevState.cocktails,
+          [details.idDrink]: [],
+        },
+      })));
   };
 
   if (redirect) {

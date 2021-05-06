@@ -4,6 +4,7 @@ import { context } from '../../context';
 import fetchApi from '../../services/index';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ButtonContainerExplore from '../../styles';
 
 export default function ExploreDrinks() {
   const { supriseId, setSurpriseId } = useContext(context);
@@ -41,10 +42,10 @@ export default function ExploreDrinks() {
   return (
     <>
       <Header title="Explorar Bebidas" />
-      <div>
+      <ButtonContainerExplore>
         { exploreDrinkIngredient() }
         { exploreDrinkSurprise() }
-      </div>
+      </ButtonContainerExplore>
       <Footer />
     </>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ButtonContainerExplore from '../../styles';
 
 function exploreFoods() {
   return (
@@ -23,10 +24,10 @@ export default function Explore() {
   return (
     <>
       <Header title="Explorar" />
-      <div>
+      <ButtonContainerExplore>
         { exploreFoods() }
         { exploreDrinks() }
-      </div>
+      </ButtonContainerExplore>
       <Footer />
     </>
   );

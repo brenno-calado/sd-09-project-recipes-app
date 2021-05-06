@@ -18,6 +18,7 @@ import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
 import ExploreFoodArea from './pages/ExploreFoodArea';
 import NotFound from './pages/NotFound';
 import Details from './components/Details';
+import ListCards from './components/ListCards';
 
 export default function App() {
   return (
@@ -51,7 +52,7 @@ export default function App() {
             <Route path="/explorar/bebidas" component={ ExploreDrinks } />
             <Route path="/explorar/comidas" component={ ExploreFood } />
             <Route path="/explorar" component={ Explore } />
-            <Route path="/comidas" component={ Foods } />
+            <Route path="/comidas" render={ (props) => <Foods { ...props } /> } />
             <Route path="/bebidas" component={ Drinks } />
             <Route path="/perfil" component={ Profile } />
             <Route path="/receitas-feitas" component={ DoneRecipes } />

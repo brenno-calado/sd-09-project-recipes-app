@@ -3,12 +3,12 @@ import { Redirect } from 'react-router';
 import { context } from '../../context';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import ListFoodCards from '../../components/ListFoodCards';
 import fetchApi from '../../services';
 import useFoodApi from '../../hooks/useFoodApi';
 import CategoriesButtons from '../../components/SearchButtons';
+import ListFoodCards from '../../components/ListFoodCards';
 
-export default function Foods() {
+export default function Foods(props) {
   const {
     foods, setFoods, categories, setCategories, isSearching, ingredientOn, setIngreditOn,
   } = useContext(context);
@@ -43,7 +43,6 @@ export default function Foods() {
 
   return (
     <>
-
       <Header title="Comidas" canFind setFilter={ setFilterHook } />
       {categories && <CategoriesButtons type="food" />}
       <ListFoodCards items={ foods } />

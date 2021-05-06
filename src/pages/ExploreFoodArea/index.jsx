@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import ListFoodCards from '../../components/ListFoodCards';
 import { context } from '../../context';
+import Container from './styled';
 
 export default function ExploreFoodArea() {
   const [areas, setAreas] = useState([]);
@@ -50,7 +51,7 @@ export default function ExploreFoodArea() {
   return (
     <>
       <Header title="Explorar Origem" canFind />
-      <div>
+      <Container>
         <select data-testid="explore-by-area-dropdown" onChange={ handleChange }>
           <option
             key="all"
@@ -62,7 +63,7 @@ export default function ExploreFoodArea() {
           {createDropdown()}
         </select>
         <ListFoodCards items={ foods } />
-      </div>
+      </Container>
       <Footer />
     </>
   );
