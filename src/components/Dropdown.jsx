@@ -19,7 +19,7 @@ export default function Dropdown() {
       onChange={ filterRecipes }
       value={ areaFilter }
     >
-      <option value="">All</option>
+      <option value="" data-testid="All-option">All</option>
       {
         Array.isArray(areas)
         && areas.map((area) => (
