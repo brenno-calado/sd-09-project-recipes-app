@@ -35,6 +35,7 @@ function CardeInProgress({
   };
 
   // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
