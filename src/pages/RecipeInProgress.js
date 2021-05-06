@@ -6,8 +6,34 @@ import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { getFoodById } from '../services/FoodAPI';
 import { getDrinkById } from '../services/DrinksAPI';
+import './RecipeInProgress.css';
 
-const getIngredientsList = (recipe, handleIngredientsCheckBox) => {
+const setRecipeToLocalStorage = (recipeInProgress, recipeType) => {
+  recipeType = recipeType === 'Meal' ? 'meals' : 'drinks';
+  const newRecipeInProgress = { [recipeType]: recipeInProgress };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipeInProgress));
+};
+
+const getLocalStorageData = (recipeType) => {
+  const localInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  if (recipeType === 'Meal') {
+    return localInProgressRecipes.meals;
+  }
+  return localInProgressRecipes.drinks;
+};
+
+const getIngredientsQuantity = (recipe, recipeInProgress) => {
+  const doneIngredients = recipeInProgress.length;
+  let ingredientsQuantity = -doneIngredients;
+  Object.keys(recipe).forEach((key) => {
+    if (key.startsWith('strIngredient') && recipe[key].length) {
+      ingredientsQuantity += 1;
+    }
+  });
+  return ingredientsQuantity;
+};
+
+const getIngredientsList = (recipe, handleIngredientsCheckBox, recipeInProgress) => {
   const ingredientsValues = [];
   const measuresValues = [];
   Object.keys(recipe).forEach((key) => {
@@ -20,10 +46,18 @@ const getIngredientsList = (recipe, handleIngredientsCheckBox) => {
   });
   const ingredientsCheckBox = [];
   ingredientsValues.forEach((ingredient, index) => {
+    let doneIngredient = '';
+    let markChecked = false;
+    recipeInProgress.forEach((ingredien) => {
+      if (ingredien.value.includes(ingredient)) {
+        doneIngredient = 'ingredient-done';
+        markChecked = true;
+      }
+    });
     if (ingredient && ingredient.length) {
       ingredientsCheckBox.push(
         <label
-          className="form-check-label"
+          className={ `form-check-label ${doneIngredient}` }
           htmlFor={ index }
           data-testid={ `${index}-ingredient-step` }
         >
@@ -31,6 +65,7 @@ const getIngredientsList = (recipe, handleIngredientsCheckBox) => {
             className="form-check-input"
             onClick={ (event) => handleIngredientsCheckBox(event) }
             type="checkbox"
+            defaultChecked={ markChecked }
             id={ index }
           />
           { `${ingredient} - ${measuresValues[index] || 'To taste'}` }
@@ -43,34 +78,70 @@ const getIngredientsList = (recipe, handleIngredientsCheckBox) => {
   );
 };
 
+const removeIngredient = (ingredient, recipeInProgress) => {
+  let newRecipeInProgress = [];
+  recipeInProgress.forEach((storedIngredient, ingredientIndex) => {
+    if (storedIngredient.id === ingredient.id) {
+      newRecipeInProgress = [...recipeInProgress.slice(0, ingredientIndex),
+        ...recipeInProgress.slice(ingredientIndex + 1, recipeInProgress.length)];
+    }
+  });
+  return newRecipeInProgress;
+};
+
 const RecipeInProgress = ({ match }) => {
   const { params } = match;
   const { id } = params;
   let recipeType = ((match.url).split('/'))[1];
   recipeType = recipeType === 'comidas' ? 'Meal' : 'Drink';
+  const recipeInProgress = getLocalStorageData(recipeType);
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [recipeIsGoing, setRecipeIsGoing] = useState(true);
+  let ingredientsToDo = 0;
 
   useEffect(() => {
-    const getRecipeByType = async () => {
-      let data = {};
-      if (recipeType === 'Meal') {
-        data = await getFoodById(id);
-        setRecipe(data.meals[0]);
-      } else {
-        data = await getDrinkById(id);
-        setRecipe(data.drinks[0]);
-      }
+    const getDrinkRecipe = async () => {
+      const data = await getDrinkById(id);
+      setRecipe(data.drinks[0]);
       setIsLoading(false);
     };
-    if (isLoading) getRecipeByType();
+
+    const getFoodRecipe = async () => {
+      const data = await getFoodById(id);
+      setRecipe(data.meals[0]);
+      setIsLoading(false);
+    };
+
+    if (isLoading && recipeType === 'Meal') {
+      getFoodRecipe();
+    } else if (isLoading) {
+      getDrinkRecipe();
+    }
   }, [recipe, params, isLoading, id, recipeType]);
 
+  if (!isLoading && Object.keys(recipe).length) {
+    ingredientsToDo = getIngredientsQuantity(recipe, recipeInProgress[id]);
+  }
+
   const handleIngredientsCheckBox = ({ target }) => {
-    const stripedClass = 'line-through';
-    const currentClass = target.parentElement.style.textDecoration;
-    target.parentElement.style.textDecoration = stripedClass === currentClass
-      ? 'none' : stripedClass;
+    const ingredient = { id: target.id, value: target.parentElement.innerText };
+    const stripedClass = 'form-check-label ingredient-done';
+    const currentClass = target.parentElement.className;
+    if (currentClass === stripedClass) {
+      target.parentElement.className = 'form-check-label';
+      ingredientsToDo += 1;
+      recipeInProgress[id] = removeIngredient(ingredient, recipeInProgress[id]);
+    } else {
+      target.parentElement.className = stripedClass;
+      ingredientsToDo -= 1;
+      recipeInProgress[id].push(ingredient);
+    }
+    setRecipeToLocalStorage(recipeInProgress, recipeType);
+    if (ingredientsToDo === 0) {
+      setRecipeIsGoing(false);
+    }
+    console.log(ingredientsToDo);
   };
 
   return (
@@ -106,7 +177,10 @@ const RecipeInProgress = ({ match }) => {
             <div className="container-fluid">
               <h4>Ingredients</h4>
               <div className="form-check">
-                { getIngredientsList(recipe, handleIngredientsCheckBox) }
+                {
+                  getIngredientsList(
+                    recipe, handleIngredientsCheckBox, recipeInProgress[id])
+                }
               </div>
             </div>
             <div
@@ -130,6 +204,7 @@ const RecipeInProgress = ({ match }) => {
       <br />
       <Button
         block
+        disabled={ recipeIsGoing }
         data-testid="finish-recipe-btn"
       >
         Finalizar Receita
