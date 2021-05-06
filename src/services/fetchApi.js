@@ -1,3 +1,26 @@
+export async function getRecipesByLocations(type, location) {
+  const promise = await fetch(`https://www.${type}.com/api/json/v1/1/filter.php?a=${location}`);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
+
+export async function getLocations(type) {
+  const promise = await fetch(`https://www.${type}.com/api/json/v1/1/list.php?a=list`);
+  try {
+    const data = await promise.json();
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    return error.message;
+  }
+}
 export async function getRecipesRandom(type) {
   const promise = await fetch(`https://www.${type}.com/api/json/v1/1/random.php`);
   try {
@@ -15,7 +38,6 @@ export async function getRecipesDrinksFilterByCategory(category) {
   try {
     const data = await promise.json();
     if (data) {
-      console.log(data);
       return data;
     }
   } catch (error) {
