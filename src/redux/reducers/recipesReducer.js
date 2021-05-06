@@ -25,8 +25,6 @@ const magicNumber = 5;
 function recipesReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
   case SAVE_PATH:
-    console.log('entrei aqui')
-    console.log(action);
     return {
       ...state,
       pathname: action.pathname,
