@@ -64,7 +64,6 @@ export default function RecipesProvider({ children }) {
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   useEffect(() => {
-    console.log('fetch');
     if (!areaFilter) {
       const fetchAllRecipes = () => {
         setIsFetching(true);
