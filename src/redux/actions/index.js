@@ -66,7 +66,9 @@ export const requestApiMealsIngredient = (input) => async (dispatch) => {
 };
 
 export const requestApiMealsArea = (input) => async (dispatch) => {
+  console.log(input);
   dispatch(requestMeals());
+
   try {
     const response = await fetchFoodByArea(input);
     return dispatch(requestMeals(response.meals));

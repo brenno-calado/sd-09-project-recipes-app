@@ -5,6 +5,7 @@ import {
   requestApiMealsbyName,
   requestApiMealsbyLetter,
   requestApiMealsIngredient,
+  requestApiMealsArea,
   requestApiCocktailsbyName,
   requestApiCocktailsbyLetter,
   requestApiCocktailsbyIngredient,
@@ -24,6 +25,7 @@ class SearchBar extends Component {
   }
 
   handleChange({ target }) {
+    console.log(target);
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -64,6 +66,7 @@ class SearchBar extends Component {
       getMealsbyName,
       getMealsbyLetter,
       getMealsbyIngredient,
+      getMealsByNacionality,
     } = this.props;
     const { radioValue, input } = this.state;
     switch (radioValue) {
@@ -76,6 +79,8 @@ class SearchBar extends Component {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
       return getMealsbyLetter(input);
+    case 'nationality':
+      return getMealsByNacionality(input);
     default:
       return '';
     }
@@ -152,6 +157,7 @@ SearchBar.propTypes = {
   getMealsbyName: PropTypes.func.isRequired,
   getMealsbyLetter: PropTypes.func.isRequired,
   getMealsbyIngredient: PropTypes.func.isRequired,
+  getMealsByNacionality: PropTypes.func.isRequired,
   getCocktailsbyName: PropTypes.func.isRequired,
   getCocktailsbyLetter: PropTypes.func.isRequired,
   getCocktailsbyIngredient: PropTypes.func.isRequired,
@@ -166,6 +172,7 @@ const mapDispatchToProps = (dispatch) => ({
   getMealsbyName: (input) => dispatch(requestApiMealsbyName(input)),
   getMealsbyLetter: (input) => dispatch(requestApiMealsbyLetter(input)),
   getMealsbyIngredient: (input) => dispatch(requestApiMealsIngredient(input)),
+  getMealsByNacionality: (input) => dispatch(requestApiMealsArea(input)),
   getCocktailsbyName: (input) => dispatch(requestApiCocktailsbyName(input)),
   getCocktailsbyLetter: (input) => dispatch(requestApiCocktailsbyLetter(input)),
   getCocktailsbyIngredient: (input) => dispatch(requestApiCocktailsbyIngredient(input)),

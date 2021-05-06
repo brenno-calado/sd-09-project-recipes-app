@@ -115,7 +115,7 @@ export async function fetchFoodArea() {
 }
 
 export async function fetchFoodByArea(area) {
-  const response = await fetch(`www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
+  const response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`);
   const mealArea = await response.json();
   return mealArea;
 }

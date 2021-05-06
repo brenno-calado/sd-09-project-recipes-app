@@ -35,15 +35,6 @@ class ExploreDrink extends React.Component {
             </button>
           </Link>
 
-          <Link to="/explorar/bebidas/area">
-            <button
-              data-testid="explore-by-area"
-              type="button"
-            >
-              Por Local de Origem
-            </button>
-          </Link>
-
           <Link to={ `/bebidas/${drinks.idDrink}` }>
             <button data-testid="explore-surprise" type="button">Me Surpreenda!</button>
           </Link>
