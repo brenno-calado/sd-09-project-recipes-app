@@ -12,6 +12,7 @@ import ExploreRecipes from './pages/ExploreRecipes';
 import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreAreas from './pages/ExploreAreas';
 import NotFound from './pages/NotFound';
+import DoneRecipes from './pages/DoneRecipes';
 import './App.css';
 // import rockGlass from './images/rockGlass.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -34,7 +35,7 @@ function App() {
       <Route path="/explorar/comidas" component={ ExploreRecipes } />
       <Route path="/explorar/bebidas" component={ ExploreRecipes } />
       <Route path="/explorar" component={ Explore } />
-      {/* <Route path="/receitas-feitas" component={} /> */}
+      <Route path="/receitas-feitas" component={ DoneRecipes } />
       {/* <Route path="/receitas-favoritas" component={} /> */}
     </Switch>
   );

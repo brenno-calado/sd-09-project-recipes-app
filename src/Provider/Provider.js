@@ -98,8 +98,8 @@ function Provider({ children }) {
   function setDrinksListBySearchResult(recipeList) {
     setDrinksList(recipeList);
     selectedDrinksCategory('');
-    console.log(recipeList);
   }
+
   const contextValue = {
     login,
     setLogin,

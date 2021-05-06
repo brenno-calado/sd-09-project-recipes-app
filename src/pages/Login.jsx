@@ -86,7 +86,6 @@ function Login() {
       { renderEmailInput() }
       { renderPasswordInput() }
       { renderLoginButton() }
-      { RecipeInProgress() }
     </div>
   );
 }
