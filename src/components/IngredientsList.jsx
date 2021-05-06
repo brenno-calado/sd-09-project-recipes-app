@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 
 const IngredientsList = ({ ingredients, type }) => {
   const [ingredientsChecked, setIngredientsChecked] = useState([]);
-  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [inProgressRecipes] = useState(JSON
+    .parse(localStorage.getItem('inProgressRecipes')));
   const { id } = useParams();
 
-  const getRecipesinProgress = () => {
+  useEffect(() => {
     if (inProgressRecipes && inProgressRecipes[type]) {
       Object.keys(inProgressRecipes[type]).forEach((recipeId) => {
         if (recipeId === id) {
@@ -16,11 +17,7 @@ const IngredientsList = ({ ingredients, type }) => {
         }
       });
     }
-  };
-
-  useEffect(() => {
-    getRecipesinProgress();
-  }, []);
+  }, [id, inProgressRecipes, type]);
 
   const handleIngredientsCheck = (ingredient) => {
     let handleIngredients = [];
