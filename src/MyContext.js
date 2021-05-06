@@ -81,6 +81,38 @@ const MyContextProvider = ({ children }) => {
     saveAsFavorite(recipeId, data, pathname);
   };
 
+  function checkDone(id, target) {
+    const { ingredients } = getKeysIngredints();
+    const inprogresLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (inprogresLocal === null) {
+      const inProgressRecipes = {
+        meals: {
+          [id]: [ingredients[target.id]],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } else {
+      const { meals } = inprogresLocal;
+      const existItem = meals[id].includes(ingredients[target.id]);
+      if (existItem) {
+        const resultFilter = meals[id].filter((item) => item !== ingredients[target.id]);
+        const inProgressRecipes = {
+          meals: {
+            [id]: resultFilter,
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      } else {
+        const inProgressRecipes = {
+          meals: {
+            [id]: [...meals[id], ingredients[target.id]],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+      }
+    }
+  }
+
   const context = {
     data,
     categories,
@@ -89,6 +121,7 @@ const MyContextProvider = ({ children }) => {
     isLoading,
     recommendations,
     isFavorite,
+    checkDone,
     clickShowBar,
     setResultAPI,
     setIsLoading,

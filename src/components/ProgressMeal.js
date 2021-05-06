@@ -5,21 +5,24 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
 
-function EmProgresso() {
+function ProgressMeal() {
   const {
     data,
     getKeysIngredints,
     isFavorite,
     saveFavorite,
     setIsFavorite,
+    checkDone,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
   const recipeId = pathname.split('/')[2];
 
   const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
-  setIsFavorite(initialFavoriteState);
+  if (getFavorite !== null) {
+    const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+    setIsFavorite(initialFavoriteState);
+  }
 
   /*
    imagem: strMealThumb,
@@ -27,7 +30,19 @@ function EmProgresso() {
    categoria: strCategory
   */
 
+  //  const inProgressRecipes = {
+  //   cocktails: {
+  //       id-da-bebida: [lista-de-ingredientes-utilizados],
+  //       ...
+  //   },
+  //   meals: {
+  //       id-da-comida: [lista-de-ingredientes-utilizados],
+  //       ...
+  //   }
+  // }
+
   const { ingredients, measures } = getKeysIngredints();
+
   const renderList = () => (
     ingredients.map((item, index) => (
       <li
@@ -35,7 +50,12 @@ function EmProgresso() {
         data-testid={ `${index}-ingredient-step` }
         className="list-group-item"
       >
-        <input type="checkbox" className="mr-2" id={ index } />
+        <input
+          onClick={ ({ target }) => checkDone(recipeId, target) }
+          type="checkbox"
+          className="mr-2"
+          id={ index }
+        />
         <label htmlFor={ index }>
           { `${item}: ${measures[index]}`}
         </label>
@@ -79,4 +99,4 @@ function EmProgresso() {
   );
 }
 
-export default EmProgresso;
+export default ProgressMeal;
