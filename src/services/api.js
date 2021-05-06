@@ -33,3 +33,37 @@ export function getRecipesById(id, meals) {
   const url = `${apiUrl(meals)}/lookup.php?i=${id}`;
   return fetchData(url).then((res) => res[recipeType(meals)]);
 }
+
+const getIngredientsAndMeasure = (recipe) => {
+  const ingredientsList = [];
+  const MAX_ITEMS = 20;
+  for (let i = 1; i <= MAX_ITEMS; i += 1) {
+    const newItem = {
+      ingredient: recipe[`strIngredient${i}`],
+      measure: recipe[`strMeasure${i}`],
+    };
+    if (newItem.ingredient === null || newItem.ingredient.length === 0) break;
+    ingredientsList.push(newItem);
+  }
+  return ingredientsList;
+};
+
+export async function getRecipeAndParseById(id, meals = false) {
+  const url = `${apiUrl(meals)}/lookup.php?i=${id}`;
+  const recipe = await fetchData(url).then((res) => res[recipeType(meals)][0]);
+  const ingredients = getIngredientsAndMeasure(recipe);
+  const str = meals ? 'Meal' : 'Drink';
+  return {
+    ingredients,
+    id: recipe[`id${str}`],
+    type: meals ? 'comida' : 'bebida',
+    area: recipe.strArea || '',
+    category: recipe.strCategory,
+    // alcoholicOrNot: recipe.strAlcoholic ? 'Alcoholic' : '',
+    alcoholic: recipe.strAlcoholic,
+    name: recipe[`str${str}`],
+    image: recipe[`str${str}Thumb`],
+    instructions: recipe.strInstructions,
+    video: recipe.strYoutube,
+  };
+}
