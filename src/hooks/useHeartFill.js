@@ -1,37 +1,23 @@
 import { useEffect, useState } from 'react';
-import { getIdFromURL } from '../services/others';
-
-function searchAndFillInitial() {
-  const allFavoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const recipeId = getIdFromURL();
-  let recipeIsFavorite = false;
-  let foundInFavorites;
-  if (allFavoritesRecipes) {
-    foundInFavorites = allFavoritesRecipes.find((recipes) => recipes.id === recipeId);
-  }
-  if (foundInFavorites) {
-    recipeIsFavorite = true;
-  }
-  return recipeIsFavorite;
-}
 
 function useHeartFill() {
-  const [hearthFill, setHeartFill] = useState(searchAndFillInitial());
-  const [shouldVerifyToFillHeart, setShouldVerifyToFillHeart] = useState(true);
+  let recipesFavList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (!recipesFavList) {
+    recipesFavList = [];
+  } else {
+    recipesFavList = recipesFavList.map((recipes) => recipes.id);
+  }
+  const [hearthFillIds, setHearthFillIds] = useState(recipesFavList);
+  const [shouldVerifyToFillHeart, setShouldVerifyToFillHeart] = useState(false);
 
   useEffect(() => {
-    let recipeIsFavorite = false;
     function searchAndFill() {
-      const allFavoritesRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const recipeId = getIdFromURL();
+      const allFavoritesRecipesIds = JSON.parse(localStorage.getItem('favoriteRecipes'));
       let foundInFavorites;
-      if (allFavoritesRecipes) {
-        foundInFavorites = allFavoritesRecipes.find((recipes) => recipes.id === recipeId);
+      if (allFavoritesRecipesIds) {
+        foundInFavorites = allFavoritesRecipesIds.map((recipes) => recipes.id);
       }
-      if (foundInFavorites) {
-        recipeIsFavorite = true;
-      }
-      setHeartFill(recipeIsFavorite);
+      setHearthFillIds(foundInFavorites);
     }
     if (shouldVerifyToFillHeart) {
       searchAndFill();
@@ -39,7 +25,7 @@ function useHeartFill() {
     }
   }, [shouldVerifyToFillHeart]);
 
-  return [hearthFill, setShouldVerifyToFillHeart];
+  return [hearthFillIds, setShouldVerifyToFillHeart];
 }
 
 export default useHeartFill;

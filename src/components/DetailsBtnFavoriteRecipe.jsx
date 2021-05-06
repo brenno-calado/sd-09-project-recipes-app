@@ -30,10 +30,10 @@ function constructFavoriteObject(recipeItem) {
 
 function DetailsBtnFavoriteRecipe({ detailsContext }) {
   const { recipe } = detailsContext;
-  const [hearthFill, setShouldVerifyToFillHeart] = useHeartFill();
+  const [hearthFillIds, setShouldVerifyToFillHeart] = useHeartFill();
+  const objectToSave = constructFavoriteObject(recipe);
 
   function handleSaveRemoveRecipe() {
-    const objectToSave = constructFavoriteObject(recipe);
     let favoriteListStorage = [];
     const foundInStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (foundInStorage) {
@@ -49,7 +49,6 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteListStorage));
     setShouldVerifyToFillHeart(true);
   }
-
   return (
     <Button
       data-testid="favorite-btn"
@@ -57,9 +56,10 @@ function DetailsBtnFavoriteRecipe({ detailsContext }) {
       color="primary"
       onClick={ handleSaveRemoveRecipe }
       className="btnpattern"
-      src={ hearthFill ? 'blackHeartIcon' : 'whiteHeartIcon' }
+      src={ hearthFillIds.includes(objectToSave.id)
+        ? 'blackHeartIcon' : 'whiteHeartIcon' }
     >
-      {hearthFill ? <BlackHeart /> : <WhiteHeart /> }
+      {hearthFillIds.includes(objectToSave.id) ? <BlackHeart /> : <WhiteHeart /> }
       <span className="btnpatternText">Favorite it</span>
     </Button>
   );
