@@ -31,7 +31,7 @@ function PrincipalBebidas() {
       {foods.slice(0, cardsLimit).map((drink, index) => (
         <div key={ Math.random() }>
           <Link
-            to={ `/comidas/${drink.idDrink}` }
+            to={ `/bebidas/${drink.idDrink}` }
             data-testid={ `${index}-recipe-card` }
           >
             <img
