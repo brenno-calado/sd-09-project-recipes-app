@@ -1,5 +1,5 @@
 import React from 'react';
-import './DetailsBtnShareRecipe.css';
+import '../DetailsBtnShareRecipe.css';
 import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
@@ -14,7 +14,8 @@ function DetailsBtnShareRecipe() {
   async function handleClickCopy() {
     const tooltip = document.getElementById('myTooltip');
     const path = window.location.href;
-    await navigator.clipboard.writeText(path);
+    const regx = path.match(/(.*)(comidas|bebidas)\/(\d*)/g);
+    await navigator.clipboard.writeText(regx);
     tooltip.innerText = 'Link copiado!';
     removeTextFromComponent(tooltip.parentElement);
   }

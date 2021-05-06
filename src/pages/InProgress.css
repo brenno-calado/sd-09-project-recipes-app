@@ -1,3 +1,7 @@
-.ingredients-in-progess li {
+.ingredients-in-progress li {
   list-style: none;
+}
+
+.ingChecked {
+  text-decoration: line-through;
 }

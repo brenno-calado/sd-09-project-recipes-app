@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
 function DetailsBtnFinishRecipeInProgress({ detailsContext }) {
-  const { recipe, isChecked } = detailsContext;
+  const { recipe } = detailsContext;
   const handleClick = () => {
     localStorage.setItem('doneRecipes', recipe);
   };
@@ -15,7 +15,6 @@ function DetailsBtnFinishRecipeInProgress({ detailsContext }) {
         type="button"
         data-testid="finish-recipe-btn"
         onClick={ handleClick }
-        disabled={ !isChecked ? true : '' }
       >
         Finish Recipe
       </Button>

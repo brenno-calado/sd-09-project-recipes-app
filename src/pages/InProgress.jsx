@@ -4,8 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Container, Jumbotron } from 'react-bootstrap';
 import { getPageFromURL } from '../services/others';
 import { fetchOneMeal, fetchOneDrink } from '../services/api';
-import DetailsBtnShareRecipe from '../components/DetailsBtnShareRecipe';
 import DetailsBtnFavoriteRecipe from '../components/DetailsBtnFavoriteRecipe';
+import DetailsBtnShareRecipeInProgress
+  from '../components/in-progress/DetailsBtnShareRecipeInProgress';
 import IngredientsInProgress from '../components/in-progress/IngredientsInProgress';
 import InProgressHeaderDetails from '../components/in-progress/InProgressHeaderDetails';
 
@@ -36,7 +37,7 @@ function InProgress() {
         <Jumbotron>
           <Container>
             <InProgressHeaderDetails detailsContext={ props } />
-            <DetailsBtnShareRecipe detailsContext={ props } />
+            <DetailsBtnShareRecipeInProgress detailsContext={ props } />
             <DetailsBtnFavoriteRecipe detailsContext={ props } />
             <IngredientsInProgress detailsContext={ props } />
           </Container>

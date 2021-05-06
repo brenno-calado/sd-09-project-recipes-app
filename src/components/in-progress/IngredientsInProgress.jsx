@@ -5,7 +5,6 @@ import DetailsBtnFinishRecipeInProgress from './DetailsBtnFinishRecipeInProgress
 function IngredientsInProgress({ detailsContext }) {
   const { recipe } = detailsContext;
   const [ingredientsInProgress, setIngredientsInProgress] = useState([]);
-  const [isChecked, setIsChecked] = useState(false);
 
   const populateStorage = () => {
     const { id } = recipe;
@@ -20,14 +19,13 @@ function IngredientsInProgress({ detailsContext }) {
     };
 
     if (path.includes('comidas')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({ mealsObject }));
-    } localStorage.setItem('inProgressRecipes', JSON.stringify({ cocktailsObj }));
+      localStorage.setItem('inProgressRecipes', JSON.stringify(mealsObject));
+    } localStorage.setItem('inProgressRecipes', JSON.stringify(cocktailsObj));
   };
 
   const handleChange = (e) => {
     console.log(e.target);
     const { strIngredient } = e.target;
-    setIsChecked(!isChecked);
     setIngredientsInProgress((prevState) => [...prevState, strIngredient]);
     populateStorage();
   };
@@ -73,7 +71,7 @@ function IngredientsInProgress({ detailsContext }) {
     </div>
   );
 
-  const props = { recipe, isChecked };
+  const props = { recipe };
 
   return (
     <div>
