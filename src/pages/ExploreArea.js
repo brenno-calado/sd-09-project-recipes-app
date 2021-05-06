@@ -48,7 +48,7 @@ const ExploreArea = () => {
       onChange={ (evt) => handleCountrySelect(evt) }
     >
       <option data-testid="All-option">All</option>
-      { countryList.map(
+      { countryList && countryList.map(
         (country, index) => (
           <option
             key={ index }
