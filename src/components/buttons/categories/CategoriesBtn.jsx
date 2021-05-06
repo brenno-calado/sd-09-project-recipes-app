@@ -12,7 +12,6 @@ function CategoriesBtn() {
   const [selected, setSelected] = useState(false);
 
   const setCategoryApiResult = async (category) => {
-    console.log(category);
     let resultApi = '';
     if (pathname === '/comidas') {
       resultApi = await fetchApi.fetchMealByCategories(category);
@@ -26,7 +25,6 @@ function CategoriesBtn() {
   const handleClick = async ({ target }) => {
     setSelectedCategory(target.value);
     if (selectedCategory !== target.value && target.value !== 'All') {
-      console.log('passou');
       setCategoryApiResult(target.value);
       setSelected(!selected);
     } else {

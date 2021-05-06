@@ -12,6 +12,8 @@ const Provider = ({ children }) => {
   const [drinksIngredients, setDrinksIngredients] = useState([]);
   const [searchFilter, setSearchFilter] = useState([]);
   const [handleCards, setHandleCards] = useState([]);
+  const [randomMealIdFilter, setRandomMealIdFilter] = useState([]);
+  const [randomDrinkIdFilter, setRandomDrinkIdFilter] = useState([]);
 
   const getApiData = async () => {
     const mealCategoryApi = await fetchApi.fetchMealCategories();
@@ -19,12 +21,16 @@ const Provider = ({ children }) => {
     const mealIngredientApi = await fetchApi.fetchMealByIngredients();
     const drinksCategoriesApi = await fetchApi.fetchDrinkCategories();
     const drinksIngredientsApi = await fetchApi.fetchDrinkByIngredients();
+    const randomMealIdFilterApi = await fetchApi.fetchRandomMealId();
+    const randomDrinkIdFilterApi = await fetchApi.fetchRandomDrinkId();
 
     setMealCategories(mealCategoryApi);
     setMealIngredients(mealIngredientApi);
     setMealArea(mealAreaApi);
     setDrinksCategories(drinksCategoriesApi);
     setDrinksIngredients(drinksIngredientsApi);
+    setRandomMealIdFilter(randomMealIdFilterApi);
+    setRandomDrinkIdFilter(randomDrinkIdFilterApi);
   };
 
   useEffect(() => {
@@ -45,6 +51,8 @@ const Provider = ({ children }) => {
     setSearchFilter,
     handleCards,
     setHandleCards,
+    randomMealIdFilter,
+    randomDrinkIdFilter,
   };
 
   return (

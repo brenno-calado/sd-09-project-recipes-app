@@ -73,6 +73,18 @@ const fetchDrinks = async () => {
   return drinksData.drinks;
 };
 
+const fetchRandomMealId = async () => {
+  const response = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+  const randomMeal = await response.json();
+  return randomMeal.meals[0].idMeal;
+};
+
+const fetchRandomDrinkId = async () => {
+  const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+  const randomDrink = await response.json();
+  return randomDrink.drinks[0].idDrink;
+};
+
 const fetchApi = {
   fetchMealCategories,
   fetchMealByCategories,
@@ -86,6 +98,8 @@ const fetchApi = {
   fetchDrinkByFilter,
   fetchMeals,
   fetchDrinks,
+  fetchRandomMealId,
+  fetchRandomDrinkId,
 };
 
 export default fetchApi;
