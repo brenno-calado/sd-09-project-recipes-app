@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import RecomendedDinks from '../components/RecomendedDrinks';
 import '../App.css';
 
 const MealDetails = ({ match: { params: { id } } }) => {
   const [recipe, setRecipe] = useState({});
+  const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -51,21 +58,86 @@ const MealDetails = ({ match: { params: { id } } }) => {
 
   );
 
+  const copyLink = (idMeal) => {
+    copy(`http://localhost:3000/comidas/${idMeal}`);
+    setCopied(true);
+  };
+
   const renderShareButton = () => (
     <button
       type="button"
       data-testid="share-btn"
+      onClick={ () => copyLink(recipe.idMeal) }
     >
-      Compartilhar
+      {copied ? <span>Link copiado!</span> : <img src={ shareIcon } alt="Share" /> }
     </button>
   );
+
+  const setStorage = () => {
+    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
+    const mealFavorite = {
+      id: idMeal,
+      type: 'comida',
+      alcoholicOrNot: '',
+      area: strArea,
+      category: strCategory,
+      name: strMeal,
+      image: strMealThumb,
+    };
+    if (favorite) {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      const itemStorage = storage.filter((item) => item.id !== idMeal);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(itemStorage));
+    } else {
+      const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+      if (storage) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...storage, mealFavorite]),
+        );
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([mealFavorite]));
+      }
+    }
+  };
+
+  const verifyFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const fav = favorites.filter((item) => item.id === id);
+    if (fav.length) {
+      if (favorite) {
+        setFavorite(false);
+      } else {
+        setFavorite(true);
+      }
+    }
+  };
+
+  useEffect(() => {
+    verifyFavorite();
+  }, []);
+
+  const handleFavoriteButton = () => {
+    if (favorite) {
+      setFavorite(false);
+    } else {
+      setFavorite(true);
+    }
+    setStorage();
+  };
 
   const renderFavoriteButton = () => (
     <button
       type="button"
-      data-testid="favorite-btn"
+      onClick={ handleFavoriteButton }
+      className="action-button"
     >
-      Favoritar
+      <img
+        src={ (favorite) ? blackHeartIcon : whiteHeartIcon }
+        alt="favorite"
+        data-testid="favorite-btn"
+        className="favorite-icon"
+      />
     </button>
   );
 
@@ -134,13 +206,15 @@ const MealDetails = ({ match: { params: { id } } }) => {
   );
 
   const renderStartRecipeButton = () => (
-    <button
-      className="footer"
-      type="button"
-      data-testid="start-recipe-btn"
-    >
-      Iniciar receita
-    </button>
+    <Link to={ `${recipe.idMeal}/in-progress` }>
+      <button
+        className="footer"
+        type="button"
+        data-testid="start-recipe-btn"
+      >
+        Iniciar receita
+      </button>
+    </Link>
   );
 
   return (
