@@ -20,7 +20,7 @@ const renderTags = (index, tags) => (
 const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }) => {
   const isFood = recipe.type === 'comida';
 
-  const path = recipe.alcoholicOrNot ? '/bebidas/' : '/comidas/';
+  const path = isFood ? '/comidas/' : '/bebidas/';
   const recipePath = `${path}${recipe.id}`;
   const history = useHistory();
   const goToRecipe = (() => history.push(recipePath));
