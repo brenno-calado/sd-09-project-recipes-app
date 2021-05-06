@@ -16,14 +16,15 @@ function EmProcesso() {
   const [recipeDetails, setRecipeDetails] = useState({});
 
   // recupera local storage
-  const { values: { inProgressRecipes }, actions: { setInProgressRecipes } } = useContext(RecipesContext);
-  console.log(inProgressRecipes);
-
+  const { values: { inProgressRecipes },
+    actions: { setInProgressRecipes } } = useContext(RecipesContext);
   const { getRecipes } = useRecipes();
 
   const type = pathname.includes('comidas') ? ['comidas', 'Meal'] : ['bebidas', 'Drink'];
   /* const recType = pathname.includes('comidas')
     ? ['bebidas', 'Drink'] : ['comidas', 'Meal']; */
+
+  const [ingredientsList, setIngredientList] = useState([]);
 
   useEffect(() => {
     async function loadRecipe() {
@@ -35,6 +36,14 @@ function EmProcesso() {
     setLoading(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  function handleCheck(target) {
+    const item = target.name;
+    const checked = ingredientsList.includes(item);
+    setIngredientList((prev) => (checked
+      ? prev.filter((sc) => sc !== (item))
+      : [...prev, item]));
+  }
 
   function renderIngredients() {
     const ingredients = Object.keys(recipeDetails)
@@ -55,6 +64,8 @@ function EmProcesso() {
           <input
             type="checkbox"
             id="ingredient"
+            name={ index + 1 }
+            onChange={ ({ target }) => handleCheck(target) }
           />
         </label>
       </>
