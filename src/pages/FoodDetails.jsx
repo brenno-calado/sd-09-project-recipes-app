@@ -3,14 +3,20 @@ import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BlackHartIcon from '../images/blackHeartIcon.svg';
+import WhiteHartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function FoodDetails({ match }) {
   const [mealDetails, setMealDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [drinkRecomendation, setDrinkRecomendation] = useState(null);
-  const [startedRecipe, setStartRecipe] = useState(true);
+  const [copied, setCopied] = useState(false);
   const { id } = match.params;
+  const start = localStorage.getItem(`start${id}`);
+  const concluded = localStorage.getItem(`conclude${id}`);
+  const favorite = true;
 
   const fetchDetail = async () => {
     try {
@@ -64,6 +70,27 @@ function FoodDetails({ match }) {
     );
   };
 
+  const favorited = () => {
+    const type = 'meal';
+    const area = mealDetails.strArea;
+    const category = mealDetails.strCategory;
+    const alcoholicOrNot = 'Non alcoholic';
+    const name = mealDetails.strMeal;
+    const image = mealDetails.strMealThumb;
+    const favoriteRecipes = [{ id, type, area, category, alcoholicOrNot, name, image }];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    if (favorite) {
+      localStorage.setItem(`favorited${id}`, 'false');
+    } else if (favorite === 'false') {
+      localStorage.setItem(`favorited${id}`, 'true');
+    }
+  };
+
+  const shareBtn = () => {
+    copy(`http://localhost:3000/comidas/${id}`);
+    setCopied(true);
+  };
+
   const renderMeal = () => {
     if (mealDetails) {
       return (
@@ -80,15 +107,18 @@ function FoodDetails({ match }) {
               className="main-buttons"
               type="button"
               data-testid="share-btn"
+              onClick={ shareBtn }
             >
-              <img src={ ShareIcon } alt="share" />
+              { copied ? 'Link copiado!'
+                : <img src={ ShareIcon } alt="share" />}
             </button>
             <button
               className="main-buttons"
               type="button"
               data-testid="favorite-btn"
+              onClick={ favorited }
             >
-              <img src={ BlackHartIcon } alt="favorite" />
+              <img src={ !favorite ? BlackHartIcon : WhiteHartIcon } alt="favorite" />
             </button>
             <p data-testid="recipe-category">{mealDetails.strCategory}</p>
           </header>
@@ -145,18 +175,18 @@ function FoodDetails({ match }) {
   };
 
   const startRecipe = () => {
-    setStartRecipe(false);
+    localStorage.setItem(`start${id}`, 'true');
   };
 
   const startButton = () => (
     <Link to={ `/comidas/${id}/in-progress` }>
       <button
-        className="start-recipe basic-btn"
+        className={ concluded ? 'invisible-btn' : 'start-recipe basic-btn' }
         type="button"
         data-testid="start-recipe-btn"
         onClick={ startRecipe }
       >
-        Iniciar Receita
+        {start ? 'Continuar Receita' : 'Iniciar Receita'}
       </button>
     </Link>
   );
@@ -166,8 +196,8 @@ function FoodDetails({ match }) {
       { !loading && mealDetails === null && <p>Não foi possível renderizar</p>}
       {loading && <p>Carregando...</p>}
       {renderMeal()}
-      {drinkRecomendation === null ? <p>sem recomendações</p> : renderRecomendation()}
-      {!startedRecipe ? <p>Esta receita esta em progresso</p> : startButton()}
+      {drinkRecomendation !== null && renderRecomendation()}
+      { startButton()}
     </div>
   );
 }
