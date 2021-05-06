@@ -6,28 +6,42 @@ import RecipeCard from '../components/RecipeCard';
 import MealsAndDrinkContext from '../context/MealsAndDrinkContext';
 import { getPageFromURL as isFoodPage } from '../services/others';
 
-const handleRecipes = (data) => {
-  const maxRecipes = 12;
-  return data.slice(0, maxRecipes);
-};
+function isPromise(promise) {
+  return !!promise && typeof promise.then === 'function';
+}
 
-const handleCategories = (data) => {
-  const categories = data.map(({ strCategory }) => strCategory);
+const handleCategories = async (setCurrentCategories) => {
+  const endpoint = isFoodPage() ? 'https://www.themealdb.com/api/json/v1/1/list.php?c=list'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list';
+  const data = await fetch(endpoint);
+  const response = await data.json();
+  const result = isFoodPage() ? response.meals : response.drinks;
+  const categories = result.map(({ strCategory }) => strCategory);
   categories.unshift('All');
   const maxCategories = 6;
-  return categories.filter((item, index) => categories
-    .indexOf(item) === index).slice(0, maxCategories);
+  setCurrentCategories(categories.slice(0, maxCategories));
 };
 
-const renderCards = (recipes, filter) => {
+const getFilteredRecipes = async (recipes, filter, setRecipes) => {
+  if (filter !== 'All') {
+    const endpoint = isFoodPage()
+      ? `https://www.themealdb.com/api/json/v1/1/filter.php?c=${filter}`
+      : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${filter}`;
+    const response = await fetch(endpoint);
+    const result = await response.json();
+    const filteredRecipes = isFoodPage() ? result.meals : result.drinks;
+    setRecipes(filteredRecipes);
+    return;
+  }
+  setRecipes(recipes);
+};
+
+const renderCards = (recipes) => {
   if (recipes.length === 0) {
     return;
   }
-  return (recipes.filter((recipe) => {
-    if (filter === 'All') return true;
-    if (recipe.strCategory === filter) return true;
-    return false;
-  })
+  const maxRecipes = 12;
+  return recipes.slice(0, maxRecipes)
     .map((recipe, index) => {
       const page = isFoodPage() ? '/comidas/' : '/bebidas/';
       const recipeId = isFoodPage() ? recipe.idMeal : recipe.idDrink;
@@ -44,11 +58,11 @@ const renderCards = (recipes, filter) => {
           />
         </Link>
       );
-    }));
+    });
 };
 
 const renderFilter = (categories, filter, setFilter) => {
-  if (categories.length === 0) {
+  if (categories.length === 0 || isPromise(categories)) {
     return;
   }
   return (categories.map((category, index) => (
@@ -65,22 +79,27 @@ const renderFilter = (categories, filter, setFilter) => {
 
 function RecipeMain() {
   const { meals, drinks } = useContext(MealsAndDrinkContext);
-  const [currentRecipes, setCurrentRecipes] = useState([]);
-  const [currentCategories, setCurrentCategories] = useState([]);
+  const [currentCategories, setCurrentCategories] = useState(['All']);
+  const [recipes, setRecipes] = useState([]);
   const [filter, setFilter] = useState(0);
   const headerTitle = isFoodPage() ? 'Comidas' : 'Bebidas';
   useEffect(() => {
-    const recipes = isFoodPage() ? handleRecipes(meals) : handleRecipes(drinks);
-    const categories = isFoodPage() ? handleCategories(meals) : handleCategories(drinks);
-    setCurrentRecipes(recipes);
-    setCurrentCategories(categories);
-  }, [meals, drinks]);
+    handleCategories(setCurrentCategories);
+  }, []);
+  useEffect(() => {
+    getFilteredRecipes(recipes, currentCategories[filter], setRecipes);
+    if (isFoodPage()) {
+      setRecipes(meals);
+    } else {
+      setRecipes(drinks);
+    }
+  }, [filter, meals, drinks]);
 
   return (
     <div className="main-container">
       <Header title={ headerTitle } />
       {renderFilter(currentCategories, filter, setFilter)}
-      {renderCards(currentRecipes, currentCategories[filter])}
+      {renderCards(recipes)}
       <BottomNav />
     </div>
   );
