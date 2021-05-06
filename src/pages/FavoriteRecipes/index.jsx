@@ -13,7 +13,9 @@ const FILTER_OPTIONS = {
 
 function FavoriteRecipes() {
   const { favoriteRecipes } = useContext(context);
-  const [filteredFood, setFilteredFood] = useState(setInitialLocalStorage());
+  const [filteredFood, setFilteredFood] = useState(
+    setInitialLocalStorage('favoriteRecipes'),
+  );
 
   const handleFilter = (option) => {
     if (option === 'all' && favoriteRecipes) {

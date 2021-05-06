@@ -7,7 +7,11 @@ import ButtonsContainer from './styled';
 function CategoriesButtons(props) {
   const { type } = props;
   const {
-    setFoods, setDrinks, categories, toggleButton, setToggleButton,
+    setFoods,
+    setDrinks,
+    categories,
+    toggleButton,
+    setToggleButton,
   } = useContext(context);
   const lengthOfList = 12;
 

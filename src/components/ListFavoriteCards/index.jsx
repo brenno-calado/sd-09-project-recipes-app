@@ -14,7 +14,7 @@ function ListFavoriteCards({ favorite = [], handleFavoriteState }) {
   const [clipboard, setClipboard] = useState(false);
 
   const handleFavorite = (item) => {
-    const newState = updateLocalStorageItem(item);
+    const newState = updateLocalStorageItem('favoriteRecipes', item);
     handleFavoriteState(newState);
   };
 
