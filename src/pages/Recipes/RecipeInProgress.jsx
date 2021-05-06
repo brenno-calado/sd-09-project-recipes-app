@@ -64,7 +64,7 @@ function RecipeInProgress(props) {
               { meal.strCategory }
             </h5>
           </div>
-          <ShareLikeButtons recipe={ meal } type="bebida" url={ newURL } />
+          <ShareLikeButtons complement="" recipe={ meal } type="bebida" url={ newURL } />
         </div>
         <div>
           <h4>Ingredients</h4>

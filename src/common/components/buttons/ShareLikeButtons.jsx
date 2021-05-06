@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from '../../../context/RecipesContext';
 import blackHeart from '../../images/blackHeartIcon.svg';
@@ -6,7 +6,7 @@ import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcon from '../../images/shareIcon.svg';
 import Button from './Button';
 
-function ShareLikeButtons({ recipe, url }) {
+function ShareLikeButtons({ recipe, url, complement }) {
   const [type, setType] = useState('');
   // const [copied, setCopied] = useState(false);
   const {
@@ -14,20 +14,21 @@ function ShareLikeButtons({ recipe, url }) {
     copied,
     setFavorite,
     favorite,
-    favoriteClick } = useContext(RecipesContext);
+    favoriteClick,
+    setDoneFav } = useContext(RecipesContext);
   const id = recipe.idMeal || recipe.idDrink;
 
-  useState(() => {
+  useEffect(() => {
     function verifyFavorite() {
       const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       const isFav = favorites.find((item) => item.id === id);
       setFavorite(isFav);
-      return (recipe.idMeal ? setType('comida') : setType('bebida'));
     }
     verifyFavorite();
-  });
+  }, [setFavorite, id]);
 
   function addToFavorites() {
+    if (recipe.idMeal) { setType('comida'); } else { setType('bebida'); }
     setFavorite(true);
     const fav = {
       id: recipe.idMeal || recipe.idDrink,
@@ -48,22 +49,36 @@ function ShareLikeButtons({ recipe, url }) {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const newFav = favorites.filter((fav) => fav.id !== id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFav));
+    setDoneFav(newFav);
   }
-
-  // const favoriteClick = () => (
-  //   (favorite ? removeFromFavorites() : addToFavorites())
-  // );
 
   return (
     <div>
       <Button onClick={ () => shareClick(url) }>
-        <img data-testid="share-btn" src={ shareIcon } alt="share icon" height="25px" />
+        <img
+          data-testid={ `${complement}share-btn` }
+          src={ shareIcon }
+          alt="share icon"
+          height="25px"
+        />
         {/* <textarea className="js-copytextarea">{ `http://localhost:3000${url}` }</textarea> */}
       </Button>
       <Button onClick={ () => favoriteClick(removeFromFavorites, addToFavorites) }>
         {favorite
-          ? <img data-testid="favorite-btn" src={ blackHeart } alt="fav" height="25px" />
-          : <img data-testid="favorite-btn" src={ whiteHeart } alt="fav" height="25px" />}
+          ? (
+            <img
+              data-testid={ `${complement}favorite-btn` }
+              src={ blackHeart }
+              alt="fav"
+              height="25px"
+            />)
+          : (
+            <img
+              data-testid={ `${complement}favorite-btn` }
+              src={ whiteHeart }
+              alt="fav"
+              height="25px"
+            />)}
       </Button>
       { copied ? <p>Link copiado!</p> : null }
     </div>
@@ -71,6 +86,7 @@ function ShareLikeButtons({ recipe, url }) {
 }
 
 ShareLikeButtons.propTypes = {
+  complement: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   recipe: PropTypes.shape({
     idMeal: PropTypes.string,

@@ -97,7 +97,7 @@ function RecipeDetails(props) {
               { meal.strCategory }
             </h5>
           </div>
-          <ShareLikeButtons recipe={ meal } type="comida" url={ url } />
+          <ShareLikeButtons complement="" recipe={ meal } type="comida" url={ url } />
         </div>
         <div>
           <h4>Instructions</h4>

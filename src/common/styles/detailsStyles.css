@@ -1,3 +1,25 @@
+.container {
+  background-color: rgb(223, 222, 222);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  width: 460px;
+  z-index: 900;
+}
+
+.flex-container-row {
+  align-items: center;
+  display: flex;
+}
+
+.flex-container-column {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+}
+
 .header-container {
   align-items: center;
   display: flex;
@@ -13,4 +35,5 @@
   bottom: 0;
   position: fixed;
   right: 0;
+  z-index: 950;
 }
