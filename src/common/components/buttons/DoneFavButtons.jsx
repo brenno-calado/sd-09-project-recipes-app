@@ -6,8 +6,8 @@ function DoneFavButtons({ type }) {
   const { resetFilter, filterBy } = useContext(RecipesContext);
 
   useEffect(() => {
-    resetFilter();
-  }, []);
+    resetFilter(type);
+  }, [resetFilter, type]);
 
   return (
     <div>
