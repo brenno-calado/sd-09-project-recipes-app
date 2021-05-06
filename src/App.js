@@ -7,6 +7,7 @@ import RecipeDetails from './pages/RecipeDetails';
 import RecipesDone from './pages/RecipesDone';
 import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
 import RecipeMain from './pages/RecipeMain';
+import RecipesFavorite from './pages/RecipesFavorite';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/comidas" component={ RecipeMain } />
           <Route path="/bebidas" component={ RecipeMain } />
           <Route path="/receitas-feitas" component={ RecipesDone } />
+          <Route path="/receitas-favoritas" component={ RecipesFavorite } />
         </Switch>
       </BrowserRouter>
     </MealsAndDrinkProvider>
