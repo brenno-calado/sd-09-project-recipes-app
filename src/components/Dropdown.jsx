@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { RecipesContext } from '../context';
 
 export default function Dropdown() {
   const {
     values: { areas, areaFilter }, actions: { setAreaFilter },
   } = useContext(RecipesContext);
+
+  // useEffect(() => setAreaFilter(''));
 
   async function filterRecipes(e) {
     const { value } = e.target;

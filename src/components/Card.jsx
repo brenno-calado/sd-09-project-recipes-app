@@ -17,7 +17,6 @@ function Card({ data }) {
     }
     return pathname.includes('comidas') ? ['Drink', 'bebidas'] : ['Meal', 'comidas'];
   };
-  console.log(category()[1]);
 
   const cardDataTestID = () => {
     if (isInMainPage) return 'recipe-card';

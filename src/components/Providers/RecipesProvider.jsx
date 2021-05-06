@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { shape } from 'prop-types';
 import { RecipesContext } from '../../context';
 import getAllRecipes from '../../services/allRecipesAPI';
-import { usePathLocation } from '../../hooks';
+import { usePathLocation, useRecipes } from '../../hooks';
 import getCategories from '../../services/categoriesAPI';
 import areasAPI from '../../services/areasAPI';
 
@@ -24,6 +24,8 @@ export default function RecipesProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
+
+  const { getRecipes } = useRecipes();
 
   const value = {
     values: {
@@ -62,19 +64,32 @@ export default function RecipesProvider({ children }) {
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   useEffect(() => {
-    const fetchAllRecipes = () => {
-      setIsFetching(true);
-      getAllRecipes(pathLocation)
-        .then(
-          (response) => setRecipesResult(response),
-          (error) => console.log(error.message),
-        )
-        .finally(() => setIsFetching(false));
-    };
-    fetchAllRecipes();
-    getCategories(pathLocation)
-      .then((response) => setCategories(response));
-  }, [pathLocation]);
+    console.log('fetch');
+    if (!areaFilter) {
+      const fetchAllRecipes = () => {
+        setIsFetching(true);
+        getAllRecipes(pathLocation)
+          .then(
+            (response) => setRecipesResult(response),
+            (error) => console.log(error.message),
+          )
+          .finally(() => setIsFetching(false));
+      };
+      fetchAllRecipes();
+      getCategories(pathLocation)
+        .then((response) => setCategories(response));
+    } else {
+      const fetchAreaRecipes = () => {
+        setIsFetching(true);
+        getRecipes('comidas', areaFilter, 'area')
+          .then(
+            (response) => setRecipesResult(response),
+            (error) => setRecipesResult(error),
+          ).finally(() => setIsFetching(false));
+      };
+      fetchAreaRecipes();
+    }
+  }, [pathLocation, areaFilter]);
 
   useEffect(() => {
     if (pathLocation === 'explorar') {

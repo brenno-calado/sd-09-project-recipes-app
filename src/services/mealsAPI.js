@@ -3,8 +3,22 @@ const MEAL_BY_FIRST_LETTER = 'https://www.themealdb.com/api/json/v1/1/search.php
 const MEAL_BY_INGREDIENT = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
 const MEAL_BY_CATEGORY = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=';
 const MEAL_BY_ID = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const MEAL_BY_AREA = 'https://www.themealdb.com/api/json/v1/1/filter.php?a=';
 
 export default {
+  async fetchByArea(area) {
+    try {
+      const recipesHTTP = await fetch(`${MEAL_BY_AREA}${area}`);
+      if (recipesHTTP.ok) {
+        const recipesJSON = await recipesHTTP.json();
+        return recipesJSON.meals;
+      }
+      throw new Error('Falha ao buscar receitas por região =(');
+    } catch (error) {
+      return { message: error.message };
+    }
+  },
+
   async fetchByName(name) {
     try {
       const recipesHTTP = await fetch(`${MEAL_BY_NAME}${name}`);
