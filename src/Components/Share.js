@@ -16,7 +16,6 @@ class Share extends Component {
     if (url.includes('/in-progress')) url = url.replaceAll('/in-progress', '');
     copy(url)
       .then(() => this.setState({ p: 'Link copiado!' }))
-      .catch(() => alert('Erro ao copiar link'));
   }
 
   render() {
