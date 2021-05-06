@@ -102,3 +102,9 @@ export function setDoneStorage() {
     return localStorage.setItem('doneRecipes', JSON.stringify([]));
   }
 }
+
+export function setRecipesStatusStorage() {
+  if (localStorage.getItem('recipesStatus') === null) {
+    return localStorage.setItem('recipesStatus', JSON.stringify({}));
+  }
+}

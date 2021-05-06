@@ -198,12 +198,16 @@
   flex-direction: column;
 }
 
-.checked-ingredient {
+/* .checked-ingredient {
   text-decoration: line-through;
 }
 
 .unchecked-ingredient {
   text-decoration: none;
+} */
+
+.ingredients-checkbox .checked {
+  text-decoration: line-through;
 }
 
 .done-recipe {

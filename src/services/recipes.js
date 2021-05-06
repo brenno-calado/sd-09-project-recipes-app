@@ -1,3 +1,5 @@
+import { setInProgressStorage } from './index';
+
 export function filterIngredients(recipe) {
   const recipeIngredients = Object
     .entries(recipe).filter((key) => (
@@ -16,6 +18,7 @@ export function filterIngredients(recipe) {
 }
 
 export function checkRecipesInProgress(id, type, ingredientsList) {
+  setInProgressStorage();
   const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!Object.keys(recipesInProgress[type]).some((item) => item === id)) {
     const setRecipesInProgress = {

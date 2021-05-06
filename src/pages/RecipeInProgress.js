@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { fetchMealsById, fetchDrinkById, setFavoritesStorage } from '../services/index';
-import { saveMealAsFavorite, filterIngredients } from '../services/recipes';
+import { useParams } from 'react-router-dom';
+import {
+  fetchMealsById,
+  fetchDrinkById,
+  setFavoritesStorage,
+  setRecipesStatusStorage } from '../services/index';
+import { saveMealAsFavorite } from '../services/recipes';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import IngredientsList from '../components/IngredientsList';
 
 function RecipeInProgress() {
   const [recipeInProgress, setRecipeInProgress] = useState({});
@@ -12,11 +17,11 @@ function RecipeInProgress() {
   const [isFetching, setFetching] = useState(true);
   const [urlCopied, setUrlCopied] = useState('');
   const [typeOfFood, setTypeOfFood] = useState('');
-  const [recipeCompleted, setRecipeCompleted] = useState(false);
+  // const [recipeCompleted, setRecipeCompleted] = useState(false);
   // const [ingredientsList, setIngredients] = useState([]);
   const recipeId = useParams();
   const reference = window.location.href;
-  const fetchStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  // const fetchStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
 
   useEffect(() => {
     const setRecipe = async () => {
@@ -38,6 +43,7 @@ function RecipeInProgress() {
       if (favoriteRecipes.some((recipe) => recipe.id === id)) setFavorite(true);
     };
     setFavoritesStorage();
+    setRecipesStatusStorage();
     checkFavorites(recipeId.id);
     setRecipe();
   }, [recipeId.id, reference]);
@@ -66,85 +72,85 @@ function RecipeInProgress() {
     }
   };
 
-  const checkStatus = () => {
-    const checkBoxes = [];
-    const allIngredients = document.querySelectorAll('input');
-    // console.log(allIngredients.every((item) => item.checked));
-    // if (allIngredients.some((item) => item.checked === false)) return setRecipeCompleted(false);
-    // return setRecipeCompleted(true);
-    allIngredients.forEach((item) => checkBoxes.push(item.checked));
-    return setRecipeCompleted(checkBoxes.every((item) => item === true));
-    // return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
-  };
+  // const checkStatus = () => {
+  //   const checkBoxes = [];
+  //   const allIngredients = document.querySelectorAll('input');
+  //   // console.log(allIngredients.every((item) => item.checked));
+  //   // if (allIngredients.some((item) => item.checked === false)) return setRecipeCompleted(false);
+  //   // return setRecipeCompleted(true);
+  //   allIngredients.forEach((item) => checkBoxes.push(item.checked));
+  //   return setRecipeCompleted(checkBoxes.every((item) => item === true));
+  //   // return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
+  // };
 
-  const updateStorage = (event) => {
-    checkStatus();
-    const { target } = event;
-    const storageType = fetchStorage[typeOfFood];
-    const localRecipe = storageType[recipeId.id];
-    if (localRecipe.some((item) => target.value === item)) {
-      const newStorageItem = localRecipe.filter((item) => item !== target.value);
-      const newStorage = {
-        ...fetchStorage,
-        [typeOfFood]: {
-          ...fetchStorage[typeOfFood],
-          [recipeId.id]: newStorageItem,
-        },
-      };
-      return localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
-    }
-    if (!localRecipe.includes(target.value)) {
-      const newStorage = {
-        ...fetchStorage,
-        [typeOfFood]: {
-          ...fetchStorage[typeOfFood],
-          [recipeId.id]: fetchStorage[typeOfFood][recipeId.id].concat(target.value),
-        },
-      };
-      return localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
-    }
-  };
+  // const updateStorage = (event) => {
+  //   // checkStatus();
+  //   const { target } = event;
+  //   const storageType = fetchStorage[typeOfFood];
+  //   const localRecipe = storageType[recipeId.id];
+  //   if (localRecipe.some((item) => target.value === item)) {
+  //     const newStorageItem = localRecipe.filter((item) => item !== target.value);
+  //     const newStorage = {
+  //       ...fetchStorage,
+  //       [typeOfFood]: {
+  //         ...fetchStorage[typeOfFood],
+  //         [recipeId.id]: newStorageItem,
+  //       },
+  //     };
+  //     return localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
+  //   }
+  //   if (!localRecipe.includes(target.value)) {
+  //     const newStorage = {
+  //       ...fetchStorage,
+  //       [typeOfFood]: {
+  //         ...fetchStorage[typeOfFood],
+  //         [recipeId.id]: fetchStorage[typeOfFood][recipeId.id].concat(target.value),
+  //       },
+  //     };
+  //     return localStorage.setItem('inProgressRecipes', JSON.stringify(newStorage));
+  //   }
+  // };
 
-  const renderIngredientsList = () => {
-    const ingredients = filterIngredients(recipeInProgress);
-    // setIngredients(ingredients);
-    return (
-      <div className="ingredients-checkbox">
-        {ingredients.map((item, index) => (
-          <label
-            htmlFor={ item }
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-            // className="null"
-            id={ item }
-          >
-            <input
-              id={ item }
-              type="checkbox"
-              value={ item }
-              name={ item }
-              onClick={ (e) => updateStorage(e) }
-            />
-            { item }
-          </label>
-        ))}
-      </div>);
-  };
+  // const renderIngredientsList = () => {
+  //   const ingredients = filterIngredients(recipeInProgress);
+  //   // setIngredients(ingredients);
+  //   return (
+  //     <div className="ingredients-checkbox">
+  //       {ingredients.map((item, index) => (
+  //         <label
+  //           htmlFor={ item }
+  //           key={ index }
+  //           data-testid={ `${index}-ingredient-step` }
+  //           // className="null"
+  //           id={ item }
+  //         >
+  //           <input
+  //             id={ item }
+  //             type="checkbox"
+  //             value={ item }
+  //             name={ item }
+  //             onClick={ (e) => updateStorage(e) }
+  //           />
+  //           { item }
+  //         </label>
+  //       ))}
+  //     </div>);
+  // };
 
-  const renderDoneButton = () => (
-    <Link to="/receitas-feitas">
-      <button
-        data-testid="finish-recipe-btn"
-        className="done-recipe"
-        type="button"
-        onClick={ () => console.log('Done button') }
-        disabled={ !recipeCompleted }
-      >
-        Finalizar receita
-      </button>
+  // const renderDoneButton = () => (
+  //   <Link to="/receitas-feitas">
+  //     <button
+  //       data-testid="finish-recipe-btn"
+  //       className="done-recipe"
+  //       type="button"
+  //       onClick={ () => console.log('Done button') }
+  //       disabled={ !recipeCompleted }
+  //     >
+  //       Finalizar receita
+  //     </button>
 
-    </Link>
-  );
+  //   </Link>
+  // );
 
   const renderInProgress = (recipe) => (
     <div className="recipe-details">
@@ -180,11 +186,12 @@ function RecipeInProgress() {
       >
         {`Categoria: ${recipe.strAlcoholic || recipe.strCategory}`}
       </h2>
-      <ul>
+      {/* <ul>
         { renderIngredientsList() }
-      </ul>
+      </ul> */}
+      <IngredientsList id={ recipeId.id } type={ typeOfFood } />
       <p data-testid="instructions">{ recipe.strInstructions }</p>
-      { renderDoneButton() }
+      {/* { renderDoneButton() } */}
     </div>
   );
 
