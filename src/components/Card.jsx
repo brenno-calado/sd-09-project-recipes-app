@@ -9,7 +9,7 @@ function Card({ data }) {
   const history = useHistory();
 
   const isInMainPage = !Object.keys(params).length;
-  const isExplorePage = pathname.includes('explorar');
+
   const category = () => {
     if (isInMainPage) {
       return pathname.includes('comidas')
@@ -24,8 +24,7 @@ function Card({ data }) {
   };
 
   const titleDataTestID = () => {
-    if (isExplorePage) return 'card-name';
-    if (isInMainPage) return 'recipe-name';
+    if (isInMainPage) return 'card-name';
     return 'recomendation-title';
   };
   const DOZE = 12;
