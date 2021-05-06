@@ -6,6 +6,7 @@ import {
   GET_RANDOM_RECIPE,
   GET_INGREDIENTS,
   GET_SELECTED_INGREDIENT,
+  GET_FILTER_AREA,
 } from '../actions';
 
 const INITIAL_STATE = {
@@ -16,6 +17,7 @@ const INITIAL_STATE = {
   randomRecipe: { idMeal: '', idDrinks: '' },
   ingredients: [],
   selectedIngredient: '',
+  filterByArea: [],
 };
 
 export default function recipesReducer(state = INITIAL_STATE, actions) {
@@ -54,6 +56,11 @@ export default function recipesReducer(state = INITIAL_STATE, actions) {
     return {
       ...state,
       selectedIngredient: actions.selectedIngredient,
+    };
+  case GET_FILTER_AREA:
+    return {
+      ...state,
+      filterByArea: actions.filterByArea,
     };
   default:
     return {
