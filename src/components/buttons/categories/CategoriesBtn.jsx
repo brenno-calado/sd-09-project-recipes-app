@@ -35,12 +35,24 @@ function CategoriesBtn() {
     }
   };
 
+  const allCategoryBtnClassName = () => {
+    let category = '';
+    if (pathname === '/comidas') {
+      category = 'category-btn';
+      return category;
+    }
+    if (pathname === '/bebidas') {
+      category = 'drink-category-btn';
+      return category;
+    }
+  };
+
   return (
-    <div className="categories-button">
+    <div className="categories-container">
       <button
         type="button"
         data-testid="All-category-filter"
-        className="basic-btn"
+        className={ allCategoryBtnClassName() }
         value="All"
         onClick={ (e) => handleClick(e) }
       >
@@ -50,7 +62,7 @@ function CategoriesBtn() {
         pathname === '/comidas'
           ? mealCategories.slice(0, MAX_NUMBER_OF_CARDS_5).map((mealCategory, index) => (
             <button
-              className="basic-btn"
+              className="category-btn"
               type="button"
               data-testid={ `${mealCategory.strCategory}-category-filter` }
               key={ index }
@@ -63,7 +75,7 @@ function CategoriesBtn() {
           : drinksCategories.slice(0, MAX_NUMBER_OF_CARDS_5)
             .map((drinkCategory, index) => (
               <button
-                className="basic-btn"
+                className="drink-category-btn"
                 type="button"
                 data-testid={ `${drinkCategory.strCategory}-category-filter` }
                 key={ index }

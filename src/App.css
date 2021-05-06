@@ -1,8 +1,8 @@
 :root {
 
-  --light-blue: rgb(215, 240, 255);
+  --light-blue: rgb(210, 240, 255);
 
-  --light-pink: rgb(240, 215, 255);
+  --light-pink: rgb(240, 210, 255);
 
   --soft-purple: rgb(200, 180, 255);
 
@@ -10,11 +10,15 @@
 
   --large-shadow: 8px 8px 8px rgba(230, 110, 110, 0.4);
 
-  --linear-gradient-1:
-    linear-gradient(120deg, rgb(240, 210, 255), rgb(210, 240, 255), rgb(240, 210, 255));
+  --linear-gradient-1: linear-gradient(120deg,
+  var(--light-pink),
+  var(--light-blue),
+  var(--light-pink));
 
-  --linear-gradient-2: 
-    linear-gradient(120deg, rgb(240, 210, 255), white, rgb(210, 240, 255));
+  --linear-gradient-2: linear-gradient(120deg,
+  var(--light-pink),
+  white,
+  var(--light-blue));
 
   --linear-gradient-3: linear-gradient(120deg, var(--soft-blue), var(--soft-purple));
 
@@ -132,7 +136,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
 }
 
 .search-input {
@@ -224,10 +228,51 @@
   transform: scale(1.04);
 }
 
+.categories-container {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.category-btn {
+  background-color: var(--soft-blue);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  transition: 0.6s ease-in-out;
+  width: 100px;
+}
+
+.category-btn:hover {
+  background: var(--linear-gradient-3);
+  transform: scale(1.04);
+}
+
+.drink-category-btn {
+  background-color: var(--soft-blue);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-top: 10px;
+  padding: 5px;
+  transition: 0.6s ease-in-out;
+  width: 150px;
+}
+
+.drink-category-btn:hover {
+  background: var(--linear-gradient-3);
+  transform: scale(1.04);
+}
+
 .start-recipe {
   bottom: 0;
   position: fixed;
 }
+
 .recipe-photo {
   width: 340px;
 }
