@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 import { useRecipeContext } from '../contexts/recipeContext';
-import RecipeCard from '../components/RecepiCard';
+import styles from '../components/RecepiCard/recipesCard.module.css';
 
 function DrinksByIngredient() {
-  const { getIngredients } = useRecipeContext();
+  const { getIngredients, setCheckValue, setInputValue } = useRecipeContext();
   const [ingredients, setIngredients] = useState([]);
   const twelve = 12;
-  const type = 'bebidas/ingredientes';
 
   useEffect(() => {
     getIngredients('thecocktaildb')
       .then(({ drinks }) => setIngredients(drinks));
   }, [getIngredients]);
+
+  function handleClick(ingredient) {
+    setCheckValue('ingredient');
+    setInputValue(ingredient);
+  }
 
   return (
     <>
@@ -23,16 +28,29 @@ function DrinksByIngredient() {
       <h1>Bebidas por ingrediente</h1>
       {ingredients.length && ingredients
         .map(({ strIngredient1 }, index) => index < twelve && (
-          <RecipeCard
-            key={ strIngredient1 }
-            image={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-            name={ strIngredient1 }
-            recipeCArdId={ `${index}-ingredient-card` }
-            cardImageId={ `${index}-card-img` }
-            cardNameId={ `${index}-card-name` }
-            type={ type }
-            codeId={ strIngredient1 }
-          />
+          <Link to="/bebidas">
+            <li
+              className={ styles.recipeCArdId }
+            >
+              <button
+                type="button"
+                data-testid={ `${index}-ingredient-card` }
+                onClick={ () => handleClick(strIngredient1) }
+              >
+                <img
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+                  alt={ strIngredient1 }
+                  data-testid={ `${index}-card-img` }
+                  className={ styles.recipeCArdId }
+                />
+              </button>
+              <p
+                data-testid={ `${index}-card-name` }
+              >
+                { strIngredient1 }
+              </p>
+            </li>
+          </Link>
         )) }
       <BottomMenu />
     </>

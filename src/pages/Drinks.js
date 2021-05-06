@@ -71,6 +71,7 @@ function Drinks() {
   }
 
   return (
+    handleFetchDrinkClick(),
     headerRenderDrink(headerParams)
   );
 }

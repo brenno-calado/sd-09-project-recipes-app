@@ -17,7 +17,8 @@ function Foods() {
     setRecipesData,
     getRecipes,
     getRecipesByCategory,
-    getRecipesFoodsFilterByCategory } = useRecipeContext();
+    getRecipesFoodsFilterByCategory,
+    renderRecipesByIngredients } = useRecipeContext();
 
   const headerFoodParams = {
     meal,
@@ -28,6 +29,7 @@ function Foods() {
     recipesData,
     setListItemByCategory,
     setRecipesData,
+    renderRecipesByIngredients,
   };
 
   useEffect(() => {
@@ -68,6 +70,7 @@ function Foods() {
   }
 
   return (
+    handleFetchFoodClick(),
     headerRenderFoods(headerFoodParams)
   );
 }

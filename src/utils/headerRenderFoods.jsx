@@ -15,6 +15,7 @@ function headerRenderFoods({
   recipesData,
   setListItemByCategory,
   setRecipesData,
+  renderRecipesByIngredients,
 }) {
   const renderFood = (recipesData.meals && (recipesData.meals
     .map(({ idMeal, strMealThumb, strMeal }, index) => (
@@ -47,6 +48,7 @@ function headerRenderFoods({
       { filterAllFoodButton(setListItemByCategory, setRecipesData) }
       { categoryFoodButton(handleClickButtonName, meal) }
       {recipesData.meals ? renderFood : render}
+      {renderRecipesByIngredients}
       <BottomMenu />
     </>
   );

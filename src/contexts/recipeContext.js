@@ -18,7 +18,10 @@ export function RecipeContextProvider({ children }) {
     getRecipesRandom,
     getLocations,
     getRecipesByLocations,
-    getIngredients] = useClickFetch();
+    getIngredients,
+    setCheckValue,
+    setInputValue,
+    renderRecipesByIngredients] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -26,7 +29,6 @@ export function RecipeContextProvider({ children }) {
 
   function handleChangeSearchBar() {
     setIsSearchBar(!isSearchBar);
-    console.log('clicado');
   }
 
   function handleLocalStorage() {
@@ -52,6 +54,9 @@ export function RecipeContextProvider({ children }) {
     getLocations,
     getRecipesByLocations,
     getIngredients,
+    setCheckValue,
+    setInputValue,
+    renderRecipesByIngredients,
   };
 
   return (
