@@ -14,6 +14,7 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreMeals from './pages/ExploreMeals';
 import ExploreIngredients from './pages/ExploreIngredients';
 import ExploreOrigin from './pages/ExploreOrigin';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
           <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route path="/explorar" component={ Explore } />
+          <Route path="/perfil" component={ Profile } />
           <Route exact path="/" component={ Login } />
         </Switch>
       </BrowserRouter>

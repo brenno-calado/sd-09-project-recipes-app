@@ -1,5 +1,7 @@
 .bottom-nav {
+  background-color: white;
   bottom: 0;
   display: flex;
   position: fixed;
+  width: 100%;
 }
