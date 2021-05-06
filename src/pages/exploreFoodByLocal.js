@@ -10,7 +10,7 @@ import CardContainer from '../components/cardContainer';
 
 export default function ExploreFoodByOrigin() {
   const [areas, setAreas] = useState([]);
-  const [areaSelected, setAreaSelected] = useState('');
+  const [areaSelected, setAreaSelected] = useState('All');
   const [recipes, setRecipes] = useState([]);
   const dispatch = useDispatch();
 
@@ -18,7 +18,10 @@ export default function ExploreFoodByOrigin() {
     if (areas.length === 0) {
       const fetchDispatch = async () => {
         const fetch = await getFoodsAndDrinks('meals', 'getOrigin');
+        const fetchMeals = await getFoodsAndDrinks('meals', 'getAll');
+
         dispatch(filterFoodByArea(fetch));
+        dispatch(listMeals(fetchMeals));
       };
       fetchDispatch();
     }
@@ -28,22 +31,22 @@ export default function ExploreFoodByOrigin() {
 
   useEffect(() => {
     if (areaData.length > 0) {
-      const firstArea = areaData[0].strArea;
-
       setAreas(areaData);
-      setAreaSelected(firstArea);
     }
   }, [areaData]);
 
-  useEffect(() => {
-    if (areaSelected) {
-      const fetchDispatch = async () => {
-        const fetch = await getFoodsAndDrinks('meals', 'filterByArea', areaSelected);
-        dispatch(listMeals(fetch));
-      };
-      fetchDispatch();
+  const changeFilter = async (value) => {
+    setAreaSelected(value);
+    let fetch = [];
+
+    if (value !== 'All') {
+      fetch = await getFoodsAndDrinks('meals', 'filterByArea', value);
+    } else {
+      fetch = await getFoodsAndDrinks('meals', 'getAll');
     }
-  }, [areaSelected, dispatch]);
+
+    dispatch(listMeals(fetch));
+  };
 
   const filterAreaData = useSelector((state) => state.recipesReducer.meals);
 
@@ -61,11 +64,12 @@ export default function ExploreFoodByOrigin() {
         <select
           className="dropdown-toggle"
           data-testid="explore-by-area-dropdown"
-          onChange={ (event) => setAreaSelected(event.target.value) }
+          onChange={ (event) => changeFilter(event.target.value) }
           title={ (areaSelected)
             ? `Origem selecionada: ${areaSelected}`
             : 'Carregando...' }
         >
+          <option value="All" data-testid="All-option">All</option>
           {areas.length > 0 && areas.map(({ strArea }, index) => (
             <option
               key={ `dropdown-${index}` }
