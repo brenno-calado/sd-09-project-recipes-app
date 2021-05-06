@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 function Explorar() {
   return (
     <div>
-      <Header title="Explorar" showButton={ false } />
+      <Header title="Explorar" showExplorerButton={ false } />
       <Explorer type="global" />
       <Footer />
     </div>

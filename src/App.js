@@ -17,6 +17,7 @@ import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import RecipiesProvider from './context/RecipiesContext';
 import Bebidas from './pages/Bebidas';
 import RecipeInProgress from './pages/RecipeInProgress';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ Login } />
         <Route path="/explorar/comidas/area" component={ ExplorarOrigem } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route path="/explorar/bebidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/explorar/comidas/ingredientes" component={ ExplorarIngredientes } />
         <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />

@@ -1,5 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { randomMeal, randomDrink } from '../services/api';
+
+async function randomRecipe(type) {
+  if (type === 'food') {
+    const mealNumber = await randomMeal();
+    window.location.href = (`http://localhost:3000/comidas/${mealNumber}`);
+  } else {
+    const drinkNumber = await randomDrink();
+    window.location.href = (`http://localhost:3000/bebidas/${drinkNumber}`);
+  }
+}
 
 function Explorer({ type }) {
   if (type === 'global') {
@@ -31,11 +42,13 @@ function Explorer({ type }) {
             Por Local de Origem
           </button>
         </Link>
-        <Link to="/explorar/XXXX">
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => randomRecipe('food') }
+        >
+          Me Surpreenda!
+        </button>
       </div>
     );
   }
@@ -47,11 +60,13 @@ function Explorer({ type }) {
             Por Ingredientes
           </button>
         </Link>
-        <Link to="/explorar/XXXX">
-          <button type="button" data-testid="explore-surprise">
-            Me Surpreenda!
-          </button>
-        </Link>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ () => randomRecipe('drink') }
+        >
+          Me Surpreenda!
+        </button>
       </div>
     );
   }

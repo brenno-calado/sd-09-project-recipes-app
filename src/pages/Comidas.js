@@ -20,13 +20,14 @@ function Comidas() {
     setSearchMealsList,
     showSearchBar,
   } = useContext(RecipiesContext);
+  console.log(searchMealsList);
   useEffect(() => {
     getRecipesByName('', true).then((data) => { setSearchMealsList(data); });
   }, [setSearchMealsList]);
 
   return (
     <div>
-      <Header title="Comidas" showButton />
+      <Header title="Comidas" showExplorerButton />
       { showSearchBar && <SearchBar isMealsPage /> }
       <CategoryFilters isMealsPage />
       <RecipeList listItems={ searchMealsList && searchMealsList.map(mealToRecipe) } />

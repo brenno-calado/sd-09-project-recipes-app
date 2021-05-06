@@ -5,7 +5,7 @@ import profileImg from '../images/profileIcon.svg';
 import searchImg from '../images/searchIcon.svg';
 import { RecipiesContext } from '../context/RecipiesContext';
 
-function CreateHeader({ title, showButton }) {
+function CreateHeader({ title, showExplorerButton }) {
   const { showSearchBar, setShowSearchBar } = useContext(RecipiesContext);
   const changeSearchBarStatus = () => setShowSearchBar(!showSearchBar);
   function renderButton() {
@@ -28,14 +28,14 @@ function CreateHeader({ title, showButton }) {
         </button>
       </Link>
       <h1 data-testid="page-title">{title}</h1>
-      {showButton && renderButton()}
+      {showExplorerButton && renderButton()}
     </header>
   );
 }
 
 CreateHeader.propTypes = {
   title: PropTypes.string,
-  showButton: PropTypes.bool,
+  showExplorerButton: PropTypes.bool,
 }.isRequired;
 
 export default CreateHeader;
