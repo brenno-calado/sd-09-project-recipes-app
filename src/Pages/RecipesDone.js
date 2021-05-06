@@ -15,8 +15,6 @@ class RecipesDone extends React.Component {
 
     this.renderComidas = this.renderComidas.bind(this);
     this.renderBebidas = this.renderBebidas.bind(this);
-    // this.filterFood = this.filterFood.bind(this);
-    // this.filterDrink = this.filterDrink.bind(this);
   }
 
   componentDidMount() {
@@ -29,20 +27,6 @@ class RecipesDone extends React.Component {
       drink: filterDrink,
     });
   }
-
-  // filterFood() {
-  //   this.setState({
-  //     bebida: false,
-  //     comida: true,
-  //   });
-  // // }
-
-  // filterDrink() {
-  //   this.setState({
-  //     bebida: true,
-  //     comida: false,
-  //   });
-  // }
 
   renderComidas() {
     const { food, comida } = this.state;
@@ -71,7 +55,6 @@ class RecipesDone extends React.Component {
               >
                 {value.doneDate}
               </p>
-              {/* <Share /> */}
               <span
                 data-testid={ `${index}-horizontal-tag` }
               >
@@ -112,7 +95,6 @@ class RecipesDone extends React.Component {
               >
                 {value.doneDate}
               </p>
-              {/* <Share /> */}
               <span
                 data-testid={ `${index}-horizontal-tag` }
               >
@@ -127,7 +109,6 @@ class RecipesDone extends React.Component {
   }
 
   render() {
-    // const { recipesDone } = this.state;
     return (
       <div>
         <Header name="Receitas Feitas" />
