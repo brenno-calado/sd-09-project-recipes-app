@@ -18,6 +18,7 @@ button:focus {
   outline: none;
 }
 
+
 ul {
   align-self: flex-start;
   margin-left: 15px;
@@ -33,6 +34,25 @@ ul {
   padding: 5px;
   position: fixed;
   transform: translateX(-50%);
+}
+
+.finish-recipe-btn:enabled {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 5px;
+  bottom: 5px;
+  color: white;
+  padding: 5px;
+}
+
+.finish-recipe-btn:disabled {
+  background-color: var(--colorWarning3);
+  border: none;
+  border-radius: 5px;
+  bottom: 5px;
+  color: white;
+  padding: 5px;
+  text-decoration: line-through;
 }
 
 .carousel {
@@ -63,6 +83,10 @@ ul {
 
 .itens-recomendadas {
   margin-top: 10px;
+}
+
+.ingredient-steps {
+  align-self: flex-start;
 }
 
 .recipe-details {

@@ -26,14 +26,23 @@ const CheckBoxProgress = ({
     }
   };
 
+  const classLabel = () => {
+    let className = 'container';
+    if (strikeThrough) {
+      className += ' cross';
+      return className;
+    }
+    return className;
+  };
+
   return (
     <div data-testid={ `${index}-ingredient-step` }>
       <label
         htmlFor={ index }
         key={ ingredient.name }
-        className={ strikeThrough ? 'cross' : null }
+        // className={ strikeThrough ? 'cross' : null }
+        className={ classLabel() }
       >
-        {ing}
         <input
           id={ index }
           type="checkbox"
@@ -41,6 +50,8 @@ const CheckBoxProgress = ({
           onClick={ checkStep }
           value={ ing }
         />
+        <span className="checkmark" />
+        {ing}
       </label>
     </div>
   );
