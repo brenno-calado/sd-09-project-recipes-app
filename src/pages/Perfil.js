@@ -20,7 +20,7 @@ function Perfil() {
     <div>
       <Header title="Perfil" showExplorerButton={ false } />
       <p data-testid="profile-email">
-        {email.email}
+        {email && email.email}
       </p>
       <button
         data-testid="profile-logout-btn"
