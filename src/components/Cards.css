@@ -17,9 +17,3 @@
 .recipes-title {
   font-size: 20;
 }
-
-.main-content {
-  display: flex;
-  flex-direction: row;
-  flex-flow: wrap;
-}
