@@ -1,0 +1,10 @@
+.container-recipesDone {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-btns-recipesDone {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}

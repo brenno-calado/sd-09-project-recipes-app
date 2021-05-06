@@ -1,0 +1,17 @@
+.btn-category {
+  background-color: #2a9d8f;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: whitesmoke;
+  font-size: 12px;
+  margin: 4px 2px;
+  padding: 3px 0;
+  width: 100px;
+}
+
+.btn-category:focus {
+  background-color: #e9c46a;
+  color: black;
+  outline: none;
+}

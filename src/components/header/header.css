@@ -1,0 +1,30 @@
+.container-header {
+  align-items: center;
+  background-color: #e76f51;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+}
+
+.container-header img {
+  height: 34px;
+}
+
+.title-header {
+  color: whitesmoke;
+  font-size: 25px;
+  margin: auto 0;
+}
+
+.btn-search-header {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-search-header:focus {
+  outline: transparent;
+}
+
+.btn-search-header.clicked {
+  outline: none;
+}
