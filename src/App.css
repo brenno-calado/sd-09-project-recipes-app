@@ -10,15 +10,17 @@
 
   --large-shadow: 8px 8px 8px rgba(230, 110, 110, 0.4);
 
-  --linear-gradient-1: linear-gradient(120deg, 
-  var(--light-pink), 
-  var(--light-blue), 
-  var(--light-pink));
+  --linear-gradient-1: linear-gradient(
+    120deg,
+    var(--light-pink),
+    var(--light-blue),
+    var(--light-pink));
 
-  --linear-gradient-2: linear-gradient(120deg, 
-  var(--light-pink), 
-  white, 
-  var(--light-blue));
+  --linear-gradient-2: linear-gradient(
+    120deg,
+    var(--light-pink),
+    white,
+    var(--light-blue));
 
   --linear-gradient-3: linear-gradient(120deg, var(--soft-blue), var(--soft-purple));
 
