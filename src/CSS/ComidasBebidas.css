@@ -70,6 +70,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 50px;
   margin-top: 10px;
 }
 
@@ -91,4 +92,3 @@
   box-shadow: var(--boxShadow3);
   width: 160px;
 }
-

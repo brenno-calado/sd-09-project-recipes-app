@@ -59,6 +59,11 @@ ul {
   margin-bottom: 30px;
 }
 
+.carousel p {
+  color: var(--colorSuccess3);
+  text-shadow: 2px 2px 2px black;
+}
+
 .card-content {
   align-items: center;
   background-color: var(--colorWarning4);

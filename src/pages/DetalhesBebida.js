@@ -7,6 +7,8 @@ import { AppContext } from '../context/AppContext';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
+import next from '../images/next.svg';
+import previous from '../images/previous.svg';
 import '../CSS/Detalhes.css';
 
 const checkDoneRecipes = (doneRecipes, recipeId) => {
@@ -158,7 +160,12 @@ const DetalhesBebida = () => {
         </ul>
         <p data-testid="instructions">{strInstructions}</p>
         <h4 className="itens-recomendados">Comidas Recomendadas</h4>
-        <Carousel className="carousel">
+        <Carousel
+          slide={ false }
+          className="carousel"
+          prevIcon={ <img src={ previous } alt="Previous Icon" /> }
+          nextIcon={ <img src={ next } alt="Next Icon" /> }
+        >
           { recomendations && recomendations.map((food, index) => (
             <Carousel.Item key={ food.idMeal }>
               <div data-testid={ `${index}-recomendation-card` }>

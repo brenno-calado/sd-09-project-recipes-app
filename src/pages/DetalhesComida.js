@@ -7,6 +7,8 @@ import { AppContext } from '../context/AppContext';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
+import next from '../images/next.svg';
+import previous from '../images/previous.svg';
 import '../CSS/Detalhes.css';
 
 const checkFavorite = (favoriteRecipes, recipeId) => {
@@ -159,7 +161,12 @@ const DetalhesComida = () => {
           src={ replaceVideoUrl((idDetails)) }
         />
         <h4 className="itens-recomendados">Bebidas recomendadas</h4>
-        <Carousel className="carousel">
+        <Carousel
+          slide={ false }
+          className="carousel"
+          prevIcon={ <img src={ previous } alt="Previous Icon" /> }
+          nextIcon={ <img src={ next } alt="Next Icon" /> }
+        >
           { recomendations && recomendations.map((drink, index) => (
             <Carousel.Item key={ drink.idDrink }>
               <div data-testid={ `${index}-recomendation-card` }>
