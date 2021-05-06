@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { useLocation } from 'react-router';
+import { Button, Jumbotron } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import getFoodsAndDrinks from '../services/servicesAPI';
 import { filterFoodByArea, listMeals } from '../actions';
 
@@ -13,6 +15,8 @@ export default function ExploreFoodByOrigin() {
   const [areaSelected, setAreaSelected] = useState('All');
   const [recipes, setRecipes] = useState([]);
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const type = pathname.split('/')[2];
 
   useEffect(() => {
     if (areas.length === 0) {
@@ -61,26 +65,50 @@ export default function ExploreFoodByOrigin() {
         search={ { searchBtn: true, searchFor: 'meals' } }
       />
       <div className="explorerArea-wrapper">
-        <select
-          className="dropdown-toggle"
-          data-testid="explore-by-area-dropdown"
-          onChange={ (event) => changeFilter(event.target.value) }
-          title={ (areaSelected)
-            ? `Origem selecionada: ${areaSelected}`
-            : 'Carregando...' }
-        >
-          <option value="All" data-testid="All-option">All</option>
-          {areas.length > 0 && areas.map(({ strArea }, index) => (
-            <option
-              key={ `dropdown-${index}` }
-              value={ strArea }
-              data-testid={ `${strArea}-option` }
+        {type === 'bebidas' ? (
+          <Jumbotron>
+            <h1>Not Found</h1>
+            <p>
+              Desculpe, a categoria &quot;Bebidas&quot; não possui esse tipo de
+              filtro. Retone a página de &quot;Explorar Bebidas&quot; e veja
+              quais filtros estão disponíveis ou acesse esse filtro na
+              categoria de &quot;Comidas&quot;.
+            </p>
+            <p>
+              <Link to="/explorar/bebidas">
+                <Button variant="primary">Explorar Bebidas</Button>
+              </Link>
+            </p>
+            <p>
+              <Link to="/explorar/comidas/area">
+                <Button variant="primary">Explorar Comida por Area</Button>
+              </Link>
+            </p>
+          </Jumbotron>
+        ) : (
+          <>
+            <select
+              className="dropdown-toggle"
+              data-testid="explore-by-area-dropdown"
+              onChange={ (event) => changeFilter(event.target.value) }
+              title={ (areaSelected)
+                ? `Origem selecionada: ${areaSelected}`
+                : 'Carregando...' }
             >
-              {strArea}
-            </option>
-          ))}
-        </select>
-        <CardContainer recipes={ recipes } path="/comidas" cardType="recipes" />
+              <option value="All" data-testid="All-option">All</option>
+              {areas.length > 0 && areas.map(({ strArea }, index) => (
+                <option
+                  key={ `dropdown-${index}` }
+                  value={ strArea }
+                  data-testid={ `${strArea}-option` }
+                >
+                  {strArea}
+                </option>
+              ))}
+            </select>
+            <CardContainer recipes={ recipes } path="/comidas" cardType="recipes" />
+          </>
+        )}
       </div>
       <Footer />
     </>

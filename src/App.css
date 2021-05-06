@@ -162,7 +162,7 @@
   width: calc(100% - 1rem);
 }
 
-.explorerArea-wrapper .dropdown-toggle::after {
+.explorerArea-wrapper .dropdown-toggle:after {
   margin-left: 1rem;
 }
 
