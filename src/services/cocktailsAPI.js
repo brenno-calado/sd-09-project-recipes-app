@@ -8,7 +8,6 @@ export default {
   async fetchByName(name) {
     try {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_NAME}${name}`);
-      console.log(recipesHTTP);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
         return recipesJSON.drinks;
