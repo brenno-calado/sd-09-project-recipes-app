@@ -35,7 +35,7 @@ class IngredientsFoods extends Component {
     return (
       <div>
         <Header />
-        <h2>Explorar ingredientes de comidas:</h2>
+        <h2>Explorar ingredientes comidas:</h2>
         <main>
           {loading ? <Loading /> : foodsIngredients
             .filter((_item, indexNumber) => indexNumber < totalItens)
