@@ -19,10 +19,8 @@ function constructObject(recipe) {
   return objectRecipe;
 }
 
-function RecomendedFavBtn(recipeDone) {
-  const [hearthFill, setShouldVerifyToFillHeart] = useHeartFill();
-  const { recipe } = recipeDone;
-
+function RecomendedFavBtn({ recipe, index }) {
+  const [hearthFillIds, setShouldVerifyToFillHeart] = useHeartFill();
   function handleSaveRemoveRecipe() {
     // save the object in localStorage
     const objectToSave = constructObject(recipe);
@@ -46,13 +44,13 @@ function RecomendedFavBtn(recipeDone) {
 
   return (
     <Button
-      data-testid="favorite-btn"
+      data-testid={ `${index}-horizontal-favorite-btn` }
       type="button"
       color="primary"
       onClick={ handleSaveRemoveRecipe }
-      src={ hearthFill.includes(recipe.id) ? 'blackHeartIcon' : 'whiteHeartIcon' }
+      src={ hearthFillIds.includes(recipe.id) ? 'blackHeartIcon' : 'whiteHeartIcon' }
     >
-      {hearthFill.includes(recipe.id) ? <BlackHeart /> : <WhiteHeart /> }
+      {hearthFillIds.includes(recipe.id) ? <BlackHeart /> : <WhiteHeart /> }
     </Button>
   );
 }

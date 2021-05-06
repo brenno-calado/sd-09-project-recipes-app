@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button, Card } from 'react-bootstrap';
-// import RecomendedBtnFavorite from './RecomendedBtnFavorite';
+import RecomendedFavBtn from './RecomendedFavBtn';
 
 function createRedirectPath(recipe) {
   return `/${recipe.type}s/${recipe.id}`;
@@ -26,11 +26,11 @@ async function handleClickCopy({ target }) {
   await navigator.clipboard.writeText(path);
 }
 
-function createTagElements(recipeDone, index) {
+function createTagElements(recipe, index) {
   let arrayOfElements;
-  if (recipeDone.tags) {
-    const allTags = typeof recipeDone.tags === 'string'
-      ? recipeDone.tags.split(',') : recipeDone.tags;
+  if (recipe.tags) {
+    const allTags = typeof recipe.tags === 'string'
+      ? recipe.tags.split(',') : recipe.tags;
     arrayOfElements = allTags.map((recipeTag) => (
       <span key={ recipeTag }>
         <Card.Text
@@ -44,41 +44,45 @@ function createTagElements(recipeDone, index) {
   return arrayOfElements;
 }
 
-function createCard(recipeDone, index, typeRecipe) {
-  const tagElements = createTagElements(recipeDone, index);
-  const redirectPath = createRedirectPath(recipeDone);
-  console.log(typeRecipe, 'typefdp');
+function createCard(recipe, index, typeRecipe) {
+  const tagElements = createTagElements(recipe, index);
+  const redirectPath = createRedirectPath(recipe);
   return (
     <Card
       style={ { width: '18rem' } }
       key={ index }
       data-testid={ `${index}-recomendation-card` }
     >
-      <p hidden>{recipeDone.id}</p>
-      <p hidden>{recipeDone.type}</p>
+      <p hidden>{recipe.id}</p>
+      <p hidden>{recipe.type}</p>
       <Link to={ redirectPath }>
         <Card.Img
           data-testid={ `${index}-horizontal-image` }
           variant="top"
-          src={ recipeDone.image }
+          src={ recipe.image }
         />
       </Link>
       <Card.Body>
         <Link to={ redirectPath }>
           <Card.Title data-testid={ `${index}-horizontal-name` }>
-            { recipeDone.name }
+            { recipe.name }
           </Card.Title>
         </Link>
         <Card.Subtitle data-testid={ `${index}-horizontal-top-text` }>
-          {recipeDone.type === 'comida'
-            ? `${recipeDone.area} - ${recipeDone.category}`
-            : `${recipeDone.alcoholicOrNot}`}
+          {recipe.type === 'comida'
+            ? `${recipe.area} - ${recipe.category}`
+            : `${recipe.alcoholicOrNot}`}
         </Card.Subtitle>
         <Card.Text data-testid={ `${index}-horizontal-done-date` }>
-          { recipeDone.doneDate }
+          { recipe.doneDate }
         </Card.Text>
         {typeRecipe === 'done' ? ''
-          : (<p>oi</p>)}
+          : (
+            <RecomendedFavBtn
+              recipe={ recipe }
+              index={ index }
+            />
+          )}
         {tagElements}
         <Button
           data-testid={ `${index}-horizontal-share-btn` }
