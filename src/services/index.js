@@ -36,8 +36,13 @@ const fetchDrinkByFilter = async (url) => {
   return drinkFilter.drinks;
 };
 
-const getIngredientsImg = (ingredientName) => {
-  const imgUrl = `https://www.themealdb.com/images/ingredients/${ingredientName}.png`;
+const getMealIngredientsImg = (ingredientName) => {
+  const imgUrl = `https://www.themealdb.com/images/ingredients/${ingredientName}-Small.png`;
+  return imgUrl;
+};
+
+const getDrinkIngredientsImg = (ingredientName) => {
+  const imgUrl = `https://www.thecocktaildb.com/images/ingredients/${ingredientName}-Small.png`;
   return imgUrl;
 };
 
@@ -90,7 +95,8 @@ const fetchApi = {
   fetchMealByCategories,
   fetchMealByArea,
   fetchMealByIngredients,
-  getIngredientsImg,
+  getMealIngredientsImg,
+  getDrinkIngredientsImg,
   fetchDrinkCategories,
   fetchDrinkByCategories,
   fetchDrinkByIngredients,
