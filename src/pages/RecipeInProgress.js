@@ -5,7 +5,7 @@ import {
   fetchDrinkById,
   setFavoritesStorage,
   setRecipesStatusStorage } from '../services/index';
-import { saveMealAsFavorite } from '../services/recipes';
+import { saveMealAsFavorite, saveDrinkAsFavorite } from '../services/recipes';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -50,7 +50,9 @@ function RecipeInProgress() {
 
   const saveAsFavorite = () => {
     setFavorite(!isFavorite);
-    saveMealAsFavorite(recipeId.id, recipeInProgress);
+    return typeOfFood === 'meals'
+      ? saveMealAsFavorite(recipeId.id, recipeInProgress)
+      : saveDrinkAsFavorite(recipeId.id, recipeInProgress);
   };
 
   const onCopyText = () => {

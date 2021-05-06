@@ -38,15 +38,16 @@ function IngredientsList({ id, type }) {
   }, [recipeId.id]);
 
   const checkRecipeDone = () => {
-    const checkBoxes = [];
-    const allIngredients = document.querySelectorAll('input');
-    const doneButton = document.getElementById('done-recipe');
-    console.log(doneButton);
+    // const checkBoxes = [];
+    const allIngredients = Array.from(document.querySelectorAll('input'));
+    // console.log(allIngredients);
+    // const doneButton = document.getElementById('done-recipe');
+    // console.log(doneButton);
     // console.log(allIngredients.every((item) => item.checked));
     // if (allIngredients.some((item) => item.checked === false)) return setRecipeCompleted(false);
     // return setRecipeCompleted(true);
-    allIngredients.forEach((item) => checkBoxes.push(item.checked));
-    return setRecipeCompleted(checkBoxes.every((item) => item === true));
+    // allIngredients.forEach((item) => checkBoxes.push(item.checked));
+    return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
     // return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
   };
   const checkStatus = ({ target }) => {
