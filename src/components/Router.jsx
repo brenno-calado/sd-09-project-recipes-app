@@ -10,6 +10,7 @@ import ExplorarArea from '../pages/ExplorarArea';
 import Perfil from '../pages/Perfil';
 import ReceitasPrincipal from '../pages/ReceitasPrincipal';
 import ReceitasLista from '../pages/ReceitasLista';
+import NotFound from './NotFound';
 
 export default function Router() {
   return (
@@ -46,6 +47,7 @@ export default function Router() {
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ ReceitasLista } />
       <Route exact path="/receitas-favoritas" component={ ReceitasLista } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }

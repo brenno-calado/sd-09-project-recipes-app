@@ -12,6 +12,8 @@ export default function useRecipes() {
       return mealsAPI.fetchByFirstLetter(searchInput);
     case 'category':
       return mealsAPI.fetchByCategory(searchInput);
+    case 'area':
+      return mealsAPI.fetchByArea(searchInput);
     default:
       return mealsAPI.fecthByID(searchInput);
     }
