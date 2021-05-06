@@ -1,22 +1,44 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareButton from './ShareButton';
 
 function EmProgresso() {
-  const { data, getKeysIngredints } = useContext(MyContext);
+  const {
+    data,
+    getKeysIngredints,
+    isFavorite,
+    saveFavorite,
+    setIsFavorite,
+  } = useContext(MyContext);
+
+  const { pathname } = useLocation();
+  const recipeId = pathname.split('/')[2];
+
+  const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+  setIsFavorite(initialFavoriteState);
 
   /*
    imagem: strMealThumb,
    titulo: strMeal,
    categoria: strCategory
   */
+
   const { ingredients, measures } = getKeysIngredints();
   const renderList = () => (
     ingredients.map((item, index) => (
-      <li key={ item }>
-        <input type="checkbox" className="mr-2" />
-        { `${item}: ${measures[index]}` }
+      <li
+        key={ item }
+        data-testid={ `${index}-ingredient-step` }
+        className="list-group-item"
+      >
+        <input type="checkbox" className="mr-2" id={ index } />
+        <label htmlFor={ index }>
+          { `${item}: ${measures[index]}`}
+        </label>
       </li>
     ))
   );
@@ -31,23 +53,18 @@ function EmProgresso() {
       />
       <div className="d-flex">
         <h1 data-testid="recipe-title">{ data.strMeal }</h1>
-        <button
-          data-testid="share-btn"
-          type="button"
-          className="btn"
-        >
-          <img src={ shareIcon } alt="shareIcon" />
-        </button>
+        <ShareButton />
         <button
           data-testid="favorite-btn"
           type="button"
           className="btn"
+          onClick={ () => saveFavorite(recipeId, pathname) }
         >
-          <img src={ whiteHeartIcon } alt="favorite" />
+          <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
         </button>
       </div>
       <h2 data-testid="recipe-category">{ data.strCategory }</h2>
-      <ul className="list-unstyled ml-2">
+      <ul className="list-unstyled my-2 list-group">
         { renderList() }
       </ul>
       <p className="text-justify" data-testid="instructions">{ data.strInstructions }</p>

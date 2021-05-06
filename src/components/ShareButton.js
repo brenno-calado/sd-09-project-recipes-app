@@ -16,6 +16,7 @@ export default function ShareButton() {
       <button
         type="button"
         onClick={ copyLink }
+        className="btn"
       >
         <img
           src={ ShareIcon }

@@ -1,6 +1,7 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { searchByCategory, fetchToMainScreen } from './services/fetchAPI';
+import { saveAsFavorite } from './services/details';
 
 const MyContext = createContext();
 
@@ -13,6 +14,7 @@ const MyContextProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [categorieSelected, setCategorieSelected] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   function getKeysIngredints() {
     const keysData = Object.keys(data);
@@ -74,6 +76,11 @@ const MyContextProvider = ({ children }) => {
   }
   // Source of the algorithm https://github.com/tryber/sd-09-project-recipes-app/pull/483/files /
 
+  const saveFavorite = (recipeId, pathname) => {
+    setIsFavorite(!isFavorite);
+    saveAsFavorite(recipeId, data, pathname);
+  };
+
   const context = {
     data,
     categories,
@@ -81,6 +88,7 @@ const MyContextProvider = ({ children }) => {
     resultAPI,
     isLoading,
     recommendations,
+    isFavorite,
     clickShowBar,
     setResultAPI,
     setIsLoading,
@@ -91,6 +99,8 @@ const MyContextProvider = ({ children }) => {
     filterIngredients,
     setRecommendations,
     getKeysIngredints,
+    saveFavorite,
+    setIsFavorite,
   };
   return (
     <MyContext.Provider value={ context }>
