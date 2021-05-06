@@ -7,6 +7,7 @@ import FavoriteButton from '../components/FavoriteButton';
 import { getFoodById } from '../services/FoodAPI';
 import { getDrinkById } from '../services/DrinksAPI';
 import './RecipeInProgress.css';
+import { Link } from 'react-router-dom';
 
 const setRecipeToLocalStorage = (recipeInProgress, recipeType) => {
   recipeType = recipeType === 'Meal' ? 'meals' : 'drinks';
@@ -14,26 +15,38 @@ const setRecipeToLocalStorage = (recipeInProgress, recipeType) => {
   localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipeInProgress));
 };
 
-const getLocalStorageData = (recipeType) => {
+const getLocalStorageData = (recipeType, id) => {
   const localInProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (recipeType === 'Meal') {
-    return localInProgressRecipes.meals;
+  let recipeTypeSelected = {};
+  let newRecipe = { };
+  if (recipeType === 'Meal' && localInProgressRecipes) {
+    recipeTypeSelected = localInProgressRecipes.meals;
+    newRecipe = { ...localInProgressRecipes, ...localInProgressRecipes.meals, [id]: [] };
+  } else if (localInProgressRecipes) {
+    recipeTypeSelected = localInProgressRecipes.drinks || {};
+    newRecipe = {
+      ...localInProgressRecipes, ...localInProgressRecipes.drinks, [id]: [] };
   }
-  return localInProgressRecipes.drinks;
+
+  if (!localInProgressRecipes || !(recipeTypeSelected && recipeTypeSelected[id])) {
+    setRecipeToLocalStorage(newRecipe, recipeType);
+    return newRecipe;
+  }
+  return recipeTypeSelected;
 };
 
-const getIngredientsQuantity = (recipe, recipeInProgress) => {
+const getIngredientsQuantity = (recipe, recipeInProgress = []) => {
   const doneIngredients = recipeInProgress.length;
   let ingredientsQuantity = -doneIngredients;
   Object.keys(recipe).forEach((key) => {
-    if (key.startsWith('strIngredient') && recipe[key].length) {
+    if (key.startsWith('strIngredient') && recipe[key] && recipe[key].length) {
       ingredientsQuantity += 1;
     }
   });
   return ingredientsQuantity;
 };
 
-const getIngredientsList = (recipe, handleIngredientsCheckBox, recipeInProgress) => {
+const getIngredientsList = (recipe, handleIngredientsCheckBox, recipeInProgress = []) => {
   const ingredientsValues = [];
   const measuresValues = [];
   Object.keys(recipe).forEach((key) => {
@@ -93,8 +106,9 @@ const RecipeInProgress = ({ match }) => {
   const { params } = match;
   const { id } = params;
   let recipeType = ((match.url).split('/'))[1];
+  const URL = `http://localhost:3000/${recipeType}/${id}`;
   recipeType = recipeType === 'comidas' ? 'Meal' : 'Drink';
-  const recipeInProgress = getLocalStorageData(recipeType);
+  const recipeInProgress = getLocalStorageData(recipeType, id);
   const [recipe, setRecipe] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [recipeIsGoing, setRecipeIsGoing] = useState(true);
@@ -120,7 +134,7 @@ const RecipeInProgress = ({ match }) => {
     }
   }, [recipe, params, isLoading, id, recipeType]);
 
-  if (!isLoading && Object.keys(recipe).length) {
+  if (!isLoading && recipeInProgress && Object.keys(recipe).length) {
     ingredientsToDo = getIngredientsQuantity(recipe, recipeInProgress[id]);
   }
 
@@ -179,7 +193,8 @@ const RecipeInProgress = ({ match }) => {
               <div className="form-check">
                 {
                   getIngredientsList(
-                    recipe, handleIngredientsCheckBox, recipeInProgress[id])
+                    recipe, handleIngredientsCheckBox, recipeInProgress[id],
+                  )
                 }
               </div>
             </div>
@@ -199,16 +214,18 @@ const RecipeInProgress = ({ match }) => {
           </div>
         )}
       <ShareButton
-        data-testid="share-btn"
+        URL={ URL }
       />
       <br />
-      <Button
-        block
-        disabled={ recipeIsGoing }
-        data-testid="finish-recipe-btn"
-      >
-        Finalizar Receita
-      </Button>
+      <Link to="/receitas-feitas">
+        <Button
+          block
+          disabled={ recipeIsGoing }
+          data-testid="finish-recipe-btn"
+        >
+          Finalizar Receita
+        </Button>
+      </Link>
     </div>
   );
 };
