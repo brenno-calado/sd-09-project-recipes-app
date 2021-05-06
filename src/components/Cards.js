@@ -6,16 +6,21 @@ import './Cards.css';
 function Cards(props) {
   const { dataFromApi } = useContext(RecipesContext);
   const { recipes, loading } = dataFromApi;
-  const { route } = props;
+  const { route, history, pathname } = props;
 
-  const createRecipesCards = (apiRecipes) => {
-    const createFoodsCards = () => {
-      const maxCardsToRender = 12;
-      return loading ? <Loading />
-        : apiRecipes.map(({ strMealThumb, strMeal }, index) => (
-          index < maxCardsToRender ? (
-            <div className="card" data-testid={ `${index}-recipe-card` }>
+  const handleClick = (id) => {
+    history.push(`${pathname}/${id}`);
+  };
 
+  console.log(pathname);
+
+  const createFoodsCards = (apiRecipes) => {
+    const maxCardsToRender = 12;
+    return loading ? <Loading />
+      : apiRecipes.map(({ strMealThumb, strMeal, idMeal }, index) => (
+        index < maxCardsToRender ? (
+          <button type="button" onClick={ () => handleClick(idMeal) }>
+            <div className="card" key={ index } data-testid={ `${index}-recipe-card` }>
               <header className="card-header" data-testid={ `${index}-card-name` }>
                 <h1>{strMeal}</h1>
               </header>
@@ -23,20 +28,26 @@ function Cards(props) {
               <div
                 className="card-image"
                 src={ strMealThumb }
-                data-testid={ `${index}-card-img` }
               >
-                <img src={ strMealThumb } className="food-recipe" alt="bebida" />
+                <img
+                  className="food-recipe"
+                  src={ strMealThumb }
+                  alt="bebida"
+                  data-testid={ `${index}-card-img` }
+                />
               </div>
             </div>
-          ) : (
-            null
-          )));
-    };
-    const createDrinksCards = () => {
-      const maxCardsToRender = 12;
-      return loading ? <Loading />
-        : apiRecipes.map(({ strDrinkThumb, strDrink }, index) => (
-          index < maxCardsToRender ? (
+          </button>
+        ) : (
+          null
+        )));
+  };
+  const createDrinksCards = (apiRecipes) => {
+    const maxCardsToRender = 12;
+    return loading ? <Loading />
+      : apiRecipes.map(({ strDrinkThumb, strDrink, idDrink }, index) => (
+        index < maxCardsToRender ? (
+          <button type="button" onClick={ () => handleClick(idDrink) }>
             <div className="card" data-testid={ `${index}-recipe-card` }>
 
               <header className="card-header" data-testid={ `${index}-card-name` }>
@@ -46,18 +57,26 @@ function Cards(props) {
               <div
                 className="card-image"
                 src={ strDrinkThumb }
-                data-testid={ `${index}-card-img` }
               >
-                <img src={ strDrinkThumb } className="drink-recipe" alt="bebida" />
+                <img
+                  src={ strDrinkThumb }
+                  className="drink-recipe"
+                  alt="bebida"
+                  data-testid={ `${index}-card-img` }
+                />
               </div>
             </div>
-          ) : (
-            null
-          )));
-    };
-
-    return route === '/comidas' ? createFoodsCards() : createDrinksCards();
+          </button>
+        ) : (
+          null
+        )));
   };
+
+  const createRecipesCards = (apiRecipes) => (
+    route === '/comidas'
+      ? createFoodsCards(apiRecipes || [])
+      : createDrinksCards(apiRecipes)
+  );
 
   return (
     createRecipesCards(recipes)
