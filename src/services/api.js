@@ -30,7 +30,6 @@ export const getFilteredRecipes = async (mealtype, query, filter) => {
 export const getMealsCatergories = async (url) => {
   const request = await fetch(`${URLBASE[url]}/list.php?c=list`)
     .then((response) => response.json());
-  console.log(url);
   if (url === 'comidas') {
     const { meals } = request;
     return meals;

@@ -9,8 +9,8 @@ import fetchRecipes from '../services/api';
 import CategoryButtons from '../components/CategoryButtons';
 
 function Drinks() {
-  const { showSearchBar, setDataFromApi, dataFromApi,
-    categoryName, getCategoryName } = useContext(RecipesContext);
+  const { showSearchBar, setDataFromApi, dataFromApi, categoryName,
+    getCategoryName, restartRecipes, setRestartRecipes } = useContext(RecipesContext);
 
   const history = useHistory();
   const { pathname } = history.location;
@@ -20,11 +20,19 @@ function Drinks() {
     setDataFromApi({ ...dataFromApi, loading: true });
     const { drinks } = await fetchRecipes(route);
     setDataFromApi({ ...dataFromApi, recipes: drinks, loading: false });
+    if (dataFromApi.recipes.length === 0) {
+      setDataFromApi({ ...dataFromApi, recipes: drinks });
+    }
   };
 
   useEffect(() => {
     getRecipes();
   }, []);
+
+  if (restartRecipes === true) {
+    getRecipes();
+    setRestartRecipes(false);
+  }
 
   useEffect(() => {
     getCategoryName('bebidas');
@@ -40,7 +48,7 @@ function Drinks() {
       ) : null }
       { showSearchBar && <SearchBar /> }
       {pathname === '/bebidas' ? (
-        <CategoryButtons route={ route } />
+        <CategoryButtons route={ route } categoryName={ categoryName } />
       ) : null }
       <Cards route={ pathname } />
       {pathname === '/bebidas' ? <Footer /> : null}

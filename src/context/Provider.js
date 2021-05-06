@@ -10,6 +10,7 @@ function Provider({ children }) {
   const [dataFromApi, setDataFromApi] = useState(
     { recipes: [], meal: '', loading: false },
   );
+  const [restartRecipes, setRestartRecipes] = useState(false);
   const getTitleValue = () => {
     setTitle(title);
   };
@@ -38,6 +39,8 @@ function Provider({ children }) {
     categoryName,
     setCategoryName,
     getCategoryName,
+    restartRecipes,
+    setRestartRecipes,
   };
 
   return (

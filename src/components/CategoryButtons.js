@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import { getMealsCatergories } from '../services/api';
 
 function CategoryButtons(props) {
   const { categoryName, route } = props;
-  const { setCategoryName } = useContext(RecipesContext);
+  const { setCategoryName, setRestartRecipes } = useContext(RecipesContext);
   const [categories, setCatergories] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const maxCategoriesToRender = 5;
@@ -19,6 +20,7 @@ function CategoryButtons(props) {
       setCategoryName(value);
     } else {
       setCategoryName('');
+      setRestartRecipes(true);
     }
   };
 
@@ -27,24 +29,42 @@ function CategoryButtons(props) {
     getCategories();
   }, []);
 
+  const handleAllButtonClick = () => {
+    setRestartRecipes(true);
+  };
+
   return isLoading === false
     ? (
-      categories.map(({ strCategory }, index) => (
-        index < maxCategoriesToRender
-          ? (
-            <button
-              type="button"
-              key={ index }
-              value={ strCategory }
-              data-testid={ `${strCategory}-category-filter` }
-              onClick={ (e) => handleClick(e.target) }
-            >
-              {strCategory}
-            </button>
-          )
-          : null
-      ))
+      <div>
+        <button
+          type="button"
+          data-testid="All-category-filter"
+          onClick={ handleAllButtonClick }
+        >
+          All
+        </button>
+        {categories.map(({ strCategory }, index) => (
+          index < maxCategoriesToRender
+            ? (
+              <button
+                type="button"
+                key={ index }
+                value={ strCategory }
+                data-testid={ `${strCategory}-category-filter` }
+                onClick={ (e) => handleClick(e.target) }
+              >
+                {strCategory}
+              </button>
+            )
+            : null
+        ))}
+      </div>
     ) : null;
 }
+
+CategoryButtons.propTypes = {
+  categoryName: PropTypes.string,
+  route: PropTypes.string,
+}.isRequired;
 
 export default CategoryButtons;
