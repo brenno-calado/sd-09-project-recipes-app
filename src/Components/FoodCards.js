@@ -84,11 +84,13 @@ class FoodCards extends React.Component {
     if (!meals) return <div>Loading...</div>;
     return (
       <div className="cardContainer">
-        <ShowCategories name="Comidas" searchResult={ this.updateSearchedMeal } />
-        { this.createCards() }
         { meals.length === 1
           ? <Redirect to={ `/comidas/${meals[0].idMeal}` } />
           : ''}
+        {window.location.pathname === '/explorar/comidas/area'
+          ? null
+          : <ShowCategories name="Comidas" searchResult={ this.updateSearchedMeal } />}
+        { this.createCards() }
       </div>
     );
   }

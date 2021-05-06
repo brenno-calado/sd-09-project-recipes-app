@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
-// import { requestApiMealsArea } from '../redux/actions';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { fetchFoodArea } from '../services/ApiRequest';
+import { requestApiMealsArea, requestApiMeals } from '../redux/actions/index';
 
-function ShowArea() {
+function ShowArea({ getMealsByArea, getMeals }) {
   const [areas, setAreas] = useState([]);
 
   const getMealAreas = async () => {
@@ -15,14 +15,16 @@ function ShowArea() {
   useEffect(() => {
     getMealAreas();
   }, []);
-  areas.push({ strArea: 'All' });
-  console.log(areas);
+
   return (
     <label htmlFor="selectArea">
       Nacionalidade
       <select
         data-testid="explore-by-area-dropdown"
         id="selectArea"
+        name="nationality"
+        onChange={ (e) => getMealsByArea(e.target.value) }
+        value="select"
       >
         {!areas
           ? ''
@@ -31,7 +33,6 @@ function ShowArea() {
               <option
                 key={ item.strArea }
                 data-testid={ `${item.strArea}-option` }
-                // onClick={ () => getMealByArea(item.strArea) }
               >
                 {item.strArea}
               </option>
@@ -40,6 +41,7 @@ function ShowArea() {
         <option
           key="All"
           data-testid="All-option"
+          onClick={ () => getMeals() }
         >
           All
         </option>
@@ -48,11 +50,14 @@ function ShowArea() {
   );
 }
 
-// ShowArea.propType = {
-//   getMealByArea: PropTypes.func.isRequired,
-// };
+const mapDispatchToProps = (dispatch) => ({
+  getMealsByArea: (input) => dispatch(requestApiMealsArea(input)),
+  getMeals: () => dispatch(requestApiMeals()),
+});
 
-// const mapDispatchToProps = (dispatch) => ({
-//   getMealByArea: (input) => dispatch(requestApiMealsArea(input)) });
-// connect(null, mapDispatchToProps)
-export default ShowArea;
+ShowArea.propTypes = {
+  getMealsByArea: PropTypes.func.isRequired,
+  getMeals: PropTypes.func.isRequired,
+};
+
+export default connect(null, mapDispatchToProps)(ShowArea);
