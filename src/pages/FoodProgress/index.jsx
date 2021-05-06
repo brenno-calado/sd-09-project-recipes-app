@@ -49,7 +49,7 @@ export default function FoodProgress(props) {
     //   name: nome-da-receita,
     //   image: imagem-da-receita,
     //   doneDate: quando-a-receita-foi-concluida,
-    //   tags: array-de-tags-da-receita-ou-array-vazio
+    //   tags: array-de-tags-da-receita-ou-array-vazio,
     // }
 
     setRedirect(true);
