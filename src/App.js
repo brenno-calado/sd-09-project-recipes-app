@@ -2,10 +2,11 @@ import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
 import Login from './pages/Login';
+import InProgress from './pages/InProgress';
 import RecipeDetails from './pages/RecipeDetails';
 import RecipesDone from './pages/RecipesDone';
-import MealsAndDrinkProvider from './context/MealsAndDrinkProvider';
 import RecipeMain from './pages/RecipeMain';
 import RecipesFavorite from './pages/RecipesFavorite';
 import Explore from './pages/Explore';
@@ -20,10 +21,12 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/comidas/:id/" component={ RecipeDetails } />
-          <Route path="/bebidas/:id/" component={ RecipeDetails } />
           <Route path="/comidas" component={ RecipeMain } />
           <Route path="/bebidas" component={ RecipeMain } />
+          <Route path="/comidas/:id/" component={ RecipeDetails } />
+          <Route path="/bebidas/:id/" component={ RecipeDetails } />
+          <Route path="/comidas/:id/in-progress" component={ InProgress } />
+          <Route path="/bebidas/:id/in-progress" component={ InProgress } />
           <Route path="/receitas-feitas" component={ RecipesDone } />
           <Route path="/receitas-favoritas" component={ RecipesFavorite } />
           <Route path="/explorar/comidas/area" component={ ExploreOrigin } />
