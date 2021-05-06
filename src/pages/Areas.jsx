@@ -21,6 +21,8 @@ function Areas() {
     fetchByArea(value).then((data) => setRecipes(data));
   };
 
+  const quantityToShow = 12;
+
   return (
     <div>
       <Header title="Explorar Origem" searchBtn />
@@ -42,7 +44,7 @@ function Areas() {
         </section>
         <section className="Cards">
           {recipes
-            .slice(0, 12)
+            .slice(0, quantityToShow)
             .map(({ strMeal, strMealThumb, idMeal }, index) => (
               <Link
                 data-testid={ `${index}-recipe-card` }
