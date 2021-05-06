@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../styles/FavoriteRecipes.css';
 
 const copy = require('clipboard-copy');
 
@@ -32,22 +33,16 @@ function FavoriteRecipes() {
     })
   );
 
-  function message() {
-    return (
-      <span>Link copiado!</span>
-    );
-  }
-
   function shareButtonClick(meal) {
     setCopy(true);
     copy(`http://localhost:3000/${meal.type}s/${meal.id}`);
-    message();
   }
 
   function removeFavorite(meal) {
     const newFavorites = favorites
       .filter((food) => food.id !== meal.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+    document.location.reload();
   }
 
   const mealByFilter = filter ? filterMeal() : favorites;
@@ -61,6 +56,7 @@ function FavoriteRecipes() {
           value="All"
           type="button"
           onClick={ handleFilter }
+          className="filter-btn"
         >
           All
         </button>
@@ -69,6 +65,7 @@ function FavoriteRecipes() {
           value="Food"
           type="button"
           onClick={ handleFilter }
+          className="filter-btn"
         >
           Food
         </button>
@@ -77,13 +74,35 @@ function FavoriteRecipes() {
           value="Drinks"
           type="button"
           onClick={ handleFilter }
+          className="filter-btn"
         >
           Drinks
         </button>
       </div>
       { mealByFilter.map((meal, index) => (
         meal.type === 'comida' ? (
-          <div>
+          <div className="favorite-card">
+            <div className="buttons">
+              <button
+                type="button"
+                data-testid={ `${index}-horizontal-share-btn` }
+                src={ shareIcon }
+                onClick={ () => shareButtonClick(meal) }
+                className="share-btn"
+              >
+                { copied ? <p>Link copiado!</p> : null }
+                <img src={ shareIcon } alt="Compartilhar" />
+              </button>
+              <button
+                type="button"
+                onClick={ () => removeFavorite(meal) }
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                src={ blackHeartIcon }
+                className="fav-btn"
+              >
+                <img src={ blackHeartIcon } alt="blackHeartIcon" />
+              </button>
+            </div>
             <Link
               to={ `/comidas/${meal.id}` }
               key={ `${index}-recipe-card` }
@@ -94,34 +113,39 @@ function FavoriteRecipes() {
                   data-testid={ `${index}-horizontal-image` }
                   alt={ meal.name }
                 />
-                <p data-testid={ `${index}-horizontal-name` }>{ meal.name }</p>
-                <span data-testid={ `${index}-horizontal-top-text` }>
-                  { `${meal.area} - ${meal.category}` }
-                </span>
+                <div className="recipe-name">
+                  <p data-testid={ `${index}-horizontal-name` }>{ meal.name }</p>
+                  <span data-testid={ `${index}-horizontal-top-text` }>
+                    { `${meal.area} - ${meal.category}` }
+                  </span>
+                </div>
               </div>
             </Link>
-            <button
-              type="button"
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ shareIcon }
-              onClick={ () => shareButtonClick(meal) }
-            >
-              {
-                copied ? message() : (<img src={ shareIcon } alt="Compartilhar" />)
-              }
-            </button>
-            <button
-              type="button"
-              onClick={ () => removeFavorite(meal) }
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              src={ blackHeartIcon }
-            >
-              <img src={ blackHeartIcon } alt="blackHeartIcon" />
-            </button>
           </div>
         )
           : (
-            <div>
+            <div className="favorite-card">
+              <div className="buttons">
+                <button
+                  type="button"
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ shareIcon }
+                  onClick={ () => shareButtonClick(meal) }
+                  className="share-btn"
+                >
+                  { copied ? <p>Link copiado!</p> : null }
+                  <img src={ shareIcon } alt="Compartilhar" />
+                </button>
+                <button
+                  type="button"
+                  onClick={ () => removeFavorite(meal) }
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  src={ blackHeartIcon }
+                  className="fav-btn"
+                >
+                  <img src={ blackHeartIcon } alt="blackHeartIcon" />
+                </button>
+              </div>
               <Link
                 to={ `/bebidas/${meal.id}` }
                 key={ `${index}-recipe-card` }
@@ -132,30 +156,14 @@ function FavoriteRecipes() {
                     data-testid={ `${index}-horizontal-image` }
                     alt={ meal.name }
                   />
-                  <p data-testid={ `${index}-horizontal-name` }>{ meal.name }</p>
-                  <span data-testid={ `${index}-horizontal-top-text` }>
-                    { meal.alcoholicOrNot }
-                  </span>
+                  <div className="recipe-name">
+                    <p data-testid={ `${index}-horizontal-name` }>{ meal.name }</p>
+                    <span data-testid={ `${index}-horizontal-top-text` }>
+                      { meal.alcoholicOrNot }
+                    </span>
+                  </div>
                 </div>
               </Link>
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-share-btn` }
-                src={ shareIcon }
-                onClick={ () => shareButtonClick(meal) }
-              >
-                {
-                  copied ? message() : (<img src={ shareIcon } alt="Compartilhar" />)
-                }
-              </button>
-              <button
-                type="button"
-                onClick={ () => removeFavorite(meal) }
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                src={ blackHeartIcon }
-              >
-                <img src={ blackHeartIcon } alt="blackHeartIcon" />
-              </button>
             </div>
           )
       ))}
