@@ -40,18 +40,17 @@ function Foods() {
   useEffect(() => {
     getRecipes('themealdb')
       .then(({ meals }) => setInitFood(meals));
-    setRecipesData([]);
   }, [getRecipes]);
 
   useEffect(() => {
     getRecipesByCategory('themealdb')
       .then(({ meals }) => setMeal(meals));
-    setRecipesData([]);
   }, [getRecipesByCategory]);
 
   useEffect(() => {
     getRecipesFoodsFilterByCategory(category)
       .then(({ meals }) => setListItemByCategory(meals || []));
+    setRecipesData([]);
   }, [category]);
 
   useEffect(() => {

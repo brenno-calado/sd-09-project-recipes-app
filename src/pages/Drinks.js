@@ -43,24 +43,23 @@ function Drinks() {
   useEffect(() => {
     getRecipes('thecocktaildb')
       .then(({ drinks }) => setInitDrinks(drinks));
-    setRecipesData([]);
   }, [getRecipes]);
 
   useEffect(() => {
     getRecipesByCategory('thecocktaildb')
       .then(({ drinks }) => setDrink(drinks));
-    setRecipesData([]);
   }, [getRecipesByCategory]);
 
   useEffect(() => {
     getRecipesDrinksFilterByCategory(category)
       .then(({ drinks }) => setListDrinkByCategory(drinks || []));
+    setRecipesData([]);
   }, [category]);
 
   useEffect(() => {
     if (listDrinkByCategory.length > 0) {
       setRender(createRender(listDrinkByCategory));
-    } else if (initDrinks.length) {
+    } else if (initDrinks.length > 0) {
       setRender(createRender(initDrinks));
     }
   }, [initDrinks, listDrinkByCategory]);
