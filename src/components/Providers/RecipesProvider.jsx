@@ -68,9 +68,11 @@ export default function RecipesProvider({ children }) {
   };
 
   useEffect(() => {
-    Object.keys(value.values).forEach((key) => (
-      localStorage.setItem(key, JSON.stringify(value.values[key]))
-    ));
+    if (pathLocation) {
+      Object.keys(value.values).forEach((key) => (
+        localStorage.setItem(key, JSON.stringify(value.values[key]))
+      ));
+    }
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   useEffect(() => {

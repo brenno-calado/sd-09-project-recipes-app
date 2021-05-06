@@ -19,8 +19,8 @@ function Perfil() {
   };
 
   const sendToHome = () => {
-    history.push('/');
     localStorage.clear();
+    history.push('/');
   };
 
   return (
