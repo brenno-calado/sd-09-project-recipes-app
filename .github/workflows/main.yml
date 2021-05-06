@@ -20,7 +20,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Evaluator step
         id: evaluator
-        uses: betrybe/cypress-evaluator-action@v5
+        uses: betrybe/cypress-evaluator-action@v7
         with:
           repository-test-name: 'betrybe/sd-0x-recipes-app-n-tests'
           repository-test-branch: 'test-fix'
