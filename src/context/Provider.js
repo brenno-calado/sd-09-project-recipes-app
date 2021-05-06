@@ -58,6 +58,16 @@ const Provider = ({ children }) => {
     setStatusSearch(status);
   };
 
+  const [buttonCategory, setButtonCategory] = useState('');
+
+  const changeButtonCategory = (button) => {
+    if (button === buttonCategory) {
+      setButtonCategory('');
+    } else {
+      setButtonCategory(button);
+    }
+  };
+
   const context = {
     displaySearchBar,
     statusSearchBar,
@@ -70,6 +80,8 @@ const Provider = ({ children }) => {
     addByCategory,
     statusSearch,
     addStatusSearch,
+    buttonCategory,
+    changeButtonCategory,
   };
 
   return (
