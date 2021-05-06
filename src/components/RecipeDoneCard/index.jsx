@@ -13,8 +13,6 @@ function RecipeDoneCard(
 ) {
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
-  console.log(tagName);
-
   let url = window.location.href;
   if (url === 'http://localhost:3000/receitas-favoritas') {
     url = url.replace('receitas-favoritas', `${type}s/${id}`);
