@@ -4,6 +4,7 @@ import { fetchRecipeDetails } from '../../services/api';
 import { DrinksRecomendations, YoutubePlayer } from '../../components';
 import { getItemLocalStorage,
   updateLocalStorage } from '../../services/localStorageService';
+import { addToFavorite, removeToFavorite } from '../../services/functionsApi';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -41,21 +42,9 @@ function MealsDetails() {
 
   const favorite = () => {
     if (!favoriteRecipe) {
-      const favoriteItem = {
-        id,
-        type: 'comida',
-        area: data.strArea,
-        category: data.strCategory,
-        alcoholicOrNot: '',
-        name: data.strMeal,
-        image: data.strMealThumb,
-      };
-      updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
+      addToFavorite('meals', data);
     } else {
-      const newFavoriteArray = localStorage.favoriteRecipes
-        && getItemLocalStorage('favoriteRecipes')
-          .filter(({ id: idItem }) => idItem !== id);
-      updateLocalStorage('updateFavoriteRecipes', null, newFavoriteArray);
+      removeToFavorite(id);
     }
     setFavoriteRecipe(!favoriteRecipe);
   };

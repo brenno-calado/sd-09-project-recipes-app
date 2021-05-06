@@ -2,23 +2,26 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import { getItemLocalStorage } from '../services/localStorageService';
+import { removeToFavorite } from '../services/functionsApi';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('');
   const [copy, setCopy] = useState(false);
+  const [itemRemoved, setItemRemoved] = useState(false);
 
-  const data = localStorage.favoriteRecipes ? getItemLocalStorage('favoriteRecipes') : [];
-
-  const createButton = (testid, value, onClick) => (
-    <button data-testid={ testid } value={ value } type="button" onClick={ onClick }>
-      { value || 'All' }
-    </button>
-  );
+  const data = localStorage.favoriteRecipes
+    ? getItemLocalStorage('favoriteRecipes') : [];
 
   const handleClick = ({ target: { value } }) => setFilter(value);
+
+  const removeItem = (id) => {
+    const milliseconds = 1000;
+    removeToFavorite(id);
+    setItemRemoved(true);
+    setTimeout(() => setItemRemoved(false), milliseconds);
+  };
 
   const share = (href) => {
     const { location: { origin } } = window;
@@ -26,12 +29,19 @@ function FavoriteRecipes() {
     setCopy(true);
   };
 
+  const createButton = (testid, value, onClick) => (
+    <button data-testid={ testid } value={ value } type="button" onClick={ onClick }>
+      { value || 'All' }
+    </button>
+  );
+
   return (
     <section>
       <Header title="Receitas Favoritas" />
       { createButton('filter-by-all-btn', '', handleClick) }
       { createButton('filter-by-food-btn', 'comida', handleClick) }
       { createButton('filter-by-drink-btn', 'bebida', handleClick) }
+      { itemRemoved && <p>Item removido dos favoritos</p> }
       { data.filter(({ type }) => type.includes(filter)).map(
         (
           { id, type, area, category, alcoholicOrNot, name, image },
@@ -60,10 +70,13 @@ function FavoriteRecipes() {
             <button
               data-testid={ `${index}-horizontal-favorite-btn` }
               type="button"
-              src={ !data ? whiteHeartIcon : blackHeartIcon }
-              // onClick={}
+              onClick={ () => removeItem(id) }
+              src={ blackHeartIcon }
             >
-              <img src={ shareIcon } alt="Favorite Icon" />
+              <img
+                src={ blackHeartIcon }
+                alt="favorite icon"
+              />
             </button>
           </div>
         ),
