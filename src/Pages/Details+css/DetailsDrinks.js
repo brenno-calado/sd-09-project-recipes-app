@@ -27,6 +27,7 @@ class DetailsDrinks extends React.Component {
     const { params } = match;
     const { id } = params;
     const { addObjDrink } = this.props;
+
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
         addObjDrink({
