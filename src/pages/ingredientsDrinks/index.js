@@ -1,10 +1,60 @@
 import React, { Component } from 'react';
+import LoadingScreen from '../loadingScreen';
+import Footer from '../../components/footer';
 
 class index extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      loading: true,
+      maxNumberItens: 12,
+      drinksIngredients: [],
+    };
+
+    this.fetchIngredientsFromApi = this.fetchIngredientsFromApi.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchIngredientsFromApi();
+  }
+
+  async fetchIngredientsFromApi() {
+    const ingredientListUrl = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+    const ingredientsList = await fetch(ingredientListUrl)
+      .then((response) => response.json())
+      .then((json) => json.drinks);
+    this.setState({
+      loading: false,
+      drinksIngredients: [...ingredientsList],
+    });
+  }
+
   render() {
+    const { maxNumberItens, loading, drinksIngredients } = this.state;
     return (
       <div>
-        Ingredientes bebidas
+        <header>Explorar Ingredientes</header>
+        <h2>Explorar ingredientes de bebidas:</h2>
+        <main>
+          {loading ? <LoadingScreen /> : drinksIngredients
+            .filter((_item, indexNumber) => indexNumber < maxNumberItens)
+            .map((item, indexNumber) => (
+              <div
+                key={ item.strIngredient1 }
+                data-testid={ `${indexNumber}-ingredient-card` }
+                className="ingredient-card"
+              >
+                <img
+                  src={ `https://www.thecocktaildb.com/images/ingredients/${item.strIngredient1}-Small.png` }
+                  alt={ item.strIngredient1 }
+                  data-testid={ `${indexNumber}-card-img` }
+                />
+                <p data-testid={ `${indexNumber}-card-name` }>{item.strIngredient1}</p>
+              </div>
+            ))}
+        </main>
+        <Footer />
       </div>
     );
   }
