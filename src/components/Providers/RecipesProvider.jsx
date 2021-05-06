@@ -39,17 +39,29 @@ export default function RecipesProvider({ children }) {
     actions: {
       setRecipesResult,
       addRecipeToDone(recipeObj) {
-        setDoneRecipes([...doneRecipes, recipeObj]);
+        if (doneRecipes) {
+          setDoneRecipes([...doneRecipes, recipeObj]);
+        } else {
+          setDoneRecipes([recipeObj]);
+        }
       },
       addRecipeToFavorites(recipeObj) {
-        setFavoriteRecipes([...favoriteRecipes, recipeObj]);
+        if (favoriteRecipes) {
+          setFavoriteRecipes([...favoriteRecipes, recipeObj]);
+        } else {
+          setFavoriteRecipes([recipeObj]);
+        }
       },
       removeRecipeFromFavorites(recipeObj) {
         const { id } = recipeObj;
         setFavoriteRecipes([...favoriteRecipes.filter((recipe) => recipe.id !== id)]);
       },
       addRecipeToInProgress(recipeObj) {
-        setInProgressRecipes([...inProgressRecipes, recipeObj]);
+        if (inProgressRecipes) {
+          setInProgressRecipes([...inProgressRecipes, recipeObj]);
+        } else {
+          setInProgressRecipes([recipeObj]);
+        }
       },
       setAreaFilter,
     },

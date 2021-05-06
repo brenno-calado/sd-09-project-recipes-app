@@ -7,13 +7,14 @@ import BlackLikeIcon from '../images/blackHeartIcon.svg';
 
 export default function LikeButton({ recipeDetails }) {
   const {
-    values: { favoriteRecipes },
+    values: { favoriteRecipes: faviRecContext },
     actions: { addRecipeToFavorites, removeRecipeFromFavorites },
   } = useContext(RecipesContext);
 
   const { id } = useParams();
   const { pathname } = useLocation();
 
+  const [favoriteRecipes] = useState(faviRecContext || []);
   const [like, setLike] = useState(favoriteRecipes.find((recipe) => recipe.id === id));
 
   function likeRecipe() {
