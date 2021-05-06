@@ -12,7 +12,6 @@ import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import RecipeInProgress from './pages/RecipeInProgress';
 import Favorites from './pages/Favorites';
-
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
 import FoodsByIngredients from './pages/FoodsByIngredients';
