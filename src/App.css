@@ -278,3 +278,7 @@
 .carousel-img {
   width: 300px;
 }
+
+.invisible-btn {
+  display: none;
+}
