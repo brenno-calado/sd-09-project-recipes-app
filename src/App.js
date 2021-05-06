@@ -18,6 +18,7 @@ import ExploreDrinkIngredient from './Pages/ExploreDrinkIngredients';
 import DoneRecipes from './Pages/DoneRecipes';
 import ExploreOrigin from './Pages/ExploreOrigin';
 import FavoriteRecipes from './Pages/FavoriteRecipes';
+import NotFound from './Pages/NotFound';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneRecipes } />
       <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
