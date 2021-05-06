@@ -21,7 +21,7 @@ function constructObject(recipe) {
 
 function RecomendedFavBtn({ recipe, index }) {
   const [hearthFillIds, setShouldVerifyToFillHeart] = useHeartFill();
-  function handleSaveRemoveRecipe() {
+  function handleSaveRemoveRecipe({ target }) {
     // save the object in localStorage
     const objectToSave = constructObject(recipe);
     let favoriteListStorage = [];
@@ -40,6 +40,15 @@ function RecomendedFavBtn({ recipe, index }) {
 
     // set the new array on hook useHeartFill
     setShouldVerifyToFillHeart(true);
+
+    // remove the component from the DOM
+    let element = target;
+    if (!target.innerHTML) {
+      element = target.parentNode.parentNode;
+    }
+    const elementTobeRemoved = element.parentNode.parentNode;
+    const elementParent = elementTobeRemoved.parentNode;
+    elementParent.removeChild(elementTobeRemoved);
   }
 
   return (
