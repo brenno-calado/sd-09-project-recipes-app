@@ -14,16 +14,12 @@
   width: 100px;
 }
 
-.recipes-title{
+.recipes-title {
   font-size: 20;
-  margin-top: 0ch;
 }
 
 .main-content {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-}
-.card-header {
-  margin-top: 0ch;
+  flex-flow: wrap;
 }
