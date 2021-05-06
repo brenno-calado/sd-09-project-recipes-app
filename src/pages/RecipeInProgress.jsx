@@ -4,91 +4,192 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
+function copyToClipboard(history, setCopyLink) {
+  const twelve = 12;
+  navigator.clipboard.writeText(`http://localhost:3000${history.location.pathname.slice(0, -twelve)}`);
+  setCopyLink(true);
+}
+
+function btnShare(history, setCopyLink) {
+  return (
+    <button
+      data-testid="share-btn"
+      type="button"
+      onClick={ () => copyToClipboard(history, setCopyLink) }
+    >
+      <img src={ shareIcon } alt="Compartilhar" />
+    </button>
+  );
+}
+
+function renderInstructions(instructions) {
+  return (
+    <>
+      <h3>Instructions</h3>
+      <p data-testid="instructions">{instructions}</p>
+    </>
+  );
+}
+
+function btnFinished(history, disableBtnFinished) {
+  return (
+    <button
+      data-testid="finish-recipe-btn"
+      type="button"
+      disabled={ disableBtnFinished }
+      onClick={ () => { history.push('/receitas-feitas'); } }
+    >
+      Finished
+    </button>
+  );
+}
+
+function filterIngredients(obj, setIngredient) {
+  const recipe = Object.entries(obj);
+  const ingredientsKeyValue = recipe
+    .filter((item) => ((item[0].includes('strIngredient')) && item[1]));
+  setIngredient(ingredientsKeyValue.map((item) => (item[1])));
+}
+
 function RecipeInProgress() {
+  const one = 1;
   const history = useHistory();
   const [favorite, setFavorite] = useState(false);
 
-  const [image, setImage] = useState('');
-  const [title, setTitle] = useState('Title');
-  const [category, setCategories] = useState('Categoria');
+  const [itemsChecked, setItemsChecked] = useState([]);
+  const [disableBtnFinished, setDisableBtnFinished] = useState(true);
   const [ingredients, setIngredient] = useState([]);
   const [instructions, setInstructions] = useState('');
-
+  const [details, setDetails] = useState({});
+  const [copyLink, setCopyLink] = useState(false);
   const id = history.location.pathname.replace(/\D/g, '');
   const type = history.location.pathname.split('/')[1];
 
-  function filterIngredients(obj) {
-    const recipe = Object.entries(obj);
-    const ingredientsKeyValue = recipe
-      .filter((item) => ((item[0].includes('strIngredient')) && item[1]));
-    setIngredient(ingredientsKeyValue.map((item) => (item[1])));
-  }
+  useEffect(() => {
+    if (ingredients.length === itemsChecked.length) {
+      setDisableBtnFinished(false);
+    } else {
+      setDisableBtnFinished(true);
+    }
+  }, [ingredients, itemsChecked]);
+
+  useEffect(() => {
+    const objItems = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (objItems) {
+      const arrayItems = Object.values(Object.entries(objItems)[1][1])[0];
+      setItemsChecked(arrayItems);
+    }
+    const favoriteItems = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    setFavorite(favoriteItems.some((item) => item.id === id));
+  }, [id]);
 
   useEffect(() => {
     if (type === 'comidas') {
       fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ meals }) => {
-          setImage(meals[0].strMealThumb);
-          setTitle(meals[0].strMeal);
-          setCategories(meals[0].strCategory);
-          filterIngredients(meals[0]);
+          filterIngredients(meals[0], setIngredient);
           setInstructions(meals[0].strInstructions);
+          setDetails({
+            id,
+            type: 'comida',
+            area: meals[0].strArea,
+            category: meals[0].strCategory,
+            alcoholicOrNot: '',
+            name: meals[0].strMeal,
+            image: meals[0].strMealThumb,
+          });
         });
-    } else if (type === 'bebidas') {
+    } else {
       fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then((response) => response.json())
         .then(({ drinks }) => {
-          setImage(drinks[0].strDrinkThumb);
-          setTitle(drinks[0].strDrink);
-          setCategories(drinks[0].strCategory);
-          filterIngredients(drinks[0]);
+          filterIngredients(drinks[0], setIngredient);
           setInstructions(drinks[0].strInstructions);
+          setDetails({
+            id,
+            type: 'bebida',
+            area: '',
+            category: drinks[0].strCategory,
+            alcoholicOrNot: drinks[0].strAlcoholic,
+            name: drinks[0].strDrink,
+            image: drinks[0].strDrinkThumb,
+          });
         });
     }
   }, [id, type]);
 
   function handleClick() {
     setFavorite(!favorite);
-  }
-
-  function rendeImage() {
-    return (<img data-testid="recipe-photo" src={ image } alt="Imagem da receita" />);
-  }
-
-  function rendeTitle() {
-    return (<h2 data-testid="recipe-title">{title}</h2>);
-  }
-
-  function rendeCategory() {
-    return (<p data-testid="recipe-category">{category}</p>);
-  }
-
-  function btnShare() {
-    return (
-      <button data-testid="share-btn" type="button">
-        <img src={ shareIcon } alt="Compartilhar" />
-      </button>
-    );
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (!favorite) {
+      favoriteRecipes = [...favoriteRecipes, details];
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    } else {
+      favoriteRecipes = favoriteRecipes.filter((item) => item.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    }
   }
 
   function btnFavorite() {
     return (
       <button
-        data-testid="favorite-btn"
         type="button"
         onClick={ handleClick }
       >
-        <img src={ favorite ? blackHeartIcon : whiteHeartIcon } alt="Favoritar" />
+        <img
+          data-testid="favorite-btn"
+          src={ favorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Favoritar"
+        />
       </button>
     );
   }
 
-  function handleCheck({ target }) {
-    console.log(target.checked);
+  function saveToLocalStore(arrayItems) {
+    let localItems = JSON.parse(localStorage.getItem('inProgressRecipes'))
+    || { meals: {}, cocktails: {} };
+    if (type === 'comida') {
+      localItems = {
+        ...localItems,
+        meals: {
+          ...localItems.meals,
+          [id]: arrayItems },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(localItems));
+      return;
+    }
+    localItems = {
+      ...localItems,
+      cocktails: {
+        ...localItems.cocktails,
+        [id]: arrayItems },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localItems));
   }
 
-  function henderIngredients() {
+  function isChecked(target) {
+    setItemsChecked([...itemsChecked, target.value]);
+    saveToLocalStore([...itemsChecked, target.value]);
+  }
+
+  function disChecked(target) {
+    if (itemsChecked.indexOf(target.value) !== -one) {
+      setItemsChecked(itemsChecked.filter((item) => item !== target.value));
+      saveToLocalStore(itemsChecked.filter((item) => item !== target.value));
+    }
+  }
+
+  function handleCheck({ target }) {
+    if (target.checked && itemsChecked.indexOf(target.value) === -one) {
+      isChecked(target);
+      return;
+    }
+    disChecked(target);
+  }
+
+  function renderIngredients() {
+    if (ingredients.length <= 0) return <h1>{ingredients}</h1>;
     return (
       <>
         <h3>Ingredients</h3>
@@ -104,6 +205,7 @@ function RecipeInProgress() {
               type="checkbox"
               onChange={ handleCheck }
               value={ ingredient }
+              checked={ itemsChecked.indexOf(ingredient) !== -one }
             />
             { ingredient }
           </label>
@@ -112,41 +214,17 @@ function RecipeInProgress() {
     );
   }
 
-  function henderInstructions() {
-    return (
-      <>
-        <h3>Instructions</h3>
-        <p data-testid="instructions">{instructions}</p>
-      </>
-    );
-  }
-
-  function handleFinished() {
-    console.log('#');
-  }
-
-  function btnFinished() {
-    return (
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        onClick={ handleFinished }
-      >
-        Finished
-      </button>
-    );
-  }
-
   return (
     <div>
-      { rendeImage() }
-      { rendeTitle() }
-      { rendeCategory() }
-      { btnShare() }
+      <img data-testid="recipe-photo" src={ details.image } alt="Imagem da receita" />
+      <h2 data-testid="recipe-title">{details.title}</h2>
+      <p data-testid="recipe-category">{details.category}</p>
+      { btnShare(history, setCopyLink) }
+      { copyLink && <p>Link copiado!</p>}
       { btnFavorite() }
-      { (ingredients.length > 0) ? henderIngredients() : <h1>{ingredients}</h1> }
-      { henderInstructions() }
-      { btnFinished() }
+      { renderIngredients() }
+      { renderInstructions(instructions) }
+      { btnFinished(history, disableBtnFinished) }
     </div>
   );
 }
