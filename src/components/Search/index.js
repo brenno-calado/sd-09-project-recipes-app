@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { FoodCtx } from '../../context/contextFood';
 import { DrinkCtx } from '../../context/contextDrink';
 
@@ -98,5 +99,9 @@ function Search({ currentPage }) {
     </div>
   );
 }
+
+Search.propTypes = {
+  currentPage: PropTypes.string.isRequired,
+};
 
 export default Search;
