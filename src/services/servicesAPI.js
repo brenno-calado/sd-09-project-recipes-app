@@ -14,6 +14,7 @@ export default async function getFoodsAndDrinks(type, param, value) {
     getIngredientByValue: `filter.php?i=${value}`,
     getNameByValue: `search.php?s=${value}`,
     getFirstLetterByValue: `search.php?f=${value}`,
+    filterByArea: `filter.php?a=${value}`,
   };
 
   const endpoint = `https://www.${type === 'meals' ? 'themealdb' : 'thecocktaildb'}.com/api/json/v1/1/${objectParams[param]}`;
