@@ -24,11 +24,9 @@ const Login = () => {
   }, [password, userEmail]);
 
   const submitLogin = () => {
-    console.log('entrei');
     if (validForm) {
-      console.log('entrei no if');
       localStorage.setItem('mealsToken', 1);
-      localStorage.setItem('cockTailsToken', 1);
+      localStorage.setItem('cocktailsToken', 1);
       localStorage.setItem('user', JSON.stringify({ email: userEmail }));
       changeLoggedStatus(true);
     }
@@ -36,6 +34,7 @@ const Login = () => {
 
   return (
     <div>
+      { logged && <Redirect to="/comidas" /> }
       { logged && <Redirect to="/receitas" /> }
       <form>
         <label htmlFor="email-input">
