@@ -38,7 +38,7 @@ class ExplorerScreen extends Component {
         >
           Explorar Bebidas
         </button>
-        <Footer />      
+        <Footer />
       </div>
     );
   }
