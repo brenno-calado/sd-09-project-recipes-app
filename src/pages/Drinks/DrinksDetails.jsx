@@ -96,7 +96,7 @@ function DrinkDetails(props) {
               { drink.strAlcoholic }
             </h5>
           </div>
-          <ShareLikeButtons recipe={ drink } type="bebida" url={ url } />
+          <ShareLikeButtons complement="" recipe={ drink } type="bebida" url={ url } />
         </div>
         <div>
           <h4>Instructions</h4>

@@ -64,7 +64,7 @@ function DrinkInProgress(props) {
               { drink.strAlcoholic }
             </h5>
           </div>
-          <ShareLikeButtons recipe={ drink } type="bebida" url={ newURL } />
+          <ShareLikeButtons complement="" recipe={ drink } type="bebida" url={ newURL } />
         </div>
         <div>
           <h4>Ingredients</h4>
