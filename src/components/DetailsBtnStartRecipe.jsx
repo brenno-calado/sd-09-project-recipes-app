@@ -9,8 +9,7 @@ function getIngredientsArray(recipeObj) {
   const ingredientsList = [];
   for (let index = 1; index < maxIngredients; index += 1) {
     if (recipeObj[`strIngredient${index}`]) {
-      ingredientsList[index] = `${recipeObj[`strIngredient${index}`]} 
-      - ${recipeObj[`strMeasure${index}`]}`;
+      ingredientsList[index - 1] = index;
     }
   }
   return ingredientsList;
