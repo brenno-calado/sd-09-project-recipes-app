@@ -96,7 +96,7 @@ function DoneRecipesCards({ doneRecipes }) {
         </div>
       );
     })
-  )
+  );
 
   return (
     <div>
