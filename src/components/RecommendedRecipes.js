@@ -26,7 +26,7 @@ function RecommendedRecipes({ reference }) {
       return setRecommendations(recommendations.slice(0, numberOfElements));
     };
     fetchRecommendations();
-  }, []);
+  }, [reference]);
 
   // const renderCarousel = () => (
 
@@ -59,29 +59,31 @@ function RecommendedRecipes({ reference }) {
   //   </CarouselProvider>
   // );
   return (
-    recommendedRecipes.length !== 0 ? <Carousel
-      itemsToShow={ 2 }
-      itemsToScroll={ 1 }
-      itemPosition={ consts.CENTER }
-    >
-      {
-        recommendedRecipes.map((item, index) => (
-          <div
-            key={ index }
-            className="recommended"
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <h3
-              data-testid={ `${index}-recomendation-title` }
+    recommendedRecipes.length !== 0 ? (
+      <Carousel
+        itemsToShow={ 2 }
+        itemsToScroll={ 1 }
+        itemPosition={ consts.CENTER }
+      >
+        {
+          recommendedRecipes.map((item, index) => (
+            <div
+              key={ index }
+              className="recommended"
+              data-testid={ `${index}-recomendation-card` }
             >
-              { item.strMeal || item.strDrink }
-            </h3>
-            <h4>{item.strCategory || item.strAlcoholic}</h4>
-            <img src={ item.strMealThumb || item.strDrinkThumb } alt="Recipe" />
-          </div>
-        ))
-      }
-    </Carousel>
+              <h3
+                data-testid={ `${index}-recomendation-title` }
+              >
+                { item.strMeal || item.strDrink }
+              </h3>
+              <h4>{item.strCategory || item.strAlcoholic}</h4>
+              <img src={ item.strMealThumb || item.strDrinkThumb } alt="Recipe" />
+            </div>
+          ))
+        }
+      </Carousel>
+    )
       : <span>Loading...</span>
   // isFetching ? <span>Loading...</span> : renderCarousel()
   );

@@ -40,7 +40,7 @@ function RecipeInProgress() {
     setFavoritesStorage();
     checkFavorites(recipeId.id);
     setRecipe();
-  }, []);
+  }, [recipeId.id, reference]);
 
   const saveAsFavorite = () => {
     setFavorite(!isFavorite);
