@@ -16,7 +16,7 @@ export default function StartButton({ isFood }) {
   const [redirectProgress, setRedirect] = useState(false);
   const startRecipe = () => {
     setItemLocalStorage('inProgressRecipes',
-      { ...startedRecipes, [type]: { ...startedRecipes[type], [id]: ['test'] } });
+      { ...startedRecipes, [type]: { ...startedRecipes[type], [id]: [] } });
     setRedirect(true);
   };
   useEffect(() => {
@@ -29,16 +29,10 @@ export default function StartButton({ isFood }) {
   if (redirectProgress) {
     return <Redirect to={ `${pathname}/in-progress` } />;
   }
-  const fixed = {
-    position: 'fixed',
-    bottom: 0,
-    right: 0,
-  };
   const buttonText = inProgress ? 'Continuar Receita' : 'Iniciar receita';
   return (
     <button
-      style={ fixed }
-      className="btn btn-info border border-info"
+      className="btn btn-info fixed-btn"
       type="button"
       data-testid="start-recipe-btn"
       onClick={ startRecipe }

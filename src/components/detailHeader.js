@@ -37,7 +37,7 @@ export default function DetailHeader({ recipe, isFood }) {
       type: typeObject[type].favType,
       area: item.strArea || '',
       category: item.strCategory,
-      alcoholicOrNot: isFood ? '' : item.strAlcoholic,
+      alcoholicOrNot: item.strAlcoholic || '',
       name: item[`str${type}`],
       image: item[`str${type}Thumb`],
     };
@@ -69,7 +69,6 @@ export default function DetailHeader({ recipe, isFood }) {
         src={ recipe[typeObject[type].img] }
         className="w-100"
         alt={ recipe[typeObject[type].data] }
-        width="400px"
         data-testid="recipe-photo"
       />
       <h1
@@ -85,7 +84,7 @@ export default function DetailHeader({ recipe, isFood }) {
       >
         <button
           type="button"
-          onClick={ () => copy(window.location.href) }
+          onClick={ () => copy(`http://localhost:3000${pathname}`) }
           className={ btn }
           data-testid="share-btn"
         >

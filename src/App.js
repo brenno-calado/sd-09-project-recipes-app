@@ -5,8 +5,8 @@ import Login from './pages/login';
 import MainPage from './pages/mainPage';
 import RecipeDetails from './pages/recipeDetails';
 // import DrinkDetails from './pages/drinkDetails';
-import FoodInProcess from './pages/foodInProcess';
-import DrinkInProcess from './pages/drinkInProcess';
+import RecipeInProcess from './pages/recipeInProcess';
+// import DrinkInProcess from './pages/drinkInProcess';
 import Explore from './pages/explore';
 import ExploreFoodOrDrink from './pages/exploreFoodOrDrink';
 import ExploreIngredients from './pages/exploreIngredients';
@@ -27,8 +27,8 @@ function App() {
       <Route exact path="/bebidas" component={ MainPage } />
       <Route exact path="/comidas/:id" component={ RecipeDetails } />
       <Route exact path="/bebidas/:id" component={ RecipeDetails } />
-      <Route exact path="/comidas/:id/in-progress" component={ FoodInProcess } />
-      <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
+      <Route exact path="/comidas/:id/in-progress" component={ RecipeInProcess } />
+      <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProcess } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoodOrDrink } />
       <Route exact path="/explorar/bebidas" component={ ExploreFoodOrDrink } />
