@@ -26,15 +26,15 @@ const FavoriteButton = (props) => {
   const setFavoriteRecipes = () => {
     if (recipeType === 'Meal') {
       favoriteRecipes.type = 'comida';
-      favoriteRecipes.area = recipe.strArea;
+      favoriteRecipes.area = recipe.strArea || recipe.area;
     } else {
       favoriteRecipes.type = 'bebida';
-      favoriteRecipes.alcoholicOrNot = recipe.strAlcoholic;
+      favoriteRecipes.alcoholicOrNot = recipe.strAlcoholic || recipe.alcoholicOrNot;
     }
-    favoriteRecipes.id = recipe[`id${recipeType}`];
-    favoriteRecipes.category = recipe.strCategory;
-    favoriteRecipes.name = recipe[`str${recipeType}`];
-    favoriteRecipes.image = recipe[`str${recipeType}Thumb`];
+    favoriteRecipes.id = recipe[`id${recipeType}`] || recipe.id;
+    favoriteRecipes.category = recipe.strCategory || recipe.category;
+    favoriteRecipes.name = recipe[`str${recipeType}`] || recipe.type;
+    favoriteRecipes.image = recipe[`str${recipeType}Thumb`] || recipe.image;
     return favoriteRecipes;
   };
 
@@ -44,12 +44,13 @@ const FavoriteButton = (props) => {
   };
 
   const removeFavoriteRecipes = () => {
-    removeFavoriteRecipesFromLocalStorageById(recipe[`id${recipeType}`]);
+    removeFavoriteRecipesFromLocalStorageById(recipe[`id${recipeType}`] || recipe.id);
     setHeartIcon(whiteHeartIcon);
   };
 
   useEffect(() => {
-    const favorite = getFavoriteRecipesFromLocalStorageById(recipe[`id${recipeType}`]);
+    const favorite = getFavoriteRecipesFromLocalStorageById(recipe[`id${recipeType}`]
+    || recipe.id);
     setIsFavorite(favorite);
     if (isFavorite) {
       setHeartIcon(blackHeartIcon);
@@ -64,6 +65,8 @@ const FavoriteButton = (props) => {
     }
     saveFavoriteRecipes();
     setIsFavorite(true);
+
+    return isFavorite;
   };
 
   return (
