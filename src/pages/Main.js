@@ -15,6 +15,7 @@ const Main = ({ match: { path } }) => {
   const { isFetching, recipes } = useSelector((state) => state.recipes);
   const { categories } = useSelector((state) => state.category);
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [isCategorySelected, setIsCategorySelected] = useState(false);
   const maxRecipesShown = 12;
   const history = useHistory();
   const location = useLocation();
@@ -23,6 +24,16 @@ const Main = ({ match: { path } }) => {
   const noRecipeMsg = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
   let shownRecipes = [];
+
+  const handleToggle = (value) => {
+    if (categoryFilter === value) {
+      setCategoryFilter('All');
+      setIsCategorySelected(false);
+    } else {
+      setCategoryFilter(value);
+      setIsCategorySelected(true);
+    }
+  };
 
   const renderRecipes = (recipesArray) => recipesArray
     .map((recipe, index) => (
@@ -52,7 +63,8 @@ const Main = ({ match: { path } }) => {
           name="category"
           data-testid={ `${strCategory}-category-filter` }
           value={ strCategory }
-          onClick={ ({ target: { value } }) => setCategoryFilter(value) }
+          onClick={ ({ target: { value } }) => handleToggle(value) }
+          checked={ categoryFilter === strCategory }
         />
       </label>
     ));
@@ -77,7 +89,7 @@ const Main = ({ match: { path } }) => {
     shownRecipes = recipes.slice(0, maxRecipesShown);
     const { pathname } = location;
     const isSingleRecipe = recipes.length === 1;
-    if (isSingleRecipe) {
+    if (isSingleRecipe && !isCategorySelected) {
       const recipe = recipes[0];
       const recipeId = recipe.idDrink || recipe.idMeal;
       history.push(`${pathname}/${recipeId}`);
