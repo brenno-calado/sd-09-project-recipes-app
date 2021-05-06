@@ -39,7 +39,6 @@ const DrinksFoodsRecipes = () => {
     <div>
       <Header />
       <CategoriesBar />
-      { console.log(statusSearch)}
       { recipes.length === 1 && !statusSearch && (
         <Redirect to={ `/${pathName[1]}/${id}` } />) }
       { recipes.length > 0 && (<ListRecipes />) }

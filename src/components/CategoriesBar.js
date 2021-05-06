@@ -5,7 +5,8 @@ import RecipesContext from '../context/RecipesContext';
 const CategoriesBar = () => {
   const pathName = useLocation().pathname.split('/');
   const { categories, addCategories, addByCategory,
-    addStatusSearch } = useContext(RecipesContext);
+    addStatusSearch, buttonCategory, changeButtonCategory,
+    addRecipes } = useContext(RecipesContext);
 
   const loadCategories = () => {
     addCategories(pathName[1]);
@@ -17,7 +18,13 @@ const CategoriesBar = () => {
 
   const handleClick = ({ target }) => {
     addStatusSearch(true);
-    addByCategory(pathName[1], target.value);
+    if (buttonCategory === target.value || target.value === 'all') {
+      addRecipes(pathName[1], 'name', '');
+    } else {
+      addByCategory(pathName[1], target.value);
+    }
+    addStatusSearch(true);
+    changeButtonCategory(target.value);
   };
 
   return (
@@ -34,6 +41,16 @@ const CategoriesBar = () => {
           { category.strCategory }
         </button>
       )) }
+      <button
+        data-testid="all-category-filter"
+        key="all"
+        type="button"
+        name="all"
+        value="all"
+        onClick={ handleClick }
+      >
+        All
+      </button>
     </div>
   );
 };
