@@ -53,3 +53,15 @@ export const fetchRandomRecipe = async () => {
   const result = await random.json();
   return result;
 };
+
+export const fetchMealsByAreaFood = async () => {
+  const areaFood = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const response = await areaFood.json();
+  return response;
+};
+
+export const fetchAreaCountryFood = async (country) => {
+  const countryFoods = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`);
+  const response = await countryFoods.json();
+  return response;
+};
