@@ -1,8 +1,8 @@
 .ingredients-steps .completed {
-    font-weight: bold;
-    text-decoration: line-through;
+  font-weight: 700;
+  text-decoration: line-through;
 }
 
 .ingredients-steps li {
-    list-style: none;
+  list-style: none;
 }

@@ -1,21 +1,21 @@
 .favorite-button {
-    background-color: transparent;
-    border: none;
-    border-radius: 8px;
-    margin: 1px;
-    padding: 2px;
-    transition: .8s;
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  margin: 1px;
+  padding: 2px;
+  transition: 0.8s;
 }
 
 .favorite-button:hover {
-    box-shadow: 1px 1px 8px 1px gray;
+  box-shadow: 1px 1px 8px 1px gray;
 }
 
 .favorite-button:focus {
-    outline: none;
+  outline: none;
 }
 
 .favorite-button img {
-    height: 30px;
-    width: 30px;
+  height: 30px;
+  width: 30px;
 }
