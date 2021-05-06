@@ -34,7 +34,7 @@ export default function RecipeInProgress() {
         alt="Imagem da receita"
       />
       <h2 data-testid="recipe-title">{recipe.name}</h2>
-      <ShareButton />
+      <ShareButton dataTestid="share-btn" isMeal={ isMealsPage } recipeId={ id } />
       <FavoriteRecipeButton recipe={ recipe } />
       <h4 data-testid="recipe-category">{recipe.category}</h4>
       <IngredientList
