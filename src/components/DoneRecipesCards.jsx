@@ -24,81 +24,83 @@ function DoneRecipesCards({ doneRecipes }) {
     }
   };
 
+  const cards = () => (
+    doneRecipes.map((recipe, index) => {
+      const mealsTopText = (
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          {`${recipe.area} - ${recipe.category}`}
+        </p>
+      );
+      const drinksTopText = (
+        <p data-testid={ `${index}-horizontal-top-text` }>
+          { recipe.alcoholicOrNot }
+        </p>
+      );
+      return (
+        <div key={ recipe.id } className="recipe-card">
+          <Link
+            to={ recipe.type === 'comida' ? (
+              `/comidas/${recipe.id}`
+            ) : (
+              `/bebidas/${recipe.id}`
+            ) }
+          >
+            <img
+              src={ recipe.image }
+              alt="recipe img"
+              data-testid={ `${index}-horizontal-image` }
+              className="recipe-card-img"
+            />
+          </Link>
+          { recipe.type === 'comida' ? mealsTopText : drinksTopText }
+          <Link
+            to={ recipe.type === 'comida' ? (
+              `/comidas/${recipe.id}`
+            ) : (
+              `/bebidas/${recipe.id}`
+            ) }
+          >
+            <p data-testid={ `${index}-horizontal-name` }>
+              { recipe.name }
+            </p>
+          </Link>
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            { recipe.doneDate }
+          </p>
+          <div>
+            <button
+              type="button"
+              data-testid={ `${index}-horizontal-share-btn` }
+              onClick={ () => getLink(recipe.id, recipe.type) }
+              src={ shareIcon }
+            >
+              <img
+                src={ shareIcon }
+                alt="botao de compartilhar"
+              />
+            </button>
+            { showMessage && <p>Link copiado!</p> }
+          </div>
+          <ul>
+            {
+              recipe.tags.map((tag) => (
+                <li
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ tag }
+                >
+                  { tag }
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      );
+    })
+  )
+
   return (
     <div>
-      {
-        doneRecipes.map((recipe, index) => {
-          const mealsTopText = (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.area} - ${recipe.category}`}
-            </p>
-          );
-          const drinksTopText = (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              { recipe.alcoholicOrNot }
-            </p>
-          );
-          return (
-            <div key={ recipe.id } className="recipe-card">
-              <Link
-                to={ recipe.type === 'comida' ? (
-                  `/comidas/${recipe.id}`
-                ) : (
-                  `/bebidas/${recipe.id}`
-                ) }
-              >
-                <img
-                  src={ recipe.image }
-                  alt="recipe img"
-                  data-testid={ `${index}-horizontal-image` }
-                  className="recipe-card-img"
-                />
-              </Link>
-              { recipe.type === 'comida' ? mealsTopText : drinksTopText }
-              <Link
-                to={ recipe.type === 'comida' ? (
-                  `/comidas/${recipe.id}`
-                ) : (
-                  `/bebidas/${recipe.id}`
-                ) }
-              >
-                <p data-testid={ `${index}-horizontal-name` }>
-                  { recipe.name }
-                </p>
-              </Link>
-              <p data-testid={ `${index}-horizontal-done-date` }>
-                { recipe.doneDate }
-              </p>
-              <div>
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  onClick={ () => getLink(recipe.id, recipe.type) }
-                  src={ shareIcon }
-                >
-                  <img
-                    src={ shareIcon }
-                    alt="botao de compartilhar"
-                  />
-                </button>
-                { showMessage && <p>Link copiado!</p> }
-              </div>
-              <ul>
-                {
-                  recipe.tags.map((tag) => (
-                    <li
-                      data-testid={ `${index}-${tag}-horizontal-tag` }
-                      key={ tag }
-                    >
-                      { tag }
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          );
-        })
-      }
+      { doneRecipes && cards() }
     </div>
   );
 }

@@ -8,6 +8,7 @@ import {
   allMealsThunk,
 } from '../redux/actions/actionsExplore';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher }) => {
   const [selectOption, setSelectOption] = useState('');
@@ -35,7 +36,7 @@ const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher })
     setSelectOption(value);
   };
 
-  const renderRecipeList = (
+  const renderRecipeList = (recipes !== null) ? (
     recipes.slice(0, magicNumber).map((recipe, index) => (
       <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
         <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
@@ -47,12 +48,11 @@ const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher })
           />
         </div>
       </Link>
-    )));
+    ))) : '';
 
   return (
     <div>
-      Explorar Por Area
-      <br />
+      <Header title="Explorar Origem" />
       <label
         htmlFor="explore-by-area-dropdown"
       >
@@ -74,7 +74,7 @@ const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher })
           ))}
         </select>
       </label>
-      { showList && renderRecipeList }
+      { showList && recipes !== null && renderRecipeList }
       <Footer />
     </div>
   );

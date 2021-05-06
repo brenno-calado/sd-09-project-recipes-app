@@ -8,6 +8,7 @@ import {
   cocktailsByCategoriesThunk,
   mealsThunk,
   cocktailsThunk,
+  setCurrentCategory,
 } from '../redux/actions';
 
 function CategoryFilter({
@@ -21,6 +22,7 @@ function CategoryFilter({
   isFetched,
   mealsThunkDispatcher,
   cocktailsThunkDispatcher,
+  currentCategoryDispatcher,
 }) {
   const [previousCategory, setPreviousCategory] = useState('');
 
@@ -43,12 +45,15 @@ function CategoryFilter({
     if ((previousCategory === value) || (value === 'all')) {
       if (recipeType === 'comidas') mealsThunkDispatcher('', '');
       if (recipeType === 'bebidas') cocktailsThunkDispatcher('', '');
+      currentCategoryDispatcher('');
     } else {
       if (recipeType === 'comidas') {
         fetchMealsByCategory(value);
+        currentCategoryDispatcher(value);
       }
       if (recipeType === 'bebidas') {
         fetchCocktailsByCategory(value);
+        currentCategoryDispatcher(value);
       }
     }
     setPreviousCategory(value);
@@ -105,6 +110,7 @@ const mapDispatchToProps = (dispatch) => ({
     (radioSearch, textSearch) => dispatch(mealsThunk(radioSearch, textSearch)),
   cocktailsThunkDispatcher:
     (radioSearch, textSearch) => dispatch(cocktailsThunk(radioSearch, textSearch)),
+  currentCategoryDispatcher: (category) => dispatch(setCurrentCategory(category)),
 });
 
 CategoryFilter.propTypes = {
@@ -118,6 +124,7 @@ CategoryFilter.propTypes = {
   fetchCocktailsByCategory: PropTypes.func.isRequired,
   isFetchedCategories: PropTypes.bool.isRequired,
   isFetched: PropTypes.bool.isRequired,
+  currentCategoryDispatcher: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryFilter);

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { sendFavoriteRecipes } from '../redux/actions';
 import FavoriteRecipesFilters from '../components/FavoriteRecipesFilters';
 import FavoriteRecipesCards from '../components/FavoriteRecipesCards';
+import Header from '../components/Header';
 
 function FavoriteRecipes({ favoriteRecipesDispatcher }) {
   const getFavoriteRecipes = () => {
@@ -17,7 +18,7 @@ function FavoriteRecipes({ favoriteRecipesDispatcher }) {
 
   return (
     <div>
-      <h1>Receitas Favoritas</h1>
+      <Header title="Receitas Favoritas" />
       <FavoriteRecipesFilters />
       <FavoriteRecipesCards />
     </div>

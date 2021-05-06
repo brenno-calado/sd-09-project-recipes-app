@@ -8,9 +8,10 @@ function Profile() {
 
   return (
     <div>
-      <h1 data-testid="page-title">Perfil</h1>
-      <Header />
-      <h3 data-testid="profile-email">{ user.email }</h3>
+      <Header title="Perfil" />
+      <h3 data-testid="profile-email">
+        { user ? user.email : '' }
+      </h3>
       <div>
         <Link to="/receitas-feitas">
           <button

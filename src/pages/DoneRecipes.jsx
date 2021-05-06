@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DoneRecipesFilters from '../components/DoneRecipesFilters';
 import DoneRecipesCards from '../components/DoneRecipesCards';
 import { sendDoneRecipes } from '../redux/actions';
+import Header from '../components/Header';
 import '../css/DoneRecipes.css';
 
 function DoneRecipes({ doneRecipesDispatcher }) {
@@ -18,7 +19,7 @@ function DoneRecipes({ doneRecipesDispatcher }) {
 
   return (
     <div>
-      <h1>Receitas Prontas</h1>
+      <Header title="Receitas Feitas" />
       <DoneRecipesFilters />
       <DoneRecipesCards />
     </div>

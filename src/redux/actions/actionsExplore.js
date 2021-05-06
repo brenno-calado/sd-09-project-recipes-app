@@ -2,9 +2,12 @@ import {
   SUCCESS_RANDOM_RECOMMENDED,
   SUCESS_EXPLORE,
   SUCESS_AREA,
+  FROM_EXPLORE,
+  FETCHING_EXPLORE,
+  SUCCESS_FETCH_BY_AREA,
 } from './actionTypes';
 
-import { sucessFetch, failureFetch, fetching } from './index';
+import { failureFetch } from './index';
 
 import {
   fetchInitialMeals,
@@ -34,9 +37,18 @@ const successArea = (data) => ({
   data,
 });
 
+const fetchingExplore = () => ({
+  type: FETCHING_EXPLORE,
+});
+
+const successFetchByArea = (data) => ({
+  type: SUCCESS_FETCH_BY_AREA,
+  data,
+});
+
 export function recipeSurpriseThunk(type) {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
 
     if (type === 'comidas') {
       return fetchRandomMeals()
@@ -53,7 +65,7 @@ export function recipeSurpriseThunk(type) {
 
 export function exploreByIngredientMealsThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
     return fetchIngredientsMeals()
       .then((data) => dispatch(successExplore(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -62,7 +74,7 @@ export function exploreByIngredientMealsThunk() {
 
 export function exploreByAreaThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
     return fetchAreaMeals()
       .then((data) => dispatch(successArea(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -71,7 +83,7 @@ export function exploreByAreaThunk() {
 
 export function exploreByIngredientCocktailsThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
     return fetchIngredientsCocktails()
       .then((data) => dispatch(successExplore(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -80,18 +92,23 @@ export function exploreByIngredientCocktailsThunk() {
 
 export function getMealsByAreaThunk(area) {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
     return fetchByArea(area)
-      .then((data) => dispatch(sucessFetch(data)))
+      .then((data) => dispatch(successFetchByArea(data)))
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
 
 export function allMealsThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingExplore());
     return fetchInitialMeals()
-      .then((data) => dispatch(sucessFetch(data)))
+      .then((data) => dispatch(successFetchByArea(data)))
       .catch((error) => dispatch(failureFetch(error)));
   };
 }
+
+export const fromExplore = (bool) => ({
+  type: FROM_EXPLORE,
+  bool,
+});

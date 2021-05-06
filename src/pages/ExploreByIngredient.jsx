@@ -5,12 +5,15 @@ import { connect } from 'react-redux';
 import {
   exploreByIngredientMealsThunk,
   exploreByIngredientCocktailsThunk,
+  fromExplore,
 } from '../redux/actions/actionsExplore';
 import {
   mealsThunk,
   cocktailsThunk,
+  changePath,
 } from '../redux/actions/index';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const ExploreByIngredients = ({
   getIngredientsMealsDispatcher,
@@ -19,6 +22,8 @@ const ExploreByIngredients = ({
   ingredients,
   mealsThunkDispatcher,
   cocktailsThunkDispatcher,
+  fromExploreDispatcher,
+  pathnameDispatcher,
 }) => {
   const { pathname } = location;
   const [redirect, setRedirect] = useState(false);
@@ -26,23 +31,25 @@ const ExploreByIngredients = ({
   useEffect(() => {
     if (pathname.includes('/comidas')) {
       getIngredientsMealsDispatcher();
+      pathnameDispatcher(pathname, 'comidas');
     }
     if (pathname.includes('/bebidas')) {
       getIngredientsCocktailsDispatcher();
+      pathnameDispatcher(pathname, 'bebidas');
     }
   }, [location]);
 
   const handleClick = async ({ target: { name } }) => {
     if (name === undefined) return;
-    console.log(name);
     if (pathname.includes('/comidas')) {
-      await mealsThunkDispatcher('ingredient-search', name);
+      fromExploreDispatcher(true);
+      mealsThunkDispatcher('ingredient-search', name);
       setRedirectPath('/comidas');
       setRedirect(true);
     }
     if (pathname.includes('/bebidas')) {
-      console.log(name);
-      await cocktailsThunkDispatcher('ingredient-search', name);
+      fromExploreDispatcher(true);
+      cocktailsThunkDispatcher('ingredient-search', name);
       setRedirectPath('/bebidas');
       setRedirect(true);
     }
@@ -98,14 +105,11 @@ const ExploreByIngredients = ({
     ))
   );
 
-  const redirectTeste = () => {
-    console.log('teste');
-    return <Redirect to={ redirectPath } />;
-  };
+  const redirectTeste = () => (<Redirect to={ redirectPath } />);
 
   return (
     <div>
-      Explorar Por Ingredientes
+      <Header title="Explorar Ingredientes" />
       { (pathname.includes('/comidas')) ? mealsCards : cocktailsCards}
       { redirect && redirectTeste() }
       <Footer />
@@ -124,7 +128,9 @@ const mapDispatchToProps = (dispatch) => ({
   (typeSearch, textSearch) => dispatch(mealsThunk(typeSearch, textSearch)),
   cocktailsThunkDispatcher:
   (typeSearch, textSearch) => dispatch(cocktailsThunk(typeSearch, textSearch)),
-
+  fromExploreDispatcher: (bool) => dispatch(fromExplore(bool)),
+  pathnameDispatcher:
+  (pathname, recipeType) => dispatch(changePath(pathname, recipeType)),
 });
 
 ExploreByIngredients.propTypes = {
@@ -134,6 +140,8 @@ ExploreByIngredients.propTypes = {
   cocktailsThunkDispatcher: PropTypes.func.isRequired,
   location: PropTypes.string.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  fromExploreDispatcher: PropTypes.func.isRequired,
+  pathnameDispatcher: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExploreByIngredients);
