@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchFoodIng, fetchCocktailIng } from '../services/ApiRequest';
 import {
+  sendIngredients,
   requestApiMealsIngredient,
   requestApiCocktailsbyIngredient } from '../redux/actions';
 
-function IngredientCard({ name, saveMealIng, saveCocktailIng }) {
+function IngredientCard({ name, saveMealIng, saveCocktailIng, saveIng }) {
   const [ingredients, setIngredients] = useState([]);
 
   const getIngredients = useCallback(async () => {
@@ -30,7 +31,10 @@ function IngredientCard({ name, saveMealIng, saveCocktailIng }) {
         && (
           <Link
             to="/comidas"
-            onClick={ () => saveMealIng(item.strIngredient) }
+            onClick={ async () => {
+              await saveIng(item.strIngredient1);
+              saveMealIng(item.strIngredient);
+            } }
           >
             <div
               data-testid={ `${index}-ingredient-card` }
@@ -62,7 +66,10 @@ function IngredientCard({ name, saveMealIng, saveCocktailIng }) {
           && (
             <Link
               to="/bebidas"
-              onClick={ () => saveCocktailIng(item.strIngredient1) }
+              onClick={ async () => {
+                await saveIng(item.strIngredient1);
+                saveCocktailIng(item.strIngredient1);
+              } }
             >
               <div
                 data-testid={ `${index}-ingredient-card` }
@@ -91,8 +98,9 @@ function IngredientCard({ name, saveMealIng, saveCocktailIng }) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  saveMealIng: () => dispatch(requestApiMealsIngredient()),
-  saveCocktailIng: () => dispatch(requestApiCocktailsbyIngredient()),
+  saveMealIng: (ingredient) => dispatch(requestApiMealsIngredient(ingredient)),
+  saveCocktailIng: (ingredient) => dispatch(requestApiCocktailsbyIngredient(ingredient)),
+  saveIng: (ingredient) => dispatch(sendIngredients(ingredient)),
 });
 
 export default connect(null, mapDispatchToProps)(IngredientCard);

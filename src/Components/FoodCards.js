@@ -19,8 +19,11 @@ class FoodCards extends React.Component {
   }
 
   componentDidMount() {
-    this.callMeal();
+    const { ingredients } = this.props;
     localStorage.removeItem('id');
+    if (ingredients.length === 0) {
+      this.callMeal();
+    }
   }
 
   componentWillUnmount() {
@@ -96,11 +99,15 @@ FoodCards.propTypes = {
     map: PropTypes.func.isRequired,
     length: PropTypes.number.isRequired,
   }).isRequired,
+  ingredients: PropTypes.shape({
+    length: PropTypes.number.isRequired,
+  }).isRequired,
   getMeals: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   meals: state.meals.meals,
+  ingredients: state.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => ({
