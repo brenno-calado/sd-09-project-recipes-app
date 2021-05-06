@@ -61,6 +61,7 @@ export default function ExploreFoodByOrigin() {
         <select
           className="dropdown-toggle"
           data-testid="explore-by-area-dropdown"
+          onChange={ (event) => setAreaSelected(event.target.value) }
           title={ (areaSelected)
             ? `Origem selecionada: ${areaSelected}`
             : 'Carregando...' }
@@ -68,9 +69,8 @@ export default function ExploreFoodByOrigin() {
           {areas.length > 0 && areas.map(({ strArea }, index) => (
             <option
               key={ `dropdown-${index}` }
-              as="button"
+              value={ strArea }
               data-testid={ `${strArea}-option` }
-              onClick={ () => setAreaSelected(strArea) }
             >
               {strArea}
             </option>

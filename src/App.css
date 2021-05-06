@@ -37,6 +37,20 @@
   padding: 0;
 }
 
+.videoWrapper {
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 */
+  position: relative;
+}
+
+.videoWrapper iframe {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 /* Accordion Card */
 .accordion {
   margin: 0;
