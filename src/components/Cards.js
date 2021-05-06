@@ -13,7 +13,7 @@ function Cards(props) {
     return loading ? <Loading />
       : apiRecipes.map(({ strMealThumb, strMeal }, index) => (
         index < maxCardsToRender ? (
-          <div className="card" data-testid={ `${index}-recipe-card` }>
+          <div className="card" key={ index } data-testid={ `${index}-recipe-card` }>
 
             <header className="card-header" data-testid={ `${index}-card-name` }>
               <h1>{strMeal}</h1>
