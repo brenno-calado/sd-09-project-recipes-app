@@ -19,7 +19,7 @@ const CardRecipe = (props) => {
               width="200"
             />
             <p data-testid={ `${index}-horizontal-top-text` }>
-              { recipe.alcoholicOrNot || recipe.category }
+              { recipe.alcoholicOrNot || `${recipe.area} - ${recipe.category}` }
             </p>
             <p data-testid={ `${index}-horizontal-name` }>
               { recipe.name }

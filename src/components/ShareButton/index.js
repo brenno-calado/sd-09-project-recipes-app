@@ -31,10 +31,11 @@ const ShareButton = (props) => {
   return (
     <div>
       <button
-        data-testid={ `${dataTestIdIndex}-horizontal-share-btn` }
         type="button"
+        src={ shareIcon }
         className="share-button"
         onClick={ () => copyUrl() }
+        data-testid={ `${dataTestIdIndex}-horizontal-share-btn` }
       >
         <img data-testid="share-btn" src={ shareIcon } alt="Compartilhar" />
       </button>
