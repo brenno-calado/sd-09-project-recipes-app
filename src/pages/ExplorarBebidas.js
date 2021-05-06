@@ -6,7 +6,6 @@ import { getRandomDrink } from '../services';
 import cooking from '../images/cooking.png';
 import '../CSS/ExplorarBebidas.css';
 
-
 function Explorar() {
   const [randomDrink, setRandomDrink] = useState({});
 
