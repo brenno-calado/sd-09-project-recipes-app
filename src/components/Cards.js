@@ -12,8 +12,6 @@ function Cards(props) {
     history.push(`${pathname}/${id}`);
   };
 
-  console.log(pathname);
-
   const createFoodsCards = (apiRecipes) => {
     const maxCardsToRender = 12;
     return loading ? <Loading />
