@@ -5,43 +5,23 @@
   flex-direction: column;
 }
 
-
-.explore-screen-header {
-  align-items: center;
-  background-color: #e76f51;
-  display: flex;
-  font-family: Roboto , sans-serif;
-  height: 58px;
-  justify-content: space-between;
-}
-
-.explore-screen-header-title {
-  color: whitesmoke;
-  font-size: 28px;
-  font-weight: 400;
-  margin: 0 auto;
-}
-
-.explore-screen-header img {
-  height: 34px;
-}
-
 .explore-screen-button {
-  background-color: #e76f51;
-  border: 1px solid #e76f51;
+  background-color: #2a9d8f;
+  border: 1px solid #2a9d8f;
   border-radius: 6px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  color: whitesmoke;
   font-size: 32px;
-  height: 82px;
+  height: 10vh;
   margin: 81px auto 0;
   transition: all 0.5s;
   width: 327px;
 }
 
 .explore-screen-button:hover {
-  background-color: whitesmoke;
-  border: whitesmoke;
-  color: #e76f51;
+  background-color: #f4a261;
+  border: #f4a261;
+  color: whitesmoke;
 }
 
 .explore-screen-button:focus {
