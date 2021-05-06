@@ -1,8 +1,11 @@
 .meal-card {
   align-items: center;
+  background-color: var(--colorWarning4);
+  border-radius: 15px;
   display: flex;
   flex-direction: column;
   height: 350px;
+  margin-left: 10px;
   width: 400px;
 }
 
@@ -26,7 +29,7 @@
 }
 
 .recipe-card-buttons button {
-  background-color: white;
+  background-color: var(--colorWarning4);
   border: none;
   margin: 5px;
 }
