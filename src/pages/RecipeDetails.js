@@ -68,7 +68,7 @@ const RecipeDetails = (props) => {
         height="300"
       />
       <p data-testid="recipe-title">{ recipe[`str${recipeType}`] }</p>
-      <ShareButton />
+      <ShareButton URL={ `http://localhost:3000${pathname}` } />
       <FavoriteButton recipe={ recipe } recipeType={ recipeType } />
       <p data-testid="recipe-category">{ recipe[recipeCategory] }</p>
       <Ingredients recipe={ recipe } />

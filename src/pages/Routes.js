@@ -7,14 +7,14 @@ import Drinks from './Drinks';
 import Profile from './Profile';
 import Explorer from './Explorer';
 import NotFound from './NotFound';
+import DoneRecipes from './DoneRecipes';
 import ExploreArea from './ExploreArea';
 import ExploreFood from './ExploreFood';
-import ExploreIngredients from './ExploreIngredients';
 import ExploreDrinks from './ExploreDrinks';
 import RecipeDetails from './RecipeDetails';
 import FavoriteRecipes from './FavoriteRecipes';
-import CompletedRecipes from './CompletedRecipes';
 import RecipeInProgress from './RecipeInProgress';
+import ExploreIngredients from './ExploreIngredients';
 
 const Routes = () => (
   <Switch>
@@ -50,7 +50,7 @@ const Routes = () => (
     <Route path="/explorar/comidas/area" component={ ExploreArea } />
     <Route path="/explorar/comidas" component={ ExploreFood } />
     <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
-    <Route path="/receitas-feitas" component={ CompletedRecipes } />
+    <Route path="/receitas-feitas" component={ DoneRecipes } />
     <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
     <Route component={ NotFound } />
   </Switch>
