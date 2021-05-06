@@ -59,9 +59,8 @@ const FoodsInProgress = () => {
       alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
-      // doneDate: dateFormatting(),
-      // tags: strTags ? strTags.split(',') : [],
     };
+
     const myStorageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
     // funcao pra saber se esta la
     if (checkFavorite(myStorageFavorite, idMeal)) {
@@ -118,13 +117,6 @@ const FoodsInProgress = () => {
     saveFavoriteToLocalStorage();
   };
 
-  // Não da pra mexer no className do container principal... zoa a pagina
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  };
-
   useEffect(() => {
     localStorageInitialState();
   }, []);
@@ -147,75 +139,84 @@ const FoodsInProgress = () => {
   if (loading) return (<p>Loading...</p>);
   const { strMeal, strMealThumb, strCategory, strInstructions } = myRecipe;
   return (
-    <div style={ containerStyle }>
-      <h1 data-testid="recipe-title">{strMeal}</h1>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
-
-      <div className="button-container">
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ clickShare }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-
-        <button
-          type="button"
-          onClick={ clickFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ favorited ? blackHeartIcon : whiteHeartIcon }
-            alt="favorite"
-          />
-        </button>
-      </div>
-      {shareButton ? <span>Link copiado!</span> : null}
+    <div className="food-in-progress-body">
       <img
         src={ strMealThumb }
         alt={ strMeal }
-        className="food-image"
+        className="food-in-progress-image"
         data-testid="recipe-photo"
       />
-      <div>
-        { ingredients.map(({ ingredient, amount }, index) => (
-          <div
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-            className="ingredient-step-container"
+      <div className="food-in-progress-container">
+        <div className="food-in-progress-header">
+          <p className="food-in-progress-name" data-testid="recipe-title">{strMeal}</p>
+          <p
+            className="food-in-progress-category"
+            data-testid="recipe-category"
           >
-            <input
-              type="checkbox"
-              name={ ingredient }
-              value={ ingredient }
-              id={ ingredient }
-              onClick={ handleChecked }
-              defaultChecked={ checkDefaultChecked(ingredient) }
+            {strCategory}
+          </p>
+          {shareButton ? <span>Link copiado!</span> : null}
+        </div>
+        <div className="food-in-progress-button-container">
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ clickShare }
+          >
+            <img src={ shareIcon } alt="share" />
+          </button>
+
+          <button
+            type="button"
+            onClick={ clickFavorite }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favorited ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
             />
-            <label htmlFor={ ingredient }>
-              { `${ingredient} - ${amount}` }
-            </label>
-          </div>
-        )) }
+          </button>
+        </div>
+
+        <div className="food-in-progress-ingredient-container">
+          { ingredients.map(({ ingredient, amount }, index) => (
+            <div
+              key={ ingredient }
+              data-testid={ `${index}-ingredient-step` }
+              className="food-in-progress-ingredient-step-container"
+            >
+              <input
+                type="checkbox"
+                name={ ingredient }
+                value={ ingredient }
+                id={ ingredient }
+                onClick={ handleChecked }
+                defaultChecked={ checkDefaultChecked(ingredient) }
+              />
+              <label htmlFor={ ingredient }>
+                { `${ingredient} - ${amount}` }
+              </label>
+            </div>
+          )) }
+        </div>
+        <div className="food-in-progress-instructions">
+          <p
+            data-testid="instructions"
+          >
+            {strInstructions}
+          </p>
+        </div>
+        <Link to="/receitas-feitas" className="food-in-progress-finaliza-btn">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ !enableButton }
+            onClick={ handleFinishClick }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
-      <div>
-        <p
-          data-testid="instructions"
-        >
-          {strInstructions}
-        </p>
-      </div>
-      <Link to="/receitas-feitas">
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ !enableButton }
-          onClick={ handleFinishClick }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
     </div>
   );
 };

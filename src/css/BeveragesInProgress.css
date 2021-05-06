@@ -1,17 +1,87 @@
-.ingredient-step-container input:checked + label {
+.drink-in-progress-ingredient-step-container input:checked + label {
   text-decoration: line-through;
 }
 
-.beverage-image {
-  border-radius: 50px;
-  margin: auto;
-  max-height: 200px;
-  max-width: 200px;
+.drink-in-progress-ingredient-step-container > label {
+  color: white;
+  font-size: 1.1em;
+  padding-left: 10px;
+  text-transform: capitalize;
 }
 
-.button-container {
+.drink-in-progress-body {
+  background-color: rgb(45, 106, 79);
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  text-align: center;
+}
+
+.drink-in-progress-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 125px;
+  max-height: 100vh;
+  overflow-y: scroll;
+  width: 100%;
+}
+
+.drink-in-progress-image {
+  height: 120px;
+  margin: auto;
+  object-fit: cover;
+  position: fixed;
+  top: 0;
+  width: 360px;
+}
+
+.drink-in-progress-header {
+  font-weight: 600;
+  width: 75%;
+}
+
+.drink-in-progress-name {
+  font-size: 1.8em;
+  margin: 0;
+}
+
+.drink-in-progress-category {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.drink-in-progress-button-container {
+  align-items: flex-start;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  margin-top: 10px;
+  width: 20%;
+}
+
+.drink-in-progress-button-container > button {
+  background-color: rgb(45, 106, 79);
+  border: none;
+}
+
+.drink-in-progress-ingredient-container {
+  text-align: left;
+  margin: 20px auto;
+  width: 90%;
+}
+
+.drink-in-progress-instructions {
+  font-size: 1.1em;
+  font-weight: 600;
   margin: auto;
+  text-align: justify;
+  width: 88%;
+}
+
+.drink-in-progress-finaliza-btn {
+  margin: auto;
+}
+
+.drink-in-progress-finaliza-btn > button {
+  width: 340px;
 }

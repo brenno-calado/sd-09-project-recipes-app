@@ -117,12 +117,6 @@ const BeveragesInProgress = () => {
     saveFavoriteToLocalStorage();
   };
 
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  };
-
   useEffect(() => {
     localStorageInitialState();
   }, []);
@@ -145,76 +139,84 @@ const BeveragesInProgress = () => {
   if (loading) return (<p>Loading...</p>);
   const { strDrink, strDrinkThumb, strCategory, strInstructions } = myRecipe;
   return (
-    <div style={ containerStyle }>
-      <h1 data-testid="recipe-title">{strDrink}</h1>
-      <h4 data-testid="recipe-category">{strCategory}</h4>
-
-      <div className="button-container">
-        <button
-          type="button"
-          data-testid="share-btn"
-          onClick={ clickShare }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-
-        <button
-          type="button"
-          onClick={ clickFavorite }
-        >
-          <img
-            data-testid="favorite-btn"
-            src={ favorited ? blackHeartIcon : whiteHeartIcon }
-            alt="favorite"
-          />
-        </button>
-      </div>
-      {shareButton ? <span>Link copiado!</span> : null}
+    <div className="drink-in-progress-body">
       <img
         src={ strDrinkThumb }
         alt={ strDrink }
-        className="food-image"
+        className="drink-in-progress-image"
         data-testid="recipe-photo"
       />
-
-      <div>
-        { ingredients.map(({ ingredient, amount }, index) => (
-          <div
-            key={ ingredient }
-            data-testid={ `${index}-ingredient-step` }
-            className="ingredient-step-container"
+      <div className="drink-in-progress-container">
+        <div className="drink-in-progress-header">
+          <p className="drink-in-progress-name" data-testid="recipe-title">{strDrink}</p>
+          <p
+            className="drink-in-progress-category"
+            data-testid="recipe-category"
           >
-            <input
-              type="checkbox"
-              name={ ingredient }
-              value={ ingredient }
-              id={ ingredient }
-              onClick={ handleChecked }
-              defaultChecked={ checkDefaultChecked(ingredient) }
+            {strCategory}
+          </p>
+          {shareButton ? <span>Link copiado!</span> : null}
+        </div>
+        <div className="drink-in-progress-button-container">
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ clickShare }
+          >
+            <img src={ shareIcon } alt="share" />
+          </button>
+
+          <button
+            type="button"
+            onClick={ clickFavorite }
+          >
+            <img
+              data-testid="favorite-btn"
+              src={ favorited ? blackHeartIcon : whiteHeartIcon }
+              alt="favorite"
             />
-            <label htmlFor={ ingredient }>
-              { `${ingredient} - ${amount}` }
-            </label>
-          </div>
-        )) }
+          </button>
+        </div>
+
+        <div className="drink-in-progress-ingredient-container">
+          { ingredients.map(({ ingredient, amount }, index) => (
+            <div
+              key={ ingredient }
+              data-testid={ `${index}-ingredient-step` }
+              className="drink-in-progress-ingredient-step-container"
+            >
+              <input
+                type="checkbox"
+                name={ ingredient }
+                value={ ingredient }
+                id={ ingredient }
+                onClick={ handleChecked }
+                defaultChecked={ checkDefaultChecked(ingredient) }
+              />
+              <label htmlFor={ ingredient }>
+                { `${ingredient} - ${amount}` }
+              </label>
+            </div>
+          )) }
+        </div>
+        <div className="drink-in-progress-instructions">
+          <p
+            data-testid="instructions"
+          >
+            {strInstructions}
+          </p>
+        </div>
+        <Link to="/receitas-feitas" className="drink-in-progress-finaliza-btn">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            disabled={ !enableButton }
+            onClick={ handleFinishClick }
+          >
+            Finalizar Receita
+          </button>
+        </Link>
       </div>
-      <div>
-        <p
-          data-testid="instructions"
-        >
-          {strInstructions}
-        </p>
-      </div>
-      <Link to="/receitas-feitas">
-        <button
-          type="button"
-          data-testid="finish-recipe-btn"
-          disabled={ !enableButton }
-          onClick={ handleFinishClick }
-        >
-          Finalizar Receita
-        </button>
-      </Link>
     </div>
   );
 };
