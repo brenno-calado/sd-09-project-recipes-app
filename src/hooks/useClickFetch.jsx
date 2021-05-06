@@ -10,7 +10,9 @@ import {
   getRecipesFoodsFilterByCategory,
   getRecipesDrinksFilterByCategory,
   getRecipesByCategory,
-  getRecipesRandom } from '../services/fetchApi';
+  getRecipesRandom,
+  getRecipesByLocations,
+  getLocations } from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
@@ -35,6 +37,7 @@ function useClickFetch() {
     if (checkValue === 'name') {
       const apiData = await getRecipeByName(inputValue);
       setRecipesData(apiData);
+      console.log(apiData);
     }
     if (checkValue === 'firstLetter') {
       if (inputValue.length > 1) {
@@ -63,22 +66,20 @@ function useClickFetch() {
     }
   }
 
-  async function handleFetchRecipes(type) {
-    const apiData = await getRecipes(type);
-    setRecipesData(apiData);
-  }
-
   return [
     recipesData,
+    setRecipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
     getInputValue,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
     getRecipesRandom,
+    getLocations,
+    getRecipesByLocations,
   ];
 }
 

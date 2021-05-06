@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import HeaderFoods from '../components/HeaderFoods';
-import SearchBar from '../components/SearchBar';
 import { useRecipeContext } from '../contexts/recipeContext';
-import BottomMenu from '../components/BottomMenu';
-import createRender from '../utils/headerfoods';
+import createRender from '../utils/headerFoods';
 import useHandleClickButtonName from '../hooks/useHandleClickButtonName';
+import headerRenderFoods from '../utils/headerRenderFoods';
 
 function Foods() {
   const [meal, setMeal] = useState([]);
   const [listItemByCategory, setListItemByCategory] = useState([]);
+  const [initFood, setInitFood] = useState([]);
+  const [render, setRender] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
-
+  const twelve = 12;
   const { handleFetchFoodClick,
     recipesData,
-    handleFetchRecipes,
+    setRecipesData,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory } = useRecipeContext();
+
+  const headerFoodParams = {
+    meal,
+    render,
+    handleClickButtonName,
+    twelve,
+    handleFetchFoodClick,
+    recipesData,
+    setListItemByCategory,
+    setRecipesData,
+  };
 
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
@@ -26,12 +38,15 @@ function Foods() {
   }, [recipesData]);
 
   useEffect(() => {
-    handleFetchRecipes('themealdb');
-  }, [handleFetchRecipes]);
+    getRecipes('themealdb')
+      .then(({ meals }) => setInitFood(meals));
+    setRecipesData([]);
+  }, [getRecipes]);
 
   useEffect(() => {
     getRecipesByCategory('themealdb')
       .then(({ meals }) => setMeal(meals));
+    setRecipesData([]);
   }, [getRecipesByCategory]);
 
   useEffect(() => {
@@ -39,59 +54,22 @@ function Foods() {
       .then(({ meals }) => setListItemByCategory(meals || []));
   }, [category]);
 
-  function categoryButtom() {
-    const five = 5;
-    return (
-      meal.map(({ strCategory }, index) => (
-        index < five && (
-          <div className="categoty-btn">
-            <button
-              key={ strCategory }
-              type="button"
-              name={ strCategory }
-              data-testid={ `${strCategory}-category-filter` }
-              onClick={ ({ target }) => handleClickButtonName({ target }) }
-            >
-              { strCategory }
-            </button>
-          </div>
-        )
-      ))
-    );
-  }
-
-  function header() {
-    return (
-      <>
-        <HeaderFoods hassearchbar>
-          <h1 data-testid="page-title">Comidas</h1>
-        </HeaderFoods>
-        <SearchBar>
-          <button
-            onClick={ () => { handleFetchFoodClick(); } }
-            data-testid="exec-search-btn"
-            type="button"
-          >
-            Buscar
-          </button>
-        </SearchBar>
-        {categoryButtom() }
-        { listItemByCategory.length
-          ? createRender(listItemByCategory)
-          : (recipesData.meals && (createRender(recipesData.meals))) }
-        <BottomMenu />
-      </>
-    );
-  }
+  useEffect(() => {
+    if (listItemByCategory.length > 0) {
+      setRender(createRender(listItemByCategory));
+    } else if (initFood.length) {
+      setRender(createRender(initFood));
+    }
+  }, [initFood, listItemByCategory]);
 
   if (recipesData.meals) {
-    const mealId = recipesData.meals.map(({ idMeal }) => idMeal);
+    const mealId = recipesData.meals && recipesData.meals.map(({ idMeal }) => idMeal);
     return recipesData.meals.length === 1 ? (<Redirect to={ `/comidas/${mealId}` } />)
-      : header();
+      : headerRenderFoods(headerFoodParams);
   }
 
   return (
-    header()
+    headerRenderFoods(headerFoodParams)
   );
 }
 

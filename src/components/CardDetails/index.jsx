@@ -1,18 +1,14 @@
 import { string, arrayOf, shape, bool, func } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import React, { useState } from 'react';
+import React from 'react';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
+import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 
 function CardDetails({
   image, title, video, categoryText, instructions,
   shouldVideoApear, children, isAlcoholic, handleFavoriteClick, favorite }) {
-  const [copyUrl, setCopyUrl] = useState('');
-
-  function handleClickUrl() {
-    setCopyUrl('Link copiado!');
-  }
-
+  const [copyUrl, handleClickUrl] = useHandleClickUrl();
   const url = window.location.href;
   return (
     <li>

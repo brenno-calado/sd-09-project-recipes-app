@@ -6,15 +6,18 @@ const RecipeContext = createContext();
 
 export function RecipeContextProvider({ children }) {
   const [recipesData,
+    setRecipesData,
     handleFetchFoodClick,
     handleFetchDrinkClick,
     handleCheck,
     getInputValue,
-    handleFetchRecipes,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
-    getRecipesRandom] = useClickFetch();
+    getRecipesRandom,
+    getLocations,
+    getRecipesByLocations] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -39,11 +42,14 @@ export function RecipeContextProvider({ children }) {
     handleFetchFoodClick,
     handleFetchDrinkClick,
     recipesData,
-    handleFetchRecipes,
+    setRecipesData,
+    getRecipes,
     getRecipesByCategory,
     getRecipesFoodsFilterByCategory,
     getRecipesDrinksFilterByCategory,
     getRecipesRandom,
+    getLocations,
+    getRecipesByLocations,
   };
 
   return (
