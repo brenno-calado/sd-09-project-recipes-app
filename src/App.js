@@ -5,7 +5,6 @@ import Login from './pages/login';
 import MainPage from './pages/mainPage';
 import RecipeDetails from './pages/recipeDetails';
 import FoodInProcess from './pages/foodInProcess';
-import DrinkInProcess from './pages/drinkInProcess';
 import Explore from './pages/explore';
 import ExploreFoodOrDrink from './pages/exploreFoodOrDrink';
 import ExploreIngredients from './pages/exploreIngredients';
@@ -26,7 +25,7 @@ function App() {
       <Route path="/comidas/:id" component={ RecipeDetails } />
       <Route path="/bebidas/:id" component={ RecipeDetails } />
       <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />
-      <Route path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
+      <Route path="/bebidas/:id/in-progress" component={ FoodInProcess } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoodOrDrink } />
       <Route exact path="/explorar/bebidas" component={ ExploreFoodOrDrink } />
