@@ -5,20 +5,24 @@ import MenuInferior from '../components/MenuInferior';
 
 function DrinkIngredients() {
   const [ingredientNames, setNames] = useState([]);
+  const limit = 12;
 
   useEffect(() => {
-    const cardLength = 12;
-    (async function getIngredientApi() {
+    const fetchDrinks = async () => {
       try {
-        const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
-        const data = await response.json();
-        const dataNames = data.drinks.slice(0, cardLength);
+        const response = await
+        fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+        const result = await response.json();
+        const dataNames = (result.drinks.slice(0, limit));
         setNames([...dataNames]);
       } catch (error) {
-        console.error(error);
+        return Error(error);
       }
-    }());
+    };
+    fetchDrinks();
   }, []);
+
+  console.log(ingredientNames);
 
   const renderCardIngredients = () => (
     ingredientNames.map((names, index) => (
@@ -41,7 +45,7 @@ function DrinkIngredients() {
   return (
     <div>
       <Header />
-      <div>{ renderCardIngredients() }</div>
+      { renderCardIngredients() }
       <MenuInferior />
     </div>
   );
