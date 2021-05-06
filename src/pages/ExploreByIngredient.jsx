@@ -10,6 +10,7 @@ import {
   mealsThunk,
   cocktailsThunk,
 } from '../redux/actions/index';
+import Footer from '../components/Footer';
 
 const ExploreByIngredients = ({
   getIngredientsMealsDispatcher,
@@ -107,6 +108,7 @@ const ExploreByIngredients = ({
       Explorar Por Ingredientes
       { (pathname.includes('/comidas')) ? mealsCards : cocktailsCards}
       { redirect && redirectTeste() }
+      <Footer />
     </div>
   );
 };

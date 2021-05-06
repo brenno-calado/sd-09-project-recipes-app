@@ -7,6 +7,7 @@ import {
   getMealsByAreaThunk,
   allMealsThunk,
 } from '../redux/actions/actionsExplore';
+import Footer from '../components/Footer';
 
 const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher }) => {
   const [selectOption, setSelectOption] = useState('');
@@ -74,6 +75,7 @@ const ExploreByArea = ({ getAreas, areas, getRecipe, recipes, mealsDispatcher })
         </select>
       </label>
       { showList && renderRecipeList }
+      <Footer />
     </div>
   );
 };
