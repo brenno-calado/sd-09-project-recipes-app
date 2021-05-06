@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { findRenderedDOMComponentWithTag } from 'react-dom/test-utils';
 import MyContext from './context';
 import fetchApi from '../services/index';
 
