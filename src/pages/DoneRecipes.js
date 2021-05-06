@@ -5,6 +5,7 @@ function DoneRecipes() {
   return (
     <div>
       <Header title="Receitas Feitas" />
+      <div>Bora lá</div>
     </div>
   );
 }
