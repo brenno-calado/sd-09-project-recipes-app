@@ -6,13 +6,14 @@ import Cards from '../components/Cards';
 import Footer from '../components/Footer';
 import { fetchMeals } from '../services/fetchRecipes';
 import './Styles/Recipes.css';
-import { getRecipesAction } from '../Redux/actions';
+import { getRecipesAction, shouldFetch } from '../Redux/actions';
 import Filters from '../components/Filters';
 
-function Foods({ getRecipes, recipes }) {
+function Foods({ getRecipes, recipes, itFetch, shouldItFetch }) {
   useEffect(() => {
-    fetchMeals().then((data) => getRecipes(data));
-  }, [getRecipes]);
+    if (shouldItFetch) fetchMeals().then((data) => getRecipes(data));
+    itFetch();
+  }, [getRecipes, itFetch]);
 
   return (
     <div id="Recipes">
@@ -26,10 +27,12 @@ function Foods({ getRecipes, recipes }) {
 
 const mapStateToProps = (state) => ({
   recipes: state.recipesList.list,
+  shouldItFetch: state.recipesList.shouldFetch,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getRecipes: (data) => dispatch(getRecipesAction(data)),
+  itFetch: () => dispatch(shouldFetch()),
 });
 
 Foods.propTypes = {
