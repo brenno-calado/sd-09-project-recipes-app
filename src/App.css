@@ -61,7 +61,9 @@
 }
 
 .card-container {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -213,6 +215,90 @@
 .done-recipe {
   bottom: 0;
   position: fixed;
+}
+
+.fav-card {
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 10px;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+  width: 100%;
+}
+
+.fav-wrap {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  width: 50%;
+}
+
+.fav-container-btn button {
+  margin: 10px;
+}
+
+.fav-card .recipe-img {
+  height: 144px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 130px;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.fav-nav-btn {
+  appearance: none;
+  border: solid 1px #c6c6c6;
+  height: 40px;
+  position: relative;
+  transition: ease 0.3s;
+  width: 100px;
+}
+
+.fav-nav-btn:nth-of-type( 1 ) {
+  border-radius: 10px 0 0 10px;
+}
+
+.fav-nav-btn:nth-of-type( 3 ) {
+  border-radius: 0 10px 10px 0;
+}
+
+.fav-nav-btn:after {
+  color: #3c40c6;
+  content: 'All';
+  left: 40%;
+  position: absolute;
+  top: 22%;
+}
+
+.fav-nav-btn:checked {
+  background-color: #3c40c6;
+  color: white;
+}
+
+.fav-nav-btn:checked:after {
+  color: white;
+}
+
+.fav-nav-btn:nth-of-type( 2 ):after {
+  content: 'Food';
+  left: 33%;
+
+}
+
+.fav-nav-btn:nth-of-type( 3 ):after {
+  content: 'Drinks';
+  left: 28%;
+
 }
 
 @media only screen and ( min-width : 600px ) {
