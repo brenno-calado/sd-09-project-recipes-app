@@ -1,0 +1,8 @@
+.ingredients-steps .completed {
+    font-weight: bold;
+    text-decoration: line-through;
+}
+
+.ingredients-steps li {
+    list-style: none;
+}
