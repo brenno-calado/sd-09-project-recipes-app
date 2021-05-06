@@ -17,8 +17,8 @@
 
 .header-search {
   background-color: white;
-  width: 360px;
   margin: 0 10px;
+  width: 360px;
 }
 
 .search-text {
@@ -27,9 +27,9 @@
 }
 
 .search-radio {
-  width: 340px;
   display: flex;
   justify-content: space-between;
+  width: 340px;
 }
 
 .search-input-radio {
@@ -60,7 +60,7 @@
 }
 
 .search-btn {
-  background-color:  #c4c4c4;
+  background-color: #c4c4c4;
   border: none;
 }
 
