@@ -1,11 +1,12 @@
 import React from 'react';
-import { arrayOf, string, func, bool } from 'prop-types';
+import { arrayOf, string, func, bool, shape } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import useShouldRedirect from '../../hooks/useShoulRedirect';
+import endRecipeButton from '../../utils/endRecipeButton';
 
 function CardeInProgress({
   image,
@@ -15,10 +16,26 @@ function CardeInProgress({
   favorite,
   children,
   handleFavorite,
-  // id,
+  id,
+  match,
+  area,
+  tags,
+  style,
   // state,
 }) {
+  const endRecipeParams = {
+    id,
+    match,
+    area,
+    tags,
+    image,
+    title,
+    category,
+    style,
+  };
+
   // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
@@ -72,10 +89,10 @@ function CardeInProgress({
       </ul>
       <p data-testid="instructions">{instructions}</p>
       <button
-        onClick={ handleClickRedirect }
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"
+        onClick={ () => { endRecipeButton(endRecipeParams); handleClickRedirect(); } }
       >
         Finalizar receita
       </button>
@@ -91,6 +108,11 @@ CardeInProgress.propTypes = {
   children: arrayOf(Object),
   handleFavorite: func,
   favorite: bool,
+  id: string,
+  area: string,
+  tags: string,
+  style: string,
+  match: shape(),
 };
 
 CardeInProgress.defaultProps = {
@@ -101,6 +123,11 @@ CardeInProgress.defaultProps = {
   children: [],
   handleFavorite: () => {},
   favorite: false,
+  id: '',
+  area: '',
+  tags: '',
+  style: '',
+  match: {},
 };
 
 export default CardeInProgress;

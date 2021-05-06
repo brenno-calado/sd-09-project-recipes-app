@@ -50,6 +50,7 @@ function FoodRecipeInProgress(props) {
           strCategory,
           strInstructions,
           idMeal,
+          strTags,
         }) => (
           <CardeInProgress
             key={ idMeal }
@@ -61,6 +62,8 @@ function FoodRecipeInProgress(props) {
             handleFavorite={ () => handleFavorite(favoriteParams) }
             state={ state }
             id={ id }
+            match={ match }
+            tags={ strTags }
           >
             {ingredientList(apiData, match, handleCheckFoodValuesValues)}
 
