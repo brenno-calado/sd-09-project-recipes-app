@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ShareButton from '../components/ShareButton';
 import FavoriteButton from '../components/FavoriteButton';
 import { getFoodById } from '../services/FoodAPI';
 import { getDrinkById } from '../services/DrinksAPI';
 import './RecipeInProgress.css';
-import { Link } from 'react-router-dom';
 
 const setRecipeToLocalStorage = (recipeInProgress, recipeType) => {
   recipeType = recipeType === 'Meal' ? 'meals' : 'drinks';
