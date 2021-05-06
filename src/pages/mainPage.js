@@ -49,7 +49,6 @@ export default function MainPageFood() {
     state.recipesReducer.selectedIngredient));
 
   const fetchDispatch = async (fetchParam, fetchValue, value) => {
-    console.log([type, fetchParam, value]);
     const fetch = await getFoodsAndDrinks(type, fetchParam, value);
     dispatch(fetchValues[type][fetchValue](fetch));
   };
@@ -75,10 +74,10 @@ export default function MainPageFood() {
       fetchDispatch('getIngredientByValue', 'all', listByIngredient);
       fetchDispatch('getByCategory', 'categories');
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return () => {
       dispatch(getOneIngredient(''));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [type]);
 
   const selectCategoryButton = async (value) => {

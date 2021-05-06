@@ -4,7 +4,6 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/login';
 import MainPage from './pages/mainPage';
 import RecipeDetails from './pages/recipeDetails';
-// import DrinkDetails from './pages/drinkDetails';
 import FoodInProcess from './pages/foodInProcess';
 import DrinkInProcess from './pages/drinkInProcess';
 import Explore from './pages/explore';
@@ -12,8 +11,7 @@ import ExploreFoodOrDrink from './pages/exploreFoodOrDrink';
 import ExploreIngredients from './pages/exploreIngredients';
 import ExploreFoodByLocal from './pages/exploreFoodByLocal';
 import Profile from './pages/profile';
-import DoneRecipes from './pages/doneRecipes';
-import FavoriteRecipes from './pages/favoriteRecipes';
+import DoneAndFavoriteRecipes from './pages/doneAndFavoriteRecipes';
 import Page404 from './pages/page404';
 
 import './App.css';
@@ -36,8 +34,8 @@ function App() {
       <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/comidas/area" component={ ExploreFoodByLocal } />
       <Route path="/perfil" component={ Profile } />
-      <Route path="/receitas-feitas" component={ DoneRecipes } />
-      <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
+      <Route path="/receitas-feitas" component={ DoneAndFavoriteRecipes } />
+      <Route path="/receitas-favoritas" component={ DoneAndFavoriteRecipes } />
       <Route path="/*" component={ Page404 } />
     </Switch>
   );
