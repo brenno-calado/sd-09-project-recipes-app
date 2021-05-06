@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { doneRecipesAction } from '../action/ButtonAction';
 import CardDone from '../components/CardDone';
-import FooterSpec from '../components/FooterSpec';
 import Header from '../components/Header';
+import '../styles/Geral.css';
 
 class DoneRecipes extends React.Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class DoneRecipes extends React.Component {
     const { recipeDone } = this.state;
 
     return (
-      <div>
+      <div className="geral-margin">
         <Header titleHeader="Receitas Feitas" />
         <section>
           <button
@@ -75,7 +75,6 @@ class DoneRecipes extends React.Component {
             <CardDone key={ `${done}${index}` } done={ done } index={ index } />
           ))}
         </section>
-        <FooterSpec />
       </div>
     );
   }

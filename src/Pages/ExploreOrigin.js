@@ -2,7 +2,8 @@ import React from 'react';
 import '../styles/mainScreen.css';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { filterOriginThunkAction, foodThunkAction } from '../action/FoodAndDrinkAction';
+import {
+  filterAreaThunkAction, filterOriginThunkAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
 import FoodCard from '../components/FoodCard';
 import FooterSpec from '../components/FooterSpec';
@@ -19,30 +20,27 @@ class ExploreOrigin extends React.Component {
   }
 
   componentDidMount() {
-    const { setFood, setFilterOrigin, getFoodBoolean, getFoodName } = this.props;
-    setFood('', getFoodBoolean, getFoodName);
+    const { setArea, setFilterOrigin, getFoodBoolean, getFoodName } = this.props;
+    setArea('All', getFoodBoolean, getFoodName);
     setFilterOrigin();
   }
 
   handleChange(event) {
     const { value } = event.target;
-    console.log(value);
-    const { setFood, getFoodBoolean, getFoodName } = this.props;
-    setFood(value, getFoodBoolean, getFoodName);
+    const { setArea } = this.props;
+    this.setState({ value });
+    setArea(value);
   }
 
   render() {
     const {
       getFood,
       getFilterOrigin,
-      // setFood,
-      // getFoodBoolean,
-      // getFoodName,
     } = this.props;
 
     const { value } = this.state;
     const { handleChange } = this;
-    console.log(getFood);
+
     return (
       <div className="main">
         <Header titleHeader="Explorar Origem" id="0" />
@@ -58,15 +56,11 @@ class ExploreOrigin extends React.Component {
                 key={ `${filter}${index}` }
                 data-testid={ `${filter.strArea}-option` }
                 value={ filter.strArea }
-                // value={ () => setFood(filter.strArea, getFoodBoolean, getFoodName) }
               >
                 { filter.strArea }
               </option>
             )) }
           </select>
-          {/*
-            onClick={ () => setFood(filter.strCategory, getFoodBoolean, getFoodName) }
-          */}
         </aside>
         <section className="mainBox">
           { getFood.map((food, index) => (
@@ -87,17 +81,14 @@ class ExploreOrigin extends React.Component {
 
 const mapStateToProps = (state) => ({
   getFood: state.FoodAndDrinkReducer.food,
-  // getFilterFood: state.FoodAndDrinkReducer.filterFood,
   getFilterOrigin: state.FoodAndDrinkReducer.filterOrigin,
   getFoodName: state.FoodAndDrinkReducer.foodName,
   getFoodBoolean: state.FoodAndDrinkReducer.foodBoolean,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setFood: (food, foodBoolean, foodName) => dispatch(
-    foodThunkAction(food, foodBoolean, foodName),
-  ),
-  // setFilterFood: () => dispatch(filterFoodThunkAction()),
+  setArea: (value) => dispatch(filterAreaThunkAction(value)),
+
   setFilterOrigin: () => dispatch(filterOriginThunkAction()),
 });
 

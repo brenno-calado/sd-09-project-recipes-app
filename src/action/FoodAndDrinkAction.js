@@ -1,5 +1,6 @@
 const magicNumber = 12;
 const magicNumberFilter = 5;
+const endpointP = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const FOOD_ACTION = 'FOOD_ACTION';
 
@@ -7,7 +8,7 @@ const getFoodAction = (food, foodBoolean, foodName) => ({
   type: FOOD_ACTION, food, foodBoolean, foodName });
 
 export const foodThunkAction = (food, foodBoolean, foodName) => async (dispatch) => {
-  let endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  let endpoint = endpointP;
 
   if (!food) {
     foodName = '';
@@ -23,7 +24,7 @@ export const foodThunkAction = (food, foodBoolean, foodName) => async (dispatch)
   }
 
   if (food === 'All') {
-    endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    endpoint = endpointP;
   }
 
   const response = await fetch(endpoint);
@@ -159,4 +160,17 @@ export const searchThunkAction = (search, input, type) => async (dispatch) => {
   }
   dispatch(getFoodAction(result[newType].slice(0, magicNumber)));
   return dispatch(searchBoolean());
+};
+
+export const filterAreaThunkAction = (area) => async (dispatch) => {
+  let endpoint = endpointP;
+  if (area !== 'All') {
+    endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  }
+  console.log(endpoint);
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return dispatch(
+    getFoodAction(result.meals.slice(0, magicNumber)),
+  );
 };

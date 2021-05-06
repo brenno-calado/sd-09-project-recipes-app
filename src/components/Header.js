@@ -15,10 +15,10 @@ class Header extends React.Component {
     this.searchBarOpen = this.searchBarOpen.bind(this);
   }
 
-  componentDidMount() {
-    const { setSearchBar } = this.props;
-    setSearchBar(true);
-  }
+  // componentDidMount() {
+  //   const { setSearchBar } = this.props;
+  //   setSearchBar(true);
+  // }
 
   searchBarOpen() {
     const { setSearchBar, getSearchBoolean } = this.props;
