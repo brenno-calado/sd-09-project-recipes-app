@@ -48,7 +48,7 @@ function Explorar() {
         </Link>
       </section>
       <section className="app-icon-section">
-        <img className="icon" src={ cooking } alt="" />
+        <img className="icon" src={ cooking } alt="icon" />
       </section>
       <Footer />
     </>
