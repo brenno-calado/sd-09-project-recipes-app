@@ -1,17 +1,15 @@
 import copy from 'clipboard-copy';
 import { number } from 'prop-types';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import shareIcon from '../../images/shareIcon.svg';
-import RecipesContext from '../../context/RecipesContext';
 
 import './ShareButton.css';
 
 const ShareButton = (props) => {
-  const { location } = useContext(RecipesContext);
   const [copied, setCopied] = useState(false);
-  const URL = `http://localhost:3000${location.pathname}`;
-  const { dataTestIdIndex } = props;
+
+  const { dataTestIdIndex, URL } = props;
 
   const copyUrl = () => {
     const sucessPromise = copy(URL);

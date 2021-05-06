@@ -32,7 +32,7 @@ const CardRecipe = (props) => {
             <p data-testid={ `${index}-horizontal-done-date` }>
               { `Feita em: ${recipe.doneDate}` }
             </p>
-            <ShareButton dataTestIdIndex={ `${index}` } />
+            <ShareButton dataTestIdIndex={ `${index}` } URL={ `http://localhost:3000/${recipe.type}s/${recipe.id}` } />
             {
               recipe.tags.map((tag) => (
                 <span
