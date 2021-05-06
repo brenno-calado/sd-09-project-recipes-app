@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { recipeSurpriseThunk } from '../redux/actions/actionsExplore';
+import Footer from '../components/Footer';
 
 const ExploreFoods = ({ dispatchSurpriseRecipe, surpriseRecipe }) => {
   const fetchRandom = async (type) => {
@@ -42,6 +43,7 @@ const ExploreFoods = ({ dispatchSurpriseRecipe, surpriseRecipe }) => {
               Me Surpreenda!
             </button>
           </Link>
+          <Footer />
         </div>
       );
     }

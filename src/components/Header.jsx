@@ -29,7 +29,7 @@ const Header = () => {
           alt="search-icon"
           src={ searchIcon }
         />
-        Search
+        {/* Search */}
       </button>
 
       { searchBar && <SearchBar /> }

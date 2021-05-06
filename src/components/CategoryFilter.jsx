@@ -66,7 +66,7 @@ function CategoryFilter({
               onClick={ handleClick }
               value={ strCategory }
             >
-              { strCategory}
+              { strCategory }
             </button>
           ))
         )
