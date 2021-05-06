@@ -50,7 +50,12 @@ function Foods() {
       {pathname === '/comidas' ? (
         <CategoryButtons route={ route } categoryName={ categoryName } />
       ) : null }
-      <Cards route={ pathname } categoryName={ categoryName } />
+      <Cards
+        route={ pathname }
+        categoryName={ categoryName }
+        history={ history }
+        pathname={ pathname }
+      />
       {pathname === '/comidas' ? <Footer /> : null}
     </div>
   );

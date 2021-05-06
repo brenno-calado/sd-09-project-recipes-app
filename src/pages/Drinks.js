@@ -50,7 +50,7 @@ function Drinks() {
       {pathname === '/bebidas' ? (
         <CategoryButtons route={ route } categoryName={ categoryName } />
       ) : null }
-      <Cards route={ pathname } />
+      <Cards route={ pathname } history={ history } pathname={ pathname } />
       {pathname === '/bebidas' ? <Footer /> : null}
     </div>
   );
