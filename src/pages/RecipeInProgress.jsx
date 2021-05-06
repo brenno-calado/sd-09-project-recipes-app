@@ -43,16 +43,7 @@ const RecipeInProgress = (props) => {
   };
 
   const favoriteRecipe = () => {
-    const newFavorite = {
-      id,
-      type: typeRecipe[1],
-      area: recipe.strArea,
-      category: recipe.strCategory,
-      alcoholicOrNot: recipe.strAlcoholic || '',
-      name: recipe[`str${typeRecipe[2]}`],
-      image: recipe[`str${typeRecipe[2]}Thumb`],
-    };
-    handleFavorites(newFavorite);
+    handleFavorites(recipe, typeRecipe, id);
   };
 
   return (
@@ -94,7 +85,6 @@ const RecipeInProgress = (props) => {
         <h4>Instruções</h4>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
-      <button type="button" data-testid="finish-recipe-btn">Finalizar</button>
     </div>
   );
 };

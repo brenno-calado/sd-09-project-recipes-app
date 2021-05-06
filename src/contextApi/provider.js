@@ -1,3 +1,4 @@
+import { node } from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import AppContext from './context';
 
@@ -13,11 +14,20 @@ const Provider = ({ children }) => {
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   }, [favoriteRecipes]);
 
-  const handleFavorites = (newFavorite) => {
+  const handleFavorites = (recipe, typeRecipe, id) => {
+    const newFavorite = {
+      id,
+      type: typeRecipe[1],
+      area: recipe.strArea || '',
+      category: recipe.strCategory || '',
+      alcoholicOrNot: recipe.strAlcoholic || '',
+      name: recipe[`str${typeRecipe[2]}`],
+      image: recipe[`str${typeRecipe[2]}Thumb`],
+    };
     if (favoriteRecipes
       .find((favorite) => favorite.id === newFavorite.id)) {
       setFavoriteRecipes(favoriteRecipes
-        .filter((recipe) => recipe.id !== newFavorite.id));
+        .filter((favorite) => favorite.id !== newFavorite.id));
     } else {
       setFavoriteRecipes([...favoriteRecipes, newFavorite]);
     }
@@ -49,5 +59,9 @@ const Provider = ({ children }) => {
     </AppContext.Provider>
   );
 };
+
+Provider.propTypes = {
+  children: node,
+}.isRequired;
 
 export default Provider;

@@ -1,13 +1,14 @@
 import { arrayOf, string } from 'prop-types';
 import { useParams } from 'react-router';
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const IngredientsList = ({ ingredients, type }) => {
   const [ingredientsChecked, setIngredientsChecked] = useState([]);
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   const { id } = useParams();
 
-  useEffect(() => {
+  const getRecipesinProgress = () => {
     if (inProgressRecipes && inProgressRecipes[type]) {
       Object.keys(inProgressRecipes[type]).forEach((recipeId) => {
         if (recipeId === id) {
@@ -15,6 +16,10 @@ const IngredientsList = ({ ingredients, type }) => {
         }
       });
     }
+  };
+
+  useEffect(() => {
+    getRecipesinProgress();
   }, []);
 
   const handleIngredientsCheck = (ingredient) => {
@@ -70,6 +75,13 @@ const IngredientsList = ({ ingredients, type }) => {
           {ingredient}
         </label>
       )) }
+      <button
+        disabled={ ingredients.length !== ingredientsChecked.length }
+        type="button"
+        data-testid="finish-recipe-btn"
+      >
+        <Link to="/receitas-feitas">Finalizar</Link>
+      </button>
     </div>
   );
 };
