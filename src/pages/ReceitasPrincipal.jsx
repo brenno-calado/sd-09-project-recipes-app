@@ -6,12 +6,12 @@ import Header from '../components/Header';
 import Categories from '../components/Categories';
 
 function ReceitasPrincipal() {
-  const { values: { isFetching } } = useContext(RecipesContext);
+  const { values: { isFetching, recipesResult } } = useContext(RecipesContext);
   return !isFetching ? (
     <>
       <Header />
       <Categories />
-      <Card />
+      <Card data={ recipesResult } />
       <Footer />
     </>
   ) : <span>Carregando ...</span>;

@@ -1,0 +1,8 @@
+.carrousel {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.carrousel .recipe-card {
+  display: inline-block;
+}
