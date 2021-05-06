@@ -174,3 +174,7 @@ export const filterAreaThunkAction = (area) => async (dispatch) => {
     getFoodAction(result.meals.slice(0, magicNumber)),
   );
 };
+
+export const INGREDIENT_ACTION = 'INGREDIENT_ACTION';
+
+export const ingredientAction = (ingredient) => ({ type: INGREDIENT_ACTION, ingredient });
