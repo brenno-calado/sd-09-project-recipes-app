@@ -1,12 +1,12 @@
-.drink-in-progress-ingredient-step-container input:checked + label {
-  text-decoration: line-through;
-}
-
 .drink-in-progress-ingredient-step-container > label {
   color: white;
   font-size: 1.1em;
   padding-left: 10px;
   text-transform: capitalize;
+}
+
+.drink-in-progress-ingredient-step-container input:checked + label {
+  text-decoration: line-through;
 }
 
 .drink-in-progress-body {
@@ -65,8 +65,8 @@
 }
 
 .drink-in-progress-ingredient-container {
-  text-align: left;
   margin: 20px auto;
+  text-align: left;
   width: 90%;
 }
 
