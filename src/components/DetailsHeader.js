@@ -16,7 +16,9 @@ class DetailsHeader extends React.Component {
           data-testid="recipe-photo"
         />
         <h1 data-testid="recipe-title">{recipe[`str${query}`]}</h1>
-        <h3 data-testid="recipe-category">{recipe.strCategory}</h3>
+        {recipe.strAlcoholic
+          ? <h3 data-testid="recipe-category">Alcoholic</h3>
+          : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
         <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
         <img src={ whiteHeart } alt="white-Heart" data-testid="favorite-btn" />
       </div>
