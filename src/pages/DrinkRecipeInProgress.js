@@ -47,6 +47,8 @@ function DrinkRecipeInProgress(props) {
           strDrink,
           strInstructions,
           strAlcoholic,
+          strTags,
+          strCategory,
         }) => (
           <CardeInProgress
             key={ Math.random() }
@@ -57,6 +59,9 @@ function DrinkRecipeInProgress(props) {
             handleFavorite={ () => handleFavorite(favoriteParams) }
             favorite={ favorite }
             id={ id }
+            match={ match }
+            tags={ strTags }
+            style={ strCategory }
           >
             {ingredientList(apiData, match, handleCheckDrinkValues)}
           </CardeInProgress>
