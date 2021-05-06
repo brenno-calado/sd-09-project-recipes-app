@@ -86,7 +86,11 @@ TitleContainer.propTypes = {
       PropTypes.number,
       PropTypes.array,
     ]),
-  ).isRequired,
+  ),
+};
+
+TitleContainer.defaultProps = {
+  item: {},
 };
 
 export default TitleContainer;

@@ -24,7 +24,6 @@ function ListIngredientsCards(props) {
     }
 
     function choiceItem(name) {
-      // const name = event.target.alt;
       setIngreditOn(name);
     }
 
@@ -32,7 +31,6 @@ function ListIngredientsCards(props) {
       .map((item, index) => ((
         <div key={ item[option] } data-testid={ `${index}-ingredient-card` }>
           <IngredientsCardContainer>
-            {console.log(`${index}-ingredient-card`)}
             <Link to={ `/${drinkOrFood}` } onClick={ () => choiceItem(item[option]) }>
               <span data-testid={ `${index}-card-name` }>{item[option]}</span>
               <img
