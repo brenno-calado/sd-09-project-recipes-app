@@ -19,6 +19,7 @@ import FoodsByIngredients from './pages/FoodsByIngredients';
 import DrinksByIngredients from './pages/DrinksByIngredients';
 import FoodsByArea from './pages/FoodsByArea';
 import NotFound from './pages/NotFound';
+import RecipesDone from './pages/RecipesDone';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Route path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route path="/explorar" component={ Explore } />
         <Route path="/perfil" component={ Profile } />
+        <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ Favorites } />
       </Switch>
     </div>
