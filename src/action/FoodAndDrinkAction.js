@@ -1,5 +1,6 @@
 const magicNumber = 12;
 const magicNumberFilter = 5;
+const endpointP = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const FOOD_ACTION = 'FOOD_ACTION';
 
@@ -7,7 +8,7 @@ const getFoodAction = (food, foodBoolean, foodName) => ({
   type: FOOD_ACTION, food, foodBoolean, foodName });
 
 export const foodThunkAction = (food, foodBoolean, foodName) => async (dispatch) => {
-  let endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  let endpoint = endpointP;
 
   if (!food) {
     foodName = '';
@@ -23,7 +24,7 @@ export const foodThunkAction = (food, foodBoolean, foodName) => async (dispatch)
   }
 
   if (food === 'All') {
-    endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    endpoint = endpointP;
   }
 
   const response = await fetch(endpoint);
@@ -43,6 +44,18 @@ export const filterFoodThunkAction = () => async (dispatch) => {
   const response = await fetch(endpoint);
   const result = await response.json();
   return dispatch(getFilterFoodAction(result.meals.slice(0, magicNumberFilter)));
+};
+
+export const FILTERORIGIN_ACTION = 'FILTERORIGIN_ACTION';
+
+const getFilterOriginAction = (filterOrigin) => ({
+  type: FILTERORIGIN_ACTION, filterOrigin });
+
+export const filterOriginThunkAction = () => async (dispatch) => {
+  const endpoint = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return dispatch(getFilterOriginAction(result.meals));
 };
 
 export const DRINKS_ACTION = 'DRINKS_ACTION';
@@ -87,4 +100,77 @@ export const filterDrinksThunkAction = () => async (dispatch) => {
   const response = await fetch(endpoint);
   const result = await response.json();
   return dispatch(getFilterDrinksAction(result.drinks.slice(0, magicNumberFilter)));
+};
+
+export const SEARCHBAR_ACTION = 'SEARCHBAR_ACTION';
+
+export const searchAction = (boolean) => {
+  const searchBar = document.querySelector('.main');
+  let searchBoolean = false;
+
+  if (!boolean) {
+    searchBar.style.marginTop = '160px';
+    searchBoolean = true;
+  } else {
+    searchBar.style.marginTop = '56px';
+    searchBoolean = false;
+  }
+
+  return ({ type: SEARCHBAR_ACTION, searchBoolean });
+};
+
+export const SEARCHBOOLEAN_ACTION = 'SEARCHBOOLEAN_ACTION';
+
+const searchBoolean = () => ({ type: SEARCHBOOLEAN_ACTION });
+
+const searchFunction = (search, input, type) => {
+  let endpoint = '';
+
+  if (search === 'ingredient') {
+    endpoint = `https://www.the${type}db.com/api/json/v1/1/filter.php?i=${input}`;
+  } else if (search === 'name') {
+    endpoint = `https://www.the${type}db.com/api/json/v1/1/search.php?s=${input}`;
+  } else if (search === 'firstLetter') {
+    endpoint = `https://www.the${type}db.com/api/json/v1/1/search.php?f=${input}`;
+  }
+  return endpoint;
+};
+
+export const searchThunkAction = (search, input, type) => async (dispatch) => {
+  const endpoint = searchFunction(search, input, type);
+
+  let newType = `${type}s`;
+
+  const response = await fetch(endpoint);
+  const result = await response.json();
+
+  console.log(!result[newType]);
+
+  console.log(!result.drinks);
+
+  if (!result[newType] && !result.drinks) {
+    return (
+      window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
+  }
+
+  if (type === 'cocktail') {
+    newType = 'drinks';
+    dispatch(getDrinksAction(result[newType].slice(0, magicNumber)));
+    return dispatch(searchBoolean());
+  }
+  dispatch(getFoodAction(result[newType].slice(0, magicNumber)));
+  return dispatch(searchBoolean());
+};
+
+export const filterAreaThunkAction = (area) => async (dispatch) => {
+  let endpoint = endpointP;
+  if (area !== 'All') {
+    endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
+  }
+  console.log(endpoint);
+  const response = await fetch(endpoint);
+  const result = await response.json();
+  return dispatch(
+    getFoodAction(result.meals.slice(0, magicNumber)),
+  );
 };

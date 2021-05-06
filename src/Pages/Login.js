@@ -73,11 +73,16 @@ class Login extends Component {
         >
           Glass
         </object>
-        <input data-testid="email-input" onChange={ this.handleInputEmail } />
+        <input
+          data-testid="email-input"
+          onChange={ this.handleInputEmail }
+          className="input-login"
+        />
         <input
           data-testid="password-input"
           type="password"
           onChange={ this.handleKeyPassword }
+          className="input-login"
         />
         <Link to="/comidas">
           <button

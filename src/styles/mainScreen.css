@@ -3,9 +3,6 @@
   flex-flow: row wrap;
   height: 70px;
   justify-content: space-evenly;
-  margin-top: 10px;
-  position: relative;
-  top: 5px;
 }
 
 .button {
@@ -16,9 +13,7 @@
 }
 
 .main {
-  height: 640px;
-  margin-top: 58px;
-  max-height: 640px;
+  margin-top: 56px;
   max-width: 360px;
   padding: 0;
   width: 360px;
@@ -28,8 +23,5 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
-  margin-bottom: 160px;
-  position: relative;
-  top: 10px;
   width: 100%;
 }

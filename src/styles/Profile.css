@@ -15,5 +15,6 @@
 .profile-main {
   display: flex;
   flex-direction: column;
+  margin-top: 58px;
   text-align: center;
 }

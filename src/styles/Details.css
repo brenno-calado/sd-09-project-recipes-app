@@ -38,15 +38,6 @@
   margin-right: 15px;
 }
 
-/* .carousel {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  max-width: 360px;
-  min-width: 360px;
-  width: 360px;
-} */
-
 .icoBtn {
   border: none;
   height: 26px;
@@ -69,6 +60,8 @@
 .recipe {
   background: rgb(236, 236, 236);
   border-radius: 4px;
+  display: flex;
+  flex-direction: column;
   text-align: justify;
 }
 

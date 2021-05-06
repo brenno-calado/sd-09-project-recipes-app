@@ -1,5 +1,4 @@
 import React from 'react';
-import '../styles/InProgress.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { inProgressRecipesAction } from '../action/ButtonAction';
@@ -59,7 +58,7 @@ class InProgress extends React.Component {
 
   checkedFunction(id) {
     const localProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (localProgress && localProgress.meals) {
+    if (localProgress && localProgress.meals && localProgress.meals[id]) {
       this.setState({ progressChecked: [...localProgress.meals[id]] });
     }
   }

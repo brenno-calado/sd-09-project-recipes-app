@@ -22,42 +22,44 @@ class Profile extends Component {
       notEmail = email;
     }
     return (
-      <div className="profile-main">
+      <div>
         <Header titleHeader="Perfil" id="1" />
-        <p
-          data-testid="profile-email"
-          className="profile-email"
-        >
-          { notEmail }
-        </p>
-        <Link to="/receitas-feitas">
-          <button
-            className="profile-button"
-            type="button"
-            data-testid="profile-done-btn"
+        <div className="profile-main">
+          <p
+            data-testid="profile-email"
+            className="profile-email"
           >
-            Receitas Feitas
-          </button>
-        </Link>
-        <Link to="/receitas-favoritas">
-          <button
-            className="profile-button"
-            type="button"
-            data-testid="profile-favorite-btn"
-          >
-            Receitas Favoritas
-          </button>
-        </Link>
-        <Link to="/">
-          <button
-            className="profile-button"
-            type="button"
-            data-testid="profile-logout-btn"
-            onClick={ this.exitAndClearLocalStorage }
-          >
-            Sair
-          </button>
-        </Link>
+            { notEmail }
+          </p>
+          <Link to="/receitas-feitas">
+            <button
+              className="profile-button"
+              type="button"
+              data-testid="profile-done-btn"
+            >
+              Receitas Feitas
+            </button>
+          </Link>
+          <Link to="/receitas-favoritas">
+            <button
+              className="profile-button"
+              type="button"
+              data-testid="profile-favorite-btn"
+            >
+              Receitas Favoritas
+            </button>
+          </Link>
+          <Link to="/">
+            <button
+              className="profile-button"
+              type="button"
+              data-testid="profile-logout-btn"
+              onClick={ this.exitAndClearLocalStorage }
+            >
+              Sair
+            </button>
+          </Link>
+        </div>
         <FooterSpec />
       </div>
     );

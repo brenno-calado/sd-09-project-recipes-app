@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { doneRecipesAction } from '../action/ButtonAction';
 import CardDone from '../components/CardDone';
 import Header from '../components/Header';
-import '../styles/DoneRecipes.css';
+import '../styles/Geral.css';
 
 class DoneRecipes extends React.Component {
   constructor(props) {
@@ -45,9 +45,9 @@ class DoneRecipes extends React.Component {
     const { recipeDone } = this.state;
 
     return (
-      <div>
+      <div className="geral-margin">
         <Header titleHeader="Receitas Feitas" />
-        <section className="sectionBtn">
+        <section>
           <button
             type="button"
             data-testid="filter-by-all-btn"

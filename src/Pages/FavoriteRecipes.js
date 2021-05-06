@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { favoriteRecipesAction } from '../action/ButtonAction';
 import CardFavorite from '../components/CardFavorite';
+import '../styles/Geral.css';
 
 class FavoriteRecipes extends React.Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class FavoriteRecipes extends React.Component {
     const { recipeFavorite } = this.state;
 
     return (
-      <div>
+      <div className="geral-margin">
         <Header titleHeader="Receitas Favoritas" />
         <section>
           <button

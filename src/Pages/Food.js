@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/mainScreen.css';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { filterFoodThunkAction, foodThunkAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
@@ -20,10 +21,16 @@ class Food extends React.Component {
       getFilterFood,
       setFood,
       getFoodBoolean,
-      getFoodName } = this.props;
+      getFoodName,
+      searchBoolean } = this.props;
+
+    if (searchBoolean && getFood.length === 1) {
+      return <Redirect to={ `/comidas/${getFood[0].idMeal}` } />;
+    }
+
     return (
       <div className="main">
-        <Header titleHeader="Comidas" id="0" />
+        <Header titleHeader="Comidas" id="0" type="meal" />
         <aside className="aside">
           <button
             className="button"
@@ -67,6 +74,7 @@ const mapStateToProps = (state) => ({
   getFilterFood: state.FoodAndDrinkReducer.filterFood,
   getFoodName: state.FoodAndDrinkReducer.foodName,
   getFoodBoolean: state.FoodAndDrinkReducer.foodBoolean,
+  searchBoolean: state.FoodAndDrinkReducer.searchBoolean,
 });
 
 const mapDispatchToProps = (dispatch) => ({

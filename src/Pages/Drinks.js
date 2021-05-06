@@ -2,6 +2,7 @@ import '../styles/mainScreen.css';
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { drinksThunkAction, filterDrinksThunkAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
@@ -19,43 +20,51 @@ class Drinks extends React.Component {
       getFilterDrink,
       setDrinks,
       getDrinkBoolean,
-      getDrinkName } = this.props;
+      getDrinkName,
+      searchBoolean } = this.props;
+
+    if (searchBoolean && getDrinks.length === 1) {
+      return <Redirect to={ `/bebidas/${getDrinks[0].idDrink}` } />;
+    }
+
     return (
-      <div className="main">
-        <Header titleHeader="Bebidas" id="0" />
-        <aside className="aside">
-          <button
-            className="button"
-            type="button"
-            data-testid="All-category-filter"
-            onClick={ () => setDrinks('All', getDrinkBoolean, getDrinkName) }
-          >
-            All
-          </button>
-          { getFilterDrink.map((filter, index) => (
+      <div>
+        <Header titleHeader="Bebidas" id="0" type="cocktail" />
+        <div className="main">
+          <aside className="aside">
             <button
               className="button"
               type="button"
-              key={ `${filter}${index}` }
-              data-testid={ `${filter.strCategory}-category-filter` }
-              onClick={ () => setDrinks(filter.strCategory,
-                getDrinkBoolean, getDrinkName) }
+              data-testid="All-category-filter"
+              onClick={ () => setDrinks('All', getDrinkBoolean, getDrinkName) }
             >
-              {filter.strCategory}
+              All
             </button>
-          )) }
-        </aside>
-        <section className="mainBox">
-          { getDrinks.map((drink, index) => (
-            <DrinkCard
-              key={ `${drink}${index}` }
-              drink={ drink }
-              index={ index }
-              testid="-recipe-card"
-              nameId="-card-name"
-            />
-          ))}
-        </section>
+            { getFilterDrink.map((filter, index) => (
+              <button
+                className="button"
+                type="button"
+                key={ `${filter}${index}` }
+                data-testid={ `${filter.strCategory}-category-filter` }
+                onClick={ () => setDrinks(filter.strCategory,
+                  getDrinkBoolean, getDrinkName) }
+              >
+                {filter.strCategory}
+              </button>
+            )) }
+          </aside>
+          <section className="mainBox">
+            { getDrinks.map((drink, index) => (
+              <DrinkCard
+                key={ `${drink}${index}` }
+                drink={ drink }
+                index={ index }
+                testid="-recipe-card"
+                nameId="-card-name"
+              />
+            ))}
+          </section>
+        </div>
         <FooterSpec />
       </div>
     );
@@ -67,6 +76,8 @@ const mapStateToProps = (state) => ({
   getFilterDrink: state.FoodAndDrinkReducer.filterDrinks,
   getDrinkName: state.FoodAndDrinkReducer.drinkName,
   getDrinkBoolean: state.FoodAndDrinkReducer.drinkBoolean,
+  getSearchBoolean: state.FoodAndDrinkReducer.searchBar,
+  searchBoolean: state.FoodAndDrinkReducer.searchBoolean,
 });
 
 const mapDispatchToProps = (dispatch) => ({
