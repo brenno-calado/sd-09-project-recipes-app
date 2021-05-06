@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { ingredientAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
+import FooterSpec from '../components/FooterSpec';
 
-function ExploreDrinkIngredients() {
+function ExploreDrinkIngredients(props) {
   const [ingredientNames, setNames] = useState([]);
+  const { setIngrendient } = props;
 
   useEffect(() => {
     const twelve = 12;
@@ -18,31 +24,51 @@ function ExploreDrinkIngredients() {
     }());
   }, []);
 
+  const ingrendient = (value) => {
+    setIngrendient(value);
+  };
+
   const renderIngredients = () => (
     ingredientNames.map((names, index) => (
-      <div
+      <Link
+        to="/bebidas"
+        onClick={ () => ingrendient(names.strIngredient1) }
         key={ names.strIngredient1 }
-        data-testid={ `${index}-ingredient-card` }
       >
-        <img
-          src={ `https://www.thecocktaildb.com/images/ingredients/${names.strIngredient1}-Small.png` }
-          alt={ `${names.strIngredient1}-ingredients` }
-          data-testid={ `${index}-card-img` }
-        />
-        <p
-          data-testid={ `${index}-card-name` }
+        <div
+          key={ names.strIngredient1 }
+          data-testid={ `${index}-ingredient-card` }
         >
-          {`${names.strIngredient1}`}
-        </p>
-      </div>))
+          <img
+            src={ `https://www.thecocktaildb.com/images/ingredients/${names.strIngredient1}-Small.png` }
+            alt={ `${names.strIngredient1}-ingredients` }
+            data-testid={ `${index}-card-img` }
+          />
+          <p
+            data-testid={ `${index}-card-name` }
+          >
+            {`${names.strIngredient1}`}
+          </p>
+        </div>
+      </Link>
+    ))
   );
 
   return (
     <div>
       <Header titleHeader="Explorar Ingredientes" id="1" />
       <div>{ renderIngredients() }</div>
+      <FooterSpec />
     </div>
   );
 }
 
-export default ExploreDrinkIngredients;
+const mapDispatchToProps = (dispatch) => ({
+  setIngrendient: (ingredient) => dispatch(ingredientAction(ingredient)),
+});
+
+ExploreDrinkIngredients.propTypes = ({
+  setIngrendient: PropTypes.func,
+}).isRequired;
+
+export default connect(null, mapDispatchToProps)(ExploreDrinkIngredients);

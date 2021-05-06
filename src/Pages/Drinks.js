@@ -3,15 +3,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
-import { drinksThunkAction, filterDrinksThunkAction } from '../action/FoodAndDrinkAction';
+import { drinksThunkAction, filterDrinksThunkAction,
+  searchThunkAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
 import DrinkCard from '../components/DrinkCard';
 import FooterSpec from '../components/FooterSpec';
 
 class Drinks extends React.Component {
   componentDidMount() {
-    const { setDrinks, setFilterDrink, getDrinkBoolean, getDrinkName } = this.props;
-    setDrinks('', getDrinkBoolean, getDrinkName);
+    const { setDrinks, setFilterDrink, getDrinkBoolean,
+      getDrinkName, getIngredient, setIngrendient } = this.props;
+
+    if (getIngredient) {
+      setIngrendient('ingredient', getIngredient, 'cocktail');
+    } else {
+      setDrinks('', getDrinkBoolean, getDrinkName);
+    }
     setFilterDrink();
   }
 
@@ -78,6 +85,7 @@ const mapStateToProps = (state) => ({
   getDrinkBoolean: state.FoodAndDrinkReducer.drinkBoolean,
   getSearchBoolean: state.FoodAndDrinkReducer.searchBar,
   searchBoolean: state.FoodAndDrinkReducer.searchBoolean,
+  getIngredient: state.FoodAndDrinkReducer.ingredient,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -85,6 +93,9 @@ const mapDispatchToProps = (dispatch) => ({
     drinksThunkAction(drink, drinkBoolean, drinkName),
   ),
   setFilterDrink: () => dispatch(filterDrinksThunkAction()),
+  setIngrendient: (search, input, type) => dispatch(
+    searchThunkAction(search, input, type),
+  ),
 });
 
 Drinks.propTypes = ({

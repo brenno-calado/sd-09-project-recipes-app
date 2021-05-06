@@ -3,15 +3,22 @@ import '../styles/mainScreen.css';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { filterFoodThunkAction, foodThunkAction } from '../action/FoodAndDrinkAction';
+import { filterFoodThunkAction, foodThunkAction,
+  searchThunkAction } from '../action/FoodAndDrinkAction';
 import Header from '../components/Header';
 import FoodCard from '../components/FoodCard';
 import FooterSpec from '../components/FooterSpec';
 
 class Food extends React.Component {
   componentDidMount() {
-    const { setFood, setFilterFood, getFoodBoolean, getFoodName } = this.props;
-    setFood('', getFoodBoolean, getFoodName);
+    const { setFood, setFilterFood, getFoodBoolean,
+      getFoodName, getIngredient, setIngrendient } = this.props;
+
+    if (getIngredient) {
+      setIngrendient('ingredient', getIngredient, 'meal');
+    } else {
+      setFood('', getFoodBoolean, getFoodName);
+    }
     setFilterFood();
   }
 
@@ -75,6 +82,7 @@ const mapStateToProps = (state) => ({
   getFoodName: state.FoodAndDrinkReducer.foodName,
   getFoodBoolean: state.FoodAndDrinkReducer.foodBoolean,
   searchBoolean: state.FoodAndDrinkReducer.searchBoolean,
+  getIngredient: state.FoodAndDrinkReducer.ingredient,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,6 +90,9 @@ const mapDispatchToProps = (dispatch) => ({
     foodThunkAction(food, foodBoolean, foodName),
   ),
   setFilterFood: () => dispatch(filterFoodThunkAction()),
+  setIngrendient: (search, input, type) => dispatch(
+    searchThunkAction(search, input, type),
+  ),
 });
 
 Food.propTypes = ({
