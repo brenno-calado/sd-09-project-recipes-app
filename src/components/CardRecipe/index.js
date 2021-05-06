@@ -27,8 +27,16 @@ const CardRecipe = (props) => {
             <p data-testid={ `${index}-horizontal-done-date` }>
               { `Feita em: ${recipe.doneDate}` }
             </p>
-            <ShareButton data-testid={ `${index}-horizontal-share-btn` } />
-            { recipe.tags.map((tag) => <span key={ tag }>{ tag }</span>) }
+            <ShareButton dataTestIdIndex={ `${index}` } />
+            {
+              recipe.tags.map((tag) => (
+                <span
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ tag }
+                >
+                  { tag }
+                </span>))
+            }
           </div>
         ))
       }
