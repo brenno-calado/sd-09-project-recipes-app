@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 const CocktailRecipes = () => {
   const [cocktailRecipes, setCocktailRecipes] = useState([]);
@@ -103,8 +104,8 @@ const CocktailRecipes = () => {
 
           );
         })}
+      <Footer />
     </div>
-
   );
 };
 

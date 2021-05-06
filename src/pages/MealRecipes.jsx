@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 const MealRecipes = () => {
   const [mealRecipes, setMealRecipes] = useState([]);
@@ -100,6 +101,7 @@ const MealRecipes = () => {
             </Link>
           );
         })}
+      <Footer />
     </div>
 
   );
