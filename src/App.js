@@ -11,6 +11,8 @@ import Profile from './pages/Profile';
 import RecipeDetails from './pages/RecipeDetails';
 import DrinkDetails from './pages/DrinkDetails';
 import RecipeInProgress from './components/RecipeInProgress';
+import Favorites from './pages/Favorites';
+
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreDrinks from './pages/ExploreDrinks';
 import FoodsByIngredients from './pages/FoodsByIngredients';
@@ -35,6 +37,7 @@ function App() {
         <Route path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route path="/explorar" component={ Explore } />
         <Route path="/perfil" component={ Profile } />
+        <Route path="/receitas-favoritas" component={ Favorites } />
       </Switch>
     </div>
   );
