@@ -12,49 +12,22 @@ function RecipesMade() {
 
   function renderAllRecipesMade() {
     const vari = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filter = vari.map(
-      (
-        {
-          id,
-          image,
-          category,
-          name,
-          doneDate,
-          tags,
-          type,
-          area,
-          alcoholicOrNot,
-        },
-        index,
-      ) => (
-        <RecipeDoneCard
-          key={ id }
-          image={ image }
-          category={ category }
-          name={ name }
-          doneDate={ doneDate }
-          tagName={ tags }
-          index={ index }
-          shouldFavorite={ false }
-          type={ type }
-          id={ id }
-          area={ area }
-          alcoholicOrNot={ alcoholicOrNot }
-        />
-      ),
-    );
-    return filter;
-  }
-
-  useEffect(() => {
-    setRenderRecipesMade(renderAllRecipesMade());
-  }, []);
-
-  function renderFoodsRecipesMade() {
-    const vari = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filter = vari
-      .map(({ id, image, category, name, doneDate, tags, type, area }, index) => (
-        type === 'comida' && (
+    if (vari) {
+      const filter = vari.map(
+        (
+          {
+            id,
+            image,
+            category,
+            name,
+            doneDate,
+            tags,
+            type,
+            area,
+            alcoholicOrNot,
+          },
+          index,
+        ) => (
           <RecipeDoneCard
             key={ id }
             image={ image }
@@ -67,39 +40,72 @@ function RecipesMade() {
             type={ type }
             id={ id }
             area={ area }
+            alcoholicOrNot={ alcoholicOrNot }
           />
-        )
-      ));
-    return filter;
+        ),
+      );
+      return filter;
+    }
+  }
+
+  useEffect(() => {
+    setRenderRecipesMade(renderAllRecipesMade());
+  }, []);
+
+  function renderFoodsRecipesMade() {
+    const vari = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (vari) {
+      const filter = vari
+        .map(({ id, image, category, name, doneDate, tags, type, area }, index) => (
+          type === 'comida' && (
+            <RecipeDoneCard
+              key={ id }
+              image={ image }
+              category={ category }
+              name={ name }
+              doneDate={ doneDate }
+              tagName={ tags }
+              index={ index }
+              shouldFavorite={ false }
+              type={ type }
+              id={ id }
+              area={ area }
+            />
+          )
+        ));
+      return filter;
+    }
   }
 
   function renderDrinksRecipesMade() {
     const vari = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filter = vari.map(
-      (
-        {
-          id,
-          image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index,
-      ) => (
-        type === 'bebida' && (
-          <RecipeDoneCard
-            key={ id }
-            image={ image }
-            category={ category }
-            name={ name }
-            doneDate={ doneDate }
-            tagName={ tags }
-            index={ index - 1 }
-            shouldFavorite={ false }
-            type={ type }
-            id={ id }
-            area={ area }
-            alcoholicOrNot={ alcoholicOrNot }
-          />
-        )
-      ),
-    );
-    return filter;
+    if (vari) {
+      const filter = vari.map(
+        (
+          {
+            id,
+            image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index,
+        ) => (
+          type === 'bebida' && (
+            <RecipeDoneCard
+              key={ id }
+              image={ image }
+              category={ category }
+              name={ name }
+              doneDate={ doneDate }
+              tagName={ tags }
+              index={ index - 1 }
+              shouldFavorite={ false }
+              type={ type }
+              id={ id }
+              area={ area }
+              alcoholicOrNot={ alcoholicOrNot }
+            />
+          )
+        ),
+      );
+      return filter;
+    }
   }
 
   function getRecipesMade({ target }) {
