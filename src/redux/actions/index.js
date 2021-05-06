@@ -1,5 +1,6 @@
 import { requestMeals } from './meals';
 import { requestCocktails } from './cocktails';
+import { sendIngredients } from './ingredients';
 import { addUser } from './user';
 import {
   fetchMealsAPI,
@@ -14,16 +15,11 @@ import {
 } from '../../services/ApiRequest';
 
 export {
+  sendIngredients,
   requestCocktails,
   requestMeals,
   addUser,
 };
-
-export const IS_LOADING = 'IS_LOADING';
-export const isLoading = (loading) => ({
-  type: IS_LOADING,
-  loading,
-});
 
 export const requestApiMeals = () => async (dispatch) => {
   dispatch(requestMeals());

@@ -19,8 +19,11 @@ class CocktailCards extends React.Component {
   }
 
   componentDidMount() {
-    this.callCocktail();
+    const { ingredients } = this.props;
     localStorage.removeItem('id');
+    if (ingredients.length === 0) {
+      this.callCocktail();
+    }
   }
 
   componentWillUnmount() {
@@ -98,11 +101,15 @@ CocktailCards.propTypes = {
     map: PropTypes.func.isRequired,
     length: PropTypes.number.isRequired,
   }).isRequired,
+  ingredients: PropTypes.shape({
+    length: PropTypes.number.isRequired,
+  }).isRequired,
   getCocktails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cocktails: state.cocktails.cocktails,
+  ingredients: state.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => (
