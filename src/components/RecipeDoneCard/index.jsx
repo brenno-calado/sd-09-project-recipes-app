@@ -8,12 +8,18 @@ import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 
 function RecipeDoneCard(
   { image, name, index, doneData, category,
-    tagName, area, id, setFavorite, favorite, type },
+    tagName, area, id, setFavorite, favorite, type, doneDate, shouldFavorite, alcoholicOrNot },
 ) {
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
+  console.log(tagName);
+
   let url = window.location.href;
-  url = url.replace('receitas-favoritas', `comidas/${id}`);
+  if (url === 'http://localhost:3000/receitas-favoritas') {
+    url = url.replace('receitas-favoritas', `${type}s/${id}`);
+  } else if (url === 'http://localhost:3000/receitas-feitas') {
+    url = url.replace('receitas-feitas', `${type}s/${id}`);
+  }
 
   function handleRemoveFavorite() {
     setFavorite(!favorite);
@@ -38,6 +44,7 @@ function RecipeDoneCard(
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
       </Link>
       <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
+      <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${alcoholicOrNot}`}</p>
       <p data-testid={ `${index}-horizontal-done-date` }>{doneData}</p>
       <CopyToClipboard text={ url }>
         <button
@@ -52,19 +59,27 @@ function RecipeDoneCard(
         </button>
       </CopyToClipboard>
       {copyUrl}
-      <button
-        onClick={ handleRemoveFavorite }
-        type="button"
+      { shouldFavorite && (
+        <button
+          onClick={ handleRemoveFavorite }
+          type="button"
+        >
+          <img
+            data-testid={ `${index}-horizontal-favorite-btn` }
+            src={ blackHeartIcon }
+            alt="Favorito"
+          />
+        </button>
+      ) }
+      { tagName && tagName.map((item) => (
+        <p data-testid={ `${0}-${item}-horizontal-tag` } key={ Math.random() }>
+          {item}
+        </p>
+      )) }
+      <p
+        data-testid={ `${index}-horizontal-done-date` }
       >
-        <img
-          data-testid={ `${index}-horizontal-favorite-btn` }
-          src={ blackHeartIcon }
-          alt="Favorito"
-        />
-      </button>
-
-      <p data-testid={ `${index}-${tagName}-horizontal-tag` }>
-        {tagName}
+        {`Feita em: ${doneDate}`}
       </p>
     </li>
   );
@@ -82,6 +97,9 @@ RecipeDoneCard.propTypes = {
   setFavorite: func,
   favorite: bool,
   type: string,
+  doneDate: string,
+  shouldFavorite: bool,
+  alcoholicOrNot: string,
 };
 
 RecipeDoneCard.defaultProps = {
@@ -96,6 +114,9 @@ RecipeDoneCard.defaultProps = {
   setFavorite: () => {},
   favorite: bool,
   type: '',
+  doneDate: '',
+  shouldFavorite: true,
+  alcoholicOrNot: '',
 };
 
 export default RecipeDoneCard;

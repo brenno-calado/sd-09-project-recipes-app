@@ -1,18 +1,97 @@
-import React, { useState } from 'react';
+import { render } from '@testing-library/react';
+import React, { useEffect, useState } from 'react';
 import HeaderFoods from '../components/HeaderFoods';
+import RecipeDoneCard from '../components/RecipeDoneCard';
 
 function RecipesMade() {
   const [recipesMadeButton, setRecipesMadeButton] = useState();
+  const [renderRecipesMade, setRenderRecipesMade] = useState();
+
+  useEffect(() => {
+    setRecipesMadeButton(recipesMadeButton);
+  }, [recipesMadeButton]);
+
+  function renderAllRecipesMade() {
+    const vari = JSON.parse(localStorage.getItem('doneRecipes'));
+    const filter = vari.map(({ id, image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index) => (
+      <RecipeDoneCard
+        key={ id }
+        image={ image }
+        category={ category }
+        name={ name }
+        doneDate={ doneDate }
+        tagName={ tags }
+        index={ index }
+        shouldFavorite={ false }
+        type={ type }
+        id={ id }
+        area={ area }
+        alcoholicOrNot={ alcoholicOrNot }
+      />
+    ));
+    return filter;
+  }
+
+  useEffect(() => {
+    setRenderRecipesMade(renderAllRecipesMade());
+  }, []);
+
+  function renderFoodsRecipesMade() {
+    const vari = JSON.parse(localStorage.getItem('doneRecipes'));
+    const filter = vari
+      .map(({ id, image, category, name, doneDate, tags, type, area }, index) => (
+        type === 'comida' && (
+          <RecipeDoneCard
+            key={ id }
+            image={ image }
+            category={ category }
+            name={ name }
+            doneDate={ doneDate }
+            tagName={ tags }
+            index={ index }
+            shouldFavorite={ false }
+            type={ type }
+            id={ id }
+            area={ area }
+          />
+        )
+      ));
+    return filter;
+  }
+
+  function renderDrinksRecipesMade() {
+    const vari = JSON.parse(localStorage.getItem('doneRecipes'));
+    const filter = vari
+      .map(({ id, image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index) => (
+        type === 'bebida' && (
+          <RecipeDoneCard
+            key={ id }
+            image={ image }
+            category={ category }
+            name={ name }
+            doneDate={ doneDate }
+            tagName={ tags }
+            index={ index - 1 }
+            shouldFavorite={ false }
+            type={ type }
+            id={ id }
+            area={ area }
+            alcoholicOrNot={ alcoholicOrNot }
+          />
+        )
+      ));
+    return filter;
+  }
+
   function getRecipesMade({ target }) {
-    setRecipesMadeButton(target.name);
-    if (recipesMadeButton === 'all') {
-      console.log(recipesMadeButton);
+    if (target.name === 'all') {
+      setRenderRecipesMade(renderAllRecipesMade());
     }
-    if (recipesMadeButton === 'food') {
-      console.log(recipesMadeButton);
+    if (target.name === 'food') {
+      setRenderRecipesMade(renderFoodsRecipesMade());
     }
-    if (recipesMadeButton === 'drink') {
-      console.log(recipesMadeButton);
+    if (target.name === 'drink') {
+      setRenderRecipesMade(renderDrinksRecipesMade());
     }
   }
   return (
@@ -44,6 +123,7 @@ function RecipesMade() {
       >
         Drinks
       </button>
+      { renderRecipesMade }
     </>
   );
 }
