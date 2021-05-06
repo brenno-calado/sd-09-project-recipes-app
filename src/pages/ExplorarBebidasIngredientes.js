@@ -4,6 +4,7 @@ import { AppContext } from '../context/AppContext';
 import { getDrinksFromIngredient } from '../services';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../CSS/ExplorarBebidasIngredientes.css';
 
 const MAX_INGREDIENTS = 12;
 
@@ -20,23 +21,29 @@ function ExplorarBebidasIngredientes() {
   return (
     <>
       <Header title="Explorar Ingredientes" searchIcon={ false } />
-      { drinkIngredients
-        && drinkIngredients.slice(0, MAX_INGREDIENTS).map(({ strIngredient1 }, index) => (
-          <Link
-            to="/bebidas"
-            key={ index }
-            onClick={ () => handleClick(strIngredient1) }
-          >
-            <div data-testid={ `${index}-ingredient-card` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-                alt={ strIngredient1 }
-              />
-              <p data-testid={ `${index}-card-name` }>{strIngredient1}</p>
-            </div>
-          </Link>
-        )) }
+      <section className="drink-ingredient-section">
+        { drinkIngredients
+          && drinkIngredients.slice(0, MAX_INGREDIENTS)
+            .map(({ strIngredient1 }, index) => (
+              <Link
+                to="/bebidas"
+                key={ index }
+                onClick={ () => handleClick(strIngredient1) }
+              >
+                <div
+                  className="ingredient-card"
+                  data-testid={ `${index}-ingredient-card` }
+                >
+                  <img
+                    data-testid={ `${index}-card-img` }
+                    src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+                    alt={ strIngredient1 }
+                  />
+                  <p data-testid={ `${index}-card-name` }>{strIngredient1}</p>
+                </div>
+              </Link>
+            )) }
+      </section>
       <Footer />
     </>
   );
