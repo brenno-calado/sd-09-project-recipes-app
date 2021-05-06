@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function ExploreDrinks() {
+  const { setIdRecipes } = useContext(RecipesContext);
   const [drink, setDrink] = useState({});
   const history = useHistory();
+  const { pathname } = history.location;
 
   const handleClickToIngredients = () => {
     history.push('/explorar/bebidas/ingredientes');
@@ -24,6 +27,7 @@ function ExploreDrinks() {
 
   const handleClickToSurpriseMe = () => {
     history.push(`/bebidas/${drink.idDrink}`);
+    setIdRecipes(drink.idDrink);
   };
 
   return (

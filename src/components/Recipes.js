@@ -9,6 +9,7 @@ import './Recipes.css';
 
 function Recipes(props) {
   const [copySuccess, setCopySuccess] = useState('');
+  const [hearthIco, setHearthIco] = useState(true);
   const history = useHistory();
   const { pathname } = history.location;
   const {
@@ -18,7 +19,6 @@ function Recipes(props) {
     recipe,
     route,
   } = props;
-
   const example = true;
 
   const shareRecipe = async (copyMe) => {
@@ -50,7 +50,7 @@ function Recipes(props) {
             type="button"
             data-testid="favorite-btn"
             onClick={ () => favoriteRecipe(recipe, route) }
-            src={ !example ? whiteHeartIcon : blackHeartIcon }
+            src={ !hearthIco ? whiteHeartIcon : blackHeartIcon }
           >
             <img
               src={ !example ? whiteHeartIcon : blackHeartIcon }

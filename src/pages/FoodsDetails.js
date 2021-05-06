@@ -6,19 +6,19 @@ import RecommendedDrinks from '../components/RecommendedDrinks';
 import './Pages.css';
 
 function FoodsDetails() {
-  const { idRecipe } = useContext(RecipesContext);
+  const { idRecipe, setIdRecipes } = useContext(RecipesContext);
   const [recipe, setRecipe] = useState({});
   const history = useHistory();
+  const { pathname } = history.location;
   const example = true;
   const completeRecipe = false;
-  const id = 52771;
-  // const id = 52774;
-  console.log(idRecipe);
-
+  const refStringPath = 9;
+  const id = (pathname).slice(refStringPath);
+  setIdRecipes(id);
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
         const result = await response.json();
         setRecipe(result.meals[0]);
       } catch (error) {
@@ -26,10 +26,10 @@ function FoodsDetails() {
       }
     };
     fetchRecipe();
-  }, []);
+  }, [idRecipe]);
 
   function startRecipes() {
-    history.push(`/comidas/${id}/in-progress`);
+    history.push(`/comidas/${idRecipe}/in-progress`);
   }
 
   const filterIngredients = () => {
@@ -64,6 +64,7 @@ function FoodsDetails() {
       {example ? 'Iniciar Receita' : 'Continuar Receita'}
     </button>
   );
+
   return (
     <div>
       <Recipes

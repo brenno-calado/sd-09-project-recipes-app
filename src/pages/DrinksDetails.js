@@ -1,29 +1,30 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-// import RecipesContext from '../context/RecipesContext';
+import RecipesContext from '../context/RecipesContext';
 import Recipes from '../components/Recipes';
 import RecommendedFood from '../components/RecommendedFood';
 
 function DrinksDetails() {
-  // const { idRecipe } = useContext(RecipesContext);
+  const { idRecipe, setIdRecipes } = useContext(RecipesContext);
   const [recipe, setRecipe] = useState({});
   const history = useHistory();
+  const { pathname } = history.location;
   const example = true;
   const completeRecipe = false;
-  const id = 178319;
-  // const id = 178353;
-
+  const refStringPath = 9;
+  const id = (pathname).slice(refStringPath);
+  setIdRecipes(id);
   useEffect(() => {
     const fetchRecipe = async () => {
-      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idRecipe}`);
       const result = await response.json();
       setRecipe(result.drinks[0]);
     };
     fetchRecipe();
-  }, [id]);
-  console.log(recipe);
+  }, [idRecipe]);
+
   function startRecipes() {
-    history.push(`/bebidas/${id}/in-progress`);
+    history.push(`/bebidas/${idRecipe}/in-progress`);
   }
 
   const filterIngredients = () => {
