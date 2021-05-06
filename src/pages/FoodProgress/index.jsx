@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import * as S from '../../components/Details/styled';
@@ -36,6 +36,13 @@ export default function FoodProgress(props) {
     }
   };
 
+  const doneRecipe = () => {
+    setRedirect(true);
+    // Aqui tem que ser atualizado;
+  };
+
+  console.log(ingredientsArray(details));
+  console.log(counter);
   return (
     <S.Container>
       <S.ThumbNail
@@ -69,21 +76,17 @@ export default function FoodProgress(props) {
           ))}
       </ul>
       <p data-testid="instructions">{details && details.strInstructions}</p>
-      {/* {
-        (ingredientsArray(details) === counter)
-      }
+
       <button
         type="button"
-        disabled={ ingredientsArray(details) < counter }
-      >
-      */}
-      <Link
         data-testid="finish-recipe-btn"
-        to="/receitas-feitas"
+        disabled={ ((ingredientsArray(details) === null
+          ? '' : (ingredientsArray(details).length) !== counter)) }
+        onClick={ doneRecipe }
       >
         Finalizar Receita
-      </Link>
-      {/* </button> */}
+      </button>
+      { redirect && <Redirect to="/receitas-feitas" /> }
     </S.Container>
   );
 }
