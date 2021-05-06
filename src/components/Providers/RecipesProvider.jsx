@@ -9,15 +9,13 @@ import areasAPI from '../../services/areasAPI';
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState(
-    JSON.parse(localStorage.getItem('doneRecipes')) || [],
+    JSON.parse(localStorage.getItem('doneRecipes')),
   );
   const [favoriteRecipes, setFavoriteRecipes] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
+    JSON.parse(localStorage.getItem('favoriteRecipes')),
   );
   const [inProgressRecipes, setInProgressRecipes] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      cocktails: {}, meals: {},
-    },
+    JSON.parse(localStorage.getItem('inProgressRecipes')),
   );
   const [areas, setAreas] = useState([]);
   const [areaFilter, setAreaFilter] = useState('');
