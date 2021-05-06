@@ -1,8 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
-import Meals from './pages/Meals';
-import Cocktails from './pages/Cocktails';
+import MealsCocktails from './pages/MealsCocktails';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import Details from './pages/Details';
@@ -31,8 +30,8 @@ function App() {
         <Route exact path="/explorar" component={ Explore } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route path="/bebidas" component={ Cocktails } />
-        <Route path="/comidas" component={ Meals } />
+        <Route path="/bebidas" component={ MealsCocktails } />
+        <Route path="/comidas" component={ MealsCocktails } />
         <Route path="/perfil" component={ Profile } />
         <Route exact path="/" component={ Login } />
         <Route component={ NotFound } />

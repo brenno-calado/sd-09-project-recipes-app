@@ -12,6 +12,10 @@ import {
   SUCCESS_RECOMMENDED,
   SEND_DONE_RECIPES,
   SEND_FAVORITE_RECIPES,
+  CHANGE_PATH,
+  FETCHING_RECOMMENDED,
+  SET_ERROR,
+  SET_CURRENT_CATEGORY,
 } from './actionTypes';
 import {
   fetchByIngredient,
@@ -191,9 +195,13 @@ export const saveIngredients = (ingredients) => ({
   ingredients,
 });
 
+const fetchingRecommended = () => ({
+  type: FETCHING_RECOMMENDED,
+});
+
 export function cocktailsRecommendedThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingRecommended());
     return fetchInitialCocktails()
       .then((data) => dispatch(successRecommended(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -201,7 +209,7 @@ export function cocktailsRecommendedThunk() {
 }
 export function mealsRecommendedThunk() {
   return (dispatch) => {
-    dispatch(fetching());
+    dispatch(fetchingRecommended());
     return fetchInitialMeals()
       .then((data) => dispatch(successRecommended(data)))
       .catch((error) => dispatch(failureFetch(error)));
@@ -216,4 +224,19 @@ export const sendDoneRecipes = (recipes) => ({
 export const sendFavoriteRecipes = (recipes) => ({
   type: SEND_FAVORITE_RECIPES,
   recipes,
+});
+
+export const changePath = (pathname, recipeType) => ({
+  type: CHANGE_PATH,
+  pathname,
+  recipeType,
+});
+
+export const setError = () => ({
+  type: SET_ERROR,
+});
+
+export const setCurrentCategory = (category) => ({
+  type: SET_CURRENT_CATEGORY,
+  category,
 });

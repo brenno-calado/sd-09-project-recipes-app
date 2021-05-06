@@ -3,16 +3,17 @@ import {
   FETCHING_RECIPE,
   SUCCESS_RECOMMENDED,
   SAVE_INGREDIENTS,
+  FETCHING_RECOMMENDED,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
+  isFetchingRecommended: false,
   isFetchingRecipe: false,
   recipe: {},
   recommended: [],
   isRecommendedFetched: false,
   startedRecipes: [],
   ingredients: [],
-  // isFavorite: null,
 };
 
 function recipeDetailsReducer(state = INITIAL_STATE, action) {
@@ -26,8 +27,10 @@ function recipeDetailsReducer(state = INITIAL_STATE, action) {
       isRecommendedFetched: true,
       isFetchingRecipe: false,
     });
+  case FETCHING_RECOMMENDED:
+    return ({ ...state, isFetchingRecommended: true });
   case SUCCESS_RECOMMENDED:
-    return ({ ...state, recommended: action.data });
+    return ({ ...state, recommended: action.data, isFetchingRecommended: false });
   case SAVE_INGREDIENTS:
     return ({ ...state, ingredients: action.ingredients });
   default:

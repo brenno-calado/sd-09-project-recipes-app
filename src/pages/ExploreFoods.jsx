@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { recipeSurpriseThunk } from '../redux/actions/actionsExplore';
 import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 const ExploreFoods = ({ dispatchSurpriseRecipe, surpriseRecipe }) => {
   const fetchRandom = async (type) => {
@@ -19,6 +20,7 @@ const ExploreFoods = ({ dispatchSurpriseRecipe, surpriseRecipe }) => {
       const { idMeal } = surpriseRecipe[0];
       return (
         <div>
+          <Header title="Explorar Comidas" />
           <Link to="/explorar/comidas/ingredientes">
             <button
               type="button"
