@@ -56,4 +56,11 @@ export const getRandomDrink = async () => {
   return result;
 };
 
+export const getDrinkApi = async () => {
+  const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+  const fetchData = await fetch(url);
+  const result = await fetchData.json();
+  return result;
+};
+
 export default searchApi;
