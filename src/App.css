@@ -68,27 +68,27 @@
 }
 
 .login {
+  align-content: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  margin: auto;
   height: 640px;
+  justify-content: center;
+  margin: auto;
   width: 260px;
 }
 
 .menu {
-  width: 100%;
+  align-items: stretch;
   display: flex;
   justify-content: space-between;
-  align-items: stretch;
+  width: 100%;
 }
 
 .footer {
   background-color: white;
-  width: 100%;
   display: flex;
   justify-content: space-between;
+  width: 100%;
 }
 
 .title {
@@ -103,9 +103,13 @@
 }
 
 .loading {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-top: 50px;
+}
+
+.list-card {
+  display: flex;
 }
