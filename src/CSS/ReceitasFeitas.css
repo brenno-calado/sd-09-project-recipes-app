@@ -1,0 +1,21 @@
+.done-recipes-buttons {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  width: 100%;
+}
+
+.done-recipes-buttons button {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  width: 100px;
+}
+
+.done-recipes-section {
+  display: flex;
+  margin: 0 5px 5px;
+  padding: 15px;
+  width: 100%;
+}

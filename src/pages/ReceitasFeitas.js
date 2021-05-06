@@ -3,6 +3,7 @@ import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import DoneMealCard from '../components/DoneMealCard';
 import DoneDrinkCard from '../components/DoneDrinkCard';
+import '../CSS/ReceitasFeitas.css';
 import { AppContext } from '../context/AppContext';
 
 function ReceitasFeitas() {
@@ -45,7 +46,7 @@ function ReceitasFeitas() {
   return (
     <div>
       <Header title="Receitas Feitas" searchIcon={ false } />
-      <section>
+      <section className="done-recipes-buttons">
         <button
           value="All"
           type="button"
@@ -71,29 +72,31 @@ function ReceitasFeitas() {
           Drinks
         </button>
       </section>
-      {
-        arrRecipes.map((recipe, index) => (
-          recipe.type === 'comida'
-            ? (
-              <DoneMealCard
-                key={ index }
-                recipe={ recipe }
-                index={ index }
-                linkShared={ linkShared }
-                shareLink={ shareLink }
-              />
-            )
-            : (
-              <DoneDrinkCard
-                key={ index }
-                recipe={ recipe }
-                index={ index }
-                linkShared={ linkShared }
-                shareLink={ shareLink }
-              />
-            )
-        ))
-      }
+      <section className="done-recipes-section">
+        {
+          arrRecipes.map((recipe, index) => (
+            recipe.type === 'comida'
+              ? (
+                <DoneMealCard
+                  key={ index }
+                  recipe={ recipe }
+                  index={ index }
+                  linkShared={ linkShared }
+                  shareLink={ shareLink }
+                />
+              )
+              : (
+                <DoneDrinkCard
+                  key={ index }
+                  recipe={ recipe }
+                  index={ index }
+                  linkShared={ linkShared }
+                  shareLink={ shareLink }
+                />
+              )
+          ))
+        }
+      </section>
     </div>
 
   );
