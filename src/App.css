@@ -1,8 +1,8 @@
 :root {
 
-  --light-blue: rgb(210, 240, 255);
+  --lblue: rgb(210, 240, 255);
 
-  --light-pink: rgb(240, 210, 255);
+  --lpink: rgb(240, 210, 255);
 
   --soft-purple: rgb(200, 180, 255);
 
@@ -10,17 +10,9 @@
 
   --large-shadow: 8px 8px 8px rgba(230, 110, 110, 0.4);
 
-  --linear-gradient-1: linear-gradient(
-    120deg,
-    var(--light-pink),
-    var(--light-blue),
-    var(--light-pink));
+  --linear-gradient-1: linear-gradient(120deg, var(--lpink), var(--lblue), var(--lpink));
 
-  --linear-gradient-2: linear-gradient(
-    120deg,
-    var(--light-pink),
-    white,
-    var(--light-blue));
+  --linear-gradient-2: linear-gradient(120deg, var(--lpink), white, var(--lblue));
 
   --linear-gradient-3: linear-gradient(120deg, var(--soft-blue), var(--soft-purple));
 
@@ -66,7 +58,7 @@
 }
 
 .login-input:focus {
-  border-bottom: solid 3px var(--light-pink);
+  border-bottom: solid 3px var(--lpink);
   outline: none;
 }
 
@@ -83,7 +75,7 @@
 }
 
 .login-btn-disabled {
-  background-color: var(--light-pink);
+  background-color: var(--lpink);
   border: none;
   border-radius: 10px;
   color: white;
@@ -142,7 +134,7 @@
 }
 
 .search-input {
-  border: 1px solid var(--light-pink);
+  border: 1px solid var(--lpink);
   border-radius: 5px;
   box-shadow: var(--short-shadow);
   margin-bottom: 10px;
@@ -158,7 +150,7 @@
 }
 
 .exec-search-btn-disabled {
-  background-color: var(--light-pink);
+  background-color: var(--lpink);
   border: none;
   border-radius: 5px;
   color: white;
