@@ -7,7 +7,9 @@ import TelaPrincipal from './Pages/TelaPrincipal';
 import Perfil from './Pages/Perfil';
 import Detalhes from './Pages/Detalhes';
 import EmProgresso from './Pages/EmProgresso';
-import Explorar from './Pages/Explorar';
+import Explorar from './Pages/Explorar/Explorar';
+import ExploreDrinks from './Pages/Explorar/ExploreDrinks';
+import ExploreFoods from './Pages/Explorar/ExploreFoods';
 import { MyContextProvider } from './MyContext';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
         <Switch>
           <Route path="/comidas/:id/in-progress" component={ EmProgresso } />
           <Route path="/bebidas/:id/in-progress" component={ EmProgresso } />
+          <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+          <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/comidas/:id" component={ Detalhes } />
           <Route path="/bebidas/:id" component={ Detalhes } />
           <Route path="/explorar" component={ Explorar } />
