@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { getDrinkRandom } from '../services/DrinkFetch';
 // import '../styles/recipes.css';
 
 function ExplorarBebidas() {
   const [byIngredients, setByIngredients] = useState(false);
   const [surpriseMe, setSurpriseMe] = useState(false);
+  const [random, setRandom] = useState([]);
 
   function handleRedirect({ target: { name } }) {
     if (name === 'byIngredients') {
@@ -16,12 +18,15 @@ function ExplorarBebidas() {
     }
   }
 
+  useEffect(() => {
+    getDrinkRandom().then((response) => setRandom(response));
+  }, []);
+
   return (
     <>
       { byIngredients ? <Redirect to="/explorar/bebidas/ingredientes" /> : null }
 
-      {/* Redirecionar para a tela de detalhes */}
-      { surpriseMe ? <Redirect to="/" /> : null }
+      { surpriseMe ? <Redirect to={ `/bebidas/${random[0].idDrink}` } /> : null }
 
       <Header textProp="Explorar Bebidas" />
 
