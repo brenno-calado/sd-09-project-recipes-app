@@ -25,10 +25,10 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ MainPage } />
       <Route exact path="/bebidas" component={ MainPage } />
-      <Route path="/comidas/:id" component={ RecipeDetails } />
-      <Route path="/bebidas/:id" component={ RecipeDetails } />
-      <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />
-      <Route path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
+      <Route exact path="/comidas/:id" component={ RecipeDetails } />
+      <Route exact path="/bebidas/:id" component={ RecipeDetails } />
+      <Route exact path="/comidas/:id/in-progress" component={ FoodInProcess } />
+      <Route exact path="/bebidas/:id/in-progress" component={ DrinkInProcess } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoodOrDrink } />
       <Route exact path="/explorar/bebidas" component={ ExploreFoodOrDrink } />

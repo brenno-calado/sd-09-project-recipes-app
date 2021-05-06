@@ -39,7 +39,7 @@ export default function RecipeDetails() {
             recipes={ recomendations.slice(0, limit) }
             path={ recPath }
           />
-          <StartButton />
+          <StartButton isFood={ isFood } />
         </div>)
       : <h1>Loading...</h1>
   );
