@@ -78,12 +78,12 @@
 }
 
 .listCard p {
+  max-width: 150px;
+  overflow: hidden;
   padding: 5px;
   text-align: center;
   text-decoration: none;
-  overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 150px;
   white-space: nowrap;
 }
 
