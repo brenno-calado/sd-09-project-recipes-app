@@ -5,18 +5,20 @@ import { fetchMealsById, fetchDrinkById } from '../services/index';
 import { filterIngredients } from '../services/recipes';
 
 function IngredientsList({ id, type }) {
+  const recipeId = useParams();
   const [ingredients, setIngredients] = useState();
   const [currentRecipe, setCurrentRecipe] = useState();
   const [recipeCompleted, setRecipeCompleted] = useState(false);
+  const [checkedIng, setCheckedIng] = useState(JSON.parse(localStorage
+    .getItem('recipesStatus'))[recipeId.id] || []);
   // const [recipeStarted, setRecipeStarted] = useState(false);
-  const recipeId = useParams();
 
   useEffect(() => {
     const fetchRecipe = async () => {
       const recipeDetails = type === 'meals'
         ? await fetchMealsById(id) : await fetchDrinkById(id);
-      const recipeIngredients = recipeDetails && filterIngredients(recipeDetails);
-      console.log(recipeIngredients);
+      // const recipeIngredients = recipeDetails && filterIngredients(recipeDetails);
+      // console.log(recipeIngredients);
       return setCurrentRecipe(recipeDetails);
     };
     fetchRecipe();
@@ -26,28 +28,30 @@ function IngredientsList({ id, type }) {
     if (currentRecipe) setIngredients(filterIngredients(currentRecipe[0]));
   }, [currentRecipe]);
 
-  useEffect(() => () => {
+  useEffect(() => {
     // const recipeId = currentRecipe.strMeal || currentRecipe.strDrink;
     const statusStorage = JSON.parse(localStorage.getItem('recipesStatus'));
     const savedStatus = {
       ...statusStorage,
-      [recipeId.id]: document.querySelector('.ingredients-checkbox').innerHTML,
+      [recipeId.id]: checkedIng,
     };
-    console.log(savedStatus);
+    console.log(checkedIng);
     localStorage.setItem('recipesStatus', JSON.stringify(savedStatus));
-  }, [recipeId.id]);
+  }, [checkedIng, recipeId.id]);
 
   const checkRecipeDone = () => {
     // const checkBoxes = [];
     const allIngredients = Array.from(document.querySelectorAll('input'));
-    // console.log(allIngredients);
     // const doneButton = document.getElementById('done-recipe');
     // console.log(doneButton);
     // console.log(allIngredients.every((item) => item.checked));
     // if (allIngredients.some((item) => item.checked === false)) return setRecipeCompleted(false);
     // return setRecipeCompleted(true);
     // allIngredients.forEach((item) => checkBoxes.push(item.checked));
-    return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
+    const checkedlist = allIngredients.map((item) => item.checked);
+    // console.log(checkedlist);
+    setCheckedIng(checkedlist);
+    setRecipeCompleted(allIngredients.every((item) => item.checked === true));
     // return setRecipeCompleted(allIngredients.every((item) => item.checked === true));
   };
   const checkStatus = ({ target }) => {
@@ -60,10 +64,10 @@ function IngredientsList({ id, type }) {
   // const checkRecipeInProgress = () => {
   //   if (Object.keys(JSON.parse(localStorage.getItem('recipesStatus')))
   //     .some((item) => item === recipeId.id)) {
-  //     setRecipeStarted(true);
-  //     document.querySelector('.ingredients-checkbox')
-  //       .innerHTML = JSON.parse(localStorage.getItem('recipesStatus'));
+  //     console.log('check true');
+  //     return true;
   //   }
+  //   console.log('recipe not in storage');
   // };
 
   const renderDoneButton = () => (
@@ -97,6 +101,7 @@ function IngredientsList({ id, type }) {
             value={ item }
             name={ item }
             onClick={ (e) => checkStatus(e) }
+            checked={ checkedIng[index] || false }
           />
           { item }
         </label>
