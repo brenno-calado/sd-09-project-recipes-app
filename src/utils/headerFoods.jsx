@@ -4,7 +4,7 @@ import RecipeCard from '../components/RecepiCard';
 function createRender(list) {
   const type = 'comidas';
   const twelve = 12;
-  return list.map(({ idMeal, strMealThumb, strMeal }, index) => (
+  return list && list.map(({ idMeal, strMealThumb, strMeal }, index) => (
     index < twelve && (
       <RecipeCard
         key={ idMeal }
