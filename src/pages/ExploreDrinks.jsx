@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import BottomNav from '../components/BottomNav';
 
 function ExploreDrinks() {
   return (
@@ -14,6 +15,7 @@ function ExploreDrinks() {
       <Link to="/bebidas/178319">
         <Button data-testid="explore-surprise" type="button">Me Surpreenda!</Button>
       </Link>
+      <BottomNav />
     </section>
   );
 }

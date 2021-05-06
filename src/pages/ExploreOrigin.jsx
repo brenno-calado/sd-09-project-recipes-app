@@ -1,8 +1,12 @@
 import React from 'react';
+import BottomNav from '../components/BottomNav';
 
 function ExploreOrigin() {
   return (
-    <h1>Explore Ingredients</h1>
+    <div>
+      <h1>Explore Ingredients</h1>
+      <BottomNav />
+    </div>
   );
 }
 

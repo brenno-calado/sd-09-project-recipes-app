@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from 'react-bootstrap';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import BottomNav from '../components/BottomNav';
 
-const clickLogout = (setLogout) => {
+const clickLogout = () => {
   localStorage.clear();
-  setLogout(true);
 };
 
 const Profile = () => {
-  const { email } = JSON.parse(localStorage.getItem('user'));
-  const [logout, setLogout] = useState(false);
+  const email = JSON.parse(localStorage.getItem('user'))
+    ? JSON.parse(localStorage.getItem('user')).email
+    : '';
   console.log(email);
   return (
     <div>
@@ -26,12 +26,11 @@ const Profile = () => {
       <Link to="/">
         <Button
           data-testid="profile-logout-btn"
-          onClick={ () => clickLogout(setLogout) }
+          onClick={ () => clickLogout() }
         >
           Sair
         </Button>
       </Link>
-      {logout ? <Redirect to="/" /> : <span />}
       <BottomNav />
     </div>
   );
