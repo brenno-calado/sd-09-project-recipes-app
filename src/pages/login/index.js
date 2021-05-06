@@ -35,8 +35,8 @@ class Login extends Component {
     const patternEmail = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
     const minPassLength = 7;
     return (
-      <div>
-        Login
+      <div className="login-screen">
+        <h1 className="login-screen-title">Login</h1>
         <input
           type="email"
           name="email"

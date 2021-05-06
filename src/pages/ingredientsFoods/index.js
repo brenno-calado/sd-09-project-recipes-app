@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LoadingScreen from '../loadingScreen';
+import Footer from '../../components/footer';
 
 class index extends Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class index extends Component {
               </div>
             ))}
         </main>
+        <Footer />
       </div>
     );
   }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Footer from '../../components/footer';
+import Header from '../../components/header';
 // import LoadingScreen from '../loadingScreen';
 // import IngredientsFoods from '../ingredientsFoods';
 
@@ -25,7 +27,7 @@ class index extends Component {
     const { myRandomMeal } = this.state;
     return (
       <div>
-        <header>Explorar Comidas</header>
+        <Header title="Perfil" iconSearch="hidden" />
         <Link to="/explorar/comidas/ingredientes">
           <button type="button" data-testid="explore-by-ingredient">
             Por Ingredientes
@@ -44,6 +46,7 @@ class index extends Component {
             Me Surpreenda!
           </button>
         </Link>
+        <Footer />
       </div>
     );
   }
