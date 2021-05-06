@@ -15,7 +15,7 @@ class Share extends Component {
     let url = window.location.href;
     if (url.includes('/in-progress')) url = url.replaceAll('/in-progress', '');
     copy(url)
-      .then(() => this.setState({ p: 'Link copiado!' }))
+      .then(() => this.setState({ p: 'Link copiado!' }));
   }
 
   render() {
