@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Header from '../../components/header';
+import Footer from '../../components/footer';
 import './styles.css';
-
-import profileIcon from '../../images/newIcons/profileIcon.svg';
 
 class ExplorerScreen extends Component {
   constructor(props) {
@@ -19,12 +19,7 @@ class ExplorerScreen extends Component {
   render() {
     return (
       <div className="explore-screen">
-        <header className="explore-screen-header">
-          <img src={ profileIcon } alt="Profile icon" />
-          <span className="explore-screen-header-title">
-            Explorar
-          </span>
-        </header>
+        <Header title="Explorar" iconSearch="hidden" />
         <button
           className="explore-screen-button"
           type="button"
@@ -43,6 +38,7 @@ class ExplorerScreen extends Component {
         >
           Explorar Bebidas
         </button>
+        <Footer />
       </div>
     );
   }
