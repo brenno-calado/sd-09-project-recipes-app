@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { func, objectOf } from 'prop-types';
 import { fetchRecipeByIdAction, recommendationsFetchAction } from '../actions';
@@ -83,6 +84,7 @@ class Details extends React.Component {
   render() {
     const { recipe, match, recommendations } = this.props;
     const { isStartedRecipe, renderBtn } = this.state;
+    const location = window.location.pathname;
     if (!recipe[0] && !recommendations[0]) return <p>Loading...</p>;
     return (
       <div>
@@ -100,14 +102,16 @@ class Details extends React.Component {
         <Recommendations />
         {renderBtn
         && (
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="start-btn"
-            onClick={ this.handleClick }
-          >
-            {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-          </button>
+          <Link to={ `${location}/in-progress` }>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="start-btn"
+              onClick={ this.handleClick }
+            >
+              {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+            </button>
+          </Link>
         )}
       </div>
     );
