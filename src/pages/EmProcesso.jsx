@@ -1,10 +1,11 @@
-import React, { /* useContext, */ useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams /* useHistory */ } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { useRecipes } from '../hooks';
 import '../styles/InProgress.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
+import { RecipesContext } from '../context';
 
 function EmProcesso() {
   const { pathname } = useLocation();
@@ -14,13 +15,15 @@ function EmProcesso() {
   const [loading, setLoading] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
 
-  /* const { values: { doneRecipes, inProgressRecipes } } = useContext(RecipesContext); */
+  // recupera local storage
+  const { values: { inProgressRecipes }, actions: { setInProgressRecipes } } = useContext(RecipesContext);
+  console.log(inProgressRecipes);
 
   const { getRecipes } = useRecipes();
 
   const type = pathname.includes('comidas') ? ['comidas', 'Meal'] : ['bebidas', 'Drink'];
-  const recType = pathname.includes('comidas')
-    ? ['bebidas', 'Drink'] : ['comidas', 'Meal'];
+  /* const recType = pathname.includes('comidas')
+    ? ['bebidas', 'Drink'] : ['comidas', 'Meal']; */
 
   useEffect(() => {
     async function loadRecipe() {
@@ -51,11 +54,16 @@ function EmProcesso() {
           { ingredient }
           <input
             type="checkbox"
-            name="ingredient"
+            id="ingredient"
           />
         </label>
       </>
     ));
+  }
+
+  function handleClink() {
+    // pegar todos ingrediente checkados kk
+    // salva no localStorage => usar setInProgress
   }
 
   /*   function renderStartButtonText() {
@@ -106,6 +114,7 @@ function EmProcesso() {
           <button
             data-testid="finish-recipe-btn"
             type="button"
+            onClick={ handleClink }
           >
             Finalizar
           </button>
