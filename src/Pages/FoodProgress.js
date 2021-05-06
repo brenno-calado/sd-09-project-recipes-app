@@ -17,17 +17,20 @@ class FoodProgress extends Component {
       igredients: [],
       ok: false,
     };
+    // this.getLocalStore = this.getLocalStore.bind(this);
+    // this.addLocalStore = this.addLocalStore.bind(this);
+    this.itemsDone = this.itemsDone.bind(this);
+    this.recipeDone = this.recipeDone.bind(this);
     this.foodFavorit = this.foodFavorit.bind(this);
     this.sumblimeText = this.sumblimeText.bind(this);
-    this.checkedItems = this.checkedItems.bind(this);
   }
 
   componentDidMount() {
+    document.querySelector('#finalizar').disabled = true;
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
     const { addObjFood } = this.props;
-
     fetchMealDetailsAPI(id)
       .then(({ meals }) => {
         addObjFood({
@@ -39,6 +42,7 @@ class FoodProgress extends Component {
           name: meals[0].strMeal,
           image: meals[0].strMealThumb,
         });
+
         this.setState({ meal: meals[0], ok: true });
         const ingredients = Object.keys(meals[0])
           .filter((key) => key.includes('strIngredient'));
@@ -46,17 +50,47 @@ class FoodProgress extends Component {
       });
   }
 
-  checkedItems() {
-    const validetion = 0;
-    const checkeds = document.querySelectorAll('input');
+  // getLocalStore(idObj) {
+  //   const storage = JSON.parse(localStorage.getItem("inProgressRecipes"));
+  //   const id = Object.keys(storage.cocktails).find((key) => key === idObj);
+  //   if (id.length > 0) {
+  //     this.setState({ localStorage: id[0] });
+  //   };
+  // }
+
+  // addLocalStore() {
+  //   const { meal } = this.state;
+  //   const inputs = document.querySelectorAll('input');
+  //   let array = [];
+  //   const storage = JSON.parse(localStorage.getItem("inProgressRecipes"));
+  //   if(storage !== null){
+  //     inputs.forEach((value) => {
+  //       array = [...array, value.checked];
+  //     });
+  //     localStorage.setItem("inProgressRecipes", JSON.stringify(
+  //       {
+  //         meals: {
+  //           ...storage.meals,
+  //           [meal.idMeal]: array,
+  //         },
+  //         cocktails: {
+  //           ...storage.cocktails,
+  //         }
+  //       }
+  //     ))
+  //   }
+  // }
+
+  itemsDone() {
+    const inputs = document.querySelectorAll('input');
     const button = document.querySelector('#finalizar');
-    checkeds.forEach((checked) => {
-      if (checked.checked === true) {
-        console.log('dd');
-      }
+    let array = [];
+    inputs.forEach((value) => {
+      array = [...array, value.checked];
     });
-    if (validetion === checkeds.length) button.disabled = true;
-    if (validetion <= checkeds.length) button.disabled = false;
+    array = array.every((value) => value === true);
+    if (array) button.disabled = false;
+    else button.disabled = true;
   }
 
   sumblimeText() {
@@ -70,23 +104,49 @@ class FoodProgress extends Component {
 
   foodFavorit() {
     const { ok } = this.state;
-    if (ok) return <FavoriteButton />
+    if (ok) {
+      return (
+        <div>
+          <FavoriteButton />
+          <Share />
+        </div>
+      );
+    }
+  }
+
+  recipeDone() {
+    const { meal } = this.state;
+    const { idMeal, strCategory, strMeal, strArea, strMealThumb, strTags } = meal;
+    const now = new Date();
+    const data = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+
+    const obj = {
+      id: idMeal,
+      type: 'comida',
+      area: strArea,
+      category: strCategory,
+      alcoholicOrNot: '',
+      name: strMeal,
+      image: strMealThumb,
+      doneDate: data,
+      tags: [strTags],
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes === null) localStorage.setItem('doneRecipes', JSON.stringify([obj]));
+    else localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
   }
 
   render() {
     const { meal, igredients } = this.state;
-    // const { match } = this.props;
-    // const { params: { id } } = match;
     const { strCategory, strMealThumb, strMeal, strInstructions } = meal;
     return (
       <div>
         <h1>Comidas em Progresso</h1>
-        <Share />
         {this.foodFavorit()}
         <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
-        <div>
+        <div onChange={ this.itemsDone } id="verifica">
           {igredients.map((value, index) => {
             if (meal[value] !== '' && index < MAX_NUMBER_INGREDIENTS) {
               return (
@@ -114,7 +174,8 @@ class FoodProgress extends Component {
           <button
             type="button"
             data-testid="finish-recipe-btn"
-            disabled={ !this.checkedItems }
+            id="finalizar"
+            onClick={ this.recipeDone }
           >
             Finalizar Receita
           </button>

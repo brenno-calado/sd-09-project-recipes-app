@@ -16,12 +16,14 @@ class DrinkProgress extends Component {
       igredients: [],
       ok: false,
     };
+    this.itemsDone = this.itemsDone.bind(this);
+    this.recipeDone = this.recipeDone.bind(this);
     this.drinkFavorit = this.drinkFavorit.bind(this);
     this.sumblimeText = this.sumblimeText.bind(this);
-    this.checkedItems = this.checkedItems.bind(this);
   }
 
   componentDidMount() {
+    document.querySelector('#finalizar').disabled = true;
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
@@ -45,18 +47,6 @@ class DrinkProgress extends Component {
       });
   }
 
-  checkedItems() {
-    const validetion = 0;
-    const checkeds = document.querySelectorAll('input');
-    const button = document.querySelector('#finalizar');
-    checkeds.forEach((checked) => {
-      if (checked.checked === true) {
-      }
-    });
-    if (validetion === checkeds.length) button.disabled = true;
-    if (validetion !== checkeds.length) button.disabled = false;
-  }
-
   sumblimeText() {
     const label = document.querySelectorAll('label');
     const input = document.querySelectorAll('input');
@@ -68,21 +58,67 @@ class DrinkProgress extends Component {
 
   drinkFavorit() {
     const { ok } = this.state;
-    if (ok) return <FavoriteButton />
+    if (ok) {
+      return (
+        <div>
+          <FavoriteButton />
+          <Share />
+        </div>
+      );
+    }
+  }
+
+  itemsDone() {
+    const inputs = document.querySelectorAll('input');
+    const button = document.querySelector('#finalizar');
+    let array = [];
+    inputs.forEach((value) => {
+      array = [...array, value.checked];
+    });
+    array = array.every((value) => value === true);
+    if (array) button.disabled = false;
+    else button.disabled = true;
+  }
+
+  recipeDone() {
+    const { drink } = this.state;
+    const {
+      idDrink,
+      strCategory,
+      strAlcoholic,
+      strDrink,
+      strDrinkThumb,
+      strTags,
+    } = drink;
+    const now = new Date();
+    const data = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+    const obj = {
+      id: idDrink,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: data,
+      tags: [strTags],
+    };
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes === null) localStorage.setItem('doneRecipes', JSON.stringify([obj]));
+    else localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, obj]));
   }
 
   render() {
     const { drink, igredients } = this.state;
     const { strCategory, strDrinkThumb, strDrink, strInstructions } = drink;
     return (
-      <div>
+      <div onChange={ this.recipeDone }>
         <h1>Drink em Progresso </h1>
-        <Share />
         {this.drinkFavorit()}
         <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
         <h2 data-testid="recipe-title">{strDrink}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
-        <div>
+        <div onChange={ this.itemsDone } id="verifica">
           {igredients.map((value, index) => {
             if (drink[value] !== null && index < MAX_NUMBER_INGREDIENTS) {
               return (
@@ -109,8 +145,9 @@ class DrinkProgress extends Component {
         >
           <button
             type="button"
-            disabled={ !this.checkedItems }
             data-testid="finish-recipe-btn"
+            id="finalizar"
+            onClick={ this.recipeDone }
           >
             Finalizar Receita
           </button>
@@ -126,7 +163,7 @@ DrinkProgress.propTypes = {
       id: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
-  addObjDrin: PropTypes.func.isRequired,
+  addObjDrink: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
