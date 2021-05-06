@@ -1,0 +1,29 @@
+.share-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+  margin: 2px;
+  outline-color: transparent;
+  transition: 0.9s;
+}
+
+.share-button:focus {
+  outline: none;
+}
+
+.share-button:hover {
+  box-shadow: 2px 1px 5px gray;
+}
+
+.copied-message {
+  background-color: white;
+  border-radius: 8px;
+  bottom: 10px;
+  box-shadow: 1px 1px 5px 1px gray;
+  color: gray;
+  font-family: monospace;
+  font-weight: 700;
+  left: 40%;
+  padding: 8px;
+  position: fixed;
+}
