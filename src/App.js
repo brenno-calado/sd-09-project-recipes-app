@@ -16,10 +16,6 @@ function App() {
       <div className="meals">
         <Switch>
           <Route exact path="/" component={ Home } />
-          <Route path="/comidas" component={ Foods } />
-          <Route path="/bebidas" component={ Drinks } />
-          <Route path="/comidas/{id-da-receita}" component={ FoodsDetails } />
-          <Route path="/bebidas/{id-da-receita}" component={ DrinksDetails } />
           <Route
             path="/comidas/{id-da-receita}/in-progress"
             component={ FoodsInProgress }
@@ -28,6 +24,10 @@ function App() {
             path="/bebidas/{id-da-receita}/in-progress"
             component={ DrinksInProgress }
           />
+          <Route path="/comidas/{id-da-receita}" component={ FoodsDetails } />
+          <Route path="/bebidas/{id-da-receita}" component={ DrinksDetails } />
+          <Route path="/comidas" component={ Foods } />
+          <Route path="/bebidas" component={ Drinks } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExploreFoodsAndIngredients }
@@ -37,6 +37,7 @@ function App() {
             component={ ExploreDrinksAndIngredients }
           />
           <Route path="/explorar/comidas/area" component={ ExploreArea } />
+          <Route path="/explorar/bebidas/area" render={ () => <div>Not Found</div> } />
           <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route path="/explorar" component={ Explore } />

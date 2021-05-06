@@ -3,14 +3,18 @@ const URLBASE = {
   bebidas: 'https://www.thecocktaildb.com/api/json/v1/1',
 };
 
-export async function requestFoodAndDrinks(mealtype, query, filter) {
+export default async (mealtype) => {
+  const request = await fetch(`${URLBASE[mealtype]}/search.php?s=`);
+  const response = await request.json();
+  return response;
+};
+
+export const getFilteredRecipes = async (mealtype, query, filter) => {
   let request = '';
 
   if (query && (filter === 'primeira-letra')) {
     if (query.length === 1) {
       request = await fetch(`${URLBASE[mealtype]}/search.php?f=${query}`);
-    } else {
-      return alert('Sua busca deve conter somente 1 (um) caracter');
     }
   } else if (query && (filter === 'ingrediente')) {
     request = await fetch(`${URLBASE[mealtype]}/filter.php?i=${query}`);
@@ -20,10 +24,28 @@ export async function requestFoodAndDrinks(mealtype, query, filter) {
 
   const response = await request.json();
   return response;
+};
+
+export async function requestByIngredient(ingredient) {
+  const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const response = request.json();
+  return response;
 }
 
-export async function requestByIngredient(ingredient, mealtype) {
-  const url = mealtype === URLBASE;
-  const request = await fetch(`${url}/filter.php?i=${ingredient}`);
-  return request;
+export async function requestByIngredientDrink(ingredient) {
+  const request = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`);
+  const response = request.json();
+  return response;
+}
+
+export async function requestByArea() {
+  const requestAreas = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((response) => response.json());
+  return requestAreas.meals;
+}
+
+export async function requestRecipes() {
+  const request = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    .then((response) => response.json());
+  return request.meals;
 }

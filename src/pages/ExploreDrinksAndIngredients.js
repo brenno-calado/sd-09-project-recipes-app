@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import RecipesContext from '../context/RecipesContext';
+import { requestByIngredientDrink } from '../services/api';
 
 function ExploreDrinksAndIngredients() {
   const [ingredientDrink, setIngredientDrink] = useState({});
+  const { setDataFromApi, dataFromApi } = useContext(RecipesContext);
+  const history = useHistory();
 
   const drinkURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
   const requestIngredient = async (endpoint) => {
@@ -20,6 +25,14 @@ function ExploreDrinksAndIngredients() {
     setIngredientDrink(object.drinks.slice(0, arrayMax));
   };
 
+  const handleClick = async (ingredient) => {
+    const recipe = await requestByIngredientDrink(ingredient, 'bebidas');
+    const { drinks } = recipe;
+    setDataFromApi({ ...dataFromApi, recipes: drinks, loading: false });
+    console.log(drinks);
+    history.push('/bebidas');
+  };
+
   useEffect(() => {
     requestIngredientList();
   }, []);
@@ -30,9 +43,11 @@ function ExploreDrinksAndIngredients() {
     <div>
       <Header title="Explorar Ingredientes" />
       { ingredientDrink.map(({ strIngredient1 }, index) => (
-        <section
+        <button
+          type="button"
           data-testid={ `${index}-ingredient-card` }
           key={ strIngredient1 }
+          onClick={ () => handleClick(strIngredient1) }
         >
           <img
             src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
@@ -44,7 +59,7 @@ function ExploreDrinksAndIngredients() {
           >
             { strIngredient1 }
           </p>
-        </section>
+        </button>
       ))}
       <Footer />
     </div>

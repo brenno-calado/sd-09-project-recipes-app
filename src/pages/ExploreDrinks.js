@@ -17,7 +17,7 @@ function ExploreDrinks() {
         .then((myDrink) => myDrink.drinks[0]));
     setDrink(requestDrink);
   };
-  console.log(drinksDetailsRandom());
+  drinksDetailsRandom();
 
   const handleClickToSurpriseMe = () => {
     history.push(`/bebidas/${drink.idDrink}`);
