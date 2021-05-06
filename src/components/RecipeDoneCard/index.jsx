@@ -8,7 +8,8 @@ import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 
 function RecipeDoneCard(
   { image, name, index, doneData, category,
-    tagName, area, id, setFavorite, favorite, type, doneDate, shouldFavorite, alcoholicOrNot },
+    tagName, area, id, setFavorite, favorite,
+    type, doneDate, shouldFavorite, alcoholicOrNot },
 ) {
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
@@ -44,7 +45,11 @@ function RecipeDoneCard(
         <p data-testid={ `${index}-horizontal-name` }>{name}</p>
       </Link>
       <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
-      <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${alcoholicOrNot}`}</p>
+      <p
+        data-testid={ `${index}-horizontal-top-text` }
+      >
+        {`${area} - ${alcoholicOrNot}`}
+      </p>
       <p data-testid={ `${index}-horizontal-done-date` }>{doneData}</p>
       <CopyToClipboard text={ url }>
         <button

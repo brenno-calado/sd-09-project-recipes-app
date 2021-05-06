@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import React, { useEffect, useState } from 'react';
 import HeaderFoods from '../components/HeaderFoods';
 import RecipeDoneCard from '../components/RecipeDoneCard';
@@ -13,22 +12,37 @@ function RecipesMade() {
 
   function renderAllRecipesMade() {
     const vari = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filter = vari.map(({ id, image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index) => (
-      <RecipeDoneCard
-        key={ id }
-        image={ image }
-        category={ category }
-        name={ name }
-        doneDate={ doneDate }
-        tagName={ tags }
-        index={ index }
-        shouldFavorite={ false }
-        type={ type }
-        id={ id }
-        area={ area }
-        alcoholicOrNot={ alcoholicOrNot }
-      />
-    ));
+    const filter = vari.map(
+      (
+        {
+          id,
+          image,
+          category,
+          name,
+          doneDate,
+          tags,
+          type,
+          area,
+          alcoholicOrNot,
+        },
+        index,
+      ) => (
+        <RecipeDoneCard
+          key={ id }
+          image={ image }
+          category={ category }
+          name={ name }
+          doneDate={ doneDate }
+          tagName={ tags }
+          index={ index }
+          shouldFavorite={ false }
+          type={ type }
+          id={ id }
+          area={ area }
+          alcoholicOrNot={ alcoholicOrNot }
+        />
+      ),
+    );
     return filter;
   }
 
@@ -61,8 +75,12 @@ function RecipesMade() {
 
   function renderDrinksRecipesMade() {
     const vari = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filter = vari
-      .map(({ id, image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index) => (
+    const filter = vari.map(
+      (
+        {
+          id,
+          image, category, name, doneDate, tags, type, area, alcoholicOrNot }, index,
+      ) => (
         type === 'bebida' && (
           <RecipeDoneCard
             key={ id }
@@ -79,7 +97,8 @@ function RecipesMade() {
             alcoholicOrNot={ alcoholicOrNot }
           />
         )
-      ));
+      ),
+    );
     return filter;
   }
 

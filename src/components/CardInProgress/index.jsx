@@ -1,11 +1,12 @@
 import React from 'react';
-import { arrayOf, string, func, bool } from 'prop-types';
+import { arrayOf, string, func, bool, shape } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import useShouldRedirect from '../../hooks/useShoulRedirect';
+import endRecipeButton from '../../utils/endRecipeButton';
 
 function CardeInProgress({
   image,
@@ -22,50 +23,17 @@ function CardeInProgress({
   style,
   // state,
 }) {
-  function endRecipeButton() {
-    const newDate = new Date();
-    const date = newDate.getDate();
-    const month = newDate.getMonth() + 1;
-    const year = newDate.getFullYear();
-    const currentDate = (`${date}/${month}/${year}`);
-    if (match.path === '/bebidas/:id/in-progress') {
-      const doneDrink = {
-        id,
-        key: id,
-        type: 'bebida',
-        area: '',
-        category: style,
-        alcoholicOrNot: category,
-        name: title,
-        image,
-        doneDate: currentDate,
-        tags: tags ? [tags] : [],
-      };
-      console.log(doneDrink);
-      const localStorageDrinkNegotiator = JSON.parse(localStorage.getItem('doneRecipes'));
-      localStorage.setItem('doneRecipes',
-        JSON.stringify(localStorageDrinkNegotiator
-          ? [...localStorageDrinkNegotiator, doneDrink] : [doneDrink]));
-    }
-    if (match.path === '/comidas/:id/in-progress') {
-      const doneFood = {
-        id,
-        key: id,
-        type: 'comida',
-        area,
-        category: style,
-        alcoholicOrNot: '',
-        name: title,
-        image,
-        doneDate: currentDate,
-        tags: tags ? [tags] : [],
-      };
-      const localStorageFoodNegotiator = JSON.parse(localStorage.getItem('doneRecipes'));
-      localStorage.setItem('doneRecipes',
-        JSON.stringify(localStorageFoodNegotiator
-          ? [...localStorageFoodNegotiator, doneFood] : [doneFood]));
-    }
-  }
+  const endRecipeParams = {
+    id,
+    match,
+    area,
+    tags,
+    image,
+    title,
+    category,
+    style,
+  };
+
   // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
@@ -123,7 +91,7 @@ function CardeInProgress({
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"
-        onClick={ () => { endRecipeButton(); handleClickRedirect(); } }
+        onClick={ () => { endRecipeButton(endRecipeParams); handleClickRedirect(); } }
       >
         Finalizar receita
       </button>
@@ -139,6 +107,11 @@ CardeInProgress.propTypes = {
   children: arrayOf(Object),
   handleFavorite: func,
   favorite: bool,
+  id: string,
+  area: string,
+  tags: string,
+  style: string,
+  match: shape(),
 };
 
 CardeInProgress.defaultProps = {
@@ -149,6 +122,11 @@ CardeInProgress.defaultProps = {
   children: [],
   handleFavorite: () => {},
   favorite: false,
+  id: '',
+  area: '',
+  tags: '',
+  style: '',
+  match: {},
 };
 
 export default CardeInProgress;
