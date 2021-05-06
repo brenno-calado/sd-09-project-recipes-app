@@ -10,3 +10,29 @@
   position: fixed;
   width: 100%;
 }
+
+.img-thumb {
+  height: 100%;
+  width: 100%;
+}
+
+.instructions-text {
+  font-size: 5;
+}
+
+.instruction-container {
+  width: 90%;
+}
+
+.img-container {
+  height: 200px;
+  width: 320px;
+}
+
+.details-container {
+  width: 320px;
+}
+
+.btn-social {
+  margin-top: 2px;
+}

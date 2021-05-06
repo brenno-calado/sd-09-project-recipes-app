@@ -1,45 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { favoriteRecipe } from '../helpers/index';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 import './Recipes.css';
 
 function Recipes(props) {
+  const [copySuccess, setCopySuccess] = useState('');
+  const history = useHistory();
+  const { pathname } = history.location;
   const {
     thumb, category,
     ingredientsList, measureList,
     recipeTitle, recipeInstruction,
+    recipe,
+    route,
   } = props;
 
-  function shareRecipe() {
-    console.log('Receita Compartilhada');
-  }
-
-  function favoriteRecipes() {
-    console.log('Receita Favoritada');
-  }
-
   const example = true;
-  const mapExample2 = [{ recomendation: 'Rizoles' }];
+
+  const shareRecipe = async (copyMe) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopySuccess('Link copiado!');
+    } catch (err) {
+      setCopySuccess('Failed to copy!');
+    }
+  };
 
   return (
-    <div>
-      <img src={ thumb } alt="food" data-testid="recipe-photo" />
+    <div className="details-container">
+      <div className="img-container">
+        <img src={ thumb } alt="food" data-testid="recipe-photo" className="img-thumb" />
+      </div>
       <div className="recipes-title">
         <h1 data-testid="recipe-title">{recipeTitle}</h1>
-        <div>
+        <div className="btn-social">
           <button
             type="button"
             data-testid="share-btn"
-            onClick={ shareRecipe }
+            onClick={ () => shareRecipe(`http://localhost:3000${pathname}`) }
           >
             <img src={ shareIcon } alt="food" />
           </button>
+          {copySuccess}
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ favoriteRecipes }
+            onClick={ () => favoriteRecipe(recipe, route) }
             src={ !example ? whiteHeartIcon : blackHeartIcon }
           >
             <img
@@ -65,19 +75,15 @@ function Recipes(props) {
           ))}
         </ul>
       </div>
-      <div>
+      <div className="instruction-container">
         <h2>Modo de Preparo:</h2>
-        <h3 data-testid="instructions">{recipeInstruction}</h3>
+        <p
+          data-testid="instructions"
+          className="instructions-text"
+        >
+          {recipeInstruction}
+        </p>
       </div>
-      {mapExample2.map((item, index) => (
-        <div key={ index }>
-          <h3
-            data-testid={ `${index}-recomendation-card` }
-          >
-            {item.recomendation }
-          </h3>
-        </div>
-      ))}
     </div>
   );
 }

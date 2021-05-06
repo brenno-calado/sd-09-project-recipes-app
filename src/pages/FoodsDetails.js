@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import Recipes from '../components/Recipes';
+import RecommendedDrinks from '../components/RecommendedDrinks';
 import './Pages.css';
 
 function FoodsDetails() {
+  const { idRecipe } = useContext(RecipesContext);
   const [recipe, setRecipe] = useState({});
   const history = useHistory();
-  const id = 178319;
   const example = true;
   const completeRecipe = false;
+  const id = 52771;
+  // const id = 52774;
+  console.log(idRecipe);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -21,7 +26,7 @@ function FoodsDetails() {
       }
     };
     fetchRecipe();
-  }, [id]);
+  }, []);
 
   function startRecipes() {
     history.push(`/comidas/${id}/in-progress`);
@@ -53,6 +58,8 @@ function FoodsDetails() {
     <button
       type="button"
       data-testid="start-recipe-btn"
+      className="start-recipe-btn"
+      onClick={ startRecipes }
     >
       {example ? 'Iniciar Receita' : 'Continuar Receita'}
     </button>
@@ -60,12 +67,14 @@ function FoodsDetails() {
   return (
     <div>
       <Recipes
+        recipe={ recipe }
         thumb={ recipe.strMealThumb }
         category={ recipe.strCategory }
         recipeTitle={ recipe.strMeal }
         recipeInstruction={ recipe.strInstructions }
         ingredientsList={ filterIngredients() }
         measureList={ filterMeasures() }
+        route="comida"
       />
       <iframe
         title="video"
@@ -74,13 +83,8 @@ function FoodsDetails() {
         src={ recipe.strYoutube }
         data-testid="video"
       />
-      <button
-        className="recipes-start"
-        type="button"
-        onClick={ startRecipes }
-      >
-        { completeRecipe ? null : renderStartRecipeButton() }
-      </button>
+      <RecommendedDrinks />
+      { completeRecipe ? null : renderStartRecipeButton() }
     </div>
   );
 }

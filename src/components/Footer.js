@@ -8,7 +8,8 @@ import './Footer.css';
 
 function Footer() {
   const history = useHistory();
-  const { setTitle } = useContext(RecipesContext);
+  const { setTitle, setDataFromApi, dataFromApi, setRestartRecipes,
+  } = useContext(RecipesContext);
 
   const goToDrinks = () => {
     history.push('/bebidas');
@@ -23,10 +24,12 @@ function Footer() {
   const goToFoods = () => {
     history.push('/comidas');
     setTitle('Comidas');
+    setDataFromApi({ ...dataFromApi, recipes: [] });
+    setRestartRecipes(true);
   };
 
   return (
-    <foot className="footer" data-testid="footer">
+    <footer className="footer" data-testid="footer">
       <button
         type="button"
         data-testid="drinks-bottom-btn"
@@ -51,7 +54,7 @@ function Footer() {
       >
         <img src={ mealIcon } alt="icon-foods" />
       </button>
-    </foot>
+    </footer>
   );
 }
 
