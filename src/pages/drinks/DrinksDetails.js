@@ -5,6 +5,8 @@ import { MealsRecomendations } from '../../components';
 import IngredientsContainer from '../../components/IngredientsContainer';
 import { getItemLocalStorage,
   updateLocalStorage } from '../../services/localStorageService';
+import { addToFavorite, removeToFavorite,
+  verifyItemInFavorite } from '../../services/functionsApi';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -20,9 +22,7 @@ function DrinksDetails() {
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
     getData();
-    setFavoriteRecipe(localStorage.favoriteRecipes
-      && getItemLocalStorage('favoriteRecipes')
-        .some(({ id: idItem }) => idItem === id));
+    setFavoriteRecipe(verifyItemInFavorite(id));
     setDoneRecipe(localStorage.doneRecipes
       && getItemLocalStorage('doneRecipes')
         .some(({ id: idItem }) => idItem === id));
@@ -46,21 +46,9 @@ function DrinksDetails() {
 
   const favorite = () => {
     if (!favoriteRecipe) {
-      const favoriteItem = {
-        id,
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: data.strAlcoholic,
-        name: data.strDrink,
-        image: data.strDrinkThumb,
-      };
-      updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
+      addToFavorite('drinks', data);
     } else {
-      const newFavoriteArray = localStorage.favoriteRecipes
-        && getItemLocalStorage('favoriteRecipes')
-          .filter(({ id: idItem }) => idItem !== id);
-      updateLocalStorage('updateFavoriteRecipes', null, newFavoriteArray);
+      removeToFavorite(id);
     }
     setFavoriteRecipe(!favoriteRecipe);
   };
