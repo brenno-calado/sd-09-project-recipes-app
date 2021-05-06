@@ -21,8 +21,6 @@ const FavoriteButton = (props) => {
     alcoholicOrNot: '',
     name: '',
     image: '',
-    doneDate: '',
-    tags: '',
   };
 
   const setFavoriteRecipes = () => {
@@ -37,8 +35,6 @@ const FavoriteButton = (props) => {
     favoriteRecipes.category = recipe.strCategory;
     favoriteRecipes.name = recipe[`str${recipeType}`];
     favoriteRecipes.image = recipe[`str${recipeType}Thumb`];
-    favoriteRecipes.doneDate = recipe.dateModified;
-    favoriteRecipes.tags = recipe.strTags;
     return favoriteRecipes;
   };
 
