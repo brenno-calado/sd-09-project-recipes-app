@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlineShareAlt } from 'react-icons/ai';
 import { GrFavorite } from 'react-icons/gr';
@@ -6,6 +6,7 @@ import { useParams } from 'react-router';
 import ReactPlayer from 'react-player';
 import { getRecipesById } from '../services/api';
 import RecomendationList from './RecomedationsList';
+import { RecipiesContext } from '../context/RecipiesContext';
 
 const getIngredientsAndMeasure = (recipe) => {
   let ingredientsList = [];
@@ -23,6 +24,7 @@ const getIngredientsAndMeasure = (recipe) => {
 function RecipesDetailsCard({ isMeal }) {
   const [recipeDetails, setRecipeDetails] = useState(null);
   const { id } = useParams();
+  const { favoriteRecipes, setFavoriteRecipes } = useContext(RecipiesContext);
 
   useEffect(() => {
     async function getRecipe() {
@@ -31,6 +33,10 @@ function RecipesDetailsCard({ isMeal }) {
     }
     getRecipe();
   }, [id, isMeal, setRecipeDetails]);
+
+  function addFavorite() {
+    setFavoriteRecipes({ obj: "test" });
+  }
 
   const renderIngredientsAndMeasure = () => getIngredientsAndMeasure(recipeDetails)
     .map(({ ingredient, measure }, index) => (
@@ -58,7 +64,11 @@ function RecipesDetailsCard({ isMeal }) {
       <button type="button" data-testid="share-btn">
         <AiOutlineShareAlt />
       </button>
-      <button type="button" data-testid="favorite-btn">
+      <button
+        type="button"
+        data-testid="favorite-btn"
+        onClick={ () => addFavorite() }
+      >
         <GrFavorite />
       </button>
       <h3 data-testid="recipe-category">
