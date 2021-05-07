@@ -26,7 +26,8 @@ export default function ExploreFoodsIngredients() {
         {ingredients.map(({ idIngredient, strIngredient }, index) => (
           <div
             key={ idIngredient }
-            data-testid={ `${index}-ingredient-card` }
+            // data-testid={ `${index}-ingredient-card` }
+            data-testid={ `${index}-card-name` }
             className="food-ingredients-card"
           >
             <img
@@ -35,7 +36,8 @@ export default function ExploreFoodsIngredients() {
               data-testid={ `${index}-card-img` }
             />
             <button
-              data-testid={ `${index}-card-name` }
+              // data-testid={ `${index}-card-name` }
+              data-testid={ `${index}-ingredient-card` }
               type="button"
               onClick={ () => handleClick(strIngredient) }
             >

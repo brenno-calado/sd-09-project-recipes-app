@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import '../css/DoneRecipes.css';
+import '../css/RenderDoneRecipes.css';
 
 const RenderDoneRecipes = (props) => {
   const { list } = props;
@@ -12,7 +12,6 @@ const RenderDoneRecipes = (props) => {
 
   const handleClickFilter = ({ target }) => {
     const { innerText } = target;
-    console.log(target.innerText);
     if (innerText === 'All') {
       setFilteredList(list);
     }
@@ -40,9 +39,9 @@ const RenderDoneRecipes = (props) => {
 
   if (loading) return (<p>Loading...</p>);
   return (
-    <div>
+    <div className="render-recipes-done-container">
       { shareButton ? <p>Link copiado!</p> : null}
-      <div className="buttonContainer">
+      <div className="filter-button-container">
         <button
           type="button"
           data-testid="filter-by-all-btn"
@@ -68,39 +67,72 @@ const RenderDoneRecipes = (props) => {
       <div className="item-container">
         {/* cuidado */}
         { filteredList.map((item, index) => (
-          <div className="item-card" key={ index }>
+          <div className="render-recipes-done-card" key={ index }>
+
+            {/* imagem */}
             <Link to={ `/${item.type}s/${item.id}` }>
               <img
                 src={ item.image }
                 alt={ item.name }
-                className="item-image"
+                className="render-recipes-done-image"
                 data-testid={ `${index}-horizontal-image` }
               />
             </Link>
-            <h5 data-testid={ `${index}-horizontal-top-text` }>
-              { item.alcoholicOrNot !== ''
-                ? item.alcoholicOrNot : `${item.area} - ${item.category}` }
-            </h5>
-            <Link to={ `/${item.type}s/${item.id}` }>
-              <h3 data-testid={ `${index}-horizontal-name` }>{ item.name }</h3>
-            </Link>
+            <div>
+              <div className="recipes-done-card-info">
+                {/* Area + Categoria  ou teor alcolico */}
+                <p
+                  data-testid={ `${index}-horizontal-top-text` }
+                  className="recipes-done-category"
+                >
+                  { item.alcoholicOrNot !== ''
+                    ? item.alcoholicOrNot : `${item.area} - ${item.category}` }
+                </p>
+
+                {/* nome com link */}
+                <Link to={ `/${item.type}s/${item.id}` }>
+                  <p
+                    data-testid={ `${index}-horizontal-name` }
+                    className="recipes-done-name"
+                  >
+                    { item.name }
+                  </p>
+                </Link>
+
+                {/* Data que foi feita */}
+                <p
+                  data-testid={ `${index}-horizontal-done-date` }
+                  className="recipes-done-date"
+                >
+                  {`Feita em ${item.doneDate}`}
+                </p>
+                { item.tags.length === 0 ? null : (
+                  <div className="recipes-done-tags">
+                    { item.tags.map((tag) => (
+                      <p
+                        key={ tag }
+                        data-testid={ `${index}-${tag}-horizontal-tag` }
+                      >
+                        { tag }
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Botao de dar share */}
             <button
               type="button"
               onClick={ handleShareButton }
+              className="recipes-done-share-btn"
             >
               <img
                 src={ shareIcon }
                 alt={ `${item.type}s/${item.id}` }
                 data-testid={ `${index}-horizontal-share-btn` }
-
               />
             </button>
-            <h6 data-testid={ `${index}-horizontal-done-date` }>{ item.doneDate }</h6>
-            { item.tags.map((tag) => (
-              <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>
-                { tag }
-              </p>
-            ))}
           </div>
         ))}
       </div>

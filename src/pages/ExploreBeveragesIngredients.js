@@ -25,7 +25,7 @@ export default function ExploreBeveragesIngredients() {
         {ingredients.map(({ strIngredient1 }, index) => (
           <div
             key={ index }
-            data-testid={ `${index}-ingredient-card` }
+            data-testid={ `${index}-card-name` }
             className="drink-ingredients-card"
           >
             <img
@@ -35,7 +35,7 @@ export default function ExploreBeveragesIngredients() {
             />
             <button
               type="button"
-              data-testid={ `${index}-card-name` }
+              data-testid={ `${index}-ingredient-card` }
               onClick={ () => handleClick(strIngredient1) }
             >
               { strIngredient1 }
