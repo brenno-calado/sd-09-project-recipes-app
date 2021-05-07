@@ -26,6 +26,7 @@ class Drinks extends React.Component {
     if (recipes === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
+    if (!itens[0]) return <p>Loading...</p>;
     return (
       <div>
         <Header title="Bebidas" searchIcon={ searchIcon } />

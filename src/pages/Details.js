@@ -30,7 +30,7 @@ class Details extends React.Component {
   }
 
   handleClick() {
-  /*   const { recipe } = this.props;
+    const { recipe } = this.props;
     let localStorageObject = {};
     const ingredientsArray = [];
     const mxmIngredients = 20;
@@ -52,7 +52,7 @@ class Details extends React.Component {
         cocktails: { [recipe[0].idDrink]: ingredientsArray },
       };
     }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObject));  */
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObject));
   }
 
   setStartOrContinueBtn() {
@@ -85,7 +85,8 @@ class Details extends React.Component {
     const { recipe, match, recommendations } = this.props;
     const { isStartedRecipe, renderBtn } = this.state;
     const location = window.location.pathname;
-    if (!recipe[0] && !recommendations[0]) return <p>Loading...</p>;
+    if (!recipe) return <p>Loading...</p>;
+    if (!recipe[0] || !recommendations[0]) return <p>Loading...</p>;
     return (
       <div>
         <DetailsHeader recipe={ recipe[0] } path={ match.path } />

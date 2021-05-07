@@ -18,7 +18,7 @@ class Recommendations extends React.Component {
     return (
       <div>
         <Carousel>
-          { this.filterRecommendations()
+          {this.filterRecommendations()
             .map((recipe, index) => (
               <Carousel.Item
                 interval={ 3000 }
