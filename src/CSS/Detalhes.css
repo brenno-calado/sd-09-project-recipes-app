@@ -1,0 +1,114 @@
+.header-div {
+  display: flex;
+  justify-content: space-around;
+  margin: 10px;
+  width: 40%;
+}
+
+.header-div button {
+  background-color: transparent;
+  border: none;
+}
+
+h1, h2, h3, h4 {
+  color: var(--colorSuccess3);
+}
+
+button:focus {
+  border: none;
+  outline: none;
+}
+
+
+ul {
+  align-self: flex-start;
+  margin-left: 15px;
+}
+
+.start-recipe-btn {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 5px;
+  bottom: 5px;
+  color: white;
+  left: 50%;
+  padding: 5px;
+  position: fixed;
+  transform: translateX(-50%);
+}
+
+.finish-recipe-btn:enabled {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 5px;
+  bottom: 5px;
+  color: white;
+  padding: 5px;
+}
+
+.finish-recipe-btn:disabled {
+  background-color: var(--colorWarning3);
+  border: none;
+  border-radius: 5px;
+  bottom: 5px;
+  color: white;
+  padding: 5px;
+  text-decoration: line-through;
+}
+
+.carousel {
+  margin-bottom: 30px;
+}
+
+.carousel p {
+  color: var(--colorSuccess3);
+  text-shadow: 2px 2px 2px black;
+}
+
+.card-content {
+  align-items: center;
+  background-color: var(--colorWarning4);
+  border-top-left-radius: 2em 2em;
+  border-top-right-radius: 2em 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 15px;
+}
+
+.card-content h2 {
+  text-align: center;
+}
+
+.img-card {
+  align-items: center;
+  background-color: var(--colorSuccess4);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  width: 55%;
+}
+
+.itens-recomendadas {
+  margin-top: 10px;
+}
+
+.ingredient-steps {
+  align-self: flex-start;
+}
+
+.recipe-details {
+  align-items: center;
+  background-color: var(--colorSuccess5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recipe-img {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 90%;
+}

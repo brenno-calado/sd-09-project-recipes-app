@@ -25,13 +25,12 @@ a p {
 }
 
 .pageExplore {
-  box-shadow: 1px 1px 1px black;
+  background-color: var(--colorSuccess3);
+  border-radius: 5px;
   margin: 30px;
   padding: 20px 10px;
 }
 
-.start-recipe-btn {
-  bottom: 0;
-  left: 50%;
-  position: fixed;
+.pageExplore h4 {
+  color: white;
 }

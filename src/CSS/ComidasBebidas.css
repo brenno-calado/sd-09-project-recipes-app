@@ -70,6 +70,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  margin-bottom: 50px;
   margin-top: 10px;
 }
 
@@ -78,9 +79,13 @@
 }
 
 .listCard p {
+  max-width: 150px;
+  overflow: hidden;
   padding: 5px;
   text-align: center;
   text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .listCard img {

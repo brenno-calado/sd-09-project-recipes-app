@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
+import Carousel from 'react-bootstrap/Carousel';
 import copy from 'clipboard-copy';
 import { getFoodIdDetails, getDrinks } from '../services';
 import { AppContext } from '../context/AppContext';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
+import next from '../images/next.svg';
+import previous from '../images/previous.svg';
+import '../CSS/Detalhes.css';
 
 const checkFavorite = (favoriteRecipes, recipeId) => {
   if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
@@ -114,44 +118,72 @@ const DetalhesComida = () => {
   if (!idDetails || !recomendations) return <p>Carregando...</p>;
   const { strMealThumb, strMeal, strCategory, strInstructions, idMeal } = idDetails;
   return (
-    <div>
-      <img src={ strMealThumb } alt={ strMeal } data-testid="recipe-photo" />
-      <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button type="button" onClick={ () => handleShare() }>
-        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
-      </button>
-      { linkShared && <p>Link copiado!</p> }
-      <button type="button" onClick={ handleFavorite }>
+    <div className="recipe-details">
+      <div className="img-card">
         <img
-          data-testid="favorite-btn"
-          src={ checkFavorite(favoriteRecipes, idMeal) ? blackHeartImg : whiteHeartImg }
-          alt="Favoritas"
+          src={ strMealThumb }
+          alt={ strMeal }
+          data-testid="recipe-photo"
+          className="recipe-img"
         />
-      </button>
-      <p data-testid="recipe-category">{strCategory}</p>
-      { idDetails && getIngredients().map((ingredient, index) => (
-        <p data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
-          {`${ingredient.name} ${ingredient.measure === null ? '' : ingredient.measure}`}
-        </p>
-      )) }
-      <p data-testid="instructions">{strInstructions}</p>
-      <iframe
-        data-testid="video"
-        title="Instructions"
-        src={ replaceVideoUrl((idDetails)) }
-      />
-      <p>Bebidas recomendadas</p>
-      { recomendations && recomendations.map((drink, index) => (
-        <div data-testid={ `${index}-recomendation-card` } key={ drink.idDrink }>
-          <img
-            data-testid={ `${index}-recomendation-img` }
-            src={ drink.strDrinkThumb }
-            alt={ drink.strDrink }
-            width="100px"
-          />
-          <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
+      </div>
+      <div className="card-content">
+        <h2 data-testid="recipe-title">{strMeal}</h2>
+        <div className="header-div">
+          <button type="button" onClick={ () => handleShare() }>
+            <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
+          </button>
+          <button type="button" onClick={ handleFavorite }>
+            <img
+              data-testid="favorite-btn"
+              src={ checkFavorite(favoriteRecipes, idMeal)
+                ? blackHeartImg : whiteHeartImg }
+              alt="Favoritas"
+            />
+          </button>
         </div>
-      )) }
+        { linkShared && <p>Link copiado!</p> }
+        <h3 data-testid="recipe-category">{strCategory}</h3>
+        <h4>Ingredientes</h4>
+        <ul>
+          { idDetails && getIngredients().map((ingredient, index) => (
+            <li data-testid={ `${index}-ingredient-name-and-measure` } key={ index }>
+              {`${ingredient.name} ${ingredient.measure === null
+                ? '' : ingredient.measure}`}
+            </li>
+          )) }
+        </ul>
+        <h4>Instruções</h4>
+        <p data-testid="instructions">{strInstructions}</p>
+        <iframe
+          data-testid="video"
+          title="Instructions"
+          src={ replaceVideoUrl((idDetails)) }
+        />
+        <h4 className="itens-recomendados">Bebidas recomendadas</h4>
+        <Carousel
+          slide={ false }
+          className="carousel"
+          prevIcon={ <img src={ previous } alt="Previous Icon" /> }
+          nextIcon={ <img src={ next } alt="Next Icon" /> }
+        >
+          { recomendations && recomendations.map((drink, index) => (
+            <Carousel.Item key={ drink.idDrink }>
+              <div data-testid={ `${index}-recomendation-card` }>
+                <img
+                  data-testid={ `${index}-recomendation-img` }
+                  src={ drink.strDrinkThumb }
+                  alt={ drink.strDrink }
+                  width="200px"
+                />
+                <Carousel.Caption>
+                  <p data-testid={ `${index}-recomendation-title` }>{drink.strDrink}</p>
+                </Carousel.Caption>
+              </div>
+            </Carousel.Item>
+          )) }
+        </Carousel>
+      </div>
       { !checkDoneRecipes(doneRecipes, idMeal) && (
         <Link to={ `${id}/in-progress` }>
           <button

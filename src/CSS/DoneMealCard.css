@@ -1,0 +1,35 @@
+.meal-card {
+  align-items: center;
+  background-color: var(--colorWarning4);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  margin-left: 10px;
+  width: 400px;
+}
+
+.food-img {
+  background-color: var(--colorSuccess4);
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 5px;
+}
+
+.recipe-names {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.recipe-names h4 {
+  font-size: 15px;
+  padding: 5px;
+}
+
+.recipe-card-buttons button {
+  background-color: var(--colorWarning4);
+  border: none;
+  margin: 5px;
+}
