@@ -1,6 +1,6 @@
 import React from 'react';
 import * as redux from 'react-redux';
-import { cleanup } from '@testing-library/react';
+import { cleanup, screen } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
@@ -27,6 +27,7 @@ import {
 const MAX_FETCH = 25;
 const MAX_CATEGORIES_MEALS = 14;
 const MAX_CATEGORIES_DRINKS = 11;
+const QUANTITY_CARDS = 12;
 
 const fetchData = (value) => {
   global.fetch = jest.fn(() => Promise.resolve({
@@ -42,6 +43,21 @@ jest.mock('react-redux', () => ({
 describe('Página Principal do App', () => {
   beforeEach(() => jest.clearAllMocks());
   afterEach(cleanup);
+
+  let initialState = {
+    userReducer: {
+      user: { email: '' },
+      favorites: [],
+      doingRecipes: [],
+      doneRecipes: [],
+    },
+    recipesReducer: {
+      meals: [],
+      categoriesMeals: [],
+      drinks: [],
+      categoriesDrinks: [],
+    },
+  };
 
   it('Requisição para a API pegando as Comidas e Bebidas', async () => {
     fetchData({ meals: [...mealsData] });
@@ -59,7 +75,7 @@ describe('Página Principal do App', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   });
 
-  it('Requisição para a API pegando as Categorias de Comida e Bebida', async () => {
+  it('Requisição para a API pegando as Categorias de Comidas e Bebidas', async () => {
     fetchData({ meals: [...categoriesMealsData] });
     const fetchMeals = await getFoodsAndDrinks('meals', 'getByCategory');
 
@@ -98,5 +114,51 @@ describe('Página Principal do App', () => {
     expect(getState().recipesReducer.drinks).toHaveLength(MAX_FETCH);
     expect(getState().recipesReducer.categoriesDrinks)
       .toHaveLength(MAX_CATEGORIES_DRINKS);
+  });
+
+  it('Verifica se as 12 primeiras Comidas aparecem em Cards', () => {
+    fetchData({ meals: [...mealsData] });
+
+    initialState = {
+      ...initialState,
+      recipesReducer: {
+        ...initialState.recipesReducer,
+        meals: mealsData,
+      },
+    };
+
+    redux.useSelector.mockImplementation((callback) => callback(initialState));
+
+    const component = renderWithRouter(<MainPage />, { route: '/comidas' });
+
+    for (let index = 0; index < QUANTITY_CARDS; index += 1) {
+      const card = screen.getByTestId(`${index}-recipe-card`);
+      expect(card).toBeInTheDocument();
+    }
+
+    expect(component.container).toMatchSnapshot();
+  });
+
+  it('Verifica se as 12 primeiras Bebidas aparecem em Cards', () => {
+    fetchData({ drinks: [...drinksData] });
+
+    initialState = {
+      ...initialState,
+      recipesReducer: {
+        ...initialState.recipesReducer,
+        drinks: drinksData,
+      },
+    };
+
+    redux.useSelector.mockImplementation((callback) => callback(initialState));
+
+    const component = renderWithRouter(<MainPage />, { route: '/bebidas' });
+
+    for (let index = 0; index < QUANTITY_CARDS; index += 1) {
+      const card = screen.getByTestId(`${index}-recipe-card`);
+      expect(card).toBeInTheDocument();
+    }
+
+    expect(component.container).toMatchSnapshot();
   });
 });
