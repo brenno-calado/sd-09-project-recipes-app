@@ -59,3 +59,7 @@ iframe {
   position: fixed;
   width: 100vw;
 }
+
+.on {
+  text-decoration: line-through;
+}
