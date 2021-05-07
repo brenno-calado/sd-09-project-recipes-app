@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
-import Carousel from 'react-elastic-carousel';
 import { useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Footer from '../components/Footer';
-import RecommendedCard from '../components/RecommendedCard';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -14,7 +12,6 @@ const RecipeDetails = ({ match: { path, params } }) => {
   const { id } = params;
   const history = useHistory();
   const [details, setDetails] = useState('');
-  const [recommendedRecipes, setRecommendedRecipes] = useState('');
   const [isFavorited, setIsFavorited] = useState(false);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const isFoodsPage = path.includes('comida');
@@ -35,10 +32,10 @@ const RecipeDetails = ({ match: { path, params } }) => {
 
   const clipBoard = getClipBoard();
 
-  const breakPoints = [
-    { width: 360, itemsToShow: 2 },
-    { width: 640, itemsToShow: 2 },
-  ];
+  // const breakPoints = [
+  //   { width: 360, itemsToShow: 2 },
+  //   { width: 640, itemsToShow: 2 },
+  // ];
   const buttonStyle = {
     position: 'fixed',
     right: 30,
@@ -60,16 +57,16 @@ const RecipeDetails = ({ match: { path, params } }) => {
     return ingredients;
   };
 
-  const renderRecommended = () => {
-    if (recommendedRecipes) {
-      const max = 6;
-      const recommended = recommendedRecipes.drinks || recommendedRecipes.meals;
-      const recommendation = recommended.slice(0, max);
-      return recommendation
-        .map((elem, index) => (
-          <RecommendedCard key={ index } recipe={ elem } index={ index } />));
-    }
-  };
+  // const renderRecommended = () => {
+  //   if (recommendedRecipes) {
+  //     const max = 6;
+  //     const recommended = recommendedRecipes.drinks || recommendedRecipes.meals;
+  //     const recommendation = recommended.slice(0, max);
+  //     return recommendation
+  //       .map((elem, index) => (
+  //         <RecommendedCard key={ index } recipe={ elem } index={ index } />));
+  //   }
+  // };
 
   const handleStartRecipeClick = () => {
     if (isFoodsPage) {
@@ -175,11 +172,6 @@ const RecipeDetails = ({ match: { path, params } }) => {
         data-testid="video"
       />
       <h4>Recommended</h4>
-      <Carousel breakPoints={ breakPoints }>
-
-        {renderRecommended()}
-
-      </Carousel>
       <button
         type="button"
         style={ buttonStyle }
