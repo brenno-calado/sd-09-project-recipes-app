@@ -9,6 +9,8 @@ function Perfil() {
 
   const history = useHistory();
 
+  const userEmail = JSON.parse(localStorage.getItem('user')).email || email;
+
   const handleSubmitDone = () => {
     history.push('/receitas-feitas');
   };
@@ -28,7 +30,7 @@ function Perfil() {
       <span
         data-testid="profile-email"
       >
-        {email}
+        {userEmail}
       </span>
       <br />
       <button
