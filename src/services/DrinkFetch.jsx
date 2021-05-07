@@ -1,4 +1,5 @@
 const DRINK_DB_BASE = 'https://www.thecocktaildb.com/api/json/v1/1/';
+const IMAGES_DB_BASE = 'www.thecocktaildb.com/images/ingredients/';
 
 const getDrinkByName = async (name) => {
   try {
@@ -17,6 +18,26 @@ const getDrinkByFirstLetter = async (letter) => {
     return respByLetter.drinks;
   } catch (error) {
     console.log('Drink By letter', error);
+  }
+};
+
+const getDrinksIngredients = async () => {
+  try {
+    const drinkIngredients = await fetch(`${DRINK_DB_BASE}list.php?i=list`);
+    const respDrinkIngredients = await drinkIngredients.json();
+    return respDrinkIngredients.drinks;
+  } catch (error) {
+    console.log('Get drink ingredinents...', error);
+  }
+};
+
+const getIngredientsImage = async (ingredient) => {
+  try {
+    const requestImages = await fetch(`${IMAGES_DB_BASE}${ingredient}-Medium.png`);
+    const responseImages = await requestImages.json();
+    return responseImages;
+  } catch (error) {
+    console.log('Get image ingredinent...', error);
   }
 };
 
@@ -65,6 +86,8 @@ const getDrinkRandom = async () => {
 export {
   getDrinkByName,
   getDrinkByFirstLetter,
+  getDrinksIngredients,
+  getIngredientsImage,
   getDrinkByIngredients,
   getDrinkCategorys,
   getDrinkByCategory,

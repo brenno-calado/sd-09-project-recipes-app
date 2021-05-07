@@ -21,6 +21,16 @@ const getMealByFirstLetter = async (letter) => {
   }
 };
 
+const getMealsIngredients = async () => {
+  try {
+    const mealIngredients = await fetch(`${MEAL_DB_BASE}list.php?i=list`);
+    const respMealIngredients = await mealIngredients.json();
+    return respMealIngredients.meals;
+  } catch (error) {
+    console.log('Get meal ingredinents...', error);
+  }
+};
+
 const getMealByIngredients = async (ingredient) => {
   try {
     const mealDBByIngredient = await fetch(`${MEAL_DB_BASE}filter.php?i=${ingredient}`);
@@ -67,6 +77,7 @@ export {
   getMealsByName,
   getMealsRandom,
   getMealByFirstLetter,
+  getMealsIngredients,
   getMealByIngredients,
   getMealCategorys,
   getMealsByCategory,
