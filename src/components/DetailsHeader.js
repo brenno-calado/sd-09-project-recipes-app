@@ -61,8 +61,17 @@ class DetailsHeader extends React.Component {
   }
 
   shareRecipe() {
-    navigator.clipboard.writeText(window.location.href);
-    this.setState({ linkCopied: 'Link copiado!' });
+    const link = window.location.href;
+    console.log(link);
+    if (link.includes('/in-progress')) {
+      const lastIndex = link.lastIndexOf('/in-progress');
+      const linkToCopy = link.substr(0, lastIndex);
+      navigator.clipboard.writeText(linkToCopy);
+      this.setState({ linkCopied: 'Link copiado!' });
+    } else {
+      navigator.clipboard.writeText(link);
+      this.setState({ linkCopied: 'Link copiado!' });
+    }
   }
 
   render() {

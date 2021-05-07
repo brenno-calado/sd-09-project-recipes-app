@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { func, objectOf } from 'prop-types';
 import CheckBoxIngredients from '../components/CheckBoxIngredients';
 import { fetchRecipeInProgressAction } from '../actions';
+import DetailsHeader from '../components/DetailsHeader';
+import Instructions from '../components/Instructions';
 
 class RecipesInProgress extends React.Component {
   componentDidMount() {
@@ -11,10 +13,19 @@ class RecipesInProgress extends React.Component {
   }
 
   render() {
-    const { recipeInProgress } = this.props;
+    const { recipeInProgress, match } = this.props;
+    if (!recipeInProgress[0]) return <p>Loading...</p>;
     return (
       <div>
-        {recipeInProgress[0] && <CheckBoxIngredients recipeObj={ recipeInProgress[0] } />}
+        <DetailsHeader recipe={ recipeInProgress[0] } path={ match.path } />
+        <CheckBoxIngredients recipeObj={ recipeInProgress[0] } />
+        <Instructions recipe={ recipeInProgress[0] } />
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+        >
+          Finalizar receita
+        </button>
       </div>
     );
   }
