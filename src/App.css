@@ -109,3 +109,11 @@
   justify-content: center;
   margin-top: 50px;
 }
+
+.list-card {
+  display: flex;
+}
+
+.hidden {
+  display: none;
+}

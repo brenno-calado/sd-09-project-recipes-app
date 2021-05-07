@@ -13,6 +13,14 @@ export const saveFavoriteRecipe = (recipe) => {
   localStorage.setItem('favoriteRecipes', JSON.stringify([...parsedRecipes, recipe]));
 };
 
+export const removeRecipeFromFavorites = (id, type) => {
+  const existingRecipes = localStorage.getItem('favoriteRecipes') || '[]';
+  const parsedRecipes = JSON.parse(existingRecipes);
+  const remainingRecipes = parsedRecipes
+    .filter((recipe) => recipe.id !== id && recipe.type !== type);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(remainingRecipes));
+};
+
 export const saveDoneRecipe = (recipe) => {
   const existingRecipes = localStorage.getItem('doneRecipes') || '[]';
   const parsedRecipes = JSON.parse(existingRecipes);
