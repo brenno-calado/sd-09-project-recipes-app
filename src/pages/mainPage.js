@@ -17,9 +17,10 @@ import Categories from '../components/categories';
 
 export default function MainPageFood() {
   const [recipes, setRecipes] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState();
   const [catSelected, setCatSelected] = useState('All');
   const [type, setType] = useState('');
+  const [updated, setUpdated] = useState(false);
   const dispatch = useDispatch();
 
   const stateValues = {
@@ -36,17 +37,22 @@ export default function MainPageFood() {
   };
 
   const listByIngredient = useSelector((state) => (
-    state.recipesReducer.selectedIngredient));
+    state.recipesReducer.selectedIngredient
+  ));
+  console.log('listByIngredient', listByIngredient);
 
   const { pathname } = useLocation();
   const path = pathname.replace('/', '');
+  console.log(path);
 
   useEffect(() => {
     if (path === 'comidas') {
       setType('meals');
+      setUpdated(true);
     }
     if (path === 'bebidas') {
       setType('drinks');
+      setUpdated(true);
     }
   }, [path]);
 
@@ -72,24 +78,30 @@ export default function MainPageFood() {
       }
     };
 
-    if (type && listByIngredient === '') {
-      execFetch = true;
-      if (catSelected === 'All') {
-        fetchFunction(execFetch, 'getAll', 'all');
-      } else {
-        fetchFunction(execFetch, 'filterCategory', 'all', catSelected);
+    if (updated) {
+      if (type && listByIngredient === '') {
+        execFetch = true;
+        if (catSelected === 'All') {
+          fetchFunction(execFetch, 'getAll', 'all');
+          setUpdated(false);
+        } else {
+          fetchFunction(execFetch, 'filterCategory', 'all', catSelected);
+          setUpdated(false);
+        }
+        fetchFunction(execFetch, 'getByCategory', 'categories');
       }
-      fetchFunction(execFetch, 'getByCategory', 'categories');
-    }
-    if (type && listByIngredient !== '') {
-      execFetch = true;
-      fetchFunction(execFetch, 'getIngredientByValue', 'all', listByIngredient);
-      fetchFunction(execFetch, 'getByCategory', 'categories');
+      if (type && listByIngredient !== '') {
+        execFetch = true;
+        fetchFunction(execFetch, 'getIngredientByValue', 'all', listByIngredient);
+        setUpdated(false);
+      }
     }
     return () => {
       dispatch(getOneIngredient(''));
+      dispatch(categoriesMeals([]));
+      dispatch(categoriesDrinks([]));
     };
-  }, [catSelected, dispatch, listByIngredient, type]);
+  }, [catSelected, dispatch, listByIngredient, type, updated]);
 
   const selectCategoryButton = async (value) => {
     if (value !== 'All' && value !== catSelected) {
@@ -113,6 +125,7 @@ export default function MainPageFood() {
     setRecipes(recipesData);
     setCategories(categoriesData);
   }, [catSelected, categoriesData, recipesData]);
+  console.log('categories', categories);
 
   return (
     <>
@@ -121,11 +134,13 @@ export default function MainPageFood() {
         search={ { searchBtn: true, searchFor: searchFor() } }
       />
       <main className="mainPage-wrapper">
-        <Categories
-          categories={ categories }
-          selected={ catSelected }
-          callback={ selectCategoryButton }
-        />
+        {(categories && categories.length > 0) && (
+          <Categories
+            categories={ categories }
+            selected={ catSelected }
+            callback={ selectCategoryButton }
+          />
+        )}
         <CardContainer recipes={ recipes } path={ pathname } cardType="recipes" />
       </main>
       <Footer />
