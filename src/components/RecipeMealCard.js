@@ -1,5 +1,5 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { objectOf } from 'prop-types';
 
 class RecipeMealCard extends React.Component {
   render() {
@@ -21,7 +21,7 @@ class RecipeMealCard extends React.Component {
 }
 
 RecipeMealCard.propTypes = {
-  meal: array,
+  drink: objectOf,
 }.isRequired;
 
 export default RecipeMealCard;

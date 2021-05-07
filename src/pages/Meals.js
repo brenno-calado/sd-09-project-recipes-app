@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { objectOf, string } from 'prop-types';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import FooterMenu from '../components/FooterMenu';
 import RecipeMealCard from '../components/RecipeMealCard';
@@ -30,14 +30,15 @@ class Meals extends React.Component {
       <div>
         <Header title="Comidas" searchIcon={ searchIcon } />
         <CategoriesList />
-        <div className="recipe-card-container">
-          {recipes.meals && recipes.meals.map((meal) => (
-            <RecipeMealCard key={ meal.idMeal } meal={ meal } />))}
-        </div>
         {itens && !isCategory && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((meal, index) => (
-          <RecipeMealCard key={ meal[idType] } meal={ meal } index={ index } />))}
+          <Link
+            to={ `${pathName}/${itens[index][idType]}` }
+            key={ meal[idType] }
+          >
+            <RecipeMealCard meal={ meal } index={ index } />
+          </Link>))}
         <FooterMenu />
       </div>
     );

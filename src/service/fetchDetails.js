@@ -1,15 +1,15 @@
-const fetchDetails = async (id, type) => {
-  if (type === 'meal') {
-    const data = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((response) => response.json());
-    return data;
+const fetchRecipeById = async (id) => {
+  if (window.location.pathname === `/comidas/${id}`) {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
+    return json.meals;
   }
-  if (type === 'drink') {
-    const data = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`)
-      .then((response) => response.json());
-    return data;
+
+  if (window.location.pathname === `/bebidas/${id}`) {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const json = await response.json();
+    return json.drinks;
   }
-  return 'Esse fetch não deu certo';
 };
 
-export default fetchDetails;
+export default fetchRecipeById;

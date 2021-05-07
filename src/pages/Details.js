@@ -1,124 +1,138 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import YouTube from 'react-youtube';
-import getVideoId from 'get-video-id';
+import { func, objectOf } from 'prop-types';
+import { fetchRecipeByIdAction, recommendationsFetchAction } from '../actions';
+import DetailsHeader from '../components/DetailsHeader';
+import IngredientsList from '../components/IngredientsList';
+import Instructions from '../components/Instructions';
 import Recommendations from '../components/Recommendations';
+import '../Style/Details/style.css';
 
-import { fetchDrinkRecipeDetails, fetchMealRecipeDetails } from '../actions';
+class Details extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isStartedRecipe: false,
+      renderBtn: true,
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.setStartOrContinueBtn = this.setStartOrContinueBtn.bind(this);
+    this.removeStartBtn = this.removeStartBtn.bind(this);
+  }
 
-class MealDetails extends React.Component {
-  constructor(props) {
-    super(props);
-    const { details, seekTheseDetails } = props;
-    if (!details) {
-      seekTheseDetails();
+  componentDidMount() {
+    const { match, fetchRecipeById, recommendationsFetch } = this.props;
+    fetchRecipeById(match.params.id);
+    recommendationsFetch();
+    this.setStartOrContinueBtn();
+    this.removeStartBtn();
+  }
+
+  handleClick() {
+    const { recipe } = this.props;
+    let localStorageObject = {};
+    const ingredientsArray = [];
+    const mxmIngredients = 20;
+    for (let index = 1; index <= mxmIngredients; index += 1) {
+      if (recipe[0][`strIngredient${index}`] !== ''
+      && recipe[0][`strIngredient${index}`] !== null) {
+        ingredientsArray.push(recipe[0][`strIngredient${index}`]);
+      }
+    }
+    console.log(window.location.pathname);
+    if (window.location.pathname.includes('/comidas')) {
+      localStorageObject = {
+        meals: { [recipe[0].idMeal]: ingredientsArray },
+        cocktails: {},
+      };
+    } else {
+      localStorageObject = {
+        meals: {},
+        cocktails: { [recipe[0].idDrink]: ingredientsArray },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(localStorageObject));
+  }
+
+  setStartOrContinueBtn() {
+    const { match } = this.props;
+    const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const path = window.location.pathname;
+    if (inProgress) {
+      if (path.includes('/comidas')) {
+        const isStarted = Object.keys(inProgress.meals).some((id) => (
+          id === match.params.id));
+        this.setState({ isStartedRecipe: isStarted });
+      } else {
+        const isStarted = Object.keys(inProgress.cocktails).some((id) => (
+          id === match.params.id));
+        this.setState({ isStartedRecipe: isStarted });
+      }
+    }
+  }
+
+  removeStartBtn() {
+    const { match } = this.props;
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (doneRecipes) {
+      const isDone = doneRecipes.some((recipe) => recipe.id === match.params.id);
+      this.setState({ renderBtn: !isDone });
     }
   }
 
   render() {
-    const { details = {}, type } = this.props;
-    return ((_.isEmpty(details))
-      ? (
-        <>
-          <h1 style={ { textAlign: 'center' } }>Carregando...</h1>
-          <Recommendations type={ type } />
-        </>
-      ) : (
-        <div>
-          <img
-            alt="Recipe"
-            src={ details.strMealThumb || details.strDrinkThumb }
-            data-testid="recipe-photo"
-          />
-          <h1 data-testid="recipe-title">{details.strMeal || details.strDrink}</h1>
-          <p data-testid="recipe-category">{`Categoria: ${details.strCategory}`}</p>
-          details.strAlcoholic &&
-          <p>{details.strAlcoholic}</p>
-          <h2>Ingredients:</h2>
-          <ul>
-            {
-              Array.from({ length: 20 }, (__, index) => `strIngredient${index + 1}`)
-                .map((strIngredient, index) => (
-                  (details[strIngredient]
-                    && (
-                      <li
-                        key={ index }
-                        data-testid={ `${index}-ingredient-name-and-measure` }
-                      >
-                        {details[strIngredient]}
-                      </li>
-                    )
-                  ) || null))
-            }
-          </ul>
-          <h2>Instructions:</h2>
-          {
-            (details.strInstructions
-            && details.strInstructions.split('\n').map((paragraph, index) => (
-              paragraph
-              && <p data-testid="instructions" key={ index }>{ paragraph }</p>))) || null
-          }
-          {
-            (details.strYoutube
-              && (
-                <div data-testid="video">
-                  <YouTube videoId={ getVideoId(details.strYoutube) } />
-                </div>)) || null
-          }
-          <div className="details-buttons">
+    const { recipe, match, recommendations } = this.props;
+    const { isStartedRecipe, renderBtn } = this.state;
+    const location = window.location.pathname;
+    if (!recipe) return <p>Loading...</p>;
+    if (!recipe[0] || !recommendations[0]) return <p>Loading...</p>;
+    return (
+      <div>
+        <DetailsHeader recipe={ recipe[0] } path={ match.path } />
+        <IngredientsList recipe={ recipe[0] } />
+        <Instructions recipe={ recipe[0] } />
+        {recipe[0].strYoutube
+          && <iframe
+            data-testid="video"
+            src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` }
+            title={ recipe[0].strTags }
+            width="360"
+            height="200"
+          />}
+        <Recommendations />
+        {renderBtn
+        && (
+          <Link to={ `${location}/in-progress` }>
             <button
-              data-testid="share-btn"
               type="button"
-            >
-              Compartilhar
-            </button>
-            <button
-              data-testid="favorite-btn"
-              type="button"
-            >
-              Favoritar
-            </button>
-            <button
               data-testid="start-recipe-btn"
-              type="button"
+              className="start-btn"
+              onClick={ this.handleClick }
             >
-              Começar a receita
+              {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
             </button>
-          </div>
-          <Recommendations type={ type } />
-        </div>
-      )
+          </Link>
+        )}
+      </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const { match: { params: { id } }, type } = ownProps;
-  return (type === 'meals') ? {
-    details: state.mealRecipeDetails[id],
-  } : {
-    details: state.drinkRecipeDetails[id],
-  };
-};
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  seekTheseDetails: () => {
-    const { match: { params: { id } }, type } = ownProps;
-    if (type === 'meals') dispatch(fetchMealRecipeDetails(id));
-    else dispatch(fetchDrinkRecipeDetails(id));
-  },
+const mapStateToProps = (state) => ({
+  recipe: state.recipeDetails.recipe,
+  recommendations: state.recipeDetails.recommendations,
 });
 
-MealDetails.propTypes = {
-  details: PropTypes.objectOf,
-  seekTheseDetails: PropTypes.func.isRequired,
-  type: PropTypes.string.isRequired,
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchRecipeById: (id) => dispatch(fetchRecipeByIdAction(id)),
+  recommendationsFetch: () => dispatch(recommendationsFetchAction()),
+});
 
-MealDetails.defaultProps = {
-  details: undefined,
-};
+Details.propTypes = {
+  fetchRecipeById: func,
+  recommendationsFetch: func,
+  match: objectOf,
+}.isRequired;
 
-export default connect(mapStateToProps, mapDispatchToProps)(MealDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

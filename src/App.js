@@ -23,14 +23,6 @@ function App() {
   return (
     <Switch>
       <Route
-        path="/comidas/:id"
-        component={ (props) => <Details { ...props } type="meals" /> }
-      />
-      <Route
-        path="/bebidas/:id"
-        component={ (props) => <Details { ...props } type="drinks" /> }
-      />
-      <Route
         path="/explorar/comidas/ingredientes"
         component={ ExplorarIngredientesComida }
       />
@@ -40,8 +32,16 @@ function App() {
       />
       <Route path="/comidas/:id/in-progress" component={ RecipesInProgress } />
       <Route path="/bebidas/:id/in-progress" component={ RecipesInProgress } />
-      <Route path="/explorar/comidas" component={ ExplorarComidas } />
       <Route path="/explorar/comidas/area" component={ ExplorarComidasPorOrigem } />
+      <Route path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route
+        path="/comidas/:id"
+        component={ (props) => <Details { ...props } type="meals" /> }
+      />
+      <Route
+        path="/bebidas/:id"
+        component={ (props) => <Details { ...props } type="drinks" /> }
+      />
       <Route path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route path="/receitas-feitas" component={ ReceitasFeitas } />
       <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />

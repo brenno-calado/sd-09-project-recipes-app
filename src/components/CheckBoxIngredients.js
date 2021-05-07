@@ -28,7 +28,8 @@ class CheckBoxIngredients extends React.Component {
     const mxmIngredients = 20;
     for (let index = 1; index <= mxmIngredients; index += 1) {
       if (recipeObj[`strIngredient${index}`] !== ''
-      && recipeObj[`strIngredient${index}`] !== null) {
+      && recipeObj[`strIngredient${index}`] !== null
+      && recipeObj[`strIngredient${index}`] !== undefined) {
         ingredientsArray.push(recipeObj[`strIngredient${index}`]);
       }
     }
@@ -60,6 +61,7 @@ class CheckBoxIngredients extends React.Component {
       <div>
         {ingredients.map((ingredient, index) => (
           <label
+            data-testid={ `${index}-ingredient-step` }
             key={ index }
             htmlFor={ ingredient }
             className={ checkBoxClass[`checkBoxClass${index}`]
@@ -68,7 +70,6 @@ class CheckBoxIngredients extends React.Component {
           >
             <input
               type="checkbox"
-              data-testid={ `${index}-ingredient-step` }
               onChange={ this.changeListItemClass }
               name={ `checkBoxClass${index}` }
             />
