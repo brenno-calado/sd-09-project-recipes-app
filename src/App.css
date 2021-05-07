@@ -82,6 +82,41 @@
   width: calc(50% - 0.5rem);
 }
 
+/* Horizontal Card */
+.horizontal-cards-container {
+  width: 100%;
+}
+
+.horizontal-card {
+  border: 1px solid gray;
+  border-radius: 12px;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 10px;
+}
+
+.card-text-container {
+  text-align: center;
+  width: 50%;
+}
+
+.image-card-container {
+  width: 50%;
+}
+
+.horizontal-card-img {
+  border-radius: 12px 0 0 12px;
+  width: 100%;
+}
+
+.card-tags-container span {
+  background-color: gray;
+  border: 1px solid gray;
+  border-radius: 12px;
+  margin: 5px;
+  padding: 0 5px;
+}
+
 /* Categories */
 .nav {
   background-color: white;
