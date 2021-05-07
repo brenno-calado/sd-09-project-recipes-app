@@ -8,13 +8,13 @@ function SearchBar({ path, setResult }) {
   const [filter, setFilter] = useState(null);
   const [searchText, setSearchText] = useState('');
 
-  const filterFood = () => {
+  const filterFood = async () => {
     if (!filter || !searchText) return;
     if (filter === 'f' && searchText.length > 1) {
       return window.alert('Sua busca deve conter somente 1 (um) caracter');
     }
-    const search = path === '/comidas' ? fetchSearchMeals(filter, searchText)
-      : fetchSearchDrinks(filter, searchText);
+    const search = path === '/comidas' ? await fetchSearchMeals(filter, searchText)
+      : await fetchSearchDrinks(filter, searchText);
     setResult(search);
   };
 

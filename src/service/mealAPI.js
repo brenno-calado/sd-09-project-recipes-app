@@ -36,7 +36,6 @@ export const fetchSearchMeals = async (filter, text) => {
 
 export const fetchMealsByCategory = async (strCategory) => {
   const URL = `${mealsByCategoryAPI}${strCategory}`;
-  console.log(URL);
   const search = await fetch(URL)
     .then((response) => response.json().then((data) => data))
     .catch((error) => error);
@@ -53,4 +52,16 @@ export const fetchRandomRecipe = async () => {
   const random = await fetch(randomRecipe);
   const result = await random.json();
   return result;
+};
+
+export const fetchMealsByAreaFood = async () => {
+  const areaFood = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list');
+  const response = await areaFood.json();
+  return response;
+};
+
+export const fetchAreaCountryFood = async (country) => {
+  const countryFoods = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`);
+  const response = await countryFoods.json();
+  return response;
 };
