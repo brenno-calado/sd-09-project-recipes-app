@@ -63,7 +63,7 @@ function FoodInProgress() {
 
   const handleClick = () => {
     const doneRecipesLocal = [];
-    const date = new Date().toString();
+    const [month, date, year] = new Date().toLocaleDateString('pt-BR').split('/');
     const doneRecipe = {
       id: idRecipe,
       type: 'comida',
@@ -72,15 +72,16 @@ function FoodInProgress() {
       alcoholicOrNot: '',
       name: strMeal,
       image: strMealThumb,
-      doneDate: date,
-      tags: strTags,
+      doneDate: `${date}/${month}/${year}`,
+      tags: [strTags],
     };
+
     const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     if (getDoneRecipes !== null) {
-      getDoneRecipes.concat(doneRecipe);
+      getDoneRecipes.push(doneRecipe);
       localStorage.setItem('doneRecipes', JSON.stringify(getDoneRecipes));
     } else {
-      doneRecipesLocal.concat(doneRecipe);
+      doneRecipesLocal.push(doneRecipe);
       localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesLocal));
     }
   };

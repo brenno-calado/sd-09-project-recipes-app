@@ -23,21 +23,7 @@
   padding: 10px;
 }
 
-.Login {
-  align-items: center;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-left: 50px;
-  text-align: center;
-  width: 60vw;
-}
-
-.Login input {
-  margin-top: 20px;
-}
-
-.Login button {
-  margin-top: 30 px;
+.button {
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
 }

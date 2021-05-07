@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
-import './Styles/Recipes.css';
+import './Styles/Login.css';
 
 function Login() {
   const [state, setState] = useState({
@@ -13,7 +13,9 @@ function Login() {
   const [shouldRedirect, setShouldRedirect] = useState(false);
 
   const verifyLogin = () => {
-    const validLogin = new RegExp(/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/);
+    const validLogin = new RegExp(
+      /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/,
+    );
     if (validLogin.test(state.login)) {
       setState({
         ...state,
@@ -52,9 +54,10 @@ function Login() {
 
   return (
     <div className="Login">
-      <form>
-        Login
+      <form className="form">
+        <h1>Login</h1>
         <input
+          className="input"
           type="email"
           data-testid="email-input"
           placeholder="Email"
@@ -64,6 +67,7 @@ function Login() {
           value={ state.login }
         />
         <input
+          className="input"
           type="password"
           data-testid="password-input"
           placeholder="Senha"
@@ -73,6 +77,7 @@ function Login() {
           value={ state.password }
         />
         <button
+          className="button"
           type="button"
           data-testid="login-submit-btn"
           disabled={ !state.isLoginValid || !state.isPasswordValid }

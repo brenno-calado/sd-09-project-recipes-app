@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import { describe } from 'mocha';
+
 describe('Profile screen', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/perfil', {

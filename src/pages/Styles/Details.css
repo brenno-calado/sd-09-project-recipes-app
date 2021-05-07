@@ -50,12 +50,6 @@ iframe {
   margin-bottom: 80px;
 }
 
-.carocel-recomendations {
-  display: flex;
-  gap: 15px;
-  padding: 5px;
-}
-
 .start-recipe-btn {
   background-color: #6ce34f;
   border: none;

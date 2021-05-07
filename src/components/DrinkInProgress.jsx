@@ -12,7 +12,13 @@ function DrinkInProgress() {
   const [recipe, setRecipe] = useState({});
   const [progress, setInProgress] = useState({});
   const location = useLocation();
-  const { strDrink, strDrinkThumb, strAlcoholic, strInstructions } = recipe;
+  const {
+    strDrink,
+    strDrinkThumb,
+    strAlcoholic,
+    strInstructions,
+    strCategory,
+    strTags } = recipe;
   const idRecipe = location.pathname.split('/')[2];
 
   const getLocalStorage = () => {
@@ -54,6 +60,31 @@ function DrinkInProgress() {
 
   const isDisabled = Object.values(progress).every((ingr) => ingr === true);
 
+  const handleClick = () => {
+    const doneRecipesLocal = [];
+    const [month, date, year] = new Date().toLocaleDateString('pt-BR').split('/');
+    const doneRecipe = {
+      id: idRecipe,
+      type: 'bebida',
+      area: '',
+      category: strCategory,
+      alcoholicOrNot: strAlcoholic,
+      name: strDrink,
+      image: strDrinkThumb,
+      doneDate: `${date}/${month}/${year}`,
+      tags: [strTags],
+    };
+
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    if (getDoneRecipes !== null) {
+      getDoneRecipes.push(doneRecipe);
+      localStorage.setItem('doneRecipes', JSON.stringify(getDoneRecipes));
+    } else {
+      doneRecipesLocal.push(doneRecipe);
+      localStorage.setItem('doneRecipes', JSON.stringify(doneRecipesLocal));
+    }
+  };
+
   const renderButton = () => (
     <Link to="/receitas-feitas">
       <button
@@ -61,7 +92,7 @@ function DrinkInProgress() {
         data-testid="finish-recipe-btn"
         className="start-recipe-btn"
         disabled={ !isDisabled }
-        // onClick={ handleClick }
+        onClick={ handleClick }
       >
         Finalizar Receita
       </button>

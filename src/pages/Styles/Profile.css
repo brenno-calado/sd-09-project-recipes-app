@@ -1,0 +1,43 @@
+.Profile main {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.Profile .email {
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 35px;
+  padding: 10px;
+  text-align: center;
+}
+
+.Profile .buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 200px);
+  justify-content: center;
+}
+
+.Profile .button {
+  background: #c4c4c4;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 29px;
+  outline: none;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+}
+
+.Profile .link {
+  margin: 10px;
+  width: 90%;
+}

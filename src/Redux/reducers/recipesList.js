@@ -4,12 +4,15 @@ import {
   SET_SEARCH,
   NOT_FOUND,
   RESET_NOT_FOUND,
+  DONT_FETCH,
+  SHOULD_FETCH,
 } from '../actions/actionTypes';
 
 const INITIAL_STATE = {
   list: [],
   isLoading: false,
   notFound: false,
+  shouldFetch: true,
 };
 
 const recipesList = (state = INITIAL_STATE, { type, recipes, items }) => {
@@ -41,6 +44,16 @@ const recipesList = (state = INITIAL_STATE, { type, recipes, items }) => {
       ...state,
       notFound: false,
       isLoading: false,
+    };
+  case DONT_FETCH:
+    return {
+      ...state,
+      shouldFetch: false,
+    };
+  case SHOULD_FETCH:
+    return {
+      ...state,
+      shouldFetch: true,
     };
   default:
     return state;

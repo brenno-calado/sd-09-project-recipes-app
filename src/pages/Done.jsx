@@ -10,37 +10,38 @@ function Done() {
   const [copiedLink, setCopiedLink] = useState('');
 
   useEffect(() => {
-    const list = [
-      {
-        id: '52771',
-        type: 'comida',
-        area: 'Italian',
-        category: 'Vegetarian',
-        alcoholicOrNot: '',
-        name: 'Spicy Arrabiata Penne',
-        image:
-          'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
-        doneDate: '23/06/2020',
-        tags: ['Pasta', 'Curry'],
-      },
-      {
-        id: '178319',
-        type: 'bebida',
-        area: '',
-        category: 'Cocktail',
-        alcoholicOrNot: 'Alcoholic',
-        name: 'Aquamarine',
-        image:
-          'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
-        doneDate: '23/06/2020',
-        tags: [],
-      },
-    ];
-    localStorage.setItem('doneRecipes', JSON.stringify(list));
+    // const list = [
+    //   {
+    //     id: '52771',
+    //     type: 'comida',
+    //     area: 'Italian',
+    //     category: 'Vegetarian',
+    //     alcoholicOrNot: '',
+    //     name: 'Spicy Arrabiata Penne',
+    //     image:
+    //       'https://www.themealdb.com/images/media/meals/ustsqw1468250014.jpg',
+    //     doneDate: '23/06/2020',
+    //     tags: ['Pasta', 'Curry'],
+    //   },
+    //   {
+    //     id: '178319',
+    //     type: 'bebida',
+    //     area: '',
+    //     category: 'Cocktail',
+    //     alcoholicOrNot: 'Alcoholic',
+    //     name: 'Aquamarine',
+    //     image:
+    //       'https://www.thecocktaildb.com/images/media/drink/zvsre31572902738.jpg',
+    //     doneDate: '23/06/2020',
+    //     tags: [],
+    //   },
+    // ];
+    // localStorage.setItem('doneRecipes', JSON.stringify(list));
     const recipes = JSON.parse(localStorage.getItem('doneRecipes'));
-
-    setDoneRecipes(recipes);
-    setFilteredRecipes(recipes);
+    if (recipes) {
+      setDoneRecipes(recipes);
+      setFilteredRecipes(recipes);
+    }
   }, []);
 
   const filter = ({ target: { name } }) => {
@@ -137,7 +138,7 @@ function Done() {
                 >
                   {`Feita em: ${recipe.doneDate}`}
                 </p>
-                {recipe.tags !== '' && (
+                {recipe.tags !== null && (
                   <div className="tags">
                     {recipe.tags.slice(0, 2).map((tag, indexTags) => (
                       <span
@@ -160,15 +161,3 @@ function Done() {
 }
 
 export default Done;
-
-// {
-//   id: 'id-da-receita',
-//   type: 'comida',
-//   area: 'area-da-receita-ou-texto-vazio',
-//   category: 'categoria-da-receita-ou-texto-vazio',
-//   alcoholicOrNot: 'alcoholic-ou-non-alcoholic-ou-texto-vazio',
-//   name: 'nome-da-receita',
-//   image: 'imagem-da-receita',
-//   doneDate: 'quando-a-receita-foi-concluida',
-//   tags: 'array-de-tags-da-receita-ou-array-vazio',
-// },
