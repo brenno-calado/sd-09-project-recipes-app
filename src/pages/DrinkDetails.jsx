@@ -83,7 +83,7 @@ function DrinkDetails({ match }) {
     const type = 'bebida';
     const area = '';
     const category = drinkDetails.strCategory;
-    const alcoholicOrNot = '';
+    const alcoholicOrNot = drinkDetails.strAlcoholic;
     const name = drinkDetails.strDrink;
     const image = drinkDetails.strDrinkThumb;
     const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
