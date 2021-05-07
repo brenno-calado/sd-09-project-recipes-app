@@ -179,6 +179,44 @@
   position: fixed;
 }
 
+.recommended {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 105%;
+}
+
+.recommended h4 {
+  font-size: 14px;
+}
+
+.carousel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredients-checkbox {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .checked-ingredient {
+  text-decoration: line-through;
+}
+
+.unchecked-ingredient {
+  text-decoration: none;
+} */
+
+.ingredients-checkbox .checked {
+  text-decoration: line-through;
+}
+
+.done-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
 .fav-card {
   align-items: center;
   background-color: white;

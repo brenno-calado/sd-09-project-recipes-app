@@ -14,6 +14,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
+import RecommendedRecipes from '../components/RecommendedRecipes';
+
 function DrinkDetails() {
   const [isFavorite, setFavorite] = useState(false);
   const [isFetching, setFetching] = useState(true);
@@ -133,12 +135,14 @@ function DrinkDetails() {
       </ul>
       <p data-testid="instructions">{ strInstructions }</p>
       { renderStartButton() }
-      <section data-testid="0-recomendation-card">Recomendações</section>
     </div>
   );
 
   return (
-    isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>
+    <>
+      {isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>}
+      <RecommendedRecipes reference="meals" />
+    </>
   );
 }
 
