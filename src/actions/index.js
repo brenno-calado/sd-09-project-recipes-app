@@ -6,6 +6,7 @@ export const GET_CATEGORIES_DRINKS = 'GET_CATEGORIES_DRINKS';
 export const GET_RANDOM_RECIPE = 'GET_RANDOM_RECIPE';
 export const GET_INGREDIENTS = 'GET_INGREDIENTS';
 export const GET_SELECTED_INGREDIENT = 'GET_SELECTED_INGREDIENT';
+export const GET_FILTER_AREA = 'GET_FILTER_AREA';
 
 export const loginUser = (email) => ({
   type: LOGIN,
@@ -45,4 +46,9 @@ export const getIngredients = (ingredients) => ({
 export const getOneIngredient = (selectedIngredient) => ({
   type: GET_SELECTED_INGREDIENT,
   selectedIngredient,
+});
+
+export const filterFoodByArea = (filterByArea) => ({
+  type: GET_FILTER_AREA,
+  filterByArea,
 });
