@@ -10,6 +10,7 @@ import Main from '../pages/Main';
 import Explore from '../pages/Explore';
 import Profile from '../pages/Profile';
 import RecipeList from '../pages/RecipeList';
+import RecipeDetails from '../pages/RecipeDetails';
 
 const {
   LOGIN,
@@ -24,6 +25,8 @@ const {
   PROFILE_PAGE,
   DONE_RECIPES,
   FAVORITE_RECIPES,
+  FOOD_DETAILS,
+  DRINK_DETAILS,
 } = paths;
 
 const Routes = () => (
@@ -40,6 +43,8 @@ const Routes = () => (
     <Route exact path={ PROFILE_PAGE } component={ Profile } />
     <Route exact path={ DONE_RECIPES } component={ RecipeList } />
     <Route exact path={ FAVORITE_RECIPES } component={ RecipeList } />
+    <Route exact path={ FOOD_DETAILS } component={ RecipeDetails } />
+    <Route exact path={ DRINK_DETAILS } component={ RecipeDetails } />
   </Switch>
 );
 
