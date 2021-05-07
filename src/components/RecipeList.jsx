@@ -2,6 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image'
 import { mealsThunk, cocktailsThunk, setError } from '../redux/actions';
 
 function RecipeList({
@@ -44,14 +47,18 @@ function RecipeList({
   const mealsCards = (
     recipes.map((recipe, index) => (
       <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
-        <div key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
-          <p data-testid={ `${index}-card-name` }>{recipe.strMeal}</p>
-          <img
+        <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
+          <Image
+            roundedCircle
+            variant="top"
             src={ recipe.strMealThumb }
             alt="foto da receita"
             data-testid={ `${index}-card-img` }
           />
-        </div>
+          <Card.Body>
+            <Card.Title data-testid={ `${index}-card-name` }>{recipe.strMeal}</Card.Title>
+          </Card.Body>
+        </Card>
       </Link>
     ))
   );
@@ -59,14 +66,20 @@ function RecipeList({
   const cocktailsCards = (
     recipes.map((recipe, index) => (
       <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
-        <div key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
-          <p data-testid={ `${index}-card-name` }>{recipe.strDrink}</p>
-          <img
+        <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
+          <Card.Img
             src={ recipe.strDrinkThumb }
             alt="foto da receita"
             data-testid={ `${index}-card-img` }
           />
-        </div>
+          <Card.Body>
+            <Card.Title
+              data-testid={ `${index}-card-name` }
+            >
+              {recipe.strDrink}
+            </Card.Title>
+          </Card.Body>
+        </Card>
       </Link>
     ))
   );
@@ -81,9 +94,9 @@ function RecipeList({
     />);
   }
   return (
-    <section>
+    <CardDeck>
       { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
-    </section>
+    </CardDeck>
   );
 }
 

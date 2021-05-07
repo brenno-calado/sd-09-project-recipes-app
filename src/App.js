@@ -13,6 +13,7 @@ import ExploreByIngredient from './pages/ExploreByIngredient';
 import ExploreByArea from './pages/ExploreByArea';
 import NotFound from './components/NotFound';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
