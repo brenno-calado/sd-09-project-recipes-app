@@ -27,6 +27,7 @@ function Foods() {
 
   useEffect(() => {
     getRecipes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (restartRecipes === true) {
@@ -36,6 +37,7 @@ function Foods() {
 
   useEffect(() => {
     getCategoryName('comidas');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categoryName]);
 
   return (

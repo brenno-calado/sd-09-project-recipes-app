@@ -9,7 +9,7 @@ import './Recipes.css';
 
 function Recipes(props) {
   const [copySuccess, setCopySuccess] = useState('');
-  const [hearthIco, setHearthIco] = useState(true);
+  const [hearthIco, setHearthIco] = useState(false);
   const history = useHistory();
   const { pathname } = history.location;
   const {
@@ -19,7 +19,6 @@ function Recipes(props) {
     recipe,
     route,
   } = props;
-  const example = true;
 
   const shareRecipe = async (copyMe) => {
     try {
@@ -29,6 +28,14 @@ function Recipes(props) {
       setCopySuccess('Failed to copy!');
     }
   };
+
+  function changeButtonHearth() {
+    if (hearthIco === false) {
+      setHearthIco(true);
+    } else if (hearthIco === true) {
+      setHearthIco(false);
+    }
+  }
 
   return (
     <div className="details-container">
@@ -49,11 +56,11 @@ function Recipes(props) {
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ () => favoriteRecipe(recipe, route) }
+            onClick={ () => { favoriteRecipe(recipe, route); changeButtonHearth(); } }
             src={ !hearthIco ? whiteHeartIcon : blackHeartIcon }
           >
             <img
-              src={ !example ? whiteHeartIcon : blackHeartIcon }
+              src={ !hearthIco ? whiteHeartIcon : blackHeartIcon }
               alt="food"
             />
           </button>

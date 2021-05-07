@@ -27,6 +27,7 @@ function CategoryButtons(props) {
   useEffect(() => {
     setIsLoading(true);
     getCategories();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleAllButtonClick = () => {

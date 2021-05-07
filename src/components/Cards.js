@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import Loading from './Loading';
 import './Cards.css';
@@ -81,5 +82,9 @@ function Cards(props) {
     </div>
   );
 }
+
+Cards.propTypes = {
+  route: PropTypes.string,
+}.isRequired;
 
 export default Cards;
