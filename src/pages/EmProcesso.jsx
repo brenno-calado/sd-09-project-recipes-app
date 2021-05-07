@@ -82,9 +82,11 @@ function EmProcesso() {
           id={ ingredient }
           name={ index + 1 }
           onChange={ ({ target }) => handleCheck(target) }
+          className="inputClass"
         />
         <label
           htmlFor={ ingredient }
+          className="inputClass"
         >
           { ingredient }
         </label>

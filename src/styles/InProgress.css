@@ -28,7 +28,7 @@
   }
 }
 
-input[ type = 'checkbox' ]:checked + label {
+.inputClass[ type = 'checkbox' ]:checked + label {
   opacity: 0.375;
   text-decoration: line-through;
 }
