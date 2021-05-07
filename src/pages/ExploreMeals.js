@@ -23,7 +23,7 @@ class ExplorarComidas extends Component {
         </Link>
         <Link
           data-testid="explore-surprise"
-          to="/explorar/comidas/:id"
+          to="/comidas/52771"
         >
           Me Surpreenda!
         </Link>

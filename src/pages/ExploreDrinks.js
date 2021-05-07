@@ -16,7 +16,7 @@ class ExplorarBebidas extends Component {
           Por Ingredientes
         </Link>
         <Link
-          to="/explorar/bebidas/:id"
+          to="/bebidas/178319"
           data-testid="explore-surprise"
         >
           Me Surpreenda!
