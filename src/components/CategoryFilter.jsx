@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import {
   cocktailsCategoriesThunk,
   mealsCategoriesThunk,
@@ -10,6 +12,7 @@ import {
   cocktailsThunk,
   setCurrentCategory,
 } from '../redux/actions';
+import '../css/CategoryFilters.css';
 
 function CategoryFilter({
   recipeType,
@@ -61,34 +64,38 @@ function CategoryFilter({
 
   return (
     <section>
-      {
-        isFetchedCategories && (
-          categories.map(({ strCategory }) => (
-            <button
-              key={ strCategory }
+      <ButtonGroup size="sm">
+        {
+          isFetchedCategories && (
+            categories.map(({ strCategory }) => (
+              <Button
+                className="btn-color"
+                key={ strCategory }
+                type="button"
+                data-testid={ `${strCategory}-category-filter` }
+                onClick={ handleClick }
+                value={ strCategory }
+              >
+                { strCategory }
+              </Button>
+            ))
+          )
+        }
+        {
+          isFetchedCategories
+          && (
+            <Button
+              className="btn-color"
               type="button"
-              data-testid={ `${strCategory}-category-filter` }
+              data-testid="All-category-filter"
               onClick={ handleClick }
-              value={ strCategory }
+              value="all"
             >
-              { strCategory }
-            </button>
-          ))
-        )
-      }
-      {
-        isFetchedCategories
-        && (
-          <button
-            type="button"
-            data-testid="All-category-filter"
-            onClick={ handleClick }
-            value="all"
-          >
-            All
-          </button>
-        )
-      }
+              All
+            </Button>
+          )
+        }
+      </ButtonGroup>
     </section>
   );
 }

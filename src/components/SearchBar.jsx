@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
+import FormControl from 'react-bootstrap/FormControl';
 import { mealsThunk, cocktailsThunk } from '../redux/actions';
 
 const SearchBar = ({
@@ -9,7 +14,7 @@ const SearchBar = ({
   cocktailsThunkDispatcher,
 }) => {
   const [textSearch, setTextSearch] = useState('');
-  const [radioSearch, setRadioSearch] = useState();
+  const [radioSearch, setRadioSearch] = useState('');
 
   const handleClick = () => {
     if (radioSearch === 'first-letter-search' && textSearch.length > 1) {
@@ -24,60 +29,68 @@ const SearchBar = ({
     }
   };
 
+  const renderTitle = () => {
+    switch (radioSearch) {
+    case 'ingredient-search': return 'Ingrediente';
+    case 'name-search': return 'Nome';
+    case 'first-letter-search': return 'Primeira Letra';
+    default: return 'Filtros';
+    }
+  };
+
   return (
     <div>
-      <label htmlFor="search">
-        Search
-        <input
-          type="text"
+      <InputGroup>
+        <FormControl
+          placeholder="Digite sua busca"
+          aria-describedby="basic-addon1"
           data-testid="search-input"
           name="search"
           id="search"
           value={ textSearch }
           onChange={ ({ target: { value } }) => setTextSearch(value) }
         />
-      </label>
-
-      <label htmlFor="ingredient-search">
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          id="ingredient-search"
-          name="radio-filter"
-          onClick={ ({ target: { id } }) => setRadioSearch(id) }
-        />
-        Ingrediente
-      </label>
-
-      <label htmlFor="name-search">
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          id="name-search"
-          name="radio-filter"
-          onClick={ ({ target: { id } }) => setRadioSearch(id) }
-        />
-        Nome
-      </label>
-
-      <label htmlFor="first-letter-search">
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          id="first-letter-search"
-          name="radio-filter"
-          onClick={ ({ target: { id } }) => setRadioSearch(id) }
-        />
-        Primeira letra
-      </label>
-
-      <button
-        type="button"
-        data-testid="exec-search-btn"
-        onClick={ handleClick }
-      >
-        Buscar
-      </button>
+        <DropdownButton
+          as={ InputGroup.Append }
+          variant="outline-secondary"
+          title={ renderTitle() }
+          id="input-group-dropdown-2"
+        >
+          <Dropdown.Item
+            data-testid="ingredient-search-radio"
+            id="ingredient-search"
+            name="radio-filter"
+            onClick={ ({ target: { id } }) => setRadioSearch(id) }
+          >
+            Ingrediente
+          </Dropdown.Item>
+          <Dropdown.Item
+            data-testid="name-search-radio"
+            id="name-search"
+            name="radio-filter"
+            onClick={ ({ target: { id } }) => setRadioSearch(id) }
+          >
+            Nome
+          </Dropdown.Item>
+          <Dropdown.Item
+            data-testid="first-letter-search-radio"
+            id="first-letter-search"
+            name="radio-filter"
+            onClick={ ({ target: { id } }) => setRadioSearch(id) }
+          >
+            Primeira letra
+          </Dropdown.Item>
+        </DropdownButton>
+        <Button
+          size="sm"
+          type="button"
+          variant="outline-primary"
+          data-testid="exec-search-btn"
+          onClick={ handleClick }
+        >
+          Buscar
+        </Button>
+      </InputGroup>
     </div>
   );
 };

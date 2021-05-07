@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -22,7 +24,9 @@ const Header = ({ title }) => {
   }, []);
 
   const searchButton = (
-    <button
+    <Button
+      size="sm"
+      variant="outline-primary"
       type="button"
       onClick={ () => setSearchBar(!searchBar) }
     >
@@ -31,24 +35,25 @@ const Header = ({ title }) => {
         alt="search-icon"
         src={ searchIcon }
       />
-    </button>
+    </Button>
   );
 
   return (
     <div>
       <h1 data-testid="page-title">{ title }</h1>
-
-      <Link to="/perfil">
-        <img
-          data-testid="profile-top-btn"
-          alt="profile-icon"
-          src={ profileIcon }
-        />
-      </Link>
-
-      { showSearch && searchButton }
-
-      { searchBar && <SearchBar /> }
+      <Navbar collapseOnSelect expand="lg" variant="light">
+        <Link to="/perfil">
+          <Button variant="outline-primary" size="sm">
+            <img
+              data-testid="profile-top-btn"
+              alt="profile-icon"
+              src={ profileIcon }
+            />
+          </Button>
+        </Link>
+        { showSearch && searchButton }
+        { searchBar && <SearchBar /> }
+      </Navbar>
     </div>
   );
 };

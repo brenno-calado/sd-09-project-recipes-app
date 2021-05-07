@@ -7,6 +7,10 @@
   width: 499px;
 }
 
+.recipes-listarea {
+  overflow-x: hidden;
+}
+
 .recommendedArea-list {
   display: flex;
   flex-direction: row;
@@ -48,4 +52,31 @@
 
 .recommendedArea-right {
   right: 20%;
+}
+
+.recipes-left, .recipes-right {
+  position: absolute;
+  width: 40px;
+  height: 230px;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.recipes-left:hover, .recipes-right:hover {
+  opacity: 1;
+}
+
+.recipes-left {
+  left: 0;
+}
+
+.recipes-right {
+  right: 0;
 }

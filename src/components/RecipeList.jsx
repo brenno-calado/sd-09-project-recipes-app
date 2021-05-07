@@ -2,11 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import HorizontalScrollMenu from './HorizontalScrollMenu';
 import { mealsThunk, cocktailsThunk, setError } from '../redux/actions';
 
 function RecipeList({
@@ -46,50 +44,49 @@ function RecipeList({
     }
   }, [recipeType, data]);
 
-  const mealsCards = (
-    recipes.map((recipe, index) => (
-      <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
-        <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` } style={ { backgroundColor: '#F5F5F5' } }>
-          <Image
-            roundedCircle
-            style={ { width: 200 } }
-            variant="top"
-            src={ recipe.strMealThumb }
-            alt="foto da receita"
-            data-testid={ `${index}-card-img` }
-          />
-          <Card.Body>
-            <Card.Title data-testid={ `${index}-card-name` }>{recipe.strMeal}</Card.Title>
-          </Card.Body>
-        </Card>
-      </Link>
-    ))
-  );
+  // const mealsCards = (
+  //   recipes.map((recipe, index) => (
+  //     <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
+  //       <Carousel.Item key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
+  //         <img
+  //           // style={ { width: 200 } }
+  //           className="d-block w-100"
+  //           src={ recipe.strMealThumb }
+  //           alt="foto da receita"
+  //           data-testid={ `${index}-card-img` }
+  //         />
+  //         <Carousel.Caption>
+  //           <h3 data-testid={ `${index}-card-name` }>{recipe.strMeal}</h3>
+  //         </Carousel.Caption>
+  //       </Carousel.Item>
+  //     </Link>
+  //   ))
+  // );
 
-  const cocktailsCards = (
-    recipes.map((recipe, index) => (
-      <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
-        <Col lg sm>
-          <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
-            <Image
-              roundedCircle
-              style={ { width: 200 } }
-              src={ recipe.strDrinkThumb }
-              alt="foto da receita"
-              data-testid={ `${index}-card-img` }
-            />
-            <Card.Body>
-              <Card.Title
-                data-testid={ `${index}-card-name` }
-              >
-                {recipe.strDrink}
-              </Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Link>
-    ))
-  );
+  // const cocktailsCards = (
+  //   recipes.map((recipe, index) => (
+  //     <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
+  //       <Col lg sm>
+  //         <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
+  //           <Image
+  //             roundedCircle
+  //             style={ { width: 200 } }
+  //             src={ recipe.strDrinkThumb }
+  //             alt="foto da receita"
+  //             data-testid={ `${index}-card-img` }
+  //           />
+  //           <Card.Body>
+  //             <Card.Title
+  //               data-testid={ `${index}-card-name` }
+  //             >
+  //               {recipe.strDrink}
+  //             </Card.Title>
+  //           </Card.Body>
+  //         </Card>
+  //       </Col>
+  //     </Link>
+  //   ))
+  // );
 
   if (data.length === 1 && currentCategory === '') {
     return (<Redirect
@@ -101,11 +98,15 @@ function RecipeList({
     />);
   }
   return (
-    <CardDeck>
-      <Row>
-        { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
-      </Row>
-    </CardDeck>
+    // <CardDeck>
+    //   <Row>
+        // { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
+    //   </Row>
+    // </CardDeck>
+    // <Carousel>
+    //   { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
+    // </Carousel>
+    <HorizontalScrollMenu recipes={ recipes } type="recipes" />
   );
 }
 
@@ -141,3 +142,49 @@ RecipeList.defaultProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RecipeList);
+
+
+// const mealsCards = (
+//   recipes.map((recipe, index) => (
+//     <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
+//       <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` } style={ { backgroundColor: '#F5F5F5' } }>
+//         <Image
+//           roundedCircle
+//           style={ { width: 200 } }
+//           variant="top"
+//           src={ recipe.strMealThumb }
+//           alt="foto da receita"
+//           data-testid={ `${index}-card-img` }
+//         />
+//         <Card.Body>
+//           <Card.Title data-testid={ `${index}-card-name` }>{recipe.strMeal}</Card.Title>
+//         </Card.Body>
+//       </Card>
+//     </Link>
+//   ))
+// );
+
+// const cocktailsCards = (
+//   recipes.map((recipe, index) => (
+//     <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
+//       <Col lg sm>
+//         <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
+//           <Image
+//             roundedCircle
+//             style={ { width: 200 } }
+//             src={ recipe.strDrinkThumb }
+//             alt="foto da receita"
+//             data-testid={ `${index}-card-img` }
+//           />
+//           <Card.Body>
+//             <Card.Title
+//               data-testid={ `${index}-card-name` }
+//             >
+//               {recipe.strDrink}
+//             </Card.Title>
+//           </Card.Body>
+//         </Card>
+//       </Col>
+//     </Link>
+//   ))
+// );

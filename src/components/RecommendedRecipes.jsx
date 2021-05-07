@@ -28,7 +28,7 @@ function RecommendedRecipes({
 
   return (
     <section className="recommendation-container">
-      <HorizontalScrollMenu recommended={ recommended } />
+      <HorizontalScrollMenu recommended={ recommended } type="recommended" />
     </section>
   );
 }
