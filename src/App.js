@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/login';
 import MainPage from './pages/mainPage';
 import RecipeDetails from './pages/recipeDetails';
-import FoodInProcess from './pages/foodInProcess';
+import RecipeInProcess from './pages/recipeInProcess';
 import Explore from './pages/explore';
 import ExploreFoodOrDrink from './pages/exploreFoodOrDrink';
 import ExploreIngredients from './pages/exploreIngredients';
@@ -22,16 +22,17 @@ function App() {
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ MainPage } />
       <Route exact path="/bebidas" component={ MainPage } />
-      <Route path="/comidas/:id" component={ RecipeDetails } />
-      <Route path="/bebidas/:id" component={ RecipeDetails } />
-      <Route path="/comidas/:id/in-progress" component={ FoodInProcess } />
-      <Route path="/bebidas/:id/in-progress" component={ FoodInProcess } />
+      <Route exact path="/comidas/:id" component={ RecipeDetails } />
+      <Route exact path="/bebidas/:id" component={ RecipeDetails } />
+      <Route exact path="/comidas/:id/in-progress" component={ RecipeInProcess } />
+      <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProcess } />
       <Route exact path="/explorar" component={ Explore } />
       <Route exact path="/explorar/comidas" component={ ExploreFoodOrDrink } />
       <Route exact path="/explorar/bebidas" component={ ExploreFoodOrDrink } />
       <Route path="/explorar/comidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/bebidas/ingredientes" component={ ExploreIngredients } />
       <Route path="/explorar/comidas/area" component={ ExploreFoodByLocal } />
+      <Route path="/explorar/bebidas/area" component={ ExploreFoodByLocal } />
       <Route path="/perfil" component={ Profile } />
       <Route path="/receitas-feitas" component={ DoneAndFavoriteRecipes } />
       <Route path="/receitas-favoritas" component={ DoneAndFavoriteRecipes } />

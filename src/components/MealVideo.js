@@ -4,7 +4,7 @@ import { ResponsiveEmbed } from 'react-bootstrap';
 
 export default function MealVideo({ code, title }) {
   return (
-    <ResponsiveEmbed spectRatio="16by9">
+    <ResponsiveEmbed aspectRatio="16by9">
       <iframe
         data-testid="video"
         src={ `https://www.youtube.com/embed/${code}` }

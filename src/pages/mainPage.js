@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import {
   categoriesDrinks,
   categoriesMeals,
@@ -21,17 +22,6 @@ export default function MainPageFood() {
   const [type, setType] = useState('');
   const dispatch = useDispatch();
 
-  const fetchValues = {
-    meals: {
-      all: listMeals,
-      categories: categoriesMeals,
-    },
-    drinks: {
-      all: listDrinks,
-      categories: categoriesDrinks,
-    },
-  };
-
   const stateValues = {
     meals: {
       all: 'meals',
@@ -48,12 +38,13 @@ export default function MainPageFood() {
   const listByIngredient = useSelector((state) => (
     state.recipesReducer.selectedIngredient));
 
+
   const fetchDispatch = async (fetchParam, fetchValue, value) => {
     const fetch = await getFoodsAndDrinks(type, fetchParam, value);
     dispatch(fetchValues[type][fetchValue](fetch));
   };
 
-  const { pathname } = window.location;
+  const { pathname } = useLocation();
   const path = pathname.replace('/', '');
 
   useEffect(() => {
@@ -66,26 +57,52 @@ export default function MainPageFood() {
   }, [path]);
 
   useEffect(() => {
+    let execFetch = false;
+    const fetchValues = {
+      meals: {
+        all: listMeals,
+        categories: categoriesMeals,
+      },
+      drinks: {
+        all: listDrinks,
+        categories: categoriesDrinks,
+      },
+    };
+
+    const fetchFunction = async (exec, fetchParam, fetchValue, value) => {
+      console.log([type, fetchParam, value]);
+      if (exec) {
+        const fetch = await getFoodsAndDrinks(type, fetchParam, value);
+        dispatch(fetchValues[type][fetchValue](fetch));
+        execFetch = false;
+      }
+    };
+
     if (type && listByIngredient === '') {
-      fetchDispatch('getAll', 'all');
-      fetchDispatch('getByCategory', 'categories');
+      execFetch = true;
+      if (catSelected === 'All') {
+        fetchFunction(execFetch, 'getAll', 'all');
+      } else {
+        fetchFunction(execFetch, 'filterCategory', 'all', catSelected);
+      }
+      fetchFunction(execFetch, 'getByCategory', 'categories');
     }
     if (type && listByIngredient !== '') {
-      fetchDispatch('getIngredientByValue', 'all', listByIngredient);
-      fetchDispatch('getByCategory', 'categories');
+      execFetch = true;
+      fetchFunction(execFetch, 'getIngredientByValue', 'all', listByIngredient);
+      fetchFunction(execFetch, 'getByCategory', 'categories');
     }
     return () => {
       dispatch(getOneIngredient(''));
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [type]);
+
+  }, [catSelected, dispatch, listByIngredient, type]);
+
 
   const selectCategoryButton = async (value) => {
     if (value !== 'All' && value !== catSelected) {
-      fetchDispatch('filterCategory', 'all', value);
       setCatSelected(value);
     } else {
-      fetchDispatch('getAll', 'all');
       setCatSelected('All');
     }
   };
