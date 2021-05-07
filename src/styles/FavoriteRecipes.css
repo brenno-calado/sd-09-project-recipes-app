@@ -1,0 +1,54 @@
+.favorite-card {
+  border: 1px solid rgb(169, 170, 172);
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 350px;
+}
+
+.recipe-card {
+  display: flex;
+  flex-direction: row;
+  height: 120px;
+  width: 100%;
+}
+
+.recipe-card > img {
+  height: 120px;
+  width: 150px;
+}
+
+.recipe-name > p {
+  font-weight: 600;
+  padding: 5px;
+}
+
+.recipe-name > span {
+  font-weight: 200;
+  padding-left: 5px;
+}
+
+.share-btn {
+  border: none;
+  margin-bottom: 25px;
+  text-decoration: none;
+  width: 60px;
+}
+
+.fav-btn {
+  border: none;
+  text-decoration: none;
+  width: 60px;
+}
+
+.filter-btn {
+  border: none;
+  text-decoration: none;
+  width: 33.33%;
+}
+
+.buttons {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+}
