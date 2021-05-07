@@ -1,11 +1,3 @@
-const fetchRecipes = async (endpoint, type) => {
-  const request = await fetch(endpoint);
-  const response = await request.json();
-  const recipesList = response[type];
-
-  return recipesList;
-};
-
 export const fetchMeals = async () => {
   const endpoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const request = await fetch(endpoint);
@@ -24,4 +16,21 @@ export const fetchBeverages = async () => {
   return recipesList;
 };
 
-export default fetchRecipes;
+export const fetchRecipes = async (url, type) => {
+  const endpoint = url;
+  const request = await fetch(endpoint);
+  const response = await request.json();
+  const recipesList = response[type];
+
+  return recipesList;
+};
+
+export const fetchRecipeDetails = async (idType, id) => {
+  const url = (idType === 'meals')
+    ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
+    : `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const request = await fetch(url);
+  const response = await request.json();
+  const type = Object.keys(response);
+  return response[type][0];
+};

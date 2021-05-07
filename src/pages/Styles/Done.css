@@ -1,0 +1,113 @@
+.Done-recipes .cards {
+  padding: 5px;
+}
+
+.Done-recipes .filters {
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: 10px;
+}
+
+.Done-recipes .filter {
+  background: #c4c4c4;
+  width: 30%;
+}
+
+.Done-card {
+  align-items: center;
+  background: white;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: row;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.Done-card .info {
+  display: block;
+  height: 143px;
+  position: relative;
+  width: 100%;
+}
+
+.Done-card .image {
+  border: none;
+  border-radius: 5px 0 0 5px;
+  height: 143px;
+  width: 165px;
+}
+
+.Done-card .top-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Done-card .top-text {
+  color: darkgrey;
+  height: 18px;
+  left: 5px;
+  position: absolute;
+  text-align: left;
+  top: 2px;
+  width: 136px;
+}
+
+.Done-card .copied-link {
+  position: absolute;
+  top: 122px;
+  width: 100%;
+}
+
+.Done-card button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.Done-card .share-btn {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+.Done-card .name {
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 400;
+  left: 5px;
+  letter-spacing: 0.01em;
+  line-height: 25px;
+  position: absolute;
+  text-align: left;
+  top: 23px;
+}
+
+.Done-card .date {
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  left: 5px;
+  letter-spacing: 0.01em;
+  line-height: 18px;
+  position: absolute;
+  text-align: left;
+  top: 75px;
+}
+
+.Done-card .tags {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 5px;
+  position: absolute;
+  top: 95px;
+  width: 100%;
+}
+
+.Done-card .tag {
+  background: #ecdede;
+  border-radius: 12px;
+  height: 20px;
+  width: 57px;
+}

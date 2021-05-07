@@ -1,0 +1,71 @@
+.Details {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.Details img {
+  max-width: 100vw;
+}
+
+.title-btns {
+  align-items: stretch;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  width: 100vw;
+}
+
+.title-btns h3 {
+  color: darkgray;
+}
+
+.title-btns button {
+  background-color: white;
+  border: none;
+}
+
+.ingredients, .instructions, .video, .recomendations {
+  margin: 10px;
+  width: 95vw;
+}
+
+p {
+  margin: 0;
+}
+
+.ingredients div, .instructions p {
+  background-color: #e5e5e5;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+iframe {
+  width: 100%;
+}
+
+.recomendations {
+  margin-bottom: 80px;
+}
+
+.carocel-recomendations {
+  display: flex;
+  gap: 15px;
+  padding: 5px;
+}
+
+.start-recipe-btn {
+  background-color: #6ce34f;
+  border: none;
+  bottom: 0;
+  font-size: 29px;
+  height: 73px;
+  position: fixed;
+  width: 100vw;
+}
+
+.on {
+  text-decoration: line-through;
+}
