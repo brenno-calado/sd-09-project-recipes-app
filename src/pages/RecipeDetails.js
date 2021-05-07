@@ -144,6 +144,9 @@ const RecipeDetails = ({ match: { path, params } }) => {
         alt="imagem-da-receita"
         data-testid="recipe-photo"
       />
+      <div>
+        {handleHeartIcon()}
+      </div>
       <CopyToClipboard text={ clipBoard }>
         <button
           type="button"
@@ -152,10 +155,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
         </button>
       </CopyToClipboard>
-      <div>
-        {handleHeartIcon()}
-        {isLinkCopied && <div>Link copiado!</div>}
-      </div>
+      {isLinkCopied && <div>Link copiado!</div>}
       <h1
         style={ { textAlign: 'center' } }
         data-testid="recipe-title"
