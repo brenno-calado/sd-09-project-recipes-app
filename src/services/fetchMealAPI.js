@@ -65,3 +65,13 @@ export const fetchRandomMeal = async () => {
     console.log(error);
   }
 };
+
+export const fetchMealIngredients = async () => {
+  try {
+    const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
+    const ingredients = await fetch(endPoint).then((response) => response.json());
+    return ingredients;
+  } catch (error) {
+    console.log(error);
+  }
+};

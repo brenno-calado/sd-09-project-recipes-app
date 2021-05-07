@@ -15,20 +15,16 @@ function ShareLikeButtons({ recipe, url, complement }) {
     setFavorite,
     favorite,
     favoriteClick,
-    setDoneFav } = useContext(RecipesContext);
+    setDoneFav,
+    verifyFavorite } = useContext(RecipesContext);
   const id = recipe.idMeal || recipe.idDrink;
 
   useEffect(() => {
-    function verifyFavorite() {
-      const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-      const isFav = favorites.find((item) => item.id === id);
-      setFavorite(isFav);
-    }
-    verifyFavorite();
-  }, [setFavorite, id]);
+    verifyFavorite(id);
+    if (recipe.idMeal) { setType('comida'); } else { setType('bebida'); }
+  }, [verifyFavorite, id, recipe.idMeal]);
 
   function addToFavorites() {
-    if (recipe.idMeal) { setType('comida'); } else { setType('bebida'); }
     setFavorite(true);
     const fav = {
       id: recipe.idMeal || recipe.idDrink,

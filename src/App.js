@@ -19,7 +19,7 @@ import ExploreFoodByArea from './pages/Explorer/ExploreFoodByArea';
 import DoneRecipes from './pages/Done/DoneRecipes';
 import FavoriteRecipes from './pages/Favorites/FavoriteRecipes';
 
-import NotFound from './pages/NotFound/NotFound';
+// import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
@@ -44,15 +44,15 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDrinksByIngredients }
         />
-        <Route path="/explorar/bebidas" component={ ExploreDrinks } />
+        <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
         <Route path="/explorar/comidas" component={ ExploreFood } />
         <Route path="/comidas" component={ Recipes } />
         <Route path="/bebidas" component={ Drinks } />
-        <Route path="/explorar" component={ Explorer } />
+        <Route exact path="/explorar" component={ Explorer } />
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="/perfil" component={ UserProfile } />
-        <Route component={ NotFound } />
+        <Route render={ () => <h1>404: page not found</h1> } />
       </Switch>
     </Provider>
   );

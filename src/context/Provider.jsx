@@ -83,6 +83,12 @@ function Provider(props) {
     setDoneFav(recipes);
   }, []);
 
+  const verifyFavorite = useCallback((id) => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isFav = favorites.find((item) => item.id === id);
+    setFavorite(isFav);
+  }, []);
+
   const context = {
     filter,
     inputText,
@@ -108,6 +114,7 @@ function Provider(props) {
     setDoneFav,
     filterBy,
     resetFilter,
+    verifyFavorite,
   };
 
   const { children } = props;
