@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
+import { string } from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton() {
+export default function ShareButton({ category, id }) {
   const [copied, setCopied] = useState(false);
 
   function copyLink() {
+    const URL = 'http://localhost:3000';
     // const TIMEOUT = 3000;
 
-    navigator.clipboard.writeText((window.location.href).split('/in-progress')[0]);
-    const test = (window.location.href).split('/in-progress')[0];
-    console.log(test);
+    navigator.clipboard.writeText(`${URL}/${category}/${id}`);
     // setTimeout(() => setCopied(false), TIMEOUT);
     setCopied(true);
   }
@@ -32,3 +32,8 @@ export default function ShareButton() {
     </>
   );
 }
+
+ShareButton.propTypes = {
+  category: string,
+  id: string,
+}.isRequired;

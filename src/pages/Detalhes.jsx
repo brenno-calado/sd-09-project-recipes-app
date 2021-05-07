@@ -97,7 +97,7 @@ function Detalhes() {
             </div>
             <div>
               <LikeButton recipeDetails={ recipeDetails } />
-              <ShareButton />
+              <ShareButton category={ type[0] } id={ id } />
             </div>
           </div>
           { renderIngredients() }
