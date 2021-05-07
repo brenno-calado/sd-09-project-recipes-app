@@ -25,13 +25,13 @@ function App() {
         path="/comidas/:id/in-progress"
         component={ FoodInProgress }
       />
+      <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
       <Route path="/comidas/:id" component={ Details } />
       <Route path="/comidas" component={ Foods } />
-      <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
       <Route path="/bebidas/:id" component={ Details } />
       <Route path="/bebidas" component={ Beverages } />
       <Route path="/explorar/comidas/area" component={ Areas } />
-      <Route path="*" component={ NotFound } />
+      <Route path="/explorar/bebidas/area" component={ NotFound } />
       <Route
         path="/explorar/comidas/ingredientes"
         component={ Ingredients }
@@ -47,6 +47,7 @@ function App() {
       <Route path="/receitas-feitas" component={ Done } />
       <Route path="/perfil" component={ Profile } />
       <Route exact path="/" component={ Login } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
