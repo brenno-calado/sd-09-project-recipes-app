@@ -57,7 +57,7 @@ function Bebidas() {
       <div className="listCard">
         { drinks && drinks.slice(0, MAX_AMOUNT).map((drink, index) => (
           <Link key={ drink.idDrink } to={ `/bebidas/${drink.idDrink}` }>
-            <div data-testid={ `${index}-recipe-card` }>
+            <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ drink.strDrinkThumb }
