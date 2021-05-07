@@ -70,12 +70,12 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   margin-top: 10px;
 }
 
 .listCard a div {
-  margin: 0 5px;
+  margin: 10px 5px;
 }
 
 .listCard p {
@@ -90,5 +90,6 @@
 
 .listCard img {
   box-shadow: var(--boxShadow3);
-  width: 160px;
+  padding-top: 10px;
+  width: 100px;
 }
