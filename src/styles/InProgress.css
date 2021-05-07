@@ -17,16 +17,18 @@
 }
 
 @media screen and ( min-width : 768px ) {
+
   .details__image {
     max-width: 250px;
   }
+
   main {
     margin: 0 auto;
     width: 50%;
   }
 }
 
-input[ type = "checkbox" ]:checked + label {
+input[ type = 'checkbox' ]:checked + label {
   opacity: 0.375;
   text-decoration: line-through;
 }
