@@ -38,14 +38,3 @@ function EmProgresso() {
 }
 
 export default EmProgresso;
-
-// INITIAL_LOCAL_STORAGE >> const inProgressRecipes = {
-//   cocktails: {
-//       id-da-bebida: [lista-de-ingredientes-utilizados],
-//       ...
-//   },
-//   meals: {
-//       id-da-comida: [lista-de-ingredientes-utilizados],
-//       ...
-//   }
-// }

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router';
+import '../App.css';
 import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -13,6 +14,7 @@ function ProgressMeal() {
     saveFavorite,
     setIsFavorite,
     checkDone,
+    localRecipes,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
@@ -30,36 +32,52 @@ function ProgressMeal() {
    categoria: strCategory
   */
 
-  //  const inProgressRecipes = {
-  //   cocktails: {
-  //       id-da-bebida: [lista-de-ingredientes-utilizados],
-  //       ...
-  //   },
-  //   meals: {
-  //       id-da-comida: [lista-de-ingredientes-utilizados],
-  //       ...
-  //   }
-  // }
-
   const { ingredients, measures } = getKeysIngredints();
+  const isDone = (currentIngredint) => {
+    if (localRecipes) {
+      const { meals } = localRecipes;
+      if (meals[recipeId]) {
+        return meals[recipeId].includes(currentIngredint);
+      }
+    }
+  };
 
   const renderList = () => (
     ingredients.map((item, index) => (
-      <li
-        key={ item }
-        data-testid={ `${index}-ingredient-step` }
-        className="list-group-item"
-      >
-        <input
-          onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
-          type="checkbox"
-          className="mr-2"
-          id={ index }
-        />
-        <label htmlFor={ index }>
-          { `${item}: ${measures[index]}`}
-        </label>
-      </li>
+      isDone(item) ? (
+        <li
+          key={ item }
+          data-testid={ `${index}-ingredient-step` }
+          className="list-group-item"
+        >
+          <input
+            onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
+            type="checkbox"
+            className="mr-2"
+            id={ index }
+            checked
+          />
+          <label className="done" htmlFor={ index }>
+            { `${item}: ${measures[index]}`}
+          </label>
+        </li>
+      ) : (
+        <li
+          key={ item }
+          data-testid={ `${index}-ingredient-step` }
+          className="list-group-item"
+        >
+          <input
+            onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
+            type="checkbox"
+            className="mr-2"
+            id={ index }
+          />
+          <label htmlFor={ index }>
+            { `${item}: ${measures[index]}`}
+          </label>
+        </li>
+      )
     ))
   );
 

@@ -16,6 +16,9 @@ const MyContextProvider = ({ children }) => {
   const [toggle, setToggle] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  const recipesStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [localRecipes, setLocalRecipes] = useState(recipesStorage);
+
   function getKeysIngredints() {
     const keysData = Object.keys(data);
     const allIngredients = keysData.filter((key) => key.includes('Ingredient'));
@@ -82,52 +85,59 @@ const MyContextProvider = ({ children }) => {
   };
 
   function addLocalStorage(id, target, ingredients) {
-    const inprogresLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-
-    if (inprogresLocal === null) {
-      // Se o localStorage não tiver inProgressRecipes, eu crio aqui
-      const inProgressRecipes = {
-        meals: {
-          [id]: [ingredients[target.id]],
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    } else if (inprogresLocal.meals !== id) {
-      // Se tiver coisa no inProgressRecipes mas eu queira adicionar um id diferente;
-      const inProgressRecipes = {
-        meals: {
-          ...inprogresLocal.meals,
-          [id]: [ingredients[target.id]],
-        },
-      };
-      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-    } else {
-      const { meals } = inprogresLocal;
-      console.log(meals);
+    const objectDefault = {
+      meals: {
+        [id]: [],
+      },
+    };
+    if (!localStorage.getItem('inProgressRecipes')) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify(objectDefault));
+      setLocalRecipes(objectDefault);
     }
-
-    // Se ja tiver a chave com id eu apenas adiciono o ingrediente
-    // const inProgressRecipes = {
-    //   meals: {
-    //     [id]: [...meals[id], ingredients[target.id]],
-    //   },
-    // };
-    // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    let inProgress = {};
+    if (!meals[id]) {
+      inProgress = {
+        meals: {
+          ...meals,
+          [id]: [ingredients[target.id]],
+        },
+      };
+    } else if (meals[id]) {
+      inProgress = {
+        meals: {
+          ...meals,
+          [id]: [...meals[id], ingredients[target.id]],
+        },
+      };
+    }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    setLocalRecipes(inProgress);
   }
 
-  function removeLocalStorage() {
-    console.log('removi');
+  function removeLocalStorage(id, target, ingredients) {
+    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const newProgress = meals[id].filter((item) => item !== ingredients[target.id]);
+    const inProgress = {
+      meals: {
+        ...meals,
+        [id]: newProgress,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
+    setLocalRecipes(inProgress);
   }
 
-  function checkDone(id, target) {
+  function checkDone(id, target, ingredients) {
     if (target.checked) {
-      addLocalStorage(id, target);
+      addLocalStorage(id, target, ingredients);
     } else {
-      removeLocalStorage();
+      removeLocalStorage(id, target, ingredients);
     }
   }
 
   const context = {
+    localRecipes,
     data,
     categories,
     showBar,

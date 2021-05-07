@@ -119,11 +119,6 @@ export default function Detalhes() {
     );
   };
 
-  // const saveFavorite = () => {
-  //   setIsFavorite(!isFavorite);
-  //   saveAsFavorite(recipeId, data, pathname);
-  // };
-
   if (isLoading) {
     return <p>Loading...</p>;
   }
