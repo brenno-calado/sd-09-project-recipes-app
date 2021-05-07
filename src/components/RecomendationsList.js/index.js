@@ -29,7 +29,6 @@ export default function RecomendationList({ isMeal }) {
                 : `/bebidas/${item.idDrink}` }
             />
           </Carousel.Item>
-
         ))}
       </Carousel>
     </section>

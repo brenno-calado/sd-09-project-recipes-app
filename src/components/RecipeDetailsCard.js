@@ -11,6 +11,7 @@ import ButtonStartOrContinueRecipe from './ButtonStartOrContinueRecipe';
 function RecipesDetailsCard({ isMeal }) {
   const [recipeDetails, setRecipeDetails] = useState(null);
   const { id } = useParams();
+  console.log(recipeDetails);
 
   useEffect(() => {
     getRecipeAndParseById(id, isMeal).then((recipeItem) => {
@@ -43,7 +44,7 @@ function RecipesDetailsCard({ isMeal }) {
       />
       <h2 data-testid="recipe-title">{ recipeDetails.name }</h2>
       <ShareRecipeButton dataTestid="share-btn" isMeal={ isMeal } recipeId={ id } />
-      <FavoriteRecipeButton recipe={ recipeDetails } />
+      <FavoriteRecipeButton recipe={ recipeDetails } dataTestid="favorite-btn" />
       <h3 data-testid="recipe-category">
         {isMeal ? recipeDetails.category : recipeDetails.alcoholic}
       </h3>
