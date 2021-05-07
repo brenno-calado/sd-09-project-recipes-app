@@ -1,38 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { AiOutlineShareAlt } from 'react-icons/ai';
-import { GrFavorite } from 'react-icons/gr';
 import { useParams } from 'react-router';
 import ReactPlayer from 'react-player';
-import { getRecipesById } from '../services/api';
-import RecomendationList from './RecomedationsList';
-
-const getIngredientsAndMeasure = (recipe) => {
-  let ingredientsList = [];
-  for (let i = 1; i <= Number('20'); i += 1) {
-    const newItem = {
-      ingredient: recipe[`strIngredient${i}`],
-      measure: recipe[`strMeasure${i}`],
-    };
-    if (newItem.ingredient === null || newItem.ingredient.length === 0) break;
-    ingredientsList = [...ingredientsList, newItem];
-  }
-  return ingredientsList;
-};
+import { getRecipeAndParseById } from '../services/api';
+import FavoriteRecipeButton from './FavoriteRecipeButton';
+import ShareRecipeButton from './ShareRecipeButton';
+import RecomendationList from './RecomendationsList.js';
+import ButtonStartOrContinueRecipe from './ButtonStartOrContinueRecipe';
 
 function RecipesDetailsCard({ isMeal }) {
   const [recipeDetails, setRecipeDetails] = useState(null);
   const { id } = useParams();
 
   useEffect(() => {
-    async function getRecipe() {
-      const request = await getRecipesById(id, isMeal);
-      setRecipeDetails(request[0]);
-    }
-    getRecipe();
-  }, [id, isMeal, setRecipeDetails]);
+    getRecipeAndParseById(id, isMeal).then((recipeItem) => {
+      setRecipeDetails({
+        ...recipeItem,
+        alcoholicOrNot: recipeItem.alcoholic ? 'Alcoholic' : '',
+      });
+    });
+  }, [id, isMeal]);
 
-  const renderIngredientsAndMeasure = () => getIngredientsAndMeasure(recipeDetails)
+  const renderIngredientsAndMeasure = () => recipeDetails.ingredients
     .map(({ ingredient, measure }, index) => (
       <li
         key={ ingredient }
@@ -45,46 +34,29 @@ function RecipesDetailsCard({ isMeal }) {
   if (!recipeDetails) return <p>Loading...</p>;
 
   return (
-    <section>
+    <section className="d-flex flex-column mb-5">
       <img
-        src={ isMeal ? recipeDetails.strMealThumb : recipeDetails.strDrinkThumb }
+        src={ recipeDetails.image }
         alt="Foto da receita"
         data-testid="recipe-photo"
         width="300"
       />
-      <h2 data-testid="recipe-title">
-        { isMeal ? recipeDetails.strMeal : recipeDetails.strDrink }
-      </h2>
-      <button type="button" data-testid="share-btn">
-        <AiOutlineShareAlt />
-      </button>
-      <button
-        type="button"
-        data-testid="favorite-btn"
-      >
-        <GrFavorite />
-      </button>
+      <h2 data-testid="recipe-title">{ recipeDetails.name }</h2>
+      <ShareRecipeButton dataTestid="share-btn" isMeal={ isMeal } recipeId={ id } />
+      <FavoriteRecipeButton recipe={ recipeDetails } />
       <h3 data-testid="recipe-category">
-        {isMeal ? recipeDetails.strCategory : recipeDetails.strAlcoholic}
+        {isMeal ? recipeDetails.category : recipeDetails.alcoholic}
       </h3>
       <h4>Ingredientes</h4>
-      <ul>
-        {renderIngredientsAndMeasure()}
-      </ul>
+      <ul>{renderIngredientsAndMeasure()}</ul>
       <h4>Instruções</h4>
-      <p data-testid="instructions">{recipeDetails.strInstructions}</p>
+      <p data-testid="instructions">{recipeDetails.instructions}</p>
       <div data-testid="video">
-        {isMeal && <ReactPlayer url={ recipeDetails.strYoutube } />}
+        {isMeal && <ReactPlayer url={ recipeDetails.video } />}
       </div>
       <h4>Recomendadas</h4>
       <RecomendationList isMeal={ !isMeal } />
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="fixed-bottom btn btn-primary btn-block"
-      >
-        Iniciar receita
-      </button>
+      <ButtonStartOrContinueRecipe isMeal={ isMeal } id={ id } />
     </section>
   );
 }
