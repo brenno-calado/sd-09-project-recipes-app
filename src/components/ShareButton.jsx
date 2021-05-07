@@ -7,8 +7,9 @@ export default function ShareButton() {
   function copyLink() {
     // const TIMEOUT = 3000;
 
-    navigator.clipboard.writeText(window.location.href);
-
+    navigator.clipboard.writeText((window.location.href).split('/in-progress')[0]);
+    const test = (window.location.href).split('/in-progress')[0];
+    console.log(test);
     // setTimeout(() => setCopied(false), TIMEOUT);
     setCopied(true);
   }

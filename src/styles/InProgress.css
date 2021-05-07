@@ -1,0 +1,34 @@
+.details__image {
+  width: 100%;
+}
+
+.details__horizontal-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.details__button--start {
+  bottom: 0;
+  cursor: pointer;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+@media screen and ( min-width : 768px ) {
+
+  .details__image {
+    max-width: 250px;
+  }
+
+  main {
+    margin: 0 auto;
+    width: 50%;
+  }
+}
+
+.inputClass[ type = 'checkbox' ]:checked + label {
+  opacity: 0.375;
+  text-decoration: line-through;
+}

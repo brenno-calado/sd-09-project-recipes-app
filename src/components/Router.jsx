@@ -22,12 +22,12 @@ export default function Router() {
       <Route exact path="/bebidas/:id" component={ Detalhes } />
       <Route
         exact
-        path="/comidas/:id-da-receita/in-progress"
+        path="/comidas/:id/in-progress"
         component={ EmProcesso }
       />
       <Route
         exact
-        path="/bebidas/:id-da-receita/in-progress"
+        path="/bebidas/:id/in-progress"
         component={ EmProcesso }
       />
       <Route exact path="/explorar" component={ Explorar } />
