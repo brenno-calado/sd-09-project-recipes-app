@@ -12,6 +12,22 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
   const [recipe, setRecipe] = useState({});
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [done, setDone] = useState(false);
+  const { idDrink, strAlcoholic, strCategory, strDrink,
+    strDrinkThumb, strInstructions } = recipe;
+
+  const storageInProgress = (JSON
+    .parse(localStorage.getItem('inProgressRecipes'))) || { cocktails: {} };
+  const text = (storageInProgress.cocktails[id] !== undefined)
+    ? 'Continuar Receita' : 'Iniciar Receita';
+
+  const isDone = () => {
+    const recipesFromStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const recipeIsDone = recipesFromStorage.some((item) => item.id === id);
+    if (recipeIsDone) {
+      setDone(true);
+    }
+  };
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -24,65 +40,54 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
       }
     };
     fetchRecipe();
+    isDone();
   }, [id]);
 
   const renderRecipePhoto = () => (
     <img
-      style={ { width: 30, height: 30 } }
-      src={ recipe.strDrinkThumb }
+      style={ { width: 300, height: 300 } }
+      src={ strDrinkThumb }
       data-testid="recipe-photo"
       alt="Foto do prato"
-      tagName="IMG"
     />
   );
 
   const renderRecipeTitle = () => (
-    <div>
-      <h2
-        data-testid="recipe-title"
-      >
-        { recipe.strDrink }
-      </h2>
-    </div>
-
+    <h2
+      data-testid="recipe-title"
+    >
+      { strDrink }
+    </h2>
   );
 
   const renderRecipeCategory = () => (
-    <div>
-      <h5
-        data-testid="recipe-category"
-      >
-        {recipe.strAlcoholic}
-      </h5>
-    </div>
-
+    <h5
+      data-testid="recipe-category"
+    >
+      {strAlcoholic}
+    </h5>
   );
 
-  const copyLink = (idDrink) => {
-    copy(`http://localhost:3000/bebidas/${idDrink}`);
+  const copyLink = (i) => {
+    copy(`http://localhost:3000/bebidas/${i}`);
     setCopied(true);
   };
 
   const renderShareButton = () => (
     <button
       type="button"
-      data-testid="share-btn"
       onClick={ () => copyLink(recipe.idDrink) }
     >
-      {copied ? <span>Link copiado!</span> : <img src={ shareIcon } alt="Share" /> }
+      {copied ? <span>Link copiado!</span> : <img
+        src={ shareIcon }
+        data-testid="share-btn"
+        alt="Share"
+      /> }
     </button>
   );
 
   const setStorage = () => {
-    const {
-      idDrink,
-      strAlcoholic,
-      strCategory,
-      strDrink,
-      strDrinkThumb,
-    } = recipe;
-    const drinkFavorite = {
-      id: idDrink,
+    const drinkFavorite = { id: idDrink,
       type: 'bebida',
       alcoholicOrNot: strAlcoholic,
       area: '',
@@ -196,21 +201,25 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
       <p
         data-testid="instructions"
       >
-        { recipe.strInstructions }
+        { strInstructions }
       </p>
     </div>
   );
 
   const renderStartRecipeButton = () => (
-    <Link to={ `${recipe.idDrink}/in-progress` }>
-      <button
-        className="footer"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar receita
-      </button>
-    </Link>
+    <div>
+      { !done && (
+        <Link to={ `${idDrink}/in-progress` }>
+          <button
+            className="footer"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            {text}
+          </button>
+        </Link>
+      )}
+    </div>
   );
 
   return (

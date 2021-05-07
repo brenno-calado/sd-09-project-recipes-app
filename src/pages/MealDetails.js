@@ -12,6 +12,18 @@ const MealDetails = ({ match: { params: { id } } }) => {
   const [recipe, setRecipe] = useState({});
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [done, setDone] = useState(false);
+  const { idMeal, strArea, strCategory, strMeal,
+    strMealThumb, strInstructions, strYoutube } = recipe;
+  const storageInProgress = (JSON
+    .parse(localStorage.getItem('inProgressRecipes'))) || { meals: {} };
+  const text = (storageInProgress.meals[id] !== undefined)
+    ? 'Continuar Receita' : 'Iniciar Receita';
+  const isDone = () => {
+    const recipesFromStorage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const recipeIsDone = recipesFromStorage.some((item) => item.id === id);
+    if (recipeIsDone) setDone(true);
+  };
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -24,57 +36,53 @@ const MealDetails = ({ match: { params: { id } } }) => {
       }
     };
     fetchRecipe();
+    isDone();
   }, [id]);
 
   const renderRecipePhoto = () => (
     <img
-      style={ { width: 30, height: 30 } }
-      src={ recipe.strMealThumb }
+      style={ { width: 300, height: 300 } }
+      src={ strMealThumb }
       data-testid="recipe-photo"
       alt="Foto do prato"
-      tagName="IMG"
     />
   );
 
   const renderRecipeTitle = () => (
-    <div>
-      <h2
-        data-testid="recipe-title"
-      >
-        { recipe.strMeal }
-      </h2>
-    </div>
-
+    <h2
+      data-testid="recipe-title"
+    >
+      { strMeal }
+    </h2>
   );
 
   const renderRecipeCategory = () => (
-    <div>
-      <h5
-        data-testid="recipe-category"
-      >
-        {recipe.strCategory}
-      </h5>
-    </div>
-
+    <h5
+      data-testid="recipe-category"
+    >
+      {strCategory}
+    </h5>
   );
 
-  const copyLink = (idMeal) => {
-    copy(`http://localhost:3000/comidas/${idMeal}`);
+  const copyLink = (i) => {
+    copy(`http://localhost:3000/comidas/${i}`);
     setCopied(true);
   };
 
   const renderShareButton = () => (
     <button
       type="button"
-      data-testid="share-btn"
-      onClick={ () => copyLink(recipe.idMeal) }
+      onClick={ () => copyLink(idMeal) }
     >
-      {copied ? <span>Link copiado!</span> : <img src={ shareIcon } alt="Share" /> }
+      {copied ? <span>Link copiado!</span> : <img
+        src={ shareIcon }
+        data-testid="share-btn"
+        alt="Share"
+      /> }
     </button>
   );
 
   const setStorage = () => {
-    const { idMeal, strArea, strCategory, strMeal, strMealThumb } = recipe;
     const mealFavorite = {
       id: idMeal,
       type: 'comida',
@@ -91,10 +99,8 @@ const MealDetails = ({ match: { params: { id } } }) => {
     } else {
       const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
       if (storage) {
-        localStorage.setItem(
-          'favoriteRecipes',
-          JSON.stringify([...storage, mealFavorite]),
-        );
+        localStorage.setItem('favoriteRecipes',
+          JSON.stringify([...storage, mealFavorite]));
       } else {
         localStorage.setItem('favoriteRecipes', JSON.stringify([mealFavorite]));
       }
@@ -105,11 +111,8 @@ const MealDetails = ({ match: { params: { id } } }) => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const fav = favorites.filter((item) => item.id === id);
     if (fav.length) {
-      if (favorite) {
-        setFavorite(false);
-      } else {
-        setFavorite(true);
-      }
+      if (favorite) setFavorite(false);
+      else setFavorite(true);
     }
   };
 
@@ -190,7 +193,7 @@ const MealDetails = ({ match: { params: { id } } }) => {
       <p
         data-testid="instructions"
       >
-        { recipe.strInstructions }
+        { strInstructions }
       </p>
     </div>
   );
@@ -200,21 +203,25 @@ const MealDetails = ({ match: { params: { id } } }) => {
       title="video"
       width="300"
       height="300"
-      src={ recipe.strYoutube }
+      src={ strYoutube }
       data-testid="video"
     />
   );
 
   const renderStartRecipeButton = () => (
-    <Link to={ `${recipe.idMeal}/in-progress` }>
-      <button
-        className="footer"
-        type="button"
-        data-testid="start-recipe-btn"
-      >
-        Iniciar receita
-      </button>
-    </Link>
+    <div>
+      { !done && (
+        <Link to={ `${idMeal}/in-progress` }>
+          <button
+            className="footer"
+            type="button"
+            data-testid="start-recipe-btn"
+          >
+            {text}
+          </button>
+        </Link>
+      )}
+    </div>
   );
 
   return (
