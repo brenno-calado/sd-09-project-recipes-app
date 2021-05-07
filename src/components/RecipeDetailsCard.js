@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import ReactPlayer from 'react-player';
 import { getRecipeAndParseById } from '../services/api';
-import RecomendationList from './RecomedationsList';
 import FavoriteRecipeButton from './FavoriteRecipeButton';
 import ShareRecipeButton from './ShareRecipeButton';
+import RecomendationList from './RecomendationsList.js';
+import ButtonStartOrContinueRecipe from './ButtonStartOrContinueRecipe';
 
 function RecipesDetailsCard({ isMeal }) {
   const [recipeDetails, setRecipeDetails] = useState(null);
   const { id } = useParams();
-
-  const history = useHistory();
 
   useEffect(() => {
     getRecipeAndParseById(id, isMeal).then((recipeItem) => {
@@ -35,7 +34,7 @@ function RecipesDetailsCard({ isMeal }) {
   if (!recipeDetails) return <p>Loading...</p>;
 
   return (
-    <section>
+    <section className="d-flex flex-column mb-5">
       <img
         src={ recipeDetails.image }
         alt="Foto da receita"
@@ -43,7 +42,7 @@ function RecipesDetailsCard({ isMeal }) {
         width="300"
       />
       <h2 data-testid="recipe-title">{ recipeDetails.name }</h2>
-      <ShareRecipeButton />
+      <ShareRecipeButton dataTestid="share-btn" isMeal={ isMeal } recipeId={ id } />
       <FavoriteRecipeButton recipe={ recipeDetails } />
       <h3 data-testid="recipe-category">
         {isMeal ? recipeDetails.category : recipeDetails.alcoholic}
@@ -57,15 +56,7 @@ function RecipesDetailsCard({ isMeal }) {
       </div>
       <h4>Recomendadas</h4>
       <RecomendationList isMeal={ !isMeal } />
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="fixed-bottom btn btn-primary btn-block"
-        onClick={ () => history
-          .push(`/${isMeal ? 'comidas' : 'bebidas'}/${id}/in-progress`) }
-      >
-        Iniciar receita
-      </button>
+      <ButtonStartOrContinueRecipe isMeal={ isMeal } id={ id } />
     </section>
   );
 }

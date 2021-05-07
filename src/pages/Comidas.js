@@ -20,7 +20,6 @@ function Comidas() {
     setSearchMealsList,
     showSearchBar,
   } = useContext(RecipiesContext);
-  console.log(searchMealsList);
   useEffect(() => {
     getRecipesByName('', true).then((data) => { setSearchMealsList(data); });
   }, [setSearchMealsList]);
