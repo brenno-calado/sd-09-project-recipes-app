@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../Components/Header';
 import './Details+css/Details.css';
+import ShareIcon from '../images/shareIcon.svg';
+// import Share from '../Components/Share';
 
 class RecipesDone extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       doneRecipes: [],
       food: [],
@@ -18,6 +20,7 @@ class RecipesDone extends React.Component {
     this.all = this.all.bind(this);
     this.renderComidas = this.renderComidas.bind(this);
     this.renderBebidas = this.renderBebidas.bind(this);
+    this.createBtnShare = this.createBtnShare.bind(this);
   }
 
   componentDidMount() {
@@ -26,14 +29,26 @@ class RecipesDone extends React.Component {
 
   auxiar() {
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
-    const filterFood = recipesDone.filter((food) => food.type === 'comida');
-    const filterDrink = recipesDone.filter((drink) => drink.type === 'bebida');
+    if (recipesDone !== null) {
+      const filterFood = recipesDone.filter((food) => food.type === 'comida');
+      const filterDrink = recipesDone.filter((drink) => drink.type === 'bebida');
+      this.setState({
+        doneRecipes: recipesDone,
+        food: filterFood,
+        drink: filterDrink,
+      });
+    }
+  }
 
-    this.setState({
-      doneRecipes: recipesDone,
-      food: filterFood,
-      drink: filterDrink,
-    });
+  createBtnShare(index) {
+    return (
+      <button
+        type="button"
+        data-testid={ `${index}-horizontal-share-btn` }
+        src={ ShareIcon }
+      >
+        Share
+      </button>);
   }
 
   all() {
@@ -50,27 +65,26 @@ class RecipesDone extends React.Component {
                   src={ value.image }
                   alt="img-recipe"
                 />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
+                <p data-testid={ `${index}-horizontal-name` }>
                   {value.name}
                 </p>
               </Link>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { value.category }
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                { value.type === 'comida'
+                  ? (`${value.area} - ${value.category}`)
+                  : value.alcoholicOrNot }
               </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
+              <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              <span
-                data-testid={ `${index}-horizontal-tag` }
-              >
-                {value.tags[0]}
-              </span>
+              { this.createBtnShare(index) }
+              { value.tags.map((tag) => (
+                <span
+                  key={ tag }
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                >
+                  {tag}
+                </span>)) }
             </div>
           ))}
         </div>
@@ -93,25 +107,18 @@ class RecipesDone extends React.Component {
                   src={ value.image }
                   alt="img-recipe"
                 />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
+                <p data-testid={ `${index}-horizontal-name` }>
                   {value.name}
                 </p>
               </Link>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { value.category }
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                { `${value.area} - ${value.category}` }
               </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
+              <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              <span
-                data-testid={ `${index}-horizontal-tag` }
-              >
+              { this.createBtnShare(index) }
+              <span data-testid={ `${index}-${value.tags[0]}horizontal-tag` }>
                 {value.tags[0]}
               </span>
             </div>
@@ -136,25 +143,18 @@ class RecipesDone extends React.Component {
                   src={ value.image }
                   alt="img-recipe"
                 />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
+                <p data-testid={ `${index}-horizontal-name` }>
                   {value.name}
                 </p>
               </Link>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { value.category }
+              <p data-testid={ `${index}-horizontal-top-text` }>
+                { value.alcoholicOrNot }
               </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
+              <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              <span
-                data-testid={ `${index}-horizontal-tag` }
-              >
+              { this.createBtnShare(index) }
+              <span data-testid={ `${index}-${value.name}horizontal-tag` }>
                 {value.tags[0]}
               </span>
             </div>
@@ -168,7 +168,7 @@ class RecipesDone extends React.Component {
   render() {
     return (
       <div>
-        {/* <Header name="Receitas Feitas" /> */}
+        <Header name="Receitas Feitas" />
         <button
           type="button"
           onClick={ () => this.setState({
