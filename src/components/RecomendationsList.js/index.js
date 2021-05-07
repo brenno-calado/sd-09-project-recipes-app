@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
 import RecipeCard from '../RecipeCard';
 import { getRecipesByName } from '../../services/api';
-import './style.css';
 
 export default function RecomendationList({ isMeal }) {
   const [recipes, setRecipes] = useState(null);
