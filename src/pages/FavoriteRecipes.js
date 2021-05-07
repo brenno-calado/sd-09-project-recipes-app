@@ -5,7 +5,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../css/FavoriteRecipes.css';
 
 const FavoriteRecipes = () => {
-  const myStorageFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const myStorageFavorite = (JSON.parse(localStorage.getItem('favoriteRecipes')))
+    ? JSON.parse(localStorage.getItem('favoriteRecipes')) : [];
   const [shareButton, setShareButton] = useState(false);
 
   const clickShare = ({ target }) => {

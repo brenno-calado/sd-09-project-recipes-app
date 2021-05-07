@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import RenderDoneRecipes from '../components/RenderDoneRecipes';
+import '../css/DoneRecipes.css';
 
 const DoneRecipes = () => {
   const [doneList, setDoneList] = useState([]);
@@ -14,20 +15,13 @@ const DoneRecipes = () => {
     setLoading(false);
   };
 
-  // css
-  const containerStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  };
-
   useEffect(() => {
     getDoneListFromLocalStorage();
   }, []);
 
   if (loading) return (<p>Loading...</p>);
   return (
-    <div style={ containerStyle }>
+    <div className="done-recipes-body">
       <Header title="Receitas Feitas" />
       <RenderDoneRecipes list={ doneList } />
     </div>
