@@ -29,8 +29,13 @@ export default function ButtonStartOrContinueRecipe({ isMeal, id }) {
     }
     if (!isInProgress()) {
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      history.push(`/${isMeal ? 'comidas' : 'bebidas'}/${id}/in-progress`)
+      history.push(`/${isMeal ? 'comidas' : 'bebidas'}/${id}/in-progress`);
     }
+  }
+
+  function continueOrInitiateRecipe() {
+    if (isInProgress()) return 'Continuar Receita';
+    return 'Iniciar receita';
   }
 
   return (
@@ -40,7 +45,7 @@ export default function ButtonStartOrContinueRecipe({ isMeal, id }) {
       className="fixed-bottom btn btn-primary btn-block"
       onClick={ handleClick }
     >
-      {isInProgress() ? 'Continuar Receita' : 'Iniciar receita'}
+      {continueOrInitiateRecipe()}
     </button>
   );
 }
