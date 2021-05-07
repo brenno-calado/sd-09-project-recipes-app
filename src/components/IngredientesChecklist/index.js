@@ -12,6 +12,10 @@ const INITIAL_PROGRESSRECIPES = {
 };
 
 class index extends Component {
+  componentDidUpdate() {
+    this.isAllIngredientsDone();
+  }
+
   handleIngredient({ target }) {
     let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!inProgressRecipes) {
@@ -66,12 +70,12 @@ class index extends Component {
   }
 
   isAllIngredientsDone() {
-    const { allIngredients, id, updateRecipeStatus } = this.props;
+    const { allIngredients, id, updateIsRecipeDone } = this.props;
     const ingredientsDone = getIngredientsDone(id);
     if (allIngredients.length === ingredientsDone.length) {
-      updateRecipeStatus(true);
+      updateIsRecipeDone(true);
     } else {
-      updateRecipeStatus(false);
+      updateIsRecipeDone(false);
     }
   }
 
@@ -141,7 +145,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updateRecipeStatus: (status) => dispatch(updateRecipeStatus(status)),
+  updateIsRecipeDone: (status) => dispatch(updateRecipeStatus(status)),
 });
 
 index.propTypes = {
@@ -150,7 +154,7 @@ index.propTypes = {
   id: PropTypes.number.isRequired,
   recipeType: PropTypes.number.isRequired,
   allIngredients: PropTypes.arrayOf().isRequired,
-  updateRecipeStatus: PropTypes.func.isRequired,
+  updateIsRecipeDone: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(index);

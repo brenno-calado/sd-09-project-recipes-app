@@ -49,7 +49,6 @@ class index extends Component {
     if (!localStorage.getItem('favoriteRecipes')) {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
-    const recipe = this.recipeData();
     const { id } = this.props;
     console.log(id);
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));

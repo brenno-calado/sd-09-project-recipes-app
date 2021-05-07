@@ -194,6 +194,8 @@ const mapStateToProps = (state) => ({
 });
 
 index.propTypes = {
+  recipeReduxId: PropTypes.number.isRequired,
+  saveRecipeData: PropTypes.func.isRequired,
   match: PropTypes.shape(
     {
       params: PropTypes.shape({
