@@ -1,25 +1,13 @@
 import React, { useContext, useState } from 'react';
-import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import DoneMealCard from '../components/DoneMealCard';
 import DoneDrinkCard from '../components/DoneDrinkCard';
-import '../CSS/ReceitasFeitas.css';
+import '../CSS/ReceitasFeitasFavoritas.css';
 import { AppContext } from '../context/AppContext';
 
 function ReceitasFeitas() {
   const { doneRecipes } = useContext(AppContext);
-  const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
-
-  const shareLink = (id, type) => {
-    if (type === 'comida') {
-      copy(`http://localhost:3000/comidas/${id}`);
-    } else {
-      copy(`http://localhost:3000/bebidas/${id}`);
-    }
-
-    setLinkShared(true);
-  };
 
   const handleClick = ({ target }) => {
     const { value } = target;
@@ -81,8 +69,6 @@ function ReceitasFeitas() {
                   key={ index }
                   recipe={ recipe }
                   index={ index }
-                  linkShared={ linkShared }
-                  shareLink={ shareLink }
                 />
               )
               : (
@@ -90,8 +76,6 @@ function ReceitasFeitas() {
                   key={ index }
                   recipe={ recipe }
                   index={ index }
-                  linkShared={ linkShared }
-                  shareLink={ shareLink }
                 />
               )
           ))

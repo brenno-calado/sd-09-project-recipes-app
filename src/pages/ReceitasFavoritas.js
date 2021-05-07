@@ -1,24 +1,13 @@
 import React, { useContext, useState } from 'react';
-import copy from 'clipboard-copy';
 import Header from '../components/Header';
 import { AppContext } from '../context/AppContext';
 import FavoriteMealCard from '../components/FavoriteMealCard';
 import FavoriteDrinkCard from '../components/FavoriteDrinkCard';
+import '../CSS/ReceitasFeitasFavoritas.css';
 
 function Perfil() {
   const { removeFromFavorite, favoriteRecipes } = useContext(AppContext);
-  const [linkShared, setLinkShared] = useState(false);
   const [filterName, setFilterName] = useState('');
-
-  const shareLink = (id, type) => {
-    if (type === 'comida') {
-      copy(`http://localhost:3000/comidas/${id}`);
-    } else {
-      copy(`http://localhost:3000/bebidas/${id}`);
-    }
-
-    setLinkShared(true);
-  };
 
   const handleClick = ({ target }) => {
     const { value } = target;
@@ -49,7 +38,7 @@ function Perfil() {
   return (
     <div>
       <Header title="Receitas Favoritas" searchIcon={ false } />
-      <section>
+      <section className="done-recipes-buttons">
         <button
           value="All"
           type="button"
@@ -83,8 +72,6 @@ function Perfil() {
                 key={ index }
                 recipe={ recipe }
                 index={ index }
-                linkShared={ linkShared }
-                shareLink={ shareLink }
                 handleFavoriteButton={ handleFavoriteButton }
               />
             )
@@ -93,8 +80,6 @@ function Perfil() {
                 key={ index }
                 recipe={ recipe }
                 index={ index }
-                linkShared={ linkShared }
-                shareLink={ shareLink }
                 handleFavoriteButton={ handleFavoriteButton }
               />
             )

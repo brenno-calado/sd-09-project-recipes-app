@@ -44,7 +44,7 @@ const CheckBoxProgress = ({
         className={ classLabel() }
       >
         <input
-          id="checkbox1"
+          id={ index }
           className="check-style"
           type="checkbox"
           defaultChecked={ strikeThrough }
