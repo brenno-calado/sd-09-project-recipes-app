@@ -24,7 +24,9 @@ function EmProcesso() {
     : ['bebidas', 'Drink', 'cocktails'];
 
   const [ingredientsList, setIngredientList] = useState(
-    inProgressRecipes[type[2]][id] || [],
+    inProgressRecipes && inProgressRecipes[type[2]][id]
+      ? inProgressRecipes[type[2]][id]
+      : [],
   );
   const [disable, setDisable] = useState(true);
 
