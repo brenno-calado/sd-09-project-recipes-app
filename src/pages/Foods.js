@@ -21,13 +21,16 @@ function Foods() {
     setDataFromApi({ ...dataFromApi, loading: true });
     const { meals } = await fetchRecipes(route);
     setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
-    if (dataFromApi.recipes.length === 0) {
+    if (dataFromApi.recipes.length <= 0) {
       setDataFromApi({ ...dataFromApi, recipes: meals });
     }
   };
 
   useEffect(() => {
-    getRecipes();
+    if (dataFromApi.recipes.length <= 0) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
   }, []);
 
   if (restartRecipes === true) {

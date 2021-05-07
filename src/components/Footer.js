@@ -14,6 +14,8 @@ function Footer() {
   const goToDrinks = () => {
     history.push('/bebidas');
     setTitle('bebidas');
+    setDataFromApi({ ...dataFromApi, recipes: [] });
+    setRestartRecipes(true);
   };
 
   const goToDrinksExplore = () => {
