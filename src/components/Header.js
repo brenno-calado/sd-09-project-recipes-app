@@ -11,22 +11,24 @@ const Header = ({ activeSearch = false, title }) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
   return (
     <header>
-      <button type="button" onClick={ () => history.push(paths.PROFILE_PAGE) }>
-        <img
-          data-testid="profile-top-btn"
-          src={ ProfileIcon }
-          alt="profile icon"
-        />
-      </button>
-      <h2 data-testid="page-title">{ title }</h2>
-      { activeSearch && (
-        <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
+      <div className="menu">
+        <button type="button" onClick={ () => history.push(paths.PROFILE_PAGE) }>
           <img
-            src={ SearchIcon }
-            data-testid="search-top-btn"
-            alt="search icon"
+            data-testid="profile-top-btn"
+            src={ ProfileIcon }
+            alt="profile icon"
           />
-        </button>)}
+        </button>
+        <h2 className="title" data-testid="page-title">{ title }</h2>
+        { activeSearch && (
+          <button type="button" onClick={ () => setShowSearchBar(!showSearchBar) }>
+            <img
+              src={ SearchIcon }
+              data-testid="search-top-btn"
+              alt="search icon"
+            />
+          </button>)}
+      </div>
       { showSearchBar && <SearchBar /> }
     </header>
   );

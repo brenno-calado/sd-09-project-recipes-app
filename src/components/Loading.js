@@ -2,7 +2,7 @@ import React from 'react';
 import Spinner from 'react-bootstrap/Spinner';
 
 const Loading = () => (
-  <div>
+  <div className="loading">
     <Spinner animation="border" variant="secondary" />
     Loading...
   </div>

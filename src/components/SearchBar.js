@@ -57,13 +57,16 @@ const SearchBar = () => {
     .map((item) => ({ ...item, callback: radioInputEvent }));
 
   return (
-    <form>
+    <div className="search-bar">
       <input
         data-testid="search-input"
         type="text"
         onChange={ textInputEvent }
+        placeholder="Pesquisar por..."
       />
-      { radioElementsProps.map((element) => renderRadioElementFor(element)) }
+      <div>
+        { radioElementsProps.map((element) => renderRadioElementFor(element)) }
+      </div>
       <button
         data-testid="exec-search-btn"
         type="button"
@@ -78,7 +81,7 @@ const SearchBar = () => {
       >
         Buscar
       </button>
-    </form>
+    </div>
   );
 };
 

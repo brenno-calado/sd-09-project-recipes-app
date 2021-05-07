@@ -21,7 +21,7 @@ const Login = () => {
     history.push('/comidas');
   };
   return (
-    <form>
+    <div className="login">
       <label htmlFor="email-input">
         Email
         <input
@@ -49,7 +49,7 @@ const Login = () => {
         Entrar
 
       </button>
-    </form>
+    </div>
   );
 };
 
