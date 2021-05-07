@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import randomFood from '../../services/randomFood';
 import Header from '../../components/Header';
 import MenuInferior from '../../components/MenuInferior';
 
@@ -7,18 +8,17 @@ class ExploreFoods extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      myRandomMeal: '',
-    };
+    this.state = { myRandomMeal: 0 };
   }
 
-  async fetchRandomMeal() {
-    const randomMeal = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
-      .then((response) => response.json())
-      .then((meal) => meal.meals[0]);
-    this.setState({
-      myRandomMeal: randomMeal,
-    });
+  async componentDidMount() {
+    const { meals } = await randomFood();
+    console.log(meals);
+    this.fetchRandomMeal(meals[0].idMeal);
+  }
+
+  fetchRandomMeal(value) {
+    this.setState({ myRandomMeal: value });
   }
 
   render() {
@@ -36,7 +36,7 @@ class ExploreFoods extends Component {
             Por Local de Origem
           </button>
         </Link>
-        <Link to={ `/comidas/${myRandomMeal.idMeal}` }>
+        <Link to={ `/comidas/${myRandomMeal}` }>
           <button
             type="button"
             data-testid="explore-surprise"

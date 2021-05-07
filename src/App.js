@@ -11,6 +11,8 @@ import ExploreDrinks from './Pages/Explorar/ExploreDrinks';
 import ExploreFoods from './Pages/Explorar/ExploreFoods';
 import IngredientsDrinks from './Pages/Explorar/IngredientsDrinks';
 import IngredientsFoods from './Pages/Explorar/IngredientsFoods';
+import DrinksDetails from './Pages/Explorar/DrinksDetails';
+import FoodsDetails from './Pages/Explorar/FoodDetails';
 import { MyContextProvider } from './MyContext';
 
 function App() {
@@ -28,6 +30,8 @@ function App() {
             path="/explorar/bebidas/ingredientes"
             component={ IngredientsDrinks }
           />
+          <Route path="/comidas/:id" component={ FoodsDetails } />
+          <Route path="/bebidas/:id" component={ DrinksDetails } />
           <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/comidas/:id" component={ Detalhes } />
