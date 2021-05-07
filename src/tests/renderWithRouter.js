@@ -23,9 +23,7 @@ const state = {
 };
 
 export default function renderWithRouter(ui, routeConfigs = {}, initialState = state) {
-  console.log('routeConfigs', routeConfigs);
   const route = routeConfigs.route || '/';
-  console.log('route', route);
   const history = routeConfigs.history
         || createMemoryHistory({ initialEntries: [route] });
 

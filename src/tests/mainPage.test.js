@@ -1,4 +1,6 @@
 import React from 'react';
+import * as redux from 'react-redux';
+import { cleanup } from '@testing-library/react';
 import renderWithRouter from './renderWithRouter';
 import getFoodsAndDrinks from '../services/servicesAPI';
 
@@ -7,8 +9,10 @@ import MainPage from '../pages/mainPage';
 
 // Actions
 import {
+  listDrinks,
   listMeals,
   categoriesMeals,
+  categoriesDrinks,
 } from '../actions';
 
 // Data Meals
@@ -30,10 +34,16 @@ const fetchData = (value) => {
   }));
 };
 
-beforeEach(() => jest.clearAllMocks());
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useSelector: jest.fn(),
+}));
 
 describe('Página Principal do App', () => {
-  it('Requisição para a API TheMealDB e TheCocktailDB pegando as Receitas', async () => {
+  beforeEach(() => jest.clearAllMocks());
+  afterEach(cleanup);
+
+  it('Requisição para a API pegando as Comidas e Bebidas', async () => {
     fetchData({ meals: [...mealsData] });
     const fetchMeals = await getFoodsAndDrinks('meals', 'getAll');
 
@@ -49,7 +59,7 @@ describe('Página Principal do App', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   });
 
-  it('Requisição para a API TheMealDB e TheCocktailDB pegando as Categorias', async () => {
+  it('Requisição para a API pegando as Categorias de Comida e Bebida', async () => {
     fetchData({ meals: [...categoriesMealsData] });
     const fetchMeals = await getFoodsAndDrinks('meals', 'getByCategory');
 
@@ -75,5 +85,18 @@ describe('Página Principal do App', () => {
 
     expect(getState().recipesReducer.meals).toHaveLength(MAX_FETCH);
     expect(getState().recipesReducer.categoriesMeals).toHaveLength(MAX_CATEGORIES_MEALS);
+  });
+
+  it('Verifica se o STORE contém as informações das API de Bebida', async () => {
+    fetchData({ drinks: [...drinksData] });
+    const fetchDrinks = await getFoodsAndDrinks('', '');
+    const { dispatch, getState } = renderWithRouter(<MainPage />, { route: '/bebidas' });
+
+    dispatch(listDrinks(fetchDrinks));
+    dispatch(categoriesDrinks(categoriesDrinksData));
+
+    expect(getState().recipesReducer.drinks).toHaveLength(MAX_FETCH);
+    expect(getState().recipesReducer.categoriesDrinks)
+      .toHaveLength(MAX_CATEGORIES_DRINKS);
   });
 });
