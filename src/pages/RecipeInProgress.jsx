@@ -66,7 +66,7 @@ function RecipeInProgress() {
   const type = history.location.pathname.split('/')[1];
 
   useEffect(() => {
-    if (ingredients.length === itemsChecked.length) {
+    if (itemsChecked && ingredients.length === itemsChecked.length) {
       setDisableBtnFinished(false);
     } else {
       setDisableBtnFinished(true);
@@ -174,14 +174,14 @@ function RecipeInProgress() {
   }
 
   function disChecked(target) {
-    if (itemsChecked.indexOf(target.value) !== -one) {
+    if (itemsChecked && itemsChecked.indexOf(target.value) !== -one) {
       setItemsChecked(itemsChecked.filter((item) => item !== target.value));
       saveToLocalStore(itemsChecked.filter((item) => item !== target.value));
     }
   }
 
   function handleCheck({ target }) {
-    if (target.checked && itemsChecked.indexOf(target.value) === -one) {
+    if (target.checked && itemsChecked && itemsChecked.indexOf(target.value) === -one) {
       isChecked(target);
       return;
     }
@@ -205,7 +205,7 @@ function RecipeInProgress() {
               type="checkbox"
               onChange={ handleCheck }
               value={ ingredient }
-              checked={ itemsChecked.indexOf(ingredient) !== -one }
+              checked={ itemsChecked && itemsChecked.indexOf(ingredient) !== -one }
             />
             { ingredient }
           </label>
