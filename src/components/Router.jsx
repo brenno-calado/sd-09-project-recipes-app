@@ -4,9 +4,10 @@ import Login from '../pages/Login';
 import Detalhes from '../pages/Detalhes';
 import EmProcesso from '../pages/EmProcesso';
 import Explorar from '../pages/Explorar';
-import ExplorarTipo from '../pages/ExplorarTipo';
 import ExplorarIngredientes from '../pages/ExplorarIngredientes';
 import ExplorarArea from '../pages/ExplorarArea';
+import ExplorarComidas from '../pages/ExplorarComidas';
+import ExplorarBebidas from '../pages/ExplorarBebidas';
 import Perfil from '../pages/Perfil';
 import ReceitasPrincipal from '../pages/ReceitasPrincipal';
 import ReceitasLista from '../pages/ReceitasLista';
@@ -31,8 +32,8 @@ export default function Router() {
         component={ EmProcesso }
       />
       <Route exact path="/explorar" component={ Explorar } />
-      <Route exact path="/explorar/comidas" component={ ExplorarTipo } />
-      <Route exact path="/explorar/bebidas" component={ ExplorarTipo } />
+      <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
+      <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
       <Route
         exact
         path="/explorar/comidas/ingredientes"
