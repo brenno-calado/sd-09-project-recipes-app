@@ -18,8 +18,8 @@ const RecipeDetails = ({ match: { path, params } }) => {
   const isDrinksPage = path.includes('bebidas');
   const foodUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const recommendedFoodUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const recommendedDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  // const recommendedFoodUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  // const recommendedDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   const getClipBoard = () => {
     if (isFoodsPage) {
