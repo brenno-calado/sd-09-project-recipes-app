@@ -1,9 +1,10 @@
 import React from 'react';
-import { arrayOf } from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import ShareButton from './shareButton';
+import UnfavoriteButton from './unfavoriteButton';
 
-export default function HorizontalCards({ arrayOfRecipes }) {
+export default function HorizontalCards({ arrayOfRecipes, filterCallback }) {
   const { origin } = window.location;
 
   const generateTags = (arrayOfTags, index) => arrayOfTags.map((tag) => (
@@ -49,8 +50,11 @@ export default function HorizontalCards({ arrayOfRecipes }) {
                 datatestid={ `${index}-horizontal-share-btn` }
                 url={ `${origin}/${item.type}s/${item.id}` }
               />
-              { !item.tags
-                ? <div data-testid={ `${index}-horizontal-favorite-btn` }>S2</div> : '' }
+              { !item.tags ? <UnfavoriteButton
+                recipeId={ item.id }
+                callback={ filterCallback }
+                testID={ `${index}-horizontal-favorite-btn` }
+              /> : '' }
             </div>
             <div className="card-tags-container">
               { item.tags && generateTags(item.tags, index) }
@@ -64,4 +68,5 @@ export default function HorizontalCards({ arrayOfRecipes }) {
 
 HorizontalCards.propTypes = {
   arrayOfRecipes: arrayOf(Object).isRequired,
+  filterCallback: func.isRequired,
 };

@@ -21,12 +21,17 @@ export default function DoneRecipes() {
   const handleFilter = (filter) => {
     const localStoreData = getItemLocalStorage(storeKey);
     if (filter === 'Food') {
-      const food = localStoreData.filter(({type}) => type === 'comida');
+      const food = localStoreData.filter(({ type }) => type === 'comida');
       setArrayOfRecipes(food);
     } else {
-      const drink = localStoreData.filter(({type}) => type === 'bebida');
+      const drink = localStoreData.filter(({ type }) => type === 'bebida');
       setArrayOfRecipes(drink);
     }
+  };
+
+  const handleUnfavorite = () => {
+    const localStoreData = getItemLocalStorage(storeKey);
+    setArrayOfRecipes(localStoreData);
   };
 
   const handleCategoryClick = (value) => {
@@ -51,7 +56,10 @@ export default function DoneRecipes() {
         callback={ handleCategoryClick }
       />
       <main>
-        <HorizontalCards arrayOfRecipes={ arrayOfRecipes } />
+        <HorizontalCards
+          arrayOfRecipes={ arrayOfRecipes }
+          filterCallback={ handleUnfavorite }
+        />
       </main>
     </>
   );
