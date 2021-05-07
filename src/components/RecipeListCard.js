@@ -9,16 +9,9 @@ import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
 const writeToClipboard = (detailUrl) => {
   navigator.clipboard.writeText(detailUrl).then(
-    (opa) => console.log(opa),
+    (resolve) => console.log(resolve),
     (error) => console.log('erro', error),
   );
-  // navigator.permissions.query({name: "clipboard-write"}).then(result => {
-  //   if (result.state == "granted" || result.state == "prompt") {
-  //     /* write to the clipboard now */
-  //     console.log(result);
-  //     console.log(detailUrl);
-  //   }
-  // });
 };
 
 const renderTags = (index, tags) => (
