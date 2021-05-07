@@ -1,5 +1,7 @@
 .filters-btn {
   /* background-color: #f78154; */
-  padding: 2%;
+  min-width: 161px;
+  /* width: 150px; */
+  margin-left: 20px;
   padding-top: 2%;
 }

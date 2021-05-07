@@ -17,11 +17,14 @@
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.418);
   max-width: 40vw;
-  margin-bottom: 10%;
+  min-width: 40vw;
+  margin-bottom: 20%;
   color: black;
 }
 
 .card h2 {
-  font-size: 24px;
+  font-size: 100%;
   margin-left: 6px;
+  display: flex;
+  justify-content: center;
 }
