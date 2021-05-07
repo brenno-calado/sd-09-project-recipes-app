@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { LoginContext } from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Perfil() {
-  const localStorageUser = localStorage.getItem('user');
-  const emailUser = JSON.parse(localStorageUser);
-  console.log(emailUser);
+  const { values: { user: { email } } } = useContext(LoginContext);
 
   const history = useHistory();
 
@@ -25,11 +24,12 @@ function Perfil() {
 
   return (
     <div>
-      <spam
+      <Header />
+      <span
         data-testid="profile-email"
       >
-        {emailUser.email}
-      </spam>
+        {email}
+      </span>
       <br />
       <button
         type="button"
@@ -54,8 +54,6 @@ function Perfil() {
       >
         Sair
       </button>
-      <h1> Perfil </h1>
-      <Header />
       <Footer />
     </div>
   );
