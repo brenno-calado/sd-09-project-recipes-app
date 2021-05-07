@@ -15,7 +15,6 @@ function isRecipeFavorite(recipeId) {
     return;
   }
   const recipes = JSON.parse(recipeString);
-  console.log(recipes);
   return Boolean(recipes.find(({ id }) => id === recipeId));
 }
 
