@@ -51,7 +51,7 @@ function ProgressMeal() {
         className="list-group-item"
       >
         <input
-          onClick={ ({ target }) => checkDone(recipeId, target) }
+          onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
           type="checkbox"
           className="mr-2"
           id={ index }

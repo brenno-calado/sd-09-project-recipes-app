@@ -81,35 +81,49 @@ const MyContextProvider = ({ children }) => {
     saveAsFavorite(recipeId, data, pathname);
   };
 
-  function checkDone(id, target) {
-    const { ingredients } = getKeysIngredints();
+  function addLocalStorage(id, target, ingredients) {
     const inprogresLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+
     if (inprogresLocal === null) {
+      // Se o localStorage não tiver inProgressRecipes, eu crio aqui
       const inProgressRecipes = {
         meals: {
           [id]: [ingredients[target.id]],
         },
       };
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    } else if (inprogresLocal.meals !== id) {
+      // Se tiver coisa no inProgressRecipes mas eu queira adicionar um id diferente;
+      const inProgressRecipes = {
+        meals: {
+          ...inprogresLocal.meals,
+          [id]: [ingredients[target.id]],
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
     } else {
       const { meals } = inprogresLocal;
-      const existItem = meals[id].includes(ingredients[target.id]);
-      if (existItem) {
-        const resultFilter = meals[id].filter((item) => item !== ingredients[target.id]);
-        const inProgressRecipes = {
-          meals: {
-            [id]: resultFilter,
-          },
-        };
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      } else {
-        const inProgressRecipes = {
-          meals: {
-            [id]: [...meals[id], ingredients[target.id]],
-          },
-        };
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
+      console.log(meals);
+    }
+
+    // Se ja tiver a chave com id eu apenas adiciono o ingrediente
+    // const inProgressRecipes = {
+    //   meals: {
+    //     [id]: [...meals[id], ingredients[target.id]],
+    //   },
+    // };
+    // localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  }
+
+  function removeLocalStorage() {
+    console.log('removi');
+  }
+
+  function checkDone(id, target) {
+    if (target.checked) {
+      addLocalStorage(id, target);
+    } else {
+      removeLocalStorage();
     }
   }
 
