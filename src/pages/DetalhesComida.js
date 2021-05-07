@@ -85,7 +85,7 @@ const DetalhesComida = () => {
   const fetchRecomendations = async () => {
     const MAX_RECOMENDATION = 6;
     const results = await getDrinks();
-    setRecomendations(results.splice(0, MAX_RECOMENDATION));
+    setRecomendations(results.slice(0, MAX_RECOMENDATION));
   };
 
   const handleShare = () => {

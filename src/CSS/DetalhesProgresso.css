@@ -29,7 +29,7 @@ ul {
   background-color: var(--colorSuccess3);
   border: none;
   border-radius: 5px;
-  bottom: 5px;
+  bottom: 0;
   color: white;
   left: 50%;
   padding: 5px;
