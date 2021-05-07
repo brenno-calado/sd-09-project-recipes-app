@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import { AppContext } from '../context/AppContext';
 import { getDrinkResults, getFoodResults } from '../services';
+import '../CSS/SearchBar.css';
 
 const checkRedirect = (foods, drinks, setPath) => {
   if (foods.length === 1) {
@@ -62,7 +63,7 @@ const SearchBar = ({ title }) => {
 
   if (pathToGo !== null) return <Redirect to={ pathToGo } />;
   return (
-    <form>
+    <form className="form-search">
       <input
         placeholder="Buscar receita"
         data-testid="search-input"
@@ -70,7 +71,7 @@ const SearchBar = ({ title }) => {
         value={ searchInput }
         onChange={ handleChange }
       />
-      <div onChange={ handleRadio }>
+      <div onChange={ handleRadio } className="radio-div">
         <label htmlFor="ingredientRadio">
           Ingrediente
           <input
@@ -79,6 +80,7 @@ const SearchBar = ({ title }) => {
             id="ingredientRadio"
             value="ingredientRadio"
             checked={ radioOn === 'ingredientRadio' }
+            className="radio-btn"
           />
         </label>
         <label htmlFor="nameRadio">
@@ -89,6 +91,7 @@ const SearchBar = ({ title }) => {
             id="nameRadio"
             value="nameRadio"
             checked={ radioOn === 'nameRadio' }
+            className="radio-btn"
           />
         </label>
         <label htmlFor="firstLetterRadio">
@@ -99,12 +102,14 @@ const SearchBar = ({ title }) => {
             id="firstLetterRadio"
             value="firstLetterRadio"
             checked={ radioOn === 'firstLetterRadio' }
+            className="radio-btn"
           />
         </label>
       </div>
       <button
         type="button"
         data-testid="exec-search-btn"
+        className="search-btn"
         onClick={ handleClick }
       >
         Buscar

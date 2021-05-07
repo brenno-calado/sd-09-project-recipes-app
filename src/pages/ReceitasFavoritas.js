@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { AppContext } from '../context/AppContext';
 import FavoriteMealCard from '../components/FavoriteMealCard';
 import FavoriteDrinkCard from '../components/FavoriteDrinkCard';
+import '../CSS/ReceitasFeitasFavoritas.css';
 
 function Perfil() {
   const { removeFromFavorite, favoriteRecipes } = useContext(AppContext);
@@ -49,7 +50,7 @@ function Perfil() {
   return (
     <div>
       <Header title="Receitas Favoritas" searchIcon={ false } />
-      <section>
+      <section className="done-recipes-buttons">
         <button
           value="All"
           type="button"

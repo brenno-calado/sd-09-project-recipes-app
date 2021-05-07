@@ -61,6 +61,7 @@
 .recipe-card-buttons button {
   background-color: var(--colorWarning4);
   border: none;
+  margin-right: 15px;
 }
 
 .recipe-card-buttons p {
@@ -72,5 +73,4 @@
   align-content: flex-start;
   align-items: flex-start;
   display: flex;
-  justify-content: space-between;
 }

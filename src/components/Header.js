@@ -14,29 +14,30 @@ const Header = ({ title, searchIcon }) => {
   };
 
   return (
-    <header className="header">
-      <Link to="/perfil">
-        <img
-          className="profile-img"
-          data-testid="profile-top-btn"
-          src={ profile }
-          alt="Profile"
-        />
-      </Link>
-      <h1 data-testid="page-title">{title}</h1>
-      {searchIcon && (
-        <button type="button" onClick={ toogleSearchBar }>
+    <>
+      <header className="header">
+        <Link to="/perfil">
           <img
-            className="search-img"
-            data-testid="search-top-btn"
-            src={ search }
-            alt="Search Icon"
+            className="profile-img"
+            data-testid="profile-top-btn"
+            src={ profile }
+            alt="Profile"
           />
-        </button>
-      )}
-
+        </Link>
+        <h1 data-testid="page-title">{title}</h1>
+        {searchIcon && (
+          <button type="button" onClick={ toogleSearchBar }>
+            <img
+              className="search-img"
+              data-testid="search-top-btn"
+              src={ search }
+              alt="Search Icon"
+            />
+          </button>
+        )}
+      </header>
       { showSearchBar && <SearchBar title={ title } /> }
-    </header>
+    </>
   );
 };
 

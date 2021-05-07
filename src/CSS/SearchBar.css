@@ -1,0 +1,23 @@
+.form-search {
+  margin-left: 10px;
+  width: 85%;
+}
+
+.search-btn {
+  background-color: var(--colorSuccess3);
+  border: none;
+  border-radius: 3px;
+  color: white;
+  padding: 2px;
+  width: 60px;
+}
+
+.radio-div {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 5px;
+}
+
+.radio-btn {
+  margin-left: 5px;
+}
