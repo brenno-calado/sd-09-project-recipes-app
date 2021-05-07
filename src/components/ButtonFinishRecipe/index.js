@@ -1,24 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 class index extends Component {
-  isAllRecipesDone() {
-    const ingredientes = document.querySelectorAll('input[type=checkbox]');
-    console.log(ingredientes);
-    return false;
-  }
-
   render() {
-    const { isDisabled } = this.props;
-    console.log(isDisabled);
+    const { isFinished } = this.props;
     return (
       <Link to="/receitas-feitas">
         <button
           className="finish-recipe-btn"
           type="button"
           data-testid="finish-recipe-btn"
-          disabled={ isDisabled }
+          disabled={ !isFinished }
           onClick={ () => console.log('Teste') }
         >
           Finalizar Receita
@@ -28,4 +23,12 @@ class index extends Component {
   }
 }
 
-export default index;
+const mapStateToProps = (state) => ({
+  isFinished: state.recipeData.isFinished,
+});
+
+index.propTypes = {
+  isFinished: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStateToProps)(index);

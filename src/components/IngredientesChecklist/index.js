@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import getIngredientsDone from '../../services/localStorage';
+import { updateRecipeStatus } from '../../actions';
 
 import './style.css';
 
@@ -16,38 +19,59 @@ class index extends Component {
       inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     }
     const { meals, cocktails } = inProgressRecipes;
-    const { id, recipeType } = this.props;
     if (this.isIngredientDone(target.name)) {
-      if (recipeType === 'comidas') {
-        meals[id] = [...meals[id]
-          .filter((ingredient) => ingredient !== target.name)];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
-      if (recipeType === 'bebidas') {
-        cocktails[id] = [...cocktails[id]
-          .filter((ingredient) => ingredient !== target.name)];
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
+      this.makeIngredientNotDone(meals, cocktails, target, inProgressRecipes);
+      this.isAllIngredientsDone();
       return this.forceUpdate();
     }
     if (!this.isIngredientDone(target.name)) {
-      if (recipeType === 'comidas') {
-        if (!meals[id]) {
-          meals[id] = [target.name];
-        } else {
-          meals[id] = [...meals[id], target.name];
-        }
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
-      if (recipeType === 'bebidas') {
-        if (!cocktails[id]) {
-          cocktails[id] = [target.name];
-        } else {
-          cocktails[id] = [...cocktails[id], target.name];
-        }
-        localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-      }
+      this.makeIngredientDone(meals, cocktails, target, inProgressRecipes);
+      this.isAllIngredientsDone();
       return this.forceUpdate();
+    }
+  }
+
+  makeIngredientNotDone(meals, cocktails, target, inProgressRecipes) {
+    const { id, recipeType } = this.props;
+    if (recipeType === 'comidas') {
+      meals[id] = [...meals[id]
+        .filter((ingredient) => ingredient !== target.name)];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+    if (recipeType === 'bebidas') {
+      cocktails[id] = [...cocktails[id]
+        .filter((ingredient) => ingredient !== target.name)];
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+  }
+
+  makeIngredientDone(meals, cocktails, target, inProgressRecipes) {
+    const { id, recipeType } = this.props;
+    if (recipeType === 'comidas') {
+      if (!meals[id]) {
+        meals[id] = [target.name];
+      } else {
+        meals[id] = [...meals[id], target.name];
+      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+    if (recipeType === 'bebidas') {
+      if (!cocktails[id]) {
+        cocktails[id] = [target.name];
+      } else {
+        cocktails[id] = [...cocktails[id], target.name];
+      }
+      localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    }
+  }
+
+  isAllIngredientsDone() {
+    const { allIngredients, id, updateRecipeStatus } = this.props;
+    const ingredientsDone = getIngredientsDone(id);
+    if (allIngredients.length === ingredientsDone.length) {
+      updateRecipeStatus(true);
+    } else {
+      updateRecipeStatus(false);
     }
   }
 
@@ -112,11 +136,21 @@ class index extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  allIngredients: state.recipeData.ingredients,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateRecipeStatus: (status) => dispatch(updateRecipeStatus(status)),
+});
+
 index.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
   quantities: PropTypes.arrayOf(PropTypes.string).isRequired,
   id: PropTypes.number.isRequired,
   recipeType: PropTypes.number.isRequired,
+  allIngredients: PropTypes.arrayOf().isRequired,
+  updateRecipeStatus: PropTypes.func.isRequired,
 };
 
-export default index;
+export default connect(mapStateToProps, mapDispatchToProps)(index);

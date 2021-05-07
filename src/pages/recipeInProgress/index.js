@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ImageHeader from '../../components/MealHeaderImage';
 import HeaderInformations from '../../components/MealHeaderInfo';
 import IngredientsChecklist from '../../components/IngredientesChecklist';
 import Instructions from '../../components/MealInstructions';
 import ButtonFinishRecipe from '../../components/ButtonFinishRecipe';
+import { actionSaveRecipeOriginalData } from '../../actions';
 
 import { requestMealData, requestDrinkData } from '../../services/api';
 
@@ -23,6 +25,7 @@ class index extends Component {
 
   async componentDidMount() {
     this.setMealData();
+    console.log(await this.getRecipeData());
   }
 
   componentDidUpdate() {
@@ -104,7 +107,6 @@ class index extends Component {
 
   getIngredientsDone() {
     const { match: { params: { recipeType, id } } } = this.props;
-    console.log(recipeType);
     const allIngredientsDone = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recipeType === 'comidas') {
       return [] || allIngredientsDone.meals[id];
@@ -114,14 +116,31 @@ class index extends Component {
     }
   }
 
+  async getRecipeData() {
+    const {
+      match: { params: { id, recipeType } },
+      recipeReduxId,
+      saveRecipeData,
+    } = this.props;
+    if (id === recipeReduxId) { return null; }
+    if (recipeType === 'comidas') {
+      console.log('Vai fazer Fetch de comida');
+      const mealData = await requestMealData(id);
+      saveRecipeData(mealData.meals[0]);
+    }
+    if (recipeType === 'bebidas') {
+      console.log('Vai fazer Fetch de bebida');
+      const drinkData = await requestDrinkData(id);
+      saveRecipeData(drinkData.drinks[0]);
+    }
+  }
+
   isAllIngredientsDone() {
     const ingredients = this.getIngredients();
     const ingredientsDone = this.getIngredientsDone();
     if (ingredients.length === ingredientsDone.length) {
-      console.log('Fez todos os requisitos');
       return true;
     }
-    console.log('Esta faltando');
     return false;
   }
 
@@ -166,6 +185,14 @@ class index extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  saveRecipeData: (recipeData) => dispatch(actionSaveRecipeOriginalData(recipeData)),
+});
+
+const mapStateToProps = (state) => ({
+  recipeReduxId: state.recipeData.id,
+});
+
 index.propTypes = {
   match: PropTypes.shape(
     {
@@ -177,4 +204,4 @@ index.propTypes = {
   ).isRequired,
 };
 
-export default index;
+export default connect(mapStateToProps, mapDispatchToProps)(index);
