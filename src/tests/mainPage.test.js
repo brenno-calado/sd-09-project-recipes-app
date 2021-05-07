@@ -1,4 +1,15 @@
+import React from 'react';
+import renderWithRouter from './renderWithRouter';
 import getFoodsAndDrinks from '../services/servicesAPI';
+
+// Pages
+import MainPage from '../pages/mainPage';
+
+// Actions
+import {
+  listMeals,
+  categoriesMeals,
+} from '../actions';
 
 // Data Meals
 import mealsData from './mocks/meals';
@@ -52,5 +63,17 @@ describe('Página Principal do App', () => {
     expect(fetchDrinks).toHaveLength(MAX_CATEGORIES_DRINKS);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+  });
+
+  it('Verifica se o STORE contém as informações das API de Comida', async () => {
+    fetchData({ meals: [...mealsData] });
+    const fetchMeals = await getFoodsAndDrinks('meals', 'getAll');
+    const { dispatch, getState } = renderWithRouter(<MainPage />, { route: '/comidas' });
+
+    dispatch(listMeals(fetchMeals));
+    dispatch(categoriesMeals(categoriesMealsData));
+
+    expect(getState().recipesReducer.meals).toHaveLength(MAX_FETCH);
+    expect(getState().recipesReducer.categoriesMeals).toHaveLength(MAX_CATEGORIES_MEALS);
   });
 });
