@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import '../CSS/ProgressoBebidas.css';
+import '../CSS/Checkbox.css';
 
 const CheckBoxProgress = ({
   ingredient, index, setStepsFinished,
@@ -27,7 +27,7 @@ const CheckBoxProgress = ({
   };
 
   const classLabel = () => {
-    let className = 'container';
+    let className = 'checkbox';
     if (strikeThrough) {
       className += ' cross';
       return className;
@@ -44,14 +44,14 @@ const CheckBoxProgress = ({
         className={ classLabel() }
       >
         <input
-          id={ index }
+          id="checkbox1"
+          className="check-style"
           type="checkbox"
           defaultChecked={ strikeThrough }
           onClick={ checkStep }
           value={ ing }
         />
-        <span className="checkmark" />
-        {ing}
+        <span className="custom">{ing}</span>
       </label>
     </div>
   );

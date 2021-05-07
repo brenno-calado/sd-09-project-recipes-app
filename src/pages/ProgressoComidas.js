@@ -7,7 +7,7 @@ import { getFoodIdDetails } from '../services';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
-import '../CSS/Detalhes.css';
+import '../CSS/DetalhesProgresso.css';
 
 const checkFavorite = (favoriteRecipes, recipeId) => {
   if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;

@@ -2,17 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
-import '../CSS/DoneMealCard.css';
+import '../CSS/DoneCard.css';
 
 function DoneMealCard({ recipe, index, linkShared, shareLink }) {
   return (
     <div key={ recipe.name } className="meal-card">
-      <div>
+      <div className="img-div">
         <Link
-          to={
-            recipe.type === 'comida'
-              ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
-          }
+          to={ recipe.type === 'comida'
+            ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}` }
         >
           <img
             src={ recipe.image }
@@ -23,52 +21,47 @@ function DoneMealCard({ recipe, index, linkShared, shareLink }) {
           />
         </Link>
       </div>
-      <div className="recipe-names">
-        <h4
-          data-testid={ `${index}-horizontal-top-text` }
-        >
-          { `${recipe.area} - ${recipe.category}` }
-        </h4>
-        <Link
-          to={
-            recipe.type === 'comida'
-              ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
-          }
-        >
-          <h1 data-testid={ `${index}-horizontal-name` }>
-            { recipe.name }
-          </h1>
-        </Link>
-      </div>
-      <p data-testid={ `${index}-horizontal-done-date` }>
-        { recipe.doneDate }
-      </p>
-      <div className="recipe-card-buttons">
-        <button
-          type="button"
-          onClick={ () => shareLink(recipe.id, recipe.type) }
-        >
-          <img
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-            alt="compartilhar"
-          />
-        </button>
+      <div className="infos-div">
+        <div className="recipe-names">
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            { `${recipe.area} - ${recipe.category}` }
+          </p>
+          <Link
+            to={ recipe.type === 'comida'
+              ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}` }
+          >
+            <h3 data-testid={ `${index}-horizontal-name` }>
+              { recipe.name }
+            </h3>
+          </Link>
+        </div>
+        <div className="recipe-card-buttons">
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            {`Data: ${recipe.doneDate}`}
+          </p>
+          <button
+            type="button"
+            onClick={ () => shareLink(recipe.id, recipe.type) }
+          >
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="compartilhar"
+            />
+          </button>
+        </div>
         { linkShared && <p>Link copiado!</p> }
+        <div className="tags-div">
+          { recipe.tags.map((tag, tagIndex) => (
+            <p data-testid={ `0-${tag}-horizontal-tag` } key={ tagIndex }>
+              { tag }
+            </p>
+          )) }
+        </div>
+        {/* <p data-testid={ `${index}-${recipe.type}-horizontal-tag` }>
+          { recipe.type }
+        </p> */}
       </div>
-      { recipe.tags.map((tag, tagIndex) => (
-        <p
-          data-testid={ `0-${tag}-horizontal-tag` }
-          key={ tagIndex }
-        >
-          { tag }
-        </p>
-      )) }
-      <p
-        data-testid={ `${index}-${recipe.type}-horizontal-tag` }
-      >
-        { recipe.type }
-      </p>
     </div>
   );
 }
