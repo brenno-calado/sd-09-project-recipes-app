@@ -13,10 +13,10 @@ function FoodDetails({ match }) {
   const [loading, setLoading] = useState(true);
   const [drinkRecomendation, setDrinkRecomendation] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(WhiteHartIcon);
   const { id } = match.params;
   const start = localStorage.getItem(`start${id}`);
   const concluded = localStorage.getItem(`conclude${id}`);
-  const favorite = true;
 
   const fetchDetail = async () => {
     try {
@@ -79,10 +79,17 @@ function FoodDetails({ match }) {
     const image = mealDetails.strMealThumb;
     const favoriteRecipes = [{ id, type, area, category, alcoholicOrNot, name, image }];
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    if (favorite) {
-      localStorage.setItem(`favorited${id}`, 'false');
-    } else if (favorite === 'false') {
-      localStorage.setItem(`favorited${id}`, 'true');
+    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    console.log(storageItem[0].id);
+    // if (storageItem[0].id) {
+    //   storageItem.filter((recipe) => {
+    //   });
+    // }
+    if (id === storageItem[0].id) {
+      setFavorite(BlackHartIcon);
+    }
+    if (id !== storageItem[0].id) {
+      setFavorite(WhiteHartIcon);
     }
   };
 
@@ -118,7 +125,7 @@ function FoodDetails({ match }) {
               data-testid="favorite-btn"
               onClick={ favorited }
             >
-              <img src={ !favorite ? BlackHartIcon : WhiteHartIcon } alt="favorite" />
+              <img src={ favorite } alt="favorite" />
             </button>
             <p data-testid="recipe-category">{mealDetails.strCategory}</p>
           </header>
@@ -175,10 +182,10 @@ function FoodDetails({ match }) {
   };
 
   const startRecipe = () => {
-    const inProgressRecipes = {
-      }
-  }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+  //   const inProgressRecipes = {
+  //     }
+  // }
+  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
 
   const startButton = () => (
