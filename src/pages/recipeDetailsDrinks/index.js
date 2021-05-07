@@ -104,7 +104,7 @@ class index extends Component {
 
   render() {
     const { drinkData } = this.state;
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id, recipeType } } } = this.props;
     return (
       <div>
         <MealHeaderImage image={ this.getDrinkImage() } />
@@ -113,6 +113,7 @@ class index extends Component {
           category={ this.getCategory() }
           recipe={ drinkData }
           id={ id }
+          recipeType={ recipeType }
         />
         <MealIngredients
           ingredients={ this.getIngredients() }
@@ -134,6 +135,7 @@ index.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.number.isRequired,
+      recipeType: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

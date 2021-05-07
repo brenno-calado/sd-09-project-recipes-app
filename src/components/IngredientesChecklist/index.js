@@ -10,7 +10,6 @@ const INITIAL_PROGRESSRECIPES = {
 
 class index extends Component {
   handleIngredient({ target }) {
-    console.log(this.isIngredientDone(target.name));
     let inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (!inProgressRecipes) {
       this.createInProgressRecipes();
@@ -23,14 +22,13 @@ class index extends Component {
         meals[id] = [...meals[id]
           .filter((ingredient) => ingredient !== target.name)];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-        return this.forceUpdate();
       }
       if (recipeType === 'bebidas') {
         cocktails[id] = [...cocktails[id]
           .filter((ingredient) => ingredient !== target.name)];
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-        return this.forceUpdate();
       }
+      return this.forceUpdate();
     }
     if (!this.isIngredientDone(target.name)) {
       if (recipeType === 'comidas') {
@@ -40,7 +38,6 @@ class index extends Component {
           meals[id] = [...meals[id], target.name];
         }
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-        return this.forceUpdate();
       }
       if (recipeType === 'bebidas') {
         if (!cocktails[id]) {
@@ -49,8 +46,8 @@ class index extends Component {
           cocktails[id] = [...cocktails[id], target.name];
         }
         localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
-        return this.forceUpdate();
       }
+      return this.forceUpdate();
     }
   }
 
@@ -97,7 +94,9 @@ class index extends Component {
               return (
                 <li
                   key={ ingredient }
-                  className={ this.isIngredientDone(ingredient) ? 'ingredient-done' : null }
+                  className={
+                    this.isIngredientDone(ingredient) ? 'ingredient-done' : null
+                  }
                   data-testid={ `${indexNumber}-ingredient-step` }
                 >
                   { ingredient !== 'Carregando' ? this.checkbox(ingredient) : null}
@@ -116,6 +115,8 @@ class index extends Component {
 index.propTypes = {
   ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
   quantities: PropTypes.arrayOf(PropTypes.string).isRequired,
+  id: PropTypes.number.isRequired,
+  recipeType: PropTypes.number.isRequired,
 };
 
 export default index;

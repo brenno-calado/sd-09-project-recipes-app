@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
+import PropTypes from 'prop-types';
 import ImageHeader from '../../components/MealHeaderImage';
 import HeaderInformations from '../../components/MealHeaderInfo';
 import IngredientsChecklist from '../../components/IngredientesChecklist';
 import Instructions from '../../components/MealInstructions';
+import ButtonFinishRecipe from '../../components/ButtonFinishRecipe';
 
 import { requestMealData, requestDrinkData } from '../../services/api';
 
@@ -13,15 +15,18 @@ class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mealData: false,
       recipeData: null,
-      video: '',
-      recommendedDrinks: ['Teste1'],
     };
+
+    this.renderIngredients = this.renderIngredients.bind(this);
   }
 
   async componentDidMount() {
     this.setMealData();
+  }
+
+  componentDidUpdate() {
+    console.log('Atualizou');
   }
 
   async setMealData() {
@@ -40,27 +45,36 @@ class index extends Component {
         recipeData: recipeData.drinks[0],
       });
     }
+
+    this.getMealImage = this.getMealImage.bind(this);
+    this.getTitle = this.getTitle.bind(this);
+    this.getCategory = this.getCategory.bind(this);
+    this.getIngredients = this.getIngredients.bind(this);
+    this.getIngredientsQuantity = this.getIngredientsQuantity.bind(this);
+    this.getInsructions = this.getInsructions.bind(this);
+    this.getIngredientsDone = this.getIngredientsDone.bind(this);
+    this.isAllIngredientsDone = this.isAllIngredientsDone.bind(this);
   }
 
-  getMealImage = () => {
+  getMealImage() {
     const { recipeData } = this.state;
     if (!recipeData) { return loadingImage; }
     return recipeData.strMealThumb || recipeData.strDrinkThumb;
   }
 
-  getTitle = () => {
+  getTitle() {
     const { recipeData } = this.state;
     if (!recipeData) { return 'Carregando'; }
     return recipeData.strMeal || recipeData.strDrink;
   }
 
-  getCategory = () => {
+  getCategory() {
     const { recipeData, recipeType } = this.state;
     if (!recipeData) { return 'Carregando'; }
     return recipeType === 'comidas' ? recipeData.strCategory : recipeData.strAlcoholic;
   }
 
-  getIngredients = () => {
+  getIngredients() {
     const { recipeData } = this.state;
     if (!recipeData) { return ['Carregando']; }
     const ingredients = Object.entries(recipeData)
@@ -71,7 +85,7 @@ class index extends Component {
     return ingredients;
   }
 
-  getIngredientsQuantity = () => {
+  getIngredientsQuantity() {
     const { recipeData } = this.state;
     if (!recipeData) { return ['Carregando']; }
     const ingredientsQuantity = Object.entries(recipeData)
@@ -82,14 +96,55 @@ class index extends Component {
     return ingredientsQuantity;
   }
 
-  getInsructions = () => {
+  getInsructions() {
     const { recipeData } = this.state;
     if (!recipeData) { return 'Carregando'; }
     return recipeData.strInstructions;
   }
 
+  getIngredientsDone() {
+    const { match: { params: { recipeType, id } } } = this.props;
+    console.log(recipeType);
+    const allIngredientsDone = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (recipeType === 'comidas') {
+      return [] || allIngredientsDone.meals[id];
+    }
+    if (recipeType === 'bebidas') {
+      return [] || allIngredientsDone.cocktails[id];
+    }
+  }
+
+  isAllIngredientsDone() {
+    const ingredients = this.getIngredients();
+    const ingredientsDone = this.getIngredientsDone();
+    if (ingredients.length === ingredientsDone.length) {
+      console.log('Fez todos os requisitos');
+      return true;
+    }
+    console.log('Esta faltando');
+    return false;
+  }
+
+  renderIngredients() {
+    const ingredientes = this.getIngredients();
+    if (!ingredientes.some((element) => element === 'Carregando')) {
+      const { recipeData } = this.state;
+      const { match: { params: { id, recipeType } } } = this.props;
+      return (
+        <IngredientsChecklist
+          id={ id }
+          recipeData={ recipeData }
+          recipeType={ recipeType }
+          ingredients={ this.getIngredients() }
+          quantities={ this.getIngredientsQuantity() }
+        />
+      );
+    }
+    return null;
+  }
+
   render() {
-    const { mealData } = this.state;
+    const { recipeData } = this.state;
     const { match: { params: { id, recipeType } } } = this.props;
     return (
       <div>
@@ -99,23 +154,27 @@ class index extends Component {
         <HeaderInformations
           title={ this.getTitle() }
           category={ this.getCategory() }
-          recipe={ mealData }
-          id={ id }
-        />
-        <IngredientsChecklist
+          recipe={ recipeData }
           id={ id }
           recipeType={ recipeType }
-          ingredients={ this.getIngredients() }
-          quantities={ this.getIngredientsQuantity() }
-          isChecklist
         />
+        {this.renderIngredients()}
         <Instructions instructions={ this.getInsructions() } />
-        <button type="button" data-testid="finish-recipe-btn">
-          Finalizar Receita
-        </button>
+        <ButtonFinishRecipe isDisabled={ !this.isAllIngredientsDone() } />
       </div>
     );
   }
 }
+
+index.propTypes = {
+  match: PropTypes.shape(
+    {
+      params: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        recipeType: PropTypes.string.isRequired,
+      }),
+    },
+  ).isRequired,
+};
 
 export default index;

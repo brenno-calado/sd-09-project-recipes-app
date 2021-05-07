@@ -50,9 +50,14 @@ class index extends Component {
       localStorage.setItem('favoriteRecipes', JSON.stringify([]));
     }
     const recipe = this.recipeData();
+    const { id } = this.props;
+    console.log(id);
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    const found = favoriteRecipes.some((element) => element.id === recipe.id);
-    if (found) { this.removeFavoriteRecipe(); }
+    const found = favoriteRecipes.some((element) => element.id === id);
+    if (found) {
+      console.log('Tem no favoriros');
+      this.removeFavoriteRecipe();
+    }
     if (!found) { this.addFavoriteRecipe(); }
     this.setIsRecipeFavorite();
   }
@@ -97,7 +102,9 @@ class index extends Component {
 
   copyCurrentLink() {
     const { shareClicked } = this.state;
-    const url = window.location.href;
+    const { recipeType, id } = this.props;
+    const { location: { protocol, host } } = window;
+    const url = `${protocol}//${host}/${recipeType}/${id}`;
 
     //  https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
     navigator.clipboard.writeText(url);
@@ -155,6 +162,7 @@ index.propTypes = {
   category: PropTypes.string.isRequired,
   recipe: PropTypes.objectOf().isRequired,
   id: PropTypes.number.isRequired,
+  recipeType: PropTypes.string.isRequired,
 };
 
 export default index;

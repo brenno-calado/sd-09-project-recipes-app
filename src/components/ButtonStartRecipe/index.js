@@ -53,7 +53,6 @@ class index extends Component {
   }
 
   startRecipe() {
-    const { ingredients } = this.props;
     if (!inProgressRecipes) {
       localStorage.setItem('inProgressRecipes', JSON.stringify({
         cocktails: {},
@@ -121,15 +120,18 @@ class index extends Component {
   }
 
   buttonContinueRecipe() {
+    const currentUrl = window.location.pathname;
     return (
-      <button
-        data-testid="start-recipe-btn"
-        type="button"
-        className="start-recipe-btn"
-        onClick={ console.log('Continua receita') }
-      >
-        Continuar Receita
-      </button>
+      <Link to={ `${currentUrl}/in-progress` }>
+        <button
+          data-testid="start-recipe-btn"
+          type="button"
+          className="start-recipe-btn"
+          onClick={ console.log('Continua receita') }
+        >
+          Continuar Receita
+        </button>
+      </Link>
     );
   }
 

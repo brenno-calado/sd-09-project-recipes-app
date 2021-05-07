@@ -3,7 +3,7 @@ import './Style.css';
 import PropTypes from 'prop-types';
 
 import MealHeaderImage from '../../components/MealHeaderImage';
-import MeadHeaderInfo from '../../components/MealHeaderInfo';
+import MealHeaderInfo from '../../components/MealHeaderInfo';
 import MealIngredients from '../../components/MealIngredients';
 import MealInstructions from '../../components/MealInstructions';
 import MealVideo from '../../components/MealVideo';
@@ -116,15 +116,16 @@ class index extends Component {
 
   render() {
     const { mealData, video } = this.state;
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id, recipeType } } } = this.props;
     return (
       <div>
         <MealHeaderImage image={ this.getMealImage() } />
-        <MeadHeaderInfo
+        <MealHeaderInfo
           title={ this.getTitle() }
           category={ this.getCategory() }
           recipe={ mealData }
           id={ id }
+          recipeType={ recipeType }
         />
         <MealIngredients
           ingredients={ this.getIngredients() }
@@ -148,6 +149,7 @@ index.propTypes = {
     {
       params: PropTypes.shape({
         id: PropTypes.number.isRequired,
+        recipeType: PropTypes.string.isRequired,
       }),
     },
   ).isRequired,
