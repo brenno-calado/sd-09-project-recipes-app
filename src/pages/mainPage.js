@@ -64,7 +64,6 @@ export default function MainPageFood() {
     };
 
     const fetchFunction = async (exec, fetchParam, fetchValue, value) => {
-      console.log([type, fetchParam, value]);
       if (exec) {
         const fetch = await getFoodsAndDrinks(type, fetchParam, value);
         dispatch(fetchValues[type][fetchValue](fetch));

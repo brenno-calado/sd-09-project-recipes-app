@@ -348,7 +348,7 @@ describe('32 - Redirecione a pessoa usuária, ao clicar no card, para a tela de 
     });
 
     cy.get('[data-testid="0-recipe-card"]').click();
-
+    console.log(cy.location())
     cy.location().should((loc) => expect(loc.pathname).to.eq('/comidas/52977'));
   });
 
@@ -360,7 +360,7 @@ describe('32 - Redirecione a pessoa usuária, ao clicar no card, para a tela de 
     });
 
     cy.get('[data-testid="0-recipe-card"]').click();
-
+    console.log(cy.location())
     cy.location().should((loc) => expect(loc.pathname).to.eq('/bebidas/15997'));
   });
 });

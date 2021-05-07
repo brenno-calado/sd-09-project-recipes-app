@@ -14,7 +14,7 @@ export default function DoneRecipes() {
   const buttons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
 
   useEffect(() => {
-    const localStoreData = getItemLocalStorage(storeKey);
+    const localStoreData = getItemLocalStorage(storeKey) || [];
     setArrayOfRecipes(localStoreData);
   }, [storeKey]);
 
@@ -46,13 +46,13 @@ export default function DoneRecipes() {
     }
   };
 
-  console.log(arrayOfRecipes);
   return (
     <>
       <Header page={ page } />
       <Categories
         categories={ buttons }
         selected={ selectedButton }
+        page="favorites"
         callback={ handleCategoryClick }
       />
       <main>
