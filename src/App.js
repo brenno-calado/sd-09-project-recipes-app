@@ -18,6 +18,7 @@ import ExploreFoodArea from './pages/ExploreFoodArea';
 import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import NotFound from './components/NotFound';
 
 export default function App() {
   return (
@@ -32,8 +33,8 @@ export default function App() {
       <Route path="/explorar/comidas/ingredientes" component={ ExploreFoodIngredients } />
       <Route path="/explorar/comidas/area" component={ ExploreFoodArea } />
       <Route path="/explorar/comidas" component={ ExploreFood } />
-      <Route path="/explorar/bebidas" component={ ExploreDrinks } />
-      <Route path="/explorar" component={ Explore } />
+      <Route exact path="/explorar/bebidas" component={ ExploreDrinks } />
+      <Route exact path="/explorar" component={ Explore } />
       <Route path="/bebidas/:id/in-progress" component={ DrinkRecipeProgress } />
       <Route path="/bebidas/:id" component={ DrinkRecipe } />
       <Route path="/bebidas" component={ Drinks } />
@@ -41,6 +42,7 @@ export default function App() {
       <Route path="/comidas/:id" component={ FoodRecipe } />
       <Route path="/comidas" component={ Food } />
       <Route exact path="/" component={ Login } />
+      <Route component={ NotFound } />
     </Switch>
   );
 }
