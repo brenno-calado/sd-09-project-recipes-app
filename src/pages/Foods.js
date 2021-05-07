@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -16,25 +17,27 @@ function Foods() {
   const { pathname } = history.location;
   const route = pathname.substr(1);
 
-  useEffect(() => {
-    const getRecipes = async () => {
-      setDataFromApi({ ...dataFromApi, loading: true });
-      const { meals } = await fetchRecipes(route);
-      setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
-      if (dataFromApi.recipes.length === 0) {
-        setDataFromApi({ ...dataFromApi, recipes: meals });
-      }
-    };
-    getRecipes();
-    if (restartRecipes === true) {
-      getRecipes();
-      setRestartRecipes(false);
+  const getRecipes = async () => {
+    setDataFromApi({ ...dataFromApi, loading: true });
+    const { meals } = await fetchRecipes(route);
+    setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
+    if (dataFromApi.recipes.length === 0) {
+      setDataFromApi({ ...dataFromApi, recipes: meals });
     }
-  }, [dataFromApi, setDataFromApi, setRestartRecipes, restartRecipes, route]);
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
+  if (restartRecipes === true) {
+    getRecipes();
+    setRestartRecipes(false);
+  }
 
   useEffect(() => {
     getCategoryName('comidas');
-  }, [getCategoryName]);
+  }, [categoryName]);
 
   return (
     <div>
