@@ -38,20 +38,21 @@ function EmProcesso() {
   function handleCheck(target) {
     const item = target.name;
     const checked = ingredientsList.includes(item);
-    const nameKey = pathname.includes('comidas') ? 'cocktails' : 'meals';
-
     setIngredientList((prev) => (checked
       ? prev.filter((ingr) => ingr !== (item))
       : [...prev, item]));
+  }
 
-    //  const obj = { [nameKey]: { [id]: ingredientsList } };
-
+  useEffect(() => {
+    const nameKey = pathname.includes('comidas') ? 'cocktails' : 'meals';
     localStorage.setItem('inProgressRecipes', JSON.stringify({
       ...inProgressRecipes,
       [nameKey]: { [id]: ingredientsList },
     }));
-    // addRecipeToInProgress([nameKey]: { [id]: ingredientsList });
-  }
+
+    // const obj = { [nameKey]: { [id]: ingredientsList } };
+    // addRecipeToInProgress(obj);
+  }, [ingredientsList]);
 
   function handleClick() {
     addRecipeToDone(recipeDetails);
