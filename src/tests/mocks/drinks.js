@@ -1,3 +1,4 @@
+/* eslint-disable */
 const drinksData = [
   {
     idDrink: '15997',
