@@ -27,4 +27,9 @@
       width: 50%;
     }
   }
+
+  input[type=checkbox]:checked + label{
+    text-decoration: line-through;
+    opacity: 0.375;
+  }
   

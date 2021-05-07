@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams /* useHistory */ } from 'react-router-dom';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { useRecipes } from '../hooks';
 import '../styles/InProgress.css';
@@ -10,21 +10,19 @@ import { RecipesContext } from '../context';
 function EmProcesso() {
   const { pathname } = useLocation();
   const { id } = useParams();
-  /*  const history = useHistory(); */
+  const history = useHistory();
 
   const [loading, setLoading] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
 
-  // recupera local storage
   const { values: { inProgressRecipes },
-    actions: { setInProgressRecipes } } = useContext(RecipesContext);
+    actions: { addRecipeToInProgress, addRecipeToDone } } = useContext(RecipesContext);
   const { getRecipes } = useRecipes();
 
   const type = pathname.includes('comidas') ? ['comidas', 'Meal'] : ['bebidas', 'Drink'];
-  /* const recType = pathname.includes('comidas')
-    ? ['bebidas', 'Drink'] : ['comidas', 'Meal']; */
 
   const [ingredientsList, setIngredientList] = useState([]);
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     async function loadRecipe() {
@@ -40,10 +38,34 @@ function EmProcesso() {
   function handleCheck(target) {
     const item = target.name;
     const checked = ingredientsList.includes(item);
+    const nameKey = pathname.includes('comidas') ? 'cocktails' : 'meals';
+
     setIngredientList((prev) => (checked
-      ? prev.filter((sc) => sc !== (item))
+      ? prev.filter((ingr) => ingr !== (item))
       : [...prev, item]));
+
+    //  const obj = { [nameKey]: { [id]: ingredientsList } };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify({
+      ...inProgressRecipes,
+      [nameKey]: { [id]: ingredientsList },
+    }));
+    // addRecipeToInProgress([nameKey]: { [id]: ingredientsList });
   }
+
+  function handleClick() {
+    addRecipeToDone(recipeDetails);
+    history.push('/receitas-feitas');
+  }
+  useEffect(() => {
+    const ingredients = Object.keys(recipeDetails)
+      .filter((key) => key.includes('Ingredient') && recipeDetails[key]);
+    if (ingredientsList.length === ingredients.length) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [ingredientsList.length, recipeDetails]);
 
   function renderIngredients() {
     const ingredients = Object.keys(recipeDetails)
@@ -53,36 +75,21 @@ function EmProcesso() {
         return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
       });
     return ingredients.map((ingredient, index) => (
-      <>
-        <br />
+      <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
+        <input
+          type="checkbox"
+          id="ingredient"
+          name={ index + 1 }
+          onChange={ ({ target }) => handleCheck(target) }
+        />
         <label
-          key={ ingredient }
           htmlFor="ingredient"
-          data-testid={ `${index}-ingredient-step` }
         >
           { ingredient }
-          <input
-            type="checkbox"
-            id="ingredient"
-            name={ index + 1 }
-            onChange={ ({ target }) => handleCheck(target) }
-          />
         </label>
-      </>
+      </div>
     ));
   }
-
-  function handleClink() {
-    // pegar todos ingrediente checkados kk
-    // salva no localStorage => usar setInProgress
-  }
-
-  /*   function renderStartButtonText() {
-    const recipes = type[0] === 'comidas'
-      ? inProgressRecipes.meals : inProgressRecipes.cocktails;
-    return Object.keys(recipes).find((recipeID) => recipeID === id)
-      ? 'Continuar Receita' : 'Iniciar Receita';
-  } */
 
   return (
     loading
@@ -110,22 +117,11 @@ function EmProcesso() {
           </div>
           { renderIngredients() }
           <p data-testid="instructions">{recipeDetails.strInstructions}</p>
-          {/* !doneRecipes.find(({ id: doneRecipeID }) => id === doneRecipeID)
-          && (
-
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="details__button--start"
-              onClick={ () => history.push(`/${type[0]}/${id}/in-progress`) }
-            >
-              { renderStartButtonText() }
-            </button>
-          ) */}
           <button
             data-testid="finish-recipe-btn"
             type="button"
-            onClick={ handleClink }
+            onClick={ handleClick }
+            disabled={ disable }
           >
             Finalizar
           </button>
