@@ -93,12 +93,15 @@ function ProgressDrink() {
         <h1 data-testid="recipe-title">{ data.strDrink }</h1>
         <ShareButton />
         <button
-          data-testid="favorite-btn"
           type="button"
           className="btn"
           onClick={ () => saveFavorite(recipeId, pathname) }
         >
-          <img src={ isFavorite ? blackHeartIcon : whiteHeartIcon } alt="favorite" />
+          <img
+            src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite"
+            data-testid="favorite-btn"
+          />
         </button>
       </div>
       <h2 data-testid="recipe-category">{ data.strCategory }</h2>
