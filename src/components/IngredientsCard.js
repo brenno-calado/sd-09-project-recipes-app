@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { string, number, objectOf } from 'prop-types';
 import { fetchIngredientImgAction } from '../actions';
 
 class IngredientsCard extends React.Component {
@@ -46,5 +47,11 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   img: state.exploreReducer.image,
 });
+
+IngredientsCard.propTypes = {
+  ingredient: objectOf,
+  img: string,
+  index: number,
+}.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientsCard);
