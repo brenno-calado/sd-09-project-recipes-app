@@ -20,8 +20,7 @@ export function RecipeContextProvider({ children }) {
     getRecipesByLocations,
     getIngredients,
     setCheckValue,
-    setInputValue,
-    renderRecipesByIngredients] = useClickFetch();
+    setInputValue] = useClickFetch();
 
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
@@ -56,7 +55,6 @@ export function RecipeContextProvider({ children }) {
     getIngredients,
     setCheckValue,
     setInputValue,
-    renderRecipesByIngredients,
   };
 
   return (

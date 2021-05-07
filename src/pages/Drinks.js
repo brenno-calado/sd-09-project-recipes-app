@@ -34,7 +34,6 @@ function Drinks() {
   };
 
   useEffect(() => {
-    setRecipesData([]);
     handleFetchDrinkClick();
   }, []);
 

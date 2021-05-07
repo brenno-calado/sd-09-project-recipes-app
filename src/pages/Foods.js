@@ -9,7 +9,6 @@ function Foods() {
   const [meal, setMeal] = useState([]);
   const [listItemByCategory, setListItemByCategory] = useState([]);
   const [initFood, setInitFood] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
   const [render, setRender] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
   const twelve = 12;
@@ -34,14 +33,11 @@ function Foods() {
   };
 
   useEffect(() => {
-
-    setIsFetching(true);
     handleFetchFoodClick();
-    setIsFetching(false);
   }, []);
 
-  console.log(recipesData);
   useEffect(() => {
+    console.log(recipesData);
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

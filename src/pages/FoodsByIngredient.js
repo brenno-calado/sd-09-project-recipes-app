@@ -9,8 +9,7 @@ function FoodsByIngredient() {
   const {
     getIngredients,
     setCheckValue,
-    setInputValue,
-    renderRecipesByIngredients } = useRecipeContext();
+    setInputValue } = useRecipeContext();
   const [ingredients, setIngredients] = useState([]);
   const twelve = 12;
 
@@ -41,7 +40,6 @@ function FoodsByIngredient() {
                 data-testid={ `${index}-ingredient-card` }
                 onClick={ ({ target }) => {
                   setInputValue(target.alt);
-                  renderRecipesByIngredients();
                 } }
               >
                 <img

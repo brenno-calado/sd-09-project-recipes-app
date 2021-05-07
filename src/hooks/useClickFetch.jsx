@@ -31,13 +31,6 @@ function useClickFetch() {
     setInputValue(value);
   }
 
-  async function renderRecipesByIngredients() {
-    if (checkValue === 'ingredient') {
-      const apiData = await getRecipeByIngredient(inputValue);
-      setRecipesData(apiData);
-    }
-  }
-
   async function handleFetchFoodClick() {
     if (checkValue === 'ingredient') {
       const apiData = await getRecipeByIngredient(inputValue);
@@ -91,7 +84,6 @@ function useClickFetch() {
     getIngredients,
     setCheckValue,
     setInputValue,
-    renderRecipesByIngredients,
   ];
 }
 
