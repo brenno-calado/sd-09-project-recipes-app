@@ -38,7 +38,6 @@ export default function DoneRecipes() {
     if (value !== 'All' && value !== selectedButton) {
       setSelectedButton(value);
       handleFilter(value);
-      console.log(value);
     } else {
       const localStoreData = getItemLocalStorage(storeKey);
       setSelectedButton('All');
