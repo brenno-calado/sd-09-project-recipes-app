@@ -34,9 +34,7 @@ class Profile extends React.Component {
               type="button"
               data-testid="profile-done-btn"
             >
-              <Link
-                to="/receitas-feitas"
-              >
+              <Link to="/receitas-feitas">
                 Receitas Feitas
               </Link>
             </button>
@@ -44,9 +42,7 @@ class Profile extends React.Component {
               type="button"
               data-testid="profile-favorite-btn"
             >
-              <Link
-                to="/receitas-favoritas"
-              >
+              <Link to="/receitas-favoritas">
                 Receitas Favoritas
               </Link>
             </button>

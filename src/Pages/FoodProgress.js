@@ -119,7 +119,6 @@ class FoodProgress extends Component {
     const { idMeal, strCategory, strMeal, strArea, strMealThumb, strTags } = meal;
     const now = new Date();
     const data = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-
     const obj = {
       id: idMeal,
       type: 'comida',
@@ -168,9 +167,7 @@ class FoodProgress extends Component {
           })}
         </div>
         <p data-testid="instructions">{strInstructions}</p>
-        <Link
-          to="/receitas-feitas"
-        >
+        <Link to="/receitas-feitas">
           <button
             type="button"
             data-testid="finish-recipe-btn"

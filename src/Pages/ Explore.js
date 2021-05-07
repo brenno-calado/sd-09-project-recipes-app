@@ -12,7 +12,7 @@ class Explore extends React.Component {
         <section className="linksContainer">
           <div className="botlinksContainer">
             <Link to="/explorar/comidas">
-              <button data-testid="explore-foods" type="button">Explorar Comidas</button>
+              <button data-testid="explore-food" type="button">Explorar Comidas</button>
             </Link>
             <Link to="/explorar/bebidas">
               <button data-testid="explore-drinks" type="button">Explorar Bebidas</button>
