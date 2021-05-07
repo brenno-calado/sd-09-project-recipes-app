@@ -96,8 +96,8 @@
 }
 
 .card-text-container {
-  width: 50%;
   text-align: center;
+  width: 50%;
 }
 
 .image-card-container {
@@ -105,8 +105,8 @@
 }
 
 .horizontal-card-img {
+  border-radius: 12px 0 0 12px;
   width: 100%;
-  border-radius: 12px 0px 0px 12px;
 }
 
 .card-tags-container span {
