@@ -13,7 +13,7 @@ function DetalhesComida() {
   function ingredientHELL(recipe) {
     const keys = Object.entries(recipe);
     const result = [];
-    console.log(keys);
+    // console.log(keys);
     const filteredIng = keys.filter((key) => key[0].includes('strIngredient'));
     const filteredMeasures = keys.filter((key) => key[0].includes('strMeasure'));
     for (let i = 0; i < filteredIng.length; i += 1) {
@@ -23,8 +23,8 @@ function DetalhesComida() {
         i -= 1;
       }
     }
-    console.log(filteredIng);
-    console.log(filteredMeasures);
+    // console.log(filteredIng);
+    // console.log(filteredMeasures);
     for (let i = 0; i < filteredIng.length; i += 1) {
       result.push(
         `${filteredIng[i][1]} - ${filteredMeasures[i][1]}`,
@@ -90,6 +90,7 @@ function DetalhesComida() {
       />
 
       {/* Receitas Recomendadas devera ser um componente separado. */}
+
       <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
     </div>
   );

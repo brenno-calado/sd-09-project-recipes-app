@@ -1,38 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
+import { Redirect } from 'react-router';
 import Header from '../components/Header';
+// import MainButtons from '../components/MainButtons';
 import FoodCards from '../components/FoodCards';
 import Footer from '../components/Footer';
-import { getAreaList, getMealsByName } from '../services/MealFetch';
-import '../styles/recipes.css';
+import MealContext from '../context/MealContext';
+import AreaList from '../components/AreaList';
 
-function ExplorarComidasArea() {
-  const [listByArea, setListByArea] = useState([]);
-  // const [filter, setFilter] = useState(false);
-
-  useEffect(() => {
-    getAreaList().then((response) => setListByArea(response));
-    getMealsByName();
-  }, []);
-
-  // function handleChange(area) {
-  //   getByArea(area).then((response) => setFoods(response));
-  // }
+function MainFoods() {
+  const { foods } = useContext(MealContext);
 
   return (
     <>
-      <Header textProp="Explorar Origem" />
+      {foods.length === 1
+        ? <Redirect to={ `/comidas/${foods[0].idMeal}` } /> : null}
 
-      <select className="select" data-testid="explore-by-area-dropdown">
-        <option data-testid="All-option">All</option>
-        {listByArea.map((local) => (
-          <option
-            key={ Math.random() }
-            data-testid={ `${local.strArea}-option` }
-          >
-            { local.strArea }
-          </option>
-        ))}
-      </select>
+      <Header textProp="Comidas" />
+
+      <AreaList />
 
       <FoodCards />
 
@@ -41,4 +26,4 @@ function ExplorarComidasArea() {
   );
 }
 
-export default ExplorarComidasArea;
+export default MainFoods;
