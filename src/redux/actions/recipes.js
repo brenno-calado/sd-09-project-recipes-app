@@ -1,20 +1,24 @@
 import types from '../types';
 import fetchApi from '../../services/api';
 
-const { GET_RECIPES, REQUEST_RECIPES } = types;
+const { GET_RECIPES, REQUEST_RECIPES, CLEAR_RECIPES } = types;
 
 const requestRecipes = () => ({ type: REQUEST_RECIPES });
 
-const getRecipes = ({ meals }) => ({ type: GET_RECIPES, payload: meals });
+const getRecipes = (recipes) => ({ type: GET_RECIPES, payload: recipes });
 
-const fetchSearchRecipes = () => (
+export const clearRecipes = () => ({ type: CLEAR_RECIPES });
+
+export const fetchSearchRecipes = () => (
   (dispatch, getState) => {
-    console.log(getState());
     const { search } = getState();
     dispatch(requestRecipes());
     return fetchApi(search)
-      .then((json) => dispatch(getRecipes(json)));
+      .then((json) => {
+        const recipesKey = Object.keys(json)[0];
+        const recipesValue = json[recipesKey];
+        const recipes = recipesValue ? Object.values(json[recipesKey]) : null;
+        dispatch(getRecipes(recipes));
+      });
   }
 );
-
-export default fetchSearchRecipes;
