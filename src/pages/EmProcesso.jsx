@@ -7,6 +7,13 @@ import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import { RecipesContext } from '../context';
 
+const formatIngredients = (details) => Object.keys(details)
+  .filter((key) => key.includes('Ingredient') && details[key])
+  .map((key) => {
+    const ingredientID = key.split('strIngredient')[1];
+    return `${details[key]} - ${details[`strMeasure${ingredientID}`]}`;
+  });
+
 function EmProcesso() {
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -24,16 +31,27 @@ function EmProcesso() {
     : ['bebidas', 'Drink', 'cocktails'];
 
   const [ingredientsList, setIngredientList] = useState(
-    inProgressRecipes && inProgressRecipes[type[2]][id]
+    inProgressRecipes && inProgressRecipes[type[2]] && inProgressRecipes[type[2]][id]
       ? inProgressRecipes[type[2]][id]
       : [],
   );
-  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     async function loadRecipe() {
       const details = await getRecipes(type[0], id);
-      setRecipeDetails(details);
+      const recipeObj = {
+        id: details[`id${type[1]}`],
+        type: type[0].substring(0, type[0].length - 1),
+        area: details.strArea || '',
+        category: details.strCategory || '',
+        alcoholicOrNot: type[1] === 'Drink' ? details.strAlcoholic : '',
+        name: details[`str${type[1]}`],
+        image: details[`str${type[1]}Thumb`],
+        instructions: details.strInstructions,
+        video: details.strYoutube,
+        ingredients: formatIngredients(details),
+      };
+      setRecipeDetails(recipeObj);
     }
 
     loadRecipe();
@@ -58,23 +76,9 @@ function EmProcesso() {
     addRecipeToDone(recipeDetails);
     history.push('/receitas-feitas');
   }
-  useEffect(() => {
-    const ingredients = Object.keys(recipeDetails)
-      .filter((key) => key.includes('Ingredient') && recipeDetails[key]);
-    if (ingredientsList.length === ingredients.length) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [ingredientsList.length, recipeDetails]);
 
   function renderIngredients() {
-    const ingredients = Object.keys(recipeDetails)
-      .filter((key) => key.includes('Ingredient') && recipeDetails[key])
-      .map((key) => {
-        const ingredientID = key.split('strIngredient')[1];
-        return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
-      });
+    const ingredients = recipeDetails.ingredients || [];
     const progress = inProgressRecipes[type[2]][id];
     return ingredients.map((ingredient, index) => (
       <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
@@ -102,17 +106,17 @@ function EmProcesso() {
       : (
         <main>
           <img
-            src={ recipeDetails[`str${type[1]}Thumb`] }
-            alt={ recipeDetails[`str${type[1]}`] }
+            src={ recipeDetails.image }
+            alt={ recipeDetails.name }
             data-testid="recipe-photo"
             className="details__image"
           />
           <div className="details__horizontal-container">
             <div>
-              <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
+              <h2 data-testid="recipe-title">{recipeDetails.name}</h2>
               <p data-testid="recipe-category">
                 {type[1] === 'Drink'
-                  ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+                  ? recipeDetails.alcoholicOrNot : recipeDetails.category}
               </p>
             </div>
             <div>
@@ -126,7 +130,10 @@ function EmProcesso() {
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ handleClick }
-            disabled={ disable }
+            disabled={
+              recipeDetails.ingredients
+              && ingredientsList.length !== recipeDetails.ingredients.length
+            }
           >
             Finalizar
           </button>
