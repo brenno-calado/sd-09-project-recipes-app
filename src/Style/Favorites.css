@@ -1,0 +1,18 @@
+.shareAndFavoFavorites {
+  position: relative;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+}
+
+.shareAndFavoFavorites div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  max-width: 300px;
+  margin: 4vh 0 0 5vw;
+}
+
+.shareAndFavoFavorites div button {
+  position: relative;
+}

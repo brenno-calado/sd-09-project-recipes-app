@@ -1,7 +1,8 @@
 .card-food-image {
   display: flex;
   height: 150px;
-  width: 150px;
+  width: 100%;
+  border-radius: 10px 10px 0 0;
 }
 
 .list {
@@ -15,6 +16,12 @@
   display: inline-block;
   border-radius: 10px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.418);
-  min-width: 40vw;
+  max-width: 40vw;
   margin-bottom: 10%;
+  color: black;
+}
+
+.card h2 {
+  font-size: 24px;
+  margin-left: 6px;
 }

@@ -1,8 +1,29 @@
 
 .header-bar {
   background-color: #4d9079ec;
-  height: 35px;
+  height: 8vh;
+  width: 100vw;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   margin-bottom: 5%;
+  padding-left: 5px;
+}
+
+.header-bar button {
+  background-color: transparent;
+  border: none;
+}
+
+.header-bar img {
+  width: 40px;
+}
+
+.header-bar h4 {
+  margin: 0 12vw;
+  align-self: center;
+  justify-content: center;
+  justify-self: center;
+  font-weight: 700;
+  height: 30px;
+  width: 58vw
 }

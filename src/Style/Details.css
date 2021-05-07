@@ -20,7 +20,7 @@ body {
 }
 
 .detailsCategory {
-  color: rgba(251, 144, 22, 0.863);
+  color: #66b499c9;
   font-size: 21px;
 }
 
@@ -33,7 +33,7 @@ body {
 
 .ingredientsList {
   /* list-style: none; */
-  background-color: rgba(251, 144, 22, 0.575);
+  background-color: #58a0879a;
   border-radius: 10px;
   padding: 4%;
   margin: 0 5%;
@@ -41,7 +41,7 @@ body {
 }
 
 .instructions {
-  background-color: rgba(251, 144, 22, 0.575);
+  background-color: #58a0879a;
   border-radius: 10px;
   margin: 0 5%;
   padding: 4%;
@@ -86,7 +86,7 @@ body {
 .gallery-cell p {
   margin: 0;
   padding: 2px 0 0 6px;
-  color: rgba(251, 144, 22, 0.863);
+  color: #4d9079ec;
   font-size: 16px;
 }
 
@@ -102,7 +102,7 @@ body {
   width: 100%;
   height: 8vh;
   border: none;
-  background-color: rgb(251, 144, 22);
+  background-color: #17b17b;
   color: aliceblue;
   font-weight: 700;
   font-size: 20px;
@@ -111,4 +111,17 @@ body {
 iframe {
   width: 90%;
   margin: 0 5%;
+}
+
+.animates {
+  display: flex;
+  height: 95vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.animates svg {
+  height: 100vh;
+  width: 100vw;
 }

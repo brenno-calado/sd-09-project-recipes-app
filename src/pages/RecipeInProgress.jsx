@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { string, object, func, bool } from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Lottie from 'react-lottie';
 import { getItemById } from '../actions/itemById';
 import RecipeCheckboxes from '../components/RecipeCheckboxes';
 import ShareAndFavo from '../components/ShareAndFavo';
 import { handleDone } from '../services/localStorage';
 import '../Style/RecipesInProgress.css';
+import MealLoading from '../images/lf30_editor_oblwx6ru.json';
+import DrinkLoading from '../images/lf30_editor_brwuobfm.json';
 
 function RecipeInProgress(
   { match: { path, params, url }, setItem, item, loading, checks },
@@ -39,11 +42,29 @@ function RecipeInProgress(
     setItem(params.id, path);
   }, [setItem, params, path]);
 
-  if (loading) return <h3>Loading...</h3>;
-  if (!item) return <h3>Loading....</h3>;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: path.includes('comidas') ? MealLoading : DrinkLoading,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
 
   const type = path.includes('/comidas') ? 'meals' : 'drinks';
-  if (!item[type]) return <h3>Loading...</h3>;
+
+  if (loading || !item[type]) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
+  }
+
   const query = path.includes('/comidas') ? 'Meal' : 'Drink';
   const recipe = item[type][0];
   const newType = type === 'meals' ? type : 'cocktails';

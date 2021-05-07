@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { object } from 'prop-types';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import isFavorite from '../images/blackHeartIcon.svg';
 import isNotFavorite from '../images/whiteHeartIcon.svg';
 import share from '../images/shareIcon.svg';
@@ -7,7 +8,7 @@ import '../Style/ShareAndFavo.css';
 
 function ShareAndFavo({ match, recipe }) {
   const [copy, setCopy] = useState(false);
-  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [{}];
+  const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [favorite, setFavorite] = useState(
     favorites.find((favo) => favo.id === match.params.id),
   );
@@ -15,9 +16,8 @@ function ShareAndFavo({ match, recipe }) {
   const location = match.path.includes('/comidas') ? 'Meal' : 'Drink';
 
   const handleShare = () => {
-    navigator.clipboard.writeText(`http://localhost:3000${match.url}`);
     setCopy(true);
-    const timeoutToCopy = 1500;
+    const timeoutToCopy = 2500;
     setTimeout(() => {
       setCopy(false);
     }, timeoutToCopy);
@@ -33,18 +33,20 @@ function ShareAndFavo({ match, recipe }) {
       name: recipe[`str${location}`],
       image: recipe[`str${location}Thumb`],
     };
-    if (favorites[0].id) {
-      localStorage.setItem(
-        'favoriteRecipes', JSON.stringify([...favorites, storeRecipe]),
-      );
-    } else {
-      localStorage.setItem('favoriteRecipes', JSON.stringify([storeRecipe]));
-    }
+    localStorage.setItem(
+      'favoriteRecipes', JSON.stringify([...favorites, storeRecipe]),
+    );
+  };
+
+  const removeFavorite = (id) => {
+    const newFavorites = favorites.filter((recipeLocal) => recipeLocal.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
   };
 
   const handleFavorite = () => {
     if (favorite) {
       setFavorite(false);
+      removeFavorite(match.params.id);
     } else {
       setStorage();
       setFavorite(true);
@@ -53,13 +55,17 @@ function ShareAndFavo({ match, recipe }) {
 
   return (
     <div className="shareAndFavo">
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ handleShare }
+      <CopyToClipboard
+        text={ `http://localhost:3000${match.url}` }
+        onCopy={ handleShare }
       >
-        <img src={ share } alt="Compartilhar" />
-      </button>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          <img src={ share } alt="Compartilhar" />
+        </button>
+      </CopyToClipboard>
       <button
         type="button"
         data-testid="favorite-btn"

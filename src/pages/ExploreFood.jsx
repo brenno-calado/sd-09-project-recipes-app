@@ -24,25 +24,25 @@ function ExploreFood() {
   }
 
   return (
-    <div>
+    <div className="explorerPage">
       <Header page="Explorar Comidas" />
-      <div>
+      <div className="buttons">
         <Link to="/explorar/comidas/ingredientes">
           <button
             data-testid="explore-by-ingredient"
             type="button"
-            className="btns-explore"
+            className="btn-explorer"
           >
             Por Ingredientes
           </button>
         </Link>
         <Link to="/explorar/comidas/area">
-          <button data-testid="explore-by-area" type="button" className="btns-explore">
+          <button data-testid="explore-by-area" type="button" className="btn-explorer">
             Por Local de Origem
           </button>
         </Link>
         <button
-          className="btns-explore"
+          className="btn-explorer"
           data-testid="explore-surprise"
           type="button"
           onClick={ onclick }

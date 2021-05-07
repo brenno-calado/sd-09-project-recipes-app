@@ -17,9 +17,9 @@
 
 .checkbox {
   --background: rgb(255, 255, 255);
-  --border: #ff0000;
-  --border-hover: #ff0000;
-  --border-active: #46a705;
+  --border: #00000091;
+  --border-hover: #00000096;
+  --border-active: #17b17b;
   --tick: #fff;
   position: relative;
 }

@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
+import Lottie from 'react-lottie';
 import { getDrinkById } from '../actions/getDrinkById';
 import { mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
 import '../Style/Details.css';
+import DrinkLoading from '../images/lf30_editor_brwuobfm.json';
 
 function DrinkDetails({
-  recipes, match, history, getDrinkByIdDispatch, recommendedFoods }) {
+  recipes, match, getDrinkByIdDispatch, recommendedFoods, loading }) {
   const [recipe, setRecipe] = useState(null);
   const [ingredientToMeasure, setIngredientToMeasure] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(true);
   const [inProgress, setInProgress] = useState(false);
 
@@ -35,23 +36,33 @@ function DrinkDetails({
     if (!recipe) {
       getDrinkByIdDispatch(recipeID);
     }
-    const selectedRecipe = recipes;
-    setRecipe(selectedRecipe);
-    setLoading(false);
-    if (selectedRecipe) {
-      setIngredientToMeasure(mapIngredientToMeasure(selectedRecipe));
+    if (!loading) {
+      setRecipe(recipes);
+      setIngredientToMeasure(mapIngredientToMeasure(recipes));
     }
-    if (!selectedRecipe) {
-      history.push({
-        pathname: '/comidas',
-      });
-    }
-  }, [match, recipe, recipes, history, getDrinkByIdDispatch]);
+  }, [match, recipe, recipes, loading, getDrinkByIdDispatch]);
 
   const MAX_SLICE = 6;
 
-  if (loading) {
-    return <div>Loading...</div>;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: DrinkLoading,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  if (loading || !recipe) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
   }
 
   return (

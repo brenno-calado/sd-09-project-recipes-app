@@ -1,8 +1,34 @@
+.explorerPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  height: 94vh;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-around;
+  justify-self: center;
+  height: 100%;
+  margin: 15vh;
+}
+
 .btn-explorer {
   background: ghostwhite;
   border-color: black;
   color: #4d9079ec;
+  font-size: 24px;
   display: flex;
-  margin: 30%;
+  align-items: center;
+  justify-content: center;
+  height: 12vh;
+  text-align: center;
+  width: 60vw;
+  border: none;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.431);
+  border-radius: 8px;
 }
 

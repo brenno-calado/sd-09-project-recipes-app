@@ -1,16 +1,22 @@
+.perfilPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 .page-title {
   display: flex;
   justify-content: space-between;
 }
 
 .email {
-  display: flex;
-  font-size: 200%;
-  justify-content: center;
+  font-size: 150%;
 }
 
-.btn-profile {
-  border-radius: 7%;
-  padding: 2%;
-  margin: 2%;
+.buttonProfile {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  justify-content: space-evenly;
 }

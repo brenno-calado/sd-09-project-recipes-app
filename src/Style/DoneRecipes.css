@@ -1,0 +1,80 @@
+.doneList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.doneButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 4vh;
+}
+
+.doneButtons button {
+  width: 28vw;
+  border: none;
+  height: 40px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.411);
+}
+
+.doneCard {
+  display: flex;
+  max-width: 90vw;
+  max-height: 140px;
+  color: black;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.363);
+  margin-bottom: 4vh;
+  border-radius: 10px;
+}
+
+.doneCard img {
+  width: 43%;
+  border-radius: 10px 0 0 10px;
+}
+
+.contentDoneCard {
+  display: flex;
+  flex-direction: column;
+  margin-left: 7px;
+  padding: 5px;
+}
+
+.contentDoneCard h4 {
+  color: #66b499c9;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.contentDoneCard h3 {
+  color: black;
+  font-size: 22px;
+}
+
+.contentDoneCard button {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  right: 0;
+  width: 60px;
+  margin-right: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tags p {
+  font-size: 12px;
+  margin-right: 5px;
+  background-color: #66b49998;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+button {
+  outline: #66b49998;
+}

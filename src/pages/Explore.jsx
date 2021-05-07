@@ -7,9 +7,9 @@ import '../Style/Explore.css';
 
 function Explore() {
   return (
-    <div>
+    <div className="explorerPage">
       <Header page="Explorar" />
-      <div>
+      <div className="buttons">
         <Link to="/explorar/comidas">
           <Button
             data-testid="explore-food"
