@@ -11,10 +11,10 @@ function IngredientCard(props) {
 
   useEffect(() => {
     if (type === 'comida') {
-      setUrl(`https://www.themealdb.com/images/ingredients/${ingredient}.png`);
+      setUrl(`https://www.themealdb.com/images/ingredients/${ingredient}-Small.png`);
     }
     if (type === 'bebida') {
-      setUrl(`https://www.thecocktaildb.com/images/ingredients/${ingredient}-Medium.png`);
+      setUrl(`https://www.thecocktaildb.com/images/ingredients/${ingredient}-Small.png`);
     }
   }, [ingredient, type]);
 

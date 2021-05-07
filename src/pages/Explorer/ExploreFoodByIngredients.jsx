@@ -7,6 +7,7 @@ import { fetchMealIngredients } from '../../services/fetchMealAPI';
 
 function ExploreFoodByIngredients({ history }) {
   const [ingredients, setIngredients] = useState();
+  const cardsLimit = 12;
 
   useEffect(() => {
     async function getIngredients() {
@@ -18,7 +19,7 @@ function ExploreFoodByIngredients({ history }) {
   return (
     <div>
       <Header title="Explorar Ingredientes" isSearchEnable={ false } />
-      { ingredients && ingredients.map((ingredient, index) => (
+      { ingredients && ingredients.slice(0, cardsLimit).map((ingredient, index) => (
         <IngredientCard
           key={ ingredient.strIngredient }
           ingredient={ ingredient.strIngredient }

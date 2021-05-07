@@ -52,7 +52,7 @@ function App() {
         <Route path="/receitas-feitas" component={ DoneRecipes } />
         <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
         <Route path="/perfil" component={ UserProfile } />
-        <Route render={ () => <h1>404: page not found</h1> } />
+        <Route render={ () => <h1>404: Page Not Found</h1> } />
       </Switch>
     </Provider>
   );

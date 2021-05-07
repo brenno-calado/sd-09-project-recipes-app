@@ -4,7 +4,7 @@ import Footer from '../../common/components/Footer';
 import Header from '../../common/components/Header';
 
 function UserProfile({ history }) {
-  const [email, setEmail] = useState('');
+  const [emaill, setEmail] = useState('');
 
   useEffect(() => {
     function getEmail() {
@@ -26,7 +26,7 @@ function UserProfile({ history }) {
   return (
     <div>
       <Header title="Perfil" isSearchEnable={ false } />
-      <h1 data-testid="profile-email">{ email }</h1>
+      <h1 data-testid="profile-email">{ emaill }</h1>
       <button
         data-testid="profile-done-btn"
         type="button"

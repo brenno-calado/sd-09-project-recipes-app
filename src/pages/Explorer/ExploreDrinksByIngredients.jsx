@@ -7,6 +7,7 @@ import { fetchDrinkIngredients } from '../../services/fetchDrinkAPI';
 
 function ExploreDrinksByIngredients({ history }) {
   const [ingredients, setIngredients] = useState();
+  const cardsLimit = 12;
 
   useEffect(() => {
     async function getIngredients() {
@@ -18,7 +19,7 @@ function ExploreDrinksByIngredients({ history }) {
   return (
     <div>
       <Header title="Explorar Ingredientes" isSearchEnable={ false } />
-      { ingredients && ingredients.map((ingredient, index) => (
+      { ingredients && ingredients.slice(0, cardsLimit).map((ingredient, index) => (
         <IngredientCard
           key={ (Object.values(ingredient)) }
           ingredient={ (Object.values(ingredient)) }

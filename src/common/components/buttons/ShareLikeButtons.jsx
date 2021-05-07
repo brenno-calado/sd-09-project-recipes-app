@@ -76,7 +76,7 @@ function ShareLikeButtons({ recipe, url, complement }) {
               height="25px"
             />)}
       </Button>
-      { copied ? <p>Link copiado!</p> : null }
+      { !complement && copied ? <p>Link copiado!</p> : null }
     </div>
   );
 }
