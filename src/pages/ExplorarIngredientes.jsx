@@ -5,7 +5,6 @@ import Header from '../components/Header';
 import getIngredients from '../services/ingredientsAPI';
 import Loading from '../components/Loading';
 import '../styles/ExplorarIngredientes.css';
-import useRecipes from '../hooks/useRecipes';
 import { RecipesContext } from '../context';
 
 function ExplorarIngredientes() {
@@ -18,8 +17,7 @@ function ExplorarIngredientes() {
   const [loading, setLoading] = useState(true);
   const MAX_PG = 12;
   const history = useHistory();
-  const { getRecipes } = useRecipes();
-  const { actions: { setRecipesResult } } = useContext(RecipesContext);
+  const { actions: { setIngredient } } = useContext(RecipesContext);
 
   useEffect(() => {
     async function loadIngredients() {
@@ -33,15 +31,9 @@ function ExplorarIngredientes() {
     loadIngredients();
   });
 
-  const handleClick = async (searchIng) => {
-    const recipes = await getRecipes(type[0], searchIng, 'ingredient');
-    if (!recipes) {
-      alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-    } else if (!Array.isArray(recipes)) {
-      alert(recipes.message);
-    } else {
-      setRecipesResult(recipes);
-    }
+  const handleClick = (searchIng) => {
+    console.log(searchIng);
+    setIngredient(searchIng);
     history.push('/comidas');
   };
 

@@ -22,6 +22,7 @@ export default function RecipesProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
+  const [ingredient, setIngredient] = useState('');
 
   const { getRecipes } = useRecipes();
 
@@ -35,9 +36,11 @@ export default function RecipesProvider({ children }) {
       categories,
       areas,
       areaFilter,
+      ingredient,
     },
     actions: {
       setRecipesResult,
+      setIngredient,
       addRecipeToDone(recipeObj) {
         if (doneRecipes) {
           setDoneRecipes([...doneRecipes, recipeObj]);
@@ -77,6 +80,21 @@ export default function RecipesProvider({ children }) {
       setAreaFilter,
     },
   };
+
+  useEffect(() => {
+    if (ingredient && pathLocation === 'comidas') {
+      const fetchCategory = () => {
+        setIsFetching(true);
+        getRecipes('comidas', ingredient, 'ingredient')
+          .then(
+            (recipes) => setRecipesResult(recipes),
+            (error) => console.log(error.message),
+          )
+          .finally(() => setIsFetching(false));
+      };
+      fetchCategory();
+    }
+  }, [ingredient, pathLocation]);
 
   useEffect(() => {
     if (pathLocation) {
