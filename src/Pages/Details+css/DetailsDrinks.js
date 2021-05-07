@@ -29,15 +29,6 @@ class DetailsDrinks extends React.Component {
     const { addObjDrink } = this.props;
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
-        addObjDrink({
-          id: drinks[0].idDrink,
-          type: 'bebida',
-          area: '',
-          category: drinks[0].strCategory,
-          alcoholicOrNot: drinks[0].strAlcoholic,
-          name: drinks[0].strDrink,
-          image: drinks[0].strDrinkThumb,
-        });
         this.setState({ drink: drinks[0], ok: true });
         const ingr = Object.keys(drinks[0]).filter((key) => key.includes('strIngredient'))
           .filter((value) => drinks[0][value] !== ' '
@@ -56,11 +47,21 @@ class DetailsDrinks extends React.Component {
   }
 
   favoriteOk() {
-    const { ok } = this.state;
+    const { ok, drink } = this.state;
     if (ok === true) {
       return (
         <di>
-          <FavoriteButton />
+          <FavoriteButton
+            obj = { {
+              id: drink.idDrink,
+              type: 'bebida',
+              area: '',
+              category: drink.strCategory,
+              alcoholicOrNot: drink.strAlcoholic,
+              name: drink.strDrink,
+              image: drink.strDrinkThumb,
+            } }
+          />
           <Share />
         </di>
       );

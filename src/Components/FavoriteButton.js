@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -88,12 +86,5 @@ class FavoriteButton extends Component {
   }
 }
 
-FavoriteButton.propTypes = {
-  obj: PropTypes.objectOf({}).isRequired,
-};
 
-const mapStateToProps = (store) => ({
-  obj: store.objDetails,
-});
-
-export default connect(mapStateToProps)(FavoriteButton);
+export default FavoriteButton;

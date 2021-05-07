@@ -38,40 +38,45 @@ class RecipesDone extends React.Component {
 
   all() {
     const { all, doneRecipes } = this.state;
+    let alcolicORcategory = '';
+    doneRecipes.forEach((value) => {
+      if (value.category === 'comida') alcolicORcategory = [...alcolicORcategory , value.category];
+      else alcolicORcategory = [...alcolicORcategory , value.alcoholicOrNot];
+    });
     if (all) {
       return (
         <div>
           { doneRecipes.map((value, index) => (
             <div key={ index }>
-              <Link to={ `/${value.type}s/${value.id}` }>
-                <img
-                  className="Imagem"
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ value.image }
-                  alt="img-recipe"
-                />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  {value.name}
-                </p>
-              </Link>
+            <Link to={ `/${value.type}s/${value.id}` }>
+              <img
+                className="Imagem"
+                data-testid={ `${index}-horizontal-image` }
+                src={ value.image }
+                alt="img-recipe"
+              />
               <p
-                data-testid={ `${index}-horizontal-top-text` }
+                data-testid={ `${index}-horizontal-name` }
               >
-                { value.category }
+                {value.name}
               </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
-                {value.doneDate}
-              </p>
-              <span
-                data-testid={ `${index}-horizontal-tag` }
-              >
-                {value.tags[0]}
-              </span>
-            </div>
+            </Link>
+            <p
+              data-testid={ `${index}-horizontal-top-text` }
+            >
+              { alcolicORcategory[index] }
+            </p>
+            <p
+              data-testid={ `${index}-horizontal-done-date` }
+            >
+              {value.doneDate}
+            </p>
+            <span
+              data-testid={ `${index}-horizontal-tag` }
+            >
+              {value.tags[0]}
+            </span>
+          </div>
           ))}
         </div>
       );
@@ -145,7 +150,7 @@ class RecipesDone extends React.Component {
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                { value.category }
+                { value.alcoholicOrNot }
               </p>
               <p
                 data-testid={ `${index}-horizontal-done-date` }

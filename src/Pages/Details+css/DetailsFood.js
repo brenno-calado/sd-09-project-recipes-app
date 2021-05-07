@@ -32,15 +32,6 @@ class DetailsFood extends React.Component {
     const { addObjFood } = this.props;
     fetchMealDetailsAPI(id)
       .then(({ meals }) => {
-        addObjFood({
-          id: meals[0].idMeal,
-          type: 'comida',
-          area: meals[0].strArea,
-          category: meals[0].strCategory,
-          alcoholicOrNot: '',
-          name: meals[0].strMeal,
-          image: meals[0].strMealThumb,
-        });
         this.setState({ meal: meals[0], ok: true });
 
         const ing = Object.keys(meals[0]).filter((key) => key.includes('strIngredient'))
@@ -104,11 +95,21 @@ class DetailsFood extends React.Component {
   }
 
   favoriteOk() {
-    const { ok } = this.state;
+    const { ok, meal } = this.state;
     if (ok === true) {
       return (
         <di>
-          <FavoriteButton />
+          <FavoriteButton
+            obj={ {
+              id: meal.idMeal,
+              type: 'comida',
+              area: meal.strArea,
+              category: meal.strCategory,
+              alcoholicOrNot: '',
+              name: meal.strMeal,
+              image: meal.strMealThumb,
+            } }
+          />
           <Share />
         </di>
       );
