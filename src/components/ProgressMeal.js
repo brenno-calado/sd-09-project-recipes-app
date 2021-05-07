@@ -13,7 +13,7 @@ function ProgressMeal() {
     isFavorite,
     saveFavorite,
     setIsFavorite,
-    checkDone,
+    checkDoneMeals,
     localRecipes,
   } = useContext(MyContext);
 
@@ -33,6 +33,7 @@ function ProgressMeal() {
   */
 
   const { ingredients, measures } = getKeysIngredints();
+
   const isDone = (currentIngredint) => {
     if (localRecipes) {
       const { meals } = localRecipes;
@@ -51,7 +52,7 @@ function ProgressMeal() {
           className="list-group-item"
         >
           <input
-            onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
+            onClick={ ({ target }) => checkDoneMeals(recipeId, target, ingredients) }
             type="checkbox"
             className="mr-2"
             id={ index }
@@ -68,7 +69,7 @@ function ProgressMeal() {
           className="list-group-item"
         >
           <input
-            onClick={ ({ target }) => checkDone(recipeId, target, ingredients) }
+            onClick={ ({ target }) => checkDoneMeals(recipeId, target, ingredients) }
             type="checkbox"
             className="mr-2"
             id={ index }

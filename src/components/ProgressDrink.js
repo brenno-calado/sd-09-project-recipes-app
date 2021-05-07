@@ -12,15 +12,18 @@ function ProgressDrink() {
     isFavorite,
     saveFavorite,
     setIsFavorite,
+    checkDoneDrinks,
+    localRecipes,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
   const recipeId = pathname.split('/')[2];
 
   const getFavorite = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
-  setIsFavorite(initialFavoriteState);
-
+  if (getFavorite !== null) {
+    const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
+    setIsFavorite(initialFavoriteState);
+  }
   /*
    imagem: strDrinkThumb,
    titulo: strDrink,
@@ -29,18 +32,52 @@ function ProgressDrink() {
   */
 
   const { ingredients, measures } = getKeysIngredints();
+
+  const isDone = (currentIngredint) => {
+    if (localRecipes) {
+      const { cocktails } = localRecipes;
+      if (cocktails[recipeId]) {
+        return cocktails[recipeId].includes(currentIngredint);
+      }
+    }
+  };
+
   const renderList = () => (
     ingredients.map((item, index) => (
-      <li
-        key={ item }
-        data-testid={ `${index}-ingredient-step` }
-        className="list-group-item"
-      >
-        <input type="checkbox" className="mr-2" id={ index } />
-        <label htmlFor={ index }>
-          { `${item}: ${measures[index]}`}
-        </label>
-      </li>
+      isDone(item) ? (
+        <li
+          key={ item }
+          data-testid={ `${index}-ingredient-step` }
+          className="list-group-item"
+        >
+          <input
+            onClick={ ({ target }) => checkDoneDrinks(recipeId, target, ingredients) }
+            type="checkbox"
+            className="mr-2"
+            id={ index }
+            checked
+          />
+          <label className="done" htmlFor={ index }>
+            { `${item}: ${measures[index]}`}
+          </label>
+        </li>
+      ) : (
+        <li
+          key={ item }
+          data-testid={ `${index}-ingredient-step` }
+          className="list-group-item"
+        >
+          <input
+            onClick={ ({ target }) => checkDoneDrinks(recipeId, target, ingredients) }
+            type="checkbox"
+            className="mr-2"
+            id={ index }
+          />
+          <label htmlFor={ index }>
+            { `${item}: ${measures[index]}`}
+          </label>
+        </li>
+      )
     ))
   );
 

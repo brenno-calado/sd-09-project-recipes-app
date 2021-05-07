@@ -2,6 +2,12 @@ import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { searchByCategory, fetchToMainScreen } from './services/fetchAPI';
 import { saveAsFavorite } from './services/details';
+import {
+  addLocalStorageMeals,
+  removeLocalStorageMeals,
+  addLocalStorageDrinks,
+  removeLocalStorageDrinks,
+} from './services/recipes-inProgress';
 
 const MyContext = createContext();
 
@@ -84,55 +90,19 @@ const MyContextProvider = ({ children }) => {
     saveAsFavorite(recipeId, data, pathname);
   };
 
-  function addLocalStorage(id, target, ingredients) {
-    const objectDefault = {
-      meals: {
-        [id]: [],
-      },
-    };
-    if (!localStorage.getItem('inProgressRecipes')) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify(objectDefault));
-      setLocalRecipes(objectDefault);
-    }
-    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    let inProgress = {};
-    if (!meals[id]) {
-      inProgress = {
-        meals: {
-          ...meals,
-          [id]: [ingredients[target.id]],
-        },
-      };
-    } else if (meals[id]) {
-      inProgress = {
-        meals: {
-          ...meals,
-          [id]: [...meals[id], ingredients[target.id]],
-        },
-      };
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    setLocalRecipes(inProgress);
-  }
-
-  function removeLocalStorage(id, target, ingredients) {
-    const { meals } = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const newProgress = meals[id].filter((item) => item !== ingredients[target.id]);
-    const inProgress = {
-      meals: {
-        ...meals,
-        [id]: newProgress,
-      },
-    };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
-    setLocalRecipes(inProgress);
-  }
-
-  function checkDone(id, target, ingredients) {
+  function checkDoneMeals(id, target, ingredients) {
     if (target.checked) {
-      addLocalStorage(id, target, ingredients);
+      addLocalStorageMeals(id, target, ingredients, setLocalRecipes);
     } else {
-      removeLocalStorage(id, target, ingredients);
+      removeLocalStorageMeals(id, target, ingredients, setLocalRecipes);
+    }
+  }
+
+  function checkDoneDrinks(id, target, ingredients) {
+    if (target.checked) {
+      addLocalStorageDrinks(id, target, ingredients, setLocalRecipes);
+    } else {
+      removeLocalStorageDrinks(id, target, ingredients, setLocalRecipes);
     }
   }
 
@@ -145,7 +115,8 @@ const MyContextProvider = ({ children }) => {
     isLoading,
     recommendations,
     isFavorite,
-    checkDone,
+    checkDoneDrinks,
+    checkDoneMeals,
     clickShowBar,
     setResultAPI,
     setIsLoading,
