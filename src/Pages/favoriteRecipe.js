@@ -1,7 +1,10 @@
 import React from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import FavoriteButton from '../Components/FavoriteButton'
+import ShareIcon from '../images/shareIcon.svg';
+import Share from '../Components/Share';
 class Favorite extends React.Component {
   constructor() {
     super()
@@ -9,11 +12,13 @@ class Favorite extends React.Component {
     this.food = this.food.bind(this);
     this.drink = this.drink.bind(this);
     this.update = this.update.bind(this);
+    this.shereUrl = this.shereUrl.bind(this);
     this.state = {
       all: true,
       food: false,
       drink: false,
       recipes: [],
+      p: '',
     }
   }
 
@@ -28,7 +33,7 @@ class Favorite extends React.Component {
   }
 
   renderAll() {
-    const { recipes } = this.state;
+    const { recipes, p, all } = this.state;
     let alcolicORcategory = '';
     recipes.forEach((value) => {
       if (value.type === 'comida') alcolicORcategory = [...alcolicORcategory, value.area];
@@ -36,12 +41,11 @@ class Favorite extends React.Component {
     });
     let area = '';
     let alcoholic = ''
-    const { all } = this.state;
     if (all) {
       return (
         recipes.map((value, index) => {
           if (value.type === 'comida') {
-            area = value.area;
+            area = `${value.area} - ${value.category}`;
             alcoholic = '';
           }
           else{
@@ -66,16 +70,9 @@ class Favorite extends React.Component {
               <p
                 data-testid={ `${index}-horizontal-top-text` }
               >
-                { value.category }
+                {`${alcolicORcategory[index]} - ${value.category}`}
               </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
-                {alcolicORcategory[index]}
-              </p>
-              {/* <div onClick={this.update}> */}
               <FavoriteButton
-                update={this.update}
                 obj={{
                   id: value.id,
                   type: 'comida',
@@ -85,8 +82,16 @@ class Favorite extends React.Component {
                   name: value.name,
                   image: value.image,
                 }}
+                test={ `${index}-horizontal-favorite-btn` }
                 />
-              {/* </div> */}
+                 <button
+                  onClick={ () => this.shereUrl(`${value.type}s/${value.id}`) }
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ShareIcon}
+                >
+                  <p>{p}</p>
+                  <img src={ShareIcon} />
+                </button>
               <p></p>
             </di>
           );
@@ -96,8 +101,7 @@ class Favorite extends React.Component {
   }
 
   drink() {
-    const { recipes } = this.state;
-    const { drink } = this.state;
+    const { recipes, drink, p } = this.state;
     if (drink) {
       return (
         recipes.filter((type) => type.type === 'bebida')
@@ -127,9 +131,7 @@ class Favorite extends React.Component {
               >
                 {value.category}
               </p>
-              <button onClick={this.update}>
                 <FavoriteButton
-                  onClick={ this.update }
                   id={value.id}
                   obj={{
                     id: value.id,
@@ -140,9 +142,16 @@ class Favorite extends React.Component {
                     name: value.name,
                     image: value.image,
                   }}
+                  test={ `${index}-horizontal-favorite-btn` }
                 />
-
-              </button>
+                   <button
+                  onClick={ () => this.shereUrl(`${value.type}s/${value.id}`) }
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ShareIcon}
+                >
+                  <p>{p}</p>
+                  <img src={ShareIcon} />
+                </button>
               <p></p>
             </di>
           );
@@ -153,7 +162,7 @@ class Favorite extends React.Component {
   }
 
   food() {
-    const { food, recipes } = this.state;
+    const { food, recipes, p } = this.state;
     if (food) {
       return (
         recipes.filter((type) => type.type === 'comida')
@@ -183,7 +192,6 @@ class Favorite extends React.Component {
               >
                 {value.area}
               </p>
-              <button onClick={this.update}>
               <FavoriteButton
                 obj={{
                   id: value.id,
@@ -194,8 +202,16 @@ class Favorite extends React.Component {
                   name: value.name,
                   image: value.image,
                 }}
+                test={ `${index}-horizontal-favorite-btn` }
                 />
-              </button>
+                <button
+                  onClick={ () => this.shereUrl(`${value.type}s/${value.id}`) }
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  src={ShareIcon}
+                >
+                  <p>{p}</p>
+                  <img src={ShareIcon} />
+                </button>
               <p></p>
             </di>
           );
@@ -203,6 +219,13 @@ class Favorite extends React.Component {
         );
       }
       return null
+    }
+
+    shereUrl(url2) {
+      let url = window.location.href;
+      if (url.includes('receitas-favoritas')) url = url.replaceAll('receitas-favoritas', '');
+      copy(`${url}${url2}`)
+        .then(() => this.setState({ p: 'Link copiado!' }));
     }
 
     render() {

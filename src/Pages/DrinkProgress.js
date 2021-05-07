@@ -57,11 +57,22 @@ class DrinkProgress extends Component {
   }
 
   drinkFavorit() {
-    const { ok } = this.state;
+    const { ok, drink } = this.state;
     if (ok) {
       return (
         <div>
-          <FavoriteButton />
+          <FavoriteButton
+            obj = { {
+              id: drink.idDrink,
+              type: 'bebida',
+              area: '',
+              category: drink.strCategory,
+              alcoholicOrNot: drink.strAlcoholic,
+              name: drink.strDrink,
+              image: drink.strDrinkThumb,
+            } }
+            test="favorite-btn"
+          />
           <Share />
         </div>
       );

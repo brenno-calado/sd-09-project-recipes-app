@@ -55,11 +55,12 @@ class FavoriteButton extends Component {
 
   render() {
     const { favorite } = this.state;
+    const { test } = this.props;
     if (favorite === true) {
       return (
         <button
           type="button"
-          data-testid="favorite-btn"
+          data-testid={test}
           onClick={ this.saveRecipe }
           src={ blackHeartIcon }
         >

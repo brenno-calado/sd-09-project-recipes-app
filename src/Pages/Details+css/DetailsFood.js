@@ -109,6 +109,7 @@ class DetailsFood extends React.Component {
               name: meal.strMeal,
               image: meal.strMealThumb,
             } }
+            test="favorite-btn"
           />
           <Share />
         </di>

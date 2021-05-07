@@ -61,6 +61,7 @@ class DetailsDrinks extends React.Component {
               name: drink.strDrink,
               image: drink.strDrinkThumb,
             } }
+            test="favorite-btn"
           />
           <Share />
         </di>
