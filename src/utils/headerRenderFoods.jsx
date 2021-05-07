@@ -27,6 +27,8 @@ function headerRenderFoods({
           recipeCArdId={ `${index}-recipe-card` }
           cardImageId={ `${index}-card-img` }
           cardNameId={ `${index}-card-name` }
+          type="comidas"
+          codeId={ idMeal }
         />
       )
     ))));

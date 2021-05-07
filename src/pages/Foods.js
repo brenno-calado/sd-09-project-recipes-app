@@ -9,6 +9,7 @@ function Foods() {
   const [meal, setMeal] = useState([]);
   const [listItemByCategory, setListItemByCategory] = useState([]);
   const [initFood, setInitFood] = useState([]);
+  const [isFetching, setIsFetching] = useState(false);
   const [render, setRender] = useState([]);
   const [handleClickButtonName, category] = useHandleClickButtonName();
   const twelve = 12;
@@ -32,6 +33,14 @@ function Foods() {
     renderRecipesByIngredients,
   };
 
+  useEffect(() => {
+
+    setIsFetching(true);
+    handleFetchFoodClick();
+    setIsFetching(false);
+  }, []);
+
+  console.log(recipesData);
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.meals === null) {
@@ -70,7 +79,6 @@ function Foods() {
   }
 
   return (
-    handleFetchFoodClick(),
     headerRenderFoods(headerFoodParams)
   );
 }

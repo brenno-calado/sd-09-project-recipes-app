@@ -34,6 +34,13 @@ function Drinks() {
   };
 
   useEffect(() => {
+    setRecipesData([]);
+    handleFetchDrinkClick();
+  }, []);
+
+  console.log(recipesData);
+
+  useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.drinks === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
@@ -71,7 +78,6 @@ function Drinks() {
   }
 
   return (
-    handleFetchDrinkClick(),
     headerRenderDrink(headerParams)
   );
 }

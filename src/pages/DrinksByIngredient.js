@@ -6,19 +6,23 @@ import { useRecipeContext } from '../contexts/recipeContext';
 import styles from '../components/RecepiCard/recipesCard.module.css';
 
 function DrinksByIngredient() {
-  const { getIngredients, setCheckValue, setInputValue } = useRecipeContext();
+  const {
+    getIngredients,
+    setCheckValue,
+    setInputValue,
+    renderRecipesByIngredients } = useRecipeContext();
   const [ingredients, setIngredients] = useState([]);
   const twelve = 12;
 
   useEffect(() => {
     getIngredients('thecocktaildb')
       .then(({ drinks }) => setIngredients(drinks));
+    setCheckValue('ingredient');
   }, [getIngredients]);
 
-  function handleClick(ingredient) {
-    setCheckValue('ingredient');
-    setInputValue(ingredient);
-  }
+  useEffect(() => {
+    setInputValue();
+  }, [setInputValue]);
 
   return (
     <>
@@ -35,7 +39,10 @@ function DrinksByIngredient() {
               <button
                 type="button"
                 data-testid={ `${index}-ingredient-card` }
-                onClick={ () => handleClick(strIngredient1) }
+                onClick={ ({ target }) => {
+                  setInputValue(target.alt);
+                  renderRecipesByIngredients();
+                } }
               >
                 <img
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }

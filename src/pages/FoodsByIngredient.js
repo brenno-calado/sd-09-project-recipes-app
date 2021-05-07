@@ -6,19 +6,23 @@ import { useRecipeContext } from '../contexts/recipeContext';
 import styles from '../components/RecepiCard/recipesCard.module.css';
 
 function FoodsByIngredient() {
-  const { getIngredients, setCheckValue, setInputValue } = useRecipeContext();
+  const {
+    getIngredients,
+    setCheckValue,
+    setInputValue,
+    renderRecipesByIngredients } = useRecipeContext();
   const [ingredients, setIngredients] = useState([]);
   const twelve = 12;
 
   useEffect(() => {
     getIngredients('themealdb')
       .then(({ meals }) => setIngredients(meals));
+    setCheckValue('ingredient');
   }, [getIngredients]);
 
-  function handleClick(ingredient) {
-    setCheckValue('ingredient');
-    setInputValue(ingredient);
-  }
+  useEffect(() => {
+    setInputValue();
+  }, [setInputValue]);
 
   return (
     <>
@@ -34,13 +38,16 @@ function FoodsByIngredient() {
             >
               <button
                 type="button"
-                onClick={ () => handleClick(strIngredient) }
                 data-testid={ `${index}-ingredient-card` }
+                onClick={ ({ target }) => {
+                  setInputValue(target.alt);
+                  renderRecipesByIngredients();
+                } }
               >
                 <img
-                  data-testid={ `${index}-card-img` }
                   src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                   alt={ strIngredient }
+                  data-testid={ `${index}-card-img` }
                   className={ styles.recipeCArdId }
                 />
               </button>
