@@ -1,15 +1,17 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import RecipesContext from '../context/RecipesContext';
 import Loading from './Loading';
 import './Cards.css';
 
 function Cards(props) {
-  const { dataFromApi } = useContext(RecipesContext);
+  const { dataFromApi, setIdRecipes } = useContext(RecipesContext);
   const { recipes, loading } = dataFromApi;
   const { route, history, pathname } = props;
 
   const handleClick = (id) => {
     history.push(`${pathname}/${id}`);
+    setIdRecipes(id);
   };
 
   const createFoodsCards = (apiRecipes) => {
@@ -20,9 +22,8 @@ function Cards(props) {
           <button type="button" onClick={ () => handleClick(idMeal) }>
             <div className="card" key={ index } data-testid={ `${index}-recipe-card` }>
               <header className="card-header" data-testid={ `${index}-card-name` }>
-                <h1>{strMeal}</h1>
+                <p className="recipes-title">{strMeal}</p>
               </header>
-
               <div
                 className="card-image"
                 src={ strMealThumb }
@@ -49,9 +50,8 @@ function Cards(props) {
             <div className="card" data-testid={ `${index}-recipe-card` }>
 
               <header className="card-header" data-testid={ `${index}-card-name` }>
-                <h1>{strDrink}</h1>
+                <p>{strDrink}</p>
               </header>
-
               <div
                 className="card-image"
                 src={ strDrinkThumb }
@@ -77,8 +77,14 @@ function Cards(props) {
   );
 
   return (
-    createRecipesCards(recipes)
+    <div className="main-content">
+      {createRecipesCards(recipes)}
+    </div>
   );
 }
+
+Cards.propTypes = {
+  route: PropTypes.string,
+}.isRequired;
 
 export default Cards;

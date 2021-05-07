@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -20,13 +21,16 @@ function Foods() {
     setDataFromApi({ ...dataFromApi, loading: true });
     const { meals } = await fetchRecipes(route);
     setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
-    if (dataFromApi.recipes.length === 0) {
+    if (dataFromApi.recipes.length <= 0) {
       setDataFromApi({ ...dataFromApi, recipes: meals });
     }
   };
 
   useEffect(() => {
-    getRecipes();
+    if (dataFromApi.recipes.length <= 0) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
   }, []);
 
   if (restartRecipes === true) {

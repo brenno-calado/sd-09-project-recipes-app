@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -26,7 +27,10 @@ function Drinks() {
   };
 
   useEffect(() => {
-    getRecipes();
+    if (dataFromApi.recipes.length <= 0) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
   }, []);
 
   if (restartRecipes === true) {

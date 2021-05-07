@@ -1,0 +1,15 @@
+.food-area {
+  display: flex;
+  height: 250px;
+  left: 12px;
+  margin-top: 30px;
+  top: 137px;
+  width: 380px;
+}
+
+.seta {
+  height: 47px;
+  left: 12px;
+  top: 75px;
+  width: 337px;
+}
