@@ -17,6 +17,7 @@ function ExploreIngredients({ match, getIngredients, data, loading }) {
     getIngredients(match.params.page);
   }, [getIngredients, match]);
 
+  //
   const defaultOptions = {
     loop: true,
     autoplay: true,
