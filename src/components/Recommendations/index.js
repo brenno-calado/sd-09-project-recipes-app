@@ -13,7 +13,11 @@ function Recommendations({ recommendations }) {
       strAlcoholic = null,
     } = recipe;
     return (
-      <div data-testid={ `${index}-recomendation-card` } className="recommended-box">
+      <div
+        key={ index }
+        data-testid={ `${index}-recomendation-card` }
+        className="recommended-box"
+      >
         <div
           className="recommended-box-image"
           style={
