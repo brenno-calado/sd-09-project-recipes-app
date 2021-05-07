@@ -126,8 +126,8 @@ const ProgressoComidas = () => {
         />
       </div>
       <div className="card-content">
+        <h2 data-testid="recipe-title">{strMeal}</h2>
         <div className="header-div">
-          <h2 data-testid="recipe-title">{strMeal}</h2>
           <button type="button" onClick={ () => handleShare() }>
             <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
           </button>

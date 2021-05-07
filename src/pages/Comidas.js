@@ -62,6 +62,7 @@ function Comidas() {
                 src={ food.strMealThumb }
                 alt={ food.strMeal }
                 width="100px"
+                className="recipe-img"
               />
               <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
             </div>

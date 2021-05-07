@@ -130,13 +130,7 @@ const DetalhesBebida = () => {
           <button type="button" onClick={ () => handleShare() }>
             <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
           </button>
-          <button
-            type="button"
-            onClick={
-              () => (
-                handleFavorite())
-            }
-          >
+          <button type="button" onClick={ () => (handleFavorite()) }>
             <img
               data-testid="favorite-btn"
               src={ checkFavorite(idDrink) ? blackHeartImg : whiteHeartImg }

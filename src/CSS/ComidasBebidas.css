@@ -64,7 +64,12 @@
 
 .recipe-card {
   margin-top: 10px;
+  width: 100%;
 }
+
+/* .recipe-img {
+  width: 80%;
+} */
 
 .listCard {
   display: flex;
