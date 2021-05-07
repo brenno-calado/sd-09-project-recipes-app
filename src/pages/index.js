@@ -9,6 +9,8 @@ import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
 import RecipeDetails from './RecipeDetails';
 import DrinkDetails from './DrinkDetails';
+import RecipeInProgress from './RecipeInProgress';
+import DrinkInProgress from './DrinkInProgress';
 
 export {
   Login,
@@ -22,4 +24,6 @@ export {
   FavoriteRecipes,
   RecipeDetails,
   DrinkDetails,
+  RecipeInProgress,
+  DrinkInProgress,
 };

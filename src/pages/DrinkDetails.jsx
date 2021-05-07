@@ -1,88 +1,24 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/details.css';
-
-const copy = require('clipboard-copy');
+import StartRecipeButton from '../components/StartRecipeButton';
+import FavoriteButton from '../components/FavoriteButton';
+import ShareButton from '../components/ShareButton';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const {
     drinkId,
     getDrinkId,
     mealRecomendation,
-    setDrinkId,
   } = useContext(RecipesAppContext);
 
-  const [copied, setCopy] = useState(false);
-
-  const history = useHistory();
   const maxRecomendations = 6;
-
-  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  const isFavorited = (
-    favoriteRecipes !== null ? favoriteRecipes.some(
-      (obj) => obj.id === drinkId.idDrink,
-    ) : false);
-  const [favorited, setFavorited] = useState(isFavorited);
-
-  function handleFavorite(item) {
-    console.log(favorited);
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (isFavorited) {
-      const newFavorites = favorites
-        .filter((drink) => drink.id !== item.idDrink);
-      setFavorited(true);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-    } else {
-      const newFavorites = (
-        favorites !== null ? [...favorites,
-          {
-            id: item.idDrink,
-            type: 'bebida',
-            area: '',
-            category: item.strCategory,
-            alcoholicOrNot: item.strAlcoholic,
-            name: item.strDrink,
-            image: item.strDrinkThumb,
-          }] : [{
-          id: item.idDrink,
-          type: 'bebida',
-          area: '',
-          category: item.strCategory,
-          alcoholicOrNot: item.strAlcoholic,
-          name: item.strDrink,
-          image: item.strDrinkThumb,
-        }]
-      );
-      setFavorited(false);
-      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-    }
-  }
-
-  function renderMessage() {
-    return (
-      <span>Link copiado!</span>
-    );
-  }
-
-  function shareButtonClick() {
-    setCopy(true);
-    copy(`http://localhost:3000${history.location.pathname}`);
-    renderMessage();
-  }
 
   useEffect(() => {
     getDrinkId(id);
   }, [getDrinkId, id]);
-
-  useEffect(() => () => {
-    setDrinkId({});
-  }, [setDrinkId]);
 
   const ingredientsList = () => {
     const list = [];
@@ -111,32 +47,8 @@ function DrinkDetails({ match: { params: { id } } }) {
           >
             { drinkId.strDrink }
           </h3>
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ shareButtonClick }
-          >
-            { copied ? renderMessage() : (<img src={ shareIcon } alt="Compartilhar" />) }
-          </button>
-          {isFavorited ? (
-            <button
-              type="button"
-              onClick={ () => handleFavorite(drinkId) }
-              data-testid="favorite-btn"
-              src={ blackHeartIcon }
-            >
-              <img src={ blackHeartIcon } alt="blackHeartIcon" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              onClick={ () => handleFavorite(drinkId) }
-              data-testid="favorite-btn"
-              src={ whiteHeartIcon }
-            >
-              <img src={ whiteHeartIcon } alt="whiteHeartIcon" />
-            </button>
-          )}
+          <ShareButton />
+          <FavoriteButton item={ drinkId } id={ id } type="cocktails" />
           <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
           <ul className="list-ingredients">
             { ingredientsList().map((ingredients, index) => (
@@ -165,13 +77,7 @@ function DrinkDetails({ match: { params: { id } } }) {
               </Carousel.Item>
             )) }
           </Carousel>
-          <button
-            type="button"
-            data-testid="start-recipe-btn"
-            className="button-start-recipe"
-          >
-            Iniciar Receita
-          </button>
+          <StartRecipeButton id={ id } type="cocktails" />
         </div>
       ) : (<p className="loading-message">Loading...</p>)}
     </div>
