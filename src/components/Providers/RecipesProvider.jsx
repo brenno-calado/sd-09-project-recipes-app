@@ -50,8 +50,14 @@ export default function RecipesProvider({ children }) {
         const { id } = recipeObj;
         setFavoriteRecipes([...favoriteRecipes.filter((recipe) => recipe.id !== id)]);
       },
-      addRecipeToInProgress(recipeObj) {
-        setInProgressRecipes([...inProgressRecipes, recipeObj]);
+      addRecipeToInProgress(category, ingredientsArray) {
+        setInProgressRecipes({
+          ...inProgressRecipes,
+          [category]: {
+            ...inProgressRecipes[category],
+            ...ingredientsArray,
+          },
+        });
       },
       setAreaFilter,
     },

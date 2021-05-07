@@ -44,14 +44,9 @@ function EmProcesso() {
   }
 
   useEffect(() => {
-    const nameKey = pathname.includes('comidas') ? 'cocktails' : 'meals';
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...inProgressRecipes,
-      [nameKey]: { [id]: ingredientsList },
-    }));
-
-    // const obj = { [nameKey]: { [id]: ingredientsList } };
-    // addRecipeToInProgress(obj);
+    const nameKey = pathname.includes('comidas') ? 'meals' : 'cocktails';
+    const obj = { [id]: ingredientsList };
+    addRecipeToInProgress(nameKey, obj);
   }, [ingredientsList]);
 
   function handleClick() {
