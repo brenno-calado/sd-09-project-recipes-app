@@ -42,7 +42,7 @@ const CategoriesBar = () => {
         </button>
       )) }
       <button
-        data-testid="all-category-filter"
+        data-testid="All-category-filter"
         key="all"
         type="button"
         name="all"
