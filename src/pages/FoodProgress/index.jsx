@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import fetchApi from '../../services';
 import * as S from '../../components/Details/styled';
@@ -12,8 +12,12 @@ import {
 } from '../../components/Details/services';
 
 export default function FoodProgress(props) {
+  const data = new Date();
+  const dataToday = `${data.getDay()}/${data.getDay()}/${data.getDay()}`;
+  console.log(dataToday);
   const [details, setDetails] = useState(null);
   const [counter, setCounter] = useState(0);
+  const [redirect, setRedirect] = useState(false);
 
   const {
     match: { params, path },
@@ -34,6 +38,26 @@ export default function FoodProgress(props) {
       setCounter(counter - 1);
     }
   };
+
+  const doneRecipe = () => {
+    // const recipeFinished = {
+    //   id: '',
+    //   type: comida-ou-bebida,
+    //   area: area-da-receita-ou-texto-vazio,
+    //   category: categoria-da-receita-ou-texto-vazio,
+    //   alcoholicOrNot: alcoholic-ou-non-alcoholic-ou-texto-vazio
+    //   name: nome-da-receita,
+    //   image: imagem-da-receita,
+    //   doneDate: quando-a-receita-foi-concluida,
+    //   tags: array-de-tags-da-receita-ou-array-vazio,
+    // }
+
+    setRedirect(true);
+    // Aqui tem que ser atualizado;
+  };
+
+  console.log(details);
+  console.log(data.toDateString());
 
   return (
     <S.Container>
@@ -68,21 +92,16 @@ export default function FoodProgress(props) {
           ))}
       </ul>
       <p data-testid="instructions">{details && details.strInstructions}</p>
-      {/* {
-        (ingredientsArray(details) === counter)
-      }
       <button
         type="button"
-        disabled={ ingredientsArray(details) < counter }
-      >
-      */}
-      <Link
         data-testid="finish-recipe-btn"
-        to="/receitas-feitas"
+        disabled={ ((ingredientsArray(details) === null
+          ? '' : (ingredientsArray(details).length) !== counter)) }
+        onClick={ doneRecipe }
       >
         Finalizar Receita
-      </Link>
-      {/* </button> */}
+      </button>
+      { redirect && <Redirect to="/receitas-feitas" /> }
     </S.Container>
   );
 }
