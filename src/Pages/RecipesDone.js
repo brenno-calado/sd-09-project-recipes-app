@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Details+css/Details.css';
 
-//import Header from '../Components/Header';
-
 class RecipesDone extends React.Component {
   constructor(props) {
     super(props);
@@ -16,12 +14,17 @@ class RecipesDone extends React.Component {
       comida: false,
       all: true,
     };
+    this.auxiar = this.auxiar.bind(this);
     this.all = this.all.bind(this);
     this.renderComidas = this.renderComidas.bind(this);
     this.renderBebidas = this.renderBebidas.bind(this);
   }
 
   componentDidMount() {
+    this.auxiar();
+  }
+
+  auxiar() {
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     const filterFood = recipesDone.filter((food) => food.type === 'comida');
     const filterDrink = recipesDone.filter((drink) => drink.type === 'bebida');
@@ -31,6 +34,49 @@ class RecipesDone extends React.Component {
       food: filterFood,
       drink: filterDrink,
     });
+  }
+
+  all() {
+    const { all, doneRecipes } = this.state;
+    if (all) {
+      return (
+        <div>
+          { doneRecipes.map((value, index) => (
+            <div key={ index }>
+              <Link to={ `/${value.type}s/${value.id}` }>
+                <img
+                  className="Imagem"
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ value.image }
+                  alt="img-recipe"
+                />
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {value.name}
+                </p>
+              </Link>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { value.category }
+              </p>
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {value.doneDate}
+              </p>
+              <span
+                data-testid={ `${index}-horizontal-tag` }
+              >
+                {value.tags[0]}
+              </span>
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return null;
   }
 
   renderComidas() {
@@ -117,49 +163,6 @@ class RecipesDone extends React.Component {
       );
     }
     return false;
-  }
-
-  all() {
-    const { all, doneRecipes } = this.state;
-    if (all) {
-      return (
-        <div>
-          { doneRecipes.map((value, index) => (
-            <div key={ index }>
-              <Link to={ `/${value.type}s/${value.id}` }>
-                <img
-                  className="Imagem"
-                  data-testid={ `${index}-horizontal-image` }
-                  src={ value.image }
-                  alt="img-recipe"
-                />
-                <p
-                  data-testid={ `${index}-horizontal-name` }
-                >
-                  {value.name}
-                </p>
-              </Link>
-              <p
-                data-testid={ `${index}-horizontal-top-text` }
-              >
-                { value.category }
-              </p>
-              <p
-                data-testid={ `${index}-horizontal-done-date` }
-              >
-                {value.doneDate}
-              </p>
-              <span
-                data-testid={ `${index}-horizontal-tag` }
-              >
-                {value.tags[0]}
-              </span>
-            </div>
-          ))}
-        </div>
-      );
-    }
-    return null;
   }
 
   render() {
