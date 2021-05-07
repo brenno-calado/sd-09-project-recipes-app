@@ -153,8 +153,12 @@
 }
 
 /* generic rules */
-.detailRecipe-wrapper .fixed-btn {
+.fixed-btn {
   bottom: 0;
   position: fixed;
   right: 0;
+}
+
+.doneIngredient {
+  text-decoration: line-through;
 }

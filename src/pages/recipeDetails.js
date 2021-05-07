@@ -30,6 +30,7 @@ export default function RecipeDetails() {
         <div className="detailRecipe-wrapper">
           <DetailHeader recipe={ recipe[0] } isFood={ isFood } />
           <IngredientsList recipe={ recipe[0] } />
+          <h3>Instructions</h3>
           <p data-testid="instructions">{recipe[0].strInstructions}</p>
           {isFood && <MealVideo
             code={ recipe[0].strYoutube.split('=')[1] }
