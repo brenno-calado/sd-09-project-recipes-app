@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchBar from './SearchBar';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
@@ -30,7 +31,7 @@ export default function Header() {
       >
         <img src={ SearchIcon } alt="Search Icon" />
       </button>
-
+      <SearchBar />
     </header>
   );
 }
