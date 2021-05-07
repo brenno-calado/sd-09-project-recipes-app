@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
-    <div className="meals">
+    <div className="meals" style={ { backgroundColor: '#F5F5F5' } }>
       <Switch>
         <Route path="/comidas/:id/in-progress" component={ RecipeInProgress } />
         <Route path="/bebidas/:id/in-progress" component={ RecipeInProgress } />

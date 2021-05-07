@@ -49,7 +49,7 @@ function RecipeList({
   const mealsCards = (
     recipes.map((recipe, index) => (
       <Link to={ `/comidas/${recipe.idMeal}` } key={ `${recipe.idMeal}/${index}` }>
-        <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
+        <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` } style={ { backgroundColor: '#F5F5F5' } }>
           <Image
             roundedCircle
             style={ { width: 200 } }
@@ -71,7 +71,8 @@ function RecipeList({
       <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
         <Col lg sm>
           <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
-            <Card.Img
+            <Image
+              roundedCircle
               style={ { width: 200 } }
               src={ recipe.strDrinkThumb }
               alt="foto da receita"

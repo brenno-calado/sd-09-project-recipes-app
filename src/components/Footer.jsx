@@ -2,41 +2,58 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container'
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import { changePath } from '../redux/actions';
-import '../css/Footer.css';
+
+const styleImg = {
+  height: 30,
+};
 
 const Footer = ({ pathnameDispatcher }) => (
   <footer data-testid="footer">
-    <Link
-      to="/bebidas"
-      onClick={ () => pathnameDispatcher('/bebidas', 'bebidas') }
+    <Navbar
+      expand="lg"
+      variant="light"
+      fixed="bottom"
+      style={ { backgroundColor: '#F2EDA2', height: 30 } }
     >
-      <img
-        src={ drinkIcon }
-        data-testid="drinks-bottom-btn"
-        alt="Icone da pagina de bebida "
-      />
-    </Link>
-    <Link to="/explorar">
-      <img
-        src={ exploreIcon }
-        data-testid="explore-bottom-btn"
-        alt="Icone da pagina de bebida "
-      />
-    </Link>
-    <Link
-      to="/comidas"
-      onClick={ () => pathnameDispatcher('/comidas', 'comidas') }
-    >
-      <img
-        src={ mealIcon }
-        data-testid="food-bottom-btn"
-        alt="Icone da pagina de bebida "
-      />
-    </Link>
+      <Container>
+        <Link
+          to="/bebidas"
+          onClick={ () => pathnameDispatcher('/bebidas', 'bebidas') }
+        >
+          <img
+            src={ drinkIcon }
+            style={ styleImg }
+            data-testid="drinks-bottom-btn"
+            alt="Icone da pagina de bebida "
+          />
+        </Link>
+        <Link to="/explorar">
+          <img
+            style={ styleImg }
+            src={ exploreIcon }
+            data-testid="explore-bottom-btn"
+            alt="Icone da pagina de bebida "
+          />
+        </Link>
+        <Link
+          to="/comidas"
+          onClick={ () => pathnameDispatcher('/comidas', 'comidas') }
+        >
+          <img
+            style={ styleImg }
+            src={ mealIcon }
+            data-testid="food-bottom-btn"
+            alt="Icone da pagina de bebida "
+          />
+        </Link>
+      </Container>
+    </Navbar>
   </footer>
 );
 
