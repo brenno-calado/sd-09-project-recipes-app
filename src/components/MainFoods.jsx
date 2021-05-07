@@ -7,6 +7,7 @@ import Footer from './Footer';
 import MealContext from '../context/MealContext';
 
 function MainFoods() {
+  const { redirect, setRedirect } = useContext(MealContext);
   let { foods } = useContext(MealContext);
   foods = foods || []; // Refatorar para resolver problema de assincronicidade
   const cardsLimit = 12;
@@ -16,7 +17,11 @@ function MainFoods() {
   const foodFilterCallBack = useCallback(() => foodFilter(), [foodFilter]);
 
   useEffect(() => {
-    foodFilterCallBack();
+    if (redirect) {
+      setRedirect(false);
+    } else {
+      foodFilterCallBack();
+    }
   }, []);
 
   return (

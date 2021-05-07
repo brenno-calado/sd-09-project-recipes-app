@@ -17,6 +17,7 @@ const MealProvider = ({ children }) => {
   const [radio, setRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [recipeDt, setRecipeDt] = useState({});
+  const [redirect, setRedirect] = useState(false);
 
   const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -95,6 +96,8 @@ const MealProvider = ({ children }) => {
     drinkFilter,
     recipeDt,
     setRecipeDt,
+    redirect,
+    setRedirect,
   };
 
   return (
