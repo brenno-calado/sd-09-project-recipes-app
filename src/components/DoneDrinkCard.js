@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
+import '../CSS/DoneCard.css';
 
 function DoneDrinkCard({ recipe, index, linkShared, shareLink }) {
   return (
-    <div key={ recipe.name }>
-      <div>
+    <div key={ recipe.name } className="meal-card">
+      <div className="img-div">
         <Link
           to={
             recipe.type === 'comida'
@@ -18,51 +19,56 @@ function DoneDrinkCard({ recipe, index, linkShared, shareLink }) {
             alt=""
             data-testid={ `${index}-horizontal-image` }
             width="100px"
+            className="food-img"
           />
         </Link>
       </div>
-      <h4
-        data-testid={ `${index}-horizontal-top-text` }
-      >
-        {recipe.alcoholicOrNot}
-      </h4>
-      <Link
-        to={
-          recipe.type === 'comida'
-            ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
-        }
-      >
-        <h1 data-testid={ `${index}-horizontal-name` }>
-          { recipe.name }
-        </h1>
-      </Link>
-      <p data-testid={ `${index}-horizontal-done-date` }>
-        { recipe.doneDate }
-      </p>
-      <button
-        type="button"
-        onClick={ () => shareLink(recipe.id, recipe.type) }
-      >
-        <img
-          data-testid={ `${index}-horizontal-share-btn` }
-          src={ shareIcon }
-          alt="compartilhar"
-        />
-      </button>
-      { linkShared && <p>Link copiado!</p> }
-      { recipe.tags.map((tag, tagIndex) => (
-        <p
-          data-testid={ `0-${tag}-horizontal-tag` }
-          key={ tagIndex }
+      <div className="infos-div">
+        <div className="recipe-names">
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {recipe.alcoholicOrNot}
+          </p>
+          <Link
+            to={
+              recipe.type === 'comida'
+                ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}`
+            }
+          >
+            <h3 data-testid={ `${index}-horizontal-name` }>
+              { recipe.name }
+            </h3>
+          </Link>
+        </div>
+        <div className="recipe-card-buttons">
+          <p data-testid={ `${index}-horizontal-done-date` }>
+            {`Data: ${recipe.doneDate}`}
+          </p>
+          <button
+            type="button"
+            onClick={ () => shareLink(recipe.id, recipe.type) }
+          >
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="compartilhar"
+            />
+          </button>
+        </div>
+        { linkShared && <p>Link copiado!</p> }
+        { recipe.tags.map((tag, tagIndex) => (
+          <p
+            data-testid={ `0-${tag}-horizontal-tag` }
+            key={ tagIndex }
+          >
+            { tag }
+          </p>
+        )) }
+        {/* <p
+          data-testid={ `${index}-${recipe.type}-horizontal-tag` }
         >
-          { tag }
-        </p>
-      )) }
-      <p
-        data-testid={ `${index}-${recipe.type}-horizontal-tag` }
-      >
-        { recipe.type }
-      </p>
+          { recipe.type }
+        </p> */}
+      </div>
     </div>
   );
 }
