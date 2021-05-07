@@ -1,20 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import RecipesAppContext from './RecipesAppContext';
-import {
-  fetchMealApi,
-  fetchMealsCategories,
-  fetchMealsByCategory,
-  fetchMealsWithId,
-  fetchMealRecomendation,
-} from '../services/MealApi';
-import {
-  fetchCocktailApi,
-  fetchCocktailsCategories,
-  fetchCocktailsByCategory,
-  fetchDrinksWithId,
-  fetchDrinksRecomendation,
-} from '../services/CocktailApi';
+import { fetchMealApi, fetchMealsCategories, fetchMealsByCategory, fetchMealsWithId,
+  fetchMealRecomendation } from '../services/MealApi';
+import { fetchCocktailApi, fetchCocktailsCategories, fetchCocktailsByCategory,
+  fetchDrinksWithId, fetchDrinksRecomendation } from '../services/CocktailApi';
 
 const { Provider } = RecipesAppContext;
 

@@ -81,7 +81,7 @@ function FavoriteRecipes() {
           Drinks
         </button>
       </div>
-      { mealByFilter.map((meal, index) => (
+      { (mealByFilter !== null) && mealByFilter.map((meal, index) => (
         meal.type === 'comida' ? (
           <div>
             <Link
