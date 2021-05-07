@@ -80,3 +80,14 @@
 .recipes-right {
   right: 0;
 }
+
+@media (max-width: 600px)
+{
+  .recommendedArea-left {
+    left: 0;
+  }
+  
+  .recommendedArea-right {
+    right: 0;
+  }
+}
