@@ -7,6 +7,7 @@ import { getDrinkIdDetails } from '../services';
 import shareImg from '../images/shareIcon.svg';
 import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
+import '../CSS/DetalhesProgresso.css';
 
 const checkFavorite = (favoriteRecipes, recipeId) => {
   if (favoriteRecipes.find((recipe) => recipe.id === recipeId)) return true;
@@ -115,50 +116,63 @@ const ProgressoBebidas = () => {
     strDrink, strCategory, strInstructions, idDrink } = idDetails;
 
   return (
-    <div>
-      <img src={ strDrinkThumb } alt={ strDrink } data-testid="recipe-photo" />
-      <h2 data-testid="recipe-title">{strDrink}</h2>
-      <button type="button" onClick={ () => handleShare() }>
-        <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
-      </button>
-      { linkShared && <p>Link copiado!</p> }
-      <button type="button" onClick={ handleFavorite }>
+    <div className="recipe-details">
+      <div className="img-card">
         <img
-          data-testid="favorite-btn"
-          src={ checkFavorite(favoriteRecipes, idDrink) ? blackHeartImg : whiteHeartImg }
-          alt="Favoritas"
+          src={ strDrinkThumb }
+          alt={ strDrink }
+          data-testid="recipe-photo"
+          className="recipe-img"
         />
-      </button>
-      <p data-testid="recipe-category">{strCategory}</p>
-      <div className="ingredient-steps">
-        { idDetails && getIngredients().map((ingredient, index) => {
-          stepsLimit += 1;
-          return (
-            <CheckBoxProgress
-              ingredient={ ingredient }
-              index={ index }
-              key={ index }
-              setStepsFinished={ setStepsFinished }
-              stepsFinished={ stepsFinished }
-              // ingredientsUsed={ handleIngredientsUsed }
-              inProgressRecipe={ handleProgressDrink }
-              ingStatus={ ingStatus }
-              setIngStatus={ setIngStatus }
-              idRecipe={ idDrink }
-              // type="cocktails"
-            />
-          );
-        }) }
       </div>
-      <p data-testid="instructions">{strInstructions}</p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        disabled={ stepsFinished < stepsLimit }
-        onClick={ handleFinishRecipe }
-      >
-        Finalizar Receita
-      </button>
+      <div className="card-content">
+        <div className="header-div">
+          <h2 data-testid="recipe-title">{strDrink}</h2>
+          <button type="button" onClick={ () => handleShare() }>
+            <img data-testid="share-btn" src={ shareImg } alt="Compartilhar" />
+          </button>
+          <button type="button" onClick={ handleFavorite }>
+            <img
+              data-testid="favorite-btn"
+              src={ checkFavorite(favoriteRecipes, idDrink)
+                ? blackHeartImg : whiteHeartImg }
+              alt="Favoritas"
+            />
+          </button>
+        </div>
+        { linkShared && <p>Link copiado!</p> }
+        <h4 data-testid="recipe-category">{strCategory}</h4>
+        <h4>Ingredientes</h4>
+        <div className="ingredient-steps">
+          { idDetails && getIngredients().map((ingredient, index) => {
+            stepsLimit += 1;
+            return (
+              <CheckBoxProgress
+                ingredient={ ingredient }
+                index={ index }
+                key={ index }
+                setStepsFinished={ setStepsFinished }
+                stepsFinished={ stepsFinished }
+                inProgressRecipe={ handleProgressDrink }
+                ingStatus={ ingStatus }
+                setIngStatus={ setIngStatus }
+                idRecipe={ idDrink }
+              />
+            );
+          }) }
+        </div>
+        <h4>Instruções</h4>
+        <p data-testid="instructions">{strInstructions}</p>
+        <button
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ stepsFinished < stepsLimit }
+          onClick={ handleFinishRecipe }
+          className="finish-recipe-btn"
+        >
+          Finalizar Receita
+        </button>
+      </div>
       {redirect ? <Redirect to="/receitas-feitas" /> : null}
     </div>
   );

@@ -9,7 +9,7 @@ import whiteHeartImg from '../images/whiteHeartIcon.svg';
 import blackHeartImg from '../images/blackHeartIcon.svg';
 import next from '../images/next.svg';
 import previous from '../images/previous.svg';
-import '../CSS/Detalhes.css';
+import '../CSS/DetalhesProgresso.css';
 
 const checkDoneRecipes = (doneRecipes, recipeId) => {
   if (doneRecipes.find((recipe) => recipe.id === recipeId)) {
