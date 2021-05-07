@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchIngredientImg: (IngredientName) => (
     dispatch(fetchIngredientImgAction(IngredientName))),
 });
-
+/* ola */
 const mapStateToProps = (state) => ({
   img: state.exploreReducer.image,
 });
