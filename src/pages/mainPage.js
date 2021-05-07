@@ -38,12 +38,6 @@ export default function MainPageFood() {
   const listByIngredient = useSelector((state) => (
     state.recipesReducer.selectedIngredient));
 
-
-  const fetchDispatch = async (fetchParam, fetchValue, value) => {
-    const fetch = await getFoodsAndDrinks(type, fetchParam, value);
-    dispatch(fetchValues[type][fetchValue](fetch));
-  };
-
   const { pathname } = useLocation();
   const path = pathname.replace('/', '');
 
@@ -95,9 +89,7 @@ export default function MainPageFood() {
     return () => {
       dispatch(getOneIngredient(''));
     };
-
   }, [catSelected, dispatch, listByIngredient, type]);
-
 
   const selectCategoryButton = async (value) => {
     if (value !== 'All' && value !== catSelected) {
