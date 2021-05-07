@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import Carousel from 'react-bootstrap/Carousel';
+import Carousel from 'react-elastic-carousel';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -35,10 +35,10 @@ const RecipeDetails = ({ match: { path, params } }) => {
 
   const clipBoard = getClipBoard();
 
-  const breakPoints = [
-    { width: 360, itemsToShow: 2 },
-    { width: 640, itemsToShow: 2 },
-  ];
+  // const breakPoints = [
+  //   { width: 360, itemsToShow: 2 },
+  //   { width: 640, itemsToShow: 2 },
+  // ];
 
   const buttonStyle = {
     position: 'fixed',
@@ -68,10 +68,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
       const recommendationData = recommended.slice(0, max);
       return recommendationData
         .map((elem, index) => (
-
-          <Carousel.Item key={ index }>
-            <RecommendedCard recipe={ elem } index={ index } />
-          </Carousel.Item>));
+          <RecommendedCard key={ index } recipe={ elem } index={ index } />));
     }
   };
 
@@ -179,7 +176,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
         data-testid="video"
       />
       <h4>Recommended</h4>
-      <Carousel itemsToShow={ 2 }>
+      <Carousel itemsToShow={ 1 }>
         {renderRecommended()}
       </Carousel>
       <button
