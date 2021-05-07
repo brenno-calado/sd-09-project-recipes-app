@@ -10,7 +10,7 @@ function Profile() {
     <div>
       <Header title="Perfil" />
       <main className="buttons-container">
-        <h3>email@email.com</h3>
+        <h3 data-testid="profile-email">email@mail.com</h3>
         <DoneRecipesButton />
         <FavoriteRecipesButton />
         <LogoutButton />

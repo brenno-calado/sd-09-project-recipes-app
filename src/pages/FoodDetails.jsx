@@ -71,10 +71,10 @@ function FoodDetails({ match }) {
   };
 
   const favorited = () => {
-    const type = 'meal';
+    const type = 'comida';
     const area = mealDetails.strArea;
     const category = mealDetails.strCategory;
-    const alcoholicOrNot = 'Non alcoholic';
+    const alcoholicOrNot = '';
     const name = mealDetails.strMeal;
     const image = mealDetails.strMealThumb;
     const favoriteRecipes = [{ id, type, area, category, alcoholicOrNot, name, image }];
@@ -175,7 +175,10 @@ function FoodDetails({ match }) {
   };
 
   const startRecipe = () => {
-    localStorage.setItem(`start${id}`, 'true');
+    const inProgressRecipes = {
+      }
+  }
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
   };
 
   const startButton = () => (
