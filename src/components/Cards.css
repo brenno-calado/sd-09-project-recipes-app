@@ -1,9 +1,19 @@
 .food-recipe {
-  height: 300px;
-  width: 300px;
+  height: 100px;
+  width: 100px;
 }
 
 .drink-recipe {
-  height: 300px;
-  width: 300px;
+  height: 100px;
+  width: 100px;
+}
+
+.card-container {
+  height: 150px;
+  margin: 1px;
+  width: 100px;
+}
+
+.recipes-title {
+  font-size: 20;
 }

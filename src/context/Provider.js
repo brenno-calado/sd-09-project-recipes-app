@@ -6,11 +6,12 @@ import { getRecipesByCategories } from '../services/api';
 function Provider({ children }) {
   const [title, setTitle] = useState();
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [restartRecipes, setRestartRecipes] = useState(false);
+  const [idRecipe, setIdRecipes] = useState();
   const [categoryName, setCategoryName] = useState('');
   const [dataFromApi, setDataFromApi] = useState(
     { recipes: [], meal: '', loading: false },
   );
-  const [restartRecipes, setRestartRecipes] = useState(false);
   const getTitleValue = () => {
     setTitle(title);
   };
@@ -36,11 +37,13 @@ function Provider({ children }) {
     getTitleValue,
     dataFromApi,
     setDataFromApi,
+    restartRecipes,
+    setRestartRecipes,
+    idRecipe,
+    setIdRecipes,
     categoryName,
     setCategoryName,
     getCategoryName,
-    restartRecipes,
-    setRestartRecipes,
   };
 
   return (

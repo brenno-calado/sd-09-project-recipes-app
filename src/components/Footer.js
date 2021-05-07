@@ -8,7 +8,8 @@ import './Footer.css';
 
 function Footer() {
   const history = useHistory();
-  const { setTitle } = useContext(RecipesContext);
+  const { setTitle, setDataFromApi, dataFromApi, setRestartRecipes,
+  } = useContext(RecipesContext);
 
   const goToDrinks = () => {
     history.push('/bebidas');
@@ -23,6 +24,8 @@ function Footer() {
   const goToFoods = () => {
     history.push('/comidas');
     setTitle('Comidas');
+    setDataFromApi({ ...dataFromApi, recipes: [] });
+    setRestartRecipes(true);
   };
 
   return (

@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function ExploreFoods() {
+  const { setIdRecipes } = useContext(RecipesContext);
   const [meal, setMeal] = useState({});
   const history = useHistory();
+
   const handleClickToIngredients = () => {
     history.push('/explorar/comidas/ingredientes');
   };
@@ -20,9 +23,14 @@ function ExploreFoods() {
         .then((myMeal) => myMeal.meals[0]));
     setMeal(requestMeal);
   };
-  foodDetailsRandom();
+
+  useEffect(() => {
+    foodDetailsRandom();
+  }, []);
 
   const handleClickToSurpriseMe = () => {
+    setIdRecipes(meal.idMeal);
+    console.log(meal.idMeal);
     history.push(`/comidas/${meal.idMeal}`);
   };
 
