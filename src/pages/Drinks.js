@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, Link } from 'react-router-dom';
 import { objectOf } from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
@@ -33,7 +33,12 @@ class Drinks extends React.Component {
         {itens && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((drink, index) => (
-          <RecipeDrinkCard key={ drink[idType] } drink={ drink } index={ index } />))}
+          <Link
+            to={ `${pathName}/${itens[index][idType]}` }
+            key={ drink[idType] }
+          >
+            <RecipeDrinkCard drink={ drink } index={ index } />
+          </Link>))}
         <FooterMenu />
       </div>
     );
