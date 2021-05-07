@@ -102,6 +102,7 @@ class index extends Component {
   copyCurrentLink() {
     const { shareClicked } = this.state;
     const { recipeType, id } = this.props;
+    console.log(recipeType);
     const { location: { protocol, host } } = window;
     const url = `${protocol}//${host}/${recipeType}/${id}`;
 

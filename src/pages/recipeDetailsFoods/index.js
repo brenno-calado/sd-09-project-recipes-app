@@ -116,7 +116,7 @@ class index extends Component {
 
   render() {
     const { mealData, video } = this.state;
-    const { match: { params: { id, recipeType } } } = this.props;
+    const { match: { params: { id } } } = this.props;
     return (
       <div>
         <MealHeaderImage image={ this.getMealImage() } />
@@ -125,7 +125,7 @@ class index extends Component {
           category={ this.getCategory() }
           recipe={ mealData }
           id={ id }
-          recipeType={ recipeType }
+          recipeType="comidas"
         />
         <MealIngredients
           ingredients={ this.getIngredients() }

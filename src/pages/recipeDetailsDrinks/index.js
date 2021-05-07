@@ -104,7 +104,7 @@ class index extends Component {
 
   render() {
     const { drinkData } = this.state;
-    const { match: { params: { id, recipeType } } } = this.props;
+    const { match: { params: { id } } } = this.props;
     return (
       <div>
         <MealHeaderImage image={ this.getDrinkImage() } />
@@ -113,7 +113,7 @@ class index extends Component {
           category={ this.getCategory() }
           recipe={ drinkData }
           id={ id }
-          recipeType={ recipeType }
+          recipeType="bebidas"
         />
         <MealIngredients
           ingredients={ this.getIngredients() }
