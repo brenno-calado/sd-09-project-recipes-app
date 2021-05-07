@@ -73,6 +73,26 @@ const getMealsRandom = async () => {
   }
 };
 
+const getAreaList = async () => {
+  try {
+    const requestAreaList = await fetch(`${MEAL_DB_BASE}list.php?a=list`);
+    const responseArealist = await requestAreaList.json();
+    return responseArealist.meals;
+  } catch (error) {
+    console.log('Area list...', error);
+  }
+};
+
+const getByArea = async (area) => {
+  try {
+    const requestByArea = await fetch(`${MEAL_DB_BASE}filter.php?a=${area}`);
+    const responseByArea = await requestByArea.json();
+    return responseByArea.meals;
+  } catch (error) {
+    console.log('By area list...', error);
+  }
+};
+
 export {
   getMealsByName,
   getMealsRandom,
@@ -81,4 +101,6 @@ export {
   getMealByIngredients,
   getMealCategorys,
   getMealsByCategory,
+  getAreaList,
+  getByArea,
 };

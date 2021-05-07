@@ -20,6 +20,7 @@ import ProcessoBebida from './pages/ProcessoBebida';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Login from './pages/Login';
+import ExplorarBebidasArea from './pages/ExplorarBebidasArea';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
+          <Route path="/explorar/bebidas/area" component={ ExplorarBebidasArea } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />

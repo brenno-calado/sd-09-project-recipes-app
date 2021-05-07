@@ -1,28 +1,13 @@
-import React, { useContext, useCallback, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
 import Header from './Header';
 import MainButtons from './MainButtons';
+import FoodCards from './FoodCards';
 import Footer from './Footer';
 import MealContext from '../context/MealContext';
 
 function MainFoods() {
-  const { redirect, setRedirect } = useContext(MealContext);
-  let { foods } = useContext(MealContext);
-  foods = foods || []; // Refatorar para resolver problema de assincronicidade
-  const cardsLimit = 12;
-
-  const { foodFilter } = useContext(MealContext);
-
-  const foodFilterCallBack = useCallback(() => foodFilter(), [foodFilter]);
-
-  useEffect(() => {
-    if (redirect) {
-      setRedirect(false);
-    } else {
-      foodFilterCallBack();
-    }
-  }, []);
+  const { foods } = useContext(MealContext);
 
   return (
     <>
@@ -33,22 +18,7 @@ function MainFoods() {
 
       <MainButtons />
 
-      {foods.slice(0, cardsLimit).map((food, index) => (
-        <div key={ Math.random() }>
-          <Link
-            to={ `/comidas/${food.idMeal}` }
-            data-testid={ `${index}-recipe-card` }
-          >
-            <img
-              src={ food.strMealThumb }
-              alt={ `Imagem do prato ${food.idMeal}` }
-              data-testid={ `${index}-card-img` }
-              style={ { width: '150px' } }
-            />
-          </Link>
-          <h4 data-testid={ `${index}-card-name` }>{ food.strMeal }</h4>
-        </div>
-      ))}
+      <FoodCards />
 
       <Footer />
     </>
