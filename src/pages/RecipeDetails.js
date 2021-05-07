@@ -116,18 +116,12 @@ const RecipeDetails = ({ match: { path, params } }) => {
         const data = await response.json();
         const food = data.meals[0];
         setDetails(food);
-        const recommendedResponse = await fetch(recommendedDrinkUrl);
-        const recommendedData = await recommendedResponse.json();
-        setRecommendedRecipes(recommendedData);
       }
       if (isDrinksPage) {
         const response = await fetch(drinkUrl);
         const drinkData = await response.json();
         const drink = drinkData.drinks[0];
         setDetails(drink);
-        const recommendedResponse = await fetch(recommendedFoodUrl);
-        const recommendedData = await recommendedResponse.json();
-        setRecommendedRecipes(recommendedData);
       }
     };
     fetchRecipe();
