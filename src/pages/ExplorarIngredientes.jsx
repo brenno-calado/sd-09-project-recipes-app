@@ -8,11 +8,12 @@ import '../styles/ExplorarIngredientes.css';
 import useRecipes from '../hooks/useRecipes';
 import { RecipesContext } from '../context';
 
-
 function ExplorarIngredientes() {
   const [ingredientsList, setIngredientsList] = useState();
   const { pathname } = useLocation();
-  const type = pathname.includes('comidas') ? ['comidas', 'strIngredient'] : ['bebidas', 'strIngredient1'];
+  const type = pathname.includes('comidas')
+    ? ['comidas', 'strIngredient']
+    : ['bebidas', 'strIngredient1'];
   const imgURL = 'https://www.themealdb.com/images/ingredients/';
   const [loading, setLoading] = useState(true);
   const MAX_PG = 12;
