@@ -16,7 +16,7 @@ class Drinks extends React.Component {
   }
 
   render() {
-    const { recipes, isLoading } = this.props;
+    const { recipes, isLoading, isCategory } = this.props;
     const searchIcon = true;
     const pathName = window.location.pathname;
     const mxmItens = 12;
@@ -26,12 +26,11 @@ class Drinks extends React.Component {
     if (recipes === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-    if (!itens[0]) return <p>Loading...</p>;
     return (
       <div>
         <Header title="Bebidas" searchIcon={ searchIcon } />
         <CategoriesList />
-        {itens && itens.length === 1
+        {itens && !isCategory && itens.length === 1
           && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
         {itens && itens.map((drink, index) => (
           <Link

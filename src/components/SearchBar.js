@@ -18,11 +18,11 @@ class SearchBar extends React.Component {
     this.setState({ [target.name]: target.id });
   }
 
-  onClick(radioSearchInput, searchInputValue) {
-    const { setIsCategoryToFalse, fetchRecipes } = this.props;
-    fetchRecipes(radioSearchInput, searchInputValue);
-    setIsCategoryToFalse();
-  }
+  // onClick(radioSearchInput, searchInputValue) {
+  //   const { setIsCategoryToFalse, fetchRecipes } = this.props;
+  //   fetchRecipes(radioSearchInput, searchInputValue);
+  //   setIsCategoryToFalse();
+  // }
 
   async inputTextHandleChange({ target }) {
     await this.setState({ searchInputValue: target.value });
@@ -37,7 +37,7 @@ class SearchBar extends React.Component {
   }
 
   render() {
-    const { searchInput } = this.props;
+    const { searchInput, fetchRecipes } = this.props;
     const { radioSearchInput, searchInputValue } = this.state;
     return (
       <div>
@@ -50,7 +50,7 @@ class SearchBar extends React.Component {
             />
             <label htmlFor="ingredient">
               <input
-                id="ingredient-search-radio"
+                id="ingredient"
                 type="radio"
                 data-testid="ingredient-search-radio"
                 name="radioSearchInput"
@@ -60,7 +60,7 @@ class SearchBar extends React.Component {
             </label>
             <label htmlFor="name">
               <input
-                id="name-search-radio"
+                id="name"
                 type="radio"
                 data-testid="name-search-radio"
                 name="radioSearchInput"
@@ -70,7 +70,7 @@ class SearchBar extends React.Component {
             </label>
             <label htmlFor="first-letter">
               <input
-                id="first-letter-search-radio"
+                id="first-letter"
                 type="radio"
                 data-testid="first-letter-search-radio"
                 name="radioSearchInput"
@@ -81,53 +81,11 @@ class SearchBar extends React.Component {
             <button
               type="button"
               data-testid="exec-search-btn"
-              onClick={ () => fetchRecipesAction(radioSearchInput, searchInputValue) }
+              onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
             >
               Buscar
             </button>
           </div>)}
-        <input
-          data-testid="search-input"
-          placeholder="Buscar"
-          onChange={ this.inputTextHandleChange }
-        />
-        <label htmlFor="ingredient">
-          <input
-            id="ingredient"
-            type="radio"
-            data-testid="ingredient-search-radio"
-            name="radioSearchInput"
-            onChange={ this.handleChange }
-          />
-          Ingrediente
-        </label>
-        <label htmlFor="name">
-          <input
-            id="name"
-            type="radio"
-            data-testid="name-search-radio"
-            name="radioSearchInput"
-            onChange={ this.handleChange }
-          />
-          Nome
-        </label>
-        <label htmlFor="first-letter">
-          <input
-            id="first-letter"
-            type="radio"
-            data-testid="first-letter-search-radio"
-            name="radioSearchInput"
-            onChange={ this.handleChange }
-          />
-          Primeira letra
-        </label>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ () => this.onClick(radioSearchInput, searchInputValue) }
-        >
-          Buscar
-        </button>
       </div>
     );
   }
