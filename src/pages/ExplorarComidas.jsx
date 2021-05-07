@@ -12,23 +12,23 @@ function Explorar() {
           type="button"
           data-testid="explore-by-ingredient"
         >
-        Por Ingredientes
+          Por Ingredientes
         </button>
       </Link>
       <Link to="/explorar/comidas/area">
         <button
-        type="button"
-        data-testid="explore-by-area"
+          type="button"
+          data-testid="explore-by-area"
         >
-        Por Local de Origem
+          Por Local de Origem
         </button>
       </Link>
       <Link to="/explorar/comidas/:id">
         <button
-        type="button"
-        data-testid="explore-surprise"
+          type="button"
+          data-testid="explore-surprise"
         >
-        Me Surpreenda!
+          Me Surpreenda!
         </button>
       </Link>
       <Footer />
