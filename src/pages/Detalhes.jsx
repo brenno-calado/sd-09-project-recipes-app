@@ -70,10 +70,12 @@ function Detalhes() {
   }
 
   function renderStartButtonText() {
-    const recipes = type[0] === 'comidas'
-      ? inProgressRecipes.meals : inProgressRecipes.cocktails;
-    return Object.keys(recipes).find((recipeID) => recipeID === id)
-      ? 'Continuar Receita' : 'Iniciar Receita';
+    if (inProgressRecipes[type[0]]) {
+      const recipes = inProgressRecipes[type[0]];
+      return Object.keys(recipes).find((recipeID) => recipeID === id)
+        ? 'Continuar Receita' : 'Iniciar Receita';
+    }
+    return 'Iniciar Receita';
   }
 
   return (
