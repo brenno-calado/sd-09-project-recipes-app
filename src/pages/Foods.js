@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
@@ -9,18 +10,6 @@ import fetchRecipes from '../services/api';
 import CategoryButtons from '../components/CategoryButtons';
 
 function Foods() {
-<<<<<<< HEAD
-  const { showSearchBar, setDataFromApi,
-    dataFromApi, setRestartRecipes, restartRecipes } = useContext(RecipesContext);
-  const history = useHistory();
-  const { pathname } = history.location;
-  const getRecipes = async () => {
-    const route = pathname.substr(1);
-    setDataFromApi({ ...dataFromApi });
-    const { meals } = await fetchRecipes(route);
-    if (dataFromApi.recipes.length <= 0) {
-      return setDataFromApi({ ...dataFromApi, recipes: meals });
-=======
   const { showSearchBar, setDataFromApi, dataFromApi, categoryName,
     getCategoryName, restartRecipes, setRestartRecipes } = useContext(RecipesContext);
 
@@ -32,14 +21,16 @@ function Foods() {
     setDataFromApi({ ...dataFromApi, loading: true });
     const { meals } = await fetchRecipes(route);
     setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
-    if (dataFromApi.recipes.length === 0) {
+    if (dataFromApi.recipes.length <= 0) {
       setDataFromApi({ ...dataFromApi, recipes: meals });
->>>>>>> 67c0045839e672f10bf0fb9bb10bcabdad9b3f66
     }
   };
 
   useEffect(() => {
-    getRecipes();
+    if (dataFromApi.recipes.length <= 0) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
   }, []);
 
   if (restartRecipes === true) {
@@ -47,13 +38,10 @@ function Foods() {
     setRestartRecipes(false);
   }
 
-<<<<<<< HEAD
-=======
   useEffect(() => {
     getCategoryName('comidas');
   }, [categoryName]);
 
->>>>>>> 67c0045839e672f10bf0fb9bb10bcabdad9b3f66
   return (
     <div>
       { pathname === '/comidas' ? (

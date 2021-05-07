@@ -26,7 +26,6 @@ export const getFilteredRecipes = async (mealtype, query, filter) => {
   return response;
 };
 
-<<<<<<< HEAD
 export async function requestByIngredient(ingredient) {
   const request = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`);
   const response = request.json();
@@ -50,7 +49,6 @@ export async function requestRecipes() {
     .then((response) => response.json());
   return request.meals;
 }
-=======
 export const getMealsCatergories = async (url) => {
   const request = await fetch(`${URLBASE[url]}/list.php?c=list`)
     .then((response) => response.json());
@@ -68,4 +66,3 @@ export const getRecipesByCategories = (url, category) => {
       .then((data) => data));
   return request;
 };
->>>>>>> 67c0045839e672f10bf0fb9bb10bcabdad9b3f66

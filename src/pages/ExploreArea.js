@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 import Header from '../components/Header';
 import SearchBar from '../components/SearchBar';
@@ -12,6 +12,7 @@ function ExploreArea() {
     recipesFoods, setRecipesFoods } = useContext(RecipesContext);
   const twelveCountries = 12;
   const recipes = recipesFoods.slice(0, twelveCountries);
+  const history = useHistory();
 
   async function requestRecipesByArea(area) {
     const requestRec = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
@@ -27,6 +28,10 @@ function ExploreArea() {
       return;
     }
     requestRecipesByArea(value);
+  };
+
+  const handleClick = (idMeal) => {
+    history.push(`/comidas/${idMeal}`);
   };
 
   return (
@@ -50,10 +55,11 @@ function ExploreArea() {
         ))}
       </select>
       { recipes.map(({ idMeal, strMeal, strMealThumb }, index) => (
-        <Link
+        <button
+          type="button"
           key={ idMeal }
-          to={ `comidas/${idMeal}` }
           data-testid={ `${index}-recipe-card` }
+          onClick={ () => handleClick(idMeal) }
         >
           <img
             src={ strMealThumb }
@@ -62,7 +68,7 @@ function ExploreArea() {
             className="food-area"
           />
           <p data-testid={ `${index}-card-name` }>{ strMeal }</p>
-        </Link>
+        </button>
       ))}
       <Link to="/explorar/bebidas/area">
         <h1>Not Found</h1>

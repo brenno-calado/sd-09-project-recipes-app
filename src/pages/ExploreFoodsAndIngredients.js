@@ -7,7 +7,7 @@ import { requestByIngredient } from '../services/api';
 
 function ExploreFoodsAndIngredients() {
   const [ingredients, setIngredient] = useState({});
-  const { dataFromApi, setDataFromApi } = useContext(RecipesContext);
+  const { dataFromApi, setDataFromApi, setRestartRecipes } = useContext(RecipesContext);
   const history = useHistory();
 
   const mealURL = 'https://www.themealdb.com/api/json/v1/1/';
@@ -30,6 +30,7 @@ function ExploreFoodsAndIngredients() {
     const { meals } = recipe;
     setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
     history.push('/comidas');
+    setRestartRecipes(false);
   };
 
   useEffect(() => {
@@ -43,6 +44,7 @@ function ExploreFoodsAndIngredients() {
       <Header title="Explorar Ingredientes" />
       { ingredients.map(({ idIngredient, strIngredient }, index) => (
         <button
+          src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
           type="button"
           data-testid={ `${index}-ingredient-card` }
           key={ idIngredient }

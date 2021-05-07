@@ -7,7 +7,7 @@ import { requestByIngredientDrink } from '../services/api';
 
 function ExploreDrinksAndIngredients() {
   const [ingredientDrink, setIngredientDrink] = useState({});
-  const { setDataFromApi, dataFromApi } = useContext(RecipesContext);
+  const { setDataFromApi, dataFromApi, setRestartRecipes } = useContext(RecipesContext);
   const history = useHistory();
 
   const drinkURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
@@ -31,6 +31,7 @@ function ExploreDrinksAndIngredients() {
     setDataFromApi({ ...dataFromApi, recipes: drinks, loading: false });
     console.log(drinks);
     history.push('/bebidas');
+    setRestartRecipes(false);
   };
 
   useEffect(() => {
