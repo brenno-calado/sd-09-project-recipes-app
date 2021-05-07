@@ -1,13 +1,13 @@
 .filter-button-container {
   display: flex;
-  justify-content: space-evenly ;
+  justify-content: space-evenly;
   margin-bottom: 15px;
   width: 100%;
 }
 
 p {
   font-weight: 600;
-  margin: 0px;
+  margin: 0;
 }
 
 a > p {
@@ -39,8 +39,8 @@ a > p {
   box-shadow: -3px 5px 5px rgba(0, 0, 0, 0.45);
   display: flex;
   height: 150px;
-  margin: 10px 5px;
   justify-content: space-between;
+  margin: 10px 5px;
 }
 
 .render-recipes-done-image {
@@ -52,8 +52,8 @@ a > p {
 .recipes-done-card-info {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   height: 100%;
+  justify-content: space-around;
 }
 
 .recipes-done-category {
@@ -70,6 +70,7 @@ a > p {
   font-size: 0.7em;
   text-align: right;
 }
+
 .recipes-done-tags {
   display: flex;
   flex-wrap: wrap;
@@ -80,12 +81,12 @@ a > p {
   background-color: rgb(148, 142, 142);
   border-radius: 6px;
   font-size: 0.5em;
-  padding:0px 2px ;
+  padding: 0 2px;
 }
 
 .recipes-done-share-btn {
   background-color: rgb(255, 252, 235);
   border: none;
-  border-radius: 6px ;
+  border-radius: 6px;
   height: 15px;
 }
