@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import Carousel from 'react-bootstrap/Carousel';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import RecommendedCard from '../components/RecommendedCard';
 import Footer from '../components/Footer';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -12,14 +14,15 @@ const RecipeDetails = ({ match: { path, params } }) => {
   const { id } = params;
   const history = useHistory();
   const [details, setDetails] = useState('');
+  const [recommendation, setRecommendation] = useState('');
   const [isFavorited, setIsFavorited] = useState(false);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const isFoodsPage = path.includes('comida');
   const isDrinksPage = path.includes('bebidas');
   const foodUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  // const recommendedFoodUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  // const recommendedDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const recommendedFoodUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const recommendedDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   const getClipBoard = () => {
     if (isFoodsPage) {
@@ -32,10 +35,11 @@ const RecipeDetails = ({ match: { path, params } }) => {
 
   const clipBoard = getClipBoard();
 
-  // const breakPoints = [
-  //   { width: 360, itemsToShow: 2 },
-  //   { width: 640, itemsToShow: 2 },
-  // ];
+  const breakPoints = [
+    { width: 360, itemsToShow: 2 },
+    { width: 640, itemsToShow: 2 },
+  ];
+
   const buttonStyle = {
     position: 'fixed',
     right: 30,
@@ -57,16 +61,19 @@ const RecipeDetails = ({ match: { path, params } }) => {
     return ingredients;
   };
 
-  // const renderRecommended = () => {
-  //   if (recommendedRecipes) {
-  //     const max = 6;
-  //     const recommended = recommendedRecipes.drinks || recommendedRecipes.meals;
-  //     const recommendation = recommended.slice(0, max);
-  //     return recommendation
-  //       .map((elem, index) => (
-  //         <RecommendedCard key={ index } recipe={ elem } index={ index } />));
-  //   }
-  // };
+  const renderRecommended = () => {
+    if (recommendation) {
+      const max = 6;
+      const recommended = recommendation.drinks || recommendation.meals;
+      const recommendationData = recommended.slice(0, max);
+      return recommendationData
+        .map((elem, index) => (
+
+          <Carousel.Item key={ index }>
+            <RecommendedCard recipe={ elem } index={ index } />
+          </Carousel.Item>));
+    }
+  };
 
   const handleStartRecipeClick = () => {
     if (isFoodsPage) {
@@ -116,12 +123,18 @@ const RecipeDetails = ({ match: { path, params } }) => {
         const data = await response.json();
         const food = data.meals[0];
         setDetails(food);
+        const recommendedResponse = await fetch(recommendedDrinkUrl);
+        const recommendedData = await recommendedResponse.json();
+        setRecommendation(recommendedData);
       }
       if (isDrinksPage) {
         const response = await fetch(drinkUrl);
         const drinkData = await response.json();
         const drink = drinkData.drinks[0];
         setDetails(drink);
+        const recommendedResponse = await fetch(recommendedFoodUrl);
+        const recommendedData = await recommendedResponse.json();
+        setRecommendation(recommendedData);
       }
     };
     fetchRecipe();
@@ -166,6 +179,9 @@ const RecipeDetails = ({ match: { path, params } }) => {
         data-testid="video"
       />
       <h4>Recommended</h4>
+      <Carousel itemsToShow={ 2 }>
+        {renderRecommended()}
+      </Carousel>
       <button
         type="button"
         style={ buttonStyle }

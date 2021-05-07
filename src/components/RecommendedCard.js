@@ -31,7 +31,7 @@ const RecommendedCard = ({ recipe, index }) => {
         <img
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt="imagem-da-receita"
-          width="100%"
+          width="40%"
           height="130px"
         />
       </button>
