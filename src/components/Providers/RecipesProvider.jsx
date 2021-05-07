@@ -9,15 +9,13 @@ import areasAPI from '../../services/areasAPI';
 export default function RecipesProvider({ children }) {
   const [recipesResult, setRecipesResult] = useState([]);
   const [doneRecipes, setDoneRecipes] = useState(
-    JSON.parse(localStorage.getItem('doneRecipes')) || [],
+    JSON.parse(localStorage.getItem('doneRecipes')),
   );
   const [favoriteRecipes, setFavoriteRecipes] = useState(
-    JSON.parse(localStorage.getItem('favoriteRecipes')) || [],
+    JSON.parse(localStorage.getItem('favoriteRecipes')),
   );
   const [inProgressRecipes, setInProgressRecipes] = useState(
-    JSON.parse(localStorage.getItem('inProgressRecipes')) || {
-      cocktails: {}, meals: {},
-    },
+    JSON.parse(localStorage.getItem('inProgressRecipes')),
   );
   const [areas, setAreas] = useState([]);
   const [areaFilter, setAreaFilter] = useState('');
@@ -41,26 +39,40 @@ export default function RecipesProvider({ children }) {
     actions: {
       setRecipesResult,
       addRecipeToDone(recipeObj) {
-        setDoneRecipes([...doneRecipes, recipeObj]);
+        if (doneRecipes) {
+          setDoneRecipes([...doneRecipes, recipeObj]);
+        } else {
+          setDoneRecipes([recipeObj]);
+        }
       },
       addRecipeToFavorites(recipeObj) {
-        setFavoriteRecipes([...favoriteRecipes, recipeObj]);
+        if (favoriteRecipes) {
+          setFavoriteRecipes([...favoriteRecipes, recipeObj]);
+        } else {
+          setFavoriteRecipes([recipeObj]);
+        }
       },
       removeRecipeFromFavorites(recipeObj) {
         const { id } = recipeObj;
         setFavoriteRecipes([...favoriteRecipes.filter((recipe) => recipe.id !== id)]);
       },
       addRecipeToInProgress(recipeObj) {
-        setInProgressRecipes([...inProgressRecipes, recipeObj]);
+        if (inProgressRecipes) {
+          setInProgressRecipes([...inProgressRecipes, recipeObj]);
+        } else {
+          setInProgressRecipes([recipeObj]);
+        }
       },
       setAreaFilter,
     },
   };
 
   useEffect(() => {
-    Object.keys(value.values).forEach((key) => (
-      localStorage.setItem(key, JSON.stringify(value.values[key]))
-    ));
+    if (pathLocation) {
+      Object.keys(value.values).forEach((key) => (
+        localStorage.setItem(key, JSON.stringify(value.values[key]))
+      ));
+    }
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   useEffect(() => {

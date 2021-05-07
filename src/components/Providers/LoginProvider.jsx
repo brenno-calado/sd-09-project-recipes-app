@@ -23,9 +23,12 @@ export default function LoginProvider({ children }) {
   };
 
   useEffect(() => {
-    Object.keys(value.values).forEach((key) => (
-      localStorage.setItem(key, JSON.stringify(value.values[key]))
-    ));
+    console.log(value.values.user);
+    if (value.values.user.email !== '') {
+      Object.keys(value.values).forEach((key) => (
+        localStorage.setItem(key, JSON.stringify(value.values[key]))
+      ));
+    }
   }, [user, value.values]);
 
   return (

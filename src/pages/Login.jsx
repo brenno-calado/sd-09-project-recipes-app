@@ -5,7 +5,7 @@ import '../styles/ButtonGreen.css';
 
 function Login() {
   const [form, setForm] = useState({
-    email: '',
+    email: '', // começa vazio. Se tiver o e-mail, tem que manter, caso não, tem que colocar
     password: '',
   });
   const [disable, setDisable] = useState(true);

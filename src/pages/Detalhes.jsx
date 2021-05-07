@@ -13,11 +13,20 @@ function Detalhes() {
   const { id } = useParams();
   const history = useHistory();
 
+  const {
+    values: {
+      doneRecipes: doneRecContext,
+      inProgressRecipes: inProgRecContext,
+    },
+  } = useContext(RecipesContext);
+
   const [loading, setLoading] = useState(true);
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recommendations, setRecommendations] = useState([]);
-
-  const { values: { doneRecipes, inProgressRecipes } } = useContext(RecipesContext);
+  const [doneRecipes] = useState(doneRecContext || []);
+  const [inProgressRecipes] = useState(
+    inProgRecContext || { cocktails: {}, meals: {} },
+  );
 
   const { getRecipes } = useRecipes();
 
