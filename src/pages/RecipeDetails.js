@@ -176,7 +176,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
         data-testid="video"
       />
       <h4>Recommended</h4>
-      <Carousel itemsToShow={ 1 }>
+      <Carousel itemsToShow={ 2 }>
         {renderRecommended()}
       </Carousel>
       <button
