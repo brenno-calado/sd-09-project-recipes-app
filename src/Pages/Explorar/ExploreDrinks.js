@@ -29,7 +29,7 @@ class ExploreDrinks extends Component {
             Por Ingredientes
           </button>
         </Link>
-        <Link to={ `/bebidas/drinks/${myRandomDrink}` }>
+        <Link to={ `/bebidas/${myRandomDrink}/drinks` }>
           <button
             type="button"
             data-testid="explore-surprise"
