@@ -13,7 +13,7 @@ function FoodDetails({ match }) {
   const [loading, setLoading] = useState(true);
   const [drinkRecomendation, setDrinkRecomendation] = useState(null);
   const [copied, setCopied] = useState(false);
-  const [favorite, setFavorite] = useState(WhiteHartIcon);
+  const [favorite, setFavorite] = useState(false);
   const { id } = match.params;
   const start = localStorage.getItem(`start${id}`);
   const concluded = localStorage.getItem(`conclude${id}`);
@@ -40,9 +40,16 @@ function FoodDetails({ match }) {
     }
   };
 
+  const checkFavorite = () => {
+    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const favoriteFound = storageItem.some((item) => item.id === id);
+    if (favoriteFound) setFavorite(true);
+  };
+
   useEffect(() => {
     fetchDetail();
     fetchRecomendation();
+    checkFavorite();
   }, []);
 
   const searchIngredients = (key) => (
@@ -77,19 +84,18 @@ function FoodDetails({ match }) {
     const alcoholicOrNot = '';
     const name = mealDetails.strMeal;
     const image = mealDetails.strMealThumb;
-    const favoriteRecipes = [{ id, type, area, category, alcoholicOrNot, name, image }];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(storageItem[0].id);
-    // if (storageItem[0].id) {
-    //   storageItem.filter((recipe) => {
-    //   });
-    // }
-    if (id === storageItem[0].id) {
-      setFavorite(BlackHartIcon);
+    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const favoriteRecipes = [
+      ...storageItem, { id, type, area, category, alcoholicOrNot, name, image }];
+    const favoriteFound = storageItem.some((item) => item.id === id);
+    const unfavorite = storageItem.filter((item) => item.id !== id);
+    if (favoriteFound) {
+      setFavorite(false);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(unfavorite));
     }
-    if (id !== storageItem[0].id) {
-      setFavorite(WhiteHartIcon);
+    if (!favoriteFound) {
+      setFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
     }
   };
 
@@ -124,8 +130,9 @@ function FoodDetails({ match }) {
               type="button"
               data-testid="favorite-btn"
               onClick={ favorited }
+              src={ favorite ? BlackHartIcon : WhiteHartIcon }
             >
-              <img src={ favorite } alt="favorite" />
+              <img src={ favorite ? BlackHartIcon : WhiteHartIcon } alt="favorite" />
             </button>
             <p data-testid="recipe-category">{mealDetails.strCategory}</p>
           </header>

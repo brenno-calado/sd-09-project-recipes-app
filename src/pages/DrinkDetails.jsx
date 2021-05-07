@@ -13,10 +13,11 @@ function DrinkDetails({ match }) {
   const [loading, setLoading] = useState(true);
   const [mealRecomendation, setMealRecomendation] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [favorite, setFavorite] = useState(false);
   const { id } = match.params;
   const start = localStorage.getItem(`start${id}`);
   const concluded = localStorage.getItem(`conclude${id}`);
-  const favorite = localStorage.getItem(`favorited${id}`);
+  // const favorite = localStorage.getItem(`favorited${id}`);
 
   const fetchDetail = async () => {
     try {
@@ -40,9 +41,16 @@ function DrinkDetails({ match }) {
     }
   };
 
+  const checkFavorite = () => {
+    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const favoriteFound = storageItem.some((item) => item.id === id);
+    if (favoriteFound) setFavorite(true);
+  };
+
   useEffect(() => {
     fetchDetail();
     fetchRecomendation();
+    checkFavorite();
   }, []);
 
   const searchIngredients = (key) => (
@@ -72,16 +80,29 @@ function DrinkDetails({ match }) {
   };
 
   const favorited = () => {
-    // localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
-    if (!favorite) {
-      localStorage.setItem(`favorited${id}`, 'true');
-    } if (favorite) {
-      localStorage.setItem(`favorited${id}`, 'false');
+    const type = 'bebida';
+    const area = '';
+    const category = drinkDetails.strCategory;
+    const alcoholicOrNot = '';
+    const name = drinkDetails.strDrink;
+    const image = drinkDetails.strDrinkThumb;
+    const storageItem = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const favoriteRecipes = [
+      ...storageItem, { id, type, area, category, alcoholicOrNot, name, image }];
+    const favoriteFound = storageItem.some((item) => item.id === id);
+    const unfavorite = storageItem.filter((item) => item.id !== id);
+    if (favoriteFound) {
+      setFavorite(false);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(unfavorite));
+    }
+    if (!favoriteFound) {
+      setFavorite(true);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
     }
   };
 
   const shareBtn = () => {
-    copy(`http://localhost:3000/comidas/${id}`);
+    copy(`http://localhost:3000/bebidas/${id}`);
     setCopied(true);
   };
 
@@ -111,6 +132,7 @@ function DrinkDetails({ match }) {
               type="button"
               data-testid="favorite-btn"
               onClick={ favorited }
+              src={ favorite ? BlackHartIcon : WhiteHartIcon }
             >
               <img src={ favorite ? BlackHartIcon : WhiteHartIcon } alt="favorite" />
             </button>
