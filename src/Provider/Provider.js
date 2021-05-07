@@ -99,6 +99,7 @@ function Provider({ children }) {
     setDrinksList(recipeList);
     selectedDrinksCategory('');
   }
+
   const contextValue = {
     login,
     setLogin,

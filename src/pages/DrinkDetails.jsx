@@ -41,7 +41,6 @@ function DrinkDetails({ match: { params: { id } } }) {
         src={ recipe.strDrinkThumb }
         data-testid="recipe-photo"
         alt="Foto do prato"
-        tagName="IMG"
       />
     );
   }

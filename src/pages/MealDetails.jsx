@@ -42,7 +42,6 @@ function MealDetails({ match: { params: { id } } }) {
         src={ recipe.strMealThumb }
         data-testid="recipe-photo"
         alt="Foto do prato"
-        tagName="IMG"
       />
     );
   }
