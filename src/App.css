@@ -301,6 +301,16 @@
 
 }
 
+.recommendations-container {
+  display: flex;
+  overflow-x: scroll;
+  width: 330px;
+}
+
+.recommendations-container img {
+  width: 180px;
+}
+
 @media only screen and ( min-width : 600px ) {
 
   body {

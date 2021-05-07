@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { fetchMealsById, fetchDrinkById } from '../services/index';
-import { filterIngredients } from '../services/recipes';
+import { fetchMealsById, fetchDrinkById, setDoneStorage } from '../services/index';
+import { filterIngredients, saveDoneRecipes } from '../services/recipes';
 
 function IngredientsList({ id, type }) {
   const recipeId = useParams();
@@ -21,6 +21,7 @@ function IngredientsList({ id, type }) {
       // console.log(recipeIngredients);
       return setCurrentRecipe(recipeDetails);
     };
+    setDoneStorage();
     fetchRecipe();
   }, [id, type]);
 
@@ -77,6 +78,7 @@ function IngredientsList({ id, type }) {
         className="done-recipe"
         type="button"
         disabled={ !recipeCompleted }
+        onClick={ () => saveDoneRecipes(recipeId.id) }
       >
         Finalizar receita
       </button>

@@ -78,3 +78,11 @@ export function saveDrinkAsFavorite(id, recipe) {
     localStorage.setItem('favoriteRecipes', JSON.stringify(newList));
   }
 }
+
+export function saveDoneRecipes(id) {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!doneRecipes.some((item) => item === id)) {
+    doneRecipes.push(id);
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+  }
+}

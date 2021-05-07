@@ -15,6 +15,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 import RecommendedRecipes from '../components/RecommendedRecipes';
+// import CarouselRecommendations from '../components/CarouselRecommendations';
 
 function RecipeDetails() {
   const [isFavorite, setFavorite] = useState(false);
@@ -158,6 +159,7 @@ function RecipeDetails() {
   return (
     <>
       {isFetching === false ? renderRecipeDetails() : <h1>Loading...</h1>}
+      {/* <RecommendedCarousel reference="drinks" /> */}
       <RecommendedRecipes reference="drinks" />
     </>
   );
