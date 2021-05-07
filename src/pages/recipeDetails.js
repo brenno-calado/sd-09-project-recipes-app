@@ -25,7 +25,7 @@ export default function RecipeDetails() {
   }, [isFood, id]);
   const limit = 6;
   return (
-    recipe.length > 0
+    (recipe && recipe.length > 0)
       ? (
         <div className="detailRecipe-wrapper">
           <DetailHeader recipe={ recipe[0] } isFood={ isFood } />

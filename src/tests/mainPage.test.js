@@ -49,21 +49,22 @@ describe('Página Principal do App', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   });
 
-  it('Requisição para a API TheMealDB e TheCocktailDB pegando as Categorias', async () => {
-    fetchData({ meals: [...categoriesMealsData] });
-    const fetchMeals = await getFoodsAndDrinks('meals', 'getByCategory');
+  it('Requisição para a API TheMealDB e TheCocktailDB pegando as Categorias',
+    async () => {
+      fetchData({ meals: [...categoriesMealsData] });
+      const fetchMeals = await getFoodsAndDrinks('meals', 'getByCategory');
 
-    expect(fetchMeals).toHaveLength(MAX_CATEGORIES_MEALS);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+      expect(fetchMeals).toHaveLength(MAX_CATEGORIES_MEALS);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(global.fetch).toHaveBeenCalledWith('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
 
-    fetchData({ drinks: [...categoriesDrinksData] });
-    const fetchDrinks = await getFoodsAndDrinks('drinks', 'getByCategory');
+      fetchData({ drinks: [...categoriesDrinksData] });
+      const fetchDrinks = await getFoodsAndDrinks('drinks', 'getByCategory');
 
-    expect(fetchDrinks).toHaveLength(MAX_CATEGORIES_DRINKS);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-    expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
-  });
+      expect(fetchDrinks).toHaveLength(MAX_CATEGORIES_DRINKS);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
+    });
 
   it('Verifica se o STORE contém as informações das API de Comida', async () => {
     fetchData({ meals: [...mealsData] });

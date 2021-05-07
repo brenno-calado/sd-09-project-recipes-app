@@ -14,7 +14,7 @@ export default function DoneRecipes() {
   const buttons = [{ strCategory: 'Food' }, { strCategory: 'Drink' }];
 
   useEffect(() => {
-    const localStoreData = getItemLocalStorage(storeKey);
+    const localStoreData = getItemLocalStorage(storeKey) || [];
     setArrayOfRecipes(localStoreData);
   }, [storeKey]);
 
@@ -38,7 +38,6 @@ export default function DoneRecipes() {
     if (value !== 'All' && value !== selectedButton) {
       setSelectedButton(value);
       handleFilter(value);
-      console.log(value);
     } else {
       const localStoreData = getItemLocalStorage(storeKey);
       setSelectedButton('All');
@@ -46,13 +45,13 @@ export default function DoneRecipes() {
     }
   };
 
-  console.log(arrayOfRecipes);
   return (
     <>
       <Header page={ page } />
       <Categories
         categories={ buttons }
         selected={ selectedButton }
+        page="favorites"
         callback={ handleCategoryClick }
       />
       <main>
