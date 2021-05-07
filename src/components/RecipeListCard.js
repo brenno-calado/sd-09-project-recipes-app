@@ -1,11 +1,25 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import copy from 'clipboard-copy';
+// import copy from 'clipboard-copy';
 import Image from './Image';
 import ShareIcon from '../images/shareIcon.svg';
 // import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
+
+const writeToClipboard = (detailUrl) => {
+  navigator.clipboard.writeText(detailUrl).then(
+    (opa) => console.log(opa),
+    (error) => console.log('erro', error),
+  );
+  // navigator.permissions.query({name: "clipboard-write"}).then(result => {
+  //   if (result.state == "granted" || result.state == "prompt") {
+  //     /* write to the clipboard now */
+  //     console.log(result);
+  //     console.log(detailUrl);
+  //   }
+  // });
+};
 
 const renderTags = (index, tags) => (
   tags.map((tagName) => (
@@ -41,9 +55,10 @@ const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }
       const domain = window.location.origin;
       const detailUrl = `${domain}${recipePath}`;
       const removeTimeout = 2000;
-      copy(detailUrl);
-      copyCallback();
-      setTimeout(() => copyCallback(), removeTimeout);
+      // copy(detailUrl);
+      writeToClipboard(detailUrl);
+      copyCallback('');
+      setTimeout(() => copyCallback('hidden'), removeTimeout);
     },
   };
 
@@ -70,7 +85,7 @@ const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }
           data-testid={ `${index}-horizontal-name` }
           onClick={ () => goToRecipe() }
           tabIndex={ index }
-          onKeyPress={ ({ target: { key } }) => {
+          onKeyPress={ ({ key }) => {
             if (key === 'Enter') goToRecipe();
           } }
         >

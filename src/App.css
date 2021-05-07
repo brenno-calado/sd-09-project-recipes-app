@@ -113,3 +113,7 @@
 .list-card {
   display: flex;
 }
+
+.hidden {
+  display: none;
+}
