@@ -6,7 +6,7 @@ import '../Style/CardRecipe.css';
 function RecipeItemDrink({ recipe, index }) {
   return (
     <Link to={ `/bebidas/${recipe.idDrink}` }>
-      <div data-testid={ `${index}-recipe-card` }>
+      <div data-testid={ `${index}-recipe-card` } className="card">
         <img
           className="card-food-image"
           src={ recipe.strDrinkThumb }

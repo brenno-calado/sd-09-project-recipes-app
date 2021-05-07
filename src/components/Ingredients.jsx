@@ -15,8 +15,8 @@ function Ingredients({ index, name, type, sendIngredient }) {
     : '/bebidas';
 
   return (
-    <Link to={ path } onClick={ () => sendIngredient(name) } className="card-ingredients">
-      <div data-testid={ `${index}-ingredient-card` }>
+    <Link to={ path } onClick={ () => sendIngredient(name) }>
+      <div data-testid={ `${index}-ingredient-card` } className="card-ingredients">
         <img
           className="card-img"
           src={ link }

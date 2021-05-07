@@ -1,0 +1,22 @@
+.areas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.areas h3 {
+  font-size: 20px;
+}
+
+.areas select {
+  width: 85vw;
+  height: 45px;
+}
+
+.foodsArea {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-bottom: 8vh;
+}

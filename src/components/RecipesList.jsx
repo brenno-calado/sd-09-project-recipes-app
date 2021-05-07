@@ -2,20 +2,54 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { arrayOf, bool } from 'prop-types';
+import Lottie from 'react-lottie';
 import RecipeItemDrinks from './RecipeItemDrinks';
 import RecipeItemFoods from './RecipeItemFoods';
+import MealLoading from '../images/lf30_editor_oblwx6ru.json';
+import DrinkLoading from '../images/lf30_editor_brwuobfm.json';
 
 function RecipesList({ recipes, loading, path, isFilter }) {
-  if (loading) return <h2>Loading</h2>;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: path.includes('comidas') ? MealLoading : DrinkLoading,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  if (loading) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
+  }
+
   if (!recipes) {
     window.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     return <h2>Faça outra pesquisa</h2>;
   }
-  if (recipes.length < 1) return <h2>Loading</h2>;
+
+  if (recipes.length < 1) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
+  }
 
   let pageID = 'Meal';
   if (path === '/bebidas') pageID = 'Drink';
-  const MAX_RECIPES = 12;
+  const MAX_RECIPES = 25;
 
   const renderFoods = () => (
     recipes.map(

@@ -8,7 +8,7 @@ import '../Style/Filters.css';
 
 function Filters({ filters, path, setFiltered, setRecipes }) {
   const [buttons, setButtons] = useState({});
-  if (!filters) return <h3>Loading</h3>;
+  if (!filters) return <> </>;
 
   const type = path === '/bebidas' ? 'Bebidas' : 'Comidas';
 

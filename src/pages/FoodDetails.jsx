@@ -2,14 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { objectOf, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
+import Lottie from 'react-lottie';
 import { getMealById, mapIngredientToMeasure } from '../actions/MealById';
 import ShareAndFavo from '../components/ShareAndFavo';
 import '../Style/Details.css';
+import MealLoading from '../images/lf30_editor_oblwx6ru.json';
 
-function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommendedFoods }) {
+function FoodDetails({
+  recipes,
+  match,
+  getMealByIdDispatch,
+  recommendedFoods,
+  loading,
+}) {
   const [recipe, setRecipe] = useState(null);
   const [ingredientToMeasure, setIngredientToMeasure] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [completed, setCompleted] = useState(true);
   const [inProgress, setInProgress] = useState(false);
 
@@ -37,24 +44,34 @@ function FoodDetails({ recipes, match, history, getMealByIdDispatch, recommended
     if (!recipe) {
       getMealByIdDispatch(recipeID);
     }
-    const selectedRecipe = recipes;
-    setRecipe(selectedRecipe);
-    setLoading(false);
-    if (selectedRecipe) {
-      setIngredientToMeasure(mapIngredientToMeasure(selectedRecipe));
+    if (!loading) {
+      setRecipe(recipes);
+      setIngredientToMeasure(mapIngredientToMeasure(recipes));
     }
-    if (!selectedRecipe) {
-      history.push({
-        pathname: '/comidas',
-      });
-    }
-  }, [match, recipe, recipes, history, getMealByIdDispatch]);
+  }, [match, recipe, recipes, loading, getMealByIdDispatch]);
 
   const MAX_SLICE_YOUTUBE = 11;
   const MAX_SLICE = 6;
 
-  if (loading) {
-    return <div>Loading...</div>;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: MealLoading,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  if (loading || !recipe) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
   }
 
   return (

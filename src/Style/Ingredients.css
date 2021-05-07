@@ -1,3 +1,31 @@
+.ingredientsPage {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-decoration: none;
+  margin-bottom: 9vh;
+}
+
+.card-ingredients {
+  width: 38vw;
+  height: 43vw;
+  margin: 3vh 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  text-align: center;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.431);
+  border-radius: 10px;
+}
+
+.card-ingredients p {
+  margin: none;
+}
+
 .card-img {
   display: flex;
   height: 100px;

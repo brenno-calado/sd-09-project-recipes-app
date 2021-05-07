@@ -25,25 +25,27 @@ function ExploreDrink() {
   }
 
   return (
-    <div>
+    <div className="explorerPage">
       <Header page="Explorar Bebidas" />
-      <Link to="/explorar/bebidas/ingredientes">
+      <div className="buttons">
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            data-testid="explore-by-ingredient"
+            type="button"
+            className="btn-explorer"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
         <button
-          data-testid="explore-by-ingredient"
+          data-testid="explore-surprise"
           type="button"
-          className="explore-btn-drink"
+          onClick={ onclick }
+          className="btn-explorer"
         >
-          Por Ingredientes
+          Me Surpreenda!
         </button>
-      </Link>
-      <button
-        data-testid="explore-surprise"
-        type="button"
-        onClick={ onclick }
-        className="explore-btn-drink"
-      >
-        Me Surpreenda!
-      </button>
+      </div>
       <Footer />
     </div>
   );

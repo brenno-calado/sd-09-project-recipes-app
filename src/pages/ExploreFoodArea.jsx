@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, bool, func } from 'prop-types';
+import Lottie from 'react-lottie';
 import { areasFetch, filterAreasFetch } from '../actions/areas';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import RecipeItemFoods from '../components/RecipeItemFoods';
+import '../Style/ExploreArea.css';
+import MealLoading from '../images/lf30_editor_oblwx6ru.json';
 
 function ExploreFoodArea({ getAreas, loading, areas, getFilters, filteredAreas }) {
   useEffect(() => {
@@ -13,7 +16,26 @@ function ExploreFoodArea({ getAreas, loading, areas, getFilters, filteredAreas }
     getFilters(INITIAL);
   }, [getAreas, getFilters]);
 
-  if (loading) return <h3>Loading</h3>;
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: MealLoading,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  if (loading) {
+    return (
+      <div className="animates">
+        <Lottie
+          options={ defaultOptions }
+          height={ 400 }
+          width={ 400 }
+        />
+      </div>
+    );
+  }
 
   const handleChange = ({ target: { value } }) => {
     getFilters(value);
@@ -46,9 +68,16 @@ function ExploreFoodArea({ getAreas, loading, areas, getFilters, filteredAreas }
 
   return (
     <div>
-      <Header page="Explorar Origem" search />
-      { areas && renderAreas() }
-      { filteredAreas && renderFoods() }
+      <Header page="Origem" />
+      <div className="recipesAreas">
+        <div className="areas">
+          <h3>Localização</h3>
+          { areas && renderAreas() }
+        </div>
+        <div className="foodsArea">
+          { filteredAreas && renderFoods() }
+        </div>
+      </div>
       <Footer />
     </div>
   );
