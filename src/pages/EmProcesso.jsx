@@ -78,12 +78,12 @@ function EmProcesso() {
       <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
         <input
           type="checkbox"
-          id="ingredient"
+          id={ ingredient }
           name={ index + 1 }
           onChange={ ({ target }) => handleCheck(target) }
         />
         <label
-          htmlFor="ingredient"
+          htmlFor={ ingredient }
         >
           { ingredient }
         </label>
