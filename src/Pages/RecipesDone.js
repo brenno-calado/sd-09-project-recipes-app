@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../Components/Header';
-import '../Pages/Details+css/Details.css'
+import './Details+css/Details.css';
+
+//import Header from '../Components/Header';
 
 class RecipesDone extends React.Component {
   constructor(props) {
@@ -13,9 +14,9 @@ class RecipesDone extends React.Component {
       drink: [],
       bebida: false,
       comida: false,
-      all: true
+      all: true,
     };
-    this.all = this.all.bind(this)
+    this.all = this.all.bind(this);
     this.renderComidas = this.renderComidas.bind(this);
     this.renderBebidas = this.renderBebidas.bind(this);
   }
@@ -24,6 +25,7 @@ class RecipesDone extends React.Component {
     const recipesDone = JSON.parse(localStorage.getItem('doneRecipes'));
     const filterFood = recipesDone.filter((food) => food.type === 'comida');
     const filterDrink = recipesDone.filter((drink) => drink.type === 'bebida');
+
     this.setState({
       doneRecipes: recipesDone,
       food: filterFood,
@@ -38,7 +40,7 @@ class RecipesDone extends React.Component {
         <div>
           { food.map((value, index) => (
             <div key={ index }>
-              <Link to={`/comidas/${value.id}`}>
+              <Link to={ `/comidas/${value.id}` }>
                 <img
                   className="Imagem"
                   data-testid={ `${index}-horizontal-image` }
@@ -50,12 +52,12 @@ class RecipesDone extends React.Component {
                 >
                   {value.name}
                 </p>
-                </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { value.category }
-                </p>
+              </Link>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { value.category }
+              </p>
               <p
                 data-testid={ `${index}-horizontal-done-date` }
               >
@@ -81,7 +83,7 @@ class RecipesDone extends React.Component {
         <div>
           { drink.map((value, index) => (
             <div key={ index }>
-              <Link to={`/bebidas/${value.id}`}>
+              <Link to={ `/bebidas/${value.id}` }>
                 <img
                   className="Imagem"
                   data-testid={ `${index}-horizontal-image` }
@@ -93,12 +95,12 @@ class RecipesDone extends React.Component {
                 >
                   {value.name}
                 </p>
-                </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                >
-                  { value.category }
-                </p>
+              </Link>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { value.category }
+              </p>
               <p
                 data-testid={ `${index}-horizontal-done-date` }
               >
@@ -118,13 +120,13 @@ class RecipesDone extends React.Component {
   }
 
   all() {
-    const { bebida, comida, doneRecipes } = this.state;
-    if (bebida === false && comida === false) {
+    const { all, doneRecipes } = this.state;
+    if (all) {
       return (
         <div>
           { doneRecipes.map((value, index) => (
             <div key={ index }>
-              <Link to={`/${value.type}s/${value.id}`}>
+              <Link to={ `/${value.type}s/${value.id}` }>
                 <img
                   className="Imagem"
                   data-testid={ `${index}-horizontal-image` }
@@ -136,12 +138,12 @@ class RecipesDone extends React.Component {
                 >
                   {value.name}
                 </p>
-             </Link>
-                <p
-                  data-testid={ `${index}-horizontal-top-text` }
-                  >
-                  { value.category }
-                </p>
+              </Link>
+              <p
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                { value.category }
+              </p>
               <p
                 data-testid={ `${index}-horizontal-done-date` }
               >
@@ -168,8 +170,8 @@ class RecipesDone extends React.Component {
           type="button"
           onClick={ () => this.setState({
             comida: false,
-            bebida: false,
             all: true,
+            bebida: false,
           }) }
           data-testid="filter-by-all-btn"
         >
@@ -179,8 +181,8 @@ class RecipesDone extends React.Component {
           type="button"
           onClick={ () => this.setState({
             comida: false,
-            bebida: true,
             all: false,
+            bebida: true,
           }) }
           data-testid="filter-by-drink-btn"
         >
@@ -190,8 +192,8 @@ class RecipesDone extends React.Component {
           type="button"
           onClick={ () => this.setState({
             comida: true,
-            bebida: false,
             all: false,
+            bebida: false,
           }) }
           data-testid="filter-by-food-btn"
         >
