@@ -69,7 +69,6 @@ export default function RecipesProvider({ children }) {
         } else {
           setInProgressRecipes({
             [category]: {
-              ...inProgressRecipes[category],
               ...ingredientsArray,
             },
           });

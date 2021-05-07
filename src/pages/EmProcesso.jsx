@@ -19,9 +19,13 @@ function EmProcesso() {
     actions: { addRecipeToInProgress, addRecipeToDone } } = useContext(RecipesContext);
   const { getRecipes } = useRecipes();
 
-  const type = pathname.includes('comidas') ? ['comidas', 'Meal'] : ['bebidas', 'Drink'];
+  const type = pathname.includes('comidas')
+    ? ['comidas', 'Meal', 'meals']
+    : ['bebidas', 'Drink', 'cocktails'];
 
-  const [ingredientsList, setIngredientList] = useState([]);
+  const [ingredientsList, setIngredientList] = useState(
+    inProgressRecipes[type[2]][id] || [],
+  );
   const [disable, setDisable] = useState(true);
 
   useEffect(() => {
@@ -40,13 +44,12 @@ function EmProcesso() {
     const checked = ingredientsList.includes(item);
     setIngredientList((prev) => (checked
       ? prev.filter((ingr) => ingr !== (item))
-      : [...prev, item]));
+      : [...prev, Number(item)]));
   }
 
   useEffect(() => {
-    const nameKey = pathname.includes('comidas') ? 'meals' : 'cocktails';
     const obj = { [id]: ingredientsList };
-    addRecipeToInProgress(nameKey, obj);
+    addRecipeToInProgress(type[2], obj);
   }, [ingredientsList]);
 
   function handleClick() {
@@ -70,6 +73,7 @@ function EmProcesso() {
         const ingredientID = key.split('strIngredient')[1];
         return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
       });
+    const progress = inProgressRecipes[type[2]][id];
     return ingredients.map((ingredient, index) => (
       <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
         <input
@@ -78,6 +82,7 @@ function EmProcesso() {
           name={ index + 1 }
           onChange={ ({ target }) => handleCheck(target) }
           className="inputClass"
+          checked={ progress.includes(index + 1) }
         />
         <label
           htmlFor={ ingredient }
