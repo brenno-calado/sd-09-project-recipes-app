@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Card from 'react-bootstrap/Card';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { mealsThunk, cocktailsThunk, setError } from '../redux/actions';
 
 function RecipeList({
@@ -50,6 +52,7 @@ function RecipeList({
         <Card key={ recipe.idMeal } data-testid={ `${index}-recipe-card` }>
           <Image
             roundedCircle
+            style={ { width: 200 } }
             variant="top"
             src={ recipe.strMealThumb }
             alt="foto da receita"
@@ -66,20 +69,23 @@ function RecipeList({
   const cocktailsCards = (
     recipes.map((recipe, index) => (
       <Link to={ `/bebidas/${recipe.idDrink}` } key={ `${recipe.idDrink}/${index}` }>
-        <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
-          <Card.Img
-            src={ recipe.strDrinkThumb }
-            alt="foto da receita"
-            data-testid={ `${index}-card-img` }
-          />
-          <Card.Body>
-            <Card.Title
-              data-testid={ `${index}-card-name` }
-            >
-              {recipe.strDrink}
-            </Card.Title>
-          </Card.Body>
-        </Card>
+        <Col lg sm>
+          <Card key={ recipe.idDrink } data-testid={ `${index}-recipe-card` }>
+            <Card.Img
+              style={ { width: 200 } }
+              src={ recipe.strDrinkThumb }
+              alt="foto da receita"
+              data-testid={ `${index}-card-img` }
+            />
+            <Card.Body>
+              <Card.Title
+                data-testid={ `${index}-card-name` }
+              >
+                {recipe.strDrink}
+              </Card.Title>
+            </Card.Body>
+          </Card>
+        </Col>
       </Link>
     ))
   );
@@ -95,7 +101,9 @@ function RecipeList({
   }
   return (
     <CardDeck>
-      { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
+      <Row>
+        { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
+      </Row>
     </CardDeck>
   );
 }
