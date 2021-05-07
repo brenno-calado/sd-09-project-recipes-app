@@ -40,6 +40,22 @@ export async function fetchMealsRandom() {
   return data.meals;
 }
 
+export async function fetchMealsLocalArea() {
+  const data = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+
+  return data.meals;
+}
+
+export async function fetchMealsArea(area) {
+  const data = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json())
+    .catch((error) => console.log(error));
+
+  return data.meals;
+}
+
 // DRINKS
 
 export async function fetchDrinksApi() {

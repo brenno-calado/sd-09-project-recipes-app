@@ -13,15 +13,10 @@ import MealCards from '../components/MealCards';
 import Header from '../components/Header';
 
 import { receiveDataMeal, receiveCategoryMeal } from '../redux/actions';
-import useRouter from '../hooks/router';
 
 function Foods() {
   const [loading, isFetching] = useState(true);
   const [categoryBtn, getCategory] = useState(undefined);
-
-  const router = useRouter();
-
-  console.log(router.pathname);
 
   const [lastCategory, checkCategory] = useState(undefined);
 
