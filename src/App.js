@@ -17,16 +17,22 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Home } />
           <Route
-            path="/comidas/{id-da-receita}/in-progress"
+            path="/comidas/:id/in-progress"
             component={ FoodsInProgress }
           />
+          <Route path="/comidas/:id" component={ FoodsDetails } />
+          <Route path="/comidas" component={ Foods } />
           <Route
-            path="/bebidas/{id-da-receita}/in-progress"
+            path="/bebidas/:id/in-progress"
             component={ DrinksInProgress }
           />
+<<<<<<< HEAD
           <Route path="/comidas/{id-da-receita}" component={ FoodsDetails } />
           <Route path="/bebidas/{id-da-receita}" component={ DrinksDetails } />
           <Route path="/comidas" component={ Foods } />
+=======
+          <Route path="/bebidas/:id" component={ DrinksDetails } />
+>>>>>>> 67c0045839e672f10bf0fb9bb10bcabdad9b3f66
           <Route path="/bebidas" component={ Drinks } />
           <Route
             path="/explorar/comidas/ingredientes"
