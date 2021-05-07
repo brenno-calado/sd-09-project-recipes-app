@@ -8,20 +8,19 @@ function ExploreDrinks() {
   const { setIdRecipes } = useContext(RecipesContext);
   const [drink, setDrink] = useState({});
   const history = useHistory();
-  const { pathname } = history.location;
 
   const handleClickToIngredients = () => {
     history.push('/explorar/bebidas/ingredientes');
   };
 
-  const drinksDetailsRandom = async () => {
-    const requestDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
-      .then((response) => response.json()
-        .then((myDrink) => myDrink.drinks[0]));
-    setDrink(requestDrink);
-  };
-
   useEffect(() => {
+    const drinksDetailsRandom = async () => {
+      const requestDrink = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+        .then((response) => response.json()
+          .then((myDrink) => myDrink.drinks[0]));
+      setDrink(requestDrink);
+    };
+
     drinksDetailsRandom();
   }, []);
 

@@ -10,11 +10,6 @@ function CategoryButtons(props) {
   const [isLoading, setIsLoading] = useState(true);
   const maxCategoriesToRender = 5;
 
-  const getCategories = async () => {
-    setCatergories(await getMealsCatergories(route));
-    setIsLoading(false);
-  };
-
   const handleClick = ({ value }) => {
     if (value !== categoryName) {
       setCategoryName(value);
@@ -25,10 +20,13 @@ function CategoryButtons(props) {
   };
 
   useEffect(() => {
+    const getCategories = async () => {
+      setCatergories(await getMealsCatergories(route));
+      setIsLoading(false);
+    };
     setIsLoading(true);
     getCategories();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [route]);
 
   const handleAllButtonClick = () => {
     setRestartRecipes(true);

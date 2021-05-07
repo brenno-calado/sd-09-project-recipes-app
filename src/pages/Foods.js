@@ -16,29 +16,25 @@ function Foods() {
   const { pathname } = history.location;
   const route = pathname.substr(1);
 
-  const getRecipes = async () => {
-    setDataFromApi({ ...dataFromApi, loading: true });
-    const { meals } = await fetchRecipes(route);
-    setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
-    if (dataFromApi.recipes.length === 0) {
-      setDataFromApi({ ...dataFromApi, recipes: meals });
-    }
-  };
-
   useEffect(() => {
+    const getRecipes = async () => {
+      setDataFromApi({ ...dataFromApi, loading: true });
+      const { meals } = await fetchRecipes(route);
+      setDataFromApi({ ...dataFromApi, recipes: meals, loading: false });
+      if (dataFromApi.recipes.length === 0) {
+        setDataFromApi({ ...dataFromApi, recipes: meals });
+      }
+    };
     getRecipes();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (restartRecipes === true) {
-    getRecipes();
-    setRestartRecipes(false);
-  }
+    if (restartRecipes === true) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
+  }, [dataFromApi, setDataFromApi, setRestartRecipes, restartRecipes, route]);
 
   useEffect(() => {
     getCategoryName('comidas');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
+  }, [getCategoryName]);
 
   return (
     <div>

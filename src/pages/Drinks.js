@@ -16,29 +16,25 @@ function Drinks() {
   const { pathname } = history.location;
   const route = pathname.substr(1);
 
-  const getRecipes = async () => {
-    setDataFromApi({ ...dataFromApi, loading: true });
-    const { drinks } = await fetchRecipes(route);
-    setDataFromApi({ ...dataFromApi, recipes: drinks, loading: false });
-    if (dataFromApi.recipes.length === 0) {
-      setDataFromApi({ ...dataFromApi, recipes: drinks });
-    }
-  };
-
   useEffect(() => {
+    const getRecipes = async () => {
+      setDataFromApi({ ...dataFromApi, loading: true });
+      const { drinks } = await fetchRecipes(route);
+      setDataFromApi({ ...dataFromApi, recipes: drinks, loading: false });
+      if (dataFromApi.recipes.length === 0) {
+        setDataFromApi({ ...dataFromApi, recipes: drinks });
+      }
+    };
     getRecipes();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (restartRecipes === true) {
-    getRecipes();
-    setRestartRecipes(false);
-  }
+    if (restartRecipes === true) {
+      getRecipes();
+      setRestartRecipes(false);
+    }
+  }, [dataFromApi, route, setDataFromApi, restartRecipes, setRestartRecipes]);
 
   useEffect(() => {
     getCategoryName('bebidas');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [categoryName]);
+  }, [getCategoryName]);
 
   return (
     <div>
