@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { string } from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { string, number } from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton({ category, id }) {
+export default function ShareButton({ category, id, index }) {
   const [copied, setCopied] = useState(false);
+
+  const { pathname } = useLocation();
 
   function copyLink() {
     const URL = 'http://localhost:3000';
@@ -23,7 +26,12 @@ export default function ShareButton({ category, id }) {
         <img
           src={ ShareIcon }
           alt="Ícone de compartilhamento"
-          data-testid="share-btn"
+          data-testid={
+            pathname.includes('receitas-feitas')
+            || pathname.includes('receitas-favoritas')
+              ? `${index}-horizontal-share-btn`
+              : 'share-btn'
+          }
         />
       </button>
       <br />
@@ -34,6 +42,11 @@ export default function ShareButton({ category, id }) {
 }
 
 ShareButton.propTypes = {
-  category: string,
-  id: string,
-}.isRequired;
+  category: string.isRequired,
+  id: string.isRequired,
+  index: number,
+};
+
+ShareButton.defaultProps = {
+  index: 0,
+};
