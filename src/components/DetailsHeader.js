@@ -9,8 +9,9 @@ class DetailsHeader extends React.Component {
     super();
     this.state = {
       favoriteBtn: false,
+      linkCopied: '',
     };
-    /* this.favoriteRecipe = this.favoriteRecipe.bind(this); */
+    this.shareRecipe = this.shareRecipe.bind(this);
   }
 
   componentDidMount() {
@@ -29,13 +30,12 @@ class DetailsHeader extends React.Component {
     }
   }
 
-  /* const isFavorite = favoriteRecipes.some((favRecipe) => (
-    favRecipe.id === recipe[`id${query}`])); */
-
   favoriteRecipe(recipe) {
     console.log('recipe');
     const query = window.location.pathname.includes('comidas') ? 'Meal' : 'Drink';
     const type = query === 'Meal' ? 'comida' : 'bebida';
+    const isDrink = query === 'Drink' ? true : '';
+    const isAlcoholic = isDrink ? 'Alcoholic' : '';
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
     const isFavorite = favoriteRecipes && favoriteRecipes.some((favRecipe) => (
       favRecipe.id === recipe[`id${query}`]));
@@ -43,9 +43,9 @@ class DetailsHeader extends React.Component {
       const newfavoriteRecipe = [{
         id: recipe[`id${query}`],
         type,
-        area: recipe.strArea,
+        area: recipe.strArea ? recipe.strArea : '',
         category: recipe.strCategory,
-        alcoholicOrNot: '',
+        alcoholicOrNot: isAlcoholic,
         name: recipe[`str${query}`],
         image: recipe[`str${query}Thumb`],
       }];
@@ -60,9 +60,14 @@ class DetailsHeader extends React.Component {
     }
   }
 
+  shareRecipe() {
+    navigator.clipboard.writeText(window.location.href);
+    this.setState({ linkCopied: 'Link copiado!' });
+  }
+
   render() {
     const { recipe, path } = this.props;
-    const { favoriteBtn } = this.state;
+    const { favoriteBtn, linkCopied } = this.state;
     const query = path.includes('comidas') ? 'Meal' : 'Drink';
     return (
       <div>
@@ -77,6 +82,7 @@ class DetailsHeader extends React.Component {
           : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
         <button
           type="button"
+          onClick={ this.shareRecipe }
         >
           <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
         </button>
@@ -90,6 +96,7 @@ class DetailsHeader extends React.Component {
             data-testid="favorite-btn"
           />
         </button>
+        { linkCopied !== '' && <span>{ linkCopied }</span> }
       </div>
     );
   }
