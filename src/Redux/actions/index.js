@@ -6,6 +6,8 @@ import {
   RECIPES_LIST,
   COULD_REDIRECT,
   SELECT_FILTER,
+  DONT_FETCH,
+  SHOULD_FETCH,
 } from './actionTypes';
 import fetchSearchBar from '../../services';
 import { fetchByCategory } from '../../services/fetchCategories';
@@ -46,3 +48,7 @@ export const getRecipesThunk = (recipeType, category) => async (dispatch) => {
 
   dispatch(getRecipesAction(recipes));
 };
+
+export const dontFetch = () => ({ type: DONT_FETCH });
+
+export const shouldFetch = () => ({ type: SHOULD_FETCH });
