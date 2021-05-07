@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import '../CSS/DoneCard.css';
 
-function DoneDrinkCard({ recipe, index, linkShared, shareLink }) {
+function DoneDrinkCard({ recipe, index }) {
+  const [linkShared, setLinkShared] = useState(false);
+  const shareLink = (id) => {
+    copy(`http://localhost:3000/bebidas/${id}`);
+    setLinkShared(true);
+  };
   return (
     <div key={ recipe.name } className="meal-card">
       <div className="img-div">
@@ -45,7 +51,7 @@ function DoneDrinkCard({ recipe, index, linkShared, shareLink }) {
           </p>
           <button
             type="button"
-            onClick={ () => shareLink(recipe.id, recipe.type) }
+            onClick={ () => shareLink(recipe.id) }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -86,8 +92,6 @@ DoneDrinkCard.propTypes = {
     type: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
-  linkShared: PropTypes.bool.isRequired,
-  shareLink: PropTypes.func.isRequired,
 };
 
 export default DoneDrinkCard;

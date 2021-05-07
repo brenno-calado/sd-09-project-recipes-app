@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
@@ -6,8 +7,13 @@ import blackHeartImg from '../images/blackHeartIcon.svg';
 import '../CSS/DoneCard.css';
 
 function FavoriteMealCard({
-  recipe, index, linkShared, shareLink, handleFavoriteButton,
+  recipe, index, handleFavoriteButton,
 }) {
+  const [linkShared, setLinkShared] = useState(false);
+  const shareLink = (id) => {
+    copy(`http://localhost:3000/comidas/${id}`);
+    setLinkShared(true);
+  };
   return (
     <div key={ recipe.name } className="meal-card">
       <div className="img-div">
@@ -47,7 +53,7 @@ function FavoriteMealCard({
         <div className="recipe-card-buttons">
           <button
             type="button"
-            onClick={ () => shareLink(recipe.id, recipe.type) }
+            onClick={ () => shareLink(recipe.id) }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -83,8 +89,6 @@ FavoriteMealCard.propTypes = {
     type: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
-  linkShared: PropTypes.bool.isRequired,
-  shareLink: PropTypes.func.isRequired,
   handleFavoriteButton: PropTypes.func.isRequired,
 };
 
