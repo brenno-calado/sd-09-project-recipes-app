@@ -8,6 +8,13 @@ import '../styles/Details.css';
 import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 
+const formatIngredients = (details) => Object.keys(details)
+  .filter((key) => key.includes('Ingredient') && details[key])
+  .map((key) => {
+    const ingredientID = key.split('strIngredient')[1];
+    return `${details[key]} - ${details[`strMeasure${ingredientID}`]}`;
+  });
+
 function Detalhes() {
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -30,14 +37,28 @@ function Detalhes() {
 
   const { getRecipes } = useRecipes();
 
-  const type = pathname.includes('comidas') ? ['comidas', 'Meal'] : ['bebidas', 'Drink'];
+  const type = pathname.includes('comidas')
+    ? ['comidas', 'Meal', 'meals']
+    : ['bebidas', 'Drink', 'cocktails'];
   const recType = pathname.includes('comidas')
     ? ['bebidas', 'Drink'] : ['comidas', 'Meal'];
 
   useEffect(() => {
     async function loadRecipe() {
       const details = await getRecipes(type[0], id);
-      setRecipeDetails(details);
+      const recipeObj = {
+        id: details[`id${type[1]}`],
+        type: type[0].substring(0, type[0].length - 1),
+        area: details.strArea || '',
+        category: details.strCategory || '',
+        alcoholicOrNot: type[1] === 'Drink' ? details.strAlcoholic : '',
+        name: details[`str${type[1]}`],
+        image: details[`str${type[1]}Thumb`],
+        instructions: details.strInstructions,
+        video: details.strYoutube,
+        ingredients: formatIngredients(details),
+      };
+      setRecipeDetails(recipeObj);
     }
 
     async function loadRecommendations() {
@@ -53,12 +74,7 @@ function Detalhes() {
   }, [id]);
 
   function renderIngredients() {
-    const ingredients = Object.keys(recipeDetails)
-      .filter((key) => key.includes('Ingredient') && recipeDetails[key])
-      .map((key) => {
-        const ingredientID = key.split('strIngredient')[1];
-        return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
-      });
+    const ingredients = recipeDetails.ingredients || [];
     return ingredients.map((ingredient, index) => (
       <li
         data-testid={ `${index}-ingredient-name-and-measure` }
@@ -70,8 +86,8 @@ function Detalhes() {
   }
 
   function renderStartButtonText() {
-    if (inProgressRecipes[type[0]]) {
-      const recipes = inProgressRecipes[type[0]];
+    if (inProgressRecipes[type[2]]) {
+      const recipes = inProgressRecipes[type[2]];
       return Object.keys(recipes).find((recipeID) => recipeID === id)
         ? 'Continuar Receita' : 'Iniciar Receita';
     }
@@ -84,17 +100,17 @@ function Detalhes() {
       : (
         <main>
           <img
-            src={ recipeDetails[`str${type[1]}Thumb`] }
-            alt={ recipeDetails[`str${type[1]}`] }
+            src={ recipeDetails.image }
+            alt={ recipeDetails.name }
             data-testid="recipe-photo"
             className="details__image"
           />
           <div className="details__horizontal-container">
             <div>
-              <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
+              <h2 data-testid="recipe-title">{recipeDetails.name}</h2>
               <p data-testid="recipe-category">
                 {type[1] === 'Drink'
-                  ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+                  ? recipeDetails.alcoholicOrNot : recipeDetails.category}
               </p>
             </div>
             <div>
@@ -103,9 +119,9 @@ function Detalhes() {
             </div>
           </div>
           { renderIngredients() }
-          <p data-testid="instructions">{recipeDetails.strInstructions}</p>
+          <p data-testid="instructions">{recipeDetails.instructions}</p>
           {type[1] === 'Meal'
-          && <a href={ recipeDetails.strYoutube } data-testid="video">Video</a>}
+          && <a href={ recipeDetails.video } data-testid="video">Video</a>}
           <Recommendations data={ recommendations } />
           { !doneRecipes.find(({ id: doneRecipeID }) => id === doneRecipeID)
           && (

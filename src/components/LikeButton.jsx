@@ -11,17 +11,20 @@ export default function LikeButton({ recipeDetails, index }) {
     actions: { addRecipeToFavorites, removeRecipeFromFavorites },
   } = useContext(RecipesContext);
 
-  const { id } = useParams();
+  const { id: idURL } = useParams();
   const { pathname } = useLocation();
 
   const [favoriteRecipes] = useState(faviRecContext || []);
-  const [like, setLike] = useState(favoriteRecipes.find((recipe) => recipe.id === id));
+  const [like, setLike] = useState(favoriteRecipes.find((recipe) => recipe.id === idURL));
 
   function likeRecipe() {
+    const { id, type, area, category, alcoholicOrNot, name, image } = recipeDetails;
     if (!like) {
-      addRecipeToFavorites(recipeDetails);
+      addRecipeToFavorites({ id, type, area, category, alcoholicOrNot, name, image });
     } else {
-      removeRecipeFromFavorites(recipeDetails);
+      removeRecipeFromFavorites(
+        { id, type, area, category, alcoholicOrNot, name, image },
+      );
     }
     setLike(!like);
   }
