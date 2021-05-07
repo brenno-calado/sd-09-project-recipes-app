@@ -22,7 +22,6 @@ function DrinkDetails({ match: { params: { id } } }) {
 
   const ingredientsList = () => {
     const list = [];
-
     for (let index = 1; drinkId[`strIngredient${index}`] !== null; index += 1) {
       list.push(`
         ${drinkId[`strIngredient${index}`]} - ${drinkId[`strMeasure${index}`]}
