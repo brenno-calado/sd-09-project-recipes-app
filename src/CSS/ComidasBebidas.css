@@ -46,7 +46,7 @@
 }
 
 .buttons button {
-  width: 25%;
+  width: 27%;
 }
 
 .category-filter-tags {
@@ -58,6 +58,7 @@
   color: white;
   font-size: 76%;
   font-weight: 200;
+  height: 45px;
   margin: 10px;
   padding: 0.5em;
 }
