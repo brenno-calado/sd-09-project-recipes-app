@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { shape, string, number } from 'prop-types';
 import { RecipesContext } from '../context';
 import WhiteLikeIcon from '../images/whiteHeartIcon.svg';
@@ -11,11 +11,12 @@ export default function LikeButton({ recipeDetails, index }) {
     actions: { addRecipeToFavorites, removeRecipeFromFavorites },
   } = useContext(RecipesContext);
 
-  const { id: idURL } = useParams();
   const { pathname } = useLocation();
 
   const [favoriteRecipes] = useState(faviRecContext || []);
-  const [like, setLike] = useState(favoriteRecipes.find((recipe) => recipe.id === idURL));
+  const [like, setLike] = useState(
+    favoriteRecipes.find((recipe) => recipe.id === recipeDetails.id),
+  );
 
   function likeRecipe() {
     const { id, type, area, category, alcoholicOrNot, name, image } = recipeDetails;

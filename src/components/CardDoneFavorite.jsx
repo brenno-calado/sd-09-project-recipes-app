@@ -24,9 +24,10 @@ export default function CardDoneFavorite({ data, index }) {
         pathname.includes('receitas-feitas')
         && <p data-testid={ `${index}-horizontal-done-date` }>{`Feita em: ${date}`}</p>
       }
-      <ShareButton category={ category } id={ id } />
+      <ShareButton category={ category } id={ id } index={ index } />
       {
-        pathname.includes('receitas-favoritas') && <LikeButton recipeDetails={ data } />
+        pathname.includes('receitas-favoritas')
+        && <LikeButton recipeDetails={ data } index={ index } />
       }
     </section>
   );
