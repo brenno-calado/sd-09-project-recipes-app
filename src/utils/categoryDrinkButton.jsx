@@ -1,12 +1,18 @@
 import React from 'react';
+import { DropdownButton, Dropdown } from 'react-bootstrap';
 
 function categoryDrinkButton(drink, handleClickButtonName) {
   const five = 5;
   return (
-    drink.map(({ strCategory }, index) => (
-      index < five && (
-        <div className="category-btn">
-          <button
+    <DropdownButton
+      id="dropdown-basic-button"
+      variant="light"
+      title="Escolha uma opção"
+    >
+      {drink.map(({ strCategory }, index) => (
+        index < five && (
+          <Dropdown.Item
+            href="#/action-index"
             key={ strCategory }
             type="button"
             name={ strCategory }
@@ -14,10 +20,10 @@ function categoryDrinkButton(drink, handleClickButtonName) {
             onClick={ ({ target }) => handleClickButtonName({ target }) }
           >
             { strCategory }
-          </button>
-        </div>
-      )
-    ))
+          </Dropdown.Item>
+        )
+      ))}
+    </DropdownButton>
   );
 }
 

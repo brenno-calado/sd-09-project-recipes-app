@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import RecipeDoneCard from '../components/RecipeDoneCard';
 import renderDrink from '../utils/renderDrink';
@@ -65,30 +66,30 @@ function FavoriteRecipes() {
         <h1 data-testid="page-title">Receitas Favoritas</h1>
       </HeaderFoods>
       <section>
-        <button
+        <Button
           onClick={ handleButtonFilterName }
           name="all"
           data-testid="filter-by-all-btn"
           type="button"
         >
           All
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={ handleButtonFilterName }
           name="food"
           data-testid="filter-by-food-btn"
           type="button"
         >
           Food
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={ handleButtonFilterName }
           name="drink"
           data-testid="filter-by-drink-btn"
           type="button"
         >
           Drinks
-        </button>
+        </Button>
       </section>
       {buttonSelect === 'food' ? renderFoods : renderDrinks }
     </>

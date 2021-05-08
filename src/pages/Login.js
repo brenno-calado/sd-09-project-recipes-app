@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
+import Button from 'react-bootstrap/Button';
+import { Form } from 'react-bootstrap';
 import { useRecipeContext } from '../contexts/recipeContext';
 
 function Login() {
@@ -39,30 +41,42 @@ function Login() {
   if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
-    <form>
-      <label
-        htmlFor="emailInput"
-      >
-        <input
-          type="text"
+    <Form style={ { width: 300 } }>
+      <h1 style={ { marginLeft: 90 } }>Login</h1>
+      <Form.Group controlId="formBasicEmail">
+        <Form.Label
+          htmlFor="emailInput"
+        >
+          Endereço de Email
+        </Form.Label>
+        <Form.Control
+          type="email"
+          placeholder="Digite seu email"
           id="emailInput"
           data-testid="email-input"
           name="emailInput"
           onChange={ handleInputChange }
         />
-      </label>
-      <label
-        htmlFor="passwordInput"
-      >
-        <input
+      </Form.Group>
+
+      <Form.Group controlId="formBasicPassword">
+        <Form.Label
+          htmlFor="passwordInput"
+        >
+          Senha
+        </Form.Label>
+        <Form.Control
+          placeholder="Digite sua senha"
           type="password"
           data-testid="password-input"
           id="passwordInput"
           name="passwordInput"
           onChange={ handleInputChange }
         />
-      </label>
-      <button
+      </Form.Group>
+      <Button
+        variant="primary"
+        style={ { width: 230, marginLeft: 30 } }
         type="button"
         data-testid="login-submit-btn"
         id="login-submit-btn"
@@ -71,8 +85,8 @@ function Login() {
         onClick={ () => { handleLocalStorage(); userEmailLocalStorage(); } }
       >
         Entrar
-      </button>
-    </form>
+      </Button>
+    </Form>
   );
 }
 

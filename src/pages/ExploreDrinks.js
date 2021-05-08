@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 import { useRecipeContext } from '../contexts/recipeContext';
@@ -19,20 +20,20 @@ function ExploreDrinks() {
         <h1 hasSearchBar={ false } data-testid="page-title">Explorar Bebidas</h1>
       </HeaderFoods>
       <Link to="/explorar/bebidas/ingredientes">
-        <button
+        <Button
           type="button"
           data-testid="explore-by-ingredient"
         >
           Por Ingredientes
-        </button>
+        </Button>
       </Link>
       <Link to={ `/bebidas/${randomDrink.idDrink}` }>
-        <button
+        <Button
           type="button"
           data-testid="explore-surprise"
         >
           Me Surpreenda!
-        </button>
+        </Button>
       </Link>
       <BottomMenu />
     </>

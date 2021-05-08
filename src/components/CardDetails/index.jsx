@@ -2,8 +2,10 @@ import { string, arrayOf, shape, bool, func } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Card } from 'react-bootstrap';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
+import shareIcons from '../../images/shareIcon.svg';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import { useRecipeContext } from '../../contexts/recipeContext';
 
@@ -23,55 +25,65 @@ function CardDetails({
     } else if (storage && storage[type] && storage[type][id]
       && (children.length === storage[type][id].length)) {
       setShouldBtnApear(true);
+    } else {
+      setShouldBtnApear(false);
     }
   }, [children.length, id, type, setBtnText, inputState, setShouldBtnApear]);
 
   return (
-    <li>
-      <img
+    <Card style={ { width: '18rem', margin: '15px 0 ', padding: '5px' } }>
+      <Card.Img
+        variant="top"
         width="340px"
         src={ image }
         data-testid="recipe-photo"
         alt={ title }
       />
-      <h2 data-testid="recipe-title">{ title }</h2>
+      <Card.Title data-testid="recipe-title">{ title }</Card.Title>
       {!shouldVideoApear && <p data-testid="recipe-category">{isAlcoholic}</p>}
-      <CopyToClipboard text={ url }>
+      <div style={ { display: 'flex', justifyContent: 'flex-end', gap: '15px' } }>
+        <CopyToClipboard text={ url }>
+          <button
+            style={ { background: 'transparent', border: 'none' } }
+            onClick={ handleClickUrl }
+            data-testid="share-btn"
+            type="button"
+          >
+            <img src={ shareIcons } alt="Compartilhar" />
+          </button>
+        </CopyToClipboard>
+        {copyUrl}
         <button
-          onClick={ handleClickUrl }
-          data-testid="share-btn"
+          style={ { background: 'transparent', border: 'none' } }
           type="button"
+          onClick={ handleFavoriteClick }
         >
-          Compartilhar
+          <img
+            data-testid="favorite-btn"
+            src={ favorite ? blackHeart : whiteHeart }
+            alt="Favoritar"
+          />
         </button>
-      </CopyToClipboard>
-      {copyUrl}
-      <button type="button" onClick={ handleFavoriteClick }>
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? blackHeart : whiteHeart }
-          alt="Favoritar"
-        />
-      </button>
+      </div>
 
-      <p data-testid="recipe-category">{ categoryText }</p>
+      <Card.Text data-testid="recipe-category">{ categoryText }</Card.Text>
 
-      <ul>
+      <Card.Text>
         {children}
-      </ul>
+      </Card.Text>
 
-      <p data-testid="instructions">{ instructions }</p>
+      <Card.Text data-testid="instructions">{ instructions }</Card.Text>
 
       { shouldVideoApear && (
         <iframe
           title={ title }
-          width="300"
-          height="300"
+          width="278"
+          height="200"
           src={ video }
           data-testid="video"
         />
       )}
-    </li>
+    </Card>
   );
 }
 

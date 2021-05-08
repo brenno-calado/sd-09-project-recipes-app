@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import BottomMenu from '../components/BottomMenu';
@@ -17,21 +18,23 @@ function headerRenderFoods({
   setRecipesData,
   renderRecipesByIngredients,
 }) {
-  const renderFood = (recipesData.meals && (recipesData.meals
-    .map(({ idMeal, strMealThumb, strMeal }, index) => (
-      index < twelve && (
-        <RecipeCard
-          key={ idMeal }
-          image={ strMealThumb }
-          name={ strMeal }
-          recipeCArdId={ `${index}-recipe-card` }
-          cardImageId={ `${index}-card-img` }
-          cardNameId={ `${index}-card-name` }
-          type="comidas"
-          codeId={ idMeal }
-        />
-      )
-    ))));
+  const renderFood = (recipesData.meals
+    && (recipesData.meals
+      .map(({ idMeal, strMealThumb, strMeal }, index) => (
+        index < twelve && (
+          <RecipeCard
+            key={ idMeal }
+            image={ strMealThumb }
+            name={ strMeal }
+            recipeCArdId={ `${index}-recipe-card` }
+            cardImageId={ `${index}-card-img` }
+            cardNameId={ `${index}-card-name` }
+            type="comidas"
+            codeId={ idMeal }
+          />
+        )
+      ))
+    ));
 
   return (
     <>
@@ -39,18 +42,22 @@ function headerRenderFoods({
         <h1 data-testid="page-title">Comidas</h1>
       </HeaderFoods>
       <SearchBar>
-        <button
+        <Button
           onClick={ () => { handleFetchFoodClick(); } }
           data-testid="exec-search-btn"
           type="button"
         >
           Buscar
-        </button>
+        </Button>
       </SearchBar>
-      { filterAllFoodButton(setListItemByCategory, setRecipesData) }
-      { categoryFoodButton(handleClickButtonName, meal) }
-      {recipesData.meals ? renderFood : render}
-      {renderRecipesByIngredients}
+      <div style={ { display: 'flex', marginTop: '10px' } }>
+        { filterAllFoodButton(setListItemByCategory, setRecipesData) }
+        { categoryFoodButton(handleClickButtonName, meal) }
+      </div>
+      <div style={ { marginLeft: '-10px', display: 'flex', flexWrap: 'wrap' } }>
+        {recipesData.meals ? renderFood : render}
+        {renderRecipesByIngredients}
+      </div>
       <BottomMenu />
     </>
   );

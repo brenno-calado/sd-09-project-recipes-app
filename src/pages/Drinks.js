@@ -37,8 +37,6 @@ function Drinks() {
     handleFetchDrinkClick();
   }, []);
 
-  console.log(recipesData);
-
   useEffect(() => {
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.drinks === null) {

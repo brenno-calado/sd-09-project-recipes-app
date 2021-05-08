@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 
@@ -28,30 +29,30 @@ function Profile() {
         <h1 data-testid="page-title">Perfil</h1>
       </HeaderFoods>
       <h2 data-testid="profile-email">{preEmail && preEmail.email}</h2>
-      <button
+      <Button
         type="button"
         name="feitas"
         data-testid="profile-done-btn"
         onClick={ redirect }
       >
         Receitas Feitas
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         name="favoritas"
         data-testid="profile-favorite-btn"
         onClick={ redirect }
       >
         Receitas Favoritas
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         name="sair"
         data-testid="profile-logout-btn"
         onClick={ redirectClear }
       >
         Sair
-      </button>
+      </Button>
       <BottomMenu />
     </>
   );

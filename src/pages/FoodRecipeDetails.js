@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect } from 'react-router';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
-} from 'pure-react-carousel';
+import { Button, Carousel } from 'react-bootstrap';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
 import { getFoodDetailsById, getRecommendedDrink } from '../services/fetchApi';
@@ -27,6 +26,7 @@ function FoodRecipeDetails(props) {
   const [handleCheckFoodValuesValues] = useHandleCheckFoodValuesValues();
   const [mealLocal, setMealLocal] = useState([]);
   const { btnText, shouldBtnApear } = useRecipeContext();
+  const [indexe, setIndexe] = useState(0);
 
   const six = 6;
 
@@ -59,6 +59,10 @@ function FoodRecipeDetails(props) {
     }
   }, [id]);
 
+  const handleSelect = (selectedIndexe) => {
+    setIndexe(selectedIndexe);
+  };
+
   if (shouldRedirect) return <Redirect to={ `/comidas/${id}/in-progress` } />;
 
   function renderDetails() {
@@ -88,7 +92,6 @@ function FoodRecipeDetails(props) {
               type="meals"
               id={ idMeal }
               area={ strArea }
-              // id={ id }
               match={ match }
               tags={ strTags }
               style={ strCategory }
@@ -97,44 +100,38 @@ function FoodRecipeDetails(props) {
             </CardDetails>
           ))
         )}
-        <div className={ styles.scrollingWrapper } style={ { marginLeft: 50 } }>
-          <CarouselProvider
-            naturalSlideWidth={ 100 }
-            naturalSlideHeight={ 100 }
-            totalSlides={ 6 }
-            infinite
-            visibleSlides={ 2 }
-          >
-            <Slider>
-              {recommendedDrink && (
-                recommendedDrink.drinks.map((
-                  { strDrinkThumb, strDrink, idDrink }, index,
-                ) => (
-                  index < six && (
-                    <Slide index={ index }>
-                      <div
-                        style={ { marginLeft: 100 } }
-                        key={ idDrink }
-                        data-testid={ `${index}-recomendation-card` }
-                      >
-                        <img
-                          className={ styles.details }
-                          src={ strDrinkThumb }
-                          alt={ strDrink }
-                        />
-                        <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
-                      </div>
-                    </Slide>
-                  )
-                ))
-              )}
-            </Slider>
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
+        <Carousel
+          style={ { width: '290px', marginBottom: '20px' } }
+          activeIndex={ indexe }
+          onSelect={ handleSelect }
+        >
+          {recommendedDrink && (
+            recommendedDrink.drinks.map((
+              { strDrinkThumb, strDrink, idDrink }, index,
+            ) => (
+              index < six && (
+                <Carousel.Item>
+                  <div
+                    key={ idDrink }
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img
+                      className="d-block w-100"
+                      src={ strDrinkThumb }
+                      alt={ strDrink }
+                    />
+                    <Carousel.Caption>
+                      <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
+                    </Carousel.Caption>
+                  </div>
+                </Carousel.Item>
+              )
+            ))
+          )}
+        </Carousel>
 
-          </CarouselProvider>
-        </div>
-        <button
+        <Button
+          variant="light"
           style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
@@ -142,7 +139,7 @@ function FoodRecipeDetails(props) {
           type="button"
         >
           {btnText}
-        </button>
+        </Button>
       </>
     );
   }

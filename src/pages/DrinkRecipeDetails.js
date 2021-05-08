@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect } from 'react-router';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext,
-} from 'pure-react-carousel';
+import { Button, Carousel } from 'react-bootstrap';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
 import { getDrinkDetailsById, getRecommendedFood } from '../services/fetchApi';
@@ -25,6 +24,7 @@ function DrinkRecipeDetails(props) {
   const [handleFavorite] = useHandleFavoriteDrinks();
   const [drinksLocal, setDrinkLocal] = useState([]);
   const { btnText, shouldBtnApear } = useRecipeContext();
+  const [indexe, setIndexe] = useState(0);
 
   const six = 6;
   const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
@@ -56,6 +56,10 @@ function DrinkRecipeDetails(props) {
       });
   }, [id]);
 
+  const handleSelect = (selectedIndexe) => {
+    setIndexe(selectedIndexe);
+  };
+
   if (shouldRedirect) return <Redirect to={ `/bebidas/${id}/in-progress` } />;
   function renderDetails() {
     return (
@@ -86,42 +90,36 @@ function DrinkRecipeDetails(props) {
             </CardDetails>
           ))
         )}
-        <div className={ styles.scrollingWrapper }>
-          <CarouselProvider
-            naturalSlideWidth={ 10 }
-            naturalSlideHeight={ 10 }
-            totalSlides={ 6 }
-            infinite
-            visibleSlides={ 2 }
-          >
-            <Slider>
-              {recommendedFood && (
-                recommendedFood.meals.map(({ strMealThumb, strMeal, idMeal }, index) => (
-                  index < six && (
-                    <Slide index={ index }>
-                      <div
-                        key={ idMeal }
-                        data-testid={ `${index}-recomendation-card` }
-                      >
-                        <img
-                          className={ styles.details }
-                          src={ strMealThumb }
-                          alt={ strMeal }
-                        />
-                        <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
-                      </div>
-                    </Slide>
-                  )
-                ))
-              )}
-            </Slider>
-            <ButtonBack>Back</ButtonBack>
-            <ButtonNext>Next</ButtonNext>
+        <Carousel
+          style={ { width: '290px', marginBottom: '20px' } }
+          activeIndex={ indexe }
+          onSelect={ handleSelect }
+        >
+          {recommendedFood && (
+            recommendedFood.meals.map(({ strMealThumb, strMeal, idMeal }, index) => (
+              index < six && (
+                <Carousel.Item>
+                  <div
+                    key={ idMeal }
+                    data-testid={ `${index}-recomendation-card` }
+                  >
+                    <img
+                      className="d-block w-100"
+                      src={ strMealThumb }
+                      alt={ strMeal }
+                    />
+                    <Carousel.Caption>
+                      <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
+                    </Carousel.Caption>
 
-          </CarouselProvider>
-
-        </div>
-        <button
+                  </div>
+                </Carousel.Item>
+              )
+            ))
+          )}
+        </Carousel>
+        <Button
+          variant="light"
           style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
@@ -129,7 +127,7 @@ function DrinkRecipeDetails(props) {
           type="button"
         >
           {btnText}
-        </button>
+        </Button>
       </>
     );
   }

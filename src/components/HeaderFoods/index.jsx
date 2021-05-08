@@ -16,13 +16,21 @@ function HeaderFoods({ children, hassearchbar }) {
   if (redirect) return <Redirect to="/perfil" />;
   return (
     <header className={ styles.headerContainer }>
-      <button onClick={ shouldRedirect } type="button">
+      <button
+        onClick={ shouldRedirect }
+        type="button"
+        className={ styles.headerBtn }
+      >
         <img data-testid="profile-top-btn" src={ profileIcon } alt="Ícone de perfil" />
       </button>
 
       <div data-testid="page-title">{children}</div>
       {hassearchbar && (
-        <button onClick={ handleChangeSearchBar } type="button">
+        <button
+          onClick={ handleChangeSearchBar }
+          type="button"
+          className={ styles.headerBtn }
+        >
           <img data-testid="search-top-btn" src={ searchIcon } alt="Pesquisar" />
         </button>
       )}

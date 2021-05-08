@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 import { useRecipeContext } from '../contexts/recipeContext';
-import styles from '../components/RecepiCard/recipesCard.module.css';
 
 function FoodsByIngredient() {
   const {
@@ -32,9 +31,7 @@ function FoodsByIngredient() {
       {ingredients.length && ingredients
         .map(({ strIngredient }, index) => index < twelve && (
           <Link to="/comidas">
-            <li
-              className={ styles.recipeCArdId }
-            >
+            <li>
               <button
                 type="button"
                 data-testid={ `${index}-ingredient-card` }
@@ -46,7 +43,6 @@ function FoodsByIngredient() {
                   src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                   alt={ strIngredient }
                   data-testid={ `${index}-card-img` }
-                  className={ styles.recipeCArdId }
                 />
               </button>
               <p

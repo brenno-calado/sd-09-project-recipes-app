@@ -7,21 +7,22 @@ import styles from './bottomMenu.module.css';
 
 function BottomMenu() {
   return (
-    <footer data-testid="footer" style={ styles }>
+    <footer data-testid="footer" className={ styles.footerContainer }>
       <Link to="/bebidas">
         <button
+          className={ styles.footerBtn }
           type="button"
         >
           <img src={ drinkIcon } alt="drinksIcon" data-testid="drinks-bottom-btn" />
         </button>
       </Link>
       <Link to="/explorar">
-        <button type="button">
+        <button type="button" className={ styles.footerBtn }>
           <img src={ exploreIcon } alt="exploreIcon" data-testid="explore-bottom-btn" />
         </button>
       </Link>
       <Link to="/comidas">
-        <button type="button">
+        <button type="button" className={ styles.footerBtn }>
           <img src={ mealIcon } alt="foodIcon" data-testid="food-bottom-btn" />
         </button>
       </Link>

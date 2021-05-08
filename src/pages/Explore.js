@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 
@@ -11,10 +12,10 @@ function Explore() {
       </HeaderFoods>
       <h1>Explorar</h1>
       <Link to="/explorar/comidas">
-        <button type="button" data-testid="explore-food">Explorar Comidas</button>
+        <Button type="button" data-testid="explore-food">Explorar Comidas</Button>
       </Link>
       <Link to="/explorar/bebidas">
-        <button type="button" data-testid="explore-drinks">Explorar Bebidas</button>
+        <Button type="button" data-testid="explore-drinks">Explorar Bebidas</Button>
       </Link>
       <BottomMenu />
     </>

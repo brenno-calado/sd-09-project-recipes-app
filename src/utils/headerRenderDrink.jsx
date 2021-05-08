@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import BottomMenu from '../components/BottomMenu';
@@ -39,19 +40,21 @@ function headerRenderDrink({
         <h1 data-testid="page-title">Bebidas</h1>
       </HeaderFoods>
       <SearchBar>
-        <button
+        <Button
           onClick={ () => { handleFetchDrinkClick(); } }
           data-testid="exec-search-btn"
           type="button"
         >
           Buscar
-        </button>
+        </Button>
       </SearchBar>
-      { filterAllDrinkButton(setListDrinkByCategory, setRecipesData) }
-      {categoryDrinkButton(drink, handleClickButtonName) }
-
-      {recipesData.drinks ? renderSearch : render }
-
+      <div style={ { display: 'flex', marginTop: '10px' } }>
+        { filterAllDrinkButton(setListDrinkByCategory, setRecipesData) }
+        {categoryDrinkButton(drink, handleClickButtonName) }
+      </div>
+      <div style={ { marginLeft: '-10px', display: 'flex', flexWrap: 'wrap' } }>
+        {recipesData.drinks ? renderSearch : render }
+      </div>
       <BottomMenu />
     </>
   );

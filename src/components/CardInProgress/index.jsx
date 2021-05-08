@@ -3,9 +3,11 @@ import { arrayOf, string, func, bool, shape } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
+import shareIcons from '../../images/shareIcon.svg';
 import useShouldRedirect from '../../hooks/useShoulRedirect';
 import endRecipeButton from '../../utils/endRecipeButton';
 
@@ -63,7 +65,7 @@ function CardeInProgress({
           data-testid="share-btn"
           type="button"
         >
-          Compartilhar
+          <img src={ shareIcons } alt="Compartilhar" />
         </button>
       </CopyToClipboard>
       {copyUrl}
@@ -79,15 +81,16 @@ function CardeInProgress({
         {children}
       </ul>
       <p data-testid="instructions">{instructions}</p>
-      <button
-        style={ { position: 'fixed', bottom: 0 } }
+      <Button
+        style={ { position: 'fixed', bottom: '0' } }
+        variant="light"
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isBtnDisabled }
         onClick={ () => { endRecipeButton(endRecipeParams); handleClickRedirect(); } }
       >
         Finalizar receita
-      </button>
+      </Button>
     </li>
   );
 }

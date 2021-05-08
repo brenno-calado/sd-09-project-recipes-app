@@ -1,8 +1,17 @@
-footer {
+.footerContainer {
   bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
   height: 100px;
   line-height: 100px;
   position: fixed;
   text-align: center;
-  width: 100%;
+  width: 360px;
+  margin-left: -36px
+}
+
+
+.footerBtn {
+  background: transparent;
+  border: none;
 }

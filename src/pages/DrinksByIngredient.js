@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
 import { useRecipeContext } from '../contexts/recipeContext';
-import styles from '../components/RecepiCard/recipesCard.module.css';
 
 function DrinksByIngredient() {
   const {
@@ -32,9 +31,7 @@ function DrinksByIngredient() {
       {ingredients.length && ingredients
         .map(({ strIngredient1 }, index) => index < twelve && (
           <Link to="/bebidas">
-            <li
-              className={ styles.recipeCArdId }
-            >
+            <li>
               <button
                 type="button"
                 data-testid={ `${index}-ingredient-card` }
@@ -46,7 +43,6 @@ function DrinksByIngredient() {
                   src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
                   alt={ strIngredient1 }
                   data-testid={ `${index}-card-img` }
-                  className={ styles.recipeCArdId }
                 />
               </button>
               <p

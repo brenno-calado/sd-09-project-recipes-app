@@ -1,22 +1,38 @@
 import React from 'react';
 import { string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import styles from './recipesCard.module.css';
+import { Card, Button } from 'react-bootstrap';
 
 function RecipeCard({
   image, name, recipeCArdId, cardImageId, cardNameId, type, codeId }) {
   return (
     <Link to={ `/${type}/${codeId}` }>
-      <li data-testid={ recipeCArdId } className={ styles.recipeCArdId }>
-        <img
+      <Card
+        style={ { width: '9rem', margin: '5px' } }
+        data-testid={ recipeCArdId }
+      >
+        <Card.Img
+          style={ { height: '8rem' } }
+          variant="top"
           data-testid={ cardImageId }
           src={ image }
           alt={ name }
-          className={ styles.recipeCArdId }
           type={ type }
         />
-        <p data-testid={ cardNameId }>{ name }</p>
-      </li>
+        <Card.Body>
+          <Button
+            variant="outline-success"
+            style={ { height: '2rem', width: '100%', overflow: 'hidden' } }
+          >
+            <Card.Title
+              style={ { textDecoration: 'none', fontSize: '1rem' } }
+              data-testid={ cardNameId }
+            >
+              { name }
+            </Card.Title>
+          </Button>
+        </Card.Body>
+      </Card>
     </Link>
   );
 }
