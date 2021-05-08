@@ -35,6 +35,7 @@ function FavoriteRecipesCards() {
     setCopied(true);
   };
 
+  const { id, type } = handleFavoriteRecipes();
   return (
     <div className="">
       {
@@ -56,17 +57,22 @@ function FavoriteRecipesCards() {
               onClick={ shareBtn }
               src="shareIcon"
             >
-              { copied ? 'Link copiado!'
-                : <img src={ ShareIcon } alt="share" name={ recipe.type } id={ recipe.id } />}
+              { copied
+                ? 'Link copiado!'
+                : <img src={ ShareIcon } alt="share" name={ type } id={ id } /> }
             </button>
             <button
               className="main-buttons"
               type="button"
-              data-testid={`${index}-horizontal-favorite-btn`}
+              data-testid={ `${index}-horizontal-favorite-btn` }
               onClick={ handleClick }
               src="blackHeartIcon"
             >
-              <img src={ favorite ? BlackHartIcon : WhiteHartIcon } id={ recipe.id } alt="favorite" />
+              <img
+                src={ favorite ? BlackHartIcon : WhiteHartIcon }
+                id={ id }
+                alt="favorite"
+              />
             </button>
             <p data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.alcoholicOrNot || recipe.area} - ${recipe.category}`}
