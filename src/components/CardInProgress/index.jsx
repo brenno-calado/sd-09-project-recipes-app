@@ -48,7 +48,6 @@ function CardeInProgress({
     }
   }, [children, id, type, inputState]);
 
-  console.log(inputState);
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
 
   let url = window.location.href;

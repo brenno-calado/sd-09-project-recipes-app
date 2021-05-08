@@ -24,6 +24,7 @@ export function RecipeContextProvider({ children }) {
   const [isSearchBar, setIsSearchBar] = useState(false);
   const [btnText, setBtnText] = useState('Iniciar receita');
   const [inProgress, setInProgress] = useState(false);
+  const [shouldBtnApear, setShouldBtnApear] = useState(false);
 
   function handleChangeSearchBar() {
     setIsSearchBar(!isSearchBar);
@@ -55,6 +56,8 @@ export function RecipeContextProvider({ children }) {
     setBtnText,
     inProgress,
     setInProgress,
+    setShouldBtnApear,
+    shouldBtnApear,
   };
 
   return (

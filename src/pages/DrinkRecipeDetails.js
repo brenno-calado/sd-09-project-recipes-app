@@ -24,7 +24,7 @@ function DrinkRecipeDetails(props) {
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [handleFavorite] = useHandleFavoriteDrinks();
   const [drinksLocal, setDrinkLocal] = useState([]);
-  const { btnText } = useRecipeContext();
+  const { btnText, shouldBtnApear } = useRecipeContext();
 
   const six = 6;
   const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
@@ -122,6 +122,7 @@ function DrinkRecipeDetails(props) {
 
         </div>
         <button
+          style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
           data-testid="start-recipe-btn"

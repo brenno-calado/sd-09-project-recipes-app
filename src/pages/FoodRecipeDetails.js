@@ -26,7 +26,7 @@ function FoodRecipeDetails(props) {
   const [handleFavorite] = useHandleFavoriteFoods();
   const [handleCheckFoodValuesValues] = useHandleCheckFoodValuesValues();
   const [mealLocal, setMealLocal] = useState([]);
-  const { btnText } = useRecipeContext();
+  const { btnText, shouldBtnApear } = useRecipeContext();
 
   const six = 6;
 
@@ -135,6 +135,7 @@ function FoodRecipeDetails(props) {
           </CarouselProvider>
         </div>
         <button
+          style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
           data-testid="start-recipe-btn"
