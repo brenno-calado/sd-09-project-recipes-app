@@ -1,34 +1,53 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import randomFood from '../../services/randomFood';
 import Header from '../../components/Header';
 import MenuInferior from '../../components/MenuInferior';
 
-function ExploreFoods() {
-  return (
-    <>
-      <Header />
-      <div className="content">
-        <Link
-          data-testid="explore-by-ingredient"
-          to="/explorar/comidas/ingredientes"
-        >
-          Por Ingredientes
+class ExploreFoods extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { myRandomMeal: 0 };
+  }
+
+  async componentDidMount() {
+    const { meals } = await randomFood();
+    console.log(meals);
+    this.fetchRandomMeal(meals[0].idMeal);
+  }
+
+  fetchRandomMeal(value) {
+    this.setState({ myRandomMeal: value });
+  }
+
+  render() {
+    const { myRandomMeal } = this.state;
+    return (
+      <div>
+        <Header />
+        <Link to="/explorar/comidas/ingredientes">
+          <button type="button" data-testid="explore-by-ingredient">
+            Por Ingredientes
+          </button>
         </Link>
-        <Link
-          data-testid="explore-by-area"
-          to="/explorar/comidas/area"
-        >
-          Por Local de Origem
+        <Link to="/explorar/comidas/area">
+          <button type="button" data-testid="explore-by-area">
+            Por Local de Origem
+          </button>
         </Link>
-        <Link
-          data-testid="explore-surprise"
-          to="/"
-        >
-          Me Surpreenda!
+        <Link to={ `/comidas/${myRandomMeal}` }>
+          <button
+            type="button"
+            data-testid="explore-surprise"
+          >
+            Me Surpreenda!
+          </button>
         </Link>
+        <MenuInferior />
       </div>
-      <MenuInferior />
-    </>
-  );
+    );
+  }
 }
+
 export default ExploreFoods;
