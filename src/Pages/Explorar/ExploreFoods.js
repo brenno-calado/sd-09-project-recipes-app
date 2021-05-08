@@ -36,7 +36,7 @@ class ExploreFoods extends Component {
             Por Local de Origem
           </button>
         </Link>
-        <Link to={ `/comidas/${myRandomMeal}/food` }>
+        <Link to={ `/comidas/${myRandomMeal}` }>
           <button
             type="button"
             data-testid="explore-surprise"

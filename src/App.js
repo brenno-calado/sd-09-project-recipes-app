@@ -30,12 +30,12 @@ function App() {
             path="/explorar/bebidas/ingredientes"
             component={ IngredientsDrinks }
           />
-          <Route path="/comidas/:id/food" component={ FoodsDetails } />
-          <Route path="/bebidas/:id/drinks" component={ DrinksDetails } />
           <Route path="/explorar/bebidas" component={ ExploreDrinks } />
           <Route path="/explorar/comidas" component={ ExploreFoods } />
           <Route path="/comidas/:id" component={ Detalhes } />
           <Route path="/bebidas/:id" component={ Detalhes } />
+          <Route path="/comidas/:id" component={ FoodsDetails } />
+          <Route path="/bebidas/:id" component={ DrinksDetails } />
           <Route path="/explorar" component={ Explorar } />
           <Route path="/comidas" component={ TelaPrincipal } />
           <Route path="/bebidas" component={ TelaPrincipal } />
