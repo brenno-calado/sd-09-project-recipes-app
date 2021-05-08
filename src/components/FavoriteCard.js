@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
 import { saveAsFavorite } from '../services/details';
@@ -40,5 +41,16 @@ const FavoriteCard = (props) => {
       <FavoriteButton onClick={ saveFavorite } isFavorite={ isFavorite } />
     </div>
   );
+};
+FavoriteCard.propTypes = {
+  index: PropTypes.number.isRequired,
+  element: PropTypes.objectOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    alcoholicOrNot: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
 };
 export default FavoriteCard;
