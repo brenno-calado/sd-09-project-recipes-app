@@ -1,60 +1,53 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { string, number, func, arrayOf, shape } from 'prop-types';
+import { connect } from 'react-redux';
+import inputAction from '../../redux/actions/inputAction';
 
-function CheckInput({ index, handleCheckedValue, item, match }) {
-  const inputRef = useRef(null);
+function CheckInput({ index, handleCheckedValue, item, match, type,
+  urlType, inputChange }) {
   const [checkedValue, setCheckedValue] = useState();
   const { params, path } = match;
   const { id } = params;
 
   useEffect(() => {
-    if (path === '/bebidas/:id/in-progress') {
+    if (path === `/${urlType}/:id/in-progress`) {
       const localElements = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localElements || { cocktails: { [id]: [] } }));
-      if (localElements) {
-        localElements.cocktails[id].forEach((element) => {
-          if (inputRef.current.name === element) {
-            inputRef.current.checked = true;
-            setCheckedValue(inputRef.current.checked = true);
+      if (localElements && localElements[type] && localElements[type][id]) {
+        localElements[type][id].forEach((element) => {
+          if (String(item) === element) {
+            setCheckedValue(true);
           }
         });
       }
     }
-  }, [id, path]);
+  }, [id, path, type, urlType, item]);
 
-  useEffect(() => {
-    if (path === '/comidas/:id/in-progress') {
-      const localElements = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localElements || { meals: { [id]: [] } }));
-      if (localElements) {
-        localElements.meals[id].forEach((localItem) => {
-          if (inputRef.current.name === localItem) {
-            inputRef.current.checked = true;
-            setCheckedValue(inputRef.current.checked = true);
-          }
-        });
-      }
+  function handleDisableBtn({ target }) {
+    const { checked, name } = target;
+    if (checked) {
+      setCheckedValue(true);
+    } else {
+      setCheckedValue(false);
     }
-  }, [id, path]);
+    inputChange(name);
+  }
 
   return (
-    <label
-      data-testid={ `${index}-ingredient-step` }
-      htmlFor={ `${index}-ingredientDrinkStep` }
-    >
-      <input
-        name={ item }
-        id={ `${index}-ingredientDrinkStep` }
-        type="checkbox"
-        onChange={ (event) => { handleCheckedValue(event); } }
-        key={ Math.random() }
-        ref={ inputRef }
-        checked={ checkedValue }
-      />
-      { item }
-    </label>
+    <div data-testid={ `${index}-ingredient-step` }>
+      <label
+        htmlFor={ `${index}-ingredientDrinkStep` }
+      >
+        <input
+          name={ item }
+          id={ `${index}-ingredientDrinkStep` }
+          type="checkbox"
+          onChange={ (event) => { handleCheckedValue(event); handleDisableBtn(event); } }
+          key={ Math.random() }
+          checked={ checkedValue }
+        />
+        { item }
+      </label>
+    </div>
   );
 }
 
@@ -66,6 +59,9 @@ CheckInput.propTypes = {
   match: shape(),
   path: string,
   id: string,
+  type: string,
+  urlType: string,
+  inputChange: func,
 };
 
 CheckInput.defaultProps = {
@@ -76,6 +72,13 @@ CheckInput.defaultProps = {
   match: {},
   path: '',
   id: '',
+  type: '',
+  urlType: '',
+  inputChange: () => {},
 };
 
-export default CheckInput;
+const mapDispatchToProps = (dispatch) => ({
+  inputChange: (text) => dispatch(inputAction(text)),
+});
+
+export default connect(null, mapDispatchToProps)(CheckInput);

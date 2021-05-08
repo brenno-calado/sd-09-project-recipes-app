@@ -1,15 +1,27 @@
 import { string, arrayOf, shape, bool, func } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import React from 'react';
+import React, { useEffect } from 'react';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
+import { useRecipeContext } from '../../contexts/recipeContext';
 
 function CardDetails({
-  image, title, video, categoryText, instructions,
+  image, title, video, categoryText, instructions, type, id,
   shouldVideoApear, children, isAlcoholic, handleFavoriteClick, favorite }) {
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
+  const { setBtnText } = useRecipeContext();
+
   const url = window.location.href;
+
+  useEffect(() => {
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (storage && storage[type] && storage[type][id]
+        && (storage[type][id].length > 0)) {
+      setBtnText('Continuar Receita');
+    }
+  }, [children.length, id, type, setBtnText]);
+
   return (
     <li>
       <img
@@ -70,6 +82,8 @@ CardDetails.propTypes = {
   shouldVideoApear: bool,
   handleFavoriteClick: func,
   favorite: bool,
+  type: string,
+  id: string,
 };
 
 CardDetails.defaultProps = {
@@ -83,6 +97,8 @@ CardDetails.defaultProps = {
   shouldVideoApear: bool,
   handleFavoriteClick: () => {},
   favorite: bool,
+  type: '',
+  id: '',
 };
 
 export default CardDetails;

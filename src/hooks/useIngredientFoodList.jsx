@@ -34,6 +34,8 @@ function useIngredientFoodList() {
               }
               item={ item }
               match={ match }
+              type="meals"
+              urlType="comidas"
             />
           </div>
         ) : (

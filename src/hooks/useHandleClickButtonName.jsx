@@ -7,8 +7,6 @@ function useHandleClickButtonName() {
     setCategory(target.name);
     if (category === target.name) {
       setCategory('');
-    } else {
-      // setCategory(target.name);
     }
   };
   return [handleClickButtonName, category];

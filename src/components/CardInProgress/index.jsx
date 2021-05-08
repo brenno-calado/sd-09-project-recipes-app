@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { arrayOf, string, func, bool } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
@@ -15,31 +16,23 @@ function CardeInProgress({
   favorite,
   children,
   handleFavorite,
-  // id,
-  // state,
+  id,
+  type,
+  inputState,
 }) {
-  // const [isBtnDisabled, setIsBtnDisabled] = useState(true);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
 
-  // useEffect(() => {
-  //   const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   if (children.length === storage.cocktails[id].length) {
-  //     setIsBtnDisabled(false);
-  //   }
-  // }, [children.length, id]);
+  useEffect(() => {
+    const storage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (storage && storage[type] && storage[type][id]
+        && (children.length === storage[type][id].length)) {
+      setIsBtnDisabled(false);
+    }
+  }, [children, id, type, inputState]);
 
-  // useEffect(() => {
-  //   console.log();
-  //   const storageLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  //   if (storageLocal) {
-  //     if (children.length === storageLocal.meals[id].length) {
-  //       console.log('igual');
-  //       setIsBtnDisabled(false);
-  //     }
-  //   }
-  // }, [children.length, id, state]);
-
+  console.log(inputState);
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
 
   let url = window.location.href;
@@ -76,6 +69,7 @@ function CardeInProgress({
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ isBtnDisabled }
       >
         Finalizar receita
       </button>
@@ -91,6 +85,9 @@ CardeInProgress.propTypes = {
   children: arrayOf(Object),
   handleFavorite: func,
   favorite: bool,
+  id: string,
+  type: string,
+  inputState: string,
 };
 
 CardeInProgress.defaultProps = {
@@ -101,6 +98,13 @@ CardeInProgress.defaultProps = {
   children: [],
   handleFavorite: () => {},
   favorite: false,
+  id: '',
+  type: '',
+  inputState: '',
 };
 
-export default CardeInProgress;
+const mapStateToProps = (state) => ({
+  inputState: state.inputReducer.checked,
+});
+
+export default connect(mapStateToProps)(CardeInProgress);

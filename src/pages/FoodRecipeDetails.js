@@ -11,6 +11,7 @@ import useIngredientFoodList from '../hooks/useIngredientFoodList';
 import useShouldRedirect from '../hooks/useShoulRedirect';
 import useHandleFavoriteFoods from '../hooks/useHandleFavoriteFoods';
 import useHandleCheckFoodValuesValues from '../utils/handleCheckFoodValuesValues';
+import { useRecipeContext } from '../contexts/recipeContext';
 
 function FoodRecipeDetails(props) {
   const { match } = props;
@@ -25,6 +26,8 @@ function FoodRecipeDetails(props) {
   const [handleFavorite] = useHandleFavoriteFoods();
   const [handleCheckFoodValuesValues] = useHandleCheckFoodValuesValues();
   const [mealLocal, setMealLocal] = useState([]);
+  const { btnText } = useRecipeContext();
+
   const six = 6;
 
   const favoriteParams = { apiData, id, mealLocal, favorite, setFavorite };
@@ -80,6 +83,8 @@ function FoodRecipeDetails(props) {
               instructions={ strInstructions }
               handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
               favorite={ favorite }
+              type="meals"
+              id={ idMeal }
             >
               { apiData && ingredientList(apiData, match, handleCheckFoodValuesValues)}
             </CardDetails>
@@ -128,7 +133,7 @@ function FoodRecipeDetails(props) {
           data-testid="start-recipe-btn"
           type="button"
         >
-          Iniciar receita
+          {btnText}
         </button>
       </>
     );

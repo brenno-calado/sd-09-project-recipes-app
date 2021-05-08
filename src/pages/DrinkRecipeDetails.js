@@ -10,6 +10,7 @@ import styles from './recipeDetails.module.css';
 import useIngredientList from '../hooks/useIngredientList';
 import useShouldRedirect from '../hooks/useShoulRedirect';
 import useHandleFavoriteDrinks from '../hooks/useHandleFavoriteDrinks';
+import { useRecipeContext } from '../contexts/recipeContext';
 
 function DrinkRecipeDetails(props) {
   const { match } = props;
@@ -23,6 +24,7 @@ function DrinkRecipeDetails(props) {
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [handleFavorite] = useHandleFavoriteDrinks();
   const [drinksLocal, setDrinkLocal] = useState([]);
+  const { btnText } = useRecipeContext();
 
   const six = 6;
   const favoriteParams = { apiData, id, drinksLocal, favorite, setFavorite };
@@ -77,6 +79,8 @@ function DrinkRecipeDetails(props) {
               categoryText={ strCategory }
               instructions={ strInstructions }
               handleFavoriteClick={ () => { handleFavorite(favoriteParams); } }
+              type="cocktails"
+              id={ idDrink }
             >
               {apiData && ingredientList(apiData, match)}
             </CardDetails>
@@ -123,7 +127,7 @@ function DrinkRecipeDetails(props) {
           data-testid="start-recipe-btn"
           type="button"
         >
-          Iniciar receita
+          {btnText}
         </button>
       </>
     );

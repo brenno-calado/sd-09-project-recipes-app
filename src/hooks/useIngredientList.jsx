@@ -31,6 +31,8 @@ function useIngredientList() {
               handleCheckedValue={ (event) => handleCheckDrinkValues(event, apiData) }
               item={ item }
               match={ match }
+              type="cocktails"
+              urlType="bebidas"
             />
           </div>
         ) : (

@@ -2,21 +2,29 @@ function useHandleCheckDrinkValues() {
   function handleCheckDrinkValues({ target }, apiData) {
     if (target.checked) {
       const drinkId = apiData.drinks[0].idDrink;
-      const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      const getLocal = localStorage.inProgressRecipes
+        && JSON.parse(localStorage.getItem('inProgressRecipes'));
 
-      const getFilteredLocal = getLocal && getLocal.cocktails[drinkId]
-        .filter((item, index) => getLocal.cocktails[drinkId].indexOf(item) === index);
-
-      const localDrinks = {
-        cocktails: {
-          [drinkId]: getLocal ? [...getFilteredLocal, target.name] : [target.name],
-        },
-      };
-
-      localStorage.setItem('inProgressRecipes',
-        JSON.stringify(localDrinks));
+      if (!getLocal || !getLocal.cocktails) {
+        const localDrinks = {
+          ...getLocal,
+          cocktails: {
+            [drinkId]: [target.name],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localDrinks));
+      } else if (getLocal && (getLocal.cocktails || getLocal.meals)) {
+        const localDrinks = {
+          ...getLocal,
+          cocktails: {
+            ...getLocal.cocktails,
+            [drinkId]: getLocal.cocktails[drinkId]
+              ? [...getLocal.cocktails[drinkId], target.name] : [target.name],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(localDrinks));
+      }
     }
-
     if (!target.checked) {
       const drinkId = apiData.drinks[0].idDrink;
       const getLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -26,6 +34,7 @@ function useHandleCheckDrinkValues() {
 
       const localDrinks = {
         cocktails: {
+          ...getLocal.cocktails,
           [drinkId]: removeLocal,
         },
       };
@@ -36,5 +45,4 @@ function useHandleCheckDrinkValues() {
   }
   return [handleCheckDrinkValues];
 }
-
 export default useHandleCheckDrinkValues;

@@ -22,10 +22,11 @@ export function RecipeContextProvider({ children }) {
   const [mealsToken] = useState(1);
   const [cocktailsToken] = useState(1);
   const [isSearchBar, setIsSearchBar] = useState(false);
+  const [btnText, setBtnText] = useState('Iniciar receita');
+  const [inProgress, setInProgress] = useState(false);
 
   function handleChangeSearchBar() {
     setIsSearchBar(!isSearchBar);
-    console.log('clicado');
   }
 
   function handleLocalStorage() {
@@ -50,6 +51,10 @@ export function RecipeContextProvider({ children }) {
     getRecipesRandom,
     getLocations,
     getRecipesByLocations,
+    btnText,
+    setBtnText,
+    inProgress,
+    setInProgress,
   };
 
   return (

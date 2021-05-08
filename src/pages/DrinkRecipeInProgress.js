@@ -57,6 +57,7 @@ function DrinkRecipeInProgress(props) {
             handleFavorite={ () => handleFavorite(favoriteParams) }
             favorite={ favorite }
             id={ id }
+            type="cocktails"
           >
             {ingredientList(apiData, match, handleCheckDrinkValues)}
           </CardeInProgress>
