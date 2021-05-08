@@ -42,6 +42,7 @@ function FavoriteRecipes() {
           setFavorite={ setFavorite }
           favorite={ favorite }
           type={ type }
+          shouldFavorite
         />);
       }
       return '';

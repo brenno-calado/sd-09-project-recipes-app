@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { arrayOf, string, func, bool } from 'prop-types';
+import { arrayOf, string, func, bool, shape } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
@@ -7,6 +7,7 @@ import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import useShouldRedirect from '../../hooks/useShoulRedirect';
+import endRecipeButton from '../../utils/endRecipeButton';
 
 function CardeInProgress({
   image,
@@ -19,7 +20,22 @@ function CardeInProgress({
   id,
   type,
   inputState,
+  match,
+  area,
+  tags,
+  style,
 }) {
+  const endRecipeParams = {
+    id,
+    match,
+    area,
+    tags,
+    image,
+    title,
+    category,
+    style,
+  };
+
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [copyUrl, handleClickUrl] = useHandleClickUrl();
@@ -65,18 +81,17 @@ function CardeInProgress({
       </ul>
       <p data-testid="instructions">{instructions}</p>
       <button
-        onClick={ handleClickRedirect }
         style={ { position: 'fixed', bottom: 0 } }
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isBtnDisabled }
+        onClick={ () => { endRecipeButton(endRecipeParams); handleClickRedirect(); } }
       >
         Finalizar receita
       </button>
     </li>
   );
 }
-
 CardeInProgress.propTypes = {
   image: string,
   title: string,
@@ -88,6 +103,10 @@ CardeInProgress.propTypes = {
   id: string,
   type: string,
   inputState: string,
+  area: string,
+  tags: string,
+  style: string,
+  match: shape(),
 };
 
 CardeInProgress.defaultProps = {
@@ -101,6 +120,10 @@ CardeInProgress.defaultProps = {
   id: '',
   type: '',
   inputState: '',
+  area: '',
+  tags: '',
+  style: '',
+  match: {},
 };
 
 const mapStateToProps = (state) => ({

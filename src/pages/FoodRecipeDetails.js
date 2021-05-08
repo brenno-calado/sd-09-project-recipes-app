@@ -72,6 +72,8 @@ function FoodRecipeDetails(props) {
             strCategory,
             strInstructions,
             idMeal,
+            strArea,
+            strTags,
           }) => (
             <CardDetails
               shouldVideoApear
@@ -85,6 +87,11 @@ function FoodRecipeDetails(props) {
               favorite={ favorite }
               type="meals"
               id={ idMeal }
+              area={ strArea }
+              // id={ id }
+              match={ match }
+              tags={ strTags }
+              style={ strCategory }
             >
               { apiData && ingredientList(apiData, match, handleCheckFoodValuesValues)}
             </CardDetails>

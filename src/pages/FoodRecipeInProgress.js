@@ -50,6 +50,7 @@ function FoodRecipeInProgress(props) {
           strCategory,
           strInstructions,
           idMeal,
+          strTags,
         }) => (
           <CardeInProgress
             key={ idMeal }
@@ -62,6 +63,8 @@ function FoodRecipeInProgress(props) {
             state={ state }
             id={ id }
             type="meals"
+            match={ match }
+            tags={ strTags }
           >
             {ingredientList(apiData, match, handleCheckFoodValuesValues)}
 
