@@ -9,6 +9,11 @@
 .meals-card {
   margin-bottom: 20px;
   width: 150px;
+  transition: 0.3s ease-in-out;
+}
+
+.meals-card:hover {
+  transform: scale(1.2);
 }
 
 .recipe-card {
