@@ -11,6 +11,7 @@ import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 import RecipeDetails from './pages/RecipeDetails';
 import DoneRecipes from './pages/DoneRecipes';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route exact path="/bebidas/:id" component={ RecipeDetails } />
           <Route exact path="/comidas/:id" component={ RecipeDetails } />
           <Route exact path="/receitas-feitas" component={ DoneRecipes } />
+          <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route path="/explorar" component={ Explorar } />
           <Route exact path="/perfil" component={ Perfil } />
         </Switch>
