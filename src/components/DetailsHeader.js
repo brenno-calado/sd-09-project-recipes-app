@@ -30,8 +30,26 @@ class DetailsHeader extends React.Component {
     }
   }
 
+  setNewitemToLocalStorage(recipe) {
+    const favRec = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const query = window.location.pathname.includes('comidas') ? 'Meal' : 'Drink';
+    const type = query === 'Meal' ? 'comida' : 'bebida';
+    const isDrink = query === 'Drink' ? true : '';
+    const isAlcoholic = isDrink ? 'Alcoholic' : '';
+    const newfavoriteRecipe = {
+      id: recipe[`id${query}`],
+      type,
+      area: recipe.strArea ? recipe.strArea : '',
+      category: recipe.strCategory,
+      alcoholicOrNot: isAlcoholic,
+      name: recipe[`str${query}`],
+      image: recipe[`str${query}Thumb`],
+    };
+    favRec.push(newfavoriteRecipe);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favRec));
+  }
+
   favoriteRecipe(recipe) {
-    console.log('recipe');
     const query = window.location.pathname.includes('comidas') ? 'Meal' : 'Drink';
     const type = query === 'Meal' ? 'comida' : 'bebida';
     const isDrink = query === 'Drink' ? true : '';
@@ -53,10 +71,15 @@ class DetailsHeader extends React.Component {
       this.setState({ favoriteBtn: true });
     } else if (favoriteRecipes && isFavorite) {
       const favRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const newFavorites = favRecipes.map((recipes) => (
+      const newFavorites = favRecipes.filter((recipes) => (
         recipe[`id${query}`] !== recipes.id));
       localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
       this.setState({ favoriteBtn: false });
+      if (favRecipes.length === 1) {
+        localStorage.removeItem('favoriteRecipes');
+      }
+    } else if (favoriteRecipes && !isFavorite) {
+      this.setNewitemToLocalStorage(recipe);
     }
   }
 

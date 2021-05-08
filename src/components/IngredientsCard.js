@@ -15,8 +15,10 @@ class IngredientsCard extends React.Component {
   }
 
   render() {
+    const mxmItens = 12;
     const { ingredient, img, index } = this.props;
     if (img === undefined) return <p>Loading...</p>;
+    if (img.length !== mxmItens) return <p>Loading...</p>;
     return (
       <div
         className="recipe-card"
