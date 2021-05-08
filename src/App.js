@@ -20,7 +20,7 @@ function App() {
   return (
     <MyContextProvider>
       <Router>
-        <Switch> 
+        <Switch>
           <Route path="/comidas/:id/in-progress" component={ EmProgresso } />
           <Route path="/bebidas/:id/in-progress" component={ EmProgresso } />
           <Route
