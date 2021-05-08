@@ -12,6 +12,7 @@ function Profile() {
   const handleClick = ({ target: { name } }) => {
     if (name === '/') {
       localStorage.clear();
+      history.push('/');
     }
     if (name === '/receitas-feitas') {
       history.push(name);
