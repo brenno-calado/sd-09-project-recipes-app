@@ -1,0 +1,11 @@
+.recomendation-list {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  padding-left: 75vw;
+}
+
+.button-init-recipe {
+  bottom: 0;
+  position: fixed;
+}

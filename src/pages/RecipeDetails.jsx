@@ -1,18 +1,21 @@
 import { objectOf } from 'prop-types';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import IngredientsList from '../components/IngredientsList';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { getRecipe } from '../services/apiServices';
 import AppContext from '../contextApi/context';
+import RecomendationList from '../components/RecomendationList';
+import ButtonInitRecipe from '../components/ButtonInitRecipe';
 
-const RecipeInProgress = (props) => {
-  const { getIngredients, handleFavorites, favoriteRecipes } = useContext(AppContext);
+const RecipeDetails = (props) => {
+  const { getIngredients, handleFavorites,
+    favoriteRecipes, getMeasures } = useContext(AppContext);
+  const [recipe, setRecipe] = useState({});
   const { id } = useParams();
   const { location: { pathname } } = props;
-  const [recipe, setRecipe] = useState({});
   const [ingredients, setIngredients] = useState();
+  const [measures, setMeasures] = useState();
   const [typeRecipe] = useState(() => {
     if (pathname.includes('comidas')) return ['meals', 'comida', 'Meal'];
     if (pathname.includes('bebidas')) return ['drinks', 'bebida', 'Drink'];
@@ -21,8 +24,11 @@ const RecipeInProgress = (props) => {
   const [isFavorite, setIsFavoriteStatus] = useState(false);
 
   useEffect(() => {
-    if (recipe) setIngredients(getIngredients(recipe));
-  }, [getIngredients, recipe]);
+    if (recipe) {
+      setIngredients(getIngredients(recipe));
+      setMeasures(getMeasures(recipe));
+    }
+  }, [getIngredients, getMeasures, recipe]);
 
   useEffect(() => {
     getRecipe(id, typeRecipe[0]).then((data) => setRecipe(data));
@@ -37,8 +43,7 @@ const RecipeInProgress = (props) => {
   }, [favoriteRecipes, id]);
 
   const copyToClipboard = () => {
-    const maxIndex = window.location.href.lastIndexOf('/');
-    navigator.clipboard.writeText(window.location.href.slice(0, maxIndex));
+    navigator.clipboard.writeText(window.location.href);
     setIsCopiedStatus(true);
   };
 
@@ -73,24 +78,38 @@ const RecipeInProgress = (props) => {
             alt="favorite icon"
           />
         </button>
+        <button type="button" data-testid="video">
+          <a href={ recipe.strYoutube } target="blanc">Ver Vídeo</a>
+        </button>
       </div>
-      <p data-testid="recipe-category">{`Categoria: ${recipe.strCategory}`}</p>
-      { ingredients
-        && (
-          <IngredientsList
-            ingredients={ ingredients }
-            type={ typeRecipe[0] === 'drinks' ? 'cocktails' : typeRecipe[0] }
-          />) }
+      <p data-testid="recipe-category">
+        {`Categoria: ${recipe.strAlcoholic || recipe.strCategory}`}
+      </p>
+      <ul>
+        { ingredients
+          && ingredients.map((ingredient, index) => (
+            <li
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient }
+            >
+              { `${ingredient} ${measures[index]}` }
+            </li>
+          ))}
+      </ul>
       <div>
         <h4>Instruções</h4>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
+      <RecomendationList type={ typeRecipe[0] } />
+      <ButtonInitRecipe
+        type={ typeRecipe[0] === 'drinks' ? 'cocktails' : typeRecipe[0] }
+      />
     </div>
   );
 };
 
-RecipeInProgress.propTypes = {
+RecipeDetails.propTypes = {
   location: objectOf(),
 }.isRequired;
 
-export default RecipeInProgress;
+export default RecipeDetails;
