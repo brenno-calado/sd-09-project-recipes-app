@@ -12,15 +12,7 @@ class FooterMenu extends Component {
     return (
       <footer
         data-testid="footer"
-        style={
-          { position: 'fixed',
-            bottom: '0px',
-            whiteSpace: 'nowrap',
-            display: 'flex',
-            flexWrap: 'nowrap',
-            justifyContent: 'space-between',
-            width: '100%' }
-        }
+        className="footer-menu"
       >
         <button type="button" onClick={ () => push('/bebidas') }>
           <img

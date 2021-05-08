@@ -16,6 +16,8 @@ import RecipesInProgress from './pages/RecipesInProgress';
 import Details from './pages/Details';
 
 import './App.css';
+import './Style/FixedElementsContainers/style.css';
+import './Style/FooterMenu/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {

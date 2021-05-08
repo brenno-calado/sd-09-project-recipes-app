@@ -1,0 +1,28 @@
+.hmf-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: fit-content(100%) auto fit-content(100%);
+  grid-gap: 0;
+}
+
+.hmf-header {
+  grid-row: 1 / 2;
+  width: 100%;
+  margin: 0;
+}
+
+.hmf-main {
+  grid-row: 2 / 3;
+  margin: 0;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.hmf-footer {
+  grid-row: 3 / 4;
+  margin: 0;
+  width: 100%;
+}

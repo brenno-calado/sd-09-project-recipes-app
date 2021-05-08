@@ -28,23 +28,29 @@ class Meals extends React.Component {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return (
-      <div className="meals-container">
-        <Header title="Comidas" searchIcon={ searchIcon } />
-        <CategoriesList />
-        <div className="meals-wrap">
-          {itens && !isCategory && itens.length === 1
-            && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
-          {itens && itens.map((meal, index) => (
-            <div className="meals-card" key={ meal[idType] }>
-              <Link
-                className="meals-card-link"
-                to={ `${pathName}/${itens[index][idType]}` }
-              >
-                <RecipeMealCard meal={ meal } index={ index } />
-              </Link>
-            </div>))}
+      <div className="meals-container hmf-wrapper">
+        <div className="hmf-header">
+          <Header title="Comidas" searchIcon={ searchIcon } />
         </div>
-        <FooterMenu />
+        <div className="hmf-main">
+          <CategoriesList />
+          <div className="meals-wrap">
+            {itens && !isCategory && itens.length === 1
+              && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
+            {itens && itens.map((meal, index) => (
+              <div className="meals-card" key={ meal[idType] }>
+                <Link
+                  className="meals-card-link"
+                  to={ `${pathName}/${itens[index][idType]}` }
+                >
+                  <RecipeMealCard meal={ meal } index={ index } />
+                </Link>
+              </div>))}
+          </div>
+        </div>
+        <div className="hmf-footer">
+          <FooterMenu />
+        </div>
       </div>
     );
   }
