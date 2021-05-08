@@ -12,7 +12,9 @@ import {
   getRecipesByCategory,
   getRecipesRandom,
   getRecipesByLocations,
-  getLocations } from '../services/fetchApi';
+  getLocations,
+  getIngredients,
+} from '../services/fetchApi';
 
 function useClickFetch() {
   const [recipesData, setRecipesData] = useState({});
@@ -79,6 +81,9 @@ function useClickFetch() {
     getRecipesRandom,
     getLocations,
     getRecipesByLocations,
+    getIngredients,
+    setCheckValue,
+    setInputValue,
   ];
 }
 

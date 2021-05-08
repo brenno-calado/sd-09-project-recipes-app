@@ -27,6 +27,8 @@ function headerRenderDrink({
           recipeCArdId={ `${index}-recipe-card` }
           cardImageId={ `${index}-card-img` }
           cardNameId={ `${index}-card-name` }
+          type="bebidas"
+          codeId={ idDrink }
         />
       )
     )));
@@ -48,7 +50,7 @@ function headerRenderDrink({
       { filterAllDrinkButton(setListDrinkByCategory, setRecipesData) }
       {categoryDrinkButton(drink, handleClickButtonName) }
 
-      {recipesData.drinks ? renderSearch : render}
+      {recipesData.drinks ? renderSearch : render }
 
       <BottomMenu />
     </>
