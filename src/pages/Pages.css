@@ -3,3 +3,8 @@
   position: fixed;
   width: 100%;
 }
+
+.recipe-img {
+  height: 50%;
+  width: 50%;
+}

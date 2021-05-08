@@ -30,6 +30,7 @@ export function favoriteRecipe(recipe, route) {
     name: recipe.strDrink,
     image: recipe.strDrinkThumb,
   };
+
   switch (route) {
   case 'comida':
     if (!favoriteRecipes) {
@@ -47,5 +48,21 @@ export function favoriteRecipe(recipe, route) {
     break;
   default:
     break;
+  }
+}
+
+export function compareHearths(recipe, route, id) {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes) {
+    favoriteRecipes.forEach((element) => {
+      if (element.id === id) {
+        const dataFilter = favoriteRecipes.filter((recipeIndex) => recipeIndex.id !== id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(dataFilter));
+      } else {
+        favoriteRecipe(recipe, route);
+      }
+    });
+  } else {
+    favoriteRecipe(recipe, route);
   }
 }
