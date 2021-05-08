@@ -6,7 +6,6 @@ import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const FavoriteRecipeCard = ({ favoriteRecipes, index, setFavoriteRecipes }) => {
-
   const filterElementFromStorage = (event, id) => {
     event.preventDefault();
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
