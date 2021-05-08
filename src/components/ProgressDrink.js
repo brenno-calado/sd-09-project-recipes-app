@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -14,6 +15,7 @@ function ProgressDrink() {
     setIsFavorite,
     checkDoneDrinks,
     localRecipes,
+    isDoneDrinks,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
@@ -24,6 +26,7 @@ function ProgressDrink() {
     const initialFavoriteState = getFavorite.some((recipe) => recipe.id === recipeId);
     setIsFavorite(initialFavoriteState);
   }
+
   /*
    imagem: strDrinkThumb,
    titulo: strDrink,
@@ -33,18 +36,9 @@ function ProgressDrink() {
 
   const { ingredients, measures } = getKeysIngredints();
 
-  const isDone = (currentIngredint) => {
-    if (localRecipes) {
-      const { cocktails } = localRecipes;
-      if (cocktails[recipeId]) {
-        return cocktails[recipeId].includes(currentIngredint);
-      }
-    }
-  };
-
   const renderList = () => (
     ingredients.map((item, index) => (
-      isDone(item) ? (
+      isDoneDrinks(item, recipeId) ? (
         <li
           key={ item }
           data-testid={ `${index}-ingredient-step` }
@@ -81,6 +75,42 @@ function ProgressDrink() {
     ))
   );
 
+  function buttonFinishRecipe() {
+    let cocktailsLength = 0;
+
+    if (localRecipes) {
+      const { cocktails } = localRecipes;
+      if (cocktails[recipeId]) {
+        cocktailsLength = cocktails[recipeId].length;
+      }
+    }
+
+    if (cocktailsLength === ingredients.length) {
+      return (
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            className="btn btn-success btn-lg"
+          >
+            Finalizar receita
+          </button>
+        </Link>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        className="btn btn-success btn-lg"
+        disabled
+      >
+        Finalizar receita
+      </button>
+
+    );
+  }
+
   return (
     <div className="container">
       <img
@@ -109,13 +139,7 @@ function ProgressDrink() {
         { renderList() }
       </ul>
       <p className="text-justify" data-testid="instructions">{ data.strInstructions }</p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        className="btn btn-success btn-lg"
-      >
-        Finalizar receita
-      </button>
+      { buttonFinishRecipe() }
     </div>
   );
 }

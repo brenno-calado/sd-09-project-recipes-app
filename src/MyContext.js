@@ -105,6 +105,23 @@ const MyContextProvider = ({ children }) => {
       removeLocalStorageDrinks(id, target, ingredients, setLocalRecipes);
     }
   }
+  const isDone = (currentIngredint, recipeId) => {
+    if (localRecipes) {
+      const { meals } = localRecipes;
+      if (meals[recipeId]) {
+        return meals[recipeId].includes(currentIngredint);
+      }
+    }
+  };
+
+  const isDoneDrinks = (currentIngredint, recipeId) => {
+    if (localRecipes) {
+      const { cocktails } = localRecipes;
+      if (cocktails[recipeId]) {
+        return cocktails[recipeId].includes(currentIngredint);
+      }
+    }
+  };
 
   const context = {
     localRecipes,
@@ -115,6 +132,8 @@ const MyContextProvider = ({ children }) => {
     isLoading,
     recommendations,
     isFavorite,
+    isDoneDrinks,
+    isDone,
     checkDoneDrinks,
     checkDoneMeals,
     clickShowBar,

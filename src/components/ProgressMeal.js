@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import '../App.css';
 import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -15,6 +16,7 @@ function ProgressMeal() {
     setIsFavorite,
     checkDoneMeals,
     localRecipes,
+    isDone,
   } = useContext(MyContext);
 
   const { pathname } = useLocation();
@@ -34,18 +36,9 @@ function ProgressMeal() {
 
   const { ingredients, measures } = getKeysIngredints();
 
-  const isDone = (currentIngredint) => {
-    if (localRecipes) {
-      const { meals } = localRecipes;
-      if (meals[recipeId]) {
-        return meals[recipeId].includes(currentIngredint);
-      }
-    }
-  };
-
   const renderList = () => (
     ingredients.map((item, index) => (
-      isDone(item) ? (
+      isDone(item, recipeId) ? (
         <li
           key={ item }
           data-testid={ `${index}-ingredient-step` }
@@ -82,6 +75,42 @@ function ProgressMeal() {
     ))
   );
 
+  function buttonFinishRecipe() {
+    let mealLength = 0;
+
+    if (localRecipes) {
+      const { meals } = localRecipes;
+      if (meals[recipeId]) {
+        mealLength = meals[recipeId].length;
+      }
+    }
+
+    if (mealLength === ingredients.length) {
+      return (
+        <Link to="/receitas-feitas">
+          <button
+            type="button"
+            data-testid="finish-recipe-btn"
+            className="btn btn-success btn-lg"
+          >
+            Finalizar receita
+          </button>
+        </Link>
+      );
+    }
+    return (
+      <button
+        type="button"
+        data-testid="finish-recipe-btn"
+        className="btn btn-success btn-lg"
+        disabled
+      >
+        Finalizar receita
+      </button>
+
+    );
+  }
+
   return (
     <div className="container">
       <img
@@ -110,13 +139,7 @@ function ProgressMeal() {
         { renderList() }
       </ul>
       <p className="text-justify" data-testid="instructions">{ data.strInstructions }</p>
-      <button
-        type="button"
-        data-testid="finish-recipe-btn"
-        className="btn btn-success btn-lg"
-      >
-        Finalizar receita
-      </button>
+      { buttonFinishRecipe() }
     </div>
   );
 }

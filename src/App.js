@@ -7,6 +7,7 @@ import TelaPrincipal from './Pages/TelaPrincipal';
 import Perfil from './Pages/Perfil';
 import Detalhes from './Pages/Detalhes';
 import EmProgresso from './Pages/EmProgresso';
+import ReceitasFeitas from './Pages/ReceitasFeitas';
 import Explorar from './Pages/Explorar/Explorar';
 import ExploreDrinks from './Pages/Explorar/ExploreDrinks';
 import ExploreFoods from './Pages/Explorar/ExploreFoods';
@@ -39,6 +40,7 @@ function App() {
           <Route path="/bebidas/:id" component={ Detalhes } />
           <Route path="/comidas/:id" component={ FoodsDetails } />
           <Route path="/bebidas/:id" component={ DrinksDetails } />
+          <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/explorar" component={ Explorar } />
           <Route path="/comidas" component={ TelaPrincipal } />
           <Route path="/bebidas" component={ TelaPrincipal } />
