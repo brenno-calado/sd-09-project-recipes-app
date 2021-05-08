@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIconImage from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../Style/Header/style.css';
 
 class Header extends React.Component {
   constructor(props) {
@@ -25,18 +26,20 @@ class Header extends React.Component {
     const { title, searchIcon } = this.props;
     const { searchInput } = this.state;
     return (
-      <header>
+      <header className="header-container">
         <div className="header-component">
           <Link to="/perfil">
             <img
+              className="header-profile-icon"
               src={ profileIcon }
               data-testid="profile-top-btn"
               alt="profile button"
             />
           </Link>
-          <h2 data-testid="page-title">{title}</h2>
+          <h2 className="header-meal-text" data-testid="page-title">{title}</h2>
           {searchIcon && (
             <button
+              className="header-btn-search"
               type="button"
               onClick={ this.showSearchInput }
             >

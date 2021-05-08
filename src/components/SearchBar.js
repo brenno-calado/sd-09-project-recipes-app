@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { func } from 'prop-types';
 import { fetchRecipesAction, setIsCategoryToFalseAction } from '../actions';
+import '../Style/SearchBar/style.css';
+import SearchButtonIcon from '../images/searchButton.svg';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -42,49 +44,55 @@ class SearchBar extends React.Component {
     return (
       <div>
         {searchInput && (
-          <div>
-            <input
-              data-testid="search-input"
-              placeholder="Buscar"
-              onChange={ this.inputTextHandleChange }
-            />
-            <label htmlFor="ingredient">
+          <div className="searchbar-container">
+            <div className="searchbar-search">
               <input
-                id="ingredient"
-                type="radio"
-                data-testid="ingredient-search-radio"
-                name="radioSearchInput"
-                onChange={ this.handleChange }
+                className="searchbar-input-search"
+                data-testid="search-input"
+                placeholder="Buscar"
+                onChange={ this.inputTextHandleChange }
               />
-              Ingrediente
-            </label>
-            <label htmlFor="name">
-              <input
-                id="name"
-                type="radio"
-                data-testid="name-search-radio"
-                name="radioSearchInput"
-                onChange={ this.handleChange }
-              />
-              Nome
-            </label>
-            <label htmlFor="first-letter">
-              <input
-                id="first-letter"
-                type="radio"
-                data-testid="first-letter-search-radio"
-                name="radioSearchInput"
-                onChange={ this.handleChange }
-              />
-              Primeira letra
-            </label>
-            <button
-              type="button"
-              data-testid="exec-search-btn"
-              onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
-            >
-              Buscar
-            </button>
+              <button
+                className="searchbar-btn"
+                type="button"
+                data-testid="exec-search-btn"
+                onClick={ () => fetchRecipes(radioSearchInput, searchInputValue) }
+              >
+                <img src={ SearchButtonIcon } alt="search button" />
+              </button>
+            </div>
+            <div className="searchbar-radios">
+              <label htmlFor="ingredient">
+                <input
+                  id="ingredient"
+                  type="radio"
+                  data-testid="ingredient-search-radio"
+                  name="radioSearchInput"
+                  onChange={ this.handleChange }
+                />
+                Ingrediente
+              </label>
+              <label htmlFor="name">
+                <input
+                  id="name"
+                  type="radio"
+                  data-testid="name-search-radio"
+                  name="radioSearchInput"
+                  onChange={ this.handleChange }
+                />
+                Nome
+              </label>
+              <label htmlFor="first-letter">
+                <input
+                  id="first-letter"
+                  type="radio"
+                  data-testid="first-letter-search-radio"
+                  name="radioSearchInput"
+                  onChange={ this.handleChange }
+                />
+                Primeira letra
+              </label>
+            </div>
           </div>)}
       </div>
     );

@@ -1,0 +1,18 @@
+.categorieslist-container {
+  background: rgb(227, 238, 228);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Ubuntu, sans-serif;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.categorieslist-container button {
+  background: rgb(47, 193, 140);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  height: 30px;
+  margin: 10px 0;
+  width: 100px;
+}

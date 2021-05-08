@@ -1,0 +1,31 @@
+.header-container {
+  font-family: Ubuntu, sans-serif;
+}
+
+.header-component {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 18px 0;
+  padding: 0 20px;
+}
+
+.header-profile-icon {
+  width: 25px;
+}
+
+.header-meal-text {
+  color: rgb(47, 193, 140);
+  font-size: 26px;
+  margin: 0;
+}
+
+.header-btn-search {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.header-btn-search  img {
+  width: 30px;
+}

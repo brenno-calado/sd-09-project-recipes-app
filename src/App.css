@@ -4,7 +4,7 @@
   color: #464646;
   display: flex;
   flex-direction: column;
-  font-family: sans-serif;
+  font-family: Ubuntu, sans-serif;
   height: 100vh;
   justify-content: center;
   width: 100%;
@@ -68,15 +68,6 @@
 }
 
 /* Styles Login */
-
-/* Styles header */
-.header-component {
-  align-items: center;
-  display: flex;
-  justify-content: space-evenly;
-  padding: 15px;
-}
-
 /* Styles Recipe card */
 .recipe-card-container {
   display: flex;
