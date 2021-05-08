@@ -10,6 +10,7 @@ import Provider from './contextApi/provider';
 import Explorar from './pages/Explorar';
 import Perfil from './pages/Perfil';
 import RecipeDetails from './pages/RecipeDetails';
+import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id" component={ RecipeDetails } />
           <Route exact path="/comidas/:id" component={ RecipeDetails } />
+          <Route exact path="/receitas-feitas" component={ DoneRecipes } />
           <Route path="/explorar" component={ Explorar } />
           <Route exact path="/perfil" component={ Perfil } />
         </Switch>
