@@ -1,0 +1,13 @@
+:root {
+  box-sizing: border-box;
+}
+
+*, ::before, ::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #709b90;
+  font-family:Arial, Helvetica, sans-serif;
+  margin: 0;
+}

@@ -37,44 +37,46 @@ class Login extends React.Component {
     const { email, password, redirect } = this.state;
     return ((redirect) ? (<Redirect to="/comidas" />)
       : (
-        <form onSubmit={ this.onSubmit.bind(this) }>
-          <label htmlFor="email-input">
-            Digite aqui o seu email
-            <input
-              id="email-input"
-              type="email"
-              data-testid="email-input"
-              value={ email }
-              onChange={ (event) => (
-                this.setState({
-                  email: event.target.value,
-                })
-              ) }
-            />
-          </label>
-          <label htmlFor="password-input">
-            Digite aqui uma senha
-            <input
-              id="password-input"
-              type="password"
-              minLength={ 6 }
-              data-testid="password-input"
-              value={ password }
-              onChange={ (event) => (
-                this.setState({
-                  password: event.target.value,
-                })
-              ) }
-            />
-          </label>
-          <button
-            disabled={ !this.validate(email, password) }
-            type="submit"
-            data-testid="login-submit-btn"
-          >
-            Entrar
-          </button>
-        </form>
+        <div className="login-container">
+          <form onSubmit={ this.onSubmit.bind(this) }>
+            <label htmlFor="email-input">
+              Digite aqui o seu email
+              <input
+                id="email-input"
+                type="email"
+                data-testid="email-input"
+                value={ email }
+                onChange={ (event) => (
+                  this.setState({
+                    email: event.target.value,
+                  })
+                ) }
+              />
+            </label>
+            <label htmlFor="password-input">
+              Digite aqui uma senha
+              <input
+                id="password-input"
+                type="password"
+                minLength={ 6 }
+                data-testid="password-input"
+                value={ password }
+                onChange={ (event) => (
+                  this.setState({
+                    password: event.target.value,
+                  })
+                ) }
+              />
+            </label>
+            <button
+              disabled={ !this.validate(email, password) }
+              type="submit"
+              data-testid="login-submit-btn"
+            >
+              Entrar
+            </button>
+          </form>
+        </div>
       )
     );
   }
