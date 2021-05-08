@@ -58,11 +58,12 @@ class DrinkProgress extends Component {
 
   drinkFavorit() {
     const { ok } = this.state;
+    const id = 'share-btn';
     if (ok) {
       return (
         <div>
           <FavoriteButton />
-          <Share />
+          <Share id={ id } />
         </div>
       );
     }

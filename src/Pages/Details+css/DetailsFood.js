@@ -107,10 +107,10 @@ class DetailsFood extends React.Component {
     const { ok } = this.state;
     if (ok === true) {
       return (
-        <di>
+        <div>
           <FavoriteButton />
           <Share />
-        </di>
+        </div>
       );
     }
     return null;

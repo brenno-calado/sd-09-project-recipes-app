@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import ShareIcon from '../images/shareIcon.svg';
 
 class Share extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.addCopy = this.addCopy.bind(this);
     this.state = {
       p: '',
@@ -12,18 +13,23 @@ class Share extends Component {
   }
 
   addCopy() {
+    const { value } = this.props;
     let url = window.location.href;
     if (url.includes('/in-progress')) url = url.replaceAll('/in-progress', '');
+    if (url.includes('/receitas-feitas')) {
+      url = url.replaceAll('/receitas-feitas', `${value}`);
+    }
     copy(url)
       .then(() => this.setState({ p: 'Link copiado!' }));
   }
 
   render() {
     const { p } = this.state;
+    const { id } = this.props;
     return (
       <button
         type="button"
-        data-testid="share-btn"
+        data-testid={ id }
         src={ ShareIcon }
         onClick={ this.addCopy }
       >
@@ -33,5 +39,10 @@ class Share extends Component {
     );
   }
 }
+
+Share.propTypes = {
+  id: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+};
 
 export default Share;

@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
 import './Details+css/Details.css';
-import ShareIcon from '../images/shareIcon.svg';
-// import Share from '../Components/Share';
+// import ShareIcon from '../images/shareIcon.svg';
+import Share from '../Components/Share';
 
 class RecipesDone extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class RecipesDone extends React.Component {
     this.all = this.all.bind(this);
     this.renderComidas = this.renderComidas.bind(this);
     this.renderBebidas = this.renderBebidas.bind(this);
-    this.createBtnShare = this.createBtnShare.bind(this);
   }
 
   componentDidMount() {
@@ -40,17 +39,6 @@ class RecipesDone extends React.Component {
     }
   }
 
-  createBtnShare(index) {
-    return (
-      <button
-        type="button"
-        data-testid={ `${index}-horizontal-share-btn` }
-        src={ ShareIcon }
-      >
-        Share
-      </button>);
-  }
-
   all() {
     const { all, doneRecipes } = this.state;
     if (all) {
@@ -58,6 +46,10 @@ class RecipesDone extends React.Component {
         <div>
           { doneRecipes.map((value, index) => (
             <div key={ index }>
+              <Share
+                value={ `/${value.type}s/${value.id}` }
+                id={ `${index}-horizontal-share-btn` }
+              />
               <Link to={ `/${value.type}s/${value.id}` }>
                 <img
                   className="Imagem"
@@ -77,7 +69,6 @@ class RecipesDone extends React.Component {
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              { this.createBtnShare(index) }
               { value.tags.map((tag) => (
                 <span
                   key={ tag }
@@ -100,6 +91,7 @@ class RecipesDone extends React.Component {
         <div>
           { food.map((value, index) => (
             <div key={ index }>
+              <Share id={ `${index}-horizontal-share-btn` } />
               <Link to={ `/comidas/${value.id}` }>
                 <img
                   className="Imagem"
@@ -117,7 +109,6 @@ class RecipesDone extends React.Component {
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              { this.createBtnShare(index) }
               <span data-testid={ `${index}-${value.tags[0]}horizontal-tag` }>
                 {value.tags[0]}
               </span>
@@ -136,6 +127,7 @@ class RecipesDone extends React.Component {
         <div>
           { drink.map((value, index) => (
             <div key={ index }>
+              <Share id={ `${index}-horizontal-share-btn` } />
               <Link to={ `/bebidas/${value.id}` }>
                 <img
                   className="Imagem"
@@ -153,7 +145,6 @@ class RecipesDone extends React.Component {
               <p data-testid={ `${index}-horizontal-done-date` }>
                 {value.doneDate}
               </p>
-              { this.createBtnShare(index) }
               <span data-testid={ `${index}-${value.name}horizontal-tag` }>
                 {value.tags[0]}
               </span>

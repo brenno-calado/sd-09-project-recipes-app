@@ -11,7 +11,6 @@ const MAX_NUMBER_INGREDIENTS = 8;
 class FoodProgress extends Component {
   constructor() {
     super();
-
     this.state = {
       meal: {},
       igredients: [],
@@ -104,11 +103,12 @@ class FoodProgress extends Component {
 
   foodFavorit() {
     const { ok } = this.state;
+    const id = 'share-btn';
     if (ok) {
       return (
         <div>
           <FavoriteButton />
-          <Share />
+          <Share id={ id } />
         </div>
       );
     }
