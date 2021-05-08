@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import RecomendedDinks from '../components/RecomendedDrinks';
+import RecomendedDrinks from '../components/RecomendedDrinks';
 import RenderMealDetails from '../components/renderMealDetails';
 import '../App.css';
 
@@ -10,9 +10,9 @@ const MealDetails = ({ match: { params: { id } } }) => {
   const [done, setDone] = useState(false);
   const { idMeal, strInstructions, strYoutube } = recipe;
 
-  const storageInProgres = (JSON.parse(localStorage
-    .getItem('inProgressRecipes'))) || { meals: {} };
-  const text = (storageInProgres.meals[id] !== undefined)
+  const storageInProgress = (JSON
+    .parse(localStorage.getItem('inProgressRecipes'))) || { meals: {} };
+  const text = (storageInProgress.meals[id] !== undefined)
     ? 'Continuar Receita' : 'Iniciar Receita';
 
   const isDone = () => {
@@ -79,7 +79,7 @@ const MealDetails = ({ match: { params: { id } } }) => {
       <RenderMealDetails recipe={ recipe } id={ id } />
       { renderRecipeInstructions() }
       { renderRecipeVideo() }
-      <RecomendedDinks />
+      <RecomendedDrinks />
       { renderStartRecipeButton() }
     </div>
   );

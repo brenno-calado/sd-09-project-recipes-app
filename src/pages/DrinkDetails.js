@@ -10,9 +10,9 @@ const DrinkDetails = ({ match: { params: { id } } }) => {
   const [done, setDone] = useState(false);
   const { idDrink, strInstructions } = recipe;
 
-  const storageInProgres = (JSON
+  const storageInProgress = (JSON
     .parse(localStorage.getItem('inProgressRecipes'))) || { cocktails: {} };
-  const text = (storageInProgres.cocktails[id] !== undefined)
+  const text = (storageInProgress.cocktails[id] !== undefined)
     ? 'Continuar Receita' : 'Iniciar Receita';
 
   const isDone = () => {
