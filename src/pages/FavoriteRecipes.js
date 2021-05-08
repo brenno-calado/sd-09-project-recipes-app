@@ -3,17 +3,6 @@ import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 class ReceitasFavoritas extends Component {
- /*  constructor() {
-    super();
-    this.state = {
-      removedRecipe: false,
-    }
-  }
-
-  removeRecipe() {
-
-  } */
-
   render() {
     const searchIcon = false;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
