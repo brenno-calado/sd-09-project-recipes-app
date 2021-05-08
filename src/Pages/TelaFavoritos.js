@@ -10,9 +10,9 @@ export default function TelaFavoritos() {
     .map((element, index) => (
       <FavoriteCard
         key={ index }
+        index={ index }
         element={ element }
       />));
-
   return (
     <div>
       <button

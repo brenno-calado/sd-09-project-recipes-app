@@ -45,7 +45,6 @@ const FavoriteCard = (props) => {
       </Link>
       <Link to={ `/${type}s/${id}` }>
         <img
-          className="recipe-image"
           src={ image }
           alt={ name }
           data-testid={ `${index}-horizontal-image` }
