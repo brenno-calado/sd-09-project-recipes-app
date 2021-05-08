@@ -33,18 +33,20 @@ function favoriteRecipe({ id, type, area, category, alcoholicOrNot, name, image 
   localStorage.setItem('favoriteRecipes', JSON.stringify(recipes));
 }
 
-export default function FavoriteRecipeButton({ recipe }) {
+export default function FavoriteRecipeButton(props) {
+  const { recipe, dataTestid } = props;
   const [isFavorite, setIsFavorite] = useState(isRecipeFavorite(recipe.id));
 
   function handleFavoriteClick() {
     setIsFavorite(!isFavorite);
     favoriteRecipe(recipe);
+    window.location.reload();
   }
   return (
     <button className="favorite-button" type="button" onClick={ handleFavoriteClick }>
       <img
         src={ isFavorite ? blackHeart : whiteHeart }
-        data-testid="favorite-btn"
+        data-testid={ dataTestid }
         alt="Icone de favorito"
       />
     </button>
@@ -52,5 +54,8 @@ export default function FavoriteRecipeButton({ recipe }) {
 }
 
 FavoriteRecipeButton.propTypes = {
-  recipe: PropTypes.shape().isRequired,
-};
+  recipe: PropTypes.shape(),
+  dataTestid: PropTypes.string,
+}.isRequired;
+
+FavoriteRecipeButton.defaultProps = { dataTestid: 'favorite-btn' };

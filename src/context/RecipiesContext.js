@@ -7,6 +7,7 @@ function RecipiesProvider({ children }) {
   const [searchMealsList, setSearchMealsList] = useState([]);
   const [searchDrinksList, setSearchDrinksList] = useState([]);
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const context = {
     searchMealsList,
@@ -15,6 +16,8 @@ function RecipiesProvider({ children }) {
     setSearchDrinksList,
     showSearchBar,
     setShowSearchBar,
+    favoriteRecipes,
+    setFavoriteRecipes,
   };
 
   return (

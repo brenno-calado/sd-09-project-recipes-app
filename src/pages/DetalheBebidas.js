@@ -5,7 +5,7 @@ import RecipesDetailsCard from '../components/RecipeDetailsCard';
 function DetalhesBebidas() {
   return (
     <main>
-      <RecipesDetailsCard />
+      <RecipesDetailsCard isMeal={ false } />
     </main>
   );
 }
