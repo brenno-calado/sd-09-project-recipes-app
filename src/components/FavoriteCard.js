@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
+import { saveAsFavorite } from '../services/details';
+import { MyContext } from '../MyContext';
 
 const FavoriteCard = (props) => {
-  const { index, data } = props;
+  const { index, element } = props;
+  const { data } = useContext(MyContext);
   const {
     id,
     type,
@@ -11,7 +14,12 @@ const FavoriteCard = (props) => {
     alcoholicOrNot,
     image,
     name,
-  } = data;
+  } = element;
+  const [isFavorite, setIsFavorite] = useState(true);
+  const saveFavorite = () => {
+    setIsFavorite(!isFavorite);
+    saveAsFavorite(id, data, type);
+  };
   return (
     <div>
       <p>
@@ -29,7 +37,7 @@ const FavoriteCard = (props) => {
         height="100"
       />
       <ShareButton />
-      <FavoriteButton />
+      <FavoriteButton onClick={ saveFavorite } isFavorite={ isFavorite } />
     </div>
   );
 };

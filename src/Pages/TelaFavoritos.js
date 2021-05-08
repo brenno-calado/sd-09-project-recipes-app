@@ -3,8 +3,15 @@ import FavoriteCard from '../components/FavoriteCard';
 
 export default function TelaFavoritos() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(favoriteRecipes);
   const [filter, setFilter] = useState(null);
+  const filteredFavoriteRecipes = favoriteRecipes
+    .filter((element) => element.type === filter);
+  const mapFavoriteRecipes = (currentFavorites) => currentFavorites
+    .map((element, index) => (
+      <FavoriteCard
+        key={ index }
+        element={ element }
+      />));
 
   return (
     <div>
@@ -29,12 +36,9 @@ export default function TelaFavoritos() {
       >
         Drinks
       </button>
-      {filter ? favoriteRecipes
-        .filter((element) => element.type === filter)
-        .map((element, index) => (
-          <FavoriteCard key={ index } data={ element } />))
-        : favoriteRecipes.map((element, index) => (
-          <FavoriteCard key={ index } data={ element } />))}
+      {filter
+        ? mapFavoriteRecipes(filteredFavoriteRecipes)
+        : mapFavoriteRecipes(favoriteRecipes)}
     </div>
   );
 }
