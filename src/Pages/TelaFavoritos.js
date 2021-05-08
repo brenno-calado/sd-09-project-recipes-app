@@ -3,6 +3,9 @@ import FavoriteCard from '../components/FavoriteCard';
 
 export default function TelaFavoritos() {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (favoriteRecipes === null) {
+    localStorage.setItem('favoriteRecipes', []);
+  }
   const [filter, setFilter] = useState(null);
   const filteredFavoriteRecipes = favoriteRecipes
     .filter((element) => element.type === filter);
