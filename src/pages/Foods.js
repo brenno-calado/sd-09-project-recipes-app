@@ -17,7 +17,8 @@ function Foods() {
     setRecipesData,
     getRecipes,
     getRecipesByCategory,
-    getRecipesFoodsFilterByCategory } = useRecipeContext();
+    getRecipesFoodsFilterByCategory,
+    renderRecipesByIngredients } = useRecipeContext();
 
   const headerFoodParams = {
     meal,
@@ -28,9 +29,15 @@ function Foods() {
     recipesData,
     setListItemByCategory,
     setRecipesData,
+    renderRecipesByIngredients,
   };
 
   useEffect(() => {
+    handleFetchFoodClick();
+  }, []);
+
+  useEffect(() => {
+    console.log(recipesData);
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');

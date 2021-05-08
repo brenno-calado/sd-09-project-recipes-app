@@ -13,6 +13,7 @@ function RecipeCard({
           src={ image }
           alt={ name }
           className={ styles.recipeCArdId }
+          type={ type }
         />
         <p data-testid={ cardNameId }>{ name }</p>
       </li>
