@@ -6,6 +6,8 @@ import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 import Arrow from '../components/Arrow';
 import { renderIngredientsList, renderVideo } from '../services/details';
 import ShareButton from '../components/ShareButton';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
