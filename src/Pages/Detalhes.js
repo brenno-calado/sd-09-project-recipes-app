@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import Arrow from '../components/Arrow';
 import { renderIngredientsList, renderVideo, saveAsFavorite } from '../services/details';
 import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -127,16 +126,7 @@ export default function Detalhes() {
         { data[`str${foodOrDrink}`] }
       </h1>
       <ShareButton />
-      <button
-        type="button"
-        onClick={ saveFavorite }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="Favorite Button"
-        />
-      </button>
+      <FavoriteButton onClick={ saveFavorite } isFavorite={ isFavorite } />
       <h2 data-testid="recipe-category">
         Categoria:
         {
