@@ -2,3 +2,20 @@
   bottom: 0;
   position: fixed;
 }
+
+.details-header-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.details-header-img-recipe {
+  height: 160px;
+}
+
+.details-header-wrap {
+  display: flex;
+}
+
+.details-header-container h1 {
+  font-family: Ubuntu, sans-serif;
+}
