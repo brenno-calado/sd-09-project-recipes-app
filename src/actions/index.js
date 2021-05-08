@@ -5,6 +5,8 @@ import categoriesfetchApi from '../service/categoriesFetchApi';
 import fetchRecipeByCategory from '../service/fetchRecipeByCategory';
 import fetchRecipeInProgressApi from '../service/fetchRecipeInProgressApi';
 import recommendationsFetch from '../service/recommendationsFetch';
+import fetchIngredients from '../service/fetchIngredients';
+import fetchIngredientImg from '../service/fetchIngredientImg';
 
 export const receiveApiReponse = (response) => ({
   type: 'SEARCH_RECIPES',
@@ -91,4 +93,24 @@ const reciveFetchRecommendations = (recipesApiReponse) => ({
 export const recommendationsFetchAction = () => (dispatch) => {
   recommendationsFetch()
     .then((recipesApiReponse) => dispatch(reciveFetchRecommendations(recipesApiReponse)));
+};
+
+const reciveIngredientsList = (ingredientsList) => ({
+  type: 'INGREDIENTS_LIST',
+  ingredientsList,
+});
+
+export const fetchIngredientsAction = () => (dispatch) => {
+  fetchIngredients()
+    .then((recipesApiReponse) => dispatch(reciveIngredientsList(recipesApiReponse)));
+};
+
+const reciveIngredientImg = (img) => ({
+  type: 'INGREDIENT_IMG',
+  image: img,
+});
+
+export const fetchIngredientImgAction = (ingredientName) => (dispatch) => {
+  fetchIngredientImg(ingredientName)
+    .then((recipesApiReponse) => dispatch(reciveIngredientImg(recipesApiReponse)));
 };

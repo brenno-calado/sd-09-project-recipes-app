@@ -7,8 +7,7 @@ import Bebidas from './pages/Drinks';
 import Explorar from './pages/Explore';
 import ExplorarComidas from './pages/ExploreMeals';
 import ExplorarBebidas from './pages/ExploreDrinks';
-import ExplorarIngredientesComida from './pages/ExploreMealsByIngredients';
-import ExplorarIngredientesBebida from './pages/ExploreDrinksByIngredients';
+import ExploreByIngredients from './pages/ExploreByIngredients';
 import ExplorarComidasPorOrigem from './pages/ExploreMealsByOrigin';
 import ReceitasFeitas from './pages/RecipesMade';
 import ReceitasFavoritas from './pages/FavoriteRecipes';
@@ -24,11 +23,11 @@ function App() {
     <Switch>
       <Route
         path="/explorar/comidas/ingredientes"
-        component={ ExplorarIngredientesComida }
+        component={ ExploreByIngredients }
       />
       <Route
         path="/explorar/bebidas/ingredientes"
-        component={ ExplorarIngredientesBebida }
+        component={ ExploreByIngredients }
       />
       <Route path="/comidas/:id/in-progress" component={ RecipesInProgress } />
       <Route path="/bebidas/:id/in-progress" component={ RecipesInProgress } />
