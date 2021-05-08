@@ -4,10 +4,10 @@
 
 .header-component {
   align-items: center;
+  background: white;
   display: flex;
   justify-content: space-between;
-  margin: 18px 0;
-  padding: 0 20px;
+  padding: 20px;
 }
 
 .header-profile-icon {

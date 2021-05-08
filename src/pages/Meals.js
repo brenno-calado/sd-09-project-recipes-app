@@ -7,6 +7,7 @@ import FooterMenu from '../components/FooterMenu';
 import RecipeMealCard from '../components/RecipeMealCard';
 import { defaultFetchApiAction, setIsLoading } from '../actions';
 import CategoriesList from '../components/CategoriesList';
+import '../Style/Meals/style.css';
 
 class Meals extends React.Component {
   componentDidMount() {
@@ -27,18 +28,22 @@ class Meals extends React.Component {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return (
-      <div>
+      <div className="meals-container">
         <Header title="Comidas" searchIcon={ searchIcon } />
         <CategoriesList />
-        {itens && !isCategory && itens.length === 1
-          && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
-        {itens && itens.map((meal, index) => (
-          <Link
-            to={ `${pathName}/${itens[index][idType]}` }
-            key={ meal[idType] }
-          >
-            <RecipeMealCard meal={ meal } index={ index } />
-          </Link>))}
+        <div className="meals-wrap">
+          {itens && !isCategory && itens.length === 1
+            && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
+          {itens && itens.map((meal, index) => (
+            <div className="meals-card" key={ meal[idType] }>
+              <Link
+                className="meals-card-link"
+                to={ `${pathName}/${itens[index][idType]}` }
+              >
+                <RecipeMealCard meal={ meal } index={ index } />
+              </Link>
+            </div>))}
+        </div>
         <FooterMenu />
       </div>
     );

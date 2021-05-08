@@ -30,7 +30,7 @@
 .login-input {
   border: none;
   border-radius: 10px;
-  color: rgb(47, 193, 140);
+  color: rgb(64, 64, 64);
   font-size: 18px;
   margin-bottom: 10px;
   padding: 10px 16px;
@@ -54,7 +54,7 @@
 }
 
 .login-btn:disabled {
-  background: rgb(50, 202, 146);
+  background: rgb(60, 223, 163);
   color: rgb(41, 160, 116);
 }
 

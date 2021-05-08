@@ -1,5 +1,6 @@
 import React from 'react';
 import { objectOf } from 'prop-types';
+import '../Style/Meals/style.css';
 
 class RecipeMealCard extends React.Component {
   render() {
