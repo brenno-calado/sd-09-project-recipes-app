@@ -1,6 +1,5 @@
 import React from 'react';
 import { objectOf } from 'prop-types';
-import '../Style/recipeInProgress/style.css';
 
 class CheckBoxIngredients extends React.Component {
   constructor() {

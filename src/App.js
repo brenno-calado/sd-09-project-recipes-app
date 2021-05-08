@@ -16,9 +16,6 @@ import Meals from './pages/Meals';
 import RecipesInProgress from './pages/RecipesInProgress';
 import Details from './pages/Details';
 
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
 function App() {
   return (
     <Switch>
