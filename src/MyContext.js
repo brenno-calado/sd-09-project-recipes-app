@@ -1,6 +1,13 @@
 import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { searchByCategory, fetchToMainScreen } from './services/fetchAPI';
+import { saveAsFavorite } from './services/details';
+import {
+  addLocalStorageMeals,
+  removeLocalStorageMeals,
+  addLocalStorageDrinks,
+  removeLocalStorageDrinks,
+} from './services/recipes-inProgress';
 
 const MyContext = createContext();
 
@@ -13,6 +20,27 @@ const MyContextProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [categorieSelected, setCategorieSelected] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const recipesStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const [localRecipes, setLocalRecipes] = useState(recipesStorage);
+
+  function getKeysIngredints() {
+    const keysData = Object.keys(data);
+    const allIngredients = keysData.filter((key) => key.includes('Ingredient'));
+    const ingredintsWithValue = allIngredients.filter((newKey) => data[newKey]);
+    const ingredients = ingredintsWithValue.map((ingredient) => data[ingredient]);
+
+    const allMeasure = keysData.filter((key) => key.includes('Measure'));
+    const measuresWithValue = allMeasure.filter((newKey) => data[newKey]);
+    const measures = measuresWithValue.map((ingredient) => data[ingredient]);
+
+    const myObjResult = {
+      ingredients,
+      measures,
+    };
+    return myObjResult;
+  }
 
   const filterByCategory = ({ value }, typeFood) => {
     if (toggle && categorieSelected === value) {
@@ -37,7 +65,6 @@ const MyContextProvider = ({ children }) => {
     } else {
       setShowBar(true);
     }
-    // (showBar ? setShowBar(false) : setShowBar(true))
   };
 
   function filterIngredients(recipe) {
@@ -58,22 +85,69 @@ const MyContextProvider = ({ children }) => {
   }
   // Source of the algorithm https://github.com/tryber/sd-09-project-recipes-app/pull/483/files /
 
+  const saveFavorite = (recipeId, pathname) => {
+    setIsFavorite(!isFavorite);
+    saveAsFavorite(recipeId, data, pathname);
+  };
+
+  function checkDoneMeals(id, target, ingredients) {
+    if (target.checked) {
+      addLocalStorageMeals(id, target, ingredients, setLocalRecipes);
+    } else {
+      removeLocalStorageMeals(id, target, ingredients, setLocalRecipes);
+    }
+  }
+
+  function checkDoneDrinks(id, target, ingredients) {
+    if (target.checked) {
+      addLocalStorageDrinks(id, target, ingredients, setLocalRecipes);
+    } else {
+      removeLocalStorageDrinks(id, target, ingredients, setLocalRecipes);
+    }
+  }
+  const isDone = (currentIngredint, recipeId) => {
+    if (localRecipes) {
+      const { meals } = localRecipes;
+      if (meals[recipeId]) {
+        return meals[recipeId].includes(currentIngredint);
+      }
+    }
+  };
+
+  const isDoneDrinks = (currentIngredint, recipeId) => {
+    if (localRecipes) {
+      const { cocktails } = localRecipes;
+      if (cocktails[recipeId]) {
+        return cocktails[recipeId].includes(currentIngredint);
+      }
+    }
+  };
+
   const context = {
+    localRecipes,
     data,
     categories,
     showBar,
-    clickShowBar,
     resultAPI,
-    setResultAPI,
     isLoading,
+    recommendations,
+    isFavorite,
+    isDoneDrinks,
+    isDone,
+    checkDoneDrinks,
+    checkDoneMeals,
+    clickShowBar,
+    setResultAPI,
     setIsLoading,
     setData,
     setCategories,
     setShowBar,
     filterByCategory,
     filterIngredients,
-    recommendations,
     setRecommendations,
+    getKeysIngredints,
+    saveFavorite,
+    setIsFavorite,
   };
   return (
     <MyContext.Provider value={ context }>

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 import { MyContext } from '../MyContext';
 import { mealAPI, drinkAPI, fetchToMainScreen } from '../services/fetchAPI';
 import Arrow from '../components/Arrow';
-import { renderIngredientsList, renderVideo, saveAsFavorite } from '../services/details';
+import { renderIngredientsList, renderVideo } from '../services/details';
 import ShareButton from '../components/ShareButton';
-import FavoriteButton from '../components/FavoriteButton';
 
 export default function Detalhes() {
   const { pathname } = useLocation();
@@ -17,12 +17,15 @@ export default function Detalhes() {
     setIsLoading,
     filterIngredients,
     setRecommendations,
-    recommendations } = useContext(MyContext);
+    recommendations,
+    saveFavorite,
+    setIsFavorite,
+    isFavorite,
+  } = useContext(MyContext);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
-  const [isFavorite, setIsFavorite] = useState(false);
+  // const [isFavorite, setIsFavorite] = useState(false);
   const [foodOrDrink, setType] = useState('');
-  const history = useHistory();
 
   useEffect(() => {
     if (pathname.includes('comidas')) {
@@ -50,7 +53,15 @@ export default function Detalhes() {
         setIsFavorite(initialFavoriteState);
       });
     }
-  }, [setIsLoading, setData, pathname, recipeId, setRecommendations, setType]);
+  }, [
+    setIsLoading,
+    setData,
+    pathname,
+    recipeId,
+    setRecommendations,
+    setType,
+    setIsFavorite,
+  ]);
 
   const previousSlide = (imgUrls) => {
     const lastIndex = imgUrls.length - 1;
@@ -106,11 +117,6 @@ export default function Detalhes() {
     );
   };
 
-  const saveFavorite = () => {
-    setIsFavorite(!isFavorite);
-    saveAsFavorite(recipeId, data, pathname);
-  };
-
   if (isLoading) {
     return <p>Loading...</p>;
   }
@@ -126,7 +132,17 @@ export default function Detalhes() {
         { data[`str${foodOrDrink}`] }
       </h1>
       <ShareButton />
-      <FavoriteButton onClick={ saveFavorite } isFavorite={ isFavorite } />
+      <button
+        className="btn"
+        type="button"
+        onClick={ () => saveFavorite(recipeId, pathname) }
+      >
+        <img
+          data-testid="favorite-btn"
+          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
+          alt="Favorite Button"
+        />
+      </button>
       <h2 data-testid="recipe-category">
         Categoria:
         {
@@ -147,18 +163,19 @@ export default function Detalhes() {
         Recomendações
         { renderRecommendations() }
       </section>
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        style={ {
-          position: 'fixed',
-          bottom: 0,
-          zIndex: 1,
-        } }
-        onClick={ () => history.push(`${pathname}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+      <Link to={ `${pathname}/in-progress` }>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          style={ {
+            position: 'fixed',
+            bottom: 0,
+            zIndex: 1,
+          } }
+        >
+          Iniciar Receita
+        </button>
+      </Link>
     </div>
   );
 }
