@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 import './Pages.css';
 import Loading from '../components/Loading';
+import Share from '../components/Share';
 
 function FavoriteRecipes() {
-  const [urlCopied, setUrlCopied] = useState('');
-  const [card, setCard] = useState('');
   const [filter, setFilter] = useState('All');
   const [renderData, setRenderData] = useState([]);
   const data = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -31,29 +29,6 @@ function FavoriteRecipes() {
     setRenderData(dataFilter);
   }
 
-  const onCopyText = () => {
-    const timeout = 1000;
-    setUrlCopied('Link copiado!');
-    setTimeout(() => {
-      setUrlCopied('');
-    }, timeout);
-  };
-
-  const copyToClipBoard = async (id, element) => {
-    setCard(id);
-    onCopyText();
-    switch (element) {
-    case 'comida':
-      await navigator.clipboard
-        .writeText(`http://localhost:3000/comidas/${id}`);
-      break;
-
-    default:
-      await navigator.clipboard
-        .writeText(`http://localhost:3000/bebidas/${id}`);
-      break;
-    }
-  };
   return (
     <div>
       <Header
@@ -103,17 +78,11 @@ function FavoriteRecipes() {
                     alt="Favorite"
                   />
                 </button>
-                <button
-                  type="button"
-                  onClick={ () => copyToClipBoard(element.id, element.type) }
-                >
-                  <img
-                    src={ shareIcon }
-                    alt="share"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                  />
-                </button>
-                <span>{ card === element.id ? urlCopied : null }</span>
+                <Share
+                  index={ index }
+                  id={ element.id }
+                  type={ element.type }
+                />
               </div>
             </div>
           </div>
