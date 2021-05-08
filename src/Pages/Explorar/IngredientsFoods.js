@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../../components/Header';
 import Loading from '../../components/Loading';
+import MenuInferior from '../../components/MenuInferior';
 
 class IngredientsFoods extends Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class IngredientsFoods extends Component {
               </div>
             ))}
         </main>
+        <MenuInferior />
       </div>
     );
   }
