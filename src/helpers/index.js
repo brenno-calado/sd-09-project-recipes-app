@@ -55,14 +55,11 @@ export function compareHearths(recipe, route, id) {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
   if (favoriteRecipes) {
     favoriteRecipes.forEach((element) => {
-      console.log(element.id);
-      console.log(id);
       if (element.id === id) {
-        localStorage.removeItem('favoriteRecipes');
-        console.log(element.id);
+        const dataFilter = favoriteRecipes.filter((recipeIndex) => recipeIndex.id !== id);
+        localStorage.setItem('favoriteRecipes', JSON.stringify(dataFilter));
       } else {
         favoriteRecipe(recipe, route);
-        console.log('NAO TEM O MESMO ID');
       }
     });
   } else {

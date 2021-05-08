@@ -44,7 +44,6 @@ function FoodsDetails() {
 
   function startRecipes() {
     history.push(`/comidas/${idRecipe}/in-progress`);
-    compareId();
     if (progressStatus === false) {
       setStorage('initRecipes', ([{ id: idRecipe }]));
     }
