@@ -105,11 +105,12 @@ class DetailsFood extends React.Component {
 
   favoriteOk() {
     const { ok } = this.state;
+    const id = 'share-btn';
     if (ok === true) {
       return (
         <div>
           <FavoriteButton />
-          <Share />
+          <Share id={ id } />
         </div>
       );
     }

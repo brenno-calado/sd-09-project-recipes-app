@@ -96,7 +96,7 @@ class FoodProgress extends Component {
     const label = document.querySelectorAll('label');
     const input = document.querySelectorAll('input');
     input.forEach((value, index) => {
-      if (value.checked === true) label[index].style.textDecoration = 'line-through';
+      if (value.checked) label[index].style.textDecoration = 'line-through';
       else label[index].style = null;
     });
   }

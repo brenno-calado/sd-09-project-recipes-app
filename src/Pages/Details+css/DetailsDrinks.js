@@ -57,12 +57,13 @@ class DetailsDrinks extends React.Component {
 
   favoriteOk() {
     const { ok } = this.state;
+    const id = 'share-btn';
     if (ok === true) {
       return (
-        <di>
+        <div>
           <FavoriteButton />
-          <Share />
-        </di>
+          <Share id={ id } />
+        </div>
       );
     }
     return null;
