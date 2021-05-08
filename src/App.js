@@ -16,6 +16,7 @@ function App() {
       <div className="meals">
         <Switch>
           <Route exact path="/" component={ Home } />
+          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route
             path="/explorar/comidas/ingredientes"
             component={ ExploreFoodsAndIngredients }
@@ -43,7 +44,6 @@ function App() {
           <Route path="/bebidas" component={ Drinks } />
           <Route path="/perfil" component={ Profile } />
           <Route path="/receitas-feitas" component={ DoneRecipes } />
-          <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route component={ NotFound } />
         </Switch>
       </div>

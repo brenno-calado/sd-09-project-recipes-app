@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
+import Header from '../components/Header';
 import './Pages.css';
+import Loading from '../components/Loading';
 
 function FavoriteRecipes() {
   const [urlCopied, setUrlCopied] = useState('');
@@ -13,8 +15,11 @@ function FavoriteRecipes() {
   const render = filter === 'All' ? data : renderData;
 
   useEffect(() => {
-    setRenderData(data.filter((element) => element.type === filter));
-  }, [filter, setRenderData]);
+    const getStr = async () => {
+      await setRenderData(data.filter((element) => element.type === filter));
+    };
+    getStr();
+  }, [filter]);
 
   function dataFiltered(e) {
     setFilter(e.target.value);
@@ -51,67 +56,68 @@ function FavoriteRecipes() {
   };
   return (
     <div>
+      <Header
+        title="Receitas Favoritas"
+      />
       <div>
-        {
-          render.map((element, index) => (
-            <div key={ element.id }>
+        {!render ? <Loading /> : render.map((element, index) => (
+          <div key={ element.id }>
+            <Link
+              to={ element.type === 'comida'
+                ? `/comidas/${element.id}`
+                : `/bebidas/${element.id}` }
+            >
+              <img
+                className="recipe-img"
+                alt="fav food"
+                src={ element.image }
+                data-testid={ `${index}-horizontal-image` }
+              />
+            </Link>
+            <div>
+              <span
+                data-testid={ `${index}-horizontal-top-text` }
+              >
+                {element.alcoholicOrNot.length > 0
+                  ? element.alcoholicOrNot
+                  : element.area}
+                {' - '}
+                {element.category}
+              </span>
               <Link
                 to={ element.type === 'comida'
                   ? `/comidas/${element.id}`
                   : `/bebidas/${element.id}` }
+                style={ { textDecoration: 'none' } }
               >
-                <img
-                  className="recipe-img"
-                  alt="fav food"
-                  src={ element.image }
-                  data-testid={ `${index}-horizontal-image` }
-                />
+                <span data-testid={ `${index}-horizontal-name` }>{element.name}</span>
               </Link>
               <div>
-                <span
-                  data-testid={ `${index}-horizontal-top-text` }
+                <button
+                  type="button"
+                  onClick={ () => unselectFavorite(element.id) }
                 >
-                  {element.alcoholicOrNot.length > 0
-                    ? element.alcoholicOrNot
-                    : element.area}
-                  {' - '}
-                  {element.category}
-                </span>
-                <Link
-                  to={ element.type === 'comida'
-                    ? `/comidas/${element.id}`
-                    : `/bebidas/${element.id}` }
-                  style={ { textDecoration: 'none' } }
+                  <img
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    src={ blackHeartIcon }
+                    alt="Favorite"
+                  />
+                </button>
+                <button
+                  type="button"
+                  onClick={ () => copyToClipBoard(element.id, element.type) }
                 >
-                  <span data-testid={ `${index}-horizontal-name` }>{element.name}</span>
-                </Link>
-                <div>
-                  <button
-                    type="button"
-                    onClick={ () => unselectFavorite(element.id) }
-                  >
-                    <img
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      src={ blackHeartIcon }
-                      alt="Favorite"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={ () => copyToClipBoard(element.id, element.type) }
-                  >
-                    <img
-                      src={ shareIcon }
-                      alt="share"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                    />
-                  </button>
-                  <span>{ card === element.id ? urlCopied : null }</span>
-                </div>
+                  <img
+                    src={ shareIcon }
+                    alt="share"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                  />
+                </button>
+                <span>{ card === element.id ? urlCopied : null }</span>
               </div>
             </div>
-          ))
-        }
+          </div>
+        ))}
         <div>
           <input
             name="nav-fav"
