@@ -11,7 +11,10 @@ const Provider = ({ children }) => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favorites) setFavoriteRecipes(favorites);
     const done = JSON.parse(localStorage.getItem('doneRecipes'));
-    if (done) setDoneRecipes(done);
+    if (done) {
+      console.log(done);
+      setDoneRecipes(done);
+    }
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (inProgress) setRecipesInProgress(inProgress);
   }, []);
