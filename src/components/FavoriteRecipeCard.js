@@ -14,8 +14,14 @@ class FavoriteRecipeCard extends React.Component {
     this.shareRecipe = this.shareRecipe.bind(this);
   }
 
-  favoriteRecipe(recipe) {
-
+  favoriteRecipe(/* recipe */) {
+    /* const favRec = JSON.parse(localStorage.getItem('favoriteRecipes')); */
+    /* console.log(favRec)
+    if (favRec.includes(recipe)) {
+      console.log('ola')
+    } else {
+      console.log('olaaa')
+    } */
   }
 
   shareRecipe(recipe) {

@@ -6,7 +6,6 @@ class ReceitasFavoritas extends Component {
   render() {
     const searchIcon = false;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    console.log(favoriteRecipes);
     return (
       <div>
         <Header title="Receitas Favoritas" searchIcon={ searchIcon } />
