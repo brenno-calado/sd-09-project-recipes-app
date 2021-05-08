@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { favoriteRecipe } from '../helpers/index';
+import { compareHearths } from '../helpers/index';
+import RecipesContext from '../context/RecipesContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -9,7 +10,8 @@ import './Recipes.css';
 
 function Recipes(props) {
   const [copySuccess, setCopySuccess] = useState('');
-  const [hearthIco, setHearthIco] = useState(false);
+  const { hearthIco, setHearthIco } = useContext(RecipesContext);
+
   const history = useHistory();
   const { pathname } = history.location;
   const {
@@ -18,6 +20,7 @@ function Recipes(props) {
     recipeTitle, recipeInstruction,
     recipe,
     route,
+    id,
   } = props;
 
   const shareRecipe = async (copyMe) => {
@@ -56,7 +59,7 @@ function Recipes(props) {
           <button
             type="button"
             data-testid="favorite-btn"
-            onClick={ () => { favoriteRecipe(recipe, route); changeButtonHearth(); } }
+            onClick={ () => { compareHearths(recipe, route, id); changeButtonHearth(); } }
             src={ !hearthIco ? whiteHeartIcon : blackHeartIcon }
           >
             <img
