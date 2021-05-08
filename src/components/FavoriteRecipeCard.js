@@ -10,18 +10,19 @@ class FavoriteRecipeCard extends React.Component {
     this.state = {
       favoriteBtn: true,
       linkCopied: '',
+
     };
     this.shareRecipe = this.shareRecipe.bind(this);
   }
 
-  favoriteRecipe(/* recipe */) {
-    /* const favRec = JSON.parse(localStorage.getItem('favoriteRecipes')); */
-    /* console.log(favRec)
-    if (favRec.includes(recipe)) {
-      console.log('ola')
-    } else {
-      console.log('olaaa')
-    } */
+  favoriteRecipe(recipe) {
+    const favRec = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const isFavorite = favRec.some((favRecipe) => favRecipe.id === recipe.id);
+    if (isFavorite) {
+      const filteredRecipes = favRec.filter((favRecipe) => favRecipe.id !== recipe.id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(filteredRecipes));
+      window.location.reload();
+    }
   }
 
   shareRecipe(recipe) {

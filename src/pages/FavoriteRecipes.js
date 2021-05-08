@@ -3,6 +3,17 @@ import Header from '../components/Header';
 import FavoriteRecipeCard from '../components/FavoriteRecipeCard';
 
 class ReceitasFavoritas extends Component {
+ /*  constructor() {
+    super();
+    this.state = {
+      removedRecipe: false,
+    }
+  }
+
+  removeRecipe() {
+
+  } */
+
   render() {
     const searchIcon = false;
     const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -27,7 +38,7 @@ class ReceitasFavoritas extends Component {
         >
           Drinks
         </button>
-        { favoriteRecipes.map((recipe, index) => (
+        {favoriteRecipes && favoriteRecipes.map((recipe, index) => (
           <FavoriteRecipeCard
             key={ recipe.id }
             recipe={ recipe }
