@@ -177,7 +177,7 @@ const FoodsDetailsV2 = () => {
           ))}
         </div>
 
-        <div>
+        <div className="food-details-instructions-container">
           <p
             data-testid="instructions"
             className="food-details-instructions"
