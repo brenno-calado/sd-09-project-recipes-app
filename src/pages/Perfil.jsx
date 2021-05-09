@@ -6,8 +6,9 @@ import { LoginContext } from '../context';
 
 function Perfil() {
   const { values: user } = useContext(LoginContext);
+  const auxUser = JSON.parse(localStorage.getItem('user')) || user;
 
-  const [email, setEmail] = useState(user.email || '');
+  const [email, setEmail] = useState(auxUser.email || '');
 
   const history = useHistory();
 
