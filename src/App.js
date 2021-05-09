@@ -4,9 +4,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Beverages from './pages/Beverages';
-import BeveragesDetails from './pages/BeveragesDetails';
+// import BeveragesDetails from './pages/BeveragesDetails';
+import BeveragesDetailsV2 from './pages/BeveragesDetailsV2';
 import Foods from './pages/Foods';
-import FoodsDetails from './pages/FoodsDetails';
+// import FoodsDetails from './pages/FoodsDetails';
+import FoodsDetailsV2 from './pages/FoodsDetailsV2';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import ExploreBeverages from './pages/ExploreBeverages';
@@ -39,14 +41,14 @@ function App() {
         <Route exact path="/explorar" component={ Explore } />
         <Route exact path="/receitas-feitas" component={ DoneRecipes } />
         <Route exact path="/receitas-favoritas" component={ FavoriteRecipes } />
-        <Route exact path="/bebidas/:id" component={ BeveragesDetails } />
+        <Route exact path="/bebidas/:id" component={ BeveragesDetailsV2 } />
         <Route
           exact
           path="/bebidas/:id/in-progress"
           component={ BeveragesInProgress }
         />
         <Route exact path="/bebidas" component={ Beverages } />
-        <Route exact path="/comidas/:id" component={ FoodsDetails } />
+        <Route exact path="/comidas/:id" component={ FoodsDetailsV2 } />
         <Route exact path="/comidas/:id/in-progress" component={ FoodsInProgress } />
         <Route exact path="/comidas" component={ Foods } />
         <Route exact path="/" component={ Login } />
