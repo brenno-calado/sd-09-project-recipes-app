@@ -1,22 +1,20 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Loading from '../components/Loading';
 import Recommendations from '../components/Recommendations';
+import ButtonsContainer from '../components/ButtonsContainer';
 import { useRecipes } from '../hooks';
 import { RecipesContext } from '../context';
 import '../styles/Details.css';
-import ShareButton from '../components/ShareButton';
-import LikeButton from '../components/LikeButton';
+import ButtonStart from '../components/ButtonStart';
 
 function Detalhes() {
   const { pathname } = useLocation();
   const { id } = useParams();
-  const history = useHistory();
 
   const {
     values: {
       doneRecipes: doneRecContext,
-      inProgressRecipes: inProgRecContext,
     },
   } = useContext(RecipesContext);
 
@@ -24,9 +22,6 @@ function Detalhes() {
   const [recipeDetails, setRecipeDetails] = useState({});
   const [recommendations, setRecommendations] = useState([]);
   const [doneRecipes] = useState(doneRecContext || []);
-  const [inProgressRecipes] = useState(
-    inProgRecContext || { cocktails: {}, meals: {} },
-  );
 
   const { getRecipes } = useRecipes();
 
@@ -50,13 +45,16 @@ function Detalhes() {
 
     loadRecipe();
     loadRecommendations();
-    setLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  useEffect(() => {
+    if (Object.keys(recipeDetails).length) {
+      setLoading(false);
+    }
+  }, [recipeDetails]);
+
   function renderIngredients() {
-    const ingredients = recipeDetails.ingredients || [];
-    return ingredients.map((ingredient, index) => (
+    return recipeDetails.ingredients.map((ingredient, index) => (
       <li
         data-testid={ `${index}-ingredient-name-and-measure` }
         key={ ingredient }
@@ -64,15 +62,6 @@ function Detalhes() {
         {ingredient}
       </li>
     ));
-  }
-
-  function renderStartButtonText() {
-    if (inProgressRecipes[type[2]]) {
-      const recipes = inProgressRecipes[type[2]];
-      return Object.keys(recipes).find((recipeID) => recipeID === id)
-        ? 'Continuar Receita' : 'Iniciar Receita';
-    }
-    return 'Iniciar Receita';
   }
 
   return (
@@ -94,10 +83,7 @@ function Detalhes() {
                   ? recipeDetails.alcoholicOrNot : recipeDetails.category}
               </p>
             </div>
-            <div>
-              <LikeButton recipeDetails={ recipeDetails } />
-              <ShareButton category={ type[0] } id={ id } />
-            </div>
+            <ButtonsContainer recipeDetails={ recipeDetails } />
           </div>
           { renderIngredients() }
           <p data-testid="instructions">{recipeDetails.instructions}</p>
@@ -106,15 +92,7 @@ function Detalhes() {
           <Recommendations data={ recommendations } />
           { !doneRecipes.find(({ id: doneRecipeID }) => id === doneRecipeID)
           && (
-
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="details__button--start"
-              onClick={ () => history.push(`/${type[0]}/${id}/in-progress`) }
-            >
-              { renderStartButtonText() }
-            </button>
+            <ButtonStart id={ id } type={ type[2] } />
           ) }
         </main>
       )
