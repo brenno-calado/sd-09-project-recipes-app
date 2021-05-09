@@ -12,7 +12,7 @@ const IngredientCard = ({ ingredient, type, index }) => {
 
   return (
     <Link
-      to={ `/${type}/${ingredient.strIngredient || ingredient.strIngredient1}` }
+      to={ `/${type}/filter/${ingredient.strIngredient || ingredient.strIngredient1}` }
     >
       <div
         data-testid={ `${index}-ingredient-card` }

@@ -22,9 +22,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ MealRecipes } />
-          <Route exact path="/comidas/:ingredient" component={ MealRecipes } />
+          <Route exact path="/comidas/filter/:ingredient" component={ MealRecipes } />
           <Route exact path="/bebidas/" component={ CocktailRecipes } />
-          <Route exact path="/bebidas/:ingredient" component={ CocktailRecipes } />
+          <Route exact path="/bebidas/filter/:ingredient" component={ CocktailRecipes } />
           <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id" component={ RecipeDetails } />
