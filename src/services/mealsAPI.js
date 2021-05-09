@@ -31,7 +31,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_AREA}${area}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe));
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por região =(');
     } catch (error) {
@@ -44,7 +46,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_NAME}${name}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe));
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por nome =(');
     } catch (error) {
@@ -60,7 +64,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_FIRST_LETTER}${firstLetter}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe));
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas pela primeria letra =(');
     } catch (error) {
@@ -73,7 +79,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_INGREDIENT}${ingredient}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe));
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por ingrediente =(');
     } catch (error) {
@@ -86,7 +94,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_CATEGORY}${category}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe));
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por categoria =(');
     } catch (error) {
@@ -99,7 +109,9 @@ export default {
       const recipesHTTP = await fetch(`${MEAL_BY_ID}${id}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.meals.map((recipe) => formatObj(recipe))[0];
+        return !recipesJSON.meals
+          ? recipesJSON.meals
+          : recipesJSON.meals.map((recipe) => formatObj(recipe))[0];
       }
       throw new Error('Falha ao buscar receitas por ID =(');
     } catch (error) {

@@ -30,7 +30,9 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_NAME}${name}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.drinks.map((recipe) => formatObj(recipe));
+        return !recipesJSON.drinks
+          ? recipesJSON.drinks
+          : recipesJSON.drinks.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por nome =(');
     } catch (error) {
@@ -46,7 +48,9 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_FIRST_LETTER}${firstLetter}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.drinks.map((recipe) => formatObj(recipe));
+        return !recipesJSON.drinks
+          ? recipesJSON.drinks
+          : recipesJSON.drinks.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas pela primeria letra =(');
     } catch (error) {
@@ -59,7 +63,9 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_INGREDIENT}${ingredient}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.drinks.map((recipe) => formatObj(recipe));
+        return !recipesJSON.drinks
+          ? recipesJSON.drinks
+          : recipesJSON.drinks.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por ingrediente =(');
     } catch (error) {
@@ -72,7 +78,9 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_CATEGORY}${category}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.drinks.map((recipe) => formatObj(recipe));
+        return !recipesJSON.drinks
+          ? recipesJSON.drinks
+          : recipesJSON.drinks.map((recipe) => formatObj(recipe));
       }
       throw new Error('Falha ao buscar receitas por categoria =(');
     } catch (error) {
@@ -85,7 +93,9 @@ export default {
       const recipesHTTP = await fetch(`${COCKTAIL_BY_ID}${id}`);
       if (recipesHTTP.ok) {
         const recipesJSON = await recipesHTTP.json();
-        return recipesJSON.drinks.map((recipe) => formatObj(recipe))[0];
+        return !recipesJSON.drinks
+          ? recipesJSON.drinks
+          : recipesJSON.drinks.map((recipe) => formatObj(recipe))[0];
       }
       throw new Error('Falha ao buscar receitas por ID =(');
     } catch (error) {
