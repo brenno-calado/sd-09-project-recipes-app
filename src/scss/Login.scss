@@ -1,0 +1,24 @@
+.wrapper {
+  background-image: url('../images/bg-mobile.svg');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.img {
+  height: 8rem;
+  margin-left: 1rem;
+}
+
+.btn {
+  width: 9rem;
+}
+
+.form-label {
+  color: #636363;
+  input {
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
+}

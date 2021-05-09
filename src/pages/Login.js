@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { Context } from '../context';
 import { fecthByName } from '../services/api';
 import { startLocalStorage } from '../services/localStorageService';
+import logo from '../images/logo-recipes.png';
+import '../scss/Login.scss';
+import '../scss/custom.scss';
 
 function Login() {
   const { updateData } = useContext(Context);
@@ -31,31 +34,43 @@ function Login() {
   };
 
   const createInput = (type) => (
-    <input
-      data-testid={ `${type}-input` }
-      type={ type }
-      placeholder={ type }
-      onChange={ handleChange }
-      required
-    />
+    <label htmlFor={ type } className="form-label text-capitalize">
+      {type}
+      <input
+        data-testid={ `${type}-input` }
+        type={ type }
+        id={ type }
+        placeholder={ type === 'email' ? 'email@email.com' : 'password' }
+        onChange={ handleChange }
+        required
+        className="form-control p-4 mb-3"
+      />
+    </label>
   );
 
   if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
-    <section>
-      { createInput('email') }
-      { createInput('password') }
-
-      <button
-        data-testid="login-submit-btn"
-        type="submit"
-        onClick={ handleSubmit }
-        disabled={ !checkFormats() }
+    <div className="wrapper pt-5">
+      <section
+        className="d-flex flex-column justify-content-center align-items-center"
       >
-        Entrar
-      </button>
-    </section>
+        <img src={ logo } alt="12App - recipes" className="img mb-3" />
+        <div className="d-flex flex-column justify-content-center">
+          { createInput('email') }
+          { createInput('password') }
+        </div>
+        <button
+          data-testid="login-submit-btn"
+          type="submit"
+          onClick={ handleSubmit }
+          disabled={ !checkFormats() }
+          className="btn btn-personalised p-2"
+        >
+          Entrar
+        </button>
+      </section>
+    </div>
   );
 }
 

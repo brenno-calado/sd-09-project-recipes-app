@@ -1,0 +1,21 @@
+$orange-personalised: #FF5615 !default;
+
+$colors: () !default;
+$colors: map-merge(
+  (
+    "orange-personalised": $orange-personalised,
+  ),
+  $colors
+);
+// Color personalised
+$personalised:  $orange-personalised;
+
+// Create theme-color-personalised
+$theme-colors: () !default;
+$theme-colors: map-merge(
+  (
+    "personalised": $personalised,
+  ),
+  $theme-colors
+);
+@import "../../node_modules//bootstrap/scss/bootstrap";
