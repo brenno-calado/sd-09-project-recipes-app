@@ -1,4 +1,9 @@
 export default function saveAsDone(id, recipe, pathname) {
+  const newDate = new Date();
+  const date = newDate.getDate();
+  const month = newDate.getMonth() + 1;
+  const year = newDate.getFullYear();
+  const currentDate = (`${date}/${month}/${year}`);
   if (localStorage.getItem('doneRecipes') === null) {
     localStorage.setItem('doneRecipes', JSON.stringify([]));
   }
@@ -12,6 +17,8 @@ export default function saveAsDone(id, recipe, pathname) {
       alcoholicOrNot: '',
       name: recipe.strMeal,
       image: recipe.strMealThumb,
+      doneDate: currentDate,
+      tags: recipe.strTags ? [recipe.strTags] : [],
     };
     const newDoneDrink = {
       id,
@@ -21,6 +28,8 @@ export default function saveAsDone(id, recipe, pathname) {
       alcoholicOrNot: recipe.strAlcoholic,
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
+      doneDate: currentDate,
+      tags: recipe.strTags ? [recipe.strTags] : [],
     };
     doneList.push(pathname.includes('comidas') ? newDoneFood : newDoneDrink);
     localStorage.setItem('doneRecipes', JSON.stringify(doneList));

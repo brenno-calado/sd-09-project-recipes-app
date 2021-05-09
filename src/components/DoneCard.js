@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import PropTypes, { string } from 'prop-types';
 import ShareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -18,6 +18,8 @@ const DoneCard = (props) => {
     image,
     name,
     area,
+    doneDate,
+    tags,
   } = element;
   const [isFavorite, setIsFavorite] = useState('');
   const [isCopied, setIsCopied] = useState(false);
@@ -75,6 +77,17 @@ const DoneCard = (props) => {
           alt="favorite icon"
         />
       </button>
+      { tags
+        .map((item) => (
+          <p data-testid={ `${0}-${item}-horizontal-tag` } key={ Math.random() }>
+            {item}
+          </p>
+        )) }
+      <p
+        data-testid={ `${index}-horizontal-done-date` }
+      >
+        {`Feita em: ${doneDate}`}
+      </p>
     </div>
   );
 };
@@ -88,6 +101,9 @@ DoneCard.propTypes = {
     image: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
+    doneDate: PropTypes.number.isRequired,
+    tags: PropTypes.arrayOf(string).isRequired,
+    map: PropTypes.func.isRequired,
   })).isRequired,
 };
 export default DoneCard;
