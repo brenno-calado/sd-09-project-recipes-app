@@ -39,19 +39,19 @@ function Card({ data }) {
             data-testid={ `${index}-${cardDataTestID()}` }
             key={ `${element[`str${category()[0]}`]}${index}` }
             onClick={
-              () => history.push(`/${category()[1]}/${element[`id${category()[0]}`]}`)
+              () => history.push(`/${category()[1]}/${element.id}`)
             }
             role="link"
             aria-hidden="true"
           >
             <img
-              alt={ `imagem de ${element.strMeal}` }
+              alt={ `imagem de ${element.name}` }
               data-testid={ `${index}-card-img` }
-              src={ element[`str${category()[0]}Thumb`] }
+              src={ element.image }
               className="card__image"
             />
             <p data-testid={ `${index}-${titleDataTestID()}` }>
-              { element[`str${category()[0]}`] }
+              { element.name }
             </p>
 
           </section>

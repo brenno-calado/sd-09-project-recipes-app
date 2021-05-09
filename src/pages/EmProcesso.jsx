@@ -7,13 +7,6 @@ import ShareButton from '../components/ShareButton';
 import LikeButton from '../components/LikeButton';
 import { RecipesContext } from '../context';
 
-const formatIngredients = (details) => Object.keys(details)
-  .filter((key) => key.includes('Ingredient') && details[key])
-  .map((key) => {
-    const ingredientID = key.split('strIngredient')[1];
-    return `${details[key]} - ${details[`strMeasure${ingredientID}`]}`;
-  });
-
 function EmProcesso() {
   const { pathname } = useLocation();
   const { id } = useParams();
@@ -39,19 +32,7 @@ function EmProcesso() {
   useEffect(() => {
     async function loadRecipe() {
       const details = await getRecipes(type[0], id);
-      const recipeObj = {
-        id: details[`id${type[1]}`],
-        type: type[0].substring(0, type[0].length - 1),
-        area: details.strArea || '',
-        category: details.strCategory || '',
-        alcoholicOrNot: type[1] === 'Drink' ? details.strAlcoholic : '',
-        name: details[`str${type[1]}`],
-        image: details[`str${type[1]}Thumb`],
-        instructions: details.strInstructions,
-        video: details.strYoutube,
-        ingredients: formatIngredients(details),
-      };
-      setRecipeDetails(recipeObj);
+      setRecipeDetails(details);
     }
 
     loadRecipe();

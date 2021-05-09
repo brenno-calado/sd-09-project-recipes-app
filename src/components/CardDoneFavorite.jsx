@@ -40,7 +40,7 @@ export default function CardDoneFavorite({ data, index }) {
       </div>
       <div className="card-done__buttons">
         <ShareButton
-          category={ category }
+          category={ type }
           id={ id }
           index={ index }
         />

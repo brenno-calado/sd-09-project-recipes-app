@@ -12,7 +12,7 @@ export default function ShareButton({ category, id, index }) {
     const URL = 'http://localhost:3000';
     // const TIMEOUT = 3000;
 
-    navigator.clipboard.writeText(`${URL}/${category}/${id}`);
+    navigator.clipboard.writeText(`${URL}/${category.concat('s')}/${id}`);
     // setTimeout(() => setCopied(false), TIMEOUT);
     setCopied(true);
   }
