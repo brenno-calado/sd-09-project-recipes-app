@@ -65,9 +65,9 @@
   width: 90%;
 }
 
+/* retirar esse fontsize depois */
 .food-details-ingredients-container > p {
   color: white;
-  /* retirar esse fontsize depois */
   font-size: 0.8em;
 }
 
@@ -75,7 +75,7 @@
 .food-details-instructions-container {
   height: 150px;
   overflow-y: auto;
-};
+}
 
 .food-details-instructions {
   font-size: 1.1em;
