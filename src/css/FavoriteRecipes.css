@@ -3,7 +3,6 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  margin-bottom: 40px;
   overflow-y: auto;
   text-align: center;
 }
@@ -21,11 +20,11 @@
   width: 330px;
 }
 
-.favorite-recipe-card > img {
+.favorite-recipe-card > a > img {
   align-self: center;
   border-radius: 4px 0 0 4px;
   height: 130px;
-  width: 160px;
+  width: 130px;
 }
 
 .container-buttons {
@@ -56,7 +55,7 @@
   flex-direction: column;
 }
 
-.itens-favorite-recipe-card > p {
+.itens-favorite-recipe-card > a > p {
   font-size: 21px;
   letter-spacing: 0.01em;
   line-height: 25px;

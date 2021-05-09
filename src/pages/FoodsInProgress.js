@@ -31,13 +31,14 @@ const FoodsInProgress = () => {
 
   // salva o progresso da receita no localStorage
   const saveToLocalStorage = (array) => {
-    const myStorage = JSON.parse(localStorage.getItem('inProgress'));
+    const myStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     myStorage.meals[myId] = array;
-    localStorage.setItem('inProgress', JSON.stringify(myStorage));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(myStorage));
   };
 
   const localStorageToChecked = (recipeId) => {
-    const myChecked = (JSON.parse(localStorage.getItem('inProgress'))).meals[recipeId];
+    const myChecked = (JSON.parse(localStorage.getItem('inProgressRecipes')))
+      .meals[recipeId];
     if (myChecked) setChecked(myChecked);
   };
 
@@ -76,9 +77,9 @@ const FoodsInProgress = () => {
 
   // remove a receita finalizada do localStorage
   const deleteFinishedRecipe = (id) => {
-    const myStorage = JSON.parse(localStorage.getItem('inProgress'));
+    const myStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     delete myStorage.meals[id];
-    localStorage.setItem('inProgress', JSON.stringify(myStorage));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(myStorage));
   };
 
   const handleFinishClick = () => {

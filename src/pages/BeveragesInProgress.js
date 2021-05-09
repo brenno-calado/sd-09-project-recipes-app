@@ -29,13 +29,13 @@ const BeveragesInProgress = () => {
   };
 
   const saveToLocalStorage = (array) => {
-    const myStorage = JSON.parse(localStorage.getItem('inProgress'));
+    const myStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     myStorage.cocktails[myId] = array;
-    localStorage.setItem('inProgress', JSON.stringify(myStorage));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(myStorage));
   };
 
   const localStorageToChecked = (recipeId) => {
-    const myChecked = (JSON.parse(localStorage.getItem('inProgress')))
+    const myChecked = (JSON.parse(localStorage.getItem('inProgressRecipes')))
       .cocktails[recipeId];
     if (myChecked) setChecked(myChecked);
   };
@@ -78,9 +78,9 @@ const BeveragesInProgress = () => {
   const checkDefaultChecked = (ingredient) => (checked.includes(ingredient));
 
   const deleteFinishedRecipe = (id) => {
-    const myStorage = JSON.parse(localStorage.getItem('inProgress'));
+    const myStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
     delete myStorage.cocktails[id];
-    localStorage.setItem('inProgress', JSON.stringify(myStorage));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(myStorage));
   };
 
   const handleFinishClick = () => {

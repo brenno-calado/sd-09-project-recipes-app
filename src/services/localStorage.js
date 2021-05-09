@@ -5,9 +5,9 @@ export const localStorageInitialState = () => {
     cocktails: {},
     meals: {},
   };
-  const myProgress = JSON.parse(localStorage.getItem('inProgress'));
+  const myProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!myProgress) {
-    localStorage.setItem('inProgress', JSON.stringify(inProgress));
+    localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
   }
 
   const favoriteRecipes = [];
