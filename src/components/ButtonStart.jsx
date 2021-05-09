@@ -17,8 +17,8 @@ export default function ButtonStart({ id, type }) {
   const history = useHistory();
 
   function renderStartButtonText() {
-    if (inProgressRecipes[type]) {
-      const recipes = inProgressRecipes[type];
+    if (inProgressRecipes[type[2]]) {
+      const recipes = inProgressRecipes[type[2]];
       return Object.keys(recipes).find((recipeID) => recipeID === id)
         ? 'Continuar Receita' : 'Iniciar Receita';
     }

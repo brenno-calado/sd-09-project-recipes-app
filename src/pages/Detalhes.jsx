@@ -93,7 +93,7 @@ function Detalhes() {
           <Recommendations data={ recommendations } />
           { !doneRecipes.find(({ id: doneRecipeID }) => id === doneRecipeID)
           && (
-            <ButtonStart id={ id } type={ type[2] } />
+            <ButtonStart id={ id } type={ type } />
           ) }
         </main>
       )
