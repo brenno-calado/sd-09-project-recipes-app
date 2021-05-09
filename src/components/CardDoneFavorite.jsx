@@ -1,6 +1,6 @@
 import React from 'react';
 import { shape, string, number } from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import ShareButton from './ShareButton';
 import LikeButton from './LikeButton';
 import '../styles/CardDoneFavorite.css';
@@ -10,6 +10,7 @@ export default function CardDoneFavorite({ data, index }) {
   const date = 'x';
 
   const { pathname } = useLocation();
+  const history = useHistory();
 
   return (
     <section className="card-done">
@@ -18,6 +19,8 @@ export default function CardDoneFavorite({ data, index }) {
         alt={ name }
         data-testid={ `${index}-horizontal-image` }
         className="card-done__image"
+        onClick={ () => history.push(`/${type.concat('s')}/${id}`) }
+        aria-hidden="true"
       />
       <div>
         <p data-testid={ `${index}-horizontal-top-text` }>
@@ -29,9 +32,10 @@ export default function CardDoneFavorite({ data, index }) {
         <h2
           data-testid={ `${index}-horizontal-name` }
           className="card-done__name"
+          onClick={ () => history.push(`/${type.concat('s')}/${id}`) }
+          aria-hidden="true"
         >
           {name}
-
         </h2>
         {
           pathname.includes('receitas-feitas')
