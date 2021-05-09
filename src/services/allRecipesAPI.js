@@ -9,7 +9,7 @@ const formatIngredients = (details) => Object.keys(details)
   });
 
 const formatObj = (obj, typeOfRecipe) => ({
-  id: obj.idMeal,
+  id: obj[`id${typeOfRecipe[2]}`],
   type: typeOfRecipe[1],
   area: obj.strArea || '',
   category: obj.strCategory,

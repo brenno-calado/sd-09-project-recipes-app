@@ -48,6 +48,7 @@ function Detalhes() {
   }, [id]);
 
   useEffect(() => {
+    console.log(recipeDetails);
     if (Object.keys(recipeDetails).length) {
       setLoading(false);
     }
