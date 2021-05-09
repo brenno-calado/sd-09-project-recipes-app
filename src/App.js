@@ -13,6 +13,7 @@ import RecipeDetails from './pages/RecipeDetails';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import ExploreDrinksOrFood from './pages/ExploreDrinksOrFood';
+import ExploreByIngredients from './pages/ExploreByIngredients';
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
         <Switch>
           <Route exact path="/" component={ Login } />
           <Route exact path="/comidas" component={ MealRecipes } />
-          <Route exact path="/bebidas" component={ CocktailRecipes } />
+          <Route exact path="/comidas/:ingredient" component={ MealRecipes } />
+          <Route exact path="/bebidas/" component={ CocktailRecipes } />
+          <Route exact path="/bebidas/:ingredient" component={ CocktailRecipes } />
           <Route exact path="/comidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/bebidas/:id" component={ RecipeDetails } />
@@ -31,6 +34,16 @@ function App() {
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExploreDrinksOrFood } />
           <Route exact path="/explorar/bebidas" component={ ExploreDrinksOrFood } />
+          <Route
+            exact
+            path="/explorar/comidas/ingredientes"
+            component={ ExploreByIngredients }
+          />
+          <Route
+            exact
+            path="/explorar/bebidas/ingredientes"
+            component={ ExploreByIngredients }
+          />
           <Route exact path="/perfil" component={ Perfil } />
         </Switch>
       </BrowserRouter>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Footer from '../components/Footer';
 
@@ -7,9 +7,15 @@ const MealRecipes = () => {
   const [mealRecipes, setMealRecipes] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
+  const { ingredient } = useParams();
 
   const getDefaultRecipes = () => {
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')
+    const url = () => {
+      if (ingredient) return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      return 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    };
+
+    fetch(url())
       .then((response) => {
         response.json()
           .then((data) => {
@@ -48,7 +54,19 @@ const MealRecipes = () => {
   };
 
   useEffect(() => {
-    getDefaultRecipes();
+    const url = () => {
+      if (ingredient) return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      return 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+    };
+
+    fetch(url())
+      .then((response) => {
+        response.json()
+          .then((data) => {
+            console.log(data);
+            setMealRecipes(data.meals);
+          });
+      });
     fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list')
       .then((response) => {
         response.json()
@@ -56,7 +74,7 @@ const MealRecipes = () => {
             setMealCategories(data.meals);
           });
       });
-  }, []);
+  }, [ingredient]);
 
   const maxIndexRecipes = 11;
   const maxIndexCategories = 4;
