@@ -48,14 +48,14 @@ function Detalhes() {
   }, [id]);
 
   useEffect(() => {
-    console.log(recipeDetails);
     if (Object.keys(recipeDetails).length) {
       setLoading(false);
     }
   }, [recipeDetails]);
 
   function renderIngredients() {
-    return recipeDetails.ingredients.map((ingredient, index) => (
+    const ingredients = recipeDetails.ingredients || [];
+    return ingredients.map((ingredient, index) => (
       <li
         data-testid={ `${index}-ingredient-name-and-measure` }
         key={ ingredient }

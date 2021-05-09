@@ -15,6 +15,7 @@
 }
 
 .card-done__name {
+  font-size: 1em;
   margin: 0;
   padding: 0;
 }
