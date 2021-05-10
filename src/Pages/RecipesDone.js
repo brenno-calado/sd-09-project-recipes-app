@@ -40,43 +40,44 @@ class RecipesDone extends React.Component {
     const { all, doneRecipes } = this.state;
     let alcolicORcategory = '';
     doneRecipes.forEach((value) => {
-      if (value.category === 'comida') alcolicORcategory = [...alcolicORcategory , value.category];
-      else alcolicORcategory = [...alcolicORcategory , value.alcoholicOrNot];
+      if (value.category === 'comida') {
+        alcolicORcategory = [...alcolicORcategory, value.category];
+      } else alcolicORcategory = [...alcolicORcategory, value.alcoholicOrNot];
     });
     if (all) {
       return (
         <div>
           { doneRecipes.map((value, index) => (
             <div key={ index }>
-            <Link to={ `/${value.type}s/${value.id}` }>
-              <img
-                className="Imagem"
-                data-testid={ `${index}-horizontal-image` }
-                src={ value.image }
-                alt="img-recipe"
-              />
+              <Link to={ `/${value.type}s/${value.id}` }>
+                <img
+                  className="Imagem"
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ value.image }
+                  alt="img-recipe"
+                />
+                <p
+                  data-testid={ `${index}-horizontal-name` }
+                >
+                  {value.name}
+                </p>
+              </Link>
               <p
-                data-testid={ `${index}-horizontal-name` }
+                data-testid={ `${index}-horizontal-top-text` }
               >
-                {value.name}
+                { alcolicORcategory[index] }
               </p>
-            </Link>
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              { alcolicORcategory[index] }
-            </p>
-            <p
-              data-testid={ `${index}-horizontal-done-date` }
-            >
-              {value.doneDate}
-            </p>
-            <span
-              data-testid={ `${index}-horizontal-tag` }
-            >
-              {value.tags[0]}
-            </span>
-          </div>
+              <p
+                data-testid={ `${index}-horizontal-done-date` }
+              >
+                {value.doneDate}
+              </p>
+              <span
+                data-testid={ `${index}-horizontal-tag` }
+              >
+                {value.tags[0]}
+              </span>
+            </div>
           ))}
         </div>
       );

@@ -62,7 +62,7 @@ class DrinkProgress extends Component {
       return (
         <div>
           <FavoriteButton
-            obj = { {
+            obj={ {
               id: drink.idDrink,
               type: 'bebida',
               area: '',

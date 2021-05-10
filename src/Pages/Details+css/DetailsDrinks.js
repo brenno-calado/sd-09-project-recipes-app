@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { fetchDrinkDetailsAPI, fetchMealsAPI } from '../../services/ApiRequest';
 import FavoriteButton from '../../Components/FavoriteButton';
 import Share from '../../Components/Share';
-import { addObj } from '../../redux/actions';
 
 class DetailsDrinks extends React.Component {
   constructor() {
@@ -26,7 +24,6 @@ class DetailsDrinks extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
-    const { addObjDrink } = this.props;
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
         this.setState({ drink: drinks[0], ok: true });
@@ -52,7 +49,7 @@ class DetailsDrinks extends React.Component {
       return (
         <di>
           <FavoriteButton
-            obj = { {
+            obj={ {
               id: drink.idDrink,
               type: 'bebida',
               area: '',
@@ -172,11 +169,6 @@ DetailsDrinks.propTypes = {
   match: PropTypes.objectOf.isRequired,
   params: PropTypes.objectOf.isRequired,
   id: PropTypes.string.isRequired,
-  addObjDrink: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addObjDrink: (obj) => dispatch(addObj(obj)),
-});
-
-export default connect(null, mapDispatchToProps)(DetailsDrinks);
+export default (DetailsDrinks);

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -60,7 +61,7 @@ class FavoriteButton extends Component {
       return (
         <button
           type="button"
-          data-testid={test}
+          data-testid={ test }
           onClick={ this.saveRecipe }
           src={ blackHeartIcon }
         >
@@ -87,5 +88,9 @@ class FavoriteButton extends Component {
   }
 }
 
+FavoriteButton.propTypes = {
+  obj: PropTypes.objectOf.isRequired,
+  test: PropTypes.string.isRequired,
+};
 
 export default FavoriteButton;
