@@ -76,3 +76,55 @@
   align-items: flex-start;
   display: flex;
 }
+
+
+@media only screen and ( max-width : 600px ) {
+
+  .meal-card {
+    width: 100%;
+  }
+
+  .food-img {
+    height: 120px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 120px;
+  }
+
+  .recipe-names {
+    margin-left: 10px;
+  }
+
+  .recipe-card-buttons {
+    margin-left: 10px;
+  }
+}
+
+@media only screen and ( min-width : 600px ) {
+
+  .meal-card {
+    width: 60%;
+  }
+
+
+  .food-img {
+    height: 120px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    width: 120px;
+  }
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .meal-card {
+    width: 60%;
+  }
+
+  .food-img {
+    height: 120px;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    width: 120px;
+  }
+}

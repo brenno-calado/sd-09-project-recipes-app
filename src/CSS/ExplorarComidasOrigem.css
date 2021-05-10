@@ -36,3 +36,36 @@
   margin-left: auto;
   margin-right: 15px;
 }
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+  }
+}
+
+@media only screen and ( min-width : 992px ) {
+
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+  }
+}
+
+@media only screen and ( min-width : 1200px ) {
+
+  .card-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+  }
+}
