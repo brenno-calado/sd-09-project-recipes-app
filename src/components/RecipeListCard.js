@@ -1,18 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import copy from 'clipboard-copy';
 import Image from './Image';
-import ShareIcon from '../images/shareIcon.svg';
-// import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ShareButton from './ShareButton';
 import BlackHeartIcon from '../images/blackHeartIcon.svg';
-
-const writeToClipboard = (detailUrl) => {
-  navigator.clipboard.writeText(detailUrl).then(
-    (resolve) => console.log(resolve),
-    (error) => console.log('erro', error),
-  );
-};
+import getRecipeDetailsPath from '../services/getPath';
 
 const renderTags = (index, tags) => (
   tags.map((tagName) => (
@@ -24,13 +16,12 @@ const renderTags = (index, tags) => (
     </span>
   )));
 
-const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }) => {
+const RecipeListCard = ({ recipe, index, isDonePage, favCallback }) => {
   const isFood = recipe.type === 'comida';
 
-  const path = isFood ? '/comidas/' : '/bebidas/';
-  const recipePath = `${path}${recipe.id}`;
+  const detailsPath = getRecipeDetailsPath(recipe.id, isFood);
   const history = useHistory();
-  const goToRecipe = (() => history.push(recipePath));
+  const goToRecipe = (() => history.push(detailsPath));
 
   const recipeImageParams = {
     src: recipe.image,
@@ -40,19 +31,11 @@ const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }
     onClick: () => goToRecipe(),
   };
 
-  const shareIconParams = {
-    src: ShareIcon,
-    alt: 'Compartilhar receita',
-    'data-testid': `${index}-horizontal-share-btn`,
-    onClick: () => {
-      const domain = window.location.origin;
-      const detailUrl = `${domain}${recipePath}`;
-      const removeTimeout = 2000;
-      // copy(detailUrl);
-      writeToClipboard(detailUrl);
-      copyCallback('');
-      setTimeout(() => copyCallback('hidden'), removeTimeout);
-    },
+  const shareButtonParams = {
+    isFoodPage: isFood,
+    index,
+    recipeId: recipe.id,
+    testId: `${index}-horizontal-share-btn`,
   };
 
   const favIconParams = {
@@ -91,7 +74,7 @@ const RecipeListCard = ({ recipe, index, copyCallback, isDonePage, favCallback }
         ) }
         { isFood && <p>{ recipe.area }</p> }
         { isDonePage && isFood && renderTags(index, recipe.tags) }
-        <Image params={ shareIconParams } />
+        <ShareButton { ...shareButtonParams } />
         { !isDonePage && <Image params={ favIconParams } /> }
       </div>
     </div>

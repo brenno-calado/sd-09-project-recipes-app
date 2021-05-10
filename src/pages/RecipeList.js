@@ -57,7 +57,6 @@ const RecipeList = ({ match: { path } }) => {
   const storageRecipes = JSON.parse(localStorage.getItem(storageKey)) || [];
 
   const [recipes, setRecipesList] = useState(storageRecipes);
-  const [showCopyMsg, setShowCopyMsg] = useState('hidden');
   const [recipesFilterKey, setFilterKey] = useState('all');
 
   const removeFavRecipe = ({ id, type }) => {
@@ -78,11 +77,9 @@ const RecipeList = ({ match: { path } }) => {
           index={ index }
           key={ index }
           isDonePage={ isDonePage }
-          copyCallback={ setShowCopyMsg }
           favCallback={ removeFavRecipe }
         />
       )) }
-      <div className={ showCopyMsg }>Link copiado!</div>
     </>
   );
 };
