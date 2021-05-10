@@ -1,12 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
-import RecipesCards from '../components/RecipesCards';
+import RecipesList from '../components/RecipesList';
 
 function FavoriteRecipes() {
   return (
     <div>
       <Header title="Receitas Favoritas" />
-      <RecipesCards />
+      <RecipesList />
     </div>
   );
 }
