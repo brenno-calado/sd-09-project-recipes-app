@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
 import PropTypes from 'prop-types';
-import Carousel from 'react-elastic-carousel';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import RecommendedCard from '../components/RecommendedCard';
+// import RecommendedCard from '../components/RecommendedCard';
 import Footer from '../components/Footer';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
@@ -35,11 +35,6 @@ const RecipeDetails = ({ match: { path, params } }) => {
 
   const clipBoard = getClipBoard();
 
-  // const breakPoints = [
-  //   { width: 360, itemsToShow: 2 },
-  //   { width: 640, itemsToShow: 2 },
-  // ];
-
   const buttonStyle = {
     position: 'fixed',
     right: 30,
@@ -66,9 +61,19 @@ const RecipeDetails = ({ match: { path, params } }) => {
       const max = 6;
       const recommended = recommendation.drinks || recommendation.meals;
       const recommendationData = recommended.slice(0, max);
-      return recommendationData
-        .map((elem, index) => (
-          <RecommendedCard key={ index } recipe={ elem } index={ index } />));
+      return recommendationData.map((recipe, index) => (
+        <Carousel.Item
+          key={ index }
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <img alt="Recommendation" src={ recipe.strMealThumb || recipe.strDrinkThumb } />
+          <Carousel.Caption>
+            <p data-testid={ `${index}-recomendation-title` }>
+              {recipe.strDrink || recipe.strMeal}
+            </p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      ));
     }
   };
 
@@ -176,7 +181,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
         data-testid="video"
       />
       <h4>Recommended</h4>
-      <Carousel itemsToShow={ 2 }>
+      <Carousel>
         {renderRecommended()}
       </Carousel>
       <button
