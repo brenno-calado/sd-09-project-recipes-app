@@ -1,9 +1,11 @@
 .categorieslist-container {
+  align-items: center;
   background: rgb(239, 246, 239);
   display: grid;
   font-family: Ubuntu , sans-serif;
-  grid-template-columns: repeat(auto-fill, 110px);
+  grid-template-columns: repeat(auto-fill, calc(8rem + 20px));
   justify-content: space-between;
+  justify-items: center;
   padding: 10px 20px;
 }
 
@@ -12,7 +14,11 @@
   border: none;
   border-radius: 10px;
   color: white;
-  height: 30px;
+  height: calc(2rem + 20px);
   margin: 10px 0;
-  width: 100px;
+  width: 8rem;
+}
+
+.categorieslist-container button:hover {
+  border: solid white 1px;
 }

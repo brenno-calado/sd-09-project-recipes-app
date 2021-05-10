@@ -27,19 +27,26 @@ class Drinks extends React.Component {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return (
-      <div>
-        <Header title="Bebidas" searchIcon={ searchIcon } />
-        <CategoriesList />
-        {itens && !isCategory && itens.length === 1
-          && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
-        {itens && itens.map((drink, index) => (
-          <Link
-            to={ `${pathName}/${itens[index][idType]}` }
-            key={ drink[idType] }
-          >
-            <RecipeDrinkCard drink={ drink } index={ index } />
-          </Link>))}
-        <FooterMenu />
+      <div className="hmf-wrapper">
+        <div className="hmf-header">
+          <Header title="Bebidas" searchIcon={ searchIcon } />
+        </div>
+        <div className="hmf-main">
+          <CategoriesList />
+          {itens && !isCategory && itens.length === 1
+            && <Redirect to={ `${pathName}/${itens[0][idType]}` } /> }
+          <div className="meals-wrap">
+            {itens && itens.map((drink, index) => (
+              <div key={ drink[idType] } className="meals-card">
+                <Link to={ `${pathName}/${itens[index][idType]}` }>
+                  <RecipeDrinkCard drink={ drink } index={ index } />
+                </Link>
+              </div>))}
+          </div>
+        </div>
+        <div className="hmf-footer">
+          <FooterMenu />
+        </div>
       </div>
     );
   }
