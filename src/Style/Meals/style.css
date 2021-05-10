@@ -1,15 +1,17 @@
 .meals-wrap {
-  background: rgb(239,246,239);
-  display: flex;
-  flex-wrap: wrap;
+  background: rgb(239, 246, 239);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, 120px);
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 10px 20px;
 }
 
 .meals-card {
-  margin-bottom: 20px;
-  width: 150px;
+  height: auto;
+  justify-self: stretch;
   transition: 0.3s ease-in-out;
+  width: 120px;
 }
 
 .meals-card:hover {
@@ -30,8 +32,8 @@
 }
 
 .recipe-card p {
-  color: rgb(121,125,128);
-  font-family: Ubuntu, sans-serif;
+  color: rgb(121, 125, 128);
+  font-family: Ubuntu , sans-serif;
   font-weight: 600;
   margin: 0;
   padding: 10px;

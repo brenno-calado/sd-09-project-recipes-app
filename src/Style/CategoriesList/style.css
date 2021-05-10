@@ -1,8 +1,8 @@
 .categorieslist-container {
-  background: rgb(239,246,239);
-  display: flex;
-  flex-wrap: wrap;
-  font-family: Ubuntu, sans-serif;
+  background: rgb(239, 246, 239);
+  display: grid;
+  font-family: Ubuntu , sans-serif;
+  grid-template-columns: repeat(auto-fill, 110px);
   justify-content: space-between;
   padding: 10px 20px;
 }
