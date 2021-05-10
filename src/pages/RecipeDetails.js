@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-// import RecommendedCard from '../components/RecommendedCard';
-import Footer from '../components/Footer';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -197,9 +195,6 @@ const RecipeDetails = ({ match: { path, params } }) => {
         Iniciar Receita
 
       </button>
-      <div>
-        <Footer />
-      </div>
     </div>
   );
 };
