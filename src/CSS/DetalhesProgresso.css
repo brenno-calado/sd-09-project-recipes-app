@@ -116,11 +116,11 @@ ul {
 
 @media only screen and ( min-width : 768px ) {
 
-  ul {
+  .card-content ul {
     font-size: 20px;
   }
 
-  p {
+  .card-content p {
     font-size: 20px;
   }
 }

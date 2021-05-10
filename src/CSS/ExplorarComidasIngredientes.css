@@ -16,3 +16,27 @@
   text-align: center;
   width: 150px;
 }
+
+.ingredient-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+  }
+}
+
+@media only screen and ( min-width : 992px ) {
+
+  .ingredient-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+  }
+}

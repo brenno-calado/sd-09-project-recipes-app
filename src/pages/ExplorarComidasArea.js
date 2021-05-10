@@ -53,19 +53,21 @@ function ExplorarComidasArea() {
         </select>
       </section>
       <section className="origin-section">
-        { foods && mealArray.slice(0, MAX_MEALS).map((food, index) => (
-          <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
-            <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ food.strMealThumb }
-                alt={ food.strMeal }
-                width="100px"
-              />
-              <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
-            </div>
-          </Link>
-        )) }
+        <div className="card-list">
+          { foods && mealArray.slice(0, MAX_MEALS).map((food, index) => (
+            <Link key={ food.idMeal } to={ `/comidas/${food.idMeal}` }>
+              <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ food.strMealThumb }
+                  alt={ food.strMeal }
+                  width="100px"
+                />
+                <p data-testid={ `${index}-card-name` }>{food.strMeal}</p>
+              </div>
+            </Link>
+          )) }
+        </div>
       </section>
       <Footer />
     </>
