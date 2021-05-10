@@ -5,6 +5,7 @@ import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
+import saveAsDone from '../services/doneRecipes';
 
 function ProgressDrink() {
   const {
@@ -77,14 +78,12 @@ function ProgressDrink() {
 
   function buttonFinishRecipe() {
     let cocktailsLength = 0;
-
     if (localRecipes) {
       const { cocktails } = localRecipes;
       if (cocktails[recipeId]) {
         cocktailsLength = cocktails[recipeId].length;
       }
     }
-
     if (cocktailsLength === ingredients.length) {
       return (
         <Link to="/receitas-feitas">
@@ -92,6 +91,7 @@ function ProgressDrink() {
             type="button"
             data-testid="finish-recipe-btn"
             className="btn btn-success btn-lg"
+            onClick={ () => saveAsDone(recipeId, data, pathname) }
           >
             Finalizar receita
           </button>

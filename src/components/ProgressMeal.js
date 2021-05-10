@@ -6,6 +6,7 @@ import { MyContext } from '../MyContext';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import ShareButton from './ShareButton';
+import saveAsDone from '../services/doneRecipes';
 
 function ProgressMeal() {
   const {
@@ -92,6 +93,7 @@ function ProgressMeal() {
             type="button"
             data-testid="finish-recipe-btn"
             className="btn btn-success btn-lg"
+            onClick={ () => saveAsDone(recipeId, data, pathname) }
           >
             Finalizar receita
           </button>
