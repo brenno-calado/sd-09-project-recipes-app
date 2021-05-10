@@ -282,3 +282,7 @@
 .invisible-btn {
   display: none;
 }
+
+.line-through {
+  text-decoration: line-through;
+}
