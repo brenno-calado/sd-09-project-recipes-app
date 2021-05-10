@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { LoginContext } from '../context';
 
 function Perfil() {
-  const localStorageUser = localStorage.getItem('user');
-  const emailUser = JSON.parse(localStorageUser);
-  console.log(emailUser);
+  const { values: user } = useContext(LoginContext);
+  const auxUser = JSON.parse(localStorage.getItem('user')) || user;
+
+  const [email, setEmail] = useState(auxUser.email || '');
 
   const history = useHistory();
+
+  useEffect(() => {
+    if (user.email) setEmail(user.email);
+  }, [user.email]);
 
   const handleSubmitDone = () => {
     history.push('/receitas-feitas');
@@ -28,7 +34,7 @@ function Perfil() {
       <spam
         data-testid="profile-email"
       >
-        {emailUser.email}
+        {email}
       </spam>
       <br />
       <button

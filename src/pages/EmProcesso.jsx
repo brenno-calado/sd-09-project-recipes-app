@@ -1,19 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLocation, useParams, useHistory } from 'react-router-dom';
 import Loading from '../components/Loading';
+import ButtonsContainer from '../components/ButtonsContainer';
 import { useRecipes } from '../hooks';
-import '../styles/InProgress.css';
-import ShareButton from '../components/ShareButton';
-import LikeButton from '../components/LikeButton';
 import { RecipesContext } from '../context';
+import '../styles/Details.css';
 
 function EmProcesso() {
   const { pathname } = useLocation();
   const { id } = useParams();
   const history = useHistory();
-
-  const [loading, setLoading] = useState(true);
-  const [recipeDetails, setRecipeDetails] = useState({});
 
   const { values: { inProgressRecipes },
     actions: { addRecipeToInProgress, addRecipeToDone } } = useContext(RecipesContext);
@@ -23,12 +19,13 @@ function EmProcesso() {
     ? ['comidas', 'Meal', 'meals']
     : ['bebidas', 'Drink', 'cocktails'];
 
+  const [loading, setLoading] = useState(true);
+  const [recipeDetails, setRecipeDetails] = useState({});
   const [ingredientsList, setIngredientList] = useState(
-    inProgressRecipes && inProgressRecipes[type[2]][id]
+    inProgressRecipes && inProgressRecipes[type[2]] && inProgressRecipes[type[2]][id]
       ? inProgressRecipes[type[2]][id]
       : [],
   );
-  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     async function loadRecipe() {
@@ -37,9 +34,18 @@ function EmProcesso() {
     }
 
     loadRecipe();
-    setLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    if (Object.keys(recipeDetails).length) {
+      setLoading(false);
+    }
+  }, [recipeDetails]);
+
+  useEffect(() => {
+    const obj = { [id]: ingredientsList };
+    addRecipeToInProgress(type[2], obj);
+  }, [ingredientsList]);
 
   function handleCheck(target) {
     const item = target.name;
@@ -49,32 +55,13 @@ function EmProcesso() {
       : [...prev, Number(item)]));
   }
 
-  useEffect(() => {
-    const obj = { [id]: ingredientsList };
-    addRecipeToInProgress(type[2], obj);
-  }, [ingredientsList]);
-
   function handleClick() {
     addRecipeToDone(recipeDetails);
     history.push('/receitas-feitas');
   }
-  useEffect(() => {
-    const ingredients = Object.keys(recipeDetails)
-      .filter((key) => key.includes('Ingredient') && recipeDetails[key]);
-    if (ingredientsList.length === ingredients.length) {
-      setDisable(false);
-    } else {
-      setDisable(true);
-    }
-  }, [ingredientsList.length, recipeDetails]);
 
   function renderIngredients() {
-    const ingredients = Object.keys(recipeDetails)
-      .filter((key) => key.includes('Ingredient') && recipeDetails[key])
-      .map((key) => {
-        const ingredientID = key.split('strIngredient')[1];
-        return `${recipeDetails[key]} - ${recipeDetails[`strMeasure${ingredientID}`]}`;
-      });
+    const ingredients = recipeDetails.ingredients || [];
     const progress = inProgressRecipes[type[2]][id];
     return ingredients.map((ingredient, index) => (
       <div key={ ingredient } data-testid={ `${index}-ingredient-step` }>
@@ -102,23 +89,20 @@ function EmProcesso() {
       : (
         <main>
           <img
-            src={ recipeDetails[`str${type[1]}Thumb`] }
-            alt={ recipeDetails[`str${type[1]}`] }
+            src={ recipeDetails.image }
+            alt={ recipeDetails.name }
             data-testid="recipe-photo"
             className="details__image"
           />
           <div className="details__horizontal-container">
             <div>
-              <h2 data-testid="recipe-title">{recipeDetails[`str${type[1]}`]}</h2>
+              <h2 data-testid="recipe-title">{recipeDetails.name}</h2>
               <p data-testid="recipe-category">
                 {type[1] === 'Drink'
-                  ? recipeDetails.strAlcoholic : recipeDetails.strCategory}
+                  ? recipeDetails.alcoholicOrNot : recipeDetails.category}
               </p>
             </div>
-            <div>
-              <LikeButton recipeDetails={ recipeDetails } />
-              <ShareButton />
-            </div>
+            <ButtonsContainer recipeDetails={ recipeDetails } />
           </div>
           { renderIngredients() }
           <p data-testid="instructions">{recipeDetails.strInstructions}</p>
@@ -126,7 +110,10 @@ function EmProcesso() {
             data-testid="finish-recipe-btn"
             type="button"
             onClick={ handleClick }
-            disabled={ disable }
+            disabled={
+              recipeDetails.ingredients
+              && ingredientsList.length !== recipeDetails.ingredients.length
+            }
           >
             Finalizar
           </button>
