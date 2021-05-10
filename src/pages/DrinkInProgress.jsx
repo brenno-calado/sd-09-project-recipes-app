@@ -113,7 +113,7 @@ function DrinkInProgress({ match }) {
         alt="drink"
         className="recipe-photo"
       />
-      <h2 data-testid="recipe-title">{drink.strMeal}</h2>
+      <h2 data-testid="recipe-title">{drink.strDrink}</h2>
       {shareButton()}
       {favoriteButton()}
       <h3 data-testid="recipe-category">{drink.strCategory}</h3>

@@ -12,19 +12,19 @@ function App() {
         <Switch>
           <Route exact path="/" component={ pages.Login } />
           <Route exact path="/comidas" component={ pages.Foods } />
-          <Route exact path="/comidas/:id" component={ pages.FoodDetails } />
           <Route
             exact
             path="/comidas/:id/in-progress"
             component={ pages.FoodInProgress }
           />
+          <Route exact path="/comidas/:id" component={ pages.FoodDetails } />
           <Route exact path="/bebidas" component={ pages.Drinks } />
-          <Route exact path="/bebidas/:id" component={ pages.DrinkDetails } />
           <Route
             exact
             path="/bebidas/:id/in-progress"
             component={ pages.DrinkInProgress }
           />
+          <Route exact path="/bebidas/:id" component={ pages.DrinkDetails } />
           <Route exact path="/perfil" component={ pages.Profile } />
           <Route exact path="/receitas-feitas" component={ pages.DoneRecipes } />
           <Route exact path="/receitas-favoritas" component={ pages.FavoriteRecipes } />
