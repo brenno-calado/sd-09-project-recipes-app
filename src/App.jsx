@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Login, MainDrinks, MainFoods, Profile, Explore, ExploreFoods,
   ExploreDrinks, DoneRecipes, FavoriteRecipes, RecipeDetails,
-  DrinkDetails, RecipeInProgress, DrinkInProgress } from './pages';
+  DrinkDetails, RecipeInProgress, DrinkInProgress, NotFound } from './pages';
 import RecipesAppProvider from './context/RecipesAppProvider';
 import FoodsByIngredients from './pages/ExploreFoodsByIngredients';
 import DrinksByIngredient from './pages/ExploreDrinksByIngredients';
@@ -25,6 +25,7 @@ function App() {
           <Route path="/explorar/comidas/ingredientes" component={ FoodsByIngredients } />
           <Route path="/explorar/bebidas/ingredientes" component={ DrinksByIngredient } />
           <Route path="/explorar/comidas/area" component={ ExploreFoodsByOrigin } />
+          <Route path="/explorar/bebidas/area" component={ NotFound } />
           <Route path="/receitas-feitas" component={ DoneRecipes } />
           <Route path="/receitas-favoritas" component={ FavoriteRecipes } />
           <Route exact path="/comidas/:id" component={ RecipeDetails } />

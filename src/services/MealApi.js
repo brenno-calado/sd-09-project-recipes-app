@@ -39,3 +39,27 @@ export async function fetchMealRecomendation() {
     .then((data) => data.json());
   return apiResponse.meals;
 }
+
+export async function fetchIngredients() {
+  const apiResponse = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list')
+    .then((data) => data.json());
+  return apiResponse.meals;
+}
+
+export const fetchRandomMeal = async () => {
+  const { meals } = await fetch('https://www.themealdb.com/api/json/v1/1/random.php')
+    .then((response) => response.json());
+  return meals[0];
+};
+
+export async function fetchAreas() {
+  const apiResponse = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?a=list')
+    .then((data) => data.json());
+  return apiResponse.meals;
+}
+
+export async function fetchMealsByArea(area) {
+  const { meals } = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`)
+    .then((response) => response.json());
+  return meals;
+}
