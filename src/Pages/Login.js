@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import recipeLoginPage from '../images/recipeLoginPage.jpg';
+import '../css/loginPage.css';
 
 export default function Login() {
   const INITIAL_STATE = {
@@ -52,12 +54,13 @@ export default function Login() {
   };
 
   return (
-    <div>
-      Login
-      <form>
-        <label htmlFor="email">
-          E-mail:
+    <main>
+      <form className="container login-form">
+        <img className="login-image" src={ recipeLoginPage } alt="menu" />
+        <label className="labels" htmlFor="email">
+          E-mail
           <input
+            className="inputs"
             data-testid="email-input"
             id="email"
             name="email"
@@ -65,9 +68,10 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
-        <label htmlFor="password">
-          Senha:
+        <label className="labels" htmlFor="password">
+          Senha
           <input
+            className="inputs"
             data-testid="password-input"
             type="password"
             id="password"
@@ -76,17 +80,18 @@ export default function Login() {
             onChange={ handleChange }
           />
         </label>
+        <Link to="/comidas">
+          <button
+            className="login-btn"
+            type="button"
+            data-testid="login-submit-btn"
+            disabled={ !submitValidator() }
+            onClick={ handleLoginButtonClick }
+          >
+            Entrar
+          </button>
+        </Link>
       </form>
-      <Link to="/comidas">
-        <button
-          type="button"
-          data-testid="login-submit-btn"
-          disabled={ !submitValidator() }
-          onClick={ handleLoginButtonClick }
-        >
-          Entrar
-        </button>
-      </Link>
-    </div>
+    </main>
   );
 }

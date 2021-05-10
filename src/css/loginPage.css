@@ -1,0 +1,43 @@
+* {
+  background-color: rgba(228, 219, 236, 0.918);
+  font-family: 'Ubuntu';
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column; 
+}
+
+.login-form {
+  align-items: center;
+  width: 200px;
+}
+
+.login-image {
+  border-radius: 50%;
+  height: 600px;
+  padding: 40px;
+}
+
+.labels {
+  color:rgb(79, 77, 80);
+  font: 650;
+  font-size: x-large;
+  text-shadow: 2px 1px;
+  padding: 5px;
+}
+
+.inputs {
+  border-radius: 10px;
+  font-size: medium;
+  margin-left: 10px;
+  padding: 4px;
+  width: 200px;
+}
+
+.login-btn {
+  border-radius: 8px;
+  width: 100px;
+}

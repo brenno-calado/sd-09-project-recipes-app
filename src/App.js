@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './Pages/Login';
 import TelaPrincipal from './Pages/TelaPrincipal';
 import Perfil from './Pages/Perfil';
