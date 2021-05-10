@@ -36,9 +36,9 @@ function DoneMealCard({ recipe, index }) {
             to={ recipe.type === 'comida'
               ? `/comidas/${recipe.id}` : `/bebidas/${recipe.id}` }
           >
-            <h3 data-testid={ `${index}-horizontal-name` }>
+            <h4 data-testid={ `${index}-horizontal-name` }>
               { recipe.name }
-            </h3>
+            </h4>
           </Link>
         </div>
         <div className="recipe-card-buttons">
