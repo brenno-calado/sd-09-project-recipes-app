@@ -21,7 +21,7 @@ export default function SearchBar() {
         onChange={ ({ target }) => (
           filterSelected === 'firstLetter'
           && inputToSearch.length > 1
-            ? (alert('Sua busca deve conter somente 1 (um) caracter'),
+            ? (Window.alert('Sua busca deve conter somente 1 (um) caracter'),
             setInputToSearch(target.value[0]))
             : setInputToSearch(target.value)) }
       />

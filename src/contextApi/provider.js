@@ -100,7 +100,7 @@ const Provider = ({ children }) => {
 
   function characterLimiter() {
     return filterSelected === 'firstLetter' && inputToSearch.length > 1
-      ? (alert('Sua busca deve conter somente 1 (um) caracter'),
+      ? (Window.alert('Sua busca deve conter somente 1 (um) caracter'),
       setInputToSearch(inputToSearch[0]))
       : (null);
   }
@@ -181,7 +181,8 @@ const Provider = ({ children }) => {
 
   function returnOfResults() {
     if (arrayOfResults.length === 0) {
-      return alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      return Window
+        .alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
     return definedTypeSearch === 'Meal'
       ? resultOfMeals() : resultOfBeverages();
