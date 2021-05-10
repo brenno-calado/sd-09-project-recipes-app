@@ -28,7 +28,6 @@ function Card({ data }) {
     return 'recomendation-title';
   };
   const DOZE = 12;
-
   return (
     <>
       { data

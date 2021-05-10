@@ -22,6 +22,7 @@ export default function RecipesProvider({ children }) {
   const [isFetching, setIsFetching] = useState(true);
   const [pathLocation] = usePathLocation();
   const [categories, setCategories] = useState();
+  const [ingredientFilter, setIngredientFilter] = useState('');
 
   const { getRecipes } = useRecipes();
 
@@ -35,9 +36,11 @@ export default function RecipesProvider({ children }) {
       categories,
       areas,
       areaFilter,
+      ingredientFilter,
     },
     actions: {
       setRecipesResult,
+      setIngredientFilter,
       addRecipeToDone(recipeObj) {
         if (doneRecipes) {
           setDoneRecipes([...doneRecipes, recipeObj]);
@@ -87,7 +90,7 @@ export default function RecipesProvider({ children }) {
   }, [doneRecipes, favoriteRecipes, inProgressRecipes, value.values]);
 
   useEffect(() => {
-    if (!areaFilter) {
+    if (!areaFilter && !ingredientFilter) {
       const fetchAllRecipes = () => {
         setIsFetching(true);
         getAllRecipes(pathLocation)
@@ -100,7 +103,7 @@ export default function RecipesProvider({ children }) {
       fetchAllRecipes();
       getCategories(pathLocation)
         .then((response) => setCategories(response));
-    } else {
+    } else if (areaFilter) {
       const fetchAreaRecipes = () => {
         setIsFetching(true);
         getRecipes('comidas', areaFilter, 'area')
@@ -110,8 +113,19 @@ export default function RecipesProvider({ children }) {
           ).finally(() => setIsFetching(false));
       };
       fetchAreaRecipes();
+    } else {
+      const fetchCategory = () => {
+        setIsFetching(true);
+        getRecipes(pathLocation, ingredientFilter, 'ingredient')
+          .then(
+            (recipes) => setRecipesResult(recipes),
+            (error) => console.log(error.message),
+          )
+          .finally(() => setIsFetching(false));
+      };
+      fetchCategory();
     }
-  }, [pathLocation, areaFilter]);
+  }, [pathLocation, areaFilter, ingredientFilter]);
 
   useEffect(() => {
     if (pathLocation === 'explorar') {

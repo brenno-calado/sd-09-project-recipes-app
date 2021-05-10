@@ -17,9 +17,6 @@ function ReceitasLista() {
   const [doneRecipes] = useState(doneRecContext || []);
   const [filter, setFilter] = useState('');
 
-  console.log(faviRecContext, doneRecContext);
-  console.log(favoriteRecipes, doneRecipes);
-
   const { pathname } = useLocation();
 
   useEffect(() => {
