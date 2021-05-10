@@ -2,12 +2,13 @@ import React from 'react';
 import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../Components/Header';
-import FavoriteButton from '../Components/FavoriteButton';
 import ShareIcon from '../images/shareIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 class Favorite extends React.Component {
   constructor() {
     super();
+    this.favorites = this.favorites.bind(this);
     this.renderAll = this.renderAll.bind(this);
     this.update = this.update.bind(this);
     this.shereUrl = this.shereUrl.bind(this);
@@ -37,6 +38,13 @@ class Favorite extends React.Component {
       .then(() => this.setState({ p: 'Link copiado!' }));
   }
 
+  favorites(id) {
+    const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    const newObj = favoriteRecipes.filter((value) => value.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newObj));
+    this.update();
+  }
+
   renderAll() {
     const { recipes, p, filter } = this.state;
     let alcolicORcategory = '';
@@ -44,68 +52,50 @@ class Favorite extends React.Component {
       if (value.type === 'comida') alcolicORcategory = [...alcolicORcategory, value.area];
       else alcolicORcategory = [...alcolicORcategory, value.alcoholicOrNot];
     });
-    let ar = '';
     let newRecipes;
-    let alcoholic = '';
     if (filter === 'comida' || filter === 'bebida') {
       newRecipes = recipes.filter((value) => value.type === filter);
     } else newRecipes = recipes;
     return (
-      newRecipes.map((value, index) => {
-        if (value.type === 'comida') {
-          ar = `${value.area} - ${value.category}`;
-          alcoholic = '';
-        } else {
-          ar = '';
-          alcoholic = value.alcoholicOrNot;
-        }
-        return (
-          <di
-            key={ index }
-            onClick={ this.update }
-          >
-            <Link to={ `/${value.type}s/${value.id}` }>
-              <img
-                className="Imagem"
-                data-testid={ `${index}-horizontal-image` }
-                src={ value.image }
-                alt="img-recipe"
-              />
-              <p
-                data-testid={ `${index}-horizontal-name` }
-              >
-                {value.name}
-              </p>
-            </Link>
-            <p
-              data-testid={ `${index}-horizontal-top-text` }
-            >
-              {`${alcolicORcategory[index]} - ${value.category}`}
-            </p>
-            <FavoriteButton
-              obj={ {
-                id: value.id,
-                type: 'comida',
-                area: ar,
-                category: value.category,
-                alcoholicOrNot: alcoholic,
-                name: value.name,
-                image: value.image,
-              } }
-              test={ `${index}-horizontal-favorite-btn` }
+      newRecipes.map((value, index) => (
+        <di key={ index }>
+          <Link to={ `/${value.type}s/${value.id}` }>
+            <img
+              className="Imagem"
+              data-testid={ `${index}-horizontal-image` }
+              src={ value.image }
+              alt="img-recipe"
             />
-            <button
-              type="button"
-              onClick={ () => this.shereUrl(`${value.type}s/${value.id}`) }
-              data-testid={ `${index}-horizontal-share-btn` }
-              src={ ShareIcon }
+            <p
+              data-testid={ `${index}-horizontal-name` }
             >
-              <p>{p}</p>
-              <img src={ ShareIcon } alt="button share" />
-            </button>
-          </di>
-        );
-      })
+              {value.name}
+            </p>
+          </Link>
+          <p
+            data-testid={ `${index}-horizontal-top-text` }
+          >
+            {`${alcolicORcategory[index]} - ${value.category}`}
+          </p>
+          <button
+            type="button"
+            onClick={ () => this.favorites(value.id) }
+            data-testid={`${index}-horizontal-favorite-btn`}
+            src={ blackHeartIcon }
+          >
+            <img src={ blackHeartIcon } alt="button favorite" />
+          </button>
+          <button
+            type="button"
+            onClick={ () => this.shereUrl(`${value.type}s/${value.id}`) }
+            data-testid={ `${index}-horizontal-share-btn` }
+            src={ ShareIcon }
+          >
+            <p>{p}</p>
+            <img src={ ShareIcon } alt="button share" />
+          </button>
+        </di>
+      ))
     );
   }
 
