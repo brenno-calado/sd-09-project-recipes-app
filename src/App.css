@@ -9,25 +9,11 @@
 
   --large-shadow: 8px 8px 8px rgba(230, 110, 110, 0.4);
 
-  --linear-gradient-1: linear-gradient(
-    120deg,
-    var(--lpink),
-    var(--lblue),
-    var(--lpink)
-  );
+  --linear-gradient-1: linear-gradient(120deg, var(--lpink), var(--lblue), var(--lpink));
 
-  --linear-gradient-2: linear-gradient(
-    120deg,
-    var(--lpink),
-    white,
-    var(--lblue)
-  );
+  --linear-gradient-2: linear-gradient(120deg, var(--lpink), white, var(--lblue));
 
-  --linear-gradient-3: linear-gradient(
-    120deg,
-    var(--soft-blue),
-    var(--soft-purple)
-  );
+  --linear-gradient-3: linear-gradient(120deg, var(--soft-blue), var(--soft-purple));
 
   --short-shadow: 4px 4px 4px rgba(240, 110, 110, 0.4);
 
