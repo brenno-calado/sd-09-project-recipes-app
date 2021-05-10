@@ -55,6 +55,16 @@ const SearchBar = ({ title }) => {
     setSearchState({ ...searchState, radioOn: value });
   };
 
+  const handleErrorOther = () => {
+    setNoResults(1);
+    return (alert('Sinto muito, não encontramos nenhuma receita para esses filtros.'));
+  };
+
+  const handleErrorLetter = () => {
+    setShowAlertLetter(false);
+    return (alert('Sua busca deve conter somente 1 (um) caracter'));
+  };
+
   useEffect(() => {
     checkRedirect(foods, drinks, setPath);
   }, [foods, drinks]);
@@ -68,6 +78,7 @@ const SearchBar = ({ title }) => {
         placeholder="Buscar receita"
         data-testid="search-input"
         name="searchInput"
+        autoComplete="off"
         value={ searchInput }
         onChange={ handleChange }
       />
@@ -115,11 +126,13 @@ const SearchBar = ({ title }) => {
         Buscar
       </button>
       <br />
-      { showAlertLetterRadio
-        ? alert('Sua busca deve conter somente 1 (um) caracter') : null}
-      <br />
+      {/* { handleError} */}
+      {/* { handleError} */}
+      { showAlertLetterRadio === true
+        ? handleErrorLetter()
+        : null}
       { noResultsApi === 'null'
-        ? alert('Sinto muito, não encontramos nenhuma receita para esses filtros.')
+        ? handleErrorOther()
         : null}
     </form>
   );

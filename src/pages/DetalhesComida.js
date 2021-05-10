@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Carousel from 'react-bootstrap/Carousel';
 import copy from 'clipboard-copy';
+import HomeButton from '../components/HomeButton';
 import { getFoodIdDetails, getDrinks } from '../services';
 import { AppContext } from '../context/AppContext';
 import shareImg from '../images/shareIcon.svg';
@@ -141,6 +142,7 @@ const DetalhesComida = () => {
               alt="Favoritas"
             />
           </button>
+          <HomeButton destination="comidas" />
         </div>
         { linkShared && <p>Link copiado!</p> }
         <h3 data-testid="recipe-category">{strCategory}</h3>

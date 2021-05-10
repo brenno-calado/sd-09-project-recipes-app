@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Redirect, useParams } from 'react-router';
 import copy from 'clipboard-copy';
 import CheckBoxProgress from '../components/CheckboxProgress';
+import HomeButton from '../components/HomeButton';
 import { AppContext } from '../context/AppContext';
 import { getDrinkIdDetails } from '../services';
 import shareImg from '../images/shareIcon.svg';
@@ -139,6 +140,7 @@ const ProgressoBebidas = () => {
               alt="Favoritas"
             />
           </button>
+          <HomeButton destination="bebidas" />
         </div>
         { linkShared && <p>Link copiado!</p> }
         <h4 data-testid="recipe-category">{strCategory}</h4>

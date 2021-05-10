@@ -39,8 +39,10 @@
   opacity: 80%;
 }
 
-.recipe-names h3 {
+.recipe-names h4 {
+  font-size: 18px;
   margin-bottom: 0;
+  overflow: auto;
 }
 
 .tags-div {
