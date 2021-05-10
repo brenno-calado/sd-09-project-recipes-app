@@ -14,6 +14,7 @@ import GenericCategoryButton from '../../common/components/buttons/GenericCatego
 
 const Drinks = (props) => {
   const { drinks, history } = props;
+  // const { filteredByIngredient } = location.state;
   const [drinksCategoryList, setDrinksCategoryList] = useState();
   const [filteredByCategoryArray, setFilteredBYCategoryArray] = useState(undefined);
   const [loading, setLoading] = useState(true);
@@ -28,6 +29,10 @@ const Drinks = (props) => {
     }
     fetchData();
   }, [dispatchDrinks]);
+
+  // useEffect(() => {
+  //   if (filteredByIngredient) { dispatchDrinks(filteredByIngredient); }
+  // }, [filteredByIngredient, dispatchDrinks]);
 
   function filterByCategory(category) {
     fetchDrinksFilteredByCategory(category).then(setFilteredBYCategoryArray);
@@ -58,6 +63,16 @@ const Drinks = (props) => {
             />
           ))
       }
+      {/* {
+        filteredByIngredient
+        && (
+          <RenderRecipeCards
+            array={ filteredByIngredient }
+            kindOfFood="drinks"
+            cardsLimit="12"
+          />
+        )
+      } */}
       {
         filteredByCategoryArray
           ? (
@@ -83,6 +98,7 @@ const mapStateToProps = (state) => ({
 });
 
 Drinks.propTypes = {
+  // filteredByIngredient: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   drinks: PropTypes.arrayOf(PropTypes.string).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,

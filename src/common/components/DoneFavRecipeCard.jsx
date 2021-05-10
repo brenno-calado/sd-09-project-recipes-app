@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import Button from './buttons/Button';
@@ -8,6 +8,7 @@ import '../styles/detailsStyles.css';
 
 function DoneRecipeCard({ history, index, recipe, favOrDone }) {
   const { shareClick, copied, setFavorite } = useContext(RecipesContext);
+  const [fav, setFav] = useState(false);
   const recipeId = recipe.id;
   const url = `/${recipe.type}s/${recipeId}`;
 
@@ -15,11 +16,12 @@ function DoneRecipeCard({ history, index, recipe, favOrDone }) {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     const isFav = favorites.find((item) => item.id === recipeId);
     setFavorite(isFav);
+    setFav(isFav);
   }, [setFavorite, recipeId]);
 
   useEffect(() => {
-    verifyFavorite();
-  }, [verifyFavorite]);
+    verifyFavorite(recipeId);
+  }, [verifyFavorite, recipeId]);
 
   function renderTags() {
     if (recipe.type === 'comida') {
@@ -96,6 +98,7 @@ function DoneRecipeCard({ history, index, recipe, favOrDone }) {
             { favOrDone === 'done' && renderTags() }
             { favOrDone === 'fav' && (
               <ShareLikeButtons
+                fav={ fav }
                 url={ url }
                 recipe={ recipe }
                 complement={ `${index}-horizontal-` }
