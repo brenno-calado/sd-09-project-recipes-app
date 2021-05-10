@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Context from '../contextApi/context';
 
 const MealRecipes = () => {
   const [mealRecipes, setMealRecipes] = useState([]);
   const [mealCategories, setMealCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
   const { ingredient } = useParams();
+  const { inputToSearch, setMeals } = useContext(Context);
+  console.log(inputToSearch);
 
+  setMeals();
   const getDefaultRecipes = () => {
     const url = () => {
       if (ingredient) return `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`;
@@ -81,7 +86,7 @@ const MealRecipes = () => {
 
   return (
     <div>
-      <h1>Receitas</h1>
+      <Header />
       <button
         type="button"
         data-testid="All-category-filter"

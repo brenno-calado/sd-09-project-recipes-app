@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
+import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Context from '../contextApi/context';
 
 const CocktailRecipes = () => {
   const [cocktailRecipes, setCocktailRecipes] = useState([]);
   const [cocktailCategories, setCocktailCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
   const { ingredient } = useParams();
+  const { inputToSearch, setBeverages } = useContext(Context);
+  console.log(inputToSearch);
 
+  setBeverages();
   const getDefaultRecipes = () => {
     console.log(ingredient);
     const url = () => {
@@ -82,7 +87,7 @@ const CocktailRecipes = () => {
 
   return (
     <div>
-      <h1>Receitas</h1>
+      <Header />
       <button
         type="button"
         data-testid="All-category-filter"
