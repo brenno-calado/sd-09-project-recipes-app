@@ -9,10 +9,12 @@ import DoneRecipes from './DoneRecipes';
 import FavoriteRecipes from './FavoriteRecipes';
 import RecipeDetails from './RecipeDetails';
 import DrinkDetails from './DrinkDetails';
+import NotFound from './NotFound';
 import RecipeInProgress from './RecipeInProgress';
 import DrinkInProgress from './DrinkInProgress';
 
 export {
+  NotFound,
   Login,
   MainFoods,
   MainDrinks,

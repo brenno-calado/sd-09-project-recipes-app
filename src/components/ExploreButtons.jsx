@@ -1,8 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { fetchRandomDrink } from '../services/CocktailApi';
+import { fetchRandomMeal } from '../services/MealApi';
 
 function Buttons({ origin }) {
+  const [idDrink, setIdDrink] = useState('');
+  const [idMeal, setIdMeal] = useState('');
+
+  function getRandomDrink() {
+    fetchRandomDrink().then((response) => {
+      setIdDrink(response.idDrink);
+    });
+  }
+
+  function getRandomMeal() {
+    fetchRandomMeal().then((response) => {
+      setIdMeal(response.idMeal);
+    });
+  }
+
+  useEffect(() => {
+    getRandomDrink();
+    getRandomMeal();
+  }, []);
+
   if (origin) {
     return (
       <>
@@ -22,12 +44,14 @@ function Buttons({ origin }) {
             Por Local de Origem
           </button>
         </Link>
-        <button
-          data-testid="explore-surprise"
-          type="button"
-        >
-          Me Surpreenda!
-        </button>
+        <Link to={ `/comidas/${idMeal}` }>
+          <button
+            data-testid="explore-surprise"
+            type="button"
+          >
+            Me Surpreenda!
+          </button>
+        </Link>
       </>
     );
   }
@@ -42,13 +66,15 @@ function Buttons({ origin }) {
           Por Ingredientes
         </button>
       </Link>
-      <button
-        id="surprise-drinks-link"
-        data-testid="explore-surprise"
-        type="button"
-      >
-        Me Surpreenda!
-      </button>
+      <Link to={ `/bebidas/${idDrink}` }>
+        <button
+          id="surprise-drinks-link"
+          data-testid="explore-surprise"
+          type="button"
+        >
+          Me Surpreenda!
+        </button>
+      </Link>
     </>
   );
 }
