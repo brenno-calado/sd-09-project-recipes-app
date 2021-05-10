@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
+import Footer from '../components/Footer';
 
 const CocktailRecipes = () => {
   const [cocktailRecipes, setCocktailRecipes] = useState([]);
   const [cocktailCategories, setCocktailCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
+  const { ingredient } = useParams();
 
   const getDefaultRecipes = () => {
-    fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=')
+    console.log(ingredient);
+    const url = () => {
+      if (ingredient) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      return 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    };
+    fetch(url())
       .then((response) => {
         console.log(response);
         response.json()
           .then((data) => {
+            console.log(data);
             setCocktailRecipes(data.drinks);
           });
       });
@@ -29,7 +37,19 @@ const CocktailRecipes = () => {
   };
 
   useEffect(() => {
-    getDefaultRecipes();
+    console.log(ingredient);
+    const url = () => {
+      if (ingredient) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      return 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+    };
+    fetch(url())
+      .then((response) => {
+        console.log(response);
+        response.json()
+          .then((data) => {
+            setCocktailRecipes(data.drinks);
+          });
+      });
     fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list')
       .then((response) => {
         response.json()
@@ -37,7 +57,7 @@ const CocktailRecipes = () => {
             setCocktailCategories(data.drinks);
           });
       });
-  }, []);
+  }, [ingredient]);
 
   const maxIndexRecipes = 11;
   const maxIndexCategories = 4;
@@ -103,8 +123,8 @@ const CocktailRecipes = () => {
 
           );
         })}
+      <Footer />
     </div>
-
   );
 };
 
