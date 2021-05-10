@@ -1,13 +1,13 @@
 * {
   background-color: rgba(228, 219, 236, 0.918);
-  font-family: 'Ubuntu';
+  font-family: serif, sans-serif;
   margin: 0;
   padding: 0;
 }
 
 .container {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 }
 
 .login-form {
@@ -22,11 +22,11 @@
 }
 
 .labels {
-  color:rgb(79, 77, 80);
+  color: rgb(79, 77, 80);
   font: 650;
   font-size: x-large;
-  text-shadow: 2px 1px;
   padding: 5px;
+  text-shadow: 1px 1px;
 }
 
 .inputs {
