@@ -66,7 +66,11 @@ const RecipeDetails = ({ match: { path, params } }) => {
           key={ index }
           data-testid={ `${index}-recomendation-card` }
         >
-          <img alt="Recommendation" src={ recipe.strMealThumb || recipe.strDrinkThumb } />
+          <img
+            width="100%"
+            alt="Recommendation"
+            src={ recipe.strMealThumb || recipe.strDrinkThumb }
+          />
           <Carousel.Caption>
             <p data-testid={ `${index}-recomendation-title` }>
               {recipe.strDrink || recipe.strMeal}
