@@ -68,10 +68,6 @@
   width: 100%;
 }
 
-/* .recipe-img {
-  width: 80%;
-} */
-
 .listCard {
   display: flex;
   flex-wrap: wrap;
@@ -98,4 +94,22 @@
   box-shadow: var(--boxShadow3);
   padding-top: 10px;
   width: 100px;
+}
+
+@media only screen and ( min-width : 768px ) {
+
+  .buttons button {
+    font-size: 15px;
+    width: 26%;
+  }
+
+  .listCard p {
+    font-size: 15px;
+  }
+
+  .listCard {
+    margin-left: auto;
+    margin-right: auto;
+    width: 85%;
+  }
 }
