@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 import Context from '../contextApi/context';
 
 export default function Header() {
-  const { definedTypeSearch } = useContext(Context);
+  const { inputToSearch, submitInputToSearch, definedTypeSearch } = useContext(Context);
 
   return (
     <header>
@@ -14,6 +15,7 @@ export default function Header() {
         className="profile-top-btn"
         id="profile-top-btn"
         data-testId="profile-top-btn"
+        onClick={ <Redirect to="/perfil" /> }
       >
         <img src={ ProfileIcon } alt="Profile Icon" />
       </button>
@@ -32,7 +34,8 @@ export default function Header() {
         type="button"
         className="search-top-btn"
         id="search-top-btn"
-        data-testId="search-top-btn"
+        data-testId="search-top-btn, exec-search-btn"
+        onClick={ () => submitInputToSearch(inputToSearch) }
       >
         <img src={ SearchIcon } alt="Search Icon" />
       </button>

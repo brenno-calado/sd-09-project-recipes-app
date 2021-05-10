@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import RecipeCard from '../components/RecipeCard';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -9,15 +9,13 @@ const CocktailRecipes = () => {
   const [cocktailRecipes, setCocktailRecipes] = useState([]);
   const [cocktailCategories, setCocktailCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
-  const { ingredient } = useParams();
   const { inputToSearch, setBeverages } = useContext(Context);
   console.log(inputToSearch);
 
   setBeverages();
   const getDefaultRecipes = () => {
-    console.log(ingredient);
     const url = () => {
-      if (ingredient) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      if (inputToSearch) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputToSearch}`;
       return 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     };
     fetch(url())
@@ -42,9 +40,8 @@ const CocktailRecipes = () => {
   };
 
   useEffect(() => {
-    console.log(ingredient);
     const url = () => {
-      if (ingredient) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
+      if (inputToSearch) return `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${inputToSearch}`;
       return 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
     };
     fetch(url())
@@ -62,7 +59,7 @@ const CocktailRecipes = () => {
             setCocktailCategories(data.drinks);
           });
       });
-  }, [ingredient]);
+  }, [inputToSearch]);
 
   const maxIndexRecipes = 11;
   const maxIndexCategories = 4;

@@ -7,7 +7,6 @@ export default function SearchBar() {
     setInputToSearch,
     filterSelected,
     setFilterSelected,
-    submitInputToSearch,
   } = useContext(Context);
 
   return (
@@ -25,13 +24,6 @@ export default function SearchBar() {
             setInputToSearch(target.value[0]))
             : setInputToSearch(target.value)) }
       />
-      <button
-        type="submit"
-        data-testid="exec-search-btn"
-        onClick={ () => submitInputToSearch(inputToSearch) }
-      >
-        Procurar
-      </button>
 
       <div className="containerRadioBtns" id="containerRadioBtns">
         <label htmlFor="ingredient-search-radio">
