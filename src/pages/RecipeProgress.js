@@ -131,8 +131,6 @@ const RecipeProgress = ({ match: { params } }) => {
       >
         Finalizar Receita
       </button>
-      <p>---</p>
-      <p>---</p>
     </>
   );
 };
