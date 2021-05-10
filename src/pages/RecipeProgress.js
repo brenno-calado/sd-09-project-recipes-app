@@ -14,14 +14,12 @@ const RecipeProgress = ({ match: { params } }) => {
   const { id } = params;
   const [isFavorite, setFavorite] = useState(false);
   const [recipe, setRecipe] = useState(false);
-  const [progress, setProgress] = useState({ 0: false });
+  const [progress, setProgress] = useState({});
   const location = useLocation();
   const isFoodsPage = location.pathname.includes('comida');
   const history = useHistory();
   const { DONE_RECIPES } = paths;
-  // const foodUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  // const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  console.log(progress);
+
   useEffect(() => {
     const fetchById = async () => {
       const fetchDetails = await fetchApi({ i: id, isDetails: true, isFoodsPage });
@@ -74,7 +72,7 @@ const RecipeProgress = ({ match: { params } }) => {
             name=""
             value={ index }
             onClick={ handleClick }
-            checked={ progress.value }
+            defaultChecked={ Object.keys(progress).includes(index) }
           />
           <span>{`${recipe[key]} - ${recipe[`strMeasure${index + 1}`]}`}</span>
         </label>
@@ -127,8 +125,8 @@ const RecipeProgress = ({ match: { params } }) => {
         data-testid="finish-recipe-btn"
         // disabled={ verifyCheck }
         disabled={
-          Object.keys(progress).some((k) => progress[k] === false)
-          && Object.keys(progress).length <= ingredients.length
+          !Object.keys(progress).every((k) => progress[k] === true)
+          || Object.keys(progress).length < ingredients.length
         }
         onClick={ () => history.push(DONE_RECIPES) }
       >
