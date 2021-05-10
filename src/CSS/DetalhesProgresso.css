@@ -113,3 +113,14 @@ ul {
   margin-top: 10px;
   width: 90%;
 }
+
+@media only screen and ( min-width : 768px ) {
+
+  ul {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 20px;
+  }
+}
