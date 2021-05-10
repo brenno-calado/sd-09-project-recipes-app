@@ -39,3 +39,15 @@ export async function fetchDrinksRecomendation() {
     .then((data) => data.json());
   return apiResponse.drinks;
 }
+
+export const fetchRandomDrink = async () => {
+  const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php')
+    .then((response) => response.json());
+  return drinks[0];
+};
+
+export const fetchCocktailsIngredients = async () => {
+  const { drinks } = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list')
+    .then((response) => response.json());
+  return drinks;
+};
