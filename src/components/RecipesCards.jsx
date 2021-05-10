@@ -8,25 +8,27 @@ const copy = require('clipboard-copy');
 function FavoriteRecipesCards() {
   const [favorite] = useState(true);
   const [copied, setCopied] = useState(false);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const handleFavoriteRecipes = () => {
-    let recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (recipes === null) {
-      recipes = [];
-    }
-    return recipes;
-  };
-
-  const getRemovedFavorite = (unfavorite) => {
-    localStorage.setItem('favoriteRecipes', JSON.stringify(unfavorite));
+    setFavoriteRecipes(JSON.parse(localStorage.getItem('favoriteRecipes')));
   };
 
   const handleClick = ({ target }) => {
-    console.log(target.id);
-    const storageItem = handleFavoriteRecipes();
+    const storageItem = favoriteRecipes;
     const unfavorite = storageItem.filter((item) => item.id !== target.id);
-    getRemovedFavorite(unfavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(unfavorite));
     handleFavoriteRecipes();
+  };
+
+  const foodFilter = () => {
+    const favoriteFood = favoriteRecipes.filter(({ type }) => type === 'comida');
+    setFavoriteRecipes(favoriteFood);
+  };
+
+  const drinkFilter = () => {
+    const favotiteDrink = favoriteRecipes.filter(({ type }) => type === 'bebida');
+    setFavoriteRecipes(favotiteDrink);
   };
 
   useEffect(() => {
@@ -38,13 +40,38 @@ function FavoriteRecipesCards() {
     setCopied(true);
   };
 
-  const { id, type } = handleFavoriteRecipes();
+  const { id, type } = favoriteRecipes;
 
   return (
     <div className="">
-      { handleFavoriteRecipes() === []
+      <div className="categories-container">
+        <button
+          type="button"
+          data-testid="filter-by-all-btn"
+          className=""
+          value="All"
+          onClick={ handleFavoriteRecipes }
+        >
+          All
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-food-btn"
+          onClick={ foodFilter }
+        >
+          Food
+        </button>
+        <button
+          type="button"
+          data-testid="filter-by-drink-btn"
+          onClick={ drinkFilter }
+        >
+          Drinks
+        </button>
+      </div>
+      { favoriteRecipes === []
         ? <h3>Não existe nenhuma receita favoritada!</h3>
-        : handleFavoriteRecipes().map((recipe, index) => (
+        : favoriteRecipes.map((recipe, index) => (
           <div key={ index }>
             <img
               src={ recipe.image }
