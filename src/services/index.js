@@ -90,6 +90,26 @@ const fetchRandomDrinkId = async () => {
   return randomDrink.drinks[0].idDrink;
 };
 
+const fetchMealById = async (id) => {
+  try {
+    const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const mealDetailsApi = await response.json();
+    return mealDetailsApi.meals[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fetchDrinkById = async (id) => {
+  try {
+    const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+    const drinkDetailsApi = await response.json();
+    return drinkDetailsApi.drinks[0];
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const fetchApi = {
   fetchMealCategories,
   fetchMealByCategories,
@@ -106,6 +126,8 @@ const fetchApi = {
   fetchDrinks,
   fetchRandomMealId,
   fetchRandomDrinkId,
+  fetchDrinkById,
+  fetchMealById,
 };
 
 export default fetchApi;

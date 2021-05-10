@@ -15,8 +15,6 @@ function FoodDetails({ match }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const { id } = match.params;
-  const start = localStorage.getItem(`start${id}`);
-  const concluded = localStorage.getItem(`conclude${id}`);
 
   const fetchDetail = async () => {
     try {
@@ -189,24 +187,38 @@ function FoodDetails({ match }) {
   };
 
   const startRecipe = () => {
-  //   const inProgressRecipes = {
-  //     }
-  // }
-  //   localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipes));
+    const ingredients = searchIngredients('strIngredient');
+    const measures = searchIngredients('strMeasure');
+    const list = ingredients.map((item, index) => `${item} - ${measures[index]},`);
+    const recipesStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
+    const progressRecipes = { ...recipesStorage,
+      meals: { ...recipesStorage.meals, [mealDetails.idMeal]: list,
+      },
+    };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressRecipes));
   };
 
-  const startButton = () => (
-    <Link to={ `/comidas/${id}/in-progress` }>
-      <button
-        className={ concluded ? 'invisible-btn' : 'start-recipe basic-btn' }
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ startRecipe }
-      >
-        {start ? 'Continuar Receita' : 'Iniciar Receita'}
-      </button>
-    </Link>
-  );
+  const startButton = () => {
+    const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const inProgressFound = storageProgress !== null ? Object.keys(storageProgress.meals)
+      : [];
+    const inProgress = inProgressFound.includes(id);
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const done = doneRecipes !== null ? Object.keys(doneRecipes.meals).includes(id)
+      : false;
+    return (
+      <Link to={ `/comidas/${id}/in-progress` }>
+        <button
+          className={ done ? 'invisible-btn' : 'start-recipe basic-btn' }
+          type="button"
+          data-testid="start-recipe-btn"
+          onClick={ startRecipe }
+        >
+          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+        </button>
+      </Link>
+    );
+  };
 
   return (
     <div>
