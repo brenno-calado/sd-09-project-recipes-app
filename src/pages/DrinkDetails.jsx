@@ -3,9 +3,12 @@ import Carousel from 'react-bootstrap/Carousel';
 import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/details.css';
-import StartRecipeButton from '../components/StartRecipeButton';
-import FavoriteButton from '../components/FavoriteButton';
-import ShareButton from '../components/ShareButton';
+import RecipeStartButton from '../components/RecipeStartButton';
+import RecipeFavoriteButton from '../components/RecipeFavoriteButton';
+import RecipeShareButton from '../components/RecipeShareButton';
+import RecipeInstructions from '../components/RecipeInstructions';
+import RecipeDetailsHeader from '../components/RecipeDetailsHeader';
+import RecipeIngredientsList from '../components/RecipeIngredientsList';
 
 function DrinkDetails({ match: { params: { id } } }) {
   const {
@@ -20,48 +23,15 @@ function DrinkDetails({ match: { params: { id } } }) {
     getDrinkId(id);
   }, [getDrinkId, id]);
 
-  const ingredientsList = () => {
-    const list = [];
-    for (let index = 1; drinkId[`strIngredient${index}`] !== null; index += 1) {
-      list.push(`
-        ${drinkId[`strIngredient${index}`]} - ${drinkId[`strMeasure${index}`]}
-      `);
-    }
-    return list;
-  };
-
   return (
     <div>
       { (drinkId.idDrink === id) ? (
         <div>
-          <img
-            data-testid="recipe-photo"
-            className="recipe-photo"
-            alt={ drinkId.strDrink }
-            src={ drinkId.strDrinkThumb }
-          />
-          <h3
-            data-testid="recipe-title"
-            className="recipe-title"
-          >
-            { drinkId.strDrink }
-          </h3>
-          <ShareButton />
-          <FavoriteButton item={ drinkId } id={ id } type="cocktails" />
-          <span data-testid="recipe-category">{ drinkId.strAlcoholic }</span>
-          <ul className="list-ingredients">
-            { ingredientsList().map((ingredients, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ingredients}
-              </li>
-            ))}
-          </ul>
-          <p data-testid="instructions" className="instructions">
-            { drinkId.strInstructions }
-          </p>
+          <RecipeDetailsHeader type="Drink" />
+          <RecipeShareButton />
+          <RecipeFavoriteButton id={ id } type="Drink" />
+          <RecipeIngredientsList type="Drink" />
+          <RecipeInstructions type="Drink" />
           <Carousel>
             { mealRecomendation.slice(0, maxRecomendations).map((meal, index) => (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
@@ -76,7 +46,7 @@ function DrinkDetails({ match: { params: { id } } }) {
               </Carousel.Item>
             )) }
           </Carousel>
-          <StartRecipeButton id={ id } type="cocktails" />
+          <RecipeStartButton id={ id } type="cocktails" />
         </div>
       ) : (<p className="loading-message">Loading...</p>)}
     </div>

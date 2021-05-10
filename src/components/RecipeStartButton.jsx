@@ -2,22 +2,31 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function StartRecipeButton({ id, type }) {
+function RecipeStartButton({ id, type }) {
   const [isInProgress, setIsInProgress] = useState(false);
   const [showStartRecipeBtn, setShowStartRecipeBtn] = useState(true);
 
   function handleClickStartRecipe() {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    setIsInProgress(true);
     if (inProgressRecipes === null) {
-      localStorage.setItem('inProgressRecipes', JSON.stringify({ [type]: { [id]: [] } }));
-      setIsInProgress(true);
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ [type]: { [id]: [] } }));
       return;
     }
-    setIsInProgress(true);
-    localStorage.setItem('inProgressRecipes', JSON.stringify({
-      ...inProgressRecipes,
-      [type]: { ...inProgressRecipes[type], [id]: [] },
-    }));
+    if (inProgressRecipes[type] === undefined) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        [type]: { ...inProgressRecipes[type], [id]: [] },
+      }));
+      return;
+    }
+    if (inProgressRecipes[type][id] === undefined) {
+      localStorage.setItem('inProgressRecipes', JSON.stringify({
+        ...inProgressRecipes,
+        [type]: { ...inProgressRecipes[type], [id]: [] },
+      }));
+    }
   }
 
   useEffect(() => {
@@ -28,7 +37,8 @@ function StartRecipeButton({ id, type }) {
       && (inProgressRecipes[type][id] !== undefined)) {
       setIsInProgress(true);
     }
-    if ((doneRecipes !== null) && (doneRecipes.some((recipe) => recipe.id === id))) {
+    if ((doneRecipes !== null)
+      && (doneRecipes.some((doneRecipe) => doneRecipe.id === id))) {
       setShowStartRecipeBtn(false);
     }
   }, [id, type]);
@@ -51,9 +61,9 @@ function StartRecipeButton({ id, type }) {
   );
 }
 
-StartRecipeButton.propTypes = {
+RecipeStartButton.propTypes = {
   id: PropTypes.number,
   type: PropTypes.string,
 }.isRequired;
 
-export default StartRecipeButton;
+export default RecipeStartButton;

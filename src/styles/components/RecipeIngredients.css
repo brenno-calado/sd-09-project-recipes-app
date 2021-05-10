@@ -1,0 +1,9 @@
+.recipe-ingredient {
+  display: inline;
+}
+
+.recipe-ingredient:checked + label {
+  display: inline;
+  text-decoration: line-through;
+  width: 100px;
+}
