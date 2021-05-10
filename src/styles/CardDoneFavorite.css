@@ -1,0 +1,28 @@
+.card-done {
+  border: 1px solid #6b6b6b;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: flex;
+  height: 20vh;
+  justify-content: space-between;
+  margin: 1em 1em 0;
+  width: 300px;
+}
+
+.card-done__image {
+  border-radius: 5px 0 0 5px;
+  height: 100%;
+}
+
+.card-done__name {
+  font-size: 1em;
+  margin: 0;
+  padding: 0;
+}
+
+.card-done__buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

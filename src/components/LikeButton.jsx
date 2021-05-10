@@ -1,37 +1,31 @@
 import React, { useState, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { shape, string } from 'prop-types';
+import { useLocation } from 'react-router-dom';
+import { shape, string, number } from 'prop-types';
 import { RecipesContext } from '../context';
 import WhiteLikeIcon from '../images/whiteHeartIcon.svg';
 import BlackLikeIcon from '../images/blackHeartIcon.svg';
 
-export default function LikeButton({ recipeDetails }) {
+export default function LikeButton({ recipeDetails, index }) {
   const {
     values: { favoriteRecipes: faviRecContext },
     actions: { addRecipeToFavorites, removeRecipeFromFavorites },
   } = useContext(RecipesContext);
 
-  const { id } = useParams();
   const { pathname } = useLocation();
 
   const [favoriteRecipes] = useState(faviRecContext || []);
-  const [like, setLike] = useState(favoriteRecipes.find((recipe) => recipe.id === id));
+  const [like, setLike] = useState(
+    favoriteRecipes.find((recipe) => recipe.id === recipeDetails.id),
+  );
 
   function likeRecipe() {
-    const type = pathname.includes('comidas') ? ['comida', 'Meal'] : ['bebida', 'Drink'];
-    const recipeObj = {
-      id: recipeDetails[`id${type[1]}`],
-      type: type[0],
-      area: recipeDetails.strArea || '',
-      category: recipeDetails.strCategory || '',
-      alcoholicOrNot: type[1] === 'Drink' ? recipeDetails.strAlcoholic : '',
-      name: recipeDetails[`str${type[1]}`],
-      image: recipeDetails[`str${type[1]}Thumb`],
-    };
+    const { id, type, area, category, alcoholicOrNot, name, image } = recipeDetails;
     if (!like) {
-      addRecipeToFavorites(recipeObj);
+      addRecipeToFavorites({ id, type, area, category, alcoholicOrNot, name, image });
     } else {
-      removeRecipeFromFavorites(recipeObj);
+      removeRecipeFromFavorites(
+        { id, type, area, category, alcoholicOrNot, name, image },
+      );
     }
     setLike(!like);
   }
@@ -47,14 +41,24 @@ export default function LikeButton({ recipeDetails }) {
             <img
               src={ BlackLikeIcon }
               alt="Ícone de coração preenchido"
-              data-testid="favorite-btn"
+              data-testid={
+                pathname.includes('receitas-feitas')
+                || pathname.includes('receitas-favoritas')
+                  ? `${index}-horizontal-favorite-btn`
+                  : 'favorite-btn'
+              }
             />
           )
           : (
             <img
               src={ WhiteLikeIcon }
               alt="Ícone de coração vazio"
-              data-testid="favorite-btn"
+              data-testid={
+                pathname.includes('receitas-feitas')
+                || pathname.includes('receitas-favoritas')
+                  ? `${index}-horizontal-favorite-btn`
+                  : 'favorite-btn'
+              }
             />
           )}
       </button>
@@ -68,5 +72,10 @@ LikeButton.propTypes = {
     strArea: string,
     strCategory: string,
     strAlcoholic: string,
-  }),
-}.isRequired;
+  }).isRequired,
+  index: number,
+};
+
+LikeButton.defaultProps = {
+  index: 0,
+};
