@@ -1,47 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
+import DoneRecipesList from '../components/DoneRecipesList';
 
 const DoneRecipes = () => {
-  const index = 0;
-  const image = 0;
+  const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+  const [recipes, setRecipes] = useState(storage);
   return (
     <div>
-      <Header />
+      <Header title="Receitas Feitas" />
       <div>
         <button
           type="button"
           data-testid="filter-by-all-btn"
+          onClick={ () => setRecipes(storage) }
         >
           All
         </button>
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          onClick={ () => setRecipes(storage
+            .filter((recipe) => recipe.type === 'comida')) }
         >
           Food
         </button>
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          onClick={ () => setRecipes(storage
+            .filter((recipe) => recipe.type === 'bebida')) }
         >
           Drinks
         </button>
-        <img
-          src={ image }
-          data-testid={ `${index}-horizontal-image` }
-          alt="teste"
-        />
-        <span data-testid={ `${index}-horizontal-top-text` }>Categoria</span>
-        <span data-testid={ `${index}-horizontal-name` }>Nome da Receita</span>
-        <span data-testid={ `${index}-horizontal-done-date` }>Data</span>
-        <img
-          src="src/images/shareIcon.svg"
-          alt="compartilhar"
-          data-testid={ `${index}-horizontal-share-btn` }
-          type="button"
-        />
-        <span data-testid={ `${index}-Pasta-horizontal-tag` }>tag</span>
-        <span data-testid={ `${index}-Curry-horizontal-tag` }>tag</span>
+      </div>
+      <div>
+        { recipes.map((recipe, index) => (
+          <DoneRecipesList key={ recipe.id } recipe={ recipe } index={ index } />
+        )) }
       </div>
     </div>
   );
