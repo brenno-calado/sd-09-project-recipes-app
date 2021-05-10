@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Copy from 'clipboard-copy';
 import { useLocation, useHistory } from 'react-router-dom';
-import Footer from '../components/Footer';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -132,9 +131,6 @@ const RecipeProgress = ({ match: { params } }) => {
       >
         Finalizar Receita
       </button>
-      <p>---</p>
-      <p>---</p>
-      <Footer />
     </>
   );
 };
