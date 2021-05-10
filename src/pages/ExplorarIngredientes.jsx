@@ -11,9 +11,8 @@ function ExplorarIngredientes() {
   const [ingredientsList, setIngredientsList] = useState();
   const { pathname } = useLocation();
   const type = pathname.includes('comidas')
-    ? ['comidas', 'strIngredient']
-    : ['bebidas', 'strIngredient1'];
-  const imgURL = 'https://www.themealdb.com/images/ingredients/';
+    ? ['comidas', 'strIngredient', 'https://www.themealdb.com/images/ingredients/']
+    : ['bebidas', 'strIngredient1', 'https://www.thecocktaildb.com/images/ingredients/'];
   const [loading, setLoading] = useState(true);
 
   const MAX_PG = 12;
@@ -87,7 +86,7 @@ function ExplorarIngredientes() {
             aria-hidden="true"
           >
             <img
-              src={ `${imgURL}${ing[type[1]]}-Small.png` }
+              src={ `${type[2]}${ing[type[1]]}-Small.png` }
               alt={ `imagem de ${ing}` }
               data-testid={ `${index}-card-img` }
               className=".card__image"
