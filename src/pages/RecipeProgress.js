@@ -63,8 +63,8 @@ const RecipeProgress = ({ match: { params } }) => {
     .filter((key) => (
       key.includes('Ingredient') && recipe[key]));
 
-  const renderIngredients = () => {
-    return ingredients.map((key, index) => (
+  const renderIngredients = () => (
+    ingredients.map((key, index) => (
       <li key={ index }>
         <label htmlFor="ingredient" data-testid={ `${index}-ingredient-step` }>
           <input
@@ -77,8 +77,8 @@ const RecipeProgress = ({ match: { params } }) => {
           <span>{`${recipe[key]} - ${recipe[`strMeasure${index + 1}`]}`}</span>
         </label>
       </li>
-    ));
-  };
+    ))
+  );
 
   return (
     <>
