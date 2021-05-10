@@ -1,4 +1,74 @@
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.buttons-container button {
+  margin: 0 30px;
+}
+
+h4, h1 {
+  text-align: center;
+  width: 100%;
+}
+
+.name-category-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px 30px;
+  height: 10%;
+}
+
+.ingredient-list {
+  width: 60%;
+}
+
+.ingredient-list-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.instructions-container {
+  display: flex;
+  justify-content: center;
+}
+
+.recipe-details-container {
+  padding: 20px 20px;
+}
+
+.recipe-details-container p {
+  margin: 30px 30px;
+}
+
+.recipe-image-container {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.start-recipe-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.start-recipe-btn-container a {
+  display: flex;
+  justify-content: center;
+}
+
 .start-recipe-btn-container button {
   bottom: 0;
   position: fixed;
+  width: 30%;
+}
+
+.video-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
 }

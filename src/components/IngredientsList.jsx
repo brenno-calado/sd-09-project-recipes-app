@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ListGroup from 'react-bootstrap/ListGroup'
 import { saveIngredients } from '../redux/actions';
 
 function IngredientsList({ recipe, saveIngredientsDispatcher }) {
@@ -25,8 +26,9 @@ function IngredientsList({ recipe, saveIngredientsDispatcher }) {
   }, [recipe]);
 
   return (
-    <div>
-      <ul>
+    <div className="ingredient-list">
+      <h4>Ingredients</h4>
+      <ListGroup variant="flush">
         {
           recipe.length !== 0 && ingredients !== undefined
           && ingredients.map((ingredient, index) => {
@@ -34,16 +36,16 @@ function IngredientsList({ recipe, saveIngredientsDispatcher }) {
               return;
             }
             return (
-              <li
+              <ListGroup.Item
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-name-and-measure` }
               >
                 { `${ingredient[0]}: ${ingredient[1]}` }
-              </li>
+              </ListGroup.Item>
             );
           })
         }
-      </ul>
+      </ListGroup>
     </div>
   );
 }

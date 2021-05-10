@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -52,7 +53,10 @@ function FavoriteButton({ recipe, recipeType }) {
 
   const renderImg = () => {
     const blackButton = (
-      <button
+      <Button
+        size="lg"
+        variant="outline-dark"
+        style={ { height: '50px', width: '80px' } }
         type="button"
         data-testid="favorite-btn"
         onClick={ saveFavoriteRecipe }
@@ -62,10 +66,13 @@ function FavoriteButton({ recipe, recipeType }) {
           src={ blackHeartIcon }
           alt="favorite button"
         />
-      </button>
+      </Button>
     );
     const whiteButton = (
-      <button
+      <Button
+        size="lg"
+        variant="outline-dark"
+        style={ { height: '50px', width: '80px' } }
         type="button"
         data-testid="favorite-btn"
         onClick={ saveFavoriteRecipe }
@@ -75,7 +82,7 @@ function FavoriteButton({ recipe, recipeType }) {
           src={ whiteHeartIcon }
           alt="favorite button"
         />
-      </button>
+      </Button>
     );
 
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));

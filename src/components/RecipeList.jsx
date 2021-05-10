@@ -18,11 +18,15 @@ function RecipeList({
   currentCategory,
 }) {
   const [recipes, setRecipes] = useState([]);
+  const [recipes2, setRecipes2] = useState([]);
 
   const verifyRecipes = useCallback(() => {
     const magicNumber = 12;
-    const results = data.slice(0, magicNumber);
-    setRecipes(results);
+    const magicNumber2 = 24;
+    const magicNumber3 = 36;
+    // const results = data.slice(0, magicNumber);
+    setRecipes(data.slice(0, magicNumber));
+    setRecipes2(data.slice(magicNumber, magicNumber2));
   }, [data]);
 
   console.log(recipes);
@@ -100,13 +104,16 @@ function RecipeList({
   return (
     // <CardDeck>
     //   <Row>
-        // { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
+    //     { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
     //   </Row>
     // </CardDeck>
     // <Carousel>
     //   { (recipeType === 'comidas') ? mealsCards : cocktailsCards }
     // </Carousel>
-    <HorizontalScrollMenu recipes={ recipes } type="recipes" />
+    <main>
+      <HorizontalScrollMenu recipes={ recipes } type="recipes" />
+      <HorizontalScrollMenu recipes={ recipes2 } type="recipes" />
+    </main>
   );
 }
 

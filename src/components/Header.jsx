@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import '../css/Header.css';
 
 const Header = ({ title }) => {
   const [searchBar, setSearchBar] = useState(false);

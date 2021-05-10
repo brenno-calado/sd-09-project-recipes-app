@@ -55,6 +55,7 @@ const SearchBar = ({
           variant="outline-secondary"
           title={ renderTitle() }
           id="input-group-dropdown-2"
+          className="search-filters-dropdown"
         >
           <Dropdown.Item
             data-testid="ingredient-search-radio"

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactPlayer from 'react-player';
+import Image from 'react-bootstrap/Image'
 import {
   mealsByIdThunk, cocktailsByIdThunk, savePath, fetchingRecipe,
 } from '../redux/actions';
@@ -47,31 +48,40 @@ function Details({
 
   if (isFetchingRecipe) return <div>Loading...</div>;
   return (
-    <section>
+    <section className="recipe-details-container">
       <h1>Detalhes da Receita</h1>
-      <img
-        src={ recipeType === 'comidas' ? recipe.strMealThumb : recipe.strDrinkThumb }
-        alt="current recipe"
-        data-testid="recipe-photo"
-      />
-      <ShareRecipeButton pathname={ pathname } />
-      <FavoriteButton />
-      <div>
-        <p data-testid="recipe-title">
-          { recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink }
-        </p>
-        <p data-testid="recipe-category">
-          { recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic }
-        </p>
+      <div className="recipe-image-container">
+        <Image
+          src={ recipeType === 'comidas' ? recipe.strMealThumb : recipe.strDrinkThumb }
+          alt="current recipe"
+          data-testid="recipe-photo"
+          thumbnail
+          style={ { width: '400px' } }
+        />
       </div>
-      <IngredientsList pathname={ pathname } />
-      <div>
+      <div className="name-category-container">
+        <h3 data-testid="recipe-title">
+          { recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink }
+        </h3>
+        <h5 data-testid="recipe-category">
+          { `Category: ${recipeType === 'comidas'
+            ? recipe.strCategory : recipe.strAlcoholic}` }
+        </h5>
+      </div>
+      <div className="buttons-container">
+        <ShareRecipeButton pathname={ pathname } />
+        <FavoriteButton />
+      </div>
+      <div className="ingredient-list-container">
+        <IngredientsList pathname={ pathname } />
+      </div>
+      <div className="instructions-container">
         <p data-testid="instructions">{ recipe.strInstructions }</p>
-        <div>
-          { recipeType === 'comidas' && (
-            <ReactPlayer data-testid="video" url={ recipe.strYoutube } />
-          ) }
-        </div>
+      </div>
+      <div className="video-container">
+        { recipeType === 'comidas' && (
+          <ReactPlayer data-testid="video" url={ recipe.strYoutube } />
+        ) }
       </div>
       <RecommendedRecipes />
       <StartRecipeButton id={ id } />

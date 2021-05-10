@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import Button from 'react-bootstrap/Button';
 import shareIcon from '../images/shareIcon.svg';
 
 function ShareRecipeButton({ pathname }) {
@@ -26,15 +27,19 @@ function ShareRecipeButton({ pathname }) {
 
   return (
     <div>
-      <button
+      <Button
+        size="lg"
+        variant="outline-dark"
+        style={ { height: '50px', width: '80px' } }
         type="button"
         onClick={ getLink }
         data-testid="share-btn"
       >
         <img src={ shareIcon } alt="botao de compartilhar" />
-        Compartilhar
-      </button>
-      { showMessage && <p>Link copiado!</p> }
+      </Button>
+      <div>
+        { showMessage && <p>Link copiado!</p> }
+      </div>
     </div>
   );
 }
