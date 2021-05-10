@@ -26,9 +26,3 @@ export const saveDoneRecipe = (recipe) => {
   const parsedRecipes = JSON.parse(existingRecipes);
   localStorage.setItem('doneRecipes', JSON.stringify([...parsedRecipes, recipe]));
 };
-
-export const saveProgress = (recipe) => {
-  const existingRecipes = localStorage.getItem('inProgressRecipes') || '[]';
-  const parsedRecipes = JSON.parse(existingRecipes);
-  localStorage.setItem('inProgressRecipes', JSON.stringify([...parsedRecipes, recipe]));
-};
