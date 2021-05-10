@@ -10,7 +10,10 @@ function FavoriteRecipesCards() {
   const [copied, setCopied] = useState(false);
 
   const handleFavoriteRecipes = () => {
-    const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    let recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (recipes === null) {
+      recipes = [];
+    }
     return recipes;
   };
 
@@ -36,10 +39,12 @@ function FavoriteRecipesCards() {
   };
 
   const { id, type } = handleFavoriteRecipes();
+
   return (
     <div className="">
-      {
-        handleFavoriteRecipes().map((recipe, index) => (
+      { handleFavoriteRecipes() === []
+        ? <h3>Não existe nenhuma receita favoritada!</h3>
+        : handleFavoriteRecipes().map((recipe, index) => (
           <div key={ index }>
             <img
               src={ recipe.image }
@@ -78,8 +83,7 @@ function FavoriteRecipesCards() {
               {`${recipe.alcoholicOrNot || recipe.area} - ${recipe.category}`}
             </p>
           </div>
-        ))
-      }
+        )) }
     </div>
   );
 }

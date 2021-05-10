@@ -123,6 +123,7 @@ function DrinkDetails({ match }) {
               type="button"
               data-testid="share-btn"
               onClick={ shareBtn }
+              src="shareIcon"
             >
               { copied ? 'Link copiado!'
                 : <img src={ ShareIcon } alt="share" />}
@@ -132,7 +133,7 @@ function DrinkDetails({ match }) {
               type="button"
               data-testid="favorite-btn"
               onClick={ favorited }
-              src={ favorite ? BlackHartIcon : WhiteHartIcon }
+              src="blackHeartIcon"
             >
               <img src={ favorite ? BlackHartIcon : WhiteHartIcon } alt="favorite" />
             </button>
