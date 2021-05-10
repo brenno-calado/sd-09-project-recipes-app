@@ -20,14 +20,14 @@ function ExplorarIngredientes() {
   const { actions: { setIngredient } } = useContext(RecipesContext);
 
   useEffect(() => {
-    async function loadIngredients() {
+    const loadIngredients = () => {
       getIngredients(type[0])
         .then(
           (resp) => setIngredientsList(resp),
           (error) => console.log(error.message),
         )
         .finally(() => setLoading(false));
-    }
+    };
     loadIngredients();
   });
 
@@ -39,7 +39,7 @@ function ExplorarIngredientes() {
 
   function renderCardIngredients() {
     return ingredientsList
-      .filter((_, index) => index < MAX_PG)
+      /* .filter((_, index) => index < MAX_PG) */
       .map((ing, index) => (
         <section
           key={ ing[type[1]] }
