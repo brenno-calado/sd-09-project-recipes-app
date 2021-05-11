@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import Copy from 'clipboard-copy';
 import { useLocation, useHistory } from 'react-router-dom';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import PropTypes from 'prop-types';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
 import { fetchApi } from '../services/api';
-import { saveProgress } from '../services/storage';
+import {
+  saveRecipeInProgress,
+  loadRecipesInProgress,
+  saveDoneRecipe,
+} from '../services/storage';
 import paths from '../routes/paths';
 
 const RecipeProgress = ({ match: { params } }) => {
   const { id } = params;
-  const [isFavorite, setFavorite] = useState(false);
-  const [recipe, setRecipe] = useState(false);
-  const [progress, setProgress] = useState({});
   const location = useLocation();
-  const isFoodsPage = location.pathname.includes('comida');
+  const isFoodPage = location.pathname.includes('comida');
+  const storageTypeKey = isFoodPage ? 'meals' : 'cocktails';
+  const stateProgress = loadRecipesInProgress(storageTypeKey)[id] || {};
+
+  const [recipe, setRecipe] = useState(false);
+  const [progress, setProgress] = useState(stateProgress);
+
+  const ingredients = Object.keys(recipe)
+    .filter((key) => (key.includes('Ingredient') && recipe[key]));
+
+  const isFinishButtonDisabled = !Object.values(progress).every((done) => done)
+    || Object.keys(progress).length < ingredients.length;
+
   const history = useHistory();
   const { DONE_RECIPES } = paths;
+  const setRecipeAsDone = () => {
+    saveDoneRecipe(recipe);
+    history.push(DONE_RECIPES);
+  };
 
   useEffect(() => {
     const fetchById = async () => {
-      const fetchDetails = await fetchApi({ i: id, isDetails: true, isFoodsPage });
+      const fetchDetails = await fetchApi(
+        { i: id, isDetails: true, isFoodsPage: isFoodPage },
+      );
       const key = Object.keys(fetchDetails)[0];
       return fetchDetails[key]['0'];
     };
@@ -29,8 +46,7 @@ const RecipeProgress = ({ match: { params } }) => {
   }, []);
 
   useEffect(() => {
-    const key = isFoodsPage ? 'meals' : 'cocktails';
-    saveProgress(key, id, progress);
+    saveRecipeInProgress(storageTypeKey, id, progress);
   }, [progress]);
 
   if (!recipe) {
@@ -45,7 +61,7 @@ const RecipeProgress = ({ match: { params } }) => {
     alcoholicOrNot: recipe.strAlcoholic,
   };
 
-  const handleClick = ({ target }) => {
+  const handleDoneIngredient = ({ target }) => {
     if (target.checked) {
       target.nextSibling.style = 'text-decoration: line-through;';
     } else {
@@ -58,26 +74,28 @@ const RecipeProgress = ({ match: { params } }) => {
     }));
   };
 
-  const ingredients = Object.keys(recipe)
-    .filter((key) => (
-      key.includes('Ingredient') && recipe[key]));
-
   const renderIngredients = () => (
-    ingredients.map((key, index) => (
-      <li key={ index }>
-        <label htmlFor="ingredient" data-testid={ `${index}-ingredient-step` }>
-          <input
-            type="checkbox"
-            name=""
-            value={ index }
-            onClick={ handleClick }
-            defaultChecked={ Object.keys(progress).includes(index) }
-          />
-          <span>{`${recipe[key]} - ${recipe[`strMeasure${index + 1}`]}`}</span>
-        </label>
-      </li>
-    ))
-  );
+    ingredients.map((key, index) => {
+      const ingredientName = recipe[key];
+      const ingredientMeasure = recipe[`strMeasure${index + 1}`];
+      return (
+        <li key={ index }>
+          <label htmlFor="ingredient" data-testid={ `${index}-ingredient-step` }>
+            <input
+              type="checkbox"
+              name=""
+              value={ index }
+              onClick={ handleDoneIngredient }
+              defaultChecked={ progress[index] }
+            />
+            <span>
+              { ingredientName }
+              { ingredientMeasure && ` - ${ingredientMeasure}` }
+            </span>
+          </label>
+        </li>
+      );
+    }));
 
   return (
     <>
@@ -87,47 +105,27 @@ const RecipeProgress = ({ match: { params } }) => {
         alt="recipePhoto"
         style={ { height: 200 } }
       />
-      <h1 data-testid="recipe-title">{recipeData.name}</h1>
-      <button
-        type="button"
-        data-testid="share-btn"
-        onClick={ () => {
-          Copy(`http://localhost:3000/comidas/${id}`);
-          // inProgressRecipes
-          // clipboard-copy
-        } }
-      >
-        <img src={ shareIcon } alt="shareIcon" />
-      </button>
-      <button
-        type="button"
-        onClick={ () => setFavorite(!isFavorite) }
-      >
-        <img
-          data-testid="favorite-btn"
-          src={ isFavorite ? blackHeartIcon : whiteHeartIcon }
-          alt="favoriteIcon"
-        />
-      </button>
+      <h1 data-testid="recipe-title">{ recipeData.name }</h1>
+
+      <ShareButton isFoodPage={ isFoodPage } recipeId={ id } testId="share-btn" />
+      <FavoriteButton recipe={ recipe } testId="favorite-btn" />
+
       <h4 data-testid="recipe-category">
-        {recipeData.alcoholicOrNot || recipeData.category}
+        { recipeData.alcoholicOrNot || recipeData.category }
       </h4>
+
       <h2>Ingredientes</h2>
-      <ul>
-        {renderIngredients()}
-      </ul>
+      <ul>{ renderIngredients() }</ul>
+
       <h2>Instruções</h2>
-      <p data-testid="instructions">{recipeData.instructions}</p>
+      <p data-testid="instructions">{ recipeData.instructions }</p>
+
       <button
         className="finish-recipe-btn"
         type="button"
         data-testid="finish-recipe-btn"
-        // disabled={ verifyCheck }
-        disabled={
-          !Object.keys(progress).every((k) => progress[k] === true)
-          || Object.keys(progress).length < ingredients.length
-        }
-        onClick={ () => history.push(DONE_RECIPES) }
+        disabled={ isFinishButtonDisabled }
+        onClick={ () => setRecipeAsDone() }
       >
         Finalizar Receita
       </button>
