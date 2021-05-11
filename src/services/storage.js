@@ -1,20 +1,26 @@
+const loadStorageOrAlternative = (storageKey, alternativeValue) => {
+  const existingData = localStorage.getItem(storageKey) || alternativeValue;
+  return JSON.parse(existingData);
+};
+
+const saveStorageDataWithKey = (data, storageKey) => {
+  localStorage.setItem(storageKey, JSON.stringify(data));
+};
+
 export const saveTokens = () => {
   localStorage.setItem('mealsToken', 1);
   localStorage.setItem('cocktailsToken', 1);
 };
 
 export const saveUser = (email) => {
-  localStorage.setItem('user', JSON.stringify({ email }));
+  saveStorageDataWithKey({ email }, 'user');
+  // localStorage.setItem('user', JSON.stringify({ email }));
 };
 
-const loadStorageOrAlternative = (storageKey, alternativeValue) => {
-  const existingRecipes = localStorage.getItem(storageKey) || alternativeValue;
-  return JSON.parse(existingRecipes);
-};
-
-const saveStorageDataWithKey = (data, storageKey) => {
-  localStorage.setItem(storageKey, JSON.stringify(data));
-};
+export const getUserData = () => loadStorageOrAlternative(
+  'user',
+  '{ "email": "Não informado" }',
+);
 
 const getDate = () => {
   const date = new Date();
@@ -66,13 +72,14 @@ export const saveSingleFavoriteRecipe = (recipe) => {
   }
 };
 
-export const removeRecipeFromFavorites = (recipe) => {
-  if (checkIfFavoriteRecipe(recipe)) {
-    const { recipeId, recipeType } = getRecipeIdAndType(recipe);
-    const remainingRecipes = loadFavoritesRecipes()
-      .filter(({ id, type }) => recipeId !== id && recipeType !== type);
-    saveFavoritesRecipes(remainingRecipes);
+export const removeRecipeFromFavorites = (recipe, ...idAndType) => {
+  let { recipeId, recipeType } = getRecipeIdAndType(recipe);
+  if (idAndType.length > 1) {
+    [recipeId, recipeType] = idAndType;
   }
+  const remainingRecipes = loadFavoritesRecipes()
+    .filter(({ id, type }) => recipeId !== id && recipeType !== type);
+  saveFavoritesRecipes(remainingRecipes);
 };
 
 const loadDoneRecipes = () => loadStorageOrAlternative('doneRecipes', '[]');

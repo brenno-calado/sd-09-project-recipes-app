@@ -83,7 +83,6 @@ const RecipeListCard = ({ recipe, index, isDonePage, favCallback }) => {
 
 RecipeListCard.propTypes = {
   index: PropTypes.number.isRequired,
-  copyCallback: PropTypes.func.isRequired,
   favCallback: PropTypes.func.isRequired,
   isDonePage: PropTypes.bool.isRequired,
   recipe: PropTypes.shape({

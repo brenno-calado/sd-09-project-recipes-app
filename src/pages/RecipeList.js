@@ -62,7 +62,7 @@ const RecipeList = ({ match: { path } }) => {
   const removeFavRecipe = (recipe) => {
     setRecipesList((currentRecipes) => currentRecipes
       .filter(({ id, type }) => recipe.id !== id && recipe.type !== type));
-    removeRecipeFromFavorites(recipe);
+    removeRecipeFromFavorites(recipe, recipe.id, recipe.type);
   };
 
   const shownRecipes = recipes.filter(recipesFilters[recipesFilterKey]);
