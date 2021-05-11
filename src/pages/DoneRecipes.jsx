@@ -42,11 +42,13 @@ function DoneRecipes() {
   useEffect(() => {
     const doneRecipesStorage = JSON.parse(localStorage.getItem('doneRecipes'));
     const doneRecipesIds = {};
-    for (let index = 0; index < doneRecipesStorage.length; index += 1) {
-      doneRecipesIds[doneRecipesStorage[index].id] = false;
+    if (doneRecipesStorage !== null) {
+      for (let index = 0; index < doneRecipesStorage.length; index += 1) {
+        doneRecipesIds[doneRecipesStorage[index].id] = false;
+      }
+      setDoneRecipes(doneRecipesStorage);
+      setCopy(doneRecipesIds);
     }
-    setDoneRecipes(doneRecipesStorage);
-    setCopy(doneRecipesIds);
   }, []);
 
   return (
