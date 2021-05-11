@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import shareIcon from '../images/shareIcon.svg';
+import '../css/ShareRecipeButton.css';
 
 function ShareRecipeButton({ pathname }) {
   const [showMessage, setShowMessage] = useState(false);
@@ -37,7 +38,7 @@ function ShareRecipeButton({ pathname }) {
       >
         <img src={ shareIcon } alt="botao de compartilhar" />
       </Button>
-      <div>
+      <div className="share-message-container">
         { showMessage && <p>Link copiado!</p> }
       </div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Image from 'react-bootstrap/Image'
 import ShareRecipeButton from '../components/ShareRecipeButton';
 import FavoriteButton from '../components/FavoriteButton';
 import IngredientsListInProgress from '../components/IngredientsListInProgress';
@@ -46,24 +47,37 @@ function RecipeInProgress({
 
   if (isFetchingRecipe) return <div>Loading...</div>;
   return (
-    <div>
-      <img
-        src={ recipeType === 'comidas' ? recipe.strMealThumb : recipe.strDrinkThumb }
-        alt="current recipe"
-        data-testid="recipe-photo"
-      />
-      <ShareRecipeButton pathname={ pathname } />
-      <FavoriteButton />
+    <div className="recipe-inprogress-container">
       <div>
-        <p data-testid="recipe-title">
+        <h1 data-testid="recipe-title">
           { recipeType === 'comidas' ? recipe.strMeal : recipe.strDrink }
-        </p>
-        <p data-testid="recipe-category">
-          { recipeType === 'comidas' ? recipe.strCategory : recipe.strAlcoholic }
-        </p>
+        </h1>
+        <div className="name-category-container">
+          <h5 data-testid="recipe-category">
+            { `Category: ${recipeType === 'comidas'
+              ? recipe.strCategory : recipe.strAlcoholic}` }
+          </h5>
+        </div>
       </div>
-      <IngredientsListInProgress pathname={ pathname } setToggle={ setToggle } />
-      <p data-testid="instructions">{ recipe.strInstructions }</p>
+      <div className="image-inprogress-container">
+        <Image
+          src={ recipeType === 'comidas' ? recipe.strMealThumb : recipe.strDrinkThumb }
+          alt="current recipe"
+          data-testid="recipe-photo"
+          thumbnail
+          style={ { width: '400px' } }
+        />
+      </div>
+      <div className="buttons-container">
+        <ShareRecipeButton pathname={ pathname } />
+        <FavoriteButton />
+      </div>
+      <div className="inprogress-list-container">
+        <IngredientsListInProgress pathname={ pathname } setToggle={ setToggle } />
+      </div>
+      <div className="inprogress-instructions-container">
+        <p data-testid="instructions">{ recipe.strInstructions }</p>
+      </div>
       <FinishRecipeButton toggle={ toggle } />
     </div>
   );

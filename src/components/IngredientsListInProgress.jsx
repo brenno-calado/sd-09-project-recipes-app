@@ -101,6 +101,7 @@ function IngredientsListInProgress({ recipe, recipeType, setToggle }) {
               <div
                 key={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
+                className="ingredient-step-container"
               >
                 <input
                   type="checkbox"

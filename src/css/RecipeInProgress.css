@@ -1,3 +1,58 @@
 .done {
   text-decoration: line-through solid black;
 }
+
+.finish-recipe-btn-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.finish-recipe-btn-container a {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.finish-recipe-btn-container button {
+  width: 30%;
+}
+
+.ingredient-step-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+}
+
+.ingredient-step-container input {
+  margin-right: 10px;
+}
+
+.ingredient-step-container li {
+  list-style-type: none;
+}
+
+.image-inprogress-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.inprogress-instructions-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 30px;
+}
+
+.name-category-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px 30px;
+  height: 10%;
+}
+
+.recipe-inprogress-container {
+  padding: 20px 20px;
+}
