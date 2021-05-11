@@ -92,3 +92,26 @@
   justify-content: space-around;
   margin-top: 20px;
 }
+
+/* Tela de Detalhes */
+.start-button {
+  bottom: 0;
+  display: inline-block;
+  position: fixed;
+}
+
+/* Componente de recomendações */
+.rec-div {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  width: 330px;
+}
+
+.rec-card {
+  border-radius: 6px;
+  flex: 0 0 auto;
+  height: 172px;
+  margin: 10px;
+  width: 161px;
+}
