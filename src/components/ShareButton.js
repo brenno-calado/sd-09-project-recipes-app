@@ -5,7 +5,7 @@ import CopyMsg from './CopyMsg';
 import getRecipeDetailsPath from '../services/getPath';
 
 const writeToClipboard = (text, callback) => {
-  const removeTimeout = 2000;
+  const removeTimeout = 3000;
   navigator.clipboard.writeText(text);
   callback(true);
   setTimeout(() => callback(false), removeTimeout);

@@ -31,8 +31,8 @@ const RecipeDetails = ({ match: { path, params } }) => {
       .filter((key) => (
         key.includes('Ingredient') && details[key]))
       .map((key, index) => {
-        const ingredientName = recipe[key];
-        const ingredientMeasure = recipe[`strMeasure${index + 1}`];
+        const ingredientName = details[key];
+        const ingredientMeasure = details[`strMeasure${index + 1}`];
         return (
           <li
             key={ index }
