@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import clipboard from 'clipboard-copy';
 import { getById } from '../services/DrinkFetch';
 import localStorageProgress from './InitialLocalStorage';
 
@@ -8,6 +9,7 @@ import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function ProcessoBebida() {
   const [oneFood, setOneFood] = useState([]);
+  const [showMessage, setShowMessage] = useState('none');
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
   const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -66,6 +68,15 @@ function ProcessoBebida() {
     );
   }
 
+  const shareButton = () => {
+    const timer = 2000;
+    clipboard(window.location.href.replace(/\/in-progress/, ''));
+    setShowMessage('inline');
+    setTimeout(() => {
+      setShowMessage('none');
+    }, timer);
+  };
+
   useEffect(() => {
     const url = window.location.href;
     const match = url.match(/[0-9]{5,9}/gm);
@@ -84,8 +95,17 @@ function ProcessoBebida() {
 
       <h1 data-testid="recipe-title">{ oneFood.strDrink }</h1>
 
-      <button data-testid="share-btn" type="button">
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ shareButton }
+      >
         <img src={ ShareIcon } alt="Share" />
+        <span
+          style={ { display: `${showMessage}` } }
+        >
+          Link copiado!
+        </span>
       </button>
 
       <button data-testid="favorite-btn" type="button">

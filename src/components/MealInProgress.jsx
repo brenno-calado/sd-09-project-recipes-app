@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import clipboard from 'clipboard-copy';
 import { getById } from '../services/MealFetch';
 import localStorageProgress from './InitialLocalStorage';
+import Favorite from './Favorite';
 
 import ShareIcon from '../images/shareIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
 function ProcessoComida() {
   const [oneFood, setOneFood] = useState([]);
+  const [showMessage, setShowMessage] = useState('none');
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
   const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let ingredientsUsed;
+  const favoriteObject = [{
+    id: oneFood.idMeal,
+    type: 'comida',
+    area: oneFood.strArea,
+    category: oneFood.strCategory,
+    alcoholicOrNot: '',
+    name: oneFood.strMeal,
+    image: oneFood.strMealThumb,
+  }];
 
   const listIngredients = ({ target: { value } }) => {
     ingredientsUsed = getLocalStorage.meals[id] || [];
@@ -32,7 +42,7 @@ function ProcessoComida() {
     if (ingredintsList.includes(value)) return true;
   };
 
-  function ingredients() {
+  const ingredients = () => {
     const regIngredient = /strIngredient/;
     const filterKeys = Object.keys(oneFood);
     const filterValues = Object.values(oneFood);
@@ -64,7 +74,16 @@ function ProcessoComida() {
         </div>
       ))
     );
-  }
+  };
+
+  const shareButton = () => {
+    const timer = 2000;
+    clipboard(window.location.href.replace(/\/in-progress/, ''));
+    setShowMessage('inline');
+    setTimeout(() => {
+      setShowMessage('none');
+    }, timer);
+  };
 
   useEffect(() => {
     const url = window.location.href;
@@ -84,13 +103,20 @@ function ProcessoComida() {
 
       <h1 data-testid="recipe-title">{ oneFood.strMeal }</h1>
 
-      <button data-testid="share-btn" type="button">
+      <button
+        data-testid="share-btn"
+        type="button"
+        onClick={ shareButton }
+      >
         <img src={ ShareIcon } alt="Share" />
+        <span
+          style={ { display: `${showMessage}` } }
+        >
+          Link copiado!
+        </span>
       </button>
 
-      <button data-testid="favorite-btn" type="button">
-        <img src={ WhiteHeartIcon } alt="Favorite" />
-      </button>
+      <Favorite recipe={ favoriteObject } />
 
       <h3 data-testid="recipe-category">{ oneFood.Category }</h3>
 
