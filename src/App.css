@@ -134,22 +134,22 @@
 @keyframes animatetop {
 
   0% {
-    top: -50px;
     opacity: 0;
+    top: -50px;
   }
 
   25% {
-    top: 0;
     opacity: 100;
+    top: 0;
   }
 
   75% {
-    top: 0;
     opacity: 100;
+    top: 0;
   }
 
   100% {
-    top: -50px;
     opacity: 0;
+    top: -50px;
   }
 }
