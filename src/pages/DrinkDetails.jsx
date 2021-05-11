@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import BlackHartIcon from '../images/blackHeartIcon.svg';
 import WhiteHartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
