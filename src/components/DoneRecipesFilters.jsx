@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Button from 'react-bootstrap/Button';
 import { sendDoneRecipes } from '../redux/actions';
 
 function DoneRecipesFilters({ sendRecipesDispatcher }) {
@@ -24,28 +25,28 @@ function DoneRecipesFilters({ sendRecipesDispatcher }) {
   };
 
   return (
-    <section>
-      <button
+    <section className="filter-buttons-container">
+      <Button
         type="button"
         data-testid="filter-by-all-btn"
         onClick={ sendAll }
       >
         All
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="filter-by-food-btn"
         onClick={ sendFoods }
       >
         Food
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
         data-testid="filter-by-drink-btn"
         onClick={ sendDrinks }
       >
         Drinks
-      </button>
+      </Button>
     </section>
   );
 }

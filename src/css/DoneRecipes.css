@@ -1,4 +1,37 @@
+.done-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.filter-buttons-container {
+  background-color: #445925;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.filter-buttons-container button {
+  background-color: #F26D3D;
+  color: white;
+  margin: 0 30px;
+  width: 100px;
+}
+
+.recipe-card {
+  border: 1px solid black;
+  border-radius: 3px;
+  height: 450px;
+  margin: 3px;
+  width: 304px;
+}
+
+.recipe-card li {
+  list-style-type: none;
+}
+
 .recipe-card-img {
-  height: 200px;
   width: 200px;
 }

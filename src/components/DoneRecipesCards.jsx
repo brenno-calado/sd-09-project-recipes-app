@@ -67,6 +67,18 @@ function DoneRecipesCards({ doneRecipes }) {
           <p data-testid={ `${index}-horizontal-done-date` }>
             { recipe.doneDate }
           </p>
+          <ul>
+            {
+              recipe.tags.map((tag) => (
+                <li
+                  data-testid={ `${index}-${tag}-horizontal-tag` }
+                  key={ tag }
+                >
+                  { tag }
+                </li>
+              ))
+            }
+          </ul>
           <div>
             <button
               type="button"
@@ -81,25 +93,13 @@ function DoneRecipesCards({ doneRecipes }) {
             </button>
             { showMessage && <p>Link copiado!</p> }
           </div>
-          <ul>
-            {
-              recipe.tags.map((tag) => (
-                <li
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                  key={ tag }
-                >
-                  { tag }
-                </li>
-              ))
-            }
-          </ul>
         </div>
       );
     })
   );
 
   return (
-    <div>
+    <div className="done-cards-container">
       { doneRecipes && cards() }
     </div>
   );
