@@ -118,36 +118,36 @@
   display: none;
 }
 
-.copy-msg.hide-opacity{
-  opacity: 0;
-}
-
 .copy-msg {
   align-items: center;
   animation: animatetop 3s ease-in-out;
   background-color: white;
+  display: flex;
   height: 5vh;
   justify-content: center;
   opacity: 1;
   position: absolute;
-  top: 0px;
+  top: 0;
   width: 100vw;
-  display: flex;
 }
 
 @keyframes animatetop {
+
   0% {
     top: -50px;
     opacity: 0;
   }
+
   25% {
-    top: 0px;
+    top: 0;
     opacity: 100;
   }
+
   75% {
-    top: 0px;
+    top: 0;
     opacity: 100;
   }
+
   100% {
     top: -50px;
     opacity: 0;
