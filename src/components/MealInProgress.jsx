@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clipboard from 'clipboard-copy';
+import { Redirect } from 'react-router-dom';
 import { getById } from '../services/MealFetch';
 import localStorageProgress from './InitialLocalStorage';
 import Favorite from './Favorite';
@@ -10,6 +11,7 @@ function ProcessoComida() {
   const [oneFood, setOneFood] = useState([]);
   const [showMessage, setShowMessage] = useState('none');
   const [disableButton, setDisableButton] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
   const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -24,6 +26,10 @@ function ProcessoComida() {
     image: oneFood.strMealThumb,
   };
   const values = [];
+
+  const terminateRedirect = () => {
+    setRedirect(true);
+  };
 
   const checkboxes = () => {
     const totalChecked = (getLocalStorage.meals[id].length);
@@ -108,6 +114,8 @@ function ProcessoComida() {
 
   return (
     <>
+      { (redirect) ? <Redirect to="/receitas-feitas" /> : null }
+
       <img
         data-testid="recipe-photo"
         src={ oneFood.strMealThumb }
@@ -146,6 +154,7 @@ function ProcessoComida() {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ disableButton }
+        onClick={ terminateRedirect }
       >
         Finalizar Receita
       </button>
