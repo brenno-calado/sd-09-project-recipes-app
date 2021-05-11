@@ -1,7 +1,5 @@
-footer {
-  bottom: 0;
-  display: flex;
-  justify-content: space-evenly;
-  position: fixed;
-  width: 100%;
+.nav-bar-style {
+  background-color: #F2EDA2 !important;
+  z-index: 99;
+  padding: .1rem 1rem !important;
 }

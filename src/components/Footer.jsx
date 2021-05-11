@@ -8,18 +8,19 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import { changePath } from '../redux/actions';
+import "../css/Footer.css";
 
 const styleImg = {
-  height: 30,
+  height: 35,
 };
 
 const Footer = ({ pathnameDispatcher }) => (
   <footer data-testid="footer">
     <Navbar
+      className="nav-bar-style"
       expand="lg"
       variant="light"
       fixed="bottom"
-      style={ { backgroundColor: '#F2EDA2', height: 30 } }
     >
       <Container>
         <Link

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import "../css/Login.css";
 
 const verifyInputs = (user, setDisable) => {
   const { email, password } = user;
@@ -40,40 +43,54 @@ const Login = () => {
   const { email, password } = user;
 
   return (
-    <div>
-      <label htmlFor="email">
-        Email
-        <input
-          data-testid="email-input"
-          name="email"
-          id="email"
-          type="text"
-          onChange={ handleChange }
-          value={ email }
-        />
-      </label>
-      <label htmlFor="password">
-        Senha
-        <input
-          data-testid="password-input"
-          name="password"
-          id="password"
-          type="password"
-          onChange={ handleChange }
-          value={ password }
-        />
-      </label>
-      <Link to="/comidas">
-        <button
-          type="button"
-          disabled={ disable }
-          onClick={ handleClick }
-          data-testid="login-submit-btn"
-        >
-          Entrar
-        </button>
-      </Link>
-    </div>
+    <section>
+      <div className="container-css">
+        <div className="left-content">
+          <h1 className="title color-white">
+            Recipes App
+          </h1>
+          <img
+            src="https://www.flaticon.com/svg/vstatic/svg/2509/2509468.svg?token=exp=1620687326~hmac=0b3688ac60f14b0da36204ee22c449f1"
+            alt="Ícone de comida"
+          />
+        </div>
+        <div className="form right-content">
+          <Form.Label htmlFor="email" className="color-white inputs-form">
+            Email
+            <Form.Control
+              data-testid="email-input"
+              name="email"
+              id="email"
+              type="text"
+              onChange={ handleChange }
+              value={ email }
+            />
+          </Form.Label>
+          <Form.Label htmlFor="password" className="color-white inputs-form">
+            Senha
+            <Form.Control
+              data-testid="password-input"
+              name="password"
+              id="password"
+              type="password"
+              onChange={ handleChange }
+              value={ password }
+            />
+          </Form.Label>
+          <Link to="/comidas">
+            <Button
+              variant="success"
+              type="button"
+              disabled={ disable }
+              onClick={ handleClick }
+              data-testid="login-submit-btn"
+            >
+              Entrar
+            </Button>
+          </Link>
+        </div>
+      </div>
+    </section>
   );
 };
 

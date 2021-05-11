@@ -14,14 +14,19 @@ const HorizontalScrollMenu = ({ recommended, recipes, type }) => {
     const slides = 3;
     if (recommendedsRecipes !== undefined) {
       maxWidth = (recommendedsRecipes.length * magicNumber);
+      let x = scrollX + Math.round(maxWidth / slides);
+      if (x > 0) {
+        x = 0;
+      }
+      setScrollX(x);
     } else {
       maxWidth = (recipes.length * magicNumber);
+      let x = scrollX + Math.round(window.innerWidth);
+      if (x > 0) {
+        x = 0;
+      }
+      setScrollX(x);
     }
-    let x = scrollX + Math.round(maxWidth / slides);
-    if (x > 0) {
-      x = 0;
-    }
-    setScrollX(x);
   };
   const handleWithRightArrowClick = () => {
     let maxWidth;
