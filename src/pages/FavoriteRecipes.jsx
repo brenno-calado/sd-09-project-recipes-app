@@ -107,7 +107,10 @@ function FavoriteRecipes() {
               to={ `/comidas/${meal.id}` }
               key={ `${index}-recipe-card` }
             >
-              <div className="recipe-card" data-testid={ `${index}-recipe-card` }>
+              <div
+                className="favorite-recipe-card"
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   src={ meal.image }
                   data-testid={ `${index}-horizontal-image` }
