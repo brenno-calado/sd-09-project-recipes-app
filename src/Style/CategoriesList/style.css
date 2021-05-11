@@ -3,16 +3,18 @@
   display: flex;
   flex-wrap: wrap;
   font-family: Ubuntu, sans-serif;
-  justify-content: space-between;
   padding: 10px 20px;
 }
 
 .categorieslist-container button {
+  align-items: center;
   background: rgb(47, 193, 140);
   border: none;
   border-radius: 10px;
   color: white;
+  display: flex;
+  justify-content: center;
   height: 30px;
-  margin: 10px 0;
-  width: 100px;
+  margin: 5px 5px;
+  padding: 5px 10px;
 }

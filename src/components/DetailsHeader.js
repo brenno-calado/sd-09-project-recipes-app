@@ -111,27 +111,31 @@ class DetailsHeader extends React.Component {
         />
         <div className="details-header-wrap">
           <h1 data-testid="recipe-title">{recipe[`str${query}`]}</h1>
-          <button
-            type="button"
-            onClick={ this.shareRecipe }
-          >
-            <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
-          </button>
-          <button
-            type="button"
-            onClick={ () => this.favoriteRecipe(recipe) }
-          >
-            <img
-              src={ favoriteBtn ? blackHeart : whiteHeart }
-              alt="white-Heart"
-              data-testid="favorite-btn"
-            />
-          </button>
+          <div className="detail-header-btns">
+            <button
+              type="button"
+              onClick={ this.shareRecipe }
+            >
+              <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
+            </button>
+            <button
+              type="button"
+              onClick={ () => this.favoriteRecipe(recipe) }
+            >
+              <img
+                src={ favoriteBtn ? blackHeart : whiteHeart }
+                alt="white-Heart"
+                data-testid="favorite-btn"
+              />
+            </button>
+          </div>
         </div>
-        {recipe.strAlcoholic
-          ? <h3 data-testid="recipe-category">Alcoholic</h3>
-          : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
-        { linkCopied !== '' && <span>{ linkCopied }</span> }
+        <div className="details-header-category">
+          {recipe.strAlcoholic
+            ? <h3 data-testid="recipe-category">Alcoholic</h3>
+            : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
+          { linkCopied !== '' && <span>{ linkCopied }</span> }
+        </div>
       </div>
     );
   }

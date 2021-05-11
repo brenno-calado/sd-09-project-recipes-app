@@ -88,7 +88,7 @@ class Details extends React.Component {
     if (!recipe) return <p>Loading...</p>;
     if (!recipe[0] || !recommendations[0]) return <p>Loading...</p>;
     return (
-      <div>
+      <div className="details-container">
         <DetailsHeader recipe={ recipe[0] } path={ match.path } />
         <IngredientsList recipe={ recipe[0] } />
         <Instructions recipe={ recipe[0] } />

@@ -21,7 +21,7 @@ class IngredientsCard extends React.Component {
     if (img.length !== mxmItens) return <p>Loading...</p>;
     return (
       <div
-        className="recipe-card"
+        className="ingredients-card-container"
         data-testid={ `${index}-ingredient-card` }
       >
         <img
