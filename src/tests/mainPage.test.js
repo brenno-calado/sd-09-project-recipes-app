@@ -49,7 +49,8 @@ describe('Página Principal do App', () => {
     expect(global.fetch).toHaveBeenCalledWith('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   });
 
-  it('Requisição para a API TheMealDB e TheCocktailDB pegando as Categorias', async () => {
+  it('Requisição para a API TheMealDB e TheCocktailDB pegando as '
+  + 'Categorias', async () => {
     fetchData({ meals: [...categoriesMealsData] });
     const fetchMeals = await getFoodsAndDrinks('meals', 'getByCategory');
 

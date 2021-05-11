@@ -19,13 +19,30 @@ const state = {
     categoriesMeals: [],
     drinks: [],
     categoriesDrinks: [],
+    randomRecipe: { idMeal: '', idDrinks: '' },
+    ingredients: [],
+    selectedIngredient: '',
+    filterByArea: [],
   },
 };
 
-export default function renderWithRouter(ui, routeConfigs = {}, initialState = state) {
+export default function renderWithRouter(ui, routeConfigs = {}, valueState) {
   const route = routeConfigs.route || '/';
   const history = routeConfigs.history
         || createMemoryHistory({ initialEntries: [route] });
+  let initialState = {};
+
+  if (!valueState) {
+    initialState = state;
+  } else {
+    initialState = {
+      ...state,
+      recipesReducer: {
+        ...state.recipesReducer,
+        ...valueState,
+      },
+    };
+  }
 
   const actions = [];
 
