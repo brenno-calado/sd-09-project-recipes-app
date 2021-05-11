@@ -7,23 +7,34 @@ export default function SearchBar() {
     setInputToSearch,
     filterSelected,
     setFilterSelected,
+    submitInputToSearch,
+    hideOrUnhide,
   } = useContext(Context);
 
   return (
-    <div>
+    <div style={ hideOrUnhide }>
 
-      <input
-        className="search-input"
-        id="search-input"
-        data-testId="search-input"
-        value={ inputToSearch }
-        onChange={ ({ target }) => (
-          filterSelected === 'firstLetter'
-          && inputToSearch.length > 1
-            ? (Window.alert('Sua busca deve conter somente 1 (um) caracter'),
-            setInputToSearch(target.value[0]))
-            : setInputToSearch(target.value)) }
-      />
+      <div>
+        <input
+          className="search-input"
+          id="search-input"
+          data-testId="search-input"
+          value={ inputToSearch }
+          onChange={ ({ target }) => (
+            filterSelected === 'firstLetter'
+            && inputToSearch.length > 1
+              ? (Window.alert('Sua busca deve conter somente 1 (um) caracter'),
+              setInputToSearch(target.value[0]))
+              : setInputToSearch(target.value)) }
+        />
+        <button
+          type="submit"
+          data-testid="exec-search-btn"
+          onClick={ () => submitInputToSearch(inputToSearch) }
+        >
+          Procurar
+        </button>
+      </div>
 
       <div className="containerRadioBtns" id="containerRadioBtns">
         <label htmlFor="ingredient-search-radio">

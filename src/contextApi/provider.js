@@ -1,12 +1,14 @@
 import { node } from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { Redirect, Link } from 'react-router-dom';
 import AppContext from './context';
+import RecipeCard from '../components/RecipeCard';
 import { MealServiceFirstLetterAPI,
-  MealServiceIngredientsAPI,
-  MealServiceNameAPI } from '../services/MealRecipesAPI';
+  MealServiceNameAPI,
+  MealServiceIngredientsAPI } from '../services/MealRecipesAPI';
 import { BeverageServiceFirstLetterAPI,
-  BeverageServiceIngredientsAPI,
-  BeverageServiceNameAPI } from '../services/BeverageRecipesAPI';
+  BeverageServiceNameAPI,
+  BeverageServiceIngredientsAPI } from '../services/BeverageRecipesAPI';
 
 const Provider = ({ children }) => {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
@@ -98,13 +100,6 @@ const Provider = ({ children }) => {
   const [filterSelected, setFilterSelected] = useState('');
   const [arrayOfResults, setArrayOfResults] = useState([]);
 
-  function characterLimiter() {
-    return filterSelected === 'firstLetter' && inputToSearch.length > 1
-      ? (Window.alert('Sua busca deve conter somente 1 (um) caracter'),
-      setInputToSearch(inputToSearch[0]))
-      : (null);
-  }
-
   function setBeverages() {
     setDefinedTypeSearch('Beverage');
   }
@@ -124,15 +119,6 @@ const Provider = ({ children }) => {
       : setArrayOfResults(await MealServiceIngredientsAPI(mealToSearch));
   }
 
-  // async function searchRecepies(valueToSearch:string) {
-  //   if (filterSelected === 'firstLetter') {
-  //     return setArrayOfResults(await `${definedTypeSearch}ServiceFirstLetterAPI(${valueToSearch})`)
-  //   };
-  //   return filterSelected === 'name'
-  //     ? setArrayOfResults(await `${definedTypeSearch}ServiceNameAPI(${valueToSearch})`)
-  //     : setArrayOfResults(await `${definedTypeSearch}ServiceIngredientsAPI(${valueToSearch})`);
-  // }
-
   async function searchInBeverageRecepies(beverageToSearch) {
     if (filterSelected === 'firstLetter') {
       return setArrayOfResults(await BeverageServiceFirstLetterAPI(beverageToSearch));
@@ -150,33 +136,50 @@ const Provider = ({ children }) => {
 
   // Renderizador dos resultados ============================================================================================
 
-  function resultOfBeverages() {
-    return arrayOfResults.length === 1
-      ? (null)
-      : arrayOfResults.map(({ strDrink, idDrink, strDrinkThumb }) => (
-        <section key={ idDrink } data-testid={ `${idDrink}-recipe-card` }>
-          <img
-            src={ strDrinkThumb }
-            data-testid={ `${idDrink}-card-img` }
-            alt={ `${strDrink}` }
-          />
-          <p data-testid={ `${idDrink}-card-name` }>{ strDrink }</p>
-        </section>
+  function resultOfMeals(results) {
+    const maxIndexRecipes = 11;
+    if (results.length >= 1) {
+      if (results.length === 1) {
+        return (<Redirect to={ `/comidas/${results.idMeal}` } />);
+      }
+      results.map(({ strMeal, idMeal, strMealThumb }, index) => (
+        index > maxIndexRecipes ? (null)
+          : (
+            <Link
+              to={ `/bebidas/${idMeal}` }
+              key={ strMeal }
+            >
+              <RecipeCard
+                img={ strMealThumb }
+                title={ strMeal }
+                index={ index }
+              />
+            </Link>)
       ));
+    }
   }
-  function resultOfMeals() {
-    return arrayOfResults.length === 1
-      ? (null)
-      : arrayOfResults.map(({ strMeal, idMeal, strMealThumb }) => (
-        <section key={ idMeal } data-testid={ `${idMeal}-recipe-card` }>
-          <img
-            src={ strMealThumb }
-            data-testid={ `${idMeal}-card-img` }
-            alt={ `${strMeal}` }
-          />
-          <p data-testid={ `${idMeal}-card-name` }>{ strMeal }</p>
-        </section>
+
+  function resultOfBeverages() {
+    const maxIndexRecipes = 11;
+    if (arrayOfResults.length >= 1) {
+      if (arrayOfResults.length === 1) {
+        return (<Redirect to={ `/bebidas/${arrayOfResults.idDrink}` } />);
+      }
+      arrayOfResults.map(({ strDrink, idDrink, strDrinkThumb }, index) => (
+        index > maxIndexRecipes ? (null)
+          : (
+            <Link
+              to={ `/bebidas/${idDrink}` }
+              key={ strDrink }
+            >
+              <RecipeCard
+                img={ strDrinkThumb }
+                title={ strDrink }
+                index={ index }
+              />
+            </Link>)
       ));
+    }
   }
 
   function returnOfResults() {
@@ -186,6 +189,15 @@ const Provider = ({ children }) => {
     }
     return definedTypeSearch === 'Meal'
       ? resultOfMeals() : resultOfBeverages();
+  }
+
+  const hide = { display: 'none' };
+  const [hideOrUnhide, setHideOrUnhide] = useState(hide);
+
+  function hideSearchBar() {
+    return hideOrUnhide.display === 'none'
+      ? setHideOrUnhide({ display: 'flex', flexDirection: 'column' })
+      : setHideOrUnhide(hide);
   }
 
   return (
@@ -204,13 +216,15 @@ const Provider = ({ children }) => {
         setDefinedTypeSearch,
         filterSelected,
         setFilterSelected,
-        characterLimiter,
         arrayOfResults,
         setArrayOfResults,
         submitInputToSearch,
         returnOfResults,
         setBeverages,
         setMeals,
+        hideOrUnhide,
+        setHideOrUnhide,
+        hideSearchBar,
       } }
     >
       { children }

@@ -6,7 +6,7 @@ import SearchIcon from '../images/searchIcon.svg';
 import Context from '../contextApi/context';
 
 export default function Header() {
-  const { inputToSearch, submitInputToSearch, definedTypeSearch } = useContext(Context);
+  const { definedTypeSearch, hideSearchBar } = useContext(Context);
 
   return (
     <header>
@@ -34,8 +34,8 @@ export default function Header() {
         type="button"
         className="search-top-btn"
         id="search-top-btn"
-        data-testId="search-top-btn, exec-search-btn"
-        onClick={ () => submitInputToSearch(inputToSearch) }
+        data-testId="search-top-btn"
+        onClick={ () => hideSearchBar() }
       >
         <img src={ SearchIcon } alt="Search Icon" />
       </button>

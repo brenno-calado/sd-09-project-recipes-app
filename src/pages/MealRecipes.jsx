@@ -1,6 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import RecipeCard from '../components/RecipeCard';
+import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Context from '../contextApi/context';
@@ -10,7 +9,7 @@ const MealRecipes = () => {
   const [mealCategories, setMealCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState({ active: false, filter: '' });
   const { ingredient } = useParams();
-  const { inputToSearch, setMeals } = useContext(Context);
+  const { inputToSearch, setMeals, resultOfMeals } = useContext(Context);
   console.log(inputToSearch);
 
   setMeals();
@@ -81,7 +80,6 @@ const MealRecipes = () => {
       });
   }, [ingredient]);
 
-  const maxIndexRecipes = 11;
   const maxIndexCategories = 4;
 
   return (
@@ -108,22 +106,9 @@ const MealRecipes = () => {
             </button>
           );
         }) }
-      { mealRecipes.length > 0
-        && mealRecipes.map((recipe, index) => {
-          if (index > maxIndexRecipes) return;
-          return (
-            <Link
-              to={ `/comidas/${recipe.idMeal}` }
-              key={ recipe.strMeal }
-            >
-              <RecipeCard
-                img={ recipe.strMealThumb }
-                title={ recipe.strMeal }
-                index={ index }
-              />
-            </Link>
-          );
-        })}
+      <div>
+        { resultOfMeals(mealRecipes) }
+      </div>
       <Footer />
     </div>
 
