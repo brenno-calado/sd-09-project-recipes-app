@@ -11,6 +11,18 @@ const getMealsByName = async (name) => {
   }
 };
 
+const getMeals = async () => {
+  const limit = 6;
+  try {
+    const mealDBReq = await fetch(`${MEAL_DB_BASE}search.php?s=`);
+    const respJson = await mealDBReq.json();
+    // console.log('fetch', respByNameJson.meals);
+    return respJson.meals.splice(0, limit);
+  } catch (error) {
+    console.log('Meals... ', error);
+  }
+};
+
 const getMealByFirstLetter = async (letter) => {
   try {
     const mealDBReqByLetter = await fetch(`${MEAL_DB_BASE}search.php?f=${letter}`);
@@ -103,7 +115,18 @@ const getById = async (id) => {
   }
 };
 
+const getMealById = async (id) => {
+  try {
+    const mealDBReqId = await fetch(`${MEAL_DB_BASE}lookup.php?i=${id}`);
+    const respIdJson = await mealDBReqId.json();
+    return respIdJson.meals[0];
+  } catch (error) {
+    console.log('Meal by Id... ', error);
+  }
+};
+
 export {
+  getMeals,
   getMealsByName,
   getMealsRandom,
   getMealByFirstLetter,
@@ -114,4 +137,5 @@ export {
   getAreaList,
   getByArea,
   getById,
+  getMealById,
 };

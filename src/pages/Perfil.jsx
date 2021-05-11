@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/recipes.css';
@@ -7,7 +8,8 @@ import '../styles/recipes.css';
 function ProfileScreen() {
   const [done, setDone] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [logout, setLogout] = useState(false);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const { email } = user;
 
   function handleRedirect({ target: { name } }) {
     if (name === 'done') {
@@ -15,8 +17,7 @@ function ProfileScreen() {
     } else if (name === 'favorite') {
       setFavorite(true);
     } else if (name === 'logout') {
-      setLogout(true);
-      localStorage.removeItem('user');
+      localStorage.clear();
     }
   }
 
@@ -43,15 +44,17 @@ function ProfileScreen() {
           Receitas Favoritas
         </button>
 
-        <button
-          className="button"
-          type="button"
-          data-testid="profile-logout-btn"
-          name="logout"
-          onClick={ handleRedirect }
-        >
-          Sair
-        </button>
+        <Link to="/">
+          <button
+            className="button"
+            type="button"
+            data-testid="profile-logout-btn"
+            name="logout"
+            onClick={ handleRedirect }
+          >
+            Sair
+          </button>
+        </Link>
       </>
     );
   }
@@ -59,18 +62,15 @@ function ProfileScreen() {
   return (
     <>
       { done ? <Redirect to="/receitas-feitas" /> : null }
-
       { favorite ? <Redirect to="/receitas-favoritas" /> : null }
-
-      { logout ? <Redirect to="/" /> : null }
 
       <Header textProp="Perfil" />
 
       <p className="email" data-testid="profile-email">
-        { localStorage.getItem('user') }
+        { `Email: ${email}` }
       </p>
 
-      { buttonsGroup }
+      { buttonsGroup() }
 
       <Footer />
     </>

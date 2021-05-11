@@ -3,7 +3,7 @@ import noFavIcon from '../images/whiteHeartIcon.svg';
 import isFavIcon from '../images/blackHeartIcon.svg';
 
 export default function Favorite(props) {
-  const [isFav, setIsFav] = useState(true);
+  const [isFav, setIsFav] = useState(false);
   const { recipe } = props;
   console.log('id da receita:', recipe.id);
 

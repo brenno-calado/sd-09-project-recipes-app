@@ -11,6 +11,17 @@ const getDrinkByName = async (name) => {
   }
 };
 
+const getDrinks = async () => {
+  const limit = 6;
+  try {
+    const reqDrinks = await fetch(`${DRINK_DB_BASE}search.php?s=`);
+    const respJson = await reqDrinks.json();
+    return respJson.drinks.splice(0, limit);
+  } catch (error) {
+    console.log('Drink... ', error);
+  }
+};
+
 const getDrinkByFirstLetter = async (letter) => {
   try {
     const reqDrinkByLetter = await fetch(`${DRINK_DB_BASE}search.php?f=${letter}`);
@@ -93,7 +104,18 @@ const getById = async (id) => {
   }
 };
 
+const getDrinkById = async (id) => {
+  try {
+    const reqDrinkById = await fetch(`${DRINK_DB_BASE}lookup.php?i=${id}`);
+    const respByIdJson = await reqDrinkById.json();
+    return respByIdJson.drinks[0];
+  } catch (error) {
+    console.log('Drink by Id... ', error);
+  }
+};
+
 export {
+  getDrinks,
   getDrinkByName,
   getDrinkByFirstLetter,
   getDrinksIngredients,
@@ -103,4 +125,5 @@ export {
   getDrinkByCategory,
   getDrinkRandom,
   getById,
+  getDrinkById,
 };

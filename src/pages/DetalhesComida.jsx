@@ -1,14 +1,26 @@
-import React, { useEffect, useContext } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
+import { Redirect, useRouteMatch } from 'react-router-dom';
 import MealContext from '../context/MealContext';
-import shareImg from '../images/shareIcon.svg';
-import noFav from '../images/blackHeartIcon.svg';
+import Share from '../components/Share';
+import Favorite from '../components/Favorite';
+import StartBtn from '../components/StartBtn';
+import Recomendations from '../components/Recomendations';
+import { getMealById } from '../services/MealFetch';
+import '../styles/recipes.css';
 
 function DetalhesComida() {
+  const [toProgress, setToProgress] = useState(false);
+  const [doneRec, setDoneRec] = useState(false);
   const { recipeDt, setRecipeDt } = useContext(MealContext);
   const idReceita = useRouteMatch('/comidas/:id');
   const { id } = idReceita.params;
-  console.log('id da receita:', id);
+  let checkDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  // console.log('id da receita:', id);
+
+  if (checkDone === null) {
+    checkDone = [];
+  }
+  const done = checkDone.map((item) => item.id);
 
   function ingredientHELL(recipe) {
     const keys = Object.entries(recipe);
@@ -30,7 +42,7 @@ function DetalhesComida() {
         `${filteredIng[i][1]} - ${filteredMeasures[i][1]}`,
       );
     }
-    console.log(result);
+    // console.log(result);
     return (
       result.map((ing, index) => (
         <li
@@ -42,36 +54,47 @@ function DetalhesComida() {
     );
   }
 
-  useEffect(() => {
-    async function fetchRecipe() {
-      try {
-        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
-        const responseJson = await response.json();
-        const recipe = await responseJson.meals[0];
-        console.log(recipe);
-        setRecipeDt(recipe);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchRecipe();
-  }, [setRecipeDt, id]);
+  function startHandler() {
+    setToProgress(true);
+  }
 
-  console.log('The recipe:', recipeDt);
+  function fetchMeal() {
+    getMealById(id).then((meal) => setRecipeDt(meal));
+  }
+
+  useEffect(() => {
+    fetchMeal();
+    if (done.includes(id)) {
+      setDoneRec(true);
+    }
+  }, []);
+
+  // console.log('The recipe:', recipeDt);
+  const favObj = {
+    id: recipeDt.idMeal,
+    type: 'comida',
+    area: recipeDt.strArea,
+    category: recipeDt.strCategory,
+    alcoholicOrNot: '',
+    name: recipeDt.strMeal,
+    image: recipeDt.strMealThumb,
+  };
+  // console.log('Favorite Object', favObj);
   return (
     <div>
+
+      { toProgress
+        ? <Redirect to={ `/comidas/${recipeDt.idMeal}/in-progress` } />
+        : null }
+
       <img
         data-testid="recipe-photo"
         src={ recipeDt.strMealThumb }
         alt="imagem da comida"
       />
       <h1 data-testid="recipe-title">{ recipeDt.strMeal }</h1>
-      <button data-testid="share-btn" type="button">
-        <img src={ shareImg } alt="Share" />
-      </button>
-      <button data-testid="favorite-btn" type="button">
-        <img src={ noFav } alt="Favorite" />
-      </button>
+      <Share />
+      <Favorite recipe={ favObj } />
       <h3 data-testid="recipe-category">{ recipeDt.strCategory }</h3>
       <h2>Ingredientes:</h2>
       <ul>
@@ -85,13 +108,12 @@ function DetalhesComida() {
         data-testid="video"
         width="425"
         height="240"
-        src={ recipeDt.strYoutube }
+        src="https:\/\/www.youtube.com\/embed?v=-mW1unsVhFU"
         title="Video"
       />
-
-      {/* Receitas Recomendadas devera ser um componente separado. */}
-
-      <button data-testid="start-recipe-btn" type="button">Iniciar Receita</button>
+      <h2>Recomendações</h2>
+      <Recomendations type="bebida" />
+      {!doneRec && <StartBtn startHandler={ startHandler } route="/comidas/:id" />}
     </div>
   );
 }
