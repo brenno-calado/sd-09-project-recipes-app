@@ -4,9 +4,12 @@ import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import RecipesAppContext from '../context/RecipesAppContext';
 import '../styles/details.css';
-import StartRecipeButton from '../components/StartRecipeButton';
-import FavoriteButton from '../components/FavoriteButton';
-import ShareButton from '../components/ShareButton';
+import RecipeStartButton from '../components/RecipeStartButton';
+import RecipeFavoriteButton from '../components/RecipeFavoriteButton';
+import RecipeShareButton from '../components/RecipeShareButton';
+import RecipeDetailsHeader from '../components/RecipeDetailsHeader';
+import RecipeInstructions from '../components/RecipeInstructions';
+import RecipeIngredientsList from '../components/RecipeIngredientsList';
 
 function RecipeDetails({ match: { params: { id } } }) {
   const {
@@ -21,63 +24,29 @@ function RecipeDetails({ match: { params: { id } } }) {
     getMealId(id);
   }, [getMealId, id]);
 
-  const ingredientsList = () => {
-    const list = [];
-    for (let index = 1; mealId[`strIngredient${index}`] !== ''; index += 1) {
-      list.push(`
-        ${mealId[`strIngredient${index}`]} - ${mealId[`strMeasure${index}`]}
-      `);
-    }
-    return list;
-  };
-
   return (
     <div>
       { (mealId.idMeal === id) ? (
         <div>
-          <img
-            data-testid="recipe-photo"
-            className="recipe-photo"
-            alt={ mealId.strMeal }
-            src={ mealId.strMealThumb }
-          />
-          <h3 data-testid="recipe-title" className="recipe-title">{ mealId.strMeal }</h3>
-          <ShareButton />
-          <FavoriteButton item={ mealId } id={ id } type="meals" />
-          <span data-testid="recipe-category">{ mealId.strCategory }</span>
-          <ul className="list-ingredients">
-            { ingredientsList().map((ingredients, index) => (
-              <li
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ingredients}
-              </li>
-            ))}
-          </ul>
-          <p data-testid="instructions" className="instructions">
-            { mealId.strInstructions }
-          </p>
-          <ReactPlayer
-            url={ mealId.strYoutube }
-            data-testid="video"
-            width="100%"
-          />
+          <RecipeDetailsHeader type="Meal" />
+          <RecipeShareButton />
+          <RecipeFavoriteButton id={ id } type="Meal" />
+          <RecipeIngredientsList type="Meal" />
+          <RecipeInstructions type="Meal" />
+          <ReactPlayer url={ mealId.strYoutube } data-testid="video" width="100%" />
           <Carousel width="100%">
             { drinkRecomendation.slice(0, maxRecomendations).map((drink, index) => (
               <Carousel.Item key={ index } data-testid={ `${index}-recomendation-card` }>
                 <img alt="Recomendation" src={ drink.strDrinkThumb } />
                 <Carousel.Caption>
-                  <p
-                    data-testid={ `${index}-recomendation-title` }
-                  >
+                  <p data-testid={ `${index}-recomendation-title` }>
                     {drink.strDrink}
                   </p>
                 </Carousel.Caption>
               </Carousel.Item>
             )) }
           </Carousel>
-          <StartRecipeButton id={ id } type="meals" />
+          <RecipeStartButton id={ id } type="meals" />
         </div>
       ) : (<p className="loading-message">Loading...</p>)}
     </div>

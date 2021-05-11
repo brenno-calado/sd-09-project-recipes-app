@@ -4,7 +4,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function ShareButton() {
+function RecipeShareButton() {
   const [copied, setCopy] = useState(false);
   const history = useHistory();
 
@@ -16,7 +16,8 @@ function ShareButton() {
 
   function shareButtonClick() {
     setCopy(true);
-    copy(`http://localhost:3000${history.location.pathname}`);
+    const url = history.location.pathname.replace('/in-progress', '');
+    copy(`http://localhost:3000${url}`);
     renderMessage();
   }
 
@@ -31,4 +32,4 @@ function ShareButton() {
   );
 }
 
-export default ShareButton;
+export default RecipeShareButton;
