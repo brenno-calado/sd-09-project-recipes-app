@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import BlackHartIcon from '../images/blackHeartIcon.svg';
 import WhiteHartIcon from '../images/whiteHeartIcon.svg';
 import ShareIcon from '../images/shareIcon.svg';
+import StartButton from '../components/StartButton';
 
 const copy = require('clipboard-copy');
 
@@ -15,6 +16,10 @@ function DrinkDetails({ match }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const { id } = match.params;
+  const cocktails = [];
+  const meals = [];
+  const inProgress = { cocktails, meals };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
 
   const fetchDetail = async () => {
     try {
@@ -183,33 +188,33 @@ function DrinkDetails({ match }) {
     const list = ingredients.map((item, index) => `${item} - ${measures[index]},`);
     const recipesStorage = JSON.parse(localStorage.getItem('inProgressRecipes')) || {};
     const progressRecipes = { ...recipesStorage,
-      drinks: { ...recipesStorage.drinks, [drinkDetails.idDrink]: list,
+      cocktails: { ...recipesStorage.cocktails, [drinkDetails.idDrink]: list,
       },
     };
     localStorage.setItem('inProgressRecipes', JSON.stringify(progressRecipes));
   };
 
-  const startButton = () => {
-    const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const inProgressFound = storageProgress !== null ? Object.keys(storageProgress.drinks)
-      : [];
-    const inProgress = inProgressFound.includes(id);
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    const done = doneRecipes !== null ? Object.keys(doneRecipes.drinks).includes(id)
-      : false;
-    return (
-      <Link to={ `/bebidas/${id}/in-progress` }>
-        <button
-          className={ done ? 'invisible-btn' : 'start-recipe basic-btn' }
-          type="button"
-          data-testid="start-recipe-btn"
-          onClick={ startRecipe }
-        >
-          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
-        </button>
-      </Link>
-    );
-  };
+  // const startButton = () => {
+  //   const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  //   const inProgressFound = storageProgress !== null ? Object.keys(storageProgress.drinks)
+  //     : [];
+  //   const inProgress = inProgressFound.includes(id);
+  //   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  //   const done = doneRecipes !== null ? Object.keys(doneRecipes.drinks).includes(id)
+  //     : false;
+  //   return (
+  //     <Link to={ `/bebidas/${id}/in-progress` }>
+  //       <button
+  //         className={ done ? 'invisible-btn' : 'start-recipe basic-btn' }
+  //         type="button"
+  //         data-testid="start-recipe-btn"
+  //         onClick={ startRecipe }
+  //       >
+  //         {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+  //       </button>
+  //     </Link>
+  //   );
+  // };
 
   return (
     <div>
@@ -217,7 +222,7 @@ function DrinkDetails({ match }) {
       {loading && <p>Carregando...</p>}
       {renderDrink()}
       {mealRecomendation !== null && renderRecomendation()}
-      { startButton()}
+      <StartButton id={ id } startRecipe={ startRecipe } />
     </div>
   );
 }
