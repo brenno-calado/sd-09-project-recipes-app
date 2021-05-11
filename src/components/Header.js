@@ -7,6 +7,10 @@ import searchI from '../images/searchIcon.svg';
 
 function Header({ title }) {
   const [searchBar, setSearchBar] = useState(false);
+  let displaySearchIcon = false;
+  if (title === 'Comidas' || title === 'Bebidas' || title === 'Explorar Origem') {
+    displaySearchIcon = true;
+  }
   return (
     <header className="header">
       <Link to="/perfil">
@@ -14,21 +18,24 @@ function Header({ title }) {
       </Link>
 
       <h3 data-testid="page-title">{title}</h3>
+      {(displaySearchIcon) && (
+        <button
+          type="button"
+          onClick={ () => setSearchBar(!searchBar) }
+        >
+          <img
+            alt="search"
+            src={ searchI }
+            data-testid="search-top-btn"
+          />
+        </button>
+      )}
 
-      <button
-        type="button"
-        onClick={ () => setSearchBar(!searchBar) }
-      >
-        <img
-          alt="search"
-          src={ searchI }
-          data-testid="search-top-btn"
-        />
-      </button>
       { searchBar && <SearchBar title={ title } /> }
     </header>
   );
 }
+
 Header.propTypes = {
   title: PropTypes.string.isRequired,
 };
