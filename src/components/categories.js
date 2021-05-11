@@ -11,7 +11,8 @@ export default function Categories({ categories, selected, callback, page }) {
         <Nav.Link
           active={ selected === 'All' }
           eventKey="All"
-          data-testid={ page === 'main' ? 'All-category-filter' : 'filter-by-all-btn' }
+          data-testid={ page !== 'favorites'
+            ? 'All-category-filter' : 'filter-by-all-btn' }
           onClick={ () => callback('All') }
         >
           All
@@ -19,7 +20,7 @@ export default function Categories({ categories, selected, callback, page }) {
       </Nav.Item>
 
       {categories && (categories.slice(0, size)).map(({ strCategory }, index) => {
-        const testId = page === 'main' ? `${strCategory}-category-filter`
+        const testId = page !== 'favorites' ? `${strCategory}-category-filter`
           : `filter-by-${strCategory.toLowerCase()}-btn`;
 
         return (
