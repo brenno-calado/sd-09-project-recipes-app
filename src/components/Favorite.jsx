@@ -5,7 +5,6 @@ import isFavIcon from '../images/blackHeartIcon.svg';
 export default function Favorite(props) {
   const [isFav, setIsFav] = useState(false);
   const { recipe } = props;
-  console.log('id da receita:', recipe.id);
 
   const favoriteAdd = () => {
     const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
@@ -24,20 +23,15 @@ export default function Favorite(props) {
   function handleClick() {
     if (isFav === true) {
       favoriteRemove();
-      console.log('Remove!');
     } else {
       favoriteAdd();
-      console.log('Add!');
     }
     setIsFav(!isFav);
   }
 
   const checkFav = () => {
-    let fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (fav === null) {
-      fav = [];
-    }
-    console.log('Favorites:', fav);
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
     fav.map((item) => {
       if (item.id === recipe.id) {
         setIsFav(true);

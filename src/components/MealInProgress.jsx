@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clipboard from 'clipboard-copy';
+import { Redirect } from 'react-router-dom';
 import { getById } from '../services/MealFetch';
 import localStorageProgress from './InitialLocalStorage';
 import Favorite from './Favorite';
@@ -9,11 +10,13 @@ import ShareIcon from '../images/shareIcon.svg';
 function ProcessoComida() {
   const [oneFood, setOneFood] = useState([]);
   const [showMessage, setShowMessage] = useState('none');
+  const [disableButton, setDisableButton] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
   const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let ingredientsUsed;
-  const favoriteObject = [{
+  const favoriteObject = {
     id: oneFood.idMeal,
     type: 'comida',
     area: oneFood.strArea,
@@ -21,7 +24,23 @@ function ProcessoComida() {
     alcoholicOrNot: '',
     name: oneFood.strMeal,
     image: oneFood.strMealThumb,
-  }];
+  };
+  const values = [];
+
+  const terminateRedirect = () => {
+    setRedirect(true);
+  };
+
+  const checkboxes = () => {
+    const totalChecked = (getLocalStorage.meals[id].length);
+    const totalBoxes = values.length;
+
+    if (totalChecked === totalBoxes) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  };
 
   const listIngredients = ({ target: { value } }) => {
     ingredientsUsed = getLocalStorage.meals[id] || [];
@@ -35,6 +54,8 @@ function ProcessoComida() {
     getLocalStorage.meals[id] = ingredientsUsed;
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalStorage));
+
+    checkboxes();
   };
 
   const checkDefault = (value) => {
@@ -46,7 +67,6 @@ function ProcessoComida() {
     const regIngredient = /strIngredient/;
     const filterKeys = Object.keys(oneFood);
     const filterValues = Object.values(oneFood);
-    const values = [];
 
     filterKeys.forEach((key, index) => {
       if (key.match(regIngredient) && filterValues[index]) {
@@ -94,6 +114,8 @@ function ProcessoComida() {
 
   return (
     <>
+      { (redirect) ? <Redirect to="/receitas-feitas" /> : null }
+
       <img
         data-testid="recipe-photo"
         src={ oneFood.strMealThumb }
@@ -128,7 +150,14 @@ function ProcessoComida() {
         Instruções
       </p>
 
-      <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ disableButton }
+        onClick={ terminateRedirect }
+      >
+        Finalizar Receita
+      </button>
     </>
   );
 }

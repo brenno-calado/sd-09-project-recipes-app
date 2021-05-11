@@ -1,19 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import clipboard from 'clipboard-copy';
+import { Redirect } from 'react-router-dom';
 import { getById } from '../services/DrinkFetch';
 import localStorageProgress from './InitialLocalStorage';
+import Favorite from './Favorite';
 
 import ShareIcon from '../images/shareIcon.svg';
-import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import BlackHeartIcon from '../images/blackHeartIcon.svg';
 
 function ProcessoBebida() {
   const [oneFood, setOneFood] = useState([]);
   const [showMessage, setShowMessage] = useState('none');
+  const [disableButton, setDisableButton] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
   const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let ingredientUsed;
+  const favoriteObject = {
+    id: oneFood.idDrink,
+    type: 'bebida',
+    area: '',
+    category: oneFood.strCategory,
+    alcoholicOrNot: oneFood.strAlcoholic,
+    name: oneFood.strDrink,
+    image: oneFood.strDrinkThumb,
+  };
+  const values = [];
+
+  const terminateRedirect = () => {
+    setRedirect(true);
+  };
+
+  const checkboxes = () => {
+    const totalChecked = (getLocalStorage.cocktails[id].length);
+    const totalBoxes = values.length;
+
+    if (totalChecked === totalBoxes) {
+      setDisableButton(false);
+    } else {
+      setDisableButton(true);
+    }
+  };
 
   const listIngredients = ({ target: { value } }) => {
     ingredientUsed = getLocalStorage.cocktails[id] || [];
@@ -27,6 +54,8 @@ function ProcessoBebida() {
     getLocalStorage.cocktails[id] = ingredientUsed;
 
     localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalStorage));
+
+    checkboxes();
   };
 
   const checkDefault = (value) => {
@@ -38,7 +67,6 @@ function ProcessoBebida() {
     const regIngredient = /strIngredient/;
     const filterKeys = Object.keys(oneFood);
     const filterValues = Object.values(oneFood);
-    const values = [];
 
     filterKeys.forEach((key, index) => {
       if (key.match(regIngredient) && filterValues[index]) {
@@ -86,6 +114,8 @@ function ProcessoBebida() {
 
   return (
     <>
+      { (redirect) ? <Redirect to="/receitas-feitas" /> : null }
+
       <img
         data-testid="recipe-photo"
         src={ oneFood.strDrinkThumb }
@@ -108,9 +138,7 @@ function ProcessoBebida() {
         </span>
       </button>
 
-      <button data-testid="favorite-btn" type="button">
-        <img src={ WhiteHeartIcon } alt="Favorite" />
-      </button>
+      <Favorite recipe={ favoriteObject } />
 
       <h3 data-testid="recipe-category">{ oneFood.Category }</h3>
 
@@ -122,7 +150,14 @@ function ProcessoBebida() {
         Instruções
       </p>
 
-      <button data-testid="finish-recipe-btn" type="button">Finalizar Receita</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ disableButton }
+        onClick={ terminateRedirect }
+      >
+        Finalizar Receita
+      </button>
     </>
   );
 }
