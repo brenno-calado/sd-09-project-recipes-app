@@ -100,8 +100,7 @@
   position: fixed;
 }
 
-/* Componente de recomendações*/
-
+/* Componente de recomendações */
 .rec-div {
   display: flex;
   flex-wrap: nowrap;
@@ -116,5 +115,3 @@
   margin: 10px;
   width: 161px;
 }
-
-
