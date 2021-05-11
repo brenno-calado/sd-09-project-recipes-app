@@ -8,38 +8,28 @@ import WhiteHeartIcon from '../images/whiteHeartIcon.svg';
 
 function ProcessoComida() {
   const [oneFood, setOneFood] = useState([]);
-  const [ingredientsList, setIngredientsList] = useState([]);
-  const [checked, setChecked] = useState([]);
 
   const id = window.location.href.match(/[0-9]{5,9}/g);
+  const getLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let ingredientsUsed;
 
-  const saveLocal = () => {
-    const requestLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const listIngredients = ({ target: { value } }) => {
+    ingredientsUsed = getLocalStorage.meals[id] || [];
 
-    requestLocal.meals[id] = ingredientsList;
-    localStorage.setItem('inProgressRecipes', JSON.stringify(requestLocal));
-  };
-
-  const handleChecked = ({ target: { value } }) => {
-    let usedArray = ingredientsList;
-
-    if (usedArray.includes(value)) {
-      usedArray = usedArray.filter((ingredient) => ingredient !== value);
+    if (ingredientsUsed.includes(value)) {
+      ingredientsUsed = ingredientsUsed.filter((ingredient) => ingredient !== value);
     } else {
-      usedArray.push(value);
+      ingredientsUsed.push(value);
     }
 
-    setIngredientsList(usedArray);
-    saveLocal();
-  };
+    getLocalStorage.meals[id] = ingredientsUsed;
 
-  const updateChecked = () => {
-    const requestLocal = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    setChecked(requestLocal.meals[id]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(getLocalStorage));
   };
 
   const checkDefault = (value) => {
-    if (checked) return checked.includes(value);
+    const ingredintsList = getLocalStorage.meals[id] || [];
+    if (ingredintsList.includes(value)) return true;
   };
 
   function ingredients() {
@@ -65,7 +55,7 @@ function ProcessoComida() {
               type="checkbox"
               id={ value }
               value={ value }
-              onClick={ handleChecked }
+              onClick={ listIngredients }
               defaultChecked={ checkDefault(value) }
             />
             { value }
@@ -81,7 +71,6 @@ function ProcessoComida() {
     const match = url.match(/[0-9]{5,9}/g);
     getById(Number(match)).then((response) => setOneFood(response[0]));
     localStorageProgress();
-    updateChecked();
   }, []);
 
   return (
