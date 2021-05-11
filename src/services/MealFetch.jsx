@@ -93,6 +93,16 @@ const getByArea = async (area) => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const requestById = await fetch(`${MEAL_DB_BASE}lookup.php?i=${id}`);
+    const responseById = await requestById.json();
+    return responseById.meals;
+  } catch (error) {
+    console.log('By id...', error);
+  }
+};
+
 export {
   getMealsByName,
   getMealsRandom,
@@ -103,4 +113,5 @@ export {
   getMealsByCategory,
   getAreaList,
   getByArea,
+  getById,
 };

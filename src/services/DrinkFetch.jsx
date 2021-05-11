@@ -83,6 +83,16 @@ const getDrinkRandom = async () => {
   }
 };
 
+const getById = async (id) => {
+  try {
+    const requestById = await fetch(`${DRINK_DB_BASE}lookup.php?i=${id}`);
+    const responseById = await requestById.json();
+    return responseById.drinks;
+  } catch (error) {
+    console.log('By id...', error);
+  }
+};
+
 export {
   getDrinkByName,
   getDrinkByFirstLetter,
@@ -92,4 +102,5 @@ export {
   getDrinkCategorys,
   getDrinkByCategory,
   getDrinkRandom,
+  getById,
 };
