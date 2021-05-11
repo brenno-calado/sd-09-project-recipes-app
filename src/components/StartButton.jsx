@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { number, func } from 'prop-types';
 
 const StartButton = ({ id, startRecipe }) => {
   const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
@@ -23,5 +24,10 @@ const StartButton = ({ id, startRecipe }) => {
     </Link>
   );
 };
+
+StartButton.propTypes = {
+  id: number,
+  startRecipe: func,
+}.isRequired;
 
 export default StartButton;
