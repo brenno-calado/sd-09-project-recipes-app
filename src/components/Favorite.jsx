@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { useRouteMatch } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import noFavIcon from '../images/whiteHeartIcon.svg';
 import isFavIcon from '../images/blackHeartIcon.svg';
 
@@ -10,10 +8,8 @@ export default function Favorite(props) {
   console.log('id da receita:', recipe.id);
 
   const favoriteAdd = () => {
-    let fav = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (fav === null) {
-      fav = [];
-    }
+    const fav = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+
     fav.push(recipe);
     localStorage.setItem('favoriteRecipes', JSON.stringify(fav));
   };

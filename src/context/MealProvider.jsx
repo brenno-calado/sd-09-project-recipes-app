@@ -17,6 +17,7 @@ const MealProvider = ({ children }) => {
   const [radio, setRadio] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [recipeDt, setRecipeDt] = useState({});
+  const [redirect, setRedirect] = useState(false);
 
   const notFound = 'Sinto muito, não encontramos nenhuma receita para esses filtros.';
 
@@ -29,8 +30,7 @@ const MealProvider = ({ children }) => {
   }
 
   function foodFilter(input) {
-    console.log(radio);
-    if (radio === 'name') {
+    if (radio === 'name' || radio === '') {
       getMealsByName(inputValue)
         .then((response) => {
           if (response < 1) return alert(notFound);
@@ -52,12 +52,13 @@ const MealProvider = ({ children }) => {
   }
 
   function drinkFilter(input) {
-    if (radio === 'name') {
-      getDrinkByName(input)
+    if (radio === 'name' || radio === '') {
+      getDrinkByName(inputValue)
         .then((response) => {
           if (response < 1) return alert(notFound);
           setFoods(response);
         });
+      console.log('olá');
     }
 
     if (radio === 'ingredient') {
@@ -92,8 +93,11 @@ const MealProvider = ({ children }) => {
     filters,
     inputValue,
     foodFilter,
+    drinkFilter,
     recipeDt,
     setRecipeDt,
+    redirect,
+    setRedirect,
   };
 
   return (

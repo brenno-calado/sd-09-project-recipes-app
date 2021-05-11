@@ -10,7 +10,7 @@ import ExplorarComidasIng from './pages/ExplorarComidasIng';
 import ExplorarComidasArea from './pages/ExplorarComidasArea';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarBebidasIng from './pages/ExplorarBebidasIng';
-// import DetalhesComida from './pages/DetalhesComida';
+import DetalhesComida from './pages/DetalhesComida';
 import DetalhesBebida from './pages/DetalhesBebida';
 import Perfil from './pages/Perfil';
 import PrincipalComidas from './pages/PrincipalComidas';
@@ -20,7 +20,7 @@ import ProcessoBebida from './pages/ProcessoBebida';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Login from './pages/Login';
-import DetalhesComida from './pages/DetalhesComida';
+import ExplorarBebidasArea from './pages/ExplorarBebidasArea';
 
 function App() {
   return (
@@ -50,6 +50,7 @@ function App() {
           />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
+          <Route path="/explorar/bebidas/area" component={ ExplorarBebidasArea } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
