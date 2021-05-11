@@ -3,35 +3,22 @@ import Carousel from 'react-bootstrap/Carousel';
 import PropTypes from 'prop-types';
 import ReactPlayer from 'react-player';
 import { useHistory } from 'react-router-dom';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
+import ShareButton from '../components/ShareButton';
+import FavoriteButton from '../components/FavoriteButton';
+import Loading from '../components/Loading';
+import { checkIfDoneRecipe, getRecipeInProgress } from '../services/storage';
+import { fetchApi } from '../services/api';
 
 const RecipeDetails = ({ match: { path, params } }) => {
   const { id } = params;
   const history = useHistory();
+  const [isFetchingDetails, setFetchingDetails] = useState(true);
+  const [isFetchingRecommendations, setFetchingRecommendations] = useState(true);
   const [details, setDetails] = useState('');
   const [recommendation, setRecommendation] = useState('');
-  const [isFavorited, setIsFavorited] = useState(false);
-  const [isLinkCopied, setIsLinkCopied] = useState(false);
+  const isRecipeDone = checkIfDoneRecipe(details);
+  const isRecipeInProgress = getRecipeInProgress(details);
   const isFoodsPage = path.includes('comida');
-  const isDrinksPage = path.includes('bebidas');
-  const foodUrl = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const drinkUrl = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const recommendedFoodUrl = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const recommendedDrinkUrl = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
-
-  const getClipBoard = () => {
-    if (isFoodsPage) {
-      return `http://localhost:3000/comidas/${id}`;
-    }
-    if (isDrinksPage) {
-      return `http://localhost:3000/bebidas/${id}`;
-    }
-  };
-
-  const clipBoard = getClipBoard();
 
   const buttonStyle = {
     position: 'fixed',
@@ -43,22 +30,25 @@ const RecipeDetails = ({ match: { path, params } }) => {
     const ingredients = Object.keys(details)
       .filter((key) => (
         key.includes('Ingredient') && details[key]))
-      .map((key, index) => (
-        <li
-          key={ index }
-          data-testid={ `${index}-ingredient-name-and-measure` }
-        >
-          {`${details[key]} - ${details[`strMeasure${index + 1}`]}`}
-        </li>
-      ));
+      .map((key, index) => {
+        const ingredientName = details[key];
+        const ingredientMeasure = details[`strMeasure${index + 1}`];
+        return (
+          <li
+            key={ index }
+            data-testid={ `${index}-ingredient-name-and-measure` }
+          >
+            {`${ingredientName} - ${ingredientMeasure}`}
+          </li>
+        );
+      });
     return ingredients;
   };
 
   const renderRecommended = () => {
     if (recommendation) {
       const max = 6;
-      const recommended = recommendation.drinks || recommendation.meals;
-      const recommendationData = recommended.slice(0, max);
+      const recommendationData = recommendation.slice(0, max);
       return recommendationData.map((recipe, index) => (
         <Carousel.Item
           key={ index }
@@ -71,7 +61,7 @@ const RecipeDetails = ({ match: { path, params } }) => {
           />
           <Carousel.Caption>
             <p data-testid={ `${index}-recomendation-title` }>
-              {recipe.strDrink || recipe.strMeal}
+              { recipe.strDrink || recipe.strMeal }
             </p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -83,66 +73,29 @@ const RecipeDetails = ({ match: { path, params } }) => {
     if (isFoodsPage) {
       return history.push(`/comidas/${id}/in-progress`);
     }
-    if (isDrinksPage) {
-      return history.push(`/bebidas/${id}/in-progress`);
-    }
+    return history.push(`/bebidas/${id}/in-progress`);
   };
 
-  const handleHeartIcon = () => {
-    if (isFavorited === false) {
-      return (
-        <button
-          onClick={ () => setIsFavorited(true) }
-          type="button"
-
-        >
-          <img
-            src={ whiteHeartIcon }
-            alt="white-heart-icon"
-            data-testid="favorite-btn"
-          />
-        </button>
-      );
-    }
-    if (isFavorited === true) {
-      return (
-        <button
-          onClick={ () => setIsFavorited(false) }
-          type="button"
-        >
-          <img
-            src={ blackHeartIcon }
-            alt="black-heart-icon"
-            data-testid="favorite-btn"
-          />
-        </button>
-      );
-    }
+  const fetchData = async (paramsObj) => {
+    const fetchDetails = await fetchApi(paramsObj);
+    const key = Object.keys(fetchDetails)[0];
+    return fetchDetails[key];
   };
 
   useEffect(() => {
-    const fetchRecipe = async () => {
-      if (isFoodsPage) {
-        const response = await fetch(foodUrl);
-        const data = await response.json();
-        const food = data.meals[0];
-        setDetails(food);
-        const recommendedResponse = await fetch(recommendedDrinkUrl);
-        const recommendedData = await recommendedResponse.json();
-        setRecommendation(recommendedData);
-      }
-      if (isDrinksPage) {
-        const response = await fetch(drinkUrl);
-        const drinkData = await response.json();
-        const drink = drinkData.drinks[0];
-        setDetails(drink);
-        const recommendedResponse = await fetch(recommendedFoodUrl);
-        const recommendedData = await recommendedResponse.json();
-        setRecommendation(recommendedData);
-      }
-    };
-    fetchRecipe();
-  }, [drinkUrl, foodUrl, isDrinksPage, isFoodsPage]);
+    fetchData({ i: id, isDetails: true, isFoodsPage })
+      .then((recipeResponse) => {
+        setDetails(recipeResponse['0']);
+        setFetchingDetails(false);
+      });
+    fetchData({ s: '', isFoodsPage: !isFoodsPage })
+      .then((recipeResponse) => {
+        setRecommendation(recipeResponse);
+        setFetchingRecommendations(false);
+      });
+  }, []);
+
+  if (isFetchingDetails || isFetchingRecommendations) return <Loading />;
 
   return (
     <div>
@@ -152,29 +105,21 @@ const RecipeDetails = ({ match: { path, params } }) => {
         alt="imagem-da-receita"
         data-testid="recipe-photo"
       />
-      <div>
-        {handleHeartIcon()}
-      </div>
-      <CopyToClipboard text={ clipBoard }>
-        <button
-          type="button"
-          onClick={ () => setIsLinkCopied(true) }
-        >
-          <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
-        </button>
-      </CopyToClipboard>
-      {isLinkCopied && <div>Link copiado!</div>}
+
+      <FavoriteButton recipe={ details } testId="favorite-btn" />
+      <ShareButton isFoodPage={ isFoodsPage } recipeId={ id } testId="share-btn" />
+
       <h1
         style={ { textAlign: 'center' } }
         data-testid="recipe-title"
       >
-        {details.strDrink || details.strMeal}
+        { details.strDrink || details.strMeal }
 
       </h1>
       <h4 data-testid="recipe-category">{details.strAlcoholic || details.strCategory}</h4>
       <h5>Ingredients</h5>
       <ul>
-        {renderIngredients()}
+        { renderIngredients() }
       </ul>
       <p data-testid="instructions">{details.strInstructions}</p>
       <ReactPlayer
@@ -184,17 +129,19 @@ const RecipeDetails = ({ match: { path, params } }) => {
       />
       <h4>Recommended</h4>
       <Carousel>
-        {renderRecommended()}
+        { renderRecommended() }
       </Carousel>
-      <button
-        type="button"
-        style={ buttonStyle }
-        data-testid="start-recipe-btn"
-        onClick={ () => handleStartRecipeClick() }
-      >
-        Iniciar Receita
-
-      </button>
+      { !isRecipeDone && (
+        <button
+          type="button"
+          style={ buttonStyle }
+          data-testid="start-recipe-btn"
+          onClick={ () => handleStartRecipeClick() }
+        >
+          { (isRecipeInProgress && 'Continuar ') || 'Iniciar ' }
+          Receita
+        </button>
+      ) }
     </div>
   );
 };

@@ -59,10 +59,10 @@ const RecipeList = ({ match: { path } }) => {
   const [recipes, setRecipesList] = useState(storageRecipes);
   const [recipesFilterKey, setFilterKey] = useState('all');
 
-  const removeFavRecipe = ({ id, type }) => {
+  const removeFavRecipe = (recipe) => {
     setRecipesList((currentRecipes) => currentRecipes
-      .filter((recipe) => recipe.id !== id && recipe.type !== type));
-    removeRecipeFromFavorites(id, type);
+      .filter(({ id, type }) => recipe.id !== id && recipe.type !== type));
+    removeRecipeFromFavorites(recipe, recipe.id, recipe.type);
   };
 
   const shownRecipes = recipes.filter(recipesFilters[recipesFilterKey]);
