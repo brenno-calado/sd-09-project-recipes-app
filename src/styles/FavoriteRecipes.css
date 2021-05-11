@@ -6,14 +6,14 @@
   width: 350px;
 }
 
-.recipe-card {
+.favorite-recipe-card {
   display: flex;
   flex-direction: row;
   height: 120px;
   width: 100%;
 }
 
-.recipe-card > img {
+.favorite-recipe-card > img {
   height: 120px;
   width: 150px;
 }
