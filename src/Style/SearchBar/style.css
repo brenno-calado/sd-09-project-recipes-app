@@ -30,8 +30,8 @@
 }
 
 .searchbar-radios {
-  display: flex;
   color: rgb(64, 64, 64);
+  display: flex;
   justify-content: space-between;
   margin-top: 10px;
 }
