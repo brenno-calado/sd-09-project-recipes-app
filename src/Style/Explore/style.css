@@ -3,7 +3,7 @@
   border-radius: 10px 10px 0 0;
   display: flex;
   flex-direction: column;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   height: 100vh;
 }
 
@@ -15,8 +15,8 @@
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   height: 60px;
+  justify-content: center;
   margin: 20px;
   padding: 5px 10px;
 }
@@ -26,7 +26,7 @@
 }
 
 .ingredients-wrap {
-  background: rgb(239,246,239);
+  background: rgb(239, 246, 239);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -50,8 +50,8 @@
 }
 
 .ingredients-card-container p {
-  color: rgb(121,125,128);
-  font-family: Ubuntu, sans-serif;
+  color: rgb(121, 125, 128);
+  font-family: Ubuntu , sans-serif;
   font-weight: 600;
   margin: 0;
   padding: 10px;

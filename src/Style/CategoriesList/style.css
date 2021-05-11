@@ -1,8 +1,8 @@
 .categorieslist-container {
-  background: rgb(239,246,239);
+  background: rgb(239, 246, 239);
   display: flex;
   flex-wrap: wrap;
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
   padding: 10px 20px;
 }
 
@@ -13,8 +13,8 @@
   border-radius: 10px;
   color: white;
   display: flex;
-  justify-content: center;
   height: 30px;
-  margin: 5px 5px;
+  justify-content: center;
+  margin: 5px;
   padding: 5px 10px;
 }

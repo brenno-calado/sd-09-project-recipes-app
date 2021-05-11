@@ -1,5 +1,5 @@
 .header-container {
-  font-family: Ubuntu, sans-serif;
+  font-family: Ubuntu , sans-serif;
 }
 
 .header-component {
@@ -26,6 +26,6 @@
   padding: 0;
 }
 
-.header-btn-search  img {
+.header-btn-search img {
   width: 30px;
 }

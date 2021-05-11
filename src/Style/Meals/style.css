@@ -1,5 +1,5 @@
 .meals-wrap {
-  background: rgb(239,246,239);
+  background: rgb(239, 246, 239);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -26,8 +26,8 @@
 }
 
 .recipe-card p {
-  color: rgb(121,125,128);
-  font-family: Ubuntu, sans-serif;
+  color: rgb(121, 125, 128);
+  font-family: Ubuntu , sans-serif;
   font-weight: 600;
   margin: 0;
   padding: 10px;

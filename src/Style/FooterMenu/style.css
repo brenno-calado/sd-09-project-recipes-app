@@ -1,6 +1,5 @@
 .footer-menu-container {
-  /* backdrop-filter: blur(8px); */
-  background: rgb(255, 255, 255);
+  background: white;
   border-top: 1px solid rgb(47, 193, 140);
   bottom: 0;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
