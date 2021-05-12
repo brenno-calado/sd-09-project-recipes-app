@@ -103,19 +103,21 @@ class Details extends React.Component {
             />}
         </div>
         <Recommendations />
-        {renderBtn
-        && (
-          <Link to={ `${location}/in-progress` }>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-btn"
-              onClick={ this.handleClick }
-            >
-              {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-            </button>
-          </Link>
-        )}
+        <div className="init-recipe-app">
+          {renderBtn
+          && (
+            <Link to={ `${location}/in-progress` }>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="start-btn"
+                onClick={ this.handleClick }
+              >
+                {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     );
   }
