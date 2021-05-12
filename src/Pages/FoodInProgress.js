@@ -83,13 +83,11 @@ class InProgress extends React.Component {
 
     const totalIngredient = ingredientFilter.map((ingredient, index) => (
       <label
-        className="labelProgress"
         key={ ingredient }
         htmlFor={ `ingredient${index}` }
         data-testid={ `${index}-ingredient-step` }
       >
         <input
-          className="check"
           type="checkbox"
           id={ `ingredient${index}` }
           name={ index }
@@ -101,8 +99,7 @@ class InProgress extends React.Component {
             ? <span>{`-${ingredient} - ${measureFilter[index]}`}</span>
             : <span>{`-${ingredient}`}</span>
         }
-      </label>
-    ));
+      </label>));
     return totalIngredient;
   }
 
@@ -177,8 +174,7 @@ class InProgress extends React.Component {
   }
 
   render() {
-    const { match: { params: { id } } } = this.props;
-    const { getFoodDetails } = this.props;
+    const { match: { params: { id } }, getFoodDetails } = this.props;
 
     return (
       <div className="main">
@@ -206,6 +202,7 @@ class InProgress extends React.Component {
 
 const mapStateToProps = (state) => ({
   getFoodDetails: state.FoodAndDrinkDetailsReducer.foodDetails,
+  getInProgress: state.ButtonReducer.inProgressRecipes,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -17,10 +17,12 @@ class Profile extends Component {
   render() {
     const user = JSON.parse(localStorage.getItem('user'));
     let notEmail = 'email@mail.com';
+
     if (user) {
       const { email } = user;
       notEmail = email;
     }
+
     return (
       <div>
         <Header titleHeader="Perfil" id="1" />

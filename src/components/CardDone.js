@@ -20,8 +20,8 @@ class CardDone extends React.Component {
 
   copyCodeToClipboard() {
     const { done } = this.props;
-    copy(`http://localhost:3000/${done.type}s/${done.id}`);
     this.setState({ linkCopy: true });
+    copy(`http://localhost:3000/${done.type}s/${done.id}`);
   }
 
   renderTags() {

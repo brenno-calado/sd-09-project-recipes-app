@@ -71,11 +71,11 @@ class FoodDetails extends React.Component {
     let classButton = true;
 
     if (getInProgress && Object.keys(Object.values(getInProgress)[1])
-      .find((progress) => progress === id)) {
+      .some((progress) => +(progress) === +(id))) {
       nameButton = 'Continuar Receita';
     }
 
-    if (getDoneRecipes && getDoneRecipes.find((done) => done.id === id)) {
+    if (getDoneRecipes && getDoneRecipes.some((done) => +(done.id) === +(id))) {
       classButton = false;
     }
 

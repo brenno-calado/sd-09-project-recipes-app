@@ -40,12 +40,11 @@ class CarouselDrinkDetails extends React.Component {
 
   render() {
     const { getFood } = this.props;
+
     if (!getFood[0]) {
       return <p>Loading...</p>;
     }
-
     return (
-
       <Carousel fade>
         <Carousel.Item interval={ 7000 }>
           {this.createCard(0, 2)}
