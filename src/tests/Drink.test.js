@@ -175,18 +175,18 @@ describe('Header test', () => {
     fireEvent.click(searchButton);
   });
 
-  test('Verifica se nao esta pesquisando por uma letra', () => {
-    const { getByTestId } = renderWithRouterAndStore(<Drinks />);
-    const searchBar = getByTestId(textSearchTop);
+  // test('Verifica se nao esta pesquisando por uma letra', () => {
+  //   const { getByTestId } = renderWithRouterAndStore(<Drinks />);
+  //   const searchBar = getByTestId(textSearchTop);
 
-    fireEvent.click(searchBar);
+  //   fireEvent.click(searchBar);
 
-    const searchFirstLetter = getByTestId(textFirstLetter);
-    const searchInput = getByTestId(textSearchInput);
-    const searchButton = getByTestId(execButton);
+  //   const searchFirstLetter = getByTestId(textFirstLetter);
+  //   const searchInput = getByTestId(textSearchInput);
+  //   const searchButton = getByTestId(execButton);
 
-    fireEvent.click(searchFirstLetter);
-    userEvent.type(searchInput, 'AA');
-    fireEvent.click(searchButton);
-  });
+  //   fireEvent.click(searchFirstLetter);
+  //   userEvent.type(searchInput, 'AA');
+  //   fireEvent.click(searchButton);
+  // });
 });
