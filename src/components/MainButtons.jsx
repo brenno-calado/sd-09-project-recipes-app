@@ -22,9 +22,9 @@ function MainButtons() {
     } else {
       setFilter(name);
       if (foodPage) {
-        getMealsByCategory(name).then((response) => setFoods(response));
+        getMealsByCategory(name).then((response) => setFoods(response || []));
       } else if (drinkPage) {
-        getDrinkByCategory(name).then((response) => setFoods(response));
+        getDrinkByCategory(name).then((response) => setFoods(response || []));
       }
     }
   }

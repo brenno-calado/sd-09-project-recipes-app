@@ -73,7 +73,6 @@ function DetalhesBebida() {
   }, []);
 
   // console.log('The recipe:', recipeDt);
-  if (!recipeDt) return <div>loading</div>;
 
   const favObj = {
     id: recipeDt.idDrink,
