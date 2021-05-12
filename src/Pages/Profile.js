@@ -34,9 +34,7 @@ class Profile extends React.Component {
               type="button"
               data-testid="profile-done-btn"
             >
-              <Link
-                to="/receitas-feitas"
-              >
+              <Link to="/receitas-feitas">
                 Receitas Feitas
               </Link>
             </button>
@@ -44,9 +42,7 @@ class Profile extends React.Component {
               type="button"
               data-testid="profile-favorite-btn"
             >
-              <Link
-                to="/receitas-favoritas"
-              >
+              <Link to="/receitas-favoritas">
                 Receitas Favoritas
               </Link>
             </button>
@@ -66,7 +62,9 @@ class Profile extends React.Component {
 }
 
 Profile.propTypes = {
-  history: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({ email: state.User.email });

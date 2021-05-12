@@ -36,7 +36,7 @@ class ExploreDrink extends React.Component {
           </Link>
 
           <Link to={ `/bebidas/${drinks.idDrink}` }>
-            <button data-testid="explore-surprise" type="button">Me Surpreenda!!</button>
+            <button data-testid="explore-surprise" type="button">Me Surpreenda!</button>
           </Link>
         </div>
         <Footer />

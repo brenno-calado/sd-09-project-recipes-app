@@ -5,6 +5,7 @@ import {
   requestApiMealsbyName,
   requestApiMealsbyLetter,
   requestApiMealsIngredient,
+  requestApiMealsArea,
   requestApiCocktailsbyName,
   requestApiCocktailsbyLetter,
   requestApiCocktailsbyIngredient,
@@ -24,6 +25,7 @@ class SearchBar extends Component {
   }
 
   handleChange({ target }) {
+    console.log(target);
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -33,8 +35,8 @@ class SearchBar extends Component {
   async fetchByLocation() {
     const location = window.location.pathname;
     return location.includes('comida')
-      ? this.fetchMealsByRadioValue()
-      : this.fetchDrinksByRadioValue();
+      ? (this.fetchMealsByRadioValue())
+      : (this.fetchDrinksByRadioValue());
   }
 
   async fetchDrinksByRadioValue() {
@@ -64,6 +66,7 @@ class SearchBar extends Component {
       getMealsbyName,
       getMealsbyLetter,
       getMealsbyIngredient,
+      getMealsByNacionality,
     } = this.props;
     const { radioValue, input } = this.state;
     switch (radioValue) {
@@ -76,9 +79,27 @@ class SearchBar extends Component {
         alert('Sua busca deve conter somente 1 (um) caracter');
       }
       return getMealsbyLetter(input);
+    case 'nationality':
+      return getMealsByNacionality(input);
     default:
       return '';
     }
+  }
+
+  showIngRadio() {
+    return (
+      <label htmlFor="ingredient-radio">
+        <input
+          type="radio"
+          id="ingredient-radio"
+          name="radioValue"
+          value="ingredient"
+          data-testid="ingredient-search-radio"
+          onClick={ this.handleChange }
+        />
+        Ingrediente
+      </label>
+    );
   }
 
   render() {
@@ -93,17 +114,9 @@ class SearchBar extends Component {
           value={ input }
           onChange={ this.handleChange }
         />
-        <label htmlFor="ingredient-radio">
-          <input
-            type="radio"
-            id="ingredient-radio"
-            name="radioValue"
-            value="ingredient"
-            data-testid="ingredient-search-radio"
-            onClick={ this.handleChange }
-          />
-          Ingrediente
-        </label>
+        {window.location.pathname === '/explorar/comidas/area'
+          ? ''
+          : this.showIngRadio()}
         <label htmlFor="name-radio">
           <input
             type="radio"
@@ -129,7 +142,9 @@ class SearchBar extends Component {
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ this.fetchByLocation }
+          onClick={ () => {
+            this.fetchByLocation();
+          } }
         >
           Buscar
         </button>
@@ -142,6 +157,7 @@ SearchBar.propTypes = {
   getMealsbyName: PropTypes.func.isRequired,
   getMealsbyLetter: PropTypes.func.isRequired,
   getMealsbyIngredient: PropTypes.func.isRequired,
+  getMealsByNacionality: PropTypes.func.isRequired,
   getCocktailsbyName: PropTypes.func.isRequired,
   getCocktailsbyLetter: PropTypes.func.isRequired,
   getCocktailsbyIngredient: PropTypes.func.isRequired,
@@ -156,6 +172,7 @@ const mapDispatchToProps = (dispatch) => ({
   getMealsbyName: (input) => dispatch(requestApiMealsbyName(input)),
   getMealsbyLetter: (input) => dispatch(requestApiMealsbyLetter(input)),
   getMealsbyIngredient: (input) => dispatch(requestApiMealsIngredient(input)),
+  getMealsByNacionality: (input) => dispatch(requestApiMealsArea(input)),
   getCocktailsbyName: (input) => dispatch(requestApiCocktailsbyName(input)),
   getCocktailsbyLetter: (input) => dispatch(requestApiCocktailsbyLetter(input)),
   getCocktailsbyIngredient: (input) => dispatch(requestApiCocktailsbyIngredient(input)),

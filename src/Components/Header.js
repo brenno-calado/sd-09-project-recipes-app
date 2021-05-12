@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
+import ShowArea from './ShowArea';
 import './styles/Header.css';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -57,6 +58,7 @@ function Header({ name }) {
             : ''}
         </header>)}
       {showSearchBar && <SearchBar /> }
+      {location === '/explorar/comidas/area' ? <ShowArea /> : '' }
     </div>
   );
 }

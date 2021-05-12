@@ -6,7 +6,6 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 class FavoriteButton extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       favorite: false,
     };

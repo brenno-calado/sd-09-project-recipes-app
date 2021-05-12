@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import ShowCategories from './ShowCategories';
@@ -19,8 +19,11 @@ class CocktailCards extends React.Component {
   }
 
   componentDidMount() {
-    this.callCocktail();
+    const { ingredients } = this.props;
     localStorage.removeItem('id');
+    if (ingredients.length === 0) {
+      this.callCocktail();
+    }
   }
 
   componentWillUnmount() {
@@ -57,6 +60,7 @@ class CocktailCards extends React.Component {
         <div
           key={ index }
           data-testid={ `${index}-recipe-card` }
+          className="cardRecipe"
         >
           <Link
             to={ `/bebidas/${cocktail.idDrink}` }
@@ -84,6 +88,9 @@ class CocktailCards extends React.Component {
       <div className="cardContainer">
         <ShowCategories name="Bebidas" searchResult={ this.updateSearchedDrink } />
         { this.createCards() }
+        { cocktails.length === 1
+          ? <Redirect to={ `/bebidas/${cocktails[0].idDrink}` } />
+          : ''}
       </div>
     );
   }
@@ -92,12 +99,17 @@ class CocktailCards extends React.Component {
 CocktailCards.propTypes = {
   cocktails: PropTypes.shape({
     map: PropTypes.func.isRequired,
+    length: PropTypes.number.isRequired,
+  }).isRequired,
+  ingredients: PropTypes.shape({
+    length: PropTypes.number.isRequired,
   }).isRequired,
   getCocktails: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   cocktails: state.cocktails.cocktails,
+  ingredients: state.ingredients,
 });
 
 const mapDispatchToProps = (dispatch) => (

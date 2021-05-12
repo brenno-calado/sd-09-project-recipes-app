@@ -1,5 +1,6 @@
 import { requestMeals } from './meals';
 import { requestCocktails } from './cocktails';
+import { sendIngredients } from './ingredients';
 import { addUser } from './user';
 import {
   fetchMealsAPI,
@@ -7,22 +8,18 @@ import {
   fetchMealsAPIbyName,
   fetchMealsAPIbyLetter,
   fetchMealsAPIbyIngredient,
+  fetchFoodByArea,
   fetchCocktailAPIbyName,
   fetchCocktailAPIbyLetter,
   fetchCocktailAPIbyIngredient,
 } from '../../services/ApiRequest';
 
 export {
+  sendIngredients,
   requestCocktails,
   requestMeals,
   addUser,
 };
-
-export const IS_LOADING = 'IS_LOADING';
-export const isLoading = (loading) => ({
-  type: IS_LOADING,
-  loading,
-});
 
 export const requestApiMeals = () => async (dispatch) => {
   dispatch(requestMeals());
@@ -58,6 +55,18 @@ export const requestApiMealsIngredient = (input) => async (dispatch) => {
   dispatch(requestMeals());
   try {
     const response = await fetchMealsAPIbyIngredient(input);
+    return dispatch(requestMeals(response.meals));
+  } catch (error) {
+    return console.log(error);
+  }
+};
+
+export const requestApiMealsArea = (input) => async (dispatch) => {
+  console.log(input);
+  dispatch(requestMeals());
+
+  try {
+    const response = await fetchFoodByArea(input);
     return dispatch(requestMeals(response.meals));
   } catch (error) {
     return console.log(error);
