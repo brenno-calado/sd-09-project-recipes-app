@@ -10,7 +10,7 @@ function MainCards() {
 
   const handleCardsApi = async () => {
     let apiResult = '';
-    if (pathname === '/comidas' || pathname === '/explorar/comidas/area') {
+    if (pathname === '/comidas') {
       apiResult = await fetchApi.fetchMeals();
       setHandleCards(apiResult);
     } else if (pathname === '/bebidas') {
