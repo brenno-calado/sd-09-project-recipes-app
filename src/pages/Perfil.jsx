@@ -67,7 +67,7 @@ function ProfileScreen() {
       <Header textProp="Perfil" />
 
       <p className="email" data-testid="profile-email">
-        { `Email: ${email}` }
+        { `${email}` }
       </p>
 
       { buttonsGroup() }
