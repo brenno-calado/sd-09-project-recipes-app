@@ -1,6 +1,6 @@
 import React from 'react';
-import { renderWithRouterAndStore } from './testRender';
-import App from '../App';
+import { renderWithRouterAndStore } from './tests/testRender';
+import App from './App';
 
 describe('App teste', () => {
   test('Verifica se renderizou a pagina de App', () => {
