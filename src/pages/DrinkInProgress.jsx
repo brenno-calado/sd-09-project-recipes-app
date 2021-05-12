@@ -60,8 +60,8 @@ function DrinkInProgress({ match }) {
   };
 
   const favorited = () => {
-    const type = 'comida';
-    const area = drink.strArea;
+    const type = 'bebida';
+    const area = '';
     const category = drink.strCategory;
     const alcoholicOrNot = drink.strAlcoholic;
     const name = drink.strDrink;
