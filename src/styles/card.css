@@ -17,16 +17,16 @@
   display: none;
 }
 
+.section-img img {
+  width: 5rem;
+}
+
 .card .share.copiado > img {
   display: none;
 }
 
 .card .share.copiado > span {
   display: inline;
-}
-
-.section-img img {
-  width: 5rem;
 }
 
 .tags {
