@@ -2,15 +2,15 @@ const drinkCategories = {
   drinks: [
     { strCategory: 'Ordinary Drink' },
     { strCategory: 'Cocktail' },
-    { strCategory: 'Milk \/ Float \/ Shake' },
-    { strCategory: 'Other\/Unknown' },
+    { strCategory: 'Milk / Float / Shake' },
+    { strCategory: 'Other / Unknown' },
     { strCategory: 'Cocoa' },
     { strCategory: 'Shot' },
-    { strCategory: 'Coffee \/ Tea' },
+    { strCategory: 'Coffee / Tea' },
     { strCategory: 'Homemade Liqueur' },
-    { strCategory: 'Punch \/ Party Drink' },
+    { strCategory: 'Punch / Party Drink' },
     { strCategory: 'Beer' },
-    { strCategory: 'Soft Drink \/ Soda' }
+    { strCategory: 'Soft Drink / Soda' },
   ],
 };
 
