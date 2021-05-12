@@ -45,8 +45,10 @@ function ReceitasFavoritas() {
   //   setFavs(JSON.parse(localStorage.getItem('favoriteRecipes')));
   // }, []);
 
+  if (!favs) return <div>loading</div>;
+
   return (
-    <>
+    <div>
       <Header textProp="Receitas Favoritas" />
       <div>
         <button
@@ -96,7 +98,7 @@ function ReceitasFavoritas() {
           </button>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 

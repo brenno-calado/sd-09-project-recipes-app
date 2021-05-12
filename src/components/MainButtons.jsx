@@ -31,16 +31,16 @@ function MainButtons() {
 
   useEffect(() => {
     if (foodPage) {
-      getMealCategorys().then((response) => setCategorys(response));
+      getMealCategorys().then((response) => setCategorys(response || []));
     }
 
     if (drinkPage) {
-      getDrinkCategorys().then((response) => setCategorys(response));
+      getDrinkCategorys().then((response) => setCategorys(response || []));
     }
   }, []);
 
   return (
-    <>
+    <div>
       <button
         type="button"
         name="all"
@@ -49,6 +49,7 @@ function MainButtons() {
       >
         All
       </button>
+
       {categorys.slice(0, filtersLimit).map((category) => (
         <button
           key={ Math.random() }
@@ -60,7 +61,7 @@ function MainButtons() {
           { category.strCategory }
         </button>
       ))}
-    </>
+    </div>
   );
 }
 

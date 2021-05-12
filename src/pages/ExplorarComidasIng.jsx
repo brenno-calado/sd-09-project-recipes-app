@@ -20,8 +20,10 @@ function ExplorarComidasIng() {
     setRedirect(true);
   }
 
+  if (!mealsIngredient) return <div>loading</div>;
+
   return (
-    <>
+    <div>
       {redirect ? <Redirect to="/comidas" /> : null}
 
       <Header textProp="Explorar Ingredientes" />
@@ -45,7 +47,7 @@ function ExplorarComidasIng() {
       ))}
 
       <Footer />
-    </>
+    </div>
   );
 }
 

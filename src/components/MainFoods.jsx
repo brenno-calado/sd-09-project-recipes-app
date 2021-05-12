@@ -9,8 +9,10 @@ import MealContext from '../context/MealContext';
 function MainFoods() {
   const { foods } = useContext(MealContext);
 
+  if (!foods) return <div>loading</div>;
+
   return (
-    <>
+    <div>
       {foods.length === 1
         ? <Redirect to={ `/comidas/${foods[0].idMeal}` } /> : null}
 
@@ -21,7 +23,7 @@ function MainFoods() {
       <FoodCards />
 
       <Footer />
-    </>
+    </div>
   );
 }
 

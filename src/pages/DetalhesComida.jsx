@@ -43,6 +43,8 @@ function DetalhesComida() {
       );
     }
     // console.log(result);
+    if (!result) return <div>loading</div>;
+
     return (
       result.map((ing, index) => (
         <li
