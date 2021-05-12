@@ -6,7 +6,7 @@ class Instructions extends React.Component {
     const { recipe } = this.props;
     return (
       <div className="instructions">
-        <h3>Instructions</h3>
+        <h3>Instruções</h3>
         <p data-testid="instructions">{recipe.strInstructions}</p>
       </div>
     );

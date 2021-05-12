@@ -92,14 +92,16 @@ class Details extends React.Component {
         <DetailsHeader recipe={ recipe[0] } path={ match.path } />
         <IngredientsList recipe={ recipe[0] } />
         <Instructions recipe={ recipe[0] } />
-        {recipe[0].strYoutube
-          && <iframe
-            data-testid="video"
-            src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` }
-            title={ recipe[0].strTags }
-            width="360"
-            height="200"
-          />}
+        <div className="details-youtube">
+          {recipe[0].strYoutube
+            && <iframe
+              data-testid="video"
+              src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` }
+              title={ recipe[0].strTags }
+              width="320"
+              height="200"
+            />}
+        </div>
         <Recommendations />
         {renderBtn
         && (

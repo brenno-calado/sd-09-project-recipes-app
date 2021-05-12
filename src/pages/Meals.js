@@ -8,6 +8,7 @@ import RecipeMealCard from '../components/RecipeMealCard';
 import { defaultFetchApiAction, setIsLoading } from '../actions';
 import CategoriesList from '../components/CategoriesList';
 import '../Style/Meals/style.css';
+import Loader from '../components/Loader';
 
 class Meals extends React.Component {
   componentDidMount() {
@@ -23,7 +24,7 @@ class Meals extends React.Component {
     const mxmItens = 12;
     const itens = recipes && recipes.filter((_, index) => index < mxmItens);
     const idType = (pathName === '/comidas') ? 'idMeal' : 'idDrink';
-    if (isLoading === true) return <p>Loading...</p>;
+    if (isLoading === true) return <Loader />;
     if (recipes === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
