@@ -15,7 +15,7 @@ function MainFoods() {
       {foods.length === 1
         ? <Redirect to={ `/comidas/${foods[0].idMeal}` } /> : null}
 
-      <Header textProp="Comidas" />
+      <Header textProp="Explorar Origem" />
 
       <AreaList />
 

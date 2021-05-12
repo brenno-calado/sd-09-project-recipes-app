@@ -39,6 +39,20 @@ function MainButtons() {
     }
   }, []);
 
+  const btnCategorys = () => (
+    categorys.slice(0, filtersLimit).map((category) => (
+      <button
+        key={ Math.random() }
+        type="button"
+        name={ category.strCategory }
+        data-testid={ `${category.strCategory}-category-filter` }
+        onClick={ handleChange }
+      >
+        { category.strCategory }
+      </button>
+    ))
+  );
+
   return (
     <div>
       <button
@@ -50,17 +64,7 @@ function MainButtons() {
         All
       </button>
 
-      {categorys.slice(0, filtersLimit).map((category) => (
-        <button
-          key={ Math.random() }
-          type="button"
-          name={ category.strCategory }
-          data-testid={ `${category.strCategory}-category-filter` }
-          onClick={ handleChange }
-        >
-          { category.strCategory }
-        </button>
-      ))}
+      { btnCategorys() }
     </div>
   );
 }

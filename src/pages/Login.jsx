@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 
-// import '../styles/login.css';
+import '../styles/login.css';
 
 class Login extends Component {
   constructor(props) {
@@ -86,7 +86,7 @@ class Login extends Component {
             onChange={ this.handlerPassWord }
             name="password"
             placeholder="Senha"
-            type="text"
+            type="password"
           />
         </div>
         <button

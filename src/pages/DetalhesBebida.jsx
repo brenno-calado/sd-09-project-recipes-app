@@ -43,7 +43,6 @@ function DetalhesBebida() {
       );
     }
     // console.log('Arranged results:', result);
-    if (!result) return <div>loading</div>;
 
     return (
       result.map((ing, index) => (
@@ -73,6 +72,7 @@ function DetalhesBebida() {
   }, []);
 
   // console.log('The recipe:', recipeDt);
+  if (!recipeDt) return <div>loading</div>;
 
   const favObj = {
     id: recipeDt.idDrink,
