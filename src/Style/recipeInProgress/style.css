@@ -14,8 +14,8 @@
   color: rgb(64, 64, 64);
   display: flex;
   flex-direction: column;
-  padding: 20px;
   margin: 0 20px;
+  padding: 20px;
 }
 
 .checkbox-items input {
@@ -34,4 +34,13 @@
   border-radius: 10px;
   color: white;
   padding: 10px 16px;
+}
+
+.recipe-done-btn button:disabled {
+  background: rgb(60, 223, 163);
+  color: rgb(41, 160, 116);
+}
+
+.recipe-done-btn button:hover {
+  background: rgb(50, 202, 146);
 }
