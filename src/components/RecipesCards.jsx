@@ -17,42 +17,44 @@ function RecipesCards({ index, recipe, onClick }) {
   };
 
   return (
-    <div>
+    <div className="card">
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
         <img
           src={ recipe.image }
           alt="Recipe"
           data-testid={ `${index}-horizontal-image` }
-          className="recipe-photo"
+          className="card-img"
         />
         <h3 data-testid={ `${index}-horizontal-name` }>
           { recipe.name }
         </h3>
       </Link>
-      <button
-        className="main-buttons"
-        type="button"
-        data-testid={ `${index}-horizontal-share-btn` }
-        onClick={ shareBtn }
-        src="shareIcon"
-      >
-        { copied
-          ? 'Link copiado!'
-          : <img src={ ShareIcon } alt="share" /> }
-      </button>
-      <button
-        className="main-buttons"
-        type="button"
-        data-testid={ `${index}-horizontal-favorite-btn` }
-        onClick={ onClick }
-        src="blackHeartIcon"
-      >
-        <img
-          src={ favorite ? BlackHartIcon : WhiteHartIcon }
-          id={ recipe.id }
-          alt="favorite"
-        />
-      </button>
+      <div>
+        <button
+          className="main-buttons"
+          type="button"
+          data-testid={ `${index}-horizontal-share-btn` }
+          onClick={ shareBtn }
+          src="shareIcon"
+        >
+          { copied
+            ? 'Link copiado!'
+            : <img src={ ShareIcon } alt="share" /> }
+        </button>
+        <button
+          className="main-buttons"
+          type="button"
+          data-testid={ `${index}-horizontal-favorite-btn` }
+          onClick={ onClick }
+          src="blackHeartIcon"
+        >
+          <img
+            src={ favorite ? BlackHartIcon : WhiteHartIcon }
+            id={ recipe.id }
+            alt="favorite"
+          />
+        </button>
+      </div>
       <p data-testid={ `${index}-horizontal-top-text` }>
         {`${recipe.alcoholicOrNot || recipe.area} - ${recipe.category}`}
       </p>
