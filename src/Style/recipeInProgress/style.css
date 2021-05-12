@@ -1,3 +1,7 @@
 .done-ingredient-list {
   text-decoration: none solid black;
 }
+
+.checkbox-ingredients-container {
+  background: rgb(241, 241, 245);
+}

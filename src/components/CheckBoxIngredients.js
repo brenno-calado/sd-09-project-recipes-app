@@ -61,7 +61,7 @@ class CheckBoxIngredients extends React.Component {
     const checkBoxClass = this.state;
     const measure = this.recoverMeasure();
     return (
-      <div>
+      <div className="checkbox-ingredients-container">
         {ingredients.map((ingredient, index) => (
           <label
             data-testid={ `${index}-ingredient-step` }
