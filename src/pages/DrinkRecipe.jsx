@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Recommendations from '../components/Recommendations';
 import { fetchDetailsDrink } from '../service/cocktailAPI';
 import { fetchAllMeals } from '../service/mealAPI';
+import useFavorite from '../effects/useFavorite';
 import '../App.css';
 
 function DrinkRecipe({ match: { params: { id } } }) {
+  const recipeDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [favoriteState, setFavoriteState] = useState(false);
   const [copy, setCopy] = useState(false);
   const [drinking, setDrinking] = useState([]);
   const [recomendedFood, setRecomendedFood] = useState([]);
@@ -30,23 +37,86 @@ function DrinkRecipe({ match: { params: { id } } }) {
     fetchRecomended();
   }, []);
 
-  const listIngredients = () => {
-    const list = [];
-    if (drinking.length !== 0) {
-      for (let index = 1; drinking[`strIngredient${index}`] !== null; index += 1) {
-        list.push(`
-          ${drinking[`strIngredient${index}`]} - ${drinking[`strMeasure${index}`]}
-        `);
-      }
-      return list;
-    } return null;
+  useFavorite(id, setFavoriteState);
+
+  const recipeData = {
+    id,
+    type: 'bebida',
+    area: '',
+    category: drinking.strCategory,
+    alcoholicOrNot: drinking.strAlcoholic,
+    name: drinking.strDrink,
+    image: drinking.strDrinkThumb,
   };
 
-  function msgShare({ target: { id: ide } }) {
-    if (ide === 'share') {
-      setCopy(true);
-      return <span>link copiado!</span>;
-    } return null;
+  function addFavorite() {
+    favoriteRecipes.push(recipeData);
+    localStorage
+      .setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setFavoriteState(true);
+  }
+
+  function removeFavorite() {
+    setFavoriteState(false);
+    const favoriteRemove = favoriteRecipes.filter((drink) => drink.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRemove));
+  }
+
+  const removeButton = () => (
+    <button
+      type="button"
+      onClick={ () => removeFavorite() }
+    >
+      <img data-testid="favorite-btn" src={ blackHeartIcon } alt="Favorit" />
+    </button>
+  );
+
+  const addButton = () => (
+    <button
+      type="button"
+      onClick={ () => addFavorite() }
+    >
+      <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="Favorit" />
+    </button>
+  );
+
+  const listIngredients = () => {
+    const list = [];
+    for (let index = 1; drinking[`strIngredient${index}`] !== null; index += 1) {
+      list.push(`
+        ${drinking[`strIngredient${index}`]} - ${drinking[`strMeasure${index}`]}
+      `);
+    }
+    return list;
+  };
+
+  function msgShare() {
+    setCopy(true);
+    // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    return navigator.clipboard.writeText(window.location.href);
+  }
+
+  function buttonVerify() {
+    if (recipeInProgress && Object.keys(recipeInProgress.cocktails)[0] === id) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+        >
+          Continuar Receita
+        </button>);
+    }
+    if (!recipeDone || recipeDone.find((recipe) => id !== recipe.id)) {
+      return (
+        <Link
+          data-testid="start-recipe-btn"
+          to={ `${window.location.pathname}/in-progress` }
+          className="start-recipe-btn"
+        >
+          Iniciar Receita
+        </Link>);
+    }
   }
 
   return (
@@ -69,15 +139,13 @@ function DrinkRecipe({ match: { params: { id } } }) {
               id="share"
               type="button"
               data-testid="share-btn"
+              onClick={ () => msgShare() }
             >
-              {copy ? msgShare() : (<img src={ shareIcon } alt="Share" />) }
+              {copy ? (
+                <span>Link copiado!</span>
+              ) : (<img src={ shareIcon } alt="Share" />)}
             </button>
-            <button
-              type="button"
-              data-testid="favorite-btn"
-            >
-              <img src={ whiteHeartIcon } alt="Favorit" />
-            </button>
+            {favoriteState ? removeButton() : addButton()}
           </div>
           <article className="recipe-body">
             <span
@@ -101,13 +169,7 @@ function DrinkRecipe({ match: { params: { id } } }) {
             <br />
             <h3>Recomendação</h3>
             <Recommendations recommendations={ recomendedFood.slice(0, maxResult) } />
-            <button
-              className="start-recipe-btn"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              Iniciar Receita
-            </button>
+            { buttonVerify() }
           </article>
         </>
       ) : null }

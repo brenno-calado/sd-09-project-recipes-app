@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import Recommendations from '../components/Recommendations';
 import { fetchDetailsFood } from '../service/mealAPI';
 import { fetchAllDrinks } from '../service/cocktailAPI';
+import useFavorite from '../effects/useFavorite';
 import '../App.css';
 
 function FoodRecipe({ match: { params: { id } } }) {
+  const recipeDone = JSON.parse(localStorage.getItem('doneRecipes'));
+  const recipeInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const [favoriteState, setFavoriteState] = useState(false);
   const [copy, setCopy] = useState(false);
   const [food, setFood] = useState([]);
   const [recomendedDrink, setRecomendedDrink] = useState([]);
@@ -17,7 +24,9 @@ function FoodRecipe({ match: { params: { id } } }) {
   useEffect(() => {
     const fetchFood = async () => {
       const foodArray = await fetchDetailsFood(id);
+      console.log('aqui');
       setFood(foodArray.meals[0]);
+      console.log(foodArray);
     };
     fetchFood();
   }, [id]);
@@ -26,20 +35,62 @@ function FoodRecipe({ match: { params: { id } } }) {
     const fetchRecomended = async () => {
       const recomendedArray = await fetchAllDrinks();
       setRecomendedDrink(recomendedArray.drinks);
+      console.log(recomendedArray);
     };
     fetchRecomended();
   }, []);
 
+  useFavorite(id, setFavoriteState);
+
+  const recipeData = {
+    id,
+    type: 'comida',
+    area: food.strArea,
+    category: food.strCategory,
+    alcoholicOrNot: '',
+    name: food.strMeal,
+    image: food.strMealThumb,
+  };
+
+  function addFavorite() {
+    favoriteRecipes.push(recipeData);
+    localStorage
+      .setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+    setFavoriteState(true);
+  }
+
+  function removeFavorite() {
+    setFavoriteState(false);
+    const favoriteRemove = favoriteRecipes.filter((foodRecipe) => foodRecipe.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRemove));
+  }
+
+  const removeButton = () => (
+    <button
+      type="button"
+      onClick={ () => removeFavorite() }
+    >
+      <img data-testid="favorite-btn" src={ blackHeartIcon } alt="Favorit" />
+    </button>
+  );
+
+  const addButton = () => (
+    <button
+      type="button"
+      onClick={ () => addFavorite() }
+    >
+      <img data-testid="favorite-btn" src={ whiteHeartIcon } alt="Favorit" />
+    </button>
+  );
+
   const listIngredients = () => {
     const list = [];
-    if (food.length !== 0) {
-      for (let index = 1; food[`strIngredient${index}`] !== ''; index += 1) {
-        list.push(`
-          ${food[`strIngredient${index}`]} - ${food[`strMeasure${index}`]}
-        `);
-      }
-      return list;
-    } return null;
+    for (let index = 1; food[`strIngredient${index}`] !== null; index += 1) {
+      list.push(`
+        ${food[`strIngredient${index}`]} - ${food[`strMeasure${index}`]}
+      `);
+    }
+    return list;
   };
 
   function sliceYoutube() {
@@ -49,11 +100,33 @@ function FoodRecipe({ match: { params: { id } } }) {
     return slicedYoutube;
   }
 
-  function msgShare({ target: { id: ide } }) {
-    if (ide === 'share') {
-      setCopy(true);
-      return <span>link copiado!</span>;
-    } return null;
+  function msgShare() {
+    setCopy(true);
+    // https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    return navigator.clipboard.writeText(window.location.href);
+  }
+
+  function buttonVerify() {
+    if (recipeInProgress && Object.keys(recipeInProgress.meals)[0] === id) {
+      return (
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="start-recipe-btn"
+        >
+          Continuar Receita
+        </button>);
+    }
+    if (!recipeDone || recipeDone.find((recipe) => id !== recipe.id)) {
+      return (
+        <Link
+          data-testid="start-recipe-btn"
+          to={ `${window.location.pathname}/in-progress` }
+          className="start-recipe-btn"
+        >
+          Iniciar Receita
+        </Link>);
+    }
   }
 
   return (
@@ -77,15 +150,13 @@ function FoodRecipe({ match: { params: { id } } }) {
                 id="share"
                 type="button"
                 data-testid="share-btn"
+                onClick={ () => msgShare() }
               >
-                {copy ? msgShare() : (<img src={ shareIcon } alt="Share" />) }
+                {copy ? (
+                  <span>Link copiado!</span>
+                ) : (<img src={ shareIcon } alt="Share" />)}
               </button>
-              <button
-                type="button"
-                data-testid="favorite-btn"
-              >
-                <img src={ whiteHeartIcon } alt="Favorit" />
-              </button>
+              {favoriteState ? removeButton() : addButton()}
             </div>
           </div>
           <article className="recipe-body">
@@ -123,13 +194,7 @@ function FoodRecipe({ match: { params: { id } } }) {
             />
             <h3>Recomendação</h3>
             <Recommendations recommendations={ recomendedDrink.slice(0, maxResult) } />
-            <button
-              className="start-recipe-btn"
-              type="button"
-              data-testid="start-recipe-btn"
-            >
-              Iniciar Receita
-            </button>
+            { buttonVerify() }
           </article>
         </>
       ) : null }
