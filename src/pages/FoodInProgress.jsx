@@ -19,7 +19,7 @@ function FoodInProgress({ match }) {
 
   const getData = async () => {
     const mealData = await fetchApi.fetchMealById(id);
-    setMeal(mealData);
+    setMeal(mealData || {});
   };
 
   useEffect(() => {
@@ -112,7 +112,7 @@ function FoodInProgress({ match }) {
     <div>
       <img
         data-testid="recipe-photo"
-        src={ meal.strMealThumb }
+        src={ meal && meal.strMealThumb }
         alt="meal"
         className="recipe-photo"
       />
