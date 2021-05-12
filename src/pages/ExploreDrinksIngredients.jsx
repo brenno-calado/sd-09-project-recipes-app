@@ -11,11 +11,22 @@ function ExploreDrinksIngredients() {
   return (
     <div>
       <Header title="Explorar Ingredientes" />
-      <main>
+      <main
+        style={ {
+          alignItems: 'center',
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-around',
+        } }
+      >
         {
           drinksIngredients.slice(0, MAX_NUMBER_OF_CARDS_12).map((curr, index) => (
             <Link to="/bebidas" key={ index }>
-              <div data-testid={ `${index}-ingredient-card` } className="card">
+              <div
+                data-testid={ `${index}-ingredient-card` }
+                className="card"
+                style={ { width: 150 } }
+              >
                 <img
                   src={ fetchApi.getDrinkIngredientsImg(curr.strIngredient1) }
                   alt=""

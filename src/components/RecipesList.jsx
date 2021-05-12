@@ -31,12 +31,19 @@ function FavoriteRecipesCards() {
 
   console.log(favoriteRecipes);
   return (
-    <div className="">
+    <main
+      style={ {
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+      } }
+    >
       <div className="categories-container">
         <button
           type="button"
           data-testid="filter-by-all-btn"
-          className=""
+          className="category-btn"
           value="All"
           onClick={ handleFavoriteRecipes }
         >
@@ -45,6 +52,7 @@ function FavoriteRecipesCards() {
         <button
           type="button"
           data-testid="filter-by-food-btn"
+          className="category-btn"
           onClick={ foodFilter }
         >
           Food
@@ -52,6 +60,7 @@ function FavoriteRecipesCards() {
         <button
           type="button"
           data-testid="filter-by-drink-btn"
+          className="category-btn"
           onClick={ drinkFilter }
         >
           Drinks
@@ -67,7 +76,7 @@ function FavoriteRecipesCards() {
             onClick={ handleClick }
           />
         )) }
-    </div>
+    </main>
   );
 }
 

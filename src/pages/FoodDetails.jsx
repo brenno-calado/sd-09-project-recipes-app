@@ -203,7 +203,7 @@ function FoodDetails({ match }) {
     const storageProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const inProgressFound = storageProgress !== null ? Object.keys(storageProgress.meals)
       : [];
-    const inProgress = inProgressFound.includes(id);
+    const mealInProgress = inProgressFound.includes(id);
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const done = doneRecipes !== null ? Object.keys(doneRecipes.meals).includes(id)
       : false;
@@ -215,7 +215,7 @@ function FoodDetails({ match }) {
           data-testid="start-recipe-btn"
           onClick={ startRecipe }
         >
-          {inProgress ? 'Continuar Receita' : 'Iniciar Receita'}
+          {mealInProgress ? 'Continuar Receita' : 'Iniciar Receita'}
         </button>
       </Link>
     );

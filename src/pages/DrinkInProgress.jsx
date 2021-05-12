@@ -15,8 +15,9 @@ function DrinkInProgress({ match }) {
   const [favorite, setFavorite] = useState(false);
 
   const getData = async () => {
+    console.log(id);
     const drinkData = await fetchApi.fetchDrinkById(id);
-    setDrink(drinkData);
+    setDrink(drinkData || {});
   };
 
   useEffect(() => {
@@ -60,8 +61,8 @@ function DrinkInProgress({ match }) {
   };
 
   const favorited = () => {
-    const type = 'comida';
-    const area = drink.strArea;
+    const type = 'bebida';
+    const area = '';
     const category = drink.strCategory;
     const alcoholicOrNot = drink.strAlcoholic;
     const name = drink.strDrink;

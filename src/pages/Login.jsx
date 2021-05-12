@@ -9,6 +9,10 @@ function Login() {
   const [redirect, setRedirect] = useState(false);
   const seven = 7;
   const validEmailRegex = /\S+@\S+\.\S+/.test(email);
+  const cocktails = [];
+  const meals = [];
+  const inProgress = { cocktails, meals };
+  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
 
   useEffect(() => {
     if (validEmailRegex && password.length >= seven) {

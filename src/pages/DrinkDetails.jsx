@@ -15,10 +15,6 @@ function DrinkDetails({ match }) {
   const [copied, setCopied] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const { id } = match.params;
-  const cocktails = [];
-  const meals = [];
-  const inProgress = { cocktails, meals };
-  localStorage.setItem('inProgressRecipes', JSON.stringify(inProgress));
 
   const fetchDetail = async () => {
     try {
