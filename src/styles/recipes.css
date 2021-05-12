@@ -115,3 +115,14 @@
   margin: 10px;
   width: 161px;
 }
+
+/* Tela de favoritos */
+.fav-card {
+  margin: 10px;
+  width: 161px;
+}
+
+.fav-img {
+  height: 150px;
+  width: 150px;
+}
