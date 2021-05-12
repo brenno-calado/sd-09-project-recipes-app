@@ -62,35 +62,39 @@ class CheckBoxIngredients extends React.Component {
     const measure = this.recoverMeasure();
     return (
       <div className="checkbox-ingredients-container">
-        {ingredients.map((ingredient, index) => (
-          <label
-            data-testid={ `${index}-ingredient-step` }
-            key={ index }
-            htmlFor={ ingredient }
-            className={ checkBoxClass[`checkBoxClass${index}`]
-              ? 'done-ingredient-list'
-              : 'undone-ingretient-list' }
-          >
-            <input
-              type="checkbox"
-              onChange={ this.changeListItemClass }
-              name={ `checkBoxClass${index}` }
-            />
-            {ingredient}
-            -
-            {measure[index]}
-          </label>
-        ))}
+        <div className="checkbox-items">
+          {ingredients.map((ingredient, index) => (
+            <label
+              data-testid={ `${index}-ingredient-step` }
+              key={ index }
+              htmlFor={ ingredient }
+              className={ checkBoxClass[`checkBoxClass${index}`]
+                ? 'done-ingredient-list'
+                : 'undone-ingretient-list' }
+            >
+              <input
+                type="checkbox"
+                onChange={ this.changeListItemClass }
+                name={ `checkBoxClass${index}` }
+              />
+              {ingredient}
+              -
+              {measure[index]}
+            </label>
+          ))}
+        </div>
         <Instructions recipe={ recipeObj } />
-        <Link to="/receitas-feitas">
-          <button
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled={ Object.values(this.state).some((element) => element === false) }
-          >
-            Finalizar receita
-          </button>
-        </Link>
+        <div className="recipe-done-btn">
+          <Link to="/receitas-feitas">
+            <button
+              type="button"
+              data-testid="finish-recipe-btn"
+              disabled={ Object.values(this.state).some((element) => element === false) }
+            >
+              Finalizar receita
+            </button>
+          </Link>
+        </div>
       </div>
     );
   }
