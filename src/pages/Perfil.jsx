@@ -5,10 +5,10 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import '../styles/recipes.css';
 
-async function ProfileScreen() {
+function ProfileScreen() {
   const [done, setDone] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const user = await JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const { email } = user;
 
   function handleRedirect({ target: { name } }) {
