@@ -21,13 +21,15 @@ class ExploreByIngredients extends Component {
     return (
       <>
         <Header title="Explorar Ingredientes" searchIcon={ searchIcon } />
-        { filteredIngredients.map((ingredient, index) => (
-          <IngredientsCard
-            key={ index }
-            ingredient={ ingredient }
-            index={ index }
-          />
-        )) }
+        <div className="ingredients-wrap">
+          { filteredIngredients.map((ingredient, index) => (
+            <IngredientsCard
+              key={ index }
+              ingredient={ ingredient }
+              index={ index }
+            />
+          )) }
+        </div>
         <FooterMenu />
       </>
     );

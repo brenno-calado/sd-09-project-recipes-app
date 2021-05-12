@@ -102,33 +102,40 @@ class DetailsHeader extends React.Component {
     const { favoriteBtn, linkCopied } = this.state;
     const query = path.includes('comidas') ? 'Meal' : 'Drink';
     return (
-      <div>
+      <div className="details-header-container">
         <img
+          className="details-header-img-recipe"
           src={ recipe[`str${query}Thumb`] }
           alt={ recipe[`str${query}`] }
           data-testid="recipe-photo"
         />
-        <h1 data-testid="recipe-title">{recipe[`str${query}`]}</h1>
-        {recipe.strAlcoholic
-          ? <h3 data-testid="recipe-category">Alcoholic</h3>
-          : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
-        <button
-          type="button"
-          onClick={ this.shareRecipe }
-        >
-          <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
-        </button>
-        <button
-          type="button"
-          onClick={ () => this.favoriteRecipe(recipe) }
-        >
-          <img
-            src={ favoriteBtn ? blackHeart : whiteHeart }
-            alt="white-Heart"
-            data-testid="favorite-btn"
-          />
-        </button>
-        { linkCopied !== '' && <span>{ linkCopied }</span> }
+        <div className="details-header-wrap">
+          <h1 data-testid="recipe-title">{recipe[`str${query}`]}</h1>
+          <div className="detail-header-btns">
+            <button
+              type="button"
+              onClick={ this.shareRecipe }
+            >
+              <img src={ shareIcon } alt="Shere-Icon" data-testid="share-btn" />
+            </button>
+            <button
+              type="button"
+              onClick={ () => this.favoriteRecipe(recipe) }
+            >
+              <img
+                src={ favoriteBtn ? blackHeart : whiteHeart }
+                alt="white-Heart"
+                data-testid="favorite-btn"
+              />
+            </button>
+          </div>
+        </div>
+        <div className="details-header-category">
+          {recipe.strAlcoholic
+            ? <h3 data-testid="recipe-category">Alcoholic</h3>
+            : <h3 data-testid="recipe-category">{recipe.strCategory}</h3>}
+          { linkCopied !== '' && <span>{ linkCopied }</span> }
+        </div>
       </div>
     );
   }

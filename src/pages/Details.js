@@ -88,32 +88,36 @@ class Details extends React.Component {
     if (!recipe) return <p>Loading...</p>;
     if (!recipe[0] || !recommendations[0]) return <p>Loading...</p>;
     return (
-      <div>
+      <div className="details-container">
         <DetailsHeader recipe={ recipe[0] } path={ match.path } />
         <IngredientsList recipe={ recipe[0] } />
         <Instructions recipe={ recipe[0] } />
-        {recipe[0].strYoutube
-          && <iframe
-            data-testid="video"
-            src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` }
-            title={ recipe[0].strTags }
-            width="360"
-            height="200"
-          />}
+        <div className="details-youtube">
+          {recipe[0].strYoutube
+            && <iframe
+              data-testid="video"
+              src={ `https://www.youtube.com/embed/${recipe[0].strYoutube.split('=')[1]}` }
+              title={ recipe[0].strTags }
+              width="320"
+              height="200"
+            />}
+        </div>
         <Recommendations />
-        {renderBtn
-        && (
-          <Link to={ `${location}/in-progress` }>
-            <button
-              type="button"
-              data-testid="start-recipe-btn"
-              className="start-btn"
-              onClick={ this.handleClick }
-            >
-              {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
-            </button>
-          </Link>
-        )}
+        <div className="init-recipe-app">
+          {renderBtn
+          && (
+            <Link to={ `${location}/in-progress` }>
+              <button
+                type="button"
+                data-testid="start-recipe-btn"
+                className="start-btn"
+                onClick={ this.handleClick }
+              >
+                {isStartedRecipe ? 'Continuar Receita' : 'Iniciar Receita'}
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
     );
   }

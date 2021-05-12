@@ -34,7 +34,7 @@ class IngredientsList extends React.Component {
     const ingredients = this.recoverIngredients();
     const measure = this.recoverMeasure();
     return (
-      <div>
+      <div className="ingredients-list-container">
         <h3>Ingredients</h3>
         <ul>
           { ingredients.map((ingredient, index) => (

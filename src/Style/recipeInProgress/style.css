@@ -1,3 +1,46 @@
 .done-ingredient-list {
   text-decoration: none solid black;
 }
+
+.checkbox-ingredients-container {
+  background: rgb(241, 241, 245);
+  padding-top: 20px;
+}
+
+.checkbox-items {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: rgb(64, 64, 64);
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  padding: 20px;
+}
+
+.checkbox-items input {
+  margin-right: 10px;
+}
+
+.recipe-done-btn {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 20px 20px;
+}
+
+.recipe-done-btn button {
+  background: rgb(47, 193, 140);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 10px 16px;
+}
+
+.recipe-done-btn button:disabled {
+  background: rgb(60, 223, 163);
+  color: rgb(41, 160, 116);
+}
+
+.recipe-done-btn button:hover {
+  background: rgb(50, 202, 146);
+}

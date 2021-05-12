@@ -6,7 +6,7 @@ class RecommendationCard extends React.Component {
     const { recommendationRecipe, index } = this.props;
     const query = window.location.pathname.includes('comidas') ? 'Drink' : 'Meal';
     return (
-      <div>
+      <div className="recommendation-card">
         <img
           src={ recommendationRecipe[`str${query}Thumb`] }
           alt={ recommendationRecipe[`str${query}`] }

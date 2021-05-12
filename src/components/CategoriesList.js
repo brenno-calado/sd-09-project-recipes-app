@@ -7,6 +7,7 @@ import {
   setIsCategoryToTrueAction,
   defaultFetchApiAction,
 } from '../actions';
+import '../Style/CategoriesList/style.css';
 
 class CategoriesList extends React.Component {
   constructor() {
@@ -46,7 +47,7 @@ class CategoriesList extends React.Component {
     const filteredCategories = categories && categories
       .filter((_, index) => index < mxmcategories);
     return (
-      <div>
+      <div className="categorieslist-container">
         <button
           data-testid="All-category-filter"
           type="button"

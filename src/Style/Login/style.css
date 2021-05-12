@@ -1,0 +1,63 @@
+.login-container {
+  align-items: center;
+  background: rgb(227, 238, 228);
+  display: flex;
+  flex-direction: column;
+  font-family: Ubuntu , sans-serif;
+  height: 100vh;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* IMAGES */
+.img-logo-chef {
+  width: 280px;
+}
+
+.img-chef {
+  width: 150px;
+}
+
+.login-form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px 0;
+  width: 280px;
+}
+
+.login-input {
+  border: none;
+  border-radius: 10px;
+  color: rgb(64, 64, 64);
+  font-size: 18px;
+  margin-bottom: 10px;
+  padding: 10px 16px;
+  width: 280px;
+}
+
+.login-input::placeholder {
+  color: rgb(191, 201, 191);
+}
+
+.login-btn {
+  background: rgb(47, 193, 140);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: all 300ms ease;
+  width: 100%;
+}
+
+.login-btn:disabled {
+  background: rgb(60, 223, 163);
+  color: rgb(41, 160, 116);
+}
+
+.login-btn:hover {
+  background: rgb(50, 202, 146);
+}
