@@ -6,6 +6,8 @@ import useDrinkDetailsHook from '../../hooks/useDrinkDetailsHook';
 import useFavoritesHook from '../../hooks/useFavoritesHook';
 import DrinkDetailsInfo from '../../components/DrinkDetailsInfo';
 
+import './DrinkDetails.css';
+
 const initialInProgressRecipesValue = { cocktails: {}, meals: {} };
 
 function DrinkDetails(props) {
