@@ -25,9 +25,27 @@ function ProcessoComida() {
     name: oneFood.strMeal,
     image: oneFood.strMealThumb,
   };
+
+  const date = new Date();
+  const doneDate = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}}`;
+
+  const recipeDone = {
+    id: oneFood.idMeal,
+    type: 'comida',
+    area: oneFood.strArea,
+    category: oneFood.strCategory,
+    alcoholicOrNot: '',
+    name: oneFood.strMeal,
+    image: oneFood.strMealThumb,
+    doneDate,
+    tags: ['a', 'b'],
+  };
   const values = [];
 
   const terminateRedirect = () => {
+    const localStorageTemp = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    localStorageTemp.push(recipeDone);
+    localStorage.setItem('doneRecipes', JSON.stringify(localStorageTemp));
     setRedirect(true);
   };
 
