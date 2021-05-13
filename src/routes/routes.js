@@ -9,10 +9,10 @@ import {
   ExplorerDrinks,
   ExplorerFoods,
   ExplorerFoodsIngredients,
-  ExplorerFoodsOrigin } from '../pages/Explorer';
+  ExplorerFoodsRegion } from '../pages/Explorer';
 import { RecipesFavorite, RecipesMade } from '../pages/Recipes';
 import Profile from '../pages/Profile';
-import ExplorerDrinksIngredients from '../pages/Explorer/ExplorerDrinksIngredientes';
+import ExplorerDrinksIngredients from '../pages/Explorer/ExplorerDrinksIngredients';
 
 function routes() {
   return (
@@ -39,7 +39,7 @@ function routes() {
           path="/explorar/bebidas/ingredientes"
           component={ ExplorerDrinksIngredients }
         />
-        <Route path="/explorar/comidas/area" exact component={ ExplorerFoodsOrigin } />
+        <Route path="/explorar/comidas/area" exact component={ ExplorerFoodsRegion } />
         <Route component={ NotFound } />
       </Switch>
     </BrowserRouter>
