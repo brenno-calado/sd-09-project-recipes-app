@@ -10,7 +10,7 @@ export const favoriteRecipesAction = (favoriteRecipes) => ({
 
 export const INPROGRESSRECIPES_ACTION = 'INPROGRESSRECIPES_ACTION';
 
-export const inProgressRecipesAction = (inProgressRecipes, name) => {
+export const inProgressRecipesAction = (inProgressRecipes) => {
   let progress = inProgressRecipes;
 
   if (!inProgressRecipes) {
@@ -20,6 +20,5 @@ export const inProgressRecipesAction = (inProgressRecipes, name) => {
   return ({
     type: INPROGRESSRECIPES_ACTION,
     progress,
-    name,
   });
 };

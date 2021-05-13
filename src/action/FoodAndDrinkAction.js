@@ -167,7 +167,6 @@ export const filterAreaThunkAction = (area) => async (dispatch) => {
   if (area !== 'All') {
     endpoint = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${area}`;
   }
-  console.log(endpoint);
   const response = await fetch(endpoint);
   const result = await response.json();
   return dispatch(

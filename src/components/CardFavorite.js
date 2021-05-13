@@ -21,10 +21,6 @@ class CardFavorite extends React.Component {
     };
   }
 
-  componentDidMount() {
-
-  }
-
   copyCodeToClipboard() {
     const { favorite } = this.props;
     copy(`http://localhost:3000/${favorite.type}s/${favorite.id}`);
@@ -33,7 +29,6 @@ class CardFavorite extends React.Component {
 
   removeFavorite() {
     const { favorite, setFavorite, getFavoriteRecipes, handleFilter } = this.props;
-    console.log(getFavoriteRecipes);
     const favoriteFilter = getFavoriteRecipes
       .filter((favoriteF) => favoriteF.id !== favorite.id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteFilter));

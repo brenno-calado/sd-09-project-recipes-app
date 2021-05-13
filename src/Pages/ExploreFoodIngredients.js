@@ -13,15 +13,11 @@ function ExploreFoodIngredients(props) {
   useEffect(() => {
     const twelve = 12;
     (async function ingredientApi() {
-      try {
-        const response = await
-        fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
-        const data = await response.json();
-        const dataNames = data.meals.slice(0, twelve);
-        setNames([...dataNames]);
-      } catch (error) {
-        console.error(error);
-      }
+      const response = await
+      fetch('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+      const data = await response.json();
+      const dataNames = data.meals.slice(0, twelve);
+      setNames([...dataNames]);
     }());
   }, []);
 

@@ -13,14 +13,10 @@ function ExploreDrinkIngredients(props) {
   useEffect(() => {
     const twelve = 12;
     (async function ingredientApi() {
-      try {
-        const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
-        const data = await response.json();
-        const dataNames = data.drinks.slice(0, twelve);
-        setNames([...dataNames]);
-      } catch (error) {
-        console.error(error);
-      }
+      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+      const data = await response.json();
+      const dataNames = data.drinks.slice(0, twelve);
+      setNames([...dataNames]);
     }());
   }, []);
 

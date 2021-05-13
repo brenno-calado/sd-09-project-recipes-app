@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import FooterSpec from '../components/FooterSpec';
 import { randomDrinkDetailsThunk } from '../action/FoodAndDrinkDetailsAction';
+import '../styles/ExploreFoods.css';
 
 function ExploreDrinks() {
   const dispatch = useDispatch();
@@ -20,20 +21,26 @@ function ExploreDrinks() {
 
   return (
     <div>
+
       <Header titleHeader="Explorar Bebidas" id="1" />
-      <p>Explore Drinks</p>
-      <p>aqui será renderizado o header</p>
-      <Link to="/explorar/bebidas/ingredientes">
-        <button
-          type="button"
-          data-testid="explore-by-ingredient"
-        >
-          Por Ingredientes
-        </button>
-      </Link>
-      <Link to={ `/bebidas/${getDrinkDetails.idDrink}` }>
-        <button type="button" data-testid="explore-surprise">Me Surpreenda!</button>
-      </Link>
+      <div className="main-explore-foods">
+        <Link to="/explorar/bebidas/ingredientes">
+          <button
+            type="button"
+            data-testid="explore-by-ingredient"
+          >
+            Por Ingredientes
+          </button>
+        </Link>
+        <Link to={ `/bebidas/${getDrinkDetails.idDrink}` }>
+          <button
+            type="button"
+            data-testid="explore-surprise"
+          >
+            Me Surpreenda!
+          </button>
+        </Link>
+      </div>
       <FooterSpec />
     </div>
   );
