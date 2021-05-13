@@ -38,7 +38,7 @@ function MealsCategories() {
   if (!categories.length) return <div>Loading...</div>;
 
   return (
-    <section>
+    <section className="d-flex">
       <button
         data-testid="All-category-filter"
         type="button"
