@@ -1,13 +1,38 @@
-import React from 'react';
-import Header from '../../components/Header';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import ExploreByWhat from '../../components/Buttons/ExploreByWhat';
 import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import { getRandomRecipe } from '../../services/api';
 
-export default function ExplorerDrinks() {
+function ExplorerDrinks() {
+  const [randomRecipeNumber, setRandomRecipeNumber] = useState('');
+  const history = useHistory();
+  const onClickSurprise = () => history.push(`/bebidas/${randomRecipeNumber}`);
+
+  useEffect(() => {
+    async function setTheRandom() {
+      const setting = await getRandomRecipe('random', 'Drinks');
+      setRandomRecipeNumber(setting.drinks[0].idDrink);
+    } setTheRandom();
+  }, []);
+
   return (
     <div>
-      <Header title="Explorar Bebidas" icon="false" currentPage="Drinks" />
-      Explorar Bebidas
+      <Header name="Explorar Bebidas" currentPage="Drinks" icon="false" />
+      <ExploreByWhat
+        dataTestId="ingredient"
+        ptBr="Ingredientes"
+        onClick={ () => history.push('/explorar/bebidas/ingredientes') }
+      />
+      <ExploreByWhat
+        dataTestId="surprise"
+        ptBr="Me Surpreenda!"
+        onClick={ onClickSurprise }
+      />
       <Footer />
     </div>
   );
 }
+
+export default ExplorerDrinks;
