@@ -1,2 +1,2 @@
-export { default as RecipesFavorite } from './RecipesFavorite';
-export { default as RecipesMade } from './RecipesMade';
+export { default as RecipesFavorite } from './FavoriteRecipes';
+export { default as RecipesMade } from './DoneRecipes';
