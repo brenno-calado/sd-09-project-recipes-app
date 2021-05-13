@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import Card from '../components/Card';
 
-// import doneRecipes from '../services/zz'; Onde pego as receitas feitas.
-
 import '../styles/recipes.css';
 
 function ReceitasFeitas() {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  console.log(doneRecipes);
   const [list, setList] = useState(doneRecipes);
 
   const doList = (filter) => {
@@ -29,7 +29,27 @@ function ReceitasFeitas() {
     }
   };
 
-  console.log(list);
+  const recipesList = (listArg) => {
+    if (listArg === null) {
+      return <p>Sem receitas feitas :(</p>
+    };
+
+    return listArg.map(
+      (recipe, index) => {
+        if (recipe === undefined) {
+          return null;
+        }
+        return (
+          <Card
+            key={ recipe.id }
+            recipe={ recipe }
+            indice={ index }
+          />
+        );
+      },
+    );
+  };
+
   return (
     <>
       <Header textProp="Receitas Feitas" />
@@ -62,22 +82,7 @@ function ReceitasFeitas() {
         </button>
       </div>
       <div>
-        {
-          list.map(
-            (recipe, index) => {
-              if (recipe === undefined) {
-                return null;
-              }
-              return (
-                <Card
-                  key={ recipe.id }
-                  recipe={ recipe }
-                  indice={ index }
-                />
-              );
-            },
-          )
-        }
+        { recipesList(list) }
       </div>
     </>
   );
