@@ -1,11 +1,10 @@
 import React, { useContext } from 'react';
 import { Redirect } from 'react-router';
-import Header from '../components/Header';
-// import MainButtons from '../components/MainButtons';
-import FoodCards from '../components/FoodCards';
-import Footer from '../components/Footer';
+import Header from './Header';
+import MainButtons from './MainButtons';
+import FoodCards from './FoodCards';
+import Footer from './Footer';
 import MealContext from '../context/MealContext';
-import AreaList from '../components/AreaList';
 
 function MainFoods() {
   const { foods } = useContext(MealContext);
@@ -17,7 +16,7 @@ function MainFoods() {
 
       <Header textProp="Comidas" />
 
-      <AreaList />
+      <MainButtons />
 
       <FoodCards />
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../components/Header';
+import MainFoods from '../components/MainFoods';
 
 function PrincipalComidas() {
   return (
     <div>
-      <Header textProp="Comidas" />
-      <span>Placeholder</span>
-    </div>);
+      <MainFoods />
+    </div>
+  );
 }
 
 export default PrincipalComidas;

@@ -127,3 +127,5 @@ describe('81 - Implemente a rota que deve ser apenas `/explorar/comidas/area`', 
     cy.contains('Not Found');
   });
 });
+
+// https://trybe.zoom.us/my/henriquericci

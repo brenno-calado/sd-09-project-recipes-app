@@ -20,6 +20,7 @@ import ProcessoBebida from './pages/ProcessoBebida';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import Login from './pages/Login';
+import ExplorarBebidasArea from './pages/ExplorarBebidasArea';
 
 function App() {
   return (
@@ -27,18 +28,18 @@ function App() {
       <main className="main">
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/comidas" component={ PrincipalComidas } />
-          <Route path="/bebidas" component={ PrincipalBebidas } />
+          <Route exact path="/comidas" component={ PrincipalComidas } />
+          <Route exact path="/bebidas" component={ PrincipalBebidas } />
 
-          <Route path="/comidas/id-da-receita" component={ DetalhesComida } />
+          <Route exact path="/comidas/:id" component={ DetalhesComida } />
 
-          <Route path="/bebidas/id-da-receita" component={ DetalhesBebida } />
+          <Route exact path="/bebidas/:id" component={ DetalhesBebida } />
 
           <Route
-            path="/comidas/id-da-receita/in-progress"
+            path="/comidas/:id/in-progress"
             component={ ProcessoComida }
           />
-          <Route path="/bebidas/id-da-receita/in-progress" component={ ProcessoBebida } />
+          <Route path="/bebidas/:id/in-progress" component={ ProcessoBebida } />
           <Route exact path="/explorar" component={ Explorar } />
           <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
           <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
@@ -49,6 +50,7 @@ function App() {
           />
           <Route path="/explorar/bebidas/ingredientes" component={ ExplorarBebidasIng } />
           <Route path="/explorar/comidas/area" component={ ExplorarComidasArea } />
+          <Route path="/explorar/bebidas/area" component={ ExplorarBebidasArea } />
           <Route path="/perfil" component={ Perfil } />
           <Route path="/receitas-feitas" component={ ReceitasFeitas } />
           <Route path="/receitas-favoritas" component={ ReceitasFavoritas } />
