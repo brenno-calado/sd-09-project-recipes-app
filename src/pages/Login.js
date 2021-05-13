@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import cooking from '../images/cooking.svg';
 
 class Login extends Component {
   constructor(props) {
@@ -34,7 +35,24 @@ class Login extends Component {
     const emailValidate = /^((?!\.)[\w-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gim;
     const passLength = 7;
     return (
-      <div>
+      <div className="login">
+        <div
+          className="fade-in-fwd"
+          style={
+            { width: '100px',
+              height: '100px' }
+          }
+        >
+          <img
+            className="front face"
+            style={
+              { width: '100px',
+                height: '100px' }
+            }
+            src={ cooking }
+            alt="teste"
+          />
+        </div>
         Login
         <input
           type="email"
