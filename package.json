@@ -22,7 +22,6 @@
     "react-multi-carousel": "^2.6.2",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
-    "sass": "^1.32.12",
     "websocket-extensions": ">=0.1.4"
   },
   "scripts": {
@@ -62,6 +61,8 @@
     "mochawesome": "^6.1.1",
     "mochawesome-merge": "^4.1.0",
     "mochawesome-report-generator": "^5.1.0",
+    "sass": "^1.32.13",
+    "sass-loader": "^11.1.0",
     "stylelint": "^13.8.0",
     "stylelint-order": "^4.1.0"
   },
