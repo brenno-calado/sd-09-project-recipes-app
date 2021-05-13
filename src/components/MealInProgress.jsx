@@ -27,9 +27,12 @@ function ProcessoComida() {
   };
 
   const date = new Date();
-  const doneDate = `${date.getDay()}/${date.getMonth()}/${date.getFullYear()}}`;
+  // const doneDate = `${date.getDay()}/${date.getMonth()}/${date.getYear()}}`;
+  const day = date.getDay();
+  const month = date.getMonth();
+  const year = date.getFullYear();
 
-  const recipeDone = {
+  const recipeDone = [{
     id: oneFood.idMeal,
     type: 'comida',
     area: oneFood.strArea,
@@ -37,13 +40,13 @@ function ProcessoComida() {
     alcoholicOrNot: '',
     name: oneFood.strMeal,
     image: oneFood.strMealThumb,
-    doneDate,
-    tags: ['a', 'b'],
-  };
+    doneDate: `${day}/${month + 1}/${year}`,
+    tags: oneFood.strTags,
+  }];
   const values = [];
 
   const terminateRedirect = () => {
-    const localStorageTemp = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    const localStorageTemp = JSON.parse(localStorage.getItem('doneRecipes'));
     localStorageTemp.push(recipeDone);
     localStorage.setItem('doneRecipes', JSON.stringify(localStorageTemp));
     setRedirect(true);
