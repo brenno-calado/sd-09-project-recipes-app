@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { useRecipeContext } from '../contexts/recipeContext';
+import styles from './login.module.css';
 
 function Login() {
   const { handleLocalStorage } = useRecipeContext();
@@ -41,52 +42,50 @@ function Login() {
   if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
-    <Form style={ { width: 300 } }>
-      <h1 style={ { marginLeft: 90 } }>Login</h1>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label
-          htmlFor="emailInput"
-        >
-          Endereço de Email
-        </Form.Label>
-        <Form.Control
-          type="email"
-          placeholder="Digite seu email"
-          id="emailInput"
-          data-testid="email-input"
-          name="emailInput"
-          onChange={ handleInputChange }
-        />
-      </Form.Group>
+    <div className={ styles.formContainer }>
+      <h1>Login</h1>
+      <Form className={ styles.form }>
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label
+            htmlFor="emailInput"
+          />
+          <Form.Control
+            type="email"
+            placeholder="Email"
+            id="emailInput"
+            data-testid="email-input"
+            name="emailInput"
+            onChange={ handleInputChange }
+          />
+        </Form.Group>
 
-      <Form.Group controlId="formBasicPassword">
-        <Form.Label
-          htmlFor="passwordInput"
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label
+            htmlFor="passwordInput"
+          />
+          <Form.Control
+            placeholder="Senha"
+            type="password"
+            data-testid="password-input"
+            id="passwordInput"
+            name="passwordInput"
+            onChange={ handleInputChange }
+          />
+        </Form.Group>
+        <Button
+          className={ styles.formBtn }
+          variant="danger"
+          type="button"
+          data-testid="login-submit-btn"
+          id="login-submit-btn"
+          name="login-submit-btn"
+          disabled={ isDataValid }
+          onClick={ () => { handleLocalStorage(); userEmailLocalStorage(); } }
         >
-          Senha
-        </Form.Label>
-        <Form.Control
-          placeholder="Digite sua senha"
-          type="password"
-          data-testid="password-input"
-          id="passwordInput"
-          name="passwordInput"
-          onChange={ handleInputChange }
-        />
-      </Form.Group>
-      <Button
-        variant="primary"
-        style={ { width: 230, marginLeft: 30 } }
-        type="button"
-        data-testid="login-submit-btn"
-        id="login-submit-btn"
-        name="login-submit-btn"
-        disabled={ isDataValid }
-        onClick={ () => { handleLocalStorage(); userEmailLocalStorage(); } }
-      >
-        Entrar
-      </Button>
-    </Form>
+          Entrar
+        </Button>
+      </Form>
+    </div>
   );
 }
 

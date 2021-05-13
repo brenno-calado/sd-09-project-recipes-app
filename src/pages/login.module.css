@@ -1,0 +1,29 @@
+.formContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-left: -36px;
+  margin-top: 40%;
+  padding: 5px;
+}
+
+.formBtn {
+  width: 101%;
+}
+
+@media screen and (min-width: 600px) {
+  .formContainer {
+    margin-top: 5%;
+    padding: 5px;
+    width: 100%;
+  }
+
+  .formBtn {
+    width: 101%;
+  }
+
+  .form {
+    width: 50%;
+  }
+}
+

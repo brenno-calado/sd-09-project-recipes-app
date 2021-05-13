@@ -1,16 +1,62 @@
-.details {
-  height: 300px;
-  width: 300px;
-}
-
-/* .scrollingWrapper {
-  display: flex;
-  height: 400px;
-  width: 540px;
-  background-color: red;
-} */
-
 .startButton {
   bottom: 0;
   position: fixed;
+  margin-left: -37px;
+  width: 102%;
+}
+
+.carouselContainer {
+  margin-left: -22px;
+  width: 20.8rem;
+  margin-bottom: 20px;
+}
+
+.carouselTitle {
+  color: white; 
+  font-weight: 700; 
+  background: rgba(255, 0, 0, 0.582);
+  border-radius: 5px;
+}
+
+.sniper {
+  margin-left: 40%;
+  margin-top: 90%;
+}
+
+@media screen and (max-width: 320px) {
+  .carouselContainer {
+    margin-left: -22px;
+    width: 16rem;
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .carouselContainer {
+    margin-left: -22px;
+    width: 22rem;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 411px) {
+  .carouselContainer {
+    margin-left: -22px;
+    width: 24.1rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .cardContainer {
+    width: 100%;
+  }
+
+  .carouselContainer {
+    margin-left: 19%;
+    width: 59.4%;
+  }
+
+  .sniper {
+    margin-left: 46.5%;
+    margin-top: 20%;
+  }
 }

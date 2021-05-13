@@ -6,7 +6,7 @@ import profileIcon from '../../images/profileIcon.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { useRecipeContext } from '../../contexts/recipeContext';
 
-function HeaderFoods({ children, hassearchbar }) {
+function HeaderFoods({ children, hasSearchBar }) {
   const { handleChangeSearchBar } = useRecipeContext();
   const [redirect, setRedirect] = useState(false);
 
@@ -21,17 +21,27 @@ function HeaderFoods({ children, hassearchbar }) {
         type="button"
         className={ styles.headerBtn }
       >
-        <img data-testid="profile-top-btn" src={ profileIcon } alt="Ícone de perfil" />
+        <img
+          className={ styles.svg }
+          data-testid="profile-top-btn"
+          src={ profileIcon }
+          alt="Ícone de perfil"
+        />
       </button>
 
       <div data-testid="page-title">{children}</div>
-      {hassearchbar && (
+      {hasSearchBar && (
         <button
           onClick={ handleChangeSearchBar }
           type="button"
           className={ styles.headerBtn }
         >
-          <img data-testid="search-top-btn" src={ searchIcon } alt="Pesquisar" />
+          <img
+            className={ styles.svg }
+            data-testid="search-top-btn"
+            src={ searchIcon }
+            alt="Pesquisar"
+          />
         </button>
       )}
     </header>
@@ -40,11 +50,11 @@ function HeaderFoods({ children, hassearchbar }) {
 
 HeaderFoods.propTypes = {
   children: shape(),
-  hassearchbar: bool,
+  hasSearchBar: bool,
 };
 
 HeaderFoods.defaultProps = {
   children: [],
-  hassearchbar: bool,
+  hasSearchBar: bool,
 };
 export default HeaderFoods;

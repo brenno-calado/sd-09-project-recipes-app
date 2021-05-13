@@ -1,0 +1,95 @@
+.cardContainer {
+  width: 21rem;
+  margin: 10px 0;
+  margin-left: -25px;
+  padding: 5px;
+  padding: 5px;
+}
+
+.cardBtn {
+  display: flex;
+  justify-content: flex-end; 
+  gap: 15px;
+}
+
+.btn {
+  background: transparent; 
+  border: none; 
+  margin: 5px;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+}
+
+.cardVideo {
+  width: 20.2rem
+}
+
+@media screen and (max-width: 320px) {
+  .cardContainer {
+    width: 16.3rem;
+  }
+
+  .cardVideo {
+    width: 15.5rem
+  }
+}
+
+@media screen and (min-width: 365px) {
+  .cardContainer {
+    width: 24.3rem;
+  }
+  .cardVideo {
+    width: 23.5rem
+  }
+}
+
+@media screen and (min-width: 375px) {
+  .cardContainer {
+    width: 22.2rem;
+  }
+  .cardVideo {
+    width: 21.2rem
+  }
+}
+
+@media screen and (min-width: 411px) {
+  .cardContainer {
+    width: 24.2rem;
+  }
+  .cardVideo {
+    width: 23.4rem
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .cardContainer {
+    width: 100%;
+  }
+
+  .cardText {
+    font-size: 1.5rem;
+  }
+
+  .cardTitle {
+    padding: 15px;
+    font-size: 2.5rem;
+  }
+
+  .btnImage {
+    width: 3rem;
+  }
+
+  .cardImage {
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .cardVideo {
+    width: 60%;
+    height: 400px;
+    align-self: center;
+  }
+
+} 

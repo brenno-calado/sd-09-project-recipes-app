@@ -8,6 +8,7 @@ import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcons from '../../images/shareIcon.svg';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import { useRecipeContext } from '../../contexts/recipeContext';
+import styles from './cardDetails.module.css';
 
 function CardDetails({
   image, title, video, categoryText, instructions, type, id, inputState,
@@ -31,34 +32,42 @@ function CardDetails({
   }, [children.length, id, type, setBtnText, inputState, setShouldBtnApear]);
 
   return (
-    <Card style={ { width: '18rem', margin: '15px 0 ', padding: '5px' } }>
+    <Card className={ styles.cardContainer }>
       <Card.Img
+        className={ styles.cardImage }
         variant="top"
         width="340px"
         src={ image }
         data-testid="recipe-photo"
         alt={ title }
       />
-      <Card.Title data-testid="recipe-title">{ title }</Card.Title>
+      <h1
+        className={ styles.cardTitle }
+        data-testid="recipe-title"
+      >
+        { title }
+
+      </h1>
       {!shouldVideoApear && <p data-testid="recipe-category">{isAlcoholic}</p>}
-      <div style={ { display: 'flex', justifyContent: 'flex-end', gap: '15px' } }>
+      <div className={ styles.cardBtn }>
         <CopyToClipboard text={ url }>
           <button
-            style={ { background: 'transparent', border: 'none' } }
+            className={ styles.btn }
             onClick={ handleClickUrl }
             data-testid="share-btn"
             type="button"
           >
-            <img src={ shareIcons } alt="Compartilhar" />
+            <img className={ styles.btnImage } src={ shareIcons } alt="Compartilhar" />
           </button>
         </CopyToClipboard>
         {copyUrl}
         <button
-          style={ { background: 'transparent', border: 'none' } }
+          className={ styles.btn }
           type="button"
           onClick={ handleFavoriteClick }
         >
           <img
+            className={ styles.btnImage }
             data-testid="favorite-btn"
             src={ favorite ? blackHeart : whiteHeart }
             alt="Favoritar"
@@ -68,18 +77,24 @@ function CardDetails({
 
       <Card.Text data-testid="recipe-category">{ categoryText }</Card.Text>
 
-      <Card.Text>
+      <Card.Text className={ styles.cardText }>
         {children}
       </Card.Text>
 
-      <Card.Text data-testid="instructions">{ instructions }</Card.Text>
+      <Card.Text
+        className={ styles.cardText }
+        data-testid="instructions"
+      >
+        { instructions }
+      </Card.Text>
 
       { shouldVideoApear && (
         <iframe
+          className={ styles.cardVideo }
           title={ title }
           width="278"
           height="200"
-          src={ video }
+          src={ video.replace('watch?v=', 'embed/') }
           data-testid="video"
         />
       )}

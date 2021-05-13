@@ -1,21 +1,22 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, Spinner } from 'react-bootstrap';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 import filterAllDrinkButton from './filterAllDrinkButton';
 import categoryDrinkButton from './categoryDrinkButton';
+import styles from './headerRenderFoodAndDrinks.module.css';
 
 function headerRenderDrink({
   drink,
+  render,
   handleClickButtonName,
-  handleFetchDrinkClick,
   twelve,
+  handleFetchDrinkClick,
   recipesData,
   setListDrinkByCategory,
   setRecipesData,
-  render,
 
 }) {
   const renderSearch = recipesData.drinks && (recipesData.drinks
@@ -35,12 +36,14 @@ function headerRenderDrink({
     )));
 
   return (
-    <>
+    <div className={ styles.container }>
       <HeaderFoods hassearchbar>
         <h1 data-testid="page-title">Bebidas</h1>
       </HeaderFoods>
       <SearchBar>
         <Button
+          variant="danger"
+          className={ styles.searchBtn }
           onClick={ () => { handleFetchDrinkClick(); } }
           data-testid="exec-search-btn"
           type="button"
@@ -48,15 +51,21 @@ function headerRenderDrink({
           Buscar
         </Button>
       </SearchBar>
-      <div style={ { display: 'flex', marginTop: '10px' } }>
+      <div className={ styles.filterBtn }>
         { filterAllDrinkButton(setListDrinkByCategory, setRecipesData) }
         {categoryDrinkButton(drink, handleClickButtonName) }
       </div>
-      <div style={ { marginLeft: '-10px', display: 'flex', flexWrap: 'wrap' } }>
-        {recipesData.drinks ? renderSearch : render }
-      </div>
+      { render || renderSearch ? (
+        <div className={ styles.contentContainer }>
+          {recipesData.drinks ? renderSearch : render }
+        </div>
+      ) : (
+        <Spinner className={ styles.sniper } animation="grow" variant="danger">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      )}
       <BottomMenu />
-    </>
+    </div>
   );
 }
 

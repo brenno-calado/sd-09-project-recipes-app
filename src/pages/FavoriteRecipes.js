@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import HeaderFoods from '../components/HeaderFoods';
 import RecipeDoneCard from '../components/RecipeDoneCard';
 import renderDrink from '../utils/renderDrink';
 import renderFood from '../utils/renderFood';
+import styles from './recipesMade.module.css';
 
 function FavoriteRecipes() {
   const [favorites, setFavorites] = useState([]);
@@ -61,12 +62,13 @@ function FavoriteRecipes() {
   const renderDrinks = buttonSelect === 'drink'
     ? renderDrink(favorite, setFavorite) : favorites;
   return (
-    <>
-      <HeaderFoods hassearchbar={ false }>
-        <h1 data-testid="page-title">Receitas Favoritas</h1>
+    <div className={ styles.doneRecipesContainer }>
+      <HeaderFoods hasSearchBar={ false }>
+        <h2 data-testid="page-title">Receitas Favoritas</h2>
       </HeaderFoods>
-      <section>
+      <ButtonGroup className="mb-2" style={ { width: '97%', margin: ' 3px 1.35%' } }>
         <Button
+          variant="outline-danger"
           onClick={ handleButtonFilterName }
           name="all"
           data-testid="filter-by-all-btn"
@@ -75,6 +77,7 @@ function FavoriteRecipes() {
           All
         </Button>
         <Button
+          variant="outline-danger"
           onClick={ handleButtonFilterName }
           name="food"
           data-testid="filter-by-food-btn"
@@ -83,6 +86,7 @@ function FavoriteRecipes() {
           Food
         </Button>
         <Button
+          variant="outline-danger"
           onClick={ handleButtonFilterName }
           name="drink"
           data-testid="filter-by-drink-btn"
@@ -90,9 +94,9 @@ function FavoriteRecipes() {
         >
           Drinks
         </Button>
-      </section>
+      </ButtonGroup>
       {buttonSelect === 'food' ? renderFoods : renderDrinks }
-    </>
+    </div>
   );
 }
 

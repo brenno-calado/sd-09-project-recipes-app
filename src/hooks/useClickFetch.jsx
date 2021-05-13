@@ -32,38 +32,46 @@ function useClickFetch() {
   }
 
   async function handleFetchFoodClick() {
-    if (checkValue === 'ingredient') {
+    if (checkValue === 'ingredient' && inputValue) {
       const apiData = await getRecipeByIngredient(inputValue);
+      setInputValue('');
       setRecipesData(apiData);
     }
-    if (checkValue === 'name') {
+    if (checkValue === 'name' && inputValue) {
       const apiData = await getRecipeByName(inputValue);
+      setInputValue('');
       setRecipesData(apiData);
     }
-    if (checkValue === 'firstLetter') {
+    if (checkValue === 'firstLetter' && inputValue) {
       if (inputValue.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
+        setInputValue('');
+      } else {
+        const apiData = await getRecipeByFirstLetter(inputValue);
+        setRecipesData(apiData);
       }
-      const apiData = await getRecipeByFirstLetter(inputValue);
-      setRecipesData(apiData);
     }
   }
 
   async function handleFetchDrinkClick() {
-    if (checkValue === 'ingredient') {
+    if (checkValue === 'ingredient' && inputValue) {
       const apiData = await getDrinkByIngredient(inputValue);
+      setInputValue('');
       setRecipesData(apiData);
     }
-    if (checkValue === 'name') {
+    if (checkValue === 'name' && inputValue) {
       const apiData = await getDrinkByName(inputValue);
+      setInputValue('');
       setRecipesData(apiData);
     }
-    if (checkValue === 'firstLetter') {
+    if (checkValue === 'firstLetter' && inputValue) {
       if (inputValue.length > 1) {
         alert('Sua busca deve conter somente 1 (um) caracter');
+        setInputValue('');
+      } else {
+        const apiData = await getDrinkByFirstLetter(inputValue);
+        setRecipesData(apiData);
       }
-      const apiData = await getDrinkByFirstLetter(inputValue);
-      setRecipesData(apiData);
     }
   }
 

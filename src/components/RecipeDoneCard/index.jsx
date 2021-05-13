@@ -2,9 +2,11 @@ import React from 'react';
 import { string, func, bool, number } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Link } from 'react-router-dom';
+import { Media } from 'react-bootstrap';
 import shareIcon from '../../images/shareIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
+import styles from './recipeCardsDone.module.css';
 
 function RecipeDoneCard(
   { image, name, index, doneData, category,
@@ -32,59 +34,72 @@ function RecipeDoneCard(
   }
 
   return (
-    <li>
+    <Media style={ { padding: '8px' } }>
       <Link to={ `/${type}s/${id}` }>
         <img
-          style={ { width: 250 } }
+          width={ 130 }
+          height={ 190 }
+          className="mr-3"
+          style={ { objectFit: 'cover' } }
           data-testid={ `${index}-horizontal-image` }
           src={ image }
           alt={ name }
         />
-        <p data-testid={ `${index}-horizontal-name` }>{name}</p>
       </Link>
-      <p data-testid={ `${index}-horizontal-top-text` }>{`${area} - ${category}`}</p>
-      <p
-        data-testid={ `${index}-horizontal-top-text` }
-      >
-        {`${area} - ${alcoholicOrNot}`}
-      </p>
-      <p data-testid={ `${index}-horizontal-done-date` }>{doneData}</p>
-      <CopyToClipboard text={ url }>
-        <button
-          onClick={ () => { handleClickUrl(); } }
-          type="button"
+      <Media.Body style={ { overflow: 'auto' } }>
+        <h3 data-testid={ `${index}-horizontal-name` }>{name}</h3>
+
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
         >
-          <img
-            data-testid={ `${index}-horizontal-share-btn` }
-            src={ shareIcon }
-            alt="Compartilhar"
-          />
-        </button>
-      </CopyToClipboard>
-      {copyUrl}
-      { shouldFavorite && (
-        <button
-          onClick={ handleRemoveFavorite }
-          type="button"
-        >
-          <img
-            data-testid={ `${index}-horizontal-favorite-btn` }
-            src={ blackHeartIcon }
-            alt="Favorito"
-          />
-        </button>
-      ) }
-      { tagName && tagName.map((item) => (
-        <p data-testid={ `${0}-${item}-horizontal-tag` } key={ Math.random() }>
-          {item}
+          {category.length > 0 && `${area}  ${category}`}
+
         </p>
-      )) }
-      <p
-        data-testid={ `${index}-horizontal-done-date` }
-      >
-        {`Feita em: ${doneDate}`}
-      </p>
-    </li>
+        <p
+          data-testid={ `${index}-horizontal-top-text` }
+        >
+          { area.length > 0 && `${area}  ${alcoholicOrNot}`}
+        </p>
+        <p data-testid={ `${index}-horizontal-done-date` }>{doneData}</p>
+        <CopyToClipboard text={ url }>
+          <button
+            className={ styles.btn }
+            onClick={ () => { handleClickUrl(); } }
+            type="button"
+          >
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="Compartilhar"
+            />
+          </button>
+        </CopyToClipboard>
+        {copyUrl}
+        { shouldFavorite && (
+          <button
+            className={ styles.btn }
+            onClick={ handleRemoveFavorite }
+            type="button"
+          >
+            <img
+              data-testid={ `${index}-horizontal-favorite-btn` }
+              src={ blackHeartIcon }
+              alt="Favorito"
+            />
+          </button>
+        ) }
+        { tagName && tagName.map((item) => (
+          <p data-testid={ `${0}-${item}-horizontal-tag` } key={ Math.random() }>
+            {item}
+          </p>
+        )) }
+        <p
+          data-testid={ `${index}-horizontal-done-date` }
+        >
+          {`Feita em: ${doneDate}`}
+        </p>
+      </Media.Body>
+    </Media>
   );
 }
 

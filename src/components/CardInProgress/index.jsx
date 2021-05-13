@@ -3,13 +3,14 @@ import { arrayOf, string, func, bool, shape } from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import Button from 'react-bootstrap/Button';
+import { Button, Card } from 'react-bootstrap';
 import useHandleClickUrl from '../../hooks/useHandleClickUrl';
 import blackHeart from '../../images/blackHeartIcon.svg';
 import whiteHeart from '../../images/whiteHeartIcon.svg';
 import shareIcons from '../../images/shareIcon.svg';
 import useShouldRedirect from '../../hooks/useShoulRedirect';
 import endRecipeButton from '../../utils/endRecipeButton';
+import styles from './cardInProgress.module.css';
 
 function CardeInProgress({
   image,
@@ -56,34 +57,63 @@ function CardeInProgress({
   url = url.replace('/in-progress', '');
 
   return (
-    <li>
-      <img data-testid="recipe-photo" src={ image } alt={ title } />
-      <h2 data-testid="recipe-title">{title}</h2>
-      <CopyToClipboard text={ url }>
+
+    <Card className={ styles.cardContainer }>
+      <Card.Img
+        className={ styles.cardImage }
+        data-testid="recipe-photo"
+        src={ image }
+        alt={ title }
+      />
+      <h1
+        className={ styles.cardTitle }
+        data-testid="recipe-title"
+      >
+        {title}
+      </h1>
+
+      <div className={ styles.cardBtn }>
+        <CopyToClipboard text={ url }>
+          <button
+            className={ styles.btn }
+            onClick={ handleClickUrl }
+            data-testid="share-btn"
+            type="button"
+          >
+            <img
+              className={ styles.btnImage }
+              src={ shareIcons }
+              alt="Compartilhar"
+            />
+          </button>
+        </CopyToClipboard>
+        {copyUrl}
         <button
-          onClick={ handleClickUrl }
-          data-testid="share-btn"
+          className={ styles.btn }
+          onClick={ handleFavorite }
           type="button"
         >
-          <img src={ shareIcons } alt="Compartilhar" />
+          <img
+            data-testid="favorite-btn"
+            src={ favorite ? blackHeart : whiteHeart }
+            alt="Favoritar"
+          />
         </button>
-      </CopyToClipboard>
-      {copyUrl}
-      <button onClick={ handleFavorite } type="button">
-        <img
-          data-testid="favorite-btn"
-          src={ favorite ? blackHeart : whiteHeart }
-          alt="Favoritar"
-        />
-      </button>
-      <p data-testid="recipe-category">{category}</p>
-      <ul>
+      </div>
+      <Card.Text data-testid="recipe-category">{category}</Card.Text>
+      <Card.Text className={ styles.cardText }>
         {children}
-      </ul>
-      <p data-testid="instructions">{instructions}</p>
+      </Card.Text>
+
+      <Card.Text
+        className={ styles.cardText }
+        data-testid="instructions"
+      >
+        {instructions}
+      </Card.Text>
       <Button
-        style={ { position: 'fixed', bottom: '0' } }
-        variant="light"
+        className={ styles.finishRecipe }
+        variant="danger"
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ isBtnDisabled }
@@ -91,7 +121,8 @@ function CardeInProgress({
       >
         Finalizar receita
       </Button>
-    </li>
+    </Card>
+
   );
 }
 CardeInProgress.propTypes = {

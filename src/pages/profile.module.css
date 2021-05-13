@@ -1,0 +1,39 @@
+.profileContainer {
+  margin-left: -36px;
+}
+
+.profileBtn {
+  width: 97%;
+  margin: 3px 6px;
+}
+
+.email {
+  margin-top: 10%;
+  font-size: 1.5rem;
+}
+
+.profileContainer .email {
+  margin-left: -5%;
+  text-align: center;
+}
+
+@media screen and (min-width: 411px) {
+  .email {
+    margin-left: 10%;
+    margin-top: 10%;
+    font-size: 1.6rem;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .email {
+    margin-left: 40%;
+    margin-top: 5%;
+    font-size: 1.5rem;
+  }
+
+  .profileBtn {
+    width: 97%;
+    margin: 8px 25px;
+  }
+} 

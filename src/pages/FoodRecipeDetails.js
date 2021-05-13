@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect } from 'react-router';
-import { Button, Carousel } from 'react-bootstrap';
+import { Button, Carousel, Spinner } from 'react-bootstrap';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
 import { getFoodDetailsById, getRecommendedDrink } from '../services/fetchApi';
@@ -18,8 +18,8 @@ function FoodRecipeDetails(props) {
   const { id } = params;
   const [apiData, setApiData] = useState();
   const [isFetching, setIsFetching] = useState(false);
-  const [recommendedDrink, setRecommendedDrink] = useState();
   const [favorite, setFavorite] = useState(false);
+  const [recommendedDrink, setRecommendedDrink] = useState();
   const [ingredientList] = useIngredientFoodList();
   const [handleClickRedirect, shouldRedirect] = useShouldRedirect();
   const [handleFavorite] = useHandleFavoriteFoods();
@@ -29,8 +29,19 @@ function FoodRecipeDetails(props) {
   const [indexe, setIndexe] = useState(0);
 
   const six = 6;
-
   const favoriteParams = { apiData, id, mealLocal, favorite, setFavorite };
+
+  useEffect(() => {
+    const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (repositoresLocal) {
+      setMealLocal(repositoresLocal);
+      repositoresLocal.forEach(({ id: favoriteId }) => {
+        if (favoriteId === id) {
+          setFavorite(true);
+        }
+      });
+    }
+  }, [id]);
 
   useEffect(() => {
     getRecommendedDrink()
@@ -45,18 +56,6 @@ function FoodRecipeDetails(props) {
         setApiData(items);
         setIsFetching(true);
       });
-  }, [id]);
-
-  useEffect(() => {
-    const repositoresLocal = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    if (repositoresLocal) {
-      setMealLocal(repositoresLocal);
-      repositoresLocal.forEach(({ id: favoriteId }) => {
-        if (favoriteId === id) {
-          setFavorite(true);
-        }
-      });
-    }
   }, [id]);
 
   const handleSelect = (selectedIndexe) => {
@@ -101,7 +100,7 @@ function FoodRecipeDetails(props) {
           ))
         )}
         <Carousel
-          style={ { width: '290px', marginBottom: '20px' } }
+          className={ styles.carouselContainer }
           activeIndex={ indexe }
           onSelect={ handleSelect }
         >
@@ -116,12 +115,19 @@ function FoodRecipeDetails(props) {
                     data-testid={ `${index}-recomendation-card` }
                   >
                     <img
+                      style={ { height: '400px', objectFit: 'cover' } }
                       className="d-block w-100"
                       src={ strDrinkThumb }
                       alt={ strDrink }
                     />
                     <Carousel.Caption>
-                      <p data-testid={ `${index}-recomendation-title` }>{ strDrink }</p>
+                      <p
+                        className={ styles.carouselTitle }
+                        data-testid={ `${index}-recomendation-title` }
+                      >
+                        { strDrink }
+
+                      </p>
                     </Carousel.Caption>
                   </div>
                 </Carousel.Item>
@@ -131,7 +137,7 @@ function FoodRecipeDetails(props) {
         </Carousel>
 
         <Button
-          variant="light"
+          variant="danger"
           style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
@@ -145,7 +151,11 @@ function FoodRecipeDetails(props) {
   }
 
   return (
-    !isFetching ? <p>loading</p> : renderDetails()
+    !isFetching ? (
+      <Spinner className={ styles.sniper } animation="grow" variant="danger">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    ) : renderDetails()
   );
 }
 

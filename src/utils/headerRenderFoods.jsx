@@ -1,11 +1,12 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button, Spinner } from 'react-bootstrap';
 import HeaderFoods from '../components/HeaderFoods';
 import SearchBar from '../components/SearchBar';
 import BottomMenu from '../components/BottomMenu';
 import RecipeCard from '../components/RecepiCard';
 import filterAllFoodButton from './filterAllFoodButton';
 import categoryFoodButton from './categoryFoodButton';
+import styles from './headerRenderFoodAndDrinks.module.css';
 
 function headerRenderFoods({
   meal,
@@ -16,7 +17,7 @@ function headerRenderFoods({
   recipesData,
   setListItemByCategory,
   setRecipesData,
-  renderRecipesByIngredients,
+  // renderRecipesByIngredients,
 }) {
   const renderFood = (recipesData.meals
     && (recipesData.meals
@@ -37,12 +38,14 @@ function headerRenderFoods({
     ));
 
   return (
-    <>
+    <div className={ styles.container }>
       <HeaderFoods hassearchbar>
         <h1 data-testid="page-title">Comidas</h1>
       </HeaderFoods>
       <SearchBar>
         <Button
+          variant="danger"
+          className={ styles.searchBtn }
           onClick={ () => { handleFetchFoodClick(); } }
           data-testid="exec-search-btn"
           type="button"
@@ -50,16 +53,22 @@ function headerRenderFoods({
           Buscar
         </Button>
       </SearchBar>
-      <div style={ { display: 'flex', marginTop: '10px' } }>
+      <div className={ styles.filterBtn }>
         { filterAllFoodButton(setListItemByCategory, setRecipesData) }
         { categoryFoodButton(handleClickButtonName, meal) }
       </div>
-      <div style={ { marginLeft: '-10px', display: 'flex', flexWrap: 'wrap' } }>
-        {recipesData.meals ? renderFood : render}
-        {renderRecipesByIngredients}
-      </div>
+      { render.length || recipesData.meals ? (
+        <div className={ styles.contentContainer }>
+          {recipesData.meals ? renderFood : render}
+          {/* {renderRecipesByIngredients} */}
+        </div>
+      ) : (
+        <Spinner className={ styles.sniper } animation="grow" variant="danger">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+      )}
       <BottomMenu />
-    </>
+    </div>
   );
 }
 

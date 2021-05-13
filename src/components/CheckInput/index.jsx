@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { string, number, func, arrayOf, shape } from 'prop-types';
 import { connect } from 'react-redux';
 import inputAction from '../../redux/actions/inputAction';
+import styles from './checkInput.module.css';
 
 function CheckInput({ index, handleCheckedValue, item, match, type,
   urlType, inputChange }) {
@@ -35,9 +36,11 @@ function CheckInput({ index, handleCheckedValue, item, match, type,
   return (
     <div data-testid={ `${index}-ingredient-step` }>
       <label
+        className={ checkedValue && styles.checked }
         htmlFor={ `${index}-ingredientDrinkStep` }
       >
         <input
+          className={ styles.checkInput }
           name={ item }
           id={ `${index}-ingredientDrinkStep` }
           type="checkbox"

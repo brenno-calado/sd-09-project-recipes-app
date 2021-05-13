@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape } from 'prop-types';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import { useRecipeContext } from '../../contexts/recipeContext';
+import styles from './searchBar.module.css';
 
 function SearchBar({ children }) {
   const {
@@ -11,17 +13,21 @@ function SearchBar({ children }) {
   return (
     isSearchBar && (
       <>
-        <label htmlFor="searchBtn">
-          <input
-            onChange={ getInputValue }
-            data-testid="search-input"
-            type="text"
-            id="searchBtn"
-          />
-        </label>
+        <InputGroup htmlFor="searchBtn">
+          <InputGroup.Prepend className={ styles.inputSearch }>
+            <FormControl
+              placeholder="Digite para pesquisar"
+              onChange={ getInputValue }
+              data-testid="search-input"
+              type="text"
+              id="searchBtn"
+            />
+          </InputGroup.Prepend>
+        </InputGroup>
 
         <label
           htmlFor="ingredientSearch"
+          className={ styles.radioInput }
         >
           <input
             value="ingredient"
@@ -33,9 +39,12 @@ function SearchBar({ children }) {
           />
           Ingrediente
         </label>
+
         <label
           htmlFor="nameSearch"
+          className={ styles.radioInput }
         >
+
           <input
             value="name"
             onChange={ handleCheck }
@@ -46,8 +55,10 @@ function SearchBar({ children }) {
           />
           Nome
         </label>
+
         <label
           htmlFor="firstLetterSearch"
+          className={ styles.radioInput }
         >
           <input
             value="firstLetter"
@@ -59,6 +70,7 @@ function SearchBar({ children }) {
           />
           Primeira Letra
         </label>
+
         <div>{ children }</div>
       </>
     )

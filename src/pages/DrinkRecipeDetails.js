@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect } from 'react-router';
-import { Button, Carousel } from 'react-bootstrap';
+import { Button, Carousel, Spinner } from 'react-bootstrap';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import CardDetails from '../components/CardDetails/index';
 import { getDrinkDetailsById, getRecommendedFood } from '../services/fetchApi';
@@ -91,7 +91,7 @@ function DrinkRecipeDetails(props) {
           ))
         )}
         <Carousel
-          style={ { width: '290px', marginBottom: '20px' } }
+          className={ styles.carouselContainer }
           activeIndex={ indexe }
           onSelect={ handleSelect }
         >
@@ -109,9 +109,14 @@ function DrinkRecipeDetails(props) {
                       alt={ strMeal }
                     />
                     <Carousel.Caption>
-                      <p data-testid={ `${index}-recomendation-title` }>{ strMeal }</p>
-                    </Carousel.Caption>
+                      <p
+                        className={ styles.carouselTitle }
+                        data-testid={ `${index}-recomendation-title` }
+                      >
+                        { strMeal }
 
+                      </p>
+                    </Carousel.Caption>
                   </div>
                 </Carousel.Item>
               )
@@ -119,7 +124,7 @@ function DrinkRecipeDetails(props) {
           )}
         </Carousel>
         <Button
-          variant="light"
+          variant="danger"
           style={ { display: shouldBtnApear && 'none' } }
           onClick={ () => { handleClickRedirect(); } }
           className={ styles.startButton }
@@ -133,7 +138,11 @@ function DrinkRecipeDetails(props) {
   }
 
   return (
-    !isFetching ? <p>loading</p> : renderDetails()
+    !isFetching ? (
+      <Spinner className={ styles.sniper } animation="grow" variant="danger">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    ) : renderDetails()
   );
 }
 

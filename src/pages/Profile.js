@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import { Button, ButtonGroup } from 'react-bootstrap';
 import HeaderFoods from '../components/HeaderFoods';
 import BottomMenu from '../components/BottomMenu';
+import styles from './profile.module.css';
 
 function Profile() {
   const preEmail = JSON.parse(localStorage.getItem('user'));
@@ -24,37 +25,47 @@ function Profile() {
   }
 
   return (
-    <>
-      <HeaderFoods hassearchbar={ false }>
-        <h1 data-testid="page-title">Perfil</h1>
+    <div className={ styles.profileContainer }>
+      <HeaderFoods hasSearchBar={ false }>
+        <h2 data-testid="page-title">Perfil</h2>
       </HeaderFoods>
-      <h2 data-testid="profile-email">{preEmail && preEmail.email}</h2>
-      <Button
-        type="button"
-        name="feitas"
-        data-testid="profile-done-btn"
-        onClick={ redirect }
+      <ButtonGroup vertical className={ styles.profileBtn }>
+        <Button
+          variant="outline-danger"
+          type="button"
+          name="feitas"
+          data-testid="profile-done-btn"
+          onClick={ redirect }
+        >
+          Receitas Feitas
+        </Button>
+        <Button
+          variant="outline-danger"
+          type="button"
+          name="favoritas"
+          data-testid="profile-favorite-btn"
+          onClick={ redirect }
+        >
+          Receitas Favoritas
+        </Button>
+        <Button
+          variant="outline-danger"
+          type="button"
+          name="sair"
+          data-testid="profile-logout-btn"
+          onClick={ redirectClear }
+        >
+          Sair
+        </Button>
+      </ButtonGroup>
+      <p
+        className={ styles.email }
+        data-testid="profile-email"
       >
-        Receitas Feitas
-      </Button>
-      <Button
-        type="button"
-        name="favoritas"
-        data-testid="profile-favorite-btn"
-        onClick={ redirect }
-      >
-        Receitas Favoritas
-      </Button>
-      <Button
-        type="button"
-        name="sair"
-        data-testid="profile-logout-btn"
-        onClick={ redirectClear }
-      >
-        Sair
-      </Button>
+        {preEmail && preEmail.email}
+      </p>
       <BottomMenu />
-    </>
+    </div>
   );
 }
 

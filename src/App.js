@@ -15,7 +15,6 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import FoodsByIngredient from './pages/FoodsByIngredient';
 import DrinksByIngredient from './pages/DrinksByIngredient';
 import ExploreOriginFood from './pages/ExploreOriginFood';
-import ExploreOriginDrinks from './pages/ExploreOriginDrinks';
 import Profile from './pages/Profile';
 import RecipesMade from './pages/RecipesMade';
 import FavoriteRecipes from './pages/FavoriteRecipes';
@@ -63,7 +62,6 @@ function App() {
           component={ DrinksByIngredient }
         />
         <Route path="/explorar/comidas/area" exact component={ ExploreOriginFood } />
-        <Route path="/explorar/bebidas/area" exact component={ ExploreOriginDrinks } />
         <Route path="/perfil" exact component={ Profile } />
         <Route path="/receitas-feitas" exact component={ RecipesMade } />
         <Route path="/receitas-favoritas" exact component={ FavoriteRecipes } />

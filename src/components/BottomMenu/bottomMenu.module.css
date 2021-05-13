@@ -2,16 +2,21 @@
   bottom: 0;
   display: flex;
   justify-content: space-evenly;
-  height: 100px;
-  line-height: 100px;
+  height: 10%;
+  line-height: 60px;
   position: fixed;
   text-align: center;
-  width: 360px;
-  margin-left: -36px
+  width: 100%;
+  background-color: rgba(255, 7, 7, 0.678);
 }
-
 
 .footerBtn {
   background: transparent;
   border: none;
+}
+
+@media screen and (min-width: 365px) {
+  .footerContainer {
+    height: 70px;
+  }
 }

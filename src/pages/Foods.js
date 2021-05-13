@@ -34,15 +34,14 @@ function Foods() {
 
   useEffect(() => {
     handleFetchFoodClick();
-  }, []);
+  }, [setRecipesData]);
 
   useEffect(() => {
-    console.log(recipesData);
     if (recipesData === 'Unexpected end of JSON input'
       || recipesData.meals === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
-  }, [recipesData]);
+  }, [recipesData, setRecipesData]);
 
   useEffect(() => {
     getRecipes('themealdb')

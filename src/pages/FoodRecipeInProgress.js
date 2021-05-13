@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { shape, string } from 'prop-types';
+import { Spinner } from 'react-bootstrap';
 import { getFoodDetailsById } from '../services/fetchApi';
 import CardeInProgress from '../components/CardInProgress';
 import useIngredientFoodList from '../hooks/useIngredientFoodList';
 import useHandleFavoriteFoods from '../hooks/useHandleFavoriteFoods';
 import useHandleCheckFoodValuesValues from '../utils/handleCheckFoodValuesValues';
+import styles from './recipeDetails.module.css';
 
 function FoodRecipeInProgress(props) {
   const { match } = props;
@@ -14,7 +16,6 @@ function FoodRecipeInProgress(props) {
   const [apiData, setApiData] = useState();
   const [mealLocal, setMealLocal] = useState([]);
   const [favorite, setFavorite] = useState(false);
-
   const [ingredientList] = useIngredientFoodList();
   const [handleFavorite] = useHandleFavoriteFoods();
   const [handleCheckFoodValuesValues, state] = useHandleCheckFoodValuesValues();
@@ -75,7 +76,11 @@ function FoodRecipeInProgress(props) {
   }
 
   return (
-    !isFetching ? <p>loading</p> : renderInProgressMeal()
+    !isFetching ? (
+      <Spinner className={ styles.sniper } animation="grow" variant="danger">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    ) : renderInProgressMeal()
   );
 }
 

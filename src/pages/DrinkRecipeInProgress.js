@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { shape, string } from 'prop-types';
+import { Spinner } from 'react-bootstrap';
 import { getDrinkDetailsById } from '../services/fetchApi';
 import CardeInProgress from '../components/CardInProgress';
 import useIngredientList from '../hooks/useIngredientList';
 import useHandleFavoriteDrinks from '../hooks/useHandleFavoriteDrinks';
 import useHandleCheckDrinkValues from '../utils/handleCheckDrinkValues';
+import styles from './recipeDetails.module.css';
 
 function DrinkRecipeInProgress(props) {
   const { match } = props;
@@ -72,7 +74,11 @@ function DrinkRecipeInProgress(props) {
   }
 
   return (
-    !isFetching ? <p>loading</p> : renderInprogressDrink()
+    !isFetching ? (
+      <Spinner className={ styles.sniper } animation="grow" variant="danger">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    ) : renderInprogressDrink()
   );
 }
 
