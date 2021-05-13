@@ -1,4 +1,6 @@
 /* eslint-disable max-lines */
+/* eslint-disable sonarjs/no-duplicate-string */
+/* eslint-disable max-lines */
 const drinks = {
   drinks: [
     {
@@ -16,8 +18,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Optional alcohol',
       strGlass: 'Collins Glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Pour the Galliano liqueur over ice. Fill the remainder of the glass with ginger ale and thats all there is to it. You now have a your very own GG.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Den Galliano-Likör über Eis gießen. Füllen Sie den Rest des Glases mit Ginger Ale und das ist alles, was dazu gehört. Du hast jetzt ein eigenes GG.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -71,8 +75,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Pour all ingredients into a cocktail shaker, mix and serve over ice into a chilled glass.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Alle Zutaten in einen Cocktailshaker geben, mischen und über Eis in ein gekühltes Glas servieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -181,8 +187,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Wine Glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Add the crème de cassis to the bottom of the glass, then top up with wine.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Gib die Creme de Cassis auf den Boden des Glases und füge dann Wein hinzu.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -236,8 +244,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Shot glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'pour kaluha, then Baileys, then Frangelico not chilled and not layered -- SERVE!!!',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Gießen Sie kaluha, dann Baileys, dann Frangelico nicht gekühlt und nicht geschichtet -- SERVE!!!!!!!!',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -346,8 +356,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Martini Glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Shake all the ingredients in a cocktail shaker and ice then strain in a cold glass.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Alle Zutaten in einem Cocktailshaker mit Eis schütteln und dann in einem kalten Glas abseihen.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -401,8 +413,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'In a shaker half-filled with ice cubes, combine all of the ingredients. Shake well. Strain into a cocktail glass.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'In einem Shaker, der halb mit Eiswürfeln gefüllt ist, alle Zutaten vermengen. Gut schütteln. In ein Cocktailglas abseihen.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -456,8 +470,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Collins Glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Layer the Kahlua, Sambucca and Grand Marnier into a shot glas in that order. Better than B-52',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Schichte die Kahlua, Sambucca und Grand Marnier in dieser Reihenfolge in ein Schnapsglas ein. Besser als B-52',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -513,6 +529,7 @@ const drinks = {
       strGlass: 'Highball Glass',
       strInstructions: 'Pour Vodka and Gin over ice, add Tonic and Stir',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Wodka und Gin über das Eis gießen, Tonic hinzufügen und umrühren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -566,8 +583,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Shot glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Poor in the 151 first followed by the 101 served with a Coke or Dr Pepper chaser.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Gering den 151 gefolgt von der 101, die mit einer Cola oder Dr. Pepper Chaser serviert wird.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -623,6 +642,7 @@ const drinks = {
       strGlass: 'Shot glass',
       strInstructions: 'Layer ingredients into a shot glass. Serve with a stirrer.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Zutaten in ein Schnapsglas schichten. Mit einem Rührstab servieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -676,8 +696,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Beer mug',
+      // eslint-disable-next-line max-len
       strInstructions: 'Mix the whisky and Baileys Cream in a beer-glass (at least 50 cl). Fill the rest of the glass with coffee.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Den Whisky und die Baileys Cream in einem Bierglas (mind. 50 cl) mischen. Füllen Sie den Rest des Glases mit Kaffee.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -786,8 +808,10 @@ const drinks = {
       strIBA: 'Contemporary Classics',
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Shake together in a cocktail shaker, then strain into chilled glass. Garnish and serve.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'In einem Cocktailshaker vermengen und dann in ein gekühltes Glas abseihen. Garnieren und servieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -841,6 +865,7 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Shake ingredients with ice, strain into a cocktail glass, and serve.',
       strInstructionsES: null,
       strInstructionsDE: null,
@@ -896,8 +921,10 @@ const drinks = {
       strIBA: 'Unforgettables',
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Pour all ingredients into a mixing glass with ice. Stir. Strain into a cocktail glass. Garnish with a sprig of fresh mint in the drink.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Alle Zutaten in ein Mischglas mit Eis geben. Rühren. In ein Cocktailglas abseihen. Mit einem Zweig frischer Minze im Getränk garnieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -951,8 +978,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Highball glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Put a copper coin in a coffe-cup and fill up with coffee until you no longer see the coin, then add alcohol until you see the coin. Norwegian speciality.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Legen Sie eine Kupfermünze in eine Kaffeetasse und füllen Sie sie mit Kaffee, bis Sie die Münze nicht mehr sehen, dann fügen Sie Alkohol hinzu, bis Sie die Münze wieder sehen. Norwegische Spezialität.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1006,8 +1035,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Non alcoholic',
       strGlass: 'Coffee mug',
+      // eslint-disable-next-line max-len
       strInstructions: 'Brew espresso. In a coffee mug, place 1 teaspoon of unsweetened powdered cocoa, then cover a teaspoon with honey and drizzle it into the cup. Stir while the coffee brews, this is the fun part. The cocoa seems to coat the honey without mixing, so you get a dusty, sticky mass that looks as though it will never mix. Then all at once, presto! It looks like dark chocolate sauce. Pour hot espresso over the honey, stirring to dissolve. Serve with cream.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Espresso zubereiten. In eine Kaffeetasse 1 Teelöffel ungesüßten, pulverisierten Kakao geben, dann einen Teelöffel Honig in die Tasse träufeln. Rühren Sie um, während der Kaffee brüht, das ist der lustige Teil. Der Kakao scheint den Honig ohne Mischen zu überziehen, so dass Sie eine dichte, klebrige Masse erhalten, die aussieht, als würde sie sich nie vermischen. Dann auf einmal, presto! Es sieht aus wie dunkle Schokoladensoße. Heißen Espresso über den Honig gießen und unter Rühren auflösen. Mit Sahne servieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1061,8 +1092,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Collins Glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'fill glass with crushed ice. Add vodka. Add a splash of grand-marnier. Fill with o.j.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Glas mit zerstoßenem Eis füllen. Füge Wodka hinzu. Füge einen Spritzer Grand-Marnier hinzu. Füllen Sie mit o.j.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1118,6 +1151,7 @@ const drinks = {
       strGlass: 'Coffee Mug',
       strInstructions: 'add all and pour black coffee and add whipped cream on top.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Alles hinzufügen, schwarzen Kaffee einfüllen und mit Schlagsahne übergießen.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1226,8 +1260,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Highball glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Pour schnapps, orange juice, and cranberry juice over ice in a highball glass. Top with club soda and serve.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'Gießen Sie Schnaps, Orangensaft und Cranberrysaft über Eis in ein Highball-Glas. Mit Club-Soda überziehen und servieren.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1281,8 +1317,10 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Whiskey sour glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'In a shaker half-filled with ice cubes, combine all of the ingredients. Shake well. Strain into a sour glass.',
       strInstructionsES: null,
+      // eslint-disable-next-line max-len
       strInstructionsDE: 'In einem Shaker, der halb mit Eiswürfeln gefüllt ist, alle Zutaten vermengen. Gut schütteln. In ein Sour Glas abseihen.',
       strInstructionsFR: null,
       'strInstructionsZH-HANS': null,
@@ -1336,6 +1374,7 @@ const drinks = {
       strIBA: null,
       strAlcoholic: 'Alcoholic',
       strGlass: 'Cocktail glass',
+      // eslint-disable-next-line max-len
       strInstructions: 'Shake all ingredients with ice, strain into a chilled cocktail glass, and serve.',
       strInstructionsES: null,
       strInstructionsDE: null,
