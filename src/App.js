@@ -6,6 +6,7 @@ import { Meals, ExploreMeals, MealsByIngredients, MealsByArea, MealsInProgress,
 import { Drinks, ExploreDrinks, DrinksByIngredients, DrinksInProgress,
   DrinksDetails } from './pages/drinks';
 import './App.css';
+import './scss/custom.scss';
 // import rockGlass from './images/rockGlass.svg';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 

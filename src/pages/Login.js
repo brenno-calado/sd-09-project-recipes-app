@@ -5,7 +5,6 @@ import { fecthByName } from '../services/api';
 import { startLocalStorage } from '../services/localStorageService';
 import logo from '../images/logo-recipes.png';
 import '../scss/Login.scss';
-import '../scss/custom.scss';
 
 function Login() {
   const { updateData } = useContext(Context);
@@ -65,7 +64,7 @@ function Login() {
           type="submit"
           onClick={ handleSubmit }
           disabled={ !checkFormats() }
-          className="btn btn-personalised p-2"
+          className="btn btn-orange-primary p-2"
         >
           Entrar
         </button>

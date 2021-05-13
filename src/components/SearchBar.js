@@ -35,25 +35,36 @@ function SearchBar({ isMeal }) {
       value={ value }
       type={ type }
       onChange={ handleChange }
+      placeholder={ type === 'text' && 'Busca de receitas' }
+      className={ type === 'text' ? 'form-control mb-3' : '' }
     />
   );
 
   return (
-    <section>
+    <section
+      className="d-flex flex-column p-3 mt-2 border-top border-white bg-orange-secondary"
+    >
       { createInput('search-input', 'search', 'text') }
-      <label htmlFor="ingredient">
-        { createInput('ingredient-search-radio', 'searchBy', 'radio', 'ingredient') }
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        { createInput('name-search-radio', 'searchBy', 'radio', 'name') }
-        Nome
-      </label>
-      <label htmlFor="firstLetter">
-        { createInput('first-letter-search-radio', 'searchBy', 'radio', 'firstLetter') }
-        Primeira letra
-      </label>
-      <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
+      <div className="d-flex justify-content-around">
+        <label htmlFor="ingredient" className="form-label text-white">
+          { createInput('ingredient-search-radio', 'searchBy', 'radio', 'ingredient') }
+          &nbsp;Ingrediente
+        </label>
+        <label htmlFor="name" className="form-label text-white">
+          { createInput('name-search-radio', 'searchBy', 'radio', 'name') }
+          &nbsp;Nome
+        </label>
+        <label htmlFor="firstLetter" className="form-label text-white">
+          { createInput('first-letter-search-radio', 'searchBy', 'radio', 'firstLetter') }
+          &nbsp;Primeira letra
+        </label>
+      </div>
+      <button
+        data-testid="exec-search-btn"
+        type="button"
+        onClick={ handleSearch }
+        className="btn btn-blue-primary m-auto"
+      >
         Buscar
       </button>
     </section>

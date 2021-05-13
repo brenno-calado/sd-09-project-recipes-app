@@ -1,20 +1,27 @@
-$orange-personalised: #FF5615 !default;
+$orange-primary: #ff5615 !default;
+$orange-secondary: #ff6C34 !default;
+$blue-primary: #3f3d56 !default;
+$white: white;
 
 $colors: () !default;
 $colors: map-merge(
   (
-    "orange-personalised": $orange-personalised,
+    "orange-primary": $orange-primary,
+    "blue-primary": $blue-primary,
+    "white": $white,
   ),
   $colors
 );
 // Color personalised
-$personalised:  $orange-personalised;
 
 // Create theme-color-personalised
 $theme-colors: () !default;
 $theme-colors: map-merge(
   (
-    "personalised": $personalised,
+    "orange-primary": $orange-primary,
+    "orange-secondary": $orange-secondary,
+    "blue-primary": $blue-primary,
+    "white": $white,
   ),
   $theme-colors
 );
