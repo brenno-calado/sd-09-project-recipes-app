@@ -8,8 +8,6 @@ import { DrinkCtx } from '../../context/contextDrink';
 import Footer from '../../components/Footer';
 import CategoryBtn from '../../components/Buttons/CategoryBtn';
 
-import './Drinks.css';
-
 function Drinks({ location: { state } }) {
   const STOP_INDEX = 11;
   const { drinkApi: { drinks }, setFilterDrink } = useContext(DrinkCtx);
