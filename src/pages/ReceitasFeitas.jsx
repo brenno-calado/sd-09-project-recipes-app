@@ -31,8 +31,8 @@ function ReceitasFeitas() {
 
   const recipesList = (listArg) => {
     if (listArg === null) {
-      return <p>Sem receitas feitas :(</p>
-    };
+      return <p>Sem receitas feitas :(</p>;
+    }
 
     return listArg.map(
       (recipe, index) => {
