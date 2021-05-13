@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '../components/Header';
 import Card from '../components/Card';
 
@@ -7,17 +7,13 @@ import Card from '../components/Card';
 import '../styles/recipes.css';
 
 function ReceitasFeitas() {
-  const [list, setList] = useState([]);
-
-  const getLocal = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    setList(doneRecipes);
-    console.log('Ok recipes', doneRecipes);
-  };
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  console.log(doneRecipes);
+  const [list, setList] = useState(doneRecipes);
 
   const doList = (filter) => {
     setList(
-      list.filter(
+      doneRecipes.filter(
         (element) => element.type === filter,
       ),
     );
@@ -25,7 +21,7 @@ function ReceitasFeitas() {
 
   const doFilter = (filter) => {
     if (filter === 'all') {
-      setList(list);
+      setList(doneRecipes);
     }
     if (filter === 'food') {
       doList('comida');
@@ -35,9 +31,26 @@ function ReceitasFeitas() {
     }
   };
 
-  useEffect(() => {
-    getLocal();
-  }, []);
+  const recipesList = (listArg) => {
+    if (listArg === null) {
+      return <p>Sem receitas feitas :(</p>;
+    }
+
+    return listArg.map(
+      (recipe, index) => {
+        if (recipe === undefined) {
+          return null;
+        }
+        return (
+          <Card
+            key={ recipe.id }
+            recipe={ recipe }
+            indice={ index }
+          />
+        );
+      },
+    );
+  };
 
   return (
     <>
@@ -70,22 +83,7 @@ function ReceitasFeitas() {
 
       </div>
       <div>
-        {
-          list.map(
-            (recipe, index) => {
-              if (recipe === undefined) {
-                return null;
-              }
-              return (
-                <Card
-                  key={ recipe.id }
-                  recipe={ recipe }
-                  indice={ index }
-                />
-              );
-            },
-          )
-        }
+        { recipesList(list) }
       </div>
     </>
   );
