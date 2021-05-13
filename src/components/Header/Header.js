@@ -9,23 +9,18 @@ import styles from './style.module.scss';
 function Header({ title, search }) {
   const [shouldSearch, setShouldSearch] = useState(false);
 
-  const renderImage = (testid, src, alt) => (
-    <img
-      data-testid={ testid }
-      src={ src }
-      alt={ alt }
-      className={ styles.icon }
-    />
+  const renderImage = (testid, src, alt, className) => (
+    <img data-testid={ testid } src={ src } alt={ alt } className={ styles[className] } />
   );
 
   return (
     <header className="bg-orange-primary">
-      <section className="d-flex align-items-center justify-content-between p-2">
-        <Link to="/perfil">
-          { renderImage('profile-top-btn', profileIcon, 'profile icon') }
+      <section className={ styles.elementsNav }>
+        <Link to="/perfil" style={ { textAlign: 'center' } }>
+          { renderImage('profile-top-btn', profileIcon, 'profile icon', 'profile') }
         </Link>
 
-        <h1 className={ styles.pageTitle } data-testid="page-title">{ title }</h1>
+        <h1 data-testid="page-title">{ title }</h1>
 
         { search && (
           <button
@@ -33,7 +28,7 @@ function Header({ title, search }) {
             onClick={ () => setShouldSearch(!shouldSearch) }
             className={ styles.buttonSearch }
           >
-            { renderImage('search-top-btn', searchIcon, 'search icon')}
+            { renderImage('search-top-btn', searchIcon, 'search icon', 'search')}
           </button>) }
       </section>
 
