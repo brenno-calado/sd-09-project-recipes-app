@@ -4,6 +4,7 @@ import RecipesContext from './RecipesContext';
 import searchApi from '../services/RecipesApi';
 import searchCategories from '../services/CategoriesApi';
 import searchByCategory from '../services/CategoryApi';
+import searchById from '../services/IdApi';
 
 const Provider = ({ children }) => {
   const [displaySearchBar, changeStatus] = useState({ status: false });
@@ -41,6 +42,11 @@ const Provider = ({ children }) => {
   const addByCategory = async (typeRecipe, category) => {
     const byCategorySearch = await (searchByCategory(typeRecipe, category));
     setRecipes(byCategorySearch);
+  };
+
+  const addById = async (typeRecipe, id) => {
+    const byIdSearch = await (searchById(typeRecipe, id));
+    setRecipes(byIdSearch);
   };
 
   const [categories, setCategories] = useState([]);
@@ -82,6 +88,7 @@ const Provider = ({ children }) => {
     addStatusSearch,
     buttonCategory,
     changeButtonCategory,
+    addById,
   };
 
   return (

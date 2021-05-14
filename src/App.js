@@ -8,8 +8,10 @@ import Login from './pages/Login';
 //  Troquei esses dois componentes por um generico DrinksFoodsRecipes
 import DrinksFoodsRecipes from './pages/DrinksFoodsRecipes';
 import Profile from './pages/Profile';
-import FoodInProgress from './pages/FoodInProgress';
-import DrinkInProgress from './pages/DrinkInProcess';
+// import FoodInProgress from './pages/FoodInProgress';
+// import DrinkInProgress from './pages/DrinkInProcess';
+//  Troquei esses dois componentes por um generico DrinksFoodsInProgress
+import DrinkFoodInProgress from './pages/DrinkFoodInProgress';
 import Explorer from './pages/Explorer';
 import ExplorerFood from './pages/ExplorerFood';
 import ExplorerDrink from './pages/ExplorerDrink';
@@ -26,11 +28,11 @@ const App = () => (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/comidas/:id/in-progress" component={ DrinkFoodInProgress } />
         <Route path="/comidas/:id" component={ MealDetails } />
         <Route path="/comidas" component={ DrinksFoodsRecipes } />
         <Route path="/perfil" component={ Profile } />
-        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkFoodInProgress } />
         <Route path="/bebidas/:id" component={ DrinkDetails } />
         <Route path="/bebidas" component={ DrinksFoodsRecipes } />
         <Route path="/explorar/comidas/ingredientes" component={ FoodIngredients } />
