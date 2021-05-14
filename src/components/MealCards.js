@@ -20,7 +20,7 @@ export default function MealCards(categories, meals, categoryCheck) {
           flexDirection: 'column',
           width: '100%',
           height: '100%',
-          marginTop: '30%',
+          marginTop: '50%',
           justifyContent: 'space-between',
         } }
       >
@@ -33,6 +33,8 @@ export default function MealCards(categories, meals, categoryCheck) {
           onClick={ async () => categoryCheck() }
           style={ {
             marginBottom: '3px',
+            borderColor: '#268144',
+            color: '#268144',
           } }
         >
           All
@@ -46,6 +48,8 @@ export default function MealCards(categories, meals, categoryCheck) {
             onClick={ async () => categoryCheck(category.strCategory) }
             style={ {
               marginBottom: '3px',
+              borderColor: '#268144',
+              color: '#268144',
             } }
           >
             {category.strCategory}

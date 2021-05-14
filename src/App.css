@@ -12,9 +12,22 @@
   justify-content: space-between;
 }
 
+.container-cards a {
+  background-color: transparent;
+  color: #268144;
+  text-decoration: none;
+}
+
+.container-cards a:any-link {
+  color: #268144;
+  cursor: pointer;
+  text-decoration: none;
+  text-decoration-color: dimgray;
+}
+
 .footer-bar {
   align-items: center;
-  background-color: #fdf6f6;
+  background-color: rgb(247, 247, 247);
   border-top-style: hidden;
   bottom: 0;
   box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.2);
@@ -31,7 +44,7 @@
 
 .meals {
   align-items: center;
-  background: #fdf6f6;
+  background: rgb(247, 247, 247);
   color: #464646;
   display: flex;
   flex-direction: column;
@@ -43,29 +56,31 @@
 
 .login {
   align-items: center;
-  background-color: #f3756c;
+  background-color: #268144;
   border-radius: 20px;
   color: #464646;
   display: flex;
   flex-direction: column;
-  height: 80%;
-  justify-content: space-between;
+  height: 30rem;
+  justify-content: center;
   width: 80%;
 }
 
 .login input {
-  background-color: rgb(230, 212, 212);
+  background-color: rgb(247, 247, 247);
   border-radius: 12px;
+  margin-bottom: 5px;
 }
 
 .login button {
   border-radius: 7px;
   color: #464646;
+  margin-top: 15px;
 }
 
 .header-bar {
   align-items: center;
-  background-color: #fdf6f6;
+  background-color: rgb(247, 247, 247);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: space-around;
@@ -74,6 +89,11 @@
   top: 0;
   width: 100%;
   z-index: 3;
+}
+
+.header-bar button {
+  background: none;
+  border: none;
 }
 
 .header-icons {
@@ -94,11 +114,13 @@
 
 .search-bar {
   align-items: center;
-  background-color: red;
+  background: #268144;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 3px;
+  padding-bottom: 5px;
+  padding-top: 5px;
   position: fixed;
   width: 100%;
   z-index: 3;
@@ -116,7 +138,7 @@
 .text-input {
   border: none;
   border-radius: 10px;
-  color: #f3756c;
+  color: #268144;
   font-size: 18px;
   height: 30px;
   margin-top: 3px;
@@ -127,9 +149,9 @@
 
 .search-btn {
   background-color: white;
-  border: transparent;
+  border: none;
   border-radius: 10px;
-  color: #f3756c;
+  color: #268144;
   font-size: 15px;
   height: 35px;
   justify-content: space-around;
@@ -153,11 +175,11 @@
 }
 
 .radio-btn:checked {
-  background-color: #f3756c;
+  background-color: #268144;
 }
 
 .radio-btn:after {
-  color: #f3756c;
+  color: #268144;
   content: 'Ingrediente';
   left: 8%;
   position: absolute;
@@ -182,7 +204,7 @@
 }
 
 .search-btn:hover {
-  background-color: #f3756c;
+  background-color: #268144;
   color: white;
 }
 
@@ -298,7 +320,7 @@
 }
 
 .fav-nav-btn:after {
-  color: #3c40c6;
+  color: #268144;
   content: 'All';
   left: 40%;
   position: absolute;
@@ -306,7 +328,7 @@
 }
 
 .fav-nav-btn:checked {
-  background-color: #3c40c6;
+  background-color: #268144;
   color: white;
 }
 
@@ -328,6 +350,17 @@
 
 .fade-in-fwd {
   animation: fade-in-fwd 5s cubic-bezier(0.39, 0.575, 0.565, 1) backwards;
+}
+
+.front-face {
+  height: 250px;
+  width: 150px;
+}
+
+.loading {
+  align-items: center;
+  display: flex;
+  height: 40rem;
 }
 
 @keyframes fade-in-fwd {

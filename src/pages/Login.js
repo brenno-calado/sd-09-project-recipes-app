@@ -38,17 +38,9 @@ class Login extends Component {
       <div className="login">
         <div
           className="fade-in-fwd"
-          style={
-            { width: '100px',
-              height: '100px' }
-          }
         >
           <img
-            className="front face"
-            style={
-              { width: '100px',
-                height: '100px' }
-            }
+            className="front-face"
             src={ cooking }
             alt="teste"
           />

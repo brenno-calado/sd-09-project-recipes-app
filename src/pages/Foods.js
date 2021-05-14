@@ -87,7 +87,7 @@ function Foods() {
   return (
     <>
       <Header pageName="Comidas" searchBtn />
-      { loading ? <h1> Loading...</h1> : foodCardsRender() }
+      { loading ? <h1 className="loading"> Loading...</h1> : foodCardsRender() }
       <FooterMenu />
     </>
   );
