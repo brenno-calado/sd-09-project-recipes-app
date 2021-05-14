@@ -8,6 +8,7 @@ import RecipeShareButton from '../components/RecipeShareButton';
 import RecipesAppContext from '../context/RecipesAppContext';
 import RecipeIngredients from '../components/RecipeIngredients';
 import '../styles/pages/InProgress.css';
+import Loading from '../components/Loading';
 
 function DrinkInProgress({ match: { params: { id } } }) {
   const [disableBtn, setDisableBtn] = useState(true);
@@ -44,12 +45,14 @@ function DrinkInProgress({ match: { params: { id } } }) {
   }
 
   return (
-    <div>
+    <div className="in-progress-container">
       { (drinkId.idDrink === id) ? (
         <>
           <RecipeDetailsHeader type="Drink" />
-          <RecipeShareButton />
-          <RecipeFavoriteButton id={ id } type="Drink" />
+          <div className="buttons-inprogress-container">
+            <RecipeShareButton />
+            <RecipeFavoriteButton id={ id } type="Drink" />
+          </div>
           <RecipeIngredients type="cocktails" id={ id } setDisableBtn={ setDisableBtn } />
           <RecipeInstructions type="Drink" />
           <button
@@ -62,7 +65,7 @@ function DrinkInProgress({ match: { params: { id } } }) {
             Finalizar Receita
           </button>
         </>
-      ) : (<p className="loading-message">Loading...</p>) }
+      ) : (<Loading />) }
       { (redirect && <Redirect to="/receitas-feitas" />) }
     </div>
   );

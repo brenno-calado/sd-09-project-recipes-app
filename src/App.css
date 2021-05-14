@@ -66,3 +66,13 @@
     transform: rotate(-10deg);
   }
 }
+
+button {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+button:disabled {
+  cursor: inherit;
+  opacity: 0.5;
+}

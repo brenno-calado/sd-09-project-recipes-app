@@ -21,7 +21,8 @@ function RecipeIngredientsList({ type }) {
   const ingredientsList = getIngredients();
 
   return (
-    <div>
+    <div className="ingredients-container">
+      <h4>Ingredients</h4>
       <ul className="list-ingredients">
         { ingredientsList.map((ingredient, index) => (
           <li

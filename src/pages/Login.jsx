@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import '../styles/Login.css';
+import logo from '../images/logo.svg';
+import '../styles/pages/Login.css';
 
 function Login() {
   const history = useHistory();
@@ -29,17 +30,19 @@ function Login() {
 
   return (
     <div className="login">
-      <h2>Login</h2>
-      <form>
+      <img src={ logo } alt="logo" />
+      <form className="login-form-container">
         <input
           type="email"
           data-testid="email-input"
           onChange={ handleEmailChange }
+          placeholder="E-mail"
         />
         <input
           type="password"
           data-testid="password-input"
           onChange={ handlePassChange }
+          placeholder="Senha"
         />
         <button
           type="button"

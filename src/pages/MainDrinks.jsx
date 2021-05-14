@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
 import RecipesAppContext from '../context/RecipesAppContext';
-import '../styles/MainPage.css';
+import '../styles/pages/MainPage.css';
+import Loading from '../components/Loading';
 
 const CARDS_LIMIT = 12;
 const BUTTONS_LIMIT = 5;
@@ -16,13 +17,14 @@ function MainDrinks() {
     isFetching,
     cocktailsCategories,
     handleCocktailCategoryClick,
+    isFetchingCategories,
   } = useContext(RecipesAppContext);
   return (
     <>
       <Header />
       <div className="main-page-container">
         { (redirect) && <Redirect to={ `/bebidas/${cocktailsRecipes[0].idDrink}` } /> }
-        { !(isFetching) && (
+        { !(isFetchingCategories) && (
           <div className="categories-buttons-container">
             <button
               type="button"
@@ -57,7 +59,9 @@ function MainDrinks() {
                     data-testid={ `${index}-card-img` }
                     alt={ drink.strDrink }
                   />
-                  <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+                  <div>
+                    <p data-testid={ `${index}-card-name` }>{ drink.strDrink }</p>
+                  </div>
                 </div>
               </Link>)
             )) }
@@ -66,14 +70,7 @@ function MainDrinks() {
         { (!(isFetching) && cocktailsRecipes === null) && (
           <p className="not-found-message">Drink Not Found</p>
         ) }
-        { (isFetching) && (
-          <p
-            className="loading-message"
-            data-testid="loading-message"
-          >
-            Loading...
-          </p>
-        ) }
+        { ((isFetching) || (isFetchingCategories)) && <Loading /> }
       </div>
       <BottomMenu />
     </>
