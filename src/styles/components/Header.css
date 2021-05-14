@@ -1,16 +1,17 @@
-.header-container {
+.header {
   align-items: center;
-  background-color: rgb(235, 235, 235);
+  background-color: #0fa36b;
+  color: white;
   display: flex;
   justify-content: space-around;
 }
 
-.header-container > button {
+.header > button {
   background-color: inherit;
   border: none;
 }
 
-.header-container > h1 {
+.header > h1 {
   max-width: 180px;
   text-align: center;
 }

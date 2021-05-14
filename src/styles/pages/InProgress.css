@@ -1,6 +1,22 @@
+.in-progress-container {
+  padding-bottom: 40px;
+}
+
 .finish-recipe-btn {
+  background-color: #0fa36b;
   bottom: 0;
+  color: white;
+  height: 40px;
   position: fixed;
   text-decoration: none;
   width: 100%;
+}
+
+.buttons-inprogress-container {
+  float: right;
+  margin: 15px 15px 0;
+}
+
+.buttons-inprogress-container > button {
+  border: none;
 }

@@ -4,7 +4,7 @@ import RecipesAppContext from '../context/RecipesAppContext';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import '../styles/Header.css';
+import '../styles/components/Header.css';
 
 function toUpperCaseFirstLetter(str) {
   const arr = str.split('');
@@ -38,8 +38,8 @@ function Header() {
   }, [setShowSearchBar]);
 
   return (
-    <div>
-      <header className="header-container">
+    <div className="header-container">
+      <header className="header">
         <Link to="/perfil">
           <img src={ profileIcon } alt="profile" data-testid="profile-top-btn" />
         </Link>
@@ -52,7 +52,11 @@ function Header() {
             </button>
           ) }
       </header>
-      { (showSearchBar) && <SearchBar /> }
+      { (showSearchBar) && (
+        <div className="search-bar-container">
+          <SearchBar />
+        </div>
+      ) }
     </div>
   );
 }

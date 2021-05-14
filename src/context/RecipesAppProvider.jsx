@@ -14,6 +14,7 @@ function RecipesAppProvider({ children }) {
   const [cocktailsRecipes, setCocktailsRecipes] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [isFetching, setIsFetching] = useState(true);
+  const [isFetchingCategories, setIsFetchingCategories] = useState(true);
   const [mealsCategories, setMealsCategories] = useState([]);
   const [cocktailsCategories, setCocktailsCategories] = useState([]);
   const [mealsBkp, setMealsBkp] = useState([]);
@@ -66,6 +67,7 @@ function RecipesAppProvider({ children }) {
     setMealsCategories(apiMealsResponse);
     const apiCocktailsResponse = await fetchCocktailsCategories();
     setCocktailsCategories(apiCocktailsResponse);
+    setIsFetchingCategories(false);
   };
 
   const handleMealCategoryClick = async ({ target: { innerText } }) => {
@@ -137,6 +139,7 @@ function RecipesAppProvider({ children }) {
     drinkId,
     drinkRecomendation,
     mealRecomendation,
+    isFetchingCategories,
     setMealId,
     setDrinkId,
     setShowSearchBar,

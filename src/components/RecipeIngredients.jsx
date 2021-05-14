@@ -82,6 +82,7 @@ function RecipeIngredients({ type, id, setDisableBtn }) {
 
   return (
     <div className="ingredients-container">
+      <h4>Ingredients</h4>
       <form>
         { ingredientsList.map((ingredient, index) => (
           <div

@@ -1,0 +1,72 @@
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.main-page-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: 60px;
+}
+
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 640px;
+}
+
+.recipe-card {
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%) , 0 6px 20px 0 rgb(0 0 0 / 19%);
+  flex-direction: column;
+  font-size: 0.8rem;
+  font-weight: 700;
+  height: 180px;
+  margin: 5px 12px 15px;
+  text-align: center;
+  width: 150px;
+}
+
+.recipe-card > img {
+  border-radius: 5px;
+  height: 120px;
+  width: 150px;
+}
+
+.recipe-card > div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 5px;
+  min-height: 60px;
+}
+
+.not-found-message {
+  margin-top: 150px;
+}
+
+.categories-buttons-container {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  padding: 8px 4px;
+}
+
+.categories-buttons-container > button {
+  background-color: #0fa36b;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.8rem;
+  height: 42px;
+  margin: 5px;
+  width: 95px;
+  word-wrap: break-word;
+}

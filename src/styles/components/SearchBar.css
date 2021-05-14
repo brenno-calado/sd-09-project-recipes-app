@@ -1,0 +1,30 @@
+.search-bar-form {
+  background-color: #0fa36b;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10px 30px;
+}
+
+.search-bar-form > div {
+  align-self: center;
+  color: white;
+  margin: 10px 0;
+}
+
+.search-bar-form > div > label {
+  margin: 0 5px;
+}
+
+.search-bar-form > input {
+  border-radius: 5px;
+  margin: 0;
+}
+
+.search-bar-form > button {
+  background-color: #28a745;
+  border-radius: 5px;
+  color: white;
+  margin: 0;
+  transition: 1s;
+}

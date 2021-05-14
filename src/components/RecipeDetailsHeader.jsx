@@ -13,12 +13,14 @@ function RecipeDetailsHeader({ type }) {
         alt={ recipe[`str${type}`] }
         src={ recipe[`str${type}Thumb`] }
       />
-      <h3 data-testid="recipe-title" className="recipe-title">
-        { recipe[`str${type}`] }
-      </h3>
-      <p data-testid="recipe-category">
-        { (type === 'Meal') ? recipe.strCategory : recipe.strAlcoholic }
-      </p>
+      <div className="recipe-title-container">
+        <h3 data-testid="recipe-title" className="recipe-title">
+          { recipe[`str${type}`] }
+        </h3>
+        <p data-testid="recipe-category" className="recipe-category">
+          { (type === 'Meal') ? recipe.strCategory : recipe.strAlcoholic }
+        </p>
+      </div>
     </>
   );
 }

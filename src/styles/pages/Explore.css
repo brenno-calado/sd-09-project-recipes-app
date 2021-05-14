@@ -1,0 +1,17 @@
+.explore-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 524px;
+  justify-content: center;
+}
+
+.explore-container > a > button {
+  background-color: #0fa36b;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  margin: 15px;
+  text-decoration: none;
+  width: 250px;
+}

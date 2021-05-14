@@ -1,0 +1,99 @@
+.details-container {
+  padding-bottom: 40px;
+}
+
+.button-start-recipe {
+  background-color: #0fa36b;
+  bottom: 0;
+  color: white;
+  height: 40px;
+  position: fixed;
+  text-decoration: none;
+  width: 100%;
+}
+
+.recipe-photo {
+  display: block;
+  height: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.recipe-title-container {
+  color: #0fa36b;
+  display: inline-block;
+  margin: 15px 15px 0;
+  max-width: 200px;
+}
+
+.buttons-detail-container {
+  float: right;
+  margin: 15px 15px 0;
+}
+
+.buttons-detail-container > button {
+  border: none;
+}
+
+.recipe-category {
+  color: gray;
+}
+
+.ingredients-container {
+  background-color: #0fa36b;
+  border-radius: 5px;
+  color: white;
+  margin: 0 15px 15px;
+  padding: 10px;
+}
+
+.ingredients-container > h4 {
+  padding: 5px 0;
+  text-align: center;
+}
+
+.instructions-container {
+  background-color: #0fa36b;
+  border-radius: 5px;
+  color: white;
+  margin: 15px;
+  padding: 10px;
+}
+
+.instructions-container > h4 {
+  padding: 5px 0;
+  text-align: center;
+}
+
+.instructions {
+  margin: 10px;
+  text-align: justify;
+}
+
+.carousel {
+  width: 100%;
+}
+
+.loading-message {
+  text-align: center;
+}
+
+.recomendation-container {
+  background-color: #0fa36b;
+  border-radius: 5px;
+  color: white;
+  margin: 0 15px 15px;
+  padding: 10px 30px 20px;
+}
+
+.recomendation-container > h4 {
+  padding: 5px 0;
+  text-align: center;
+}
+
+.carousel-img {
+  border-radius: 5px;
+  height: 200px;
+  width: 290px;
+}

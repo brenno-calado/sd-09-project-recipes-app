@@ -1,6 +1,7 @@
 .done-recipes-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 40px;
 }
 
 .done-recipes-buttons-container {
@@ -11,21 +12,25 @@
 }
 
 .done-recipes-buttons-container > button {
+  background-color: #0fa36b;
   border-radius: 5px;
+  color: white;
   height: 40px;
   width: 70px;
 }
 
 .done-recipe-card {
-  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%) , 0 6px 20px 0 rgb(0 0 0 / 19%);
   display: flex;
   height: 150px;
   justify-content: space-between;
-  margin: 10px;
+  margin: 15px;
 }
 
 .recipe-image {
-  height: 148px;
+  border-radius: 5px;
+  height: 150px;
   width: 120px;
 }
 

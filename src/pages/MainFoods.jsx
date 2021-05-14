@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
 import RecipesAppContext from '../context/RecipesAppContext';
-import '../styles/MainPage.css';
+import '../styles/pages/MainPage.css';
+import Loading from '../components/Loading';
 
 const CARDS_LIMIT = 12;
 const BUTTONS_LIMIT = 5;
@@ -16,13 +17,14 @@ function MainFoods() {
     redirect,
     isFetching,
     handleMealCategoryClick,
+    isFetchingCategories,
   } = useContext(RecipesAppContext);
   return (
     <>
       <Header />
       <div className="main-page-container">
         { (redirect) && <Redirect to={ `/comidas/${mealsRecipes[0].idMeal}` } /> }
-        { !(isFetching) && (
+        { !(isFetchingCategories) && (
           <div className="categories-buttons-container">
             <button
               type="button"
@@ -56,7 +58,9 @@ function MainFoods() {
                     data-testid={ `${index}-card-img` }
                     alt={ meal.strMeal }
                   />
-                  <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+                  <div>
+                    <p data-testid={ `${index}-card-name` }>{ meal.strMeal }</p>
+                  </div>
                 </div>
               </Link>)
             )) }
@@ -65,14 +69,7 @@ function MainFoods() {
         { (!(isFetching) && mealsRecipes === null) && (
           <p className="not-found-message">Meal Not Found</p>
         ) }
-        { (isFetching) && (
-          <p
-            className="loading-message"
-            data-testid="loading-message"
-          >
-            Loading...
-          </p>
-        ) }
+        { ((isFetching) || (isFetchingCategories)) && <Loading /> }
       </div>
       <BottomMenu />
     </>

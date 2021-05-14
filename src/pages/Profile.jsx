@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import BottomMenu from '../components/BottomMenu';
-import '../styles/profile.css';
+import '../styles/pages/profile.css';
 
 function Profile() {
   const user = JSON.parse(localStorage.getItem('user'));

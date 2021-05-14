@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router';
 import RecipesAppContext from '../context/RecipesAppContext';
-import '../styles/SearchBar.css';
+import '../styles/components/SearchBar.css';
 
 function SearchBar() {
   const [inputs, setInputs] = useState({ searchText: '', filter: 'ingredient' });
@@ -13,7 +13,7 @@ function SearchBar() {
   };
 
   return (
-    <form className="search-bar-container">
+    <form className="search-bar-form">
       <input
         type="text"
         name="searchText"
