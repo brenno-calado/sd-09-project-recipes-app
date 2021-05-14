@@ -1,21 +1,43 @@
+@import url('http://fonts.cdnfonts.com/css/christmas-sparkle-personal-use');
+
 .Card {
   display: flex;
   flex-direction: row;
-  height: 410px;
+  height: 30vh;
   overflow-y: scroll;
-  width: 599px;
+  background-color: #ff8c0070;
+  width: 100vw;
+}
+
+.recomendationCard {
+  display: grid;
+  grid-template-rows: 20vh 5vh 4vh;
+  align-items: center;
+  height: 10vh;
+  justify-items: center;
+  line-height: 4vh;
+  font-size: 4vh;
+  color: whitesmoke;
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
+}
+
+.recomendationCard h5 {
+  justify-self: center;
 }
 
 .Imagem {
-  max-height: 300px;
-  max-width: 300px;
+  max-height: 50vh;
+  max-width: 50vw;
 }
 
 .fix {
   bottom: 0;
   position: fixed;
-  right: 0%;
-  top: 90%;
+  right: 0;
+  display: flex;
+  height: 10vh;
+  align-items: center;
 }
 
 .invisible {
@@ -24,4 +46,212 @@
   right: 0%;
   top: 90%;
   visibility: hidden;
+}
+
+.detailsContainer {
+  display: grid;
+  grid-template-rows: auto auto 56vh 7vh 7vh auto auto 50vh 50vh;
+  grid-row-gap: 0.2vh;
+  grid-template-columns: 100vw;
+}
+
+.detailsContainer.drink {
+  grid-template-rows: auto auto 56vh 7vh 7vh auto auto 50vh
+}
+
+.detailsContainer h1 {
+  grid-row: 1;
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+  width: 100vw;
+  font-size: xxx-large;
+  font-weight: 200;
+  margin: 0;
+  text-align: center;
+}
+
+.detailsContainer h2, h3 {
+  justify-self: center;
+  align-self: center;
+}
+
+.detailsContainer h2 {
+  width: 70vw;
+  border-bottom: 2px solid black;
+  text-align: center;
+}
+
+
+.detailsContainer h3 {
+  border: 2px solid black;
+  padding: 1vh;
+  border-radius: 2vh;
+  background-color: #f5f5f5c2;
+}
+
+.detailsContainer ol {
+  width: 70vw;
+  border-bottom: 5px solid black;
+  justify-self: center;
+  padding: 2vh 6vh;
+  border-top: 4px solid black;
+  border-radius: 10vh;
+}
+
+.detailsContainer li {
+  padding: 0.1vh 2vh;
+  background-color: #f5f5f5c2;
+  list-style-position: inside;
+}
+
+.detailsContainer li:first-child {
+  padding-top: 1vh;
+  border-top-left-radius: 2vh;
+  border-top-right-radius: 2vh;
+}
+
+.detailsContainer li:last-child {
+  padding-bottom: 1vh;
+  border-bottom-left-radius: 2vh;
+  border-bottom-right-radius: 2vh;
+}
+
+.detailsIMG {
+  width: 88vw;
+  padding: 2vh;
+  background-color: #f5f5f5c2;
+  border: 2px solid;
+  box-shadow: black 1px 1px 5px 1px;
+  border-radius: 2vh;
+  margin-left: 1vh;
+}
+
+.instructions {
+  margin: 2vh 3vh;
+  text-align: left;
+  padding: 1vh 2vh;
+  background-color: #f5f5f5c2;
+  border: 2px solid;
+  box-shadow: black 1px 1px 5px 1px;
+  line-height: 3.4vh;
+  border-radius: 2vh;
+}
+
+.detailsBtnContainer {
+  height: 0;
+  width: 96vw;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  bottom: 8vh;
+  padding: 1vh;
+}
+
+.detailsBtnContainer button {
+  height: 7vh;
+  width: 20vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shared p {
+  position: absolute;
+  width: inherit;
+  text-align: left;
+  font-size: initial;
+  margin-left: 1vh;
+}
+
+.shared img {
+  height: 4vh;
+  position: relative;
+  left: 3vh;
+  bottom: 1vh;
+}
+
+@media (min-width: 500px) {
+  .detailsContainer {
+    grid-template-columns: 50vw 50vw;
+    grid-template-rows: 18vh 14vh 5vh 85vh auto 70vh auto;
+    grid-row-gap: 1vh;
+    overflow-x: clip;
+  }
+  .detailsContainer.drink {
+    grid-template-rows: 18vh 14vh 5vh 85vh auto auto;
+  }
+  .detailsIMG {
+    width: 45vw;
+    justify-self: left;
+    grid-column: 1;
+    height: 90vh;
+    padding: 4vh;
+    background-color: #f5f5f5c2;
+    border: 2px solid;
+    box-shadow: black 1px 1px 5px 1px;
+    border-radius: 2vh;
+    margin-left: 0.5vh;
+  }
+  .detailsContainer h2, h3, ol {
+    grid-column: 2;
+    max-width: 40vw;
+    position: relative;
+    bottom: 4vh;
+  }
+  .detailsContainer ol {
+    max-height: 70vh;
+    overflow-y: overlay;
+  }
+  .instructions {
+    grid-column-start: 1;
+    grid-column-end: 3;
+    line-height: 7vh;
+    font-size: larger;
+    padding: 3vh;
+  }
+  .Card {
+    grid-row: 7;
+    grid-template-columns: 50vw 50vw;
+    padding: 10vh 0vh;
+    justify-content: center;
+    width: 100vw;
+  }
+  .recomendationCard img {
+    max-height: 65vh;
+    width: 50vw;
+    justify-self: center;
+  }
+  .recomendationCard {
+    display: grid;
+    grid-template-rows: 31vh 6vh 6vh;
+    align-items: center;
+    justify-items: center;
+    color: whitesmoke;
+    font-size: 7vh;
+    text-shadow: 1px 1px black;
+  }
+  .fix {
+    grid-row: 7;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    align-self: center;
+  }
+  .detailsContainer h1 {
+    grid-column-start: 1;
+  }
+  .detailsBtnContainer {
+    height: 10vh;
+    width: 95vw;
+    display: flex;
+    position: relative;
+    top: 2vh;
+    padding: 5vh;
+    grid-row: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    justify-content: space-between;
+  }
+  .detailsBtnContainer button {
+    height: 10vh;
+    width: 10vw;
+  }
 }

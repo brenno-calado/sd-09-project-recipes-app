@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { fetchMealCategories, fetchCocktailsCategories } from '../services/ApiRequest';
+import '../Styles/CategoryBtn.css';
 
 function ShowCategories({ name, searchResult }) {
   const [categories, setCategories] = useState([]);
@@ -17,13 +18,14 @@ function ShowCategories({ name, searchResult }) {
 
   const numberOfCategories = 5;
   return (
-    <div>
+    <div className="categoryBtnsContainer">
       {!categories
         ? <div />
         : categories.map(
           (category, index) => (index < numberOfCategories
             && (
               <button
+                className="categoryBtn"
                 type="button"
                 data-testid={ `${category.strCategory}-category-filter` }
                 key={ category.strCategory }
@@ -34,6 +36,7 @@ function ShowCategories({ name, searchResult }) {
           ),
         )}
       <button
+        className="btnAll"
         data-testid="All-category-filter"
         key="All"
         onClick={ () => searchResult('All') }

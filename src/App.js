@@ -19,6 +19,7 @@ import './App.css';
 import DrinkProgress from './Pages/DrinkProgress';
 import FoodProgress from './Pages/FoodProgress';
 import NotFound from './Components/NotFound';
+import NewProfile from './Pages/NewProfile';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Route exact path="/explorar" component={ Explore } />
         <Route path="/bebidas/:id/in-progress" component={ DrinkProgress } />
         <Route path="/comidas/:id/in-progress" component={ FoodProgress } />
+        <Route path="/cadastro" component={ NewProfile } />
         {/* <Route
           path="/bebidas/{id-da-receita}/in-progress"
           render={ (drink-id) => <DrinkProgress {...drink-id} /> }

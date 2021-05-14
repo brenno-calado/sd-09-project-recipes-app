@@ -6,6 +6,7 @@ import { fetchDrinkDetailsAPI, fetchMealsAPI } from '../../services/ApiRequest';
 import FavoriteButton from '../../Components/FavoriteButton';
 import Share from '../../Components/Share';
 import { addObj } from '../../redux/actions';
+import './Details.css';
 
 class DetailsDrinks extends React.Component {
   constructor() {
@@ -60,7 +61,7 @@ class DetailsDrinks extends React.Component {
     const id = 'share-btn';
     if (ok === true) {
       return (
-        <div>
+        <div className="detailsBtnContainer">
           <FavoriteButton />
           <Share id={ id } />
         </div>
@@ -77,7 +78,11 @@ class DetailsDrinks extends React.Component {
         {
           foods.filter((_, i) => i <= num)
             .map((val, index) => (
-              <div key={ index } data-testid={ `${index}-recomendation-card` }>
+              <div
+                className="recomendationCard"
+                key={ index }
+                data-testid={ `${index}-recomendation-card` }
+              >
                 <img className="Imagem" src={ val.strMealThumb } alt={ val.strMeal } />
                 <h5 data-testid={ `${index}-recomendation-title` }>{val.strMeal}</h5>
                 <p>{val.strCategory}</p>
@@ -143,10 +148,15 @@ class DetailsDrinks extends React.Component {
     const { drink, igredients, pounds } = this.state;
     const { strAlcoholic, strDrinkThumb, strDrink, strInstructions } = drink;
     return (
-      <div>
+      <div className="detailsContainer drink">
         <h1>Detalhes</h1>
         {this.favoriteOk()}
-        <img data-testid="recipe-photo" src={ strDrinkThumb } alt={ strDrink } />
+        <img
+          className="detailsIMG"
+          data-testid="recipe-photo"
+          src={ strDrinkThumb }
+          alt={ strDrink }
+        />
         <h2 data-testid="recipe-title">{strDrink}</h2>
         <h3 data-testid="recipe-category">{strAlcoholic}</h3>
         <ol>
@@ -159,7 +169,12 @@ class DetailsDrinks extends React.Component {
             </li>
           ))}
         </ol>
-        <p data-testid="instructions">{strInstructions}</p>
+        <p
+          className="instructions"
+          data-testid="instructions"
+        >
+          {strInstructions}
+        </p>
         {this.recomendar()}
         {this.buttonStartOrContinue()}
       </div>

@@ -1,18 +1,95 @@
-/* .profileContainer {
-  display: grid;
-  grid-template-rows: 10vh 80vh 10vh;
-}
+@import url('http://fonts.cdnfonts.com/css/christmas-sparkle-personal-use');
 
-.headerContainer {
+.profileContainer {
+  display: grid;
+  grid-template-rows: 5vh 85vh 10vh;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+  background-image: url('./images/teste24.png');
+  background-repeat: no-repeat;
+  background-size: 80vh 165vw;
+  background-position: -15vh 0vh;
   background-color: white;
-  display: flex;
-  grid-row: 1;
-  justify-content: space-evenly;
-  margin-bottom: auto;
-  padding: 10px;
 }
 
 .mainContainer {
-  display: grid;
   grid-row: 2;
-} */
+  width: 100vw;
+  padding: 3vh;
+}
+
+.NewUserDataProfile {
+  max-width: 90vw;
+}
+
+.profileContainer .headerContainer {
+  grid-template-columns: 25vw 50vw;
+  align-items: center;
+}
+
+.profileContainer .headerContainer img {
+  justify-self: center;
+}
+
+.profileContainer .headerContainer span {
+  justify-self: center;
+  font-size: 7vh;
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+}
+
+.profileContainer .footerContainer{
+  grid-row: 3;
+}
+
+.profileContainer .footer {
+  bottom: auto;
+  position: relative;
+  height: 12vh;
+  z-index: 10;
+}
+
+.profileContainer h1 {
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+  font-weight: 200;
+  font-size: 7vh;
+}
+
+.buttonsContainer {
+  display: grid;
+  padding: 3vh;
+  max-width: 80vw;
+}
+
+@media (min-width: 500px) {
+  .buttonsContainer {
+    position: absolute;
+    bottom: 13vh;
+    right: 0vh;
+    height: 50vh;
+    width: 30vw;
+  }
+  .buttonsContainer a {
+    font-size: 8vh;
+  }
+  .logOut  {
+    width: 10vw;
+    justify-self: center;
+  }
+  .profileContainer {
+    background-size: 150vh 50vw;
+  }
+  .profileContainer hr {
+   display: none;
+  }
+  .profileContainer h1 {
+    margin-top: 10vh;
+    font-size: 9vh;
+  }
+  .profileContainer br {
+    display: none;
+  }
+  .userInfo {
+    line-height: 10vh;
+  }
+}

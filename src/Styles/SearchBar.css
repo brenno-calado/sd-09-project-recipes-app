@@ -1,0 +1,44 @@
+.searchContainer {
+  display: grid;
+  grid-template-columns: 35vw 32vw 33vw;
+  grid-template-rows: 3vh 3vh 3vh;
+}
+
+.inputText{
+  grid-row: 1;
+  width: 100vw;
+}
+
+.ingredientRadio {
+  grid-row: 2;
+  grid-column: 3;
+  justify-self: center;
+}
+
+.nameRadio {
+  grid-row: 2;
+  grid-column: 2;
+  justify-self: center;
+}
+
+.letterRadio {
+  grid-row: 2;
+  grid-column: 1;
+  justify-self: center;
+}
+
+.execBtn {
+  grid-row: 3;
+  grid-column: 2;
+  width: 32vw;
+  height: 3vh;
+  justify-self: center;
+  background-color: rgba(245, 222, 179, 0.842);
+  box-shadow: 0px 3px 2px 3px #be6900, 0px 4px 2px 3px #000000;
+  border: none;
+}
+
+.execBtn:active {
+  position: relative;
+  top: 0.5vh;
+}

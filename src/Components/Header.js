@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { TiArrowBack } from 'react-icons/ti';
 import SearchBar from './SearchBar';
 import ShowArea from './ShowArea';
-import './styles/Header.css';
+import '../Styles/Header.css';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -14,14 +15,25 @@ function Header({ name }) {
   const result = regex.test(location);
 
   function renderSearchBar() {
-    if (showSearchBar) setShowSearchBar(false);
-    else setShowSearchBar(true);
+    const teste = document.querySelector('.app');
+    const teste2 = document.querySelector('.gridForSearchBar');
+    const teste3 = document.querySelector('.headerContainer');
+    const teste4 = document.querySelector('.extendedHeaderContainer');
+    if (showSearchBar) {
+      teste2.className = 'app';
+      teste4.className = 'headerContainer';
+      setShowSearchBar(false);
+    } else {
+      teste.className = 'gridForSearchBar';
+      teste3.className = 'extendedHeaderContainer';
+      setShowSearchBar(true);
+    }
   }
 
   return (
     <div className="headerContainer">
       { !result && (
-        <header>
+        <header className="headerBar">
           <Link to="/perfil">
             <img
               src={ profileIcon }
@@ -29,11 +41,17 @@ function Header({ name }) {
               data-testid="profile-top-btn"
             />
           </Link>
-          <span data-testid="page-title">{name}</span>
+          <span
+            className="headerName"
+            data-testid="page-title"
+          >
+            {name}
+          </span>
           { name.includes('Explorar') || name.includes('Receitas')
             ? ''
             : (
               <button
+                className="searchBtn"
                 src={ searchIcon }
                 data-testid="search-top-btn"
                 type="button"
@@ -41,11 +59,12 @@ function Header({ name }) {
               >
                 { !showSearchBar
                   ? <img src={ searchIcon } alt="Search-Bar" />
-                  : '' }
+                  : <TiArrowBack /> }
               </button>)}
           { name.includes('Explorar Origem')
             ? (
               <button
+                className="searchBtn"
                 src={ searchIcon }
                 data-testid="search-top-btn"
                 type="button"
@@ -53,7 +72,7 @@ function Header({ name }) {
               >
                 { !showSearchBar
                   ? <img src={ searchIcon } alt="Search-Bar" />
-                  : '' }
+                  : <TiArrowBack /> }
               </button>)
             : ''}
         </header>)}
