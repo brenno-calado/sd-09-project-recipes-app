@@ -1,6 +1,7 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect, Link, useLocation } from 'react-router-dom';
+import '../css/Main.css';
 
 function Main({ recipes }) {
   const { pathname } = useLocation();
@@ -17,7 +18,7 @@ function Main({ recipes }) {
   }
 
   return (
-    <main>
+    <main className="main-wrapper">
       { recipes.map((recipe, index) => (
         index < maxArrayLength ? (
           <Link
@@ -31,8 +32,19 @@ function Main({ recipes }) {
                 data-testid={ `${index}-card-img` }
                 src={ recipe[`str${page}Thumb`] }
                 alt={ recipe[`str${page}`] }
+                className="img-recipe"
               />
-              <p data-testid={ `${index}-card-name` }>{ recipe[`str${page}`] }</p>
+              <div className="info-recipe-container">
+                <p
+                  data-testid={ `${index}-card-name` }
+                  className="title-recipe"
+                >
+                  { recipe[`str${page}`] }
+                </p>
+                <p className="instructions-recipe">
+                  {recipe.strInstructions}
+                </p>
+              </div>
             </button>
           </Link>
         ) : false
