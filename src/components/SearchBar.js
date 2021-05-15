@@ -35,6 +35,7 @@ function SearchBar({ isMeal }) {
       name={ name }
       value={ value }
       type={ type }
+      placeholder="Busca de receitas"
       onChange={ handleChange }
     />
   );
