@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { Header, MealsCategories, MealsComponent, Footer } from '../../components';
+import { Header, Categories, MealsComponent, Footer } from '../../components';
 import { Context } from '../../context';
 import { fecthByName } from '../../services/api';
 
@@ -15,7 +15,7 @@ function Meals() {
   return (
     <section>
       <Header title="Comidas" search />
-      <MealsCategories />
+      <Categories />
       <MealsComponent data={ data } />
       <Footer />
     </section>
