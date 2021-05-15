@@ -1,12 +1,11 @@
 :root {
-  --orange-500: #FF5615;
-  --orange-300: #FF6C34;
-  --orange-200: #FDAF91;
-  --orange-100: #FFEFE0;
-  --blue-500: #3F3D56;
+  --orange-500: #ff5615;
+  --orange-300: #ff6C34;
+  --orange-200: #fdaf91;
+  --orange-100: #ffefe0;
+  --blue-500: #3f3d56;
   --gray-300: #636363;
-  --gray-100: #F1F1F1;
-
+  --gray-100: #f1f1f1;
   font-size: 16px;
 }
 
