@@ -37,6 +37,7 @@ function SearchBar({ isMeal }) {
       type={ type }
       placeholder="Busca de receitas"
       onChange={ handleChange }
+      className={ type === 'text' ? 'input-text' : 'input-radio' }
     />
   );
 

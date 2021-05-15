@@ -8,7 +8,7 @@
   padding: 1rem 0;
 }
 
-.wrapper-search-bar input[type="text"] {
+.input-text {
   border: none;
   border-radius: 0.5rem;
   padding: 0.9rem;
@@ -28,7 +28,7 @@
   gap: 0.2rem;
 }
 
-.radios-container input[type="radio"] {
+.input-radio {
   margin-top: 0;
 }
 
