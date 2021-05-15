@@ -1,10 +1,11 @@
 .wrapper-search-bar {
   align-items: center;
+  background-color: var(--orange-300);
   border-top: 1px solid var(--white-40);
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
   gap: 1rem;
+  padding: 1rem 0;
 }
 
 .wrapper-search-bar input[type="text"] {
@@ -22,8 +23,8 @@
 .radios-container label {
   align-items: center;
   color: white;
-  font-size: 0.9rem;
   display: flex;
+  font-size: 0.9rem;
   gap: 0.2rem;
 }
 
