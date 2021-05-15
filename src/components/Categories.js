@@ -13,13 +13,13 @@ function Categories() {
   const isMeals = pathname === '/comidas';
   const page = isMeals ? 'meals' : 'drinks';
 
-  const getCategories = async () => {
-    const data = await fetchCategoryList(isMeals);
-    setCategories(data[page]);
-  };
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => { getCategories(); }, []);
+  useEffect(() => {
+    const getCategories = async () => {
+      const data = await fetchCategoryList(isMeals);
+      setCategories(data[page]);
+    };
+    getCategories();
+  }, [isMeals, page]);
 
   const handleClick = ({ target: { value, name } }) => {
     if (toggleClick[name] || name === 'All') {
