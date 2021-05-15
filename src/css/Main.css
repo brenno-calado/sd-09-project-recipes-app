@@ -1,4 +1,3 @@
-
 .main-wrapper {
   box-sizing: border-box;
   display: flex;
@@ -20,6 +19,7 @@
   display: flex;
   gap: 2rem;
   padding: 0.8rem;
+  position: relative;
   width: 100%;
 }
 
@@ -47,4 +47,12 @@
   text-overflow: ellipsis;
   white-space: pre;
   width: 9rem;
+}
+
+.icon-heart {
+  bottom: 1rem;
+  color: var(--orange-500);
+  font-size: 1rem;
+  position: absolute;
+  right: 1rem;
 }

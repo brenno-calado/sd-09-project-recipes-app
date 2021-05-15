@@ -1,6 +1,8 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Redirect, Link, useLocation } from 'react-router-dom';
+import { FaRegHeart, FaHeart } from 'react-icons/fa';
+import { verifyItemInFavorite } from '../services/functionsApi';
 import '../css/Main.css';
 
 function Main({ recipes }) {
@@ -45,6 +47,9 @@ function Main({ recipes }) {
                   {recipe.strInstructions}
                 </p>
               </div>
+              { verifyItemInFavorite(recipe[`id${page}`])
+                ? <FaHeart className="icon-heart" />
+                : <FaRegHeart className="icon-heart" /> }
             </button>
           </Link>
         ) : false
