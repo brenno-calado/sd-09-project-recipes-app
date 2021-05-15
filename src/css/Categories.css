@@ -28,8 +28,7 @@
   width: 105px;
 }
 
-.button:focus,
-.focused {
+.button:focus, .focused {
   background-color: white;
   color: var(--orange-500);
 }
