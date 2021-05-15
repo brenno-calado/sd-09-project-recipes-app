@@ -35,7 +35,7 @@ function DrinksInProgress() {
       doneDate: new Date().toLocaleDateString(),
       tags: data.strTags ? data.strTags.split(',') : [],
     };
-    updateLocalStorage('doneRecipes', 'doneRecipes', doneRecipe);
+    updateLocalStorage('doneOrFavoriteRecipes', 'doneRecipes', doneRecipe);
     setShouldRedirect(true);
   };
 

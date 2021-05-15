@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Header, Footer, MealsComponent } from '../../components';
+import { Header, Footer, Main } from '../../components';
 import { fetchAreaList, fecthByArea, fecthByName } from '../../services/api';
 
 function MealsByArea() {
@@ -34,7 +34,7 @@ function MealsByArea() {
     <section>
       <Header title="Explorar Origem" search />
       { createDropdown('explore-by-area-dropdown', 'explore-by-area', areas.meals) }
-      <MealsComponent data={ data } />
+      <Main recipes={ data.meals } />
       <Footer />
     </section>
   );

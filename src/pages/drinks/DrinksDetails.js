@@ -89,7 +89,7 @@ function DrinksDetails() {
           { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>) }
       <MealsRecomendations />
-      { copy && <span>Link copiado!</span> }
+      { copy && <p>Link copiado!</p> }
     </section>
   );
 }
