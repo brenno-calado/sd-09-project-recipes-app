@@ -1,0 +1,44 @@
+.wrapper-categories {
+  background-color: var(--orange-300);
+  border-top: 1px solid var(--white-40);
+}
+
+.wrapper-categories p {
+  color: white;
+  margin: 1rem 0 0 1rem;
+}
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  position: relative;
+}
+
+.button {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  color: white;
+  padding: 0.5rem;
+  width: 105px;
+}
+
+.button:focus,
+.focused {
+  background-color: white;
+  color: var(--orange-500);
+}
+
+.square {
+  background-color: var(--orange-300);
+  bottom: -8px;
+  height: 18px;
+  position: absolute;
+  transform: rotate(45deg);
+  width: 18px;
+}

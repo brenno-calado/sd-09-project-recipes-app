@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Context } from '../context';
 import { fecthByCategory, fetchCategoryList, fecthByName } from '../services/api';
+import '../css/Categories.css';
 
 function Categories() {
   const { updateData } = useContext(Context);
   const [categories, setCategories] = useState([]);
   const [toggleClick, setToggleClick] = useState({});
+  const [focus, setFocus] = useState(true);
   const { pathname } = useLocation();
   const maxArrayLength = 5;
 
@@ -26,6 +28,7 @@ function Categories() {
       updateData(fecthByName('', isMeals));
     } else { updateData(fecthByCategory(value, isMeals)); }
     setToggleClick({ [name]: !toggleClick[name] });
+    setFocus(false);
   };
 
   const createButton = (name) => (
@@ -36,6 +39,7 @@ function Categories() {
       value={ name }
       name={ name }
       onClick={ handleClick }
+      className="button"
     >
       { name }
     </button>
@@ -44,18 +48,23 @@ function Categories() {
   if (!categories.length) return <div>Loading...</div>;
 
   return (
-    <section>
-      <button
-        data-testid="All-category-filter"
-        type="button"
-        value=""
-        name="All"
-        onClick={ handleClick }
-      >
-        All
-      </button>
-      { categories.map(({ strCategory }, index) => (
-        index < maxArrayLength ? createButton(strCategory) : false)) }
+    <section className="wrapper-categories">
+      <p>Filtros</p>
+      <div className="buttons-container">
+        <button
+          data-testid="All-category-filter"
+          type="button"
+          value=""
+          name="All"
+          onClick={ handleClick }
+          className={ `button ${focus ? 'focused' : null}` }
+        >
+          All
+        </button>
+        { categories.map(({ strCategory }, index) => (
+          index < maxArrayLength ? createButton(strCategory) : false)) }
+        <div className="square" />
+      </div>
     </section>
   );
 }
