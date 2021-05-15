@@ -1,0 +1,31 @@
+.wrapper-header {
+  background-color: var(--orange-500);
+  box-sizing: border-box;
+}
+
+.top-container {
+  align-items: center;
+  color: white;
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  padding: 1rem 0.7rem;
+}
+
+.top-container img {
+  height: 1.5rem;
+}
+
+.top-container h1 {
+  margin: 0;
+  margin-top: 0.6rem;
+  text-align: center;
+}
+
+.top-container button {
+  background-color: transparent;
+  border: none;
+}
+
+.top-container a {
+  text-align: center;
+}

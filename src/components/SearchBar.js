@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { bool } from 'prop-types';
 import { Context } from '../context';
 import { fecthByName, fetchByFirstLetter, fetchByIngredient } from '../services/api';
+import '../css/SearchBar.css';
 
 function SearchBar({ isMeal }) {
   const { updateData } = useContext(Context);
@@ -39,20 +40,22 @@ function SearchBar({ isMeal }) {
   );
 
   return (
-    <section>
+    <section className="wrapper-search-bar">
       { createInput('search-input', 'search', 'text') }
-      <label htmlFor="ingredient">
-        { createInput('ingredient-search-radio', 'searchBy', 'radio', 'ingredient') }
-        Ingrediente
-      </label>
-      <label htmlFor="name">
-        { createInput('name-search-radio', 'searchBy', 'radio', 'name') }
-        Nome
-      </label>
-      <label htmlFor="firstLetter">
-        { createInput('first-letter-search-radio', 'searchBy', 'radio', 'firstLetter') }
-        Primeira letra
-      </label>
+      <div className="radios-container">
+        <label htmlFor="ingredient">
+          { createInput('ingredient-search-radio', 'searchBy', 'radio', 'ingredient') }
+          Ingrediente
+        </label>
+        <label htmlFor="name">
+          { createInput('name-search-radio', 'searchBy', 'radio', 'name') }
+          Nome
+        </label>
+        <label htmlFor="firstLetter">
+          { createInput('first-letter-search-radio', 'searchBy', 'radio', 'firstLetter') }
+          Primeira letra
+        </label>
+      </div>
       <button data-testid="exec-search-btn" type="button" onClick={ handleSearch }>
         Buscar
       </button>

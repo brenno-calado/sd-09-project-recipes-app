@@ -4,6 +4,7 @@ import { string } from 'prop-types';
 import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
+import '../css/Header.css';
 
 function Header({ title, search }) {
   const [shouldSearch, setShouldSearch] = useState(false);
@@ -13,17 +14,19 @@ function Header({ title, search }) {
   );
 
   return (
-    <header>
-      <Link to="/perfil">
-        { renderImage('profile-top-btn', profileIcon, 'profile icon') }
-      </Link>
+    <header className="wrapper-header">
+      <div className="top-container">
+        <Link to="/perfil">
+          { renderImage('profile-top-btn', profileIcon, 'profile icon') }
+        </Link>
 
-      <h1 data-testid="page-title">{ title }</h1>
+        <h1 data-testid="page-title">{ title }</h1>
 
-      { search && (
-        <button type="button" onClick={ () => setShouldSearch(!shouldSearch) }>
-          { renderImage('search-top-btn', searchIcon, 'search icon')}
-        </button>) }
+        { search && (
+          <button type="button" onClick={ () => setShouldSearch(!shouldSearch) }>
+            { renderImage('search-top-btn', searchIcon, 'search icon')}
+          </button>) }
+      </div>
 
       { search && shouldSearch
         ? <SearchBar isMeal={ title === 'Comidas' } /> : null }

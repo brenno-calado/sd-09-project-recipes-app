@@ -48,3 +48,7 @@
   padding: 0.8rem;
   width: 30%;
 }
+
+.button-login:disabled {
+  opacity: 0.4;
+}
