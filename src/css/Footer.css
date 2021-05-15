@@ -1,0 +1,26 @@
+.footer-wrapper {
+  align-items: center;
+  background-color: var(--orange-500);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+  width: 100%;
+}
+
+.footer-wrapper a {
+  width: 33.33%;
+  text-align: center;
+}
+
+.in-page {
+  border-bottom: 3px solid white;
+}
+
+.out-page {
+  opacity: 0.5;
+}
+
+.footer-wrapper img {
+  height: 1.8rem;
+}
