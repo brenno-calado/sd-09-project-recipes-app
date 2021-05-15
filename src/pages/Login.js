@@ -3,6 +3,8 @@ import { Redirect } from 'react-router-dom';
 import { Context } from '../context';
 import { fecthByName } from '../services/api';
 import { startLocalStorage } from '../services/localStorageService';
+import logo from '../images/logo.png';
+import '../css/Login.css';
 
 function Login() {
   const { updateData } = useContext(Context);
@@ -31,27 +33,35 @@ function Login() {
   };
 
   const createInput = (type) => (
-    <input
-      data-testid={ `${type}-input` }
-      type={ type }
-      placeholder={ type }
-      onChange={ handleChange }
-      required
-    />
+    <label htmlFor={ type }>
+      {type}
+      <input
+        data-testid={ `${type}-input` }
+        type={ type }
+        id={ type }
+        placeholder={ type }
+        onChange={ handleChange }
+        required
+      />
+    </label>
   );
 
   if (shouldRedirect) return <Redirect to="/comidas" />;
 
   return (
-    <section>
-      { createInput('email') }
-      { createInput('password') }
+    <section className="wrapper-login">
+      <img src={ logo } alt="12App recipes" />
+      <div className="login-container">
+        { createInput('email') }
+        { createInput('password') }
+      </div>
 
       <button
         data-testid="login-submit-btn"
         type="submit"
         onClick={ handleSubmit }
         disabled={ !checkFormats() }
+        className="button-login"
       >
         Entrar
       </button>
