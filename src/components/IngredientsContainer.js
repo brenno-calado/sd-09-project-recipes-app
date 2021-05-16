@@ -28,6 +28,9 @@ function IngredientsContainer({ data }) {
   const ingredientsChecked = localStorage.inProgressRecipes
   && getItemLocalStorage('inProgressRecipes')[page][id];
 
+  const defineIngredientChecked = (ingredient) => ingredientsChecked && ingredientsChecked
+    .some((item) => item.includes(data[ingredient]));
+
   const ingredients = Object.keys(data).filter((el) => el.includes('strIngredient'));
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
 
@@ -40,8 +43,7 @@ function IngredientsContainer({ data }) {
               htmlFor={ ingredient }
               data-testid={ `${index}-ingredient-step` }
               key={ ingredient }
-              className={ ingredientsChecked && ingredientsChecked
-                .some((item) => item.includes(data[ingredient])) && 'selected' }
+              className={ defineIngredientChecked(ingredient) ? 'selected' : null }
             >
               { `${data[ingredient]} ${data[measures[index]]}` }
               <input
@@ -50,8 +52,7 @@ function IngredientsContainer({ data }) {
                 value={ ingredient }
                 type="checkbox"
                 onClick={ checkBoxClick }
-                defaultChecked={ ingredientsChecked && ingredientsChecked
-                  .some((item) => item.includes(data[ingredient])) }
+                defaultChecked={ defineIngredientChecked(ingredient) }
               />
             </label>
           ) : (

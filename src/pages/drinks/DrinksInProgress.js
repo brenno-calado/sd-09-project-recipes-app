@@ -2,27 +2,23 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { Context } from '../../context';
+import { IngredientsContainer, FavoriteButton } from '../../components';
 import { updateLocalStorage } from '../../services/localStorageService';
-import { addToFavorite, removeToFavorite,
-  verifyItemInFavorite } from '../../services/functionsApi';
-import IngredientsContainer from '../../components/IngredientsContainer';
+import { verifyItemInFavorite } from '../../services/functionsApi';
 import shareIcon from '../../images/shareIcon.svg';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 function DrinksInProgress() {
   const { id } = useParams();
-  const { disableButton } = useContext(Context);
+  const { disableButton, setFavoriteRecipe } = useContext(Context);
   const [data, setData] = useState([]);
   const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [favoriteRecipe, setFavoriteRecipe] = useState(false);
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, false));
     setFavoriteRecipe(verifyItemInFavorite(id));
     getData();
-  }, [id]);
+  }, [id, setFavoriteRecipe]);
 
   const handleClick = () => {
     const doneRecipe = {
@@ -45,15 +41,6 @@ function DrinksInProgress() {
     setCopy(true);
   };
 
-  const favorite = () => {
-    if (!favoriteRecipe) {
-      addToFavorite('drinks', data);
-    } else {
-      removeToFavorite(id);
-    }
-    setFavoriteRecipe(!favoriteRecipe);
-  };
-
   const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
 
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
@@ -65,17 +52,9 @@ function DrinksInProgress() {
       <button data-testid="share-btn" type="button" onClick={ share }>
         <img src={ shareIcon } alt="share icon" />
       </button>
-      <button
-        data-testid="favorite-btn"
-        type="button"
-        onClick={ favorite }
-        src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
-      >
-        <img
-          src={ !favoriteRecipe ? whiteHeartIcon : blackHeartIcon }
-          alt="favorite icon"
-        />
-      </button>
+
+      <FavoriteButton data={ data } id={ id } query="Drink" />
+
       <p data-testid="recipe-category">{ strAlcoholic }</p>
 
       <IngredientsContainer data={ data } />

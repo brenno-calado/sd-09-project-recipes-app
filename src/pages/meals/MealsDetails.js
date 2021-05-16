@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { DrinksRecomendations, YoutubePlayer } from '../../components';
+import IngredientsContainer from '../../components/IngredientsContainer';
 import { getItemLocalStorage,
   updateLocalStorage } from '../../services/localStorageService';
-import { addToFavorite, removeToFavorite } from '../../services/functionsApi';
+import { addToFavorite, removeToFavorite,
+  verifyItemInFavorite } from '../../services/functionsApi';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
-import IngredientsContainer from '../../components/IngredientsContainer';
 
 function MealsDetails() {
   const { id } = useParams();
@@ -21,9 +22,7 @@ function MealsDetails() {
   useEffect(() => {
     const getData = async () => setData(await fetchRecipeDetails(id, true));
     getData();
-    setFavoriteRecipe(localStorage.favoriteRecipes
-      && getItemLocalStorage('favoriteRecipes')
-        .some(({ id: idItem }) => idItem === id));
+    setFavoriteRecipe(verifyItemInFavorite(id));
     setDoneRecipe(localStorage.doneRecipes
       && getItemLocalStorage('doneRecipes')
         .some(({ id: idItem }) => idItem === id));
@@ -33,6 +32,9 @@ function MealsDetails() {
     updateLocalStorage('inProgressRecipes', 'meals', id, []);
     setShouldRedirect(true);
   };
+
+  const recipeInProgress = localStorage.inProgressRecipes && Object
+    .keys(getItemLocalStorage('inProgressRecipes').meals).includes(id);
 
   const share = () => {
     const { location: { href } } = window;
@@ -48,9 +50,6 @@ function MealsDetails() {
     }
     setFavoriteRecipe(!favoriteRecipe);
   };
-
-  const recipeInProgress = localStorage.inProgressRecipes && Object
-    .keys(getItemLocalStorage('inProgressRecipes').meals).includes(id);
 
   const { strMealThumb, strMeal, strCategory, strInstructions, strYoutube } = data;
 
