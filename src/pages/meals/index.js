@@ -1,5 +1,4 @@
 export { default as Meals } from './Meals';
-export { default as MealsDetails } from './MealsDetails';
 export { default as ExploreMeals } from './ExploreMeals';
 export { default as MealsByIngredients } from './MealsByIngredients';
 export { default as MealsByArea } from './MealsByArea';
