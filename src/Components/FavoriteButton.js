@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
@@ -56,11 +55,12 @@ class FavoriteButton extends Component {
 
   render() {
     const { favorite } = this.state;
+    const { test } = this.props;
     if (favorite === true) {
       return (
         <button
           type="button"
-          data-testid="favorite-btn"
+          data-testid={ test }
           onClick={ this.saveRecipe }
           src={ blackHeartIcon }
         >
@@ -88,11 +88,8 @@ class FavoriteButton extends Component {
 }
 
 FavoriteButton.propTypes = {
-  obj: PropTypes.objectOf({}).isRequired,
+  obj: PropTypes.objectOf.isRequired,
+  test: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (store) => ({
-  obj: store.objDetails,
-});
-
-export default connect(mapStateToProps)(FavoriteButton);
+export default FavoriteButton;

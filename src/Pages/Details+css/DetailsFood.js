@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import './Details.css';
 import ReactPlayer from 'react-player/youtube';
 import { fetchMealDetailsAPI, fetchCocktailAPI } from '../../services/ApiRequest';
 import FavoriteButton from '../../Components/FavoriteButton';
 import Share from '../../Components/Share';
 import { addObj } from '../../redux/actions';
-import './Details.css';
+
 
 class DetailsFood extends React.Component {
   constructor() {
@@ -29,18 +30,8 @@ class DetailsFood extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
-    const { addObjFood } = this.props;
     fetchMealDetailsAPI(id)
       .then(({ meals }) => {
-        addObjFood({
-          id: meals[0].idMeal,
-          type: 'comida',
-          area: meals[0].strArea,
-          category: meals[0].strCategory,
-          alcoholicOrNot: '',
-          name: meals[0].strMeal,
-          image: meals[0].strMealThumb,
-        });
         this.setState({ meal: meals[0], ok: true });
 
         const ing = Object.keys(meals[0]).filter((key) => key.includes('strIngredient'))
@@ -105,13 +96,23 @@ class DetailsFood extends React.Component {
   }
 
   favoriteOk() {
-    const { ok } = this.state;
-    const id = 'share-btn';
+    const { ok, meal } = this.state;
     if (ok === true) {
       return (
         <div className="detailsBtnContainer">
-          <FavoriteButton />
           <Share id={ id } />
+          <FavoriteButton
+            obj={ {
+              id: meal.idMeal,
+              type: 'comida',
+              area: meal.strArea,
+              category: meal.strCategory,
+              alcoholicOrNot: '',
+              name: meal.strMeal,
+              image: meal.strMealThumb,
+            } }
+            test="favorite-btn"
+          />
         </div>
       );
     }
@@ -198,11 +199,6 @@ DetailsFood.propTypes = {
   match: PropTypes.objectOf.isRequired,
   params: PropTypes.objectOf.isRequired,
   id: PropTypes.string.isRequired,
-  addObjFood: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addObjFood: (obj) => dispatch(addObj(obj)),
-});
-
-export default connect(null, mapDispatchToProps)(DetailsFood);
+export default (DetailsFood);

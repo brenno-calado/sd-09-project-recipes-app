@@ -41,6 +41,12 @@ class RecipesDone extends React.Component {
 
   all() {
     const { all, doneRecipes } = this.state;
+    let alcolicORcategory = '';
+    doneRecipes.forEach((value) => {
+      if (value.category === 'comida') {
+        alcolicORcategory = [...alcolicORcategory, value.category];
+      } else alcolicORcategory = [...alcolicORcategory, value.alcoholicOrNot];
+    });
     if (all) {
       return (
         <div>
