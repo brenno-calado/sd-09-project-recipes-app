@@ -103,11 +103,22 @@ class FoodProgress extends Component {
   }
 
   foodFavorit() {
-    const { ok } = this.state;
+    const { ok, meal } = this.state;
     if (ok) {
       return (
         <div>
-          <FavoriteButton />
+          <FavoriteButton
+            obj={ {
+              id: meal.idMeal,
+              type: 'comida',
+              area: meal.strArea,
+              category: meal.strCategory,
+              alcoholicOrNot: '',
+              name: meal.strMeal,
+              image: meal.strMealThumb,
+            } }
+            test="favorite-btn"
+          />
           <Share />
         </div>
       );

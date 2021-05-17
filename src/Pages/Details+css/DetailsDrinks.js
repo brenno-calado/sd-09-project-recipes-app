@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { fetchDrinkDetailsAPI, fetchMealsAPI } from '../../services/ApiRequest';
 import FavoriteButton from '../../Components/FavoriteButton';
 import Share from '../../Components/Share';
-import { addObj } from '../../redux/actions';
 
 class DetailsDrinks extends React.Component {
   constructor() {
@@ -26,18 +24,8 @@ class DetailsDrinks extends React.Component {
     const { match } = this.props;
     const { params } = match;
     const { id } = params;
-    const { addObjDrink } = this.props;
     fetchDrinkDetailsAPI(id)
       .then(({ drinks }) => {
-        addObjDrink({
-          id: drinks[0].idDrink,
-          type: 'bebida',
-          area: '',
-          category: drinks[0].strCategory,
-          alcoholicOrNot: drinks[0].strAlcoholic,
-          name: drinks[0].strDrink,
-          image: drinks[0].strDrinkThumb,
-        });
         this.setState({ drink: drinks[0], ok: true });
         const ingr = Object.keys(drinks[0]).filter((key) => key.includes('strIngredient'))
           .filter((value) => drinks[0][value] !== ' '
@@ -56,11 +44,22 @@ class DetailsDrinks extends React.Component {
   }
 
   favoriteOk() {
-    const { ok } = this.state;
+    const { ok, drink } = this.state;
     if (ok === true) {
       return (
         <di>
-          <FavoriteButton />
+          <FavoriteButton
+            obj={ {
+              id: drink.idDrink,
+              type: 'bebida',
+              area: '',
+              category: drink.strCategory,
+              alcoholicOrNot: drink.strAlcoholic,
+              name: drink.strDrink,
+              image: drink.strDrinkThumb,
+            } }
+            test="favorite-btn"
+          />
           <Share />
         </di>
       );
@@ -170,11 +169,6 @@ DetailsDrinks.propTypes = {
   match: PropTypes.objectOf.isRequired,
   params: PropTypes.objectOf.isRequired,
   id: PropTypes.string.isRequired,
-  addObjDrink: PropTypes.func.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addObjDrink: (obj) => dispatch(addObj(obj)),
-});
-
-export default connect(null, mapDispatchToProps)(DetailsDrinks);
+export default (DetailsDrinks);
