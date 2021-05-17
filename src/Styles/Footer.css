@@ -1,0 +1,13 @@
+.footer {
+  bottom: 0;
+  position: fixed;
+  border-top-left-radius: 5vh;
+  border-top-right-radius: 5vh;
+  background-color: #fcb069;
+  width: 100vw;
+  height: 9vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0px -2px 5px 2px #be6900, 0px 0px 2px 5px #000000;
+}

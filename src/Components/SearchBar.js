@@ -10,6 +10,7 @@ import {
   requestApiCocktailsbyLetter,
   requestApiCocktailsbyIngredient,
 } from '../redux/actions';
+import '../Styles/SearchBar.css';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -88,8 +89,12 @@ class SearchBar extends Component {
 
   showIngRadio() {
     return (
-      <label htmlFor="ingredient-radio">
+      <label
+        htmlFor="ingredient-radio"
+        className="ingredientRadio"
+      >
         <input
+          className="ingredientRadio"
           type="radio"
           id="ingredient-radio"
           name="radioValue"
@@ -107,6 +112,7 @@ class SearchBar extends Component {
     return (
       <section className="searchContainer">
         <input
+          className="inputText"
           name="input"
           type="text"
           data-testid="search-input"
@@ -117,8 +123,12 @@ class SearchBar extends Component {
         {window.location.pathname === '/explorar/comidas/area'
           ? ''
           : this.showIngRadio()}
-        <label htmlFor="name-radio">
+        <label
+          htmlFor="name-radio"
+          className="nameRadio"
+        >
           <input
+            className="nameRadio"
             type="radio"
             id="name-radio"
             name="radioValue"
@@ -128,8 +138,12 @@ class SearchBar extends Component {
           />
           Nome
         </label>
-        <label htmlFor="first-letter-radio">
+        <label
+          htmlFor="first-letter-radio"
+          className="letterRadio"
+        >
           <input
+            className="letterRadio"
             type="radio"
             id="first-letter-radio"
             name="radioValue"
@@ -140,6 +154,7 @@ class SearchBar extends Component {
           Primeira-letra
         </label>
         <button
+          className="execBtn"
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => {

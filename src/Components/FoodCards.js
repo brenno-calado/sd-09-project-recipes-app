@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { requestApiMeals } from '../redux/actions';
 import ShowCategories from './ShowCategories';
 import { fetchMealByCategory } from '../services/ApiRequest';
-import '../Styles/FoodCards.css';
+import '../Styles/AllCards.css';
 
 class FoodCards extends React.Component {
   constructor(props) {
@@ -54,25 +54,27 @@ class FoodCards extends React.Component {
     if (filteredByCategories === null) finalFoodReturn = meals;
     else if (filteredByCategories.length > 0) finalFoodReturn = filteredByCategories;
     else finalFoodReturn = meals;
-    return finalFoodReturn.map(
-      (meal, index) => (index <= maxItens
-      && (
-        <div
-          key={ index }
-          data-testid={ `${index}-recipe-card` }
-          className="cardRecipe"
-        >
-          <Link to={ `/comidas/${meal.idMeal}` }>
-            <img
-              src={ meal.strMealThumb }
-              alt="meal"
-              data-testid={ `${index}-card-img` }
-              className="foodCards"
-            />
-            <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
-          </Link>
-        </div>)
-      ),
+    return (
+      <div className="boxCardsContainer">
+        { finalFoodReturn.map((meal, index) => (index <= maxItens
+          && (
+            <div
+              key={ index }
+              data-testid={ `${index}-recipe-card` }
+              className="cardRecipe"
+            >
+              <Link to={ `/comidas/${meal.idMeal}` }>
+                <img
+                  src={ meal.strMealThumb }
+                  alt="meal"
+                  data-testid={ `${index}-card-img` }
+                  className="foodCards"
+                />
+                <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
+              </Link>
+            </div>)
+        )) }
+      </div>
     );
   }
 

@@ -14,6 +14,7 @@ class Profile extends React.Component {
       history.push('/');
     };
     const email = localStorage.getItem('user');
+    const newUser = JSON.parse(localStorage.getItem('newUser'));
     return (
       <div className="profileContainer">
         <header className="headerContainer">
@@ -25,10 +26,28 @@ class Profile extends React.Component {
           <span data-testid="page-title">Perfil</span>
         </header>
         <main className="mainContainer">
-          <span data-testid="profile-email">
-            e-mail:
-            { email }
-          </span>
+          {!email && newUser
+            ? (
+              <div className="NewUserDataProfile">
+                <h1>{`Bem Vindo(a) ${newUser.nickName}!`}</h1>
+                <p className="userInfo">Informações de Cadastro</p>
+                <br />
+                <p>{`Nome: ${newUser.name}`}</p>
+                <p data-testid="profile-email">{`e-mail: ${newUser.mail}`}</p>
+                <p>{`Endereço: ${newUser.street}, nº ${newUser.house}`}</p>
+                <p>
+                  {`Bairro: ${newUser.neighborhood},
+                   ${newUser.state}
+                    - ${newUser.country}` }
+                </p>
+                <hr />
+              </div>
+            )
+            : (
+              <div className="userDataProfile">
+                <p className="userMail" data-testid="profile-email">{ email }</p>
+              </div>
+            ) }
           <div className="buttonsContainer">
             <button
               type="button"
@@ -47,6 +66,7 @@ class Profile extends React.Component {
               </Link>
             </button>
             <button
+              className="logOut"
               type="button"
               data-testid="profile-logout-btn"
               onClick={ LogOut }

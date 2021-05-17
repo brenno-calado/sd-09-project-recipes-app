@@ -9,6 +9,7 @@ class Share extends Component {
     this.addCopy = this.addCopy.bind(this);
     this.state = {
       p: '',
+      copied: false,
     };
   }
 
@@ -21,13 +22,15 @@ class Share extends Component {
     }
     copy(url)
       .then(() => this.setState({ p: 'Link copiado!' }));
+    this.setState({ copied: true });
   }
 
   render() {
-    const { p } = this.state;
+    const { p, copied } = this.state;
     const { id } = this.props;
     return (
       <button
+        className={ !copied ? 'btnShare' : 'shared' }
         type="button"
         data-testid={ id }
         src={ ShareIcon }

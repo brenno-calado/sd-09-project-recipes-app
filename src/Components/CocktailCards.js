@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { requestApiCocktails } from '../redux/actions';
 import ShowCategories from './ShowCategories';
 import { fetchCocktailByCategory } from '../services/ApiRequest';
-import '../Styles/FoodCards.css';
+import '../Styles/AllCards.css';
 
 class CocktailCards extends React.Component {
   constructor(props) {
@@ -54,8 +54,9 @@ class CocktailCards extends React.Component {
     if (filteredByCategories === null) finalDrinkReturn = cocktails;
     else if (filteredByCategories.length > 0) finalDrinkReturn = filteredByCategories;
     else finalDrinkReturn = cocktails;
-    return finalDrinkReturn.map(
-      (cocktail, index) => (index <= maxItens
+    return (
+      <div className="boxCardsContainer">
+        { finalDrinkReturn.map((cocktail, index) => (index <= maxItens
       && (
         <div
           key={ index }
@@ -74,7 +75,8 @@ class CocktailCards extends React.Component {
             <p data-testid={ `${index}-card-name` }>{cocktail.strDrink}</p>
           </Link>
         </div>)
-      ),
+        )) }
+      </div>
     );
   }
 

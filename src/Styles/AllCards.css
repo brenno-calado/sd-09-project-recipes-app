@@ -1,0 +1,77 @@
+.cardContainer {
+  display: grid;
+  grid-template-rows: 13vh 67vh;
+  grid-column: 1fr;
+  width: 100vw;
+}
+
+.boxCardsContainer {
+  grid-row: 2;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardRecipe {
+  border: 2px solid black;
+  padding: 1vh;
+  margin-bottom: 1vh;
+  background-color: whitesmoke;
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 2vh;
+  box-shadow: inset 0px 0px 10px 0px #070606, 0px 0px 2px 2px #00000091;
+}
+
+.cardRecipe p {
+  line-height: 5vh;
+  line-break: auto;
+  overflow-wrap: break-word;
+  margin: 0;
+}
+
+.foodCards {
+  height: 38vh;
+  width: 40vh;
+  box-shadow: 0px 4px 8px 4px black;
+}
+
+@media (min-width: 500px) {
+  .boxCardsContainer {
+    display: grid;
+    width: 100vw;
+    grid-template-columns: 50vw 50vw;
+    justify-items: center;
+  }
+  .categoryBtnsContainer{
+    z-index: 10;
+    backdrop-filter: none;
+  }
+  .cardRecipe {
+    position: relative;
+    bottom: 3vh;
+    z-index: 0;
+    width: 40vw;
+    grid-column: auto;
+    height: 50vh;
+    padding: 2vh;
+    margin-bottom: 2vh;
+  }
+  .foodCards {
+    height: 45vh;
+    width: 50vh;
+    box-shadow: 0px 4px 8px 4px black;
+    z-index: 0;
+  }
+  .cardRecipe p {
+    line-height: 6vh;
+    line-break: auto;
+    overflow-wrap: break-word;
+    margin: 0;
+    font-size: xx-large;
+    z-index: 10;
+  }
+}

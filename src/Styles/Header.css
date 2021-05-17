@@ -1,0 +1,130 @@
+@import url('http://fonts.cdnfonts.com/css/christmas-sparkle-personal-use');
+
+.app {
+  display: grid;
+  grid-template-rows: 10vh 80vh 10vh;
+}
+
+.gridForSearchBar {
+  display: grid;
+  grid-template-rows: 17vh 73vh 10vh;
+}
+
+.extendedHeaderContainer {
+  grid-row: 1;
+  position: fixed;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 6vh 10vh;
+  grid-template-columns: 33vw 33vw 33vw;
+  background-color: #fcb069;
+  border-bottom-left-radius: 5vh;
+  border-bottom-right-radius: 5vh;
+  box-shadow: 0px 2px 5px 2px #be6900, 0px 0px 4px 5px #000000;
+}
+
+
+.headerContainer {
+  grid-row: 1;
+  position: fixed;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 8vh 0vh;
+  grid-template-columns: 33vw 33vw 33vw;
+  background-color: #fcb069;
+  border-bottom-left-radius: 5vh;
+  border-bottom-right-radius: 5vh;
+  box-shadow: 0px 2px 5px 2px #be6900, 0px 0px 4px 5px #000000;
+  transition: all 1s;
+}
+
+.cardContainer {
+  box-sizing: border-box;
+  grid-row: 2;
+  overflow-y: overlay;
+}
+
+.footerContainer {
+  grid-row: 3;
+}
+
+.onSearch {
+  grid-template-rows: 5vh 9vh;
+}
+
+.headerBar {
+  grid-row: 1;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.searchContainer {
+  grid-row: 2;
+}
+
+.searchBtn {
+  height: 5vh;
+  width: 5vh;
+  background: transparent;
+  border: none;
+  font-size: 5vh;
+}
+
+.headerName {
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+  font-size: xx-large;
+}
+
+a {
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+  font-size: 5vh;
+  text-decoration: none;
+  color: #000000;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 500px) {
+  .app {
+    display: grid;
+    grid-template-rows: 15vh 70vh 15vh;
+  }
+  .headerContainer {
+    grid-template-rows: 10vh 0vh;
+  }
+  .searchBtn img {
+    height: 9vh;
+    position: relative;
+  }
+  .gridForSearchBar {
+    grid-template-rows: 30vh 55vh 15vh;
+  }
+  .extendedHeaderContainer {
+    grid-template-rows: 9vh 16vh;
+    align-items: self-start;
+  }
+  .searchBtn {
+    font-size: 8vh;
+    position: relative;
+    bottom: 3vh;
+  }
+  .searchContainer {
+    grid-template-rows: 6vh 3vh 3vh;
+  }
+  .inputText {
+    height: 5vh;
+  }
+  .footerContainer .footer {
+    height: 13vh;
+  }
+  .execBtn {
+    position: relative;
+    top: 3vh;
+    height: 5vh;
+  }
+  .cardContainer {
+    grid-template-rows: 17vh 63vh;
+  }
+}

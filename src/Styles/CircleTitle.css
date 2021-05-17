@@ -1,0 +1,132 @@
+@import url('http://fonts.cdnfonts.com/css/christmas-sparkle-personal-use');
+
+
+.circTxt {
+  color: #1c226e;
+  display: flex;
+  font-family: 'Christmas Sparkle PERSONAL USE', sans-serif;
+  font-weight: 200;
+  position: relative;
+  text-shadow: 0 4px 8px rgb(160, 160, 160), 0 6px 16px rgb(248, 248, 248);
+  transform: rotate(-90deg);
+  grid-column: 2;
+  grid-row: 1;
+  align-items: center;
+  margin-top: 5vh;
+  margin-left: 2vh;
+}
+
+.um {
+  transform: rotate(0deg);
+  transform-origin:0 50%;
+}
+
+.dois {
+  transform: rotate(10deg);
+  transform-origin: 0 50%;
+}
+
+.tres {
+  transform: rotate(20deg);
+  transform-origin: 0 50%;
+}
+
+.quatro {
+  transform: rotate(30deg);
+  transform-origin: 0 50%;
+}
+
+.cinco {
+  transform: rotate(40deg);
+  transform-origin: 0 50%;
+}
+
+.seis {
+  transform: rotate(50deg);
+  transform-origin: 0 50%;
+}
+
+.sete {
+  transform: rotate(60deg);
+  transform-origin: 0 51%;
+  margin-top: 12vh;
+}
+
+.oito {
+  transform: rotate(70deg);
+  transform-origin: 0 50%;
+}
+
+.nove {
+  transform: rotate(80deg);
+  transform-origin: 0 50%;
+}
+
+.dez {
+  transform: rotate(90deg);
+  transform-origin: 0 50%;
+}
+
+.onze {
+  transform: rotate(100deg);
+  transform-origin: 0 50%;
+}
+
+.doze {
+  transform: rotate(110deg);
+  transform-origin: 0 50%;
+}
+
+.treze {
+  transform: rotate(120deg);
+  transform-origin: 0 50%;
+}
+
+.quatorze {
+  transform: rotate(130deg);
+  transform-origin: 0 50%;
+}
+
+.quinze {
+  transform: rotate(140deg);
+  transform-origin: 0 49%;
+  margin-left: 3vh;
+}
+
+.dezesseis {
+  transform: rotate(150deg);
+  transform-origin: 0 50%;
+}
+
+.dezessete {
+  transform: rotate(160deg);
+  transform-origin: 0 50%;
+}
+
+.dezoito {
+  transform: rotate(170deg);
+  transform-origin: 0 50%;
+}
+
+.circTxt p{
+  font-size: 15vw;
+  height: 54vh;
+  position: absolute;
+}
+
+@media (min-width: 500px) {
+  .circTxt p{
+    font-size: 15vh;
+    height: 150vh;
+    /* margin-top: -5vh; */
+    margin-left: 3vh;
+  }
+  .sete {
+    transform-origin: 0 50%;
+    margin-top: 22vh;
+  }
+  .dezesseis {
+    transform-origin: 0 50%;
+    left: -3vh;
+  }
+}

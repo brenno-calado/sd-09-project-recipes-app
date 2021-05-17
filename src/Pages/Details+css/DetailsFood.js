@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import './Details.css';
 import ReactPlayer from 'react-player/youtube';
 import { fetchMealDetailsAPI, fetchCocktailAPI } from '../../services/ApiRequest';
 import FavoriteButton from '../../Components/FavoriteButton';
 import Share from '../../Components/Share';
+import { addObj } from '../../redux/actions';
+
 
 class DetailsFood extends React.Component {
   constructor() {
@@ -55,6 +58,7 @@ class DetailsFood extends React.Component {
         {cooktails.filter((_, i) => i <= num)
           .map((value, index) => (
             <div
+              className="recomendationCard"
               key={ index }
               data-testid={ `${index}-recomendation-card` }
             >
@@ -95,7 +99,8 @@ class DetailsFood extends React.Component {
     const { ok, meal } = this.state;
     if (ok === true) {
       return (
-        <div>
+        <div className="detailsBtnContainer">
+          <Share id={ id } />
           <FavoriteButton
             obj={ {
               id: meal.idMeal,
@@ -108,7 +113,6 @@ class DetailsFood extends React.Component {
             } }
             test="favorite-btn"
           />
-          <Share />
         </div>
       );
     }
@@ -170,15 +174,20 @@ class DetailsFood extends React.Component {
     const { meal } = this.state;
     const { strCategory, strMealThumb, strMeal, strInstructions, strYoutube } = meal;
     return (
-      <div>
+      <div className="detailsContainer">
         <h1>Detalhes</h1>
         {this.favoriteOk()}
-        <img data-testid="recipe-photo" src={ strMealThumb } alt={ strMeal } />
+        <img
+          className="detailsIMG"
+          data-testid="recipe-photo"
+          src={ strMealThumb }
+          alt={ strMeal }
+        />
         <h2 data-testid="recipe-title">{strMeal}</h2>
         <h3 data-testid="recipe-category">{strCategory}</h3>
         {this.createList()}
-        <p data-testid="instructions">{strInstructions}</p>
-        <ReactPlayer url={ strYoutube } data-testid="video" />
+        <p className="instructions" data-testid="instructions">{strInstructions}</p>
+        <ReactPlayer url={ strYoutube } data-testid="video" width="100vw" height="auto" />
         {this.recomendar()}
         {this.buttonStartOrContinue()}
       </div>
