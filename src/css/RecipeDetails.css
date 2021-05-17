@@ -1,0 +1,99 @@
+.thumb-container {
+  position: relative;
+}
+
+.gradient-thumb {
+  background: linear-gradient(transparent, white, white);
+  bottom: 0;
+  height: 9rem;
+  position: absolute;
+  width: 100vw;
+}
+
+.thumb-recipe {
+  height: 19rem;
+  width: 100vw;
+}
+
+.top-icons-container {
+  box-sizing: border-box;
+  display: flex;
+  height: 6rem;
+  justify-content: space-between;
+  margin: 0;
+  padding-top: 1.5rem;
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+}
+
+.top-icons-container img {
+  height: 1.4rem;
+}
+
+.square-icon {
+  align-items: center;
+  background-color: var(--blue-600);
+  display: flex;
+  height: 2.2rem;
+  justify-content: center;
+  width: 4rem;
+}
+
+.square-icon button {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.left-border {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.right-border {
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.title-container {
+  align-items: center;
+  border-bottom: 1px solid var(--gray-200);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: -0.5rem;
+  text-align: center;
+  width: 90%;
+}
+
+.title-container button {
+  background: transparent;
+  border: none;
+}
+
+.title-container img {
+  height: 2.2rem;
+}
+
+.text {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.text h2 {
+  color: var(--orange-500);
+  font-size: 2rem;
+  margin: 0;
+}
+
+.text p {
+  font-size: 1.5rem;
+  color: var(--gray-300);
+  margin: 0;
+}
+
+.start-recipe-btn {
+  bottom: 0;
+  position: fixed;
+  z-index: 10;
+}

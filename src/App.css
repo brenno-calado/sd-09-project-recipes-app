@@ -8,9 +8,13 @@
 
   --orange-100: #ffefe0;
 
+  --blue-600: #151326;
+
   --blue-500: #3f3d56;
 
   --gray-300: #636363;
+
+  --gray-200: #A9A9A9;
 
   --gray-100: #f1f1f1;
 
@@ -41,11 +45,6 @@ img {
   height: 100vh;
   justify-content: center;
   width: 100%;
-}
-
-.btn-initial {
-  bottom: 0;
-  position: fixed;
 }
 
 .recipe-details {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, Redirect, useLocation } from 'react-router-dom';
+import { useParams, Redirect, useLocation, Link } from 'react-router-dom';
 import { Context } from '../context';
 import { fetchRecipeDetails } from '../services/api';
 import { MealsRecomendations, YoutubePlayer, FavoriteButton,
@@ -7,6 +7,8 @@ import { MealsRecomendations, YoutubePlayer, FavoriteButton,
 import { verifyItemInFavorite } from '../services/functionsApi';
 import { getItemLocalStorage, updateLocalStorage } from '../services/localStorageService';
 import shareIcon from '../images/shareIcon.svg';
+import arrowLeft from '../images/arrowLeftIcon.svg';
+import '../css/RecipeDetails.css';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -50,18 +52,35 @@ function RecipeDetails() {
   }
 
   return (
-    <section className="recipe-details">
-      <img data-testid="recipe-photo" src={ data[`str${querys[1]}Thumb`] } alt="recipe" />
-      <h2 data-testid="recipe-title">{data[`str${querys[1]}`]}</h2>
-      <button data-testid="share-btn" type="button" onClick={ share }>
-        <img src={ shareIcon } alt="share icon" />
-      </button>
-
-      <FavoriteButton data={ data } id={ id } query={ querys[1] } />
-
-      <p data-testid="recipe-category">
-        { isMealPage ? data.strCategory : data.strAlcoholic }
-      </p>
+    <section className="wrapper-recipe-details">
+      <div className="top-icons-container">
+        <Link to={ `/${pathname.split('/')[1]}` } className="square-icon right-border">
+          <img src={ arrowLeft } alt="go Back" className="arrow" />
+        </Link>
+        <div className="square-icon left-border">
+          <button data-testid="share-btn" type="button" onClick={ share }>
+            <img src={ shareIcon } alt="share icon" />
+          </button>
+        </div>
+      </div>
+      <div className="thumb-container">
+        <div className="gradient-thumb" />
+        <img
+          data-testid="recipe-photo"
+          src={ data[`str${querys[1]}Thumb`] }
+          alt="recipe"
+          className="thumb-recipe"
+        />
+      </div>
+      <div className="title-container">
+        <div className="text">
+          <h2 data-testid="recipe-title" className="title">{data[`str${querys[1]}`]}</h2>
+          <p data-testid="recipe-category">
+            { `Category: ${isMealPage ? data.strCategory : data.strAlcoholic}` }
+          </p>
+        </div>
+        <FavoriteButton data={ data } id={ id } query={ querys[1] } />
+      </div>
 
       <IngredientsContainer data={ data } />
 
@@ -72,7 +91,7 @@ function RecipeDetails() {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          className="btn-initial"
+          className="start-recipe-btn"
           onClick={ handleClick }
         >
           { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
