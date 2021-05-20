@@ -1,0 +1,40 @@
+.wrapper-ingredients {
+  padding: 1.2rem;
+}
+
+.ingredient-container {
+  align-items: center;
+  border-radius: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin: 0;
+}
+
+.container-checkboxs {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-input + .ingredient-container::before {
+  background-color: rgb(255, 255, 255);
+  border-radius: 3px;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+  content: "";
+  height: 15px;
+  width: 15px;
+}
+
+.checkbox-input:checked + .ingredient-container::before {
+  background-color: var(--green-300);
+  background-image: url('../images/checkedIcon.svg');
+  background-size: contain;
+  background-repeat: space;
+  content: "";
+  height: 15px;
+  width: 15px;
+}

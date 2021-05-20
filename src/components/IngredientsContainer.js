@@ -4,7 +4,18 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Context } from '../context';
 import { getItemLocalStorage, updateLocalStorage }
   from '../services/localStorageService';
+import '../css/IngredientsContainer.css';
 
+const addInputsCheckedInLocalStorage = (page, id, allCheked, setDisableButton) => {
+  const ingredients = [];
+  allCheked.forEach((checkbox) => {
+    if (checkbox.checked) {
+      ingredients.push(checkbox.parentElement.innerText);
+    }
+  });
+  updateLocalStorage('inProgressRecipes', page, id, ingredients);
+  if (allCheked.length === ingredients.length) setDisableButton(false);
+};
 function IngredientsContainer({ data }) {
   const { setDisableButton } = useContext(Context);
   const { id } = useParams();
@@ -15,14 +26,7 @@ function IngredientsContainer({ data }) {
   const checkBoxClick = ({ target }) => {
     target.parentElement.classList.toggle('selected');
     const allCheked = document.querySelectorAll('input[type=checkbox]');
-    const ingredients = [];
-    allCheked.forEach((checkbox) => {
-      if (checkbox.checked) {
-        ingredients.push(checkbox.parentElement.innerText);
-      }
-    });
-    updateLocalStorage('inProgressRecipes', page, id, ingredients);
-    if (allCheked.length === ingredients.length) setDisableButton(false);
+    addInputsCheckedInLocalStorage(page, id, allCheked, setDisableButton);
   };
 
   const ingredientsChecked = localStorage.inProgressRecipes
@@ -35,17 +39,12 @@ function IngredientsContainer({ data }) {
   const measures = Object.keys(data).filter((el) => el.includes('strMeasure'));
 
   return (
-    <section>
+    <section className="wrapper-ingredients">
+      <h3 className="title-section">Ingredientes</h3>
       { ingredients.map((ingredient, index) => (
         data[ingredient] && data[ingredient].length && (
           pathname.includes('in-progress') ? (
-            <label
-              htmlFor={ ingredient }
-              data-testid={ `${index}-ingredient-step` }
-              key={ ingredient }
-              className={ defineIngredientChecked(ingredient) ? 'selected' : null }
-            >
-              { `${data[ingredient]} ${data[measures[index]]}` }
+            <div className="container-checkboxs" key={ ingredient }>
               <input
                 data-testid={ `${index}-ingredient-name-and-measure` }
                 id={ ingredient }
@@ -53,10 +52,26 @@ function IngredientsContainer({ data }) {
                 type="checkbox"
                 onClick={ checkBoxClick }
                 defaultChecked={ defineIngredientChecked(ingredient) }
+                className="checkbox-input"
               />
-            </label>
+              <label
+                htmlFor={ ingredient }
+                data-testid={ `${index}-ingredient-step` }
+                className={
+                  `ingredient-container
+                  ${defineIngredientChecked(ingredient) ? 'selected' : null}
+                  ${index % 2 === 0 && 'bg-orange-100'}`
+                }
+              >
+                { `${data[ingredient]} ${data[measures[index]]}` }
+              </label>
+            </div>
           ) : (
-            <p data-testid={ `${index}-ingredient-name-and-measure` } key={ ingredient }>
+            <p
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient }
+              className={ `ingredient-container ${index % 2 === 0 && 'bg-orange-100'}` }
+            >
               { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
             </p>))
       )) }

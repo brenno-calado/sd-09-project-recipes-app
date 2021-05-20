@@ -22,7 +22,6 @@ const favoriteMealObject = (data) => ({
 });
 
 export const addToFavorite = (page, data) => {
-  console.log(page);
   const favoriteItem = (page === 'Meal')
     ? favoriteMealObject(data) : favoriteDrinkObject(data);
   updateLocalStorage('doneOrFavoriteRecipes', 'favoriteRecipes', favoriteItem);
