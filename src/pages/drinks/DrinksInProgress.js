@@ -2,10 +2,10 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { Context } from '../../context';
-import { IngredientsContainer, FavoriteButton } from '../../components';
+import { IngredientsContainer } from '../../components';
 import { updateLocalStorage } from '../../services/localStorageService';
 import { verifyItemInFavorite } from '../../services/functionsApi';
-import shareIcon from '../../images/shareIcon.svg';
+import HeaderDetails from '../../components/HeaderDetails';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -35,27 +35,14 @@ function DrinksInProgress() {
     setShouldRedirect(true);
   };
 
-  const share = () => {
-    const { location: { origin } } = window;
-    navigator.clipboard.writeText(`${origin}/bebidas/${id}`);
-    setCopy(true);
-  };
-
-  const { strDrinkThumb, strDrink, strInstructions, strAlcoholic } = data;
+  const { strInstructions } = data;
 
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
 
   return (
     <section className="recipe-details">
-      <img data-testid="recipe-photo" src={ strDrinkThumb } alt="recipe" />
-      <h2 data-testid="recipe-title">{strDrink}</h2>
-      <button data-testid="share-btn" type="button" onClick={ share }>
-        <img src={ shareIcon } alt="share icon" />
-      </button>
 
-      <FavoriteButton data={ data } id={ id } query="Drink" />
-
-      <p data-testid="recipe-category">{ strAlcoholic }</p>
+      <HeaderDetails querys={ ['cocktails', 'Drink'] } isMealPage setCopy={ setCopy } />
 
       <IngredientsContainer data={ data } />
 

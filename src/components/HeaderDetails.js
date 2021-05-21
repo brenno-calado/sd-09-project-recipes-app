@@ -13,8 +13,8 @@ function HeaderDetails({ querys, isMealPage, setCopy }) {
   const { id } = useParams();
 
   const share = () => {
-    const { location: { href } } = window;
-    navigator.clipboard.writeText(href);
+    const { location: { origin } } = window;
+    navigator.clipboard.writeText(`${origin}/${pathname.split('/')[1]}/${id}`);
     setCopy(true);
   };
 

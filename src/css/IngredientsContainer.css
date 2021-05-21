@@ -29,6 +29,7 @@
   width: 15px;
 }
 
+
 .checkbox-input:checked + .ingredient-container::before {
   background-color: var(--green-300);
   background-image: url('../images/checkedIcon.svg');

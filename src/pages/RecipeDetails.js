@@ -2,11 +2,11 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Redirect, useLocation } from 'react-router-dom';
 import { Context } from '../context';
 import { fetchRecipeDetails } from '../services/api';
+import HeaderDetails from '../components/HeaderDetails';
 import { MealsRecomendations, YoutubePlayer,
   IngredientsContainer, DrinksRecomendations } from '../components';
 import { verifyItemInFavorite } from '../services/functionsApi';
 import { getItemLocalStorage, updateLocalStorage } from '../services/localStorageService';
-import HeaderDetails from '../components/HeaderDetails';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -51,7 +51,13 @@ function RecipeDetails() {
 
       { isMealPage && <YoutubePlayer url={ data.strYoutube } title={ data.strMeal } /> }
 
-      <p data-testid="instructions">{data.strInstructions}</p>
+      <p
+        data-testid="instructions"
+        className="instructions-container"
+      >
+        {data.strInstructions}
+      </p>
+
       { !doneRecipe && (
         <button
           data-testid="start-recipe-btn"
