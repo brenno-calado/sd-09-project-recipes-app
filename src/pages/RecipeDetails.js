@@ -7,6 +7,7 @@ import { MealsRecomendations, YoutubePlayer,
   IngredientsContainer, DrinksRecomendations } from '../components';
 import { verifyItemInFavorite } from '../services/functionsApi';
 import { getItemLocalStorage, updateLocalStorage } from '../services/localStorageService';
+import '../css/RecipeDetails.css';
 
 function RecipeDetails() {
   const { id } = useParams();
@@ -51,12 +52,15 @@ function RecipeDetails() {
 
       { isMealPage && <YoutubePlayer url={ data.strYoutube } title={ data.strMeal } /> }
 
-      <p
-        data-testid="instructions"
-        className="instructions-container"
-      >
-        {data.strInstructions}
-      </p>
+      <section className="wrapper-instructions">
+        <h3 className="title-section">Instruções</h3>
+        <p
+          data-testid="instructions"
+          className="instructions-paragraph"
+        >
+          {data.strInstructions}
+        </p>
+      </section>
 
       { !doneRecipe && (
         <button
