@@ -2,24 +2,23 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, Redirect } from 'react-router-dom';
 import { fetchRecipeDetails } from '../../services/api';
 import { Context } from '../../context';
-import { IngredientsContainer, FavoriteButton } from '../../components';
+import { IngredientsContainer } from '../../components';
 import { updateLocalStorage }
   from '../../services/localStorageService';
 import { verifyItemInFavorite } from '../../services/functionsApi';
-import shareIcon from '../../images/shareIcon.svg';
+import HeaderDetails from '../../components/HeaderDetails';
 
 function MealsInProgress() {
   const { id } = useParams();
-  const { disableButton, setFavoriteRecipe } = useContext(Context);
-  const [data, setData] = useState([]);
+  const { disableButton, setFavoriteRecipe, updateData, data } = useContext(Context);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
-    const getData = async () => setData(await fetchRecipeDetails(id, true));
+    const getData = async () => updateData(fetchRecipeDetails(id, true));
     setFavoriteRecipe(verifyItemInFavorite(id));
     getData();
-  }, [id, setFavoriteRecipe]);
+  }, [id, setFavoriteRecipe, updateData]);
 
   const handleClick = () => {
     const doneRecipe = {
@@ -36,27 +35,14 @@ function MealsInProgress() {
     setShouldRedirect(true);
   };
 
-  const share = () => {
-    const { location: { origin } } = window;
-    navigator.clipboard.writeText(`${origin}/comidas/${id}`);
-    setCopy(true);
-  };
-
-  const { strMealThumb, strMeal, strCategory, strInstructions } = data;
+  const { strInstructions } = data;
 
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
 
   return (
     <section className="recipe-details">
-      <img data-testid="recipe-photo" src={ strMealThumb } alt="recipe" />
-      <h2 data-testid="recipe-title">{strMeal}</h2>
-      <button data-testid="share-btn" type="button" onClick={ share }>
-        <img src={ shareIcon } alt="share icon" />
-      </button>
 
-      <FavoriteButton data={ data } id={ id } query="Meal" />
-
-      <p data-testid="recipe-category">{ strCategory }</p>
+      <HeaderDetails querys={ ['meals', 'Meal'] } isMealPage setCopy={ setCopy } />
 
       <IngredientsContainer data={ data } />
 

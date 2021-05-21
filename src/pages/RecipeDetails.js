@@ -1,20 +1,17 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, Redirect, useLocation, Link } from 'react-router-dom';
+import { useParams, Redirect, useLocation } from 'react-router-dom';
 import { Context } from '../context';
 import { fetchRecipeDetails } from '../services/api';
-import { MealsRecomendations, YoutubePlayer, FavoriteButton,
+import { MealsRecomendations, YoutubePlayer,
   IngredientsContainer, DrinksRecomendations } from '../components';
 import { verifyItemInFavorite } from '../services/functionsApi';
 import { getItemLocalStorage, updateLocalStorage } from '../services/localStorageService';
-import shareIcon from '../images/shareIcon.svg';
-import arrowLeft from '../images/arrowLeftIcon.svg';
-import '../css/RecipeDetails.css';
+import HeaderDetails from '../components/HeaderDetails';
 
 function RecipeDetails() {
   const { id } = useParams();
   const { pathname } = useLocation();
-  const { setFavoriteRecipe } = useContext(Context);
-  const [data, setData] = useState([]);
+  const { setFavoriteRecipe, updateData, data } = useContext(Context);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [doneRecipe, setDoneRecipe] = useState(false);
   const [copy, setCopy] = useState(false);
@@ -23,13 +20,13 @@ function RecipeDetails() {
   const querys = isMealPage ? ['meals', 'Meal'] : ['cocktails', 'Drink'];
 
   useEffect(() => {
-    const getData = async () => setData(await fetchRecipeDetails(id, isMealPage));
+    const getData = async () => updateData(fetchRecipeDetails(id, isMealPage));
     getData();
     setFavoriteRecipe(verifyItemInFavorite(id));
     setDoneRecipe(localStorage.doneRecipes
       && getItemLocalStorage('doneRecipes')
         .some(({ id: idItem }) => idItem === id));
-  }, [id, isMealPage, setFavoriteRecipe]);
+  }, [id, isMealPage, setFavoriteRecipe, updateData]);
 
   const recipeInProgress = localStorage.inProgressRecipes && Object
     .keys(getItemLocalStorage('inProgressRecipes')[querys[0]]).includes(id);
@@ -41,46 +38,14 @@ function RecipeDetails() {
     setShouldRedirect(true);
   };
 
-  const share = () => {
-    const { location: { href } } = window;
-    navigator.clipboard.writeText(href);
-    setCopy(true);
-  };
-
   if (shouldRedirect) {
     return <Redirect to={ `/${pathname.split('/')[1]}/${id}/in-progress` } />;
   }
 
   return (
     <section className="wrapper-recipe-details">
-      <div className="top-icons-container">
-        <Link to={ `/${pathname.split('/')[1]}` } className="square-icon right-border">
-          <img src={ arrowLeft } alt="go Back" className="arrow" />
-        </Link>
-        <div className="square-icon left-border">
-          <button data-testid="share-btn" type="button" onClick={ share }>
-            <img src={ shareIcon } alt="share icon" />
-          </button>
-        </div>
-      </div>
-      <div className="thumb-container">
-        <div className="gradient-thumb" />
-        <img
-          data-testid="recipe-photo"
-          src={ data[`str${querys[1]}Thumb`] }
-          alt="recipe"
-          className="thumb-recipe"
-        />
-      </div>
-      <div className="title-container">
-        <div className="text">
-          <h2 data-testid="recipe-title" className="title">{data[`str${querys[1]}`]}</h2>
-          <p data-testid="recipe-category">
-            { `Category: ${isMealPage ? data.strCategory : data.strAlcoholic}` }
-          </p>
-        </div>
-        <FavoriteButton data={ data } id={ id } query={ querys[1] } />
-      </div>
+
+      <HeaderDetails querys={ querys } isMealPage={ isMealPage } setCopy={ setCopy } />
 
       <IngredientsContainer data={ data } />
 
