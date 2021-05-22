@@ -21,9 +21,11 @@ function Footer() {
     />
   );
 
-  const inOrOutMealsPage = pathname.includes('comidas') ? 'in-page' : 'out-page';
+  const inOrOutMealsPage = pathname.includes('comidas') && !pathname.includes('explorar')
+    ? 'in-page' : 'out-page';
+  const inOrOutDrinksPage = pathname.includes('bebidas') && !pathname.includes('explorar')
+    ? 'in-page' : 'out-page';
   const inOrOutExplorePage = pathname.includes('explorar') ? 'in-page' : 'out-page';
-  const inOrOutDrinksPage = pathname.includes('bebidas') ? 'in-page' : 'out-page';
   const inOrOutFavoritePage = pathname.includes('favoritas') ? 'in-page' : 'out-page';
 
   return (
