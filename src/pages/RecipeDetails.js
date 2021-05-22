@@ -71,8 +71,10 @@ function RecipeDetails() {
         >
           { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
         </button>) }
-
-      { isMealPage ? <DrinksRecomendations /> : <MealsRecomendations />}
+      <section className="wrapper-recomendations">
+        <h3 className="title-section">Recomendações</h3>
+        { isMealPage ? <DrinksRecomendations /> : <MealsRecomendations />}
+      </section>
       { copy && <p>Link copiado!</p> }
     </section>
   );

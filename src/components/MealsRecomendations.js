@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import { fecthByName } from '../services/api';
 import 'react-multi-carousel/lib/styles.css';
+import '../css/Recomendation.css';
 
 function MealsRecomendations() {
   const [meals, setMeals] = useState([]);
@@ -25,11 +26,17 @@ function MealsRecomendations() {
 
   return (
     <Carousel responsive={ responsive }>
-      { meals.map(({ idMeal, strMeal, strMealThumb }, index) => (
-        <span data-testid={ `${index}-recomendation-card` } key={ idMeal }>
-          <img variant="top" src={ strMealThumb } alt={ strMeal } />
-          <p data-testid={ `${index}-recomendation-title` }>{strMeal}</p>
-        </span>
+      { meals.map((meal, index) => (
+        <div
+          data-testid={ `${index}-recomendation-card` }
+          key={ meal.idMeal }
+          className="recomendation-card"
+        >
+          <img variant="top" src={ meal.strMealThumb } alt={ meal.strMeal } />
+          <h3 data-testid={ `${index}-recomendation-title` }>{meal.strMeal}</h3>
+          <p>{meal.strCategory}</p>
+          <p className="preview-instruction">{meal.strInstructions}</p>
+        </div>
       )) }
     </Carousel>
   );
