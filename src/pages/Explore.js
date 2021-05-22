@@ -10,16 +10,18 @@ function Explore() {
       <Header title="Explorar" />
       <div className="buttons-explore-container">
         <Link to="/explorar/comidas">
-          <button data-testid="explore-food" type="button">
-            <FaUtensils className="icon-btn" />
-            Explorar Comidas
-          </button>
+          <FaUtensils className="icon-btn" />
+          <div className="box-title-button">
+            <button data-testid="explore-food" type="button">Explorar Comidas</button>
+            <p className="subtitle">Encontre comidas de outros países</p>
+          </div>
         </Link>
         <Link to="/explorar/bebidas">
-          <button data-testid="explore-drinks" type="button">
-            <FaCocktail className="icon-btn" />
-            Explorar Bebidas
-          </button>
+          <FaCocktail className="icon-btn" />
+          <div className="box-title-button">
+            <button data-testid="explore-drinks" type="button">Explorar Bebidas</button>
+            <p className="subtitle">Explore bebidas de outros países</p>
+          </div>
         </Link>
       </div>
       <Footer />

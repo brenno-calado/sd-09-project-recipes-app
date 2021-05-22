@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { Header, Footer } from '../../components';
 import { fetchIngredientList, fetchByIngredient } from '../../services/api';
 import { Context } from '../../context';
+import '../../css/Explore.css';
 
 function MealsByIngredients() {
   const { updateData } = useContext(Context);
@@ -30,20 +31,22 @@ function MealsByIngredients() {
   return (
     <section>
       <Header title="Explorar Ingredientes" />
-      { ingredients.map(({ strIngredient }, index) => (
-        <button
-          data-testid={ `${index}-ingredient-card` }
-          onClick={ () => handleCLick(strIngredient) }
-          key={ strIngredient }
-          type="button"
-        >
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
-            alt={ strIngredient }
-          />
-          <p data-testid={ `${index}-card-name` }>{ strIngredient }</p>
-        </button>)) }
+      <section className="wrapper-buttons-ingredients">
+        { ingredients.map(({ strIngredient }, index) => (
+          <button
+            data-testid={ `${index}-ingredient-card` }
+            onClick={ () => handleCLick(strIngredient) }
+            key={ strIngredient }
+            type="button"
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+              alt={ strIngredient }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strIngredient }</p>
+          </button>)) }
+      </section>
       <Footer />
     </section>
   );

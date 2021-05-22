@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaCarrot, FaMapMarkerAlt, FaGlobeAmericas } from 'react-icons/fa';
 import { Header, Footer } from '../../components';
 import { fetchRandomRecipe } from '../../services/api';
+import '../../css/Explore.css';
 
 function ExploreMeals() {
   const [data, setData] = useState({});
@@ -20,15 +22,29 @@ function ExploreMeals() {
   return (
     <section>
       <Header title="Explorar Comidas" />
-      <Link to="/explorar/comidas/ingredientes">
-        { createButton('explore-by-ingredient', 'Por Ingredientes') }
-      </Link>
-      <Link to="/explorar/comidas/area">
-        { createButton('explore-by-area', 'Por Local de Origem') }
-      </Link>
-      <Link to={ `/comidas/${data.meals[0].idMeal}` }>
-        { createButton('explore-surprise', 'Me Surpreenda!') }
-      </Link>
+      <div className="buttons-explore-container">
+        <Link to="/explorar/comidas/ingredientes">
+          <FaCarrot className="icon-btn" />
+          <div className="box-title-button">
+            { createButton('explore-by-ingredient', 'Por Ingredientes') }
+            <p className="subtitle">Faça buscas de pratos por tipos de ingredients.</p>
+          </div>
+        </Link>
+        <Link to="/explorar/comidas/area">
+          <FaMapMarkerAlt className="icon-btn" />
+          <div className="box-title-button">
+            { createButton('explore-by-area', 'Por Local de Origem') }
+            <p className="subtitle">Faça buscas de pratos por seu local de origem.</p>
+          </div>
+        </Link>
+        <Link to={ `/comidas/${data.meals[0].idMeal}` }>
+          <FaGlobeAmericas className="icon-btn" />
+          <div className="box-title-button">
+            { createButton('explore-surprise', 'Me Surpreenda!') }
+            <p className="subtitle">Ja viu essa comida aqui?</p>
+          </div>
+        </Link>
+      </div>
       <Footer />
     </section>
   );
