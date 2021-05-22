@@ -15,6 +15,7 @@ const addInputsCheckedInLocalStorage = (page, id, allCheked, setDisableButton) =
   });
   updateLocalStorage('inProgressRecipes', page, id, ingredients);
   if (allCheked.length === ingredients.length) setDisableButton(false);
+  else setDisableButton(true);
 };
 function IngredientsContainer({ data }) {
   const { setDisableButton } = useContext(Context);
@@ -45,24 +46,21 @@ function IngredientsContainer({ data }) {
         data[ingredient] && data[ingredient].length && (
           pathname.includes('in-progress') ? (
             <div className="container-checkboxs" key={ ingredient }>
-              <input
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                id={ ingredient }
-                value={ ingredient }
-                type="checkbox"
-                onClick={ checkBoxClick }
-                defaultChecked={ defineIngredientChecked(ingredient) }
-                className="checkbox-input"
-              />
               <label
                 htmlFor={ ingredient }
                 data-testid={ `${index}-ingredient-step` }
-                className={
-                  `ingredient-container
-                  ${defineIngredientChecked(ingredient) ? 'selected' : null}
-                  ${index % 2 === 0 && 'bg-orange-100'}`
-                }
+                className={ `ingr-container ${index % 2 === 0 && 'bg-orange-100'}
+                ${defineIngredientChecked(ingredient) ? 'selected' : null}` }
               >
+                <input
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  id={ ingredient }
+                  value={ ingredient }
+                  type="checkbox"
+                  onClick={ checkBoxClick }
+                  defaultChecked={ defineIngredientChecked(ingredient) }
+                  className="checkbox-input"
+                />
                 { `${data[ingredient]} ${data[measures[index]]}` }
               </label>
             </div>
@@ -70,7 +68,7 @@ function IngredientsContainer({ data }) {
             <p
               data-testid={ `${index}-ingredient-name-and-measure` }
               key={ ingredient }
-              className={ `ingredient-container ${index % 2 === 0 && 'bg-orange-100'}` }
+              className={ `ingr-container ${index % 2 === 0 && 'bg-orange-100'}` }
             >
               { data[ingredient] && `${data[ingredient]} ${data[measures[index]]}` }
             </p>))

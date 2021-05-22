@@ -1,6 +1,10 @@
+.link {
+  text-decoration: none;
+}
+
 .recomendation-card {
   align-items: center;
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.20);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.20);
   display: flex;
   flex-direction: column;
   margin: 0.8rem;
@@ -22,12 +26,12 @@
 .recomendation-card p {
   align-self: flex-start;
   color: var(--gray-300);
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin: 0;
   padding-left: 0.5rem;
 }
 
-.preview-instruction {
+.preview-instruction, .category-text {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

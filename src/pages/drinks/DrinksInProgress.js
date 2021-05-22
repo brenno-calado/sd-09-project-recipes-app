@@ -9,16 +9,15 @@ import HeaderDetails from '../../components/HeaderDetails';
 
 function DrinksInProgress() {
   const { id } = useParams();
-  const { disableButton, setFavoriteRecipe } = useContext(Context);
-  const [data, setData] = useState([]);
+  const { disableButton, setFavoriteRecipe, updateData, data } = useContext(Context);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [copy, setCopy] = useState(false);
 
   useEffect(() => {
-    const getData = async () => setData(await fetchRecipeDetails(id, false));
+    const getData = async () => updateData(fetchRecipeDetails(id, false));
     setFavoriteRecipe(verifyItemInFavorite(id));
     getData();
-  }, [id, setFavoriteRecipe]);
+  }, [id, setFavoriteRecipe, updateData]);
 
   const handleClick = () => {
     const doneRecipe = {
@@ -42,7 +41,11 @@ function DrinksInProgress() {
   return (
     <section className="recipe-details">
 
-      <HeaderDetails querys={ ['cocktails', 'Drink'] } isMealPage setCopy={ setCopy } />
+      <HeaderDetails
+        querys={ ['cocktails', 'Drink'] }
+        isMealPage={ false }
+        setCopy={ setCopy }
+      />
 
       <IngredientsContainer data={ data } />
 

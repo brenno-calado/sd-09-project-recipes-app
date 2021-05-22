@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 import { fecthByName } from '../services/api';
 import 'react-multi-carousel/lib/styles.css';
@@ -27,16 +28,18 @@ function MealsRecomendations() {
   return (
     <Carousel responsive={ responsive }>
       { meals.map((meal, index) => (
-        <div
-          data-testid={ `${index}-recomendation-card` }
-          key={ meal.idMeal }
-          className="recomendation-card"
-        >
-          <img variant="top" src={ meal.strMealThumb } alt={ meal.strMeal } />
-          <h3 data-testid={ `${index}-recomendation-title` }>{meal.strMeal}</h3>
-          <p>{meal.strCategory}</p>
-          <p className="preview-instruction">{meal.strInstructions}</p>
-        </div>
+        <Link to={ `/comidas/${meal.idMeal}` } key={ meal.idMeal } className="link">
+          <div
+            data-testid={ `${index}-recomendation-card` }
+            key={ meal.idMeal }
+            className="recomendation-card"
+          >
+            <img variant="top" src={ meal.strMealThumb } alt={ meal.strMeal } />
+            <h3 data-testid={ `${index}-recomendation-title` }>{meal.strMeal}</h3>
+            <p>{`Category: ${meal.strCategory}`}</p>
+            <p className="preview-instruction">{meal.strInstructions}</p>
+          </div>
+        </Link>
       )) }
     </Carousel>
   );

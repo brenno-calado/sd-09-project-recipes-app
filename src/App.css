@@ -46,7 +46,7 @@ img {
 
 .selected {
   color: var(--gray-200);
-  text-decoration: line-through var(--green-300) 3px;
+  text-decoration: line-through var(--green-300);
 }
 
 
