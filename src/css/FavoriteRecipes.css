@@ -1,0 +1,21 @@
+.nav-filters-types {
+  background-color: var(--orange-500);
+  border-top: 1px solid var(--orange-200);
+  display: flex;
+}
+
+.button-filter {
+  background-color: transparent;
+  border: none;
+  color: var(--orange-200);
+  font-size: 1.1rem;
+  padding: 1rem;
+  text-transform: capitalize;
+  width: 33%;
+}
+
+.button-filter:focus, .all-btn {
+  color: white;
+  font-weight: bold;
+  border-bottom: 3px solid white;
+}

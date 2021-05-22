@@ -5,16 +5,21 @@ import { getItemLocalStorage } from '../services/localStorageService';
 import { removeToFavorite } from '../services/functionsApi';
 import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import '../css/FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   const [filter, setFilter] = useState('');
   const [copy, setCopy] = useState(false);
+  const [focus, setFocus] = useState(true);
   const [itemRemoved, setItemRemoved] = useState(false);
 
   const data = localStorage.favoriteRecipes
     ? getItemLocalStorage('favoriteRecipes') : [];
 
-  const handleClick = ({ target: { value } }) => setFilter(value);
+  const handleClick = ({ target: { value } }) => {
+    setFilter(value);
+    setFocus(false);
+  };
 
   const removeItem = (id) => {
     const milliseconds = 1000;
@@ -30,7 +35,13 @@ function FavoriteRecipes() {
   };
 
   const createButton = (testid, value, onClick) => (
-    <button data-testid={ testid } value={ value } type="button" onClick={ onClick }>
+    <button
+      data-testid={ testid }
+      value={ value }
+      type="button"
+      onClick={ onClick }
+      className={ !value && focus ? 'all-btn button-filter' : 'button-filter' }
+    >
       { value || 'All' }
     </button>
   );
@@ -38,9 +49,11 @@ function FavoriteRecipes() {
   return (
     <section>
       <Header title="Receitas Favoritas" />
-      { createButton('filter-by-all-btn', '', handleClick) }
-      { createButton('filter-by-food-btn', 'comida', handleClick) }
-      { createButton('filter-by-drink-btn', 'bebida', handleClick) }
+      <nav className="nav-filters-types">
+        { createButton('filter-by-all-btn', '', handleClick) }
+        { createButton('filter-by-food-btn', 'comida', handleClick) }
+        { createButton('filter-by-drink-btn', 'bebida', handleClick) }
+      </nav>
       { itemRemoved && <p>Item removido dos favoritos</p> }
       { data.filter(({ type }) => type.includes(filter)).map(
         (
