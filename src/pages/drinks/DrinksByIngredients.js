@@ -30,20 +30,23 @@ function DrinksByIngredients() {
   return (
     <section>
       <Header title="Explorar Ingredientes" />
-      { ingredients.map(({ strIngredient1 }, index) => (
-        <button
-          data-testid={ `${index}-ingredient-card` }
-          onClick={ () => handleCLick(strIngredient1) }
-          key={ strIngredient1 }
-          type="button"
-        >
-          <img
-            data-testid={ `${index}-card-img` }
-            src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
-            alt={ strIngredient1 }
-          />
-          <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
-        </button>)) }
+      <h3 className="title-section">Lista de Ingredientes</h3>
+      <section className="wrapper-buttons-ingredients">
+        { ingredients.map(({ strIngredient1 }, index) => (
+          <button
+            data-testid={ `${index}-ingredient-card` }
+            onClick={ () => handleCLick(strIngredient1) }
+            key={ strIngredient1 }
+            type="button"
+          >
+            <img
+              data-testid={ `${index}-card-img` }
+              src={ `https://www.thecocktaildb.com/images/ingredients/${strIngredient1}-Small.png` }
+              alt={ strIngredient1 }
+            />
+            <p data-testid={ `${index}-card-name` }>{ strIngredient1 }</p>
+          </button>)) }
+      </section>
       <Footer />
     </section>
   );

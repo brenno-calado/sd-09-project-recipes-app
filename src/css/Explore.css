@@ -44,3 +44,43 @@
   font-size: 3rem;
   color: var(--orange-500);
 }
+
+/* EXPLORE BY INGREDIENTS */
+.wrapper-buttons-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center;
+  margin-bottom: 5rem;
+}
+
+.wrapper-buttons-ingredients button {
+  background-color: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+  width: 30%;
+}
+
+/* EXPLORE BY AREA */
+.select-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.select {
+  appearance: none;
+  background-color: var(--gray-100);
+  background-image: url('../images/chevron-down.svg');
+  background-position: 95% 10px;
+  background-repeat: no-repeat;
+  background-size: auto;
+  border: none;
+  border-radius: 0.3rem;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+  width: 70%;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}

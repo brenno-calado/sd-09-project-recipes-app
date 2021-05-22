@@ -41,7 +41,8 @@ img {
 
 .title-section {
   border-bottom: 2px solid var(--orange-500);
-  width: 30%;
+  margin-left: 0.5rem;
+  width: 10rem;
 }
 
 .selected {

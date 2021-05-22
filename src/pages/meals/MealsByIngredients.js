@@ -31,6 +31,7 @@ function MealsByIngredients() {
   return (
     <section>
       <Header title="Explorar Ingredientes" />
+      <h3 className="title-section">Lista de Ingredientes</h3>
       <section className="wrapper-buttons-ingredients">
         { ingredients.map(({ strIngredient }, index) => (
           <button

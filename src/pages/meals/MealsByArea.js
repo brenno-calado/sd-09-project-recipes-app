@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Footer, Main } from '../../components';
 import { fetchAreaList, fecthByArea, fecthByName } from '../../services/api';
+import '../../css/Explore.css';
 
 function MealsByArea() {
   const [data, setData] = useState([]);
@@ -19,7 +20,7 @@ function MealsByArea() {
   }, []);
 
   const createDropdown = (testid, id, options) => (
-    <select data-testid={ testid } id={ id } onChange={ handleChange }>
+    <select data-testid={ testid } id={ id } onChange={ handleChange } className="select">
       <option data-testid="All-option" value="All">All</option>
       { options.map(({ strArea: area }) => (
         <option data-testid={ `${area}-option` } id={ area } key={ area } value={ area }>
@@ -33,7 +34,9 @@ function MealsByArea() {
   return (
     <section>
       <Header title="Explorar Origem" search />
-      { createDropdown('explore-by-area-dropdown', 'explore-by-area', areas.meals) }
+      <div className="select-container">
+        { createDropdown('explore-by-area-dropdown', 'explore-by-area', areas.meals) }
+      </div>
       <Main recipes={ data.meals } />
       <Footer />
     </section>
