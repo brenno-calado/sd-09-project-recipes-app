@@ -1,0 +1,32 @@
+.buttons-explore-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.buttons-explore-container a {
+  width: 80%;
+  text-decoration: none;
+}
+
+.buttons-explore-container button {
+  align-items: center;
+  background: transparent;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  display: flex;
+  font-size: 1.4rem;
+  gap: 1rem;
+  justify-content: center;
+  padding: 2rem;
+  width: 100%;
+}
+
+.icon-btn {
+  font-size: 3rem;
+  color: var(--orange-500);
+}
