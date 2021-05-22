@@ -91,9 +91,3 @@
   color: var(--gray-300);
   margin: 0;
 }
-
-.start-recipe-btn {
-  bottom: 0;
-  position: fixed;
-  z-index: 10;
-}

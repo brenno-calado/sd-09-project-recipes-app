@@ -6,6 +6,7 @@ import { IngredientsContainer } from '../../components';
 import { updateLocalStorage } from '../../services/localStorageService';
 import { verifyItemInFavorite } from '../../services/functionsApi';
 import HeaderDetails from '../../components/HeaderDetails';
+import '../../css/RecipeInProgress.css';
 
 function DrinksInProgress() {
   const { id } = useParams();
@@ -34,8 +35,6 @@ function DrinksInProgress() {
     setShouldRedirect(true);
   };
 
-  const { strInstructions } = data;
-
   if (shouldRedirect) return <Redirect to="/receitas-feitas" />;
 
   return (
@@ -49,11 +48,20 @@ function DrinksInProgress() {
 
       <IngredientsContainer data={ data } />
 
-      <p data-testid="instructions">{strInstructions}</p>
+      <section className="wrapper-instructions-in-progress">
+        <h3 className="title-section">Instruções</h3>
+        <p
+          data-testid="instructions"
+          className="instructions-paragraph"
+        >
+          {data.strInstructions}
+        </p>
+      </section>
+
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        className="btn-initial"
+        className="btn-recipe"
         onClick={ handleClick }
         disabled={ disableButton }
       >

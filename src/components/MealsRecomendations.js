@@ -26,7 +26,7 @@ function MealsRecomendations() {
   if (!meals.length) return <div>Loading...</div>;
 
   return (
-    <Carousel responsive={ responsive }>
+    <Carousel responsive={ responsive } className="wrapper-carousel">
       { meals.map((meal, index) => (
         <Link to={ `/comidas/${meal.idMeal}` } key={ meal.idMeal } className="link">
           <div

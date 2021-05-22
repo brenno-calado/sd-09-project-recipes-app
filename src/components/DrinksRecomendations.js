@@ -26,7 +26,7 @@ function DrinksRecomendations() {
   if (!drinks.length) return <div>Loading...</div>;
 
   return (
-    <Carousel responsive={ responsive }>
+    <Carousel responsive={ responsive } className="wrapper-carousel">
       { drinks.map((drink, index) => (
         <Link to={ `/bebidas/${drink.idDrink}` } key={ drink.idDrink } className="link">
           <div

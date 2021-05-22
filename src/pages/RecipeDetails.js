@@ -66,7 +66,7 @@ function RecipeDetails() {
         <button
           data-testid="start-recipe-btn"
           type="button"
-          className="start-recipe-btn"
+          className="btn-recipe"
           onClick={ handleClick }
         >
           { recipeInProgress ? 'Continuar Receita' : 'Iniciar Receita' }
