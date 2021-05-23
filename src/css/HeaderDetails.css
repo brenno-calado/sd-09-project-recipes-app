@@ -80,7 +80,7 @@
 }
 
 .text p {
-  font-size: 1.2rem;
   color: var(--gray-300);
+  font-size: 1.2rem;
   margin: 0;
 }

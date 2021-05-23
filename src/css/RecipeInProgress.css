@@ -20,9 +20,9 @@
   color: var(--gray-100);
 }
 
-.wrapper-instructions-in-progress{
-  padding: 1.2rem;
+.wrapper-instructions-in-progress {
   margin-bottom: 3rem;
+  padding: 1.2rem;
 }
 
 .instructions-paragraph {

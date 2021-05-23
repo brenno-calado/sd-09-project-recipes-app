@@ -15,13 +15,12 @@
 }
 
 .button-filter:focus, .all-btn {
-  color: white;
-  font-weight: bold;
   border-bottom: 3px solid white;
+  color: white;
+  font-weight: 600;
 }
 
 /* SECTION CARDS FAVORITE RECIPES */
-
 .wrapper-recipe-item {
   position: relative;
 }
