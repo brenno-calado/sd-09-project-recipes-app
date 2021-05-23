@@ -43,9 +43,9 @@
 }
 
 .buttons-container-favorite {
+  bottom: 0.2rem;
   position: absolute;
   right: 2.2rem;
-  bottom: 0.2rem;
 }
 
 .buttons-container-favorite button {
