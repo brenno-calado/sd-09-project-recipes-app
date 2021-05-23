@@ -63,6 +63,9 @@ export default function DetailHeader({ recipe, isFood }) {
     </Tooltip>);
 
   const btn = 'btn btn-light border m-1';
+
+  const lastIndex = -1;
+
   return (
     <header>
       <img
@@ -84,7 +87,11 @@ export default function DetailHeader({ recipe, isFood }) {
       >
         <button
           type="button"
-          onClick={ () => copy(`http://localhost:3000${pathname}`) }
+          onClick={ () => copy(`http://localhost:3000${
+            pathname.split('/').slice(lastIndex)[0] === 'in-progress'
+              ? pathname.replace('/in-progress', '')
+              : pathname
+          }`) }
           className={ btn }
           data-testid="share-btn"
         >

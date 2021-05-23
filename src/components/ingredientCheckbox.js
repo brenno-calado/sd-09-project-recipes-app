@@ -4,8 +4,7 @@ import ingredientFilter from './IngredientFilter';
 
 export default function IngredientCheckbox({ recipe }) {
   const allIngredients = ingredientFilter(recipe);
-  const inProgress = window.location.pathname.split('/')[3] === 'in-progress';
-  console.log(inProgress);
+
   return (allIngredients.map((ing, index) => {
     if (ing.measure.length > 1) {
       return (
@@ -15,13 +14,11 @@ export default function IngredientCheckbox({ recipe }) {
         >
           <input type="checkbox" id={ `${index}-checkbox` } />
           <label htmlFor={ `${index}-checkbox` }>
-            {ing.measure}
-            {' '}
-            of
-            {ing.item}
+            {`${ing.measure} of ${ing.item}`}
           </label>
         </li>);
     }
+
     return (
       <li
         key={ index }
