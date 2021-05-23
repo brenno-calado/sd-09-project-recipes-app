@@ -34,6 +34,7 @@
 .square-icon {
   align-items: center;
   background-color: var(--blue-600);
+  border-radius: 0 0.5rem 0.5rem 0;
   display: flex;
   height: 2.2rem;
   justify-content: center;
@@ -44,14 +45,6 @@
   background: transparent;
   border: none;
   padding: 0;
-}
-
-.left-border {
-  border-radius: 0.5rem 0 0 0.5rem;
-}
-
-.right-border {
-  border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .title-container {

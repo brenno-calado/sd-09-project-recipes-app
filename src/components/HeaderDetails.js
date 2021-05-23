@@ -21,14 +21,9 @@ function HeaderDetails({ querys, isMealPage, setCopy }) {
   return (
     <header>
       <div className="top-icons-container">
-        <Link to={ `/${pathname.split('/')[1]}` } className="square-icon right-border">
+        <Link to={ `/${pathname.split('/')[1]}` } className="square-icon">
           <img src={ arrowLeft } alt="go Back" className="arrow" />
         </Link>
-        <div className="square-icon left-border">
-          <button data-testid="share-btn" type="button" onClick={ share }>
-            <img src={ shareIcon } alt="share icon" />
-          </button>
-        </div>
       </div>
       <div className="thumb-container">
         <div className="gradient-thumb" />
@@ -47,6 +42,9 @@ function HeaderDetails({ querys, isMealPage, setCopy }) {
           </p>
         </div>
         <FavoriteButton data={ data } id={ id } query={ querys[1] } />
+        <button data-testid="share-btn" type="button" onClick={ share }>
+          <img src={ shareIcon } alt="share icon" />
+        </button>
       </div>
     </header>
   );
