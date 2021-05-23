@@ -19,3 +19,65 @@
   font-weight: bold;
   border-bottom: 3px solid white;
 }
+
+/* SECTION CARDS FAVORITE RECIPES */
+
+.wrapper-recipe-item {
+  position: relative;
+}
+
+.card-recipe {
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  gap: 2rem;
+  margin: 1rem auto;
+  padding: 0.8rem;
+  text-decoration: none;
+  width: 80%;
+}
+
+.card-recipe img {
+  border-radius: 0.5rem;
+  height: 6rem;
+}
+
+.buttons-container-favorite {
+  position: absolute;
+  right: 2.2rem;
+  bottom: 0.2rem;
+}
+
+.buttons-container-favorite button {
+  background-color: transparent;
+  border: none;
+}
+
+.buttons-container-favorite img {
+  height: 1.2rem;
+}
+
+.title-card-container {
+  border-bottom: 2px solid var(--orange-500);
+  width: 100%;
+}
+
+.title-card-container h3 {
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.title-card-container p {
+  color: var(--gray-300);
+  margin: 0;
+}
+
+.text-preview {
+  color: var(--gray-200);
+  margin: 0 0 1.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 10rem;
+}

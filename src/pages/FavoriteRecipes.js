@@ -60,37 +60,44 @@ function FavoriteRecipes() {
           { id, type, area, category, alcoholicOrNot, name, image },
           index,
         ) => (
-          <div key={ name }>
-            <Link to={ `/${type}s/${id}` } key={ name }>
+          <div key={ name } className="wrapper-recipe-item">
+            <Link to={ `/${type}s/${id}` } key={ name } className="card-recipe">
               <img
                 data-testid={ `${index}-horizontal-image` }
                 src={ image }
                 alt={ name }
               />
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
-              </p>
-              <p data-testid={ `${index}-horizontal-name` }>{ name }</p>
+              <div className="text-card-container">
+                <div className="title-card-container">
+                  <h3 data-testid={ `${index}-horizontal-name` }>{ name }</h3>
+                  <p data-testid={ `${index}-horizontal-top-text` }>
+                    { type === 'comida' ? `${area} - ${category}` : alcoholicOrNot }
+                  </p>
+                </div>
+                <p className="text-preview">Texto de apresentação da receita</p>
+              </div>
             </Link>
-            <button
-              data-testid={ `${index}-horizontal-share-btn` }
-              type="button"
-              src={ shareIcon }
-              onClick={ () => share(`/${type}s/${id}`) }
-            >
-              <img src={ shareIcon } alt="Share Icon" />
-            </button>
-            <button
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              type="button"
-              onClick={ () => removeItem(id) }
-              src={ blackHeartIcon }
-            >
-              <img
+            <div className="buttons-container-favorite">
+              <button
+                data-testid={ `${index}-horizontal-favorite-btn` }
+                type="button"
+                onClick={ () => removeItem(id) }
                 src={ blackHeartIcon }
-                alt="favorite icon"
-              />
-            </button>
+              >
+                <img
+                  src={ blackHeartIcon }
+                  alt="favorite icon"
+                />
+              </button>
+              <button
+                data-testid={ `${index}-horizontal-share-btn` }
+                type="button"
+                src={ shareIcon }
+                onClick={ () => share(`/${type}s/${id}`) }
+              >
+                <img src={ shareIcon } alt="Share Icon" />
+              </button>
+            </div>
           </div>
         ),
       ) }
