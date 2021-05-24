@@ -9,7 +9,7 @@ export default function RecipeInProcess() {
   const { pathname } = useLocation();
   const isFood = (pathname.split('/')[1] === 'comidas');
   const [recipe, setRecipe] = useState([]);
-  const [disableBtn, setDisable] = useState(true);
+  // const [disableBtn, setDisable] = useState(true);
 
   useEffect(() => {
     async function getRecipe() {
@@ -24,13 +24,13 @@ export default function RecipeInProcess() {
     && (
       <main>
         <DetailHeader recipe={ recipe[0] } isFood={ isFood } />
-        <IngredientCheckbox recipe={ recipe[0] } />
+        <IngredientCheckbox recipe={ recipe[0] } isFood={ isFood } />
         <p data-testid="instructions">{recipe[0].strInstructions}</p>
         <button
           type="button"
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
-          disabled={ disableBtn }
+          // disabled={ disableBtn }
           onClick={ () => console.log('Finalizar!!') }
         >
           Finalizar Receita
