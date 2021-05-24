@@ -5,7 +5,7 @@ import {
   getItemLocalStorage,
   setItemLocalStorage } from '../services/servicesLocalStorage';
 
-export default function IngredientCheckbox({ recipe, isFood }) {
+export default function IngredientCheckbox({ recipe, isFood, callBack }) {
   const type = isFood ? 'meals' : 'cocktails';
   const recipeId = recipe[isFood ? 'idMeal' : 'idDrink'];
   const allInProgress = getItemLocalStorage('inProgressRecipes');
@@ -25,6 +25,10 @@ export default function IngredientCheckbox({ recipe, isFood }) {
 
     setCompletedItem(updatedInProgress[type][recipeId]);
     setItemLocalStorage('inProgressRecipes', updatedInProgress);
+
+    if (completedItem.length === allIngredients.length - 1) {
+      callBack();
+    }
   };
 
   return (allIngredients.map((ing, index) => {
@@ -35,15 +39,15 @@ export default function IngredientCheckbox({ recipe, isFood }) {
       <li
         key={ index }
         data-testid={ `${index}-ingredient-step` }
-        className={ itemDisable && 'completed-item' }
+        className={ itemDisable ? 'completed-item' : '' }
       >
         <input
           type="checkbox"
           id={ `${index}-checkbox` }
-          onClick={ () => markAsCompleted(ingString) }
+          onChange={ () => markAsCompleted(ingString) }
           checked={ itemDisable }
           disabled={ itemDisable }
-          className={ itemDisable && 'completed-item' }
+          className={ itemDisable ? 'completed-item' : '' }
         />
         <label htmlFor={ `${index}-checkbox` }>
           { ingString }

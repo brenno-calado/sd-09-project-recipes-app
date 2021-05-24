@@ -11,11 +11,11 @@ export default function RecipeInProcess() {
   const { pathname } = useLocation();
   const isFood = (pathname.split('/')[1] === 'comidas');
   const [recipe, setRecipe] = useState([]);
+  const [disableBtn, setDisable] = useState(true);
   const startedRecipes = getItemLocalStorage('inProgressRecipes');
   if (!startedRecipes) {
     setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
   }
-  // const [disableBtn, setDisable] = useState(true);
 
   useEffect(() => {
     async function getRecipe() {
@@ -25,18 +25,27 @@ export default function RecipeInProcess() {
     getRecipe();
   }, [isFood, id]);
 
+  const enableBtnCallback = () => {
+    console.log('FOI');
+    setDisable(false);
+  };
+
   return (
     recipe.length > 0
     && (
       <main>
         <DetailHeader recipe={ recipe[0] } isFood={ isFood } />
-        <IngredientCheckbox recipe={ recipe[0] } isFood={ isFood } />
+        <IngredientCheckbox
+          recipe={ recipe[0] }
+          isFood={ isFood }
+          callBack={ enableBtnCallback }
+        />
         <p data-testid="instructions">{recipe[0].strInstructions}</p>
         <button
           type="button"
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
-          // disabled={ disableBtn }
+          disabled={ disableBtn }
           onClick={ () => console.log('Finalizar!!') }
         >
           Finalizar Receita
