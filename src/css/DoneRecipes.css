@@ -1,0 +1,89 @@
+.nav-filters-types {
+  background-color: var(--orange-500);
+  border-top: 1px solid var(--orange-200);
+  display: flex;
+}
+
+.button-filter {
+  background-color: transparent;
+  border: none;
+  color: var(--orange-200);
+  font-size: 1.1rem;
+  padding: 1rem;
+  text-transform: capitalize;
+  width: 33%;
+}
+
+.button-filter:focus, .all-btn {
+  border-bottom: 3px solid white;
+  color: white;
+  font-weight: 600;
+}
+
+/* SECTION CARDS FAVORITE RECIPES */
+.wrapper-recipe-item {
+  position: relative;
+}
+
+.card-recipe {
+  align-items: center;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+  display: flex;
+  gap: 2rem;
+  margin: 1rem auto;
+  padding: 0.8rem;
+  text-decoration: none;
+  width: 80%;
+}
+
+.card-recipe img {
+  border-radius: 0.5rem;
+  height: 6rem;
+}
+
+.buttons-container-favorite {
+  bottom: 0.2rem;
+  position: absolute;
+  right: 2.2rem;
+}
+
+.buttons-container-favorite button {
+  background-color: transparent;
+  border: none;
+}
+
+.buttons-container-favorite img {
+  height: 1.2rem;
+}
+
+.title-card-container {
+  border-bottom: 2px solid var(--orange-500);
+  width: 100%;
+}
+
+.title-card-container h3 {
+  color: var(--gray-500);
+  margin: 0;
+}
+
+.title-card-container p {
+  color: var(--gray-300);
+  margin: 0;
+}
+
+.text-preview {
+  color: var(--gray-200);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 10rem;
+}
+
+.tag-box {
+  background-color: var(--blue-500);
+  border-radius: 0.6rem;
+  color: white;
+  padding: 0 0.5rem;
+}
