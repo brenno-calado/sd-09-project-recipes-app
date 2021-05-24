@@ -207,3 +207,12 @@
   position: fixed;
   right: 0;
 }
+
+/* in-progress */
+.completed-item {
+  text-decoration: none solid black;
+}
+
+.completed-item label {
+  text-decoration: line-through;
+}

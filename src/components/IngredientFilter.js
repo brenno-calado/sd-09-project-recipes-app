@@ -1,6 +1,6 @@
 export default function ingredientFilter(recipe) {
-  const headers = Object.keys(recipe);
-  const ingredients = headers.filter((i) => i.includes('strIngredient'));
+  const recipeKeys = Object.keys(recipe);
+  const ingredients = recipeKeys.filter((i) => i.includes('strIngredient'));
   const ingredientList = ingredients.map((ing, index) => {
     const newIngredient = {
       item: recipe[ing],
@@ -11,5 +11,6 @@ export default function ingredientFilter(recipe) {
     return newIngredient;
   });
   const allIngredients = ingredientList.filter((i) => i !== null);
+
   return allIngredients;
 }
