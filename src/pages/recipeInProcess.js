@@ -3,12 +3,18 @@ import { useLocation, useParams } from 'react-router';
 import getFoodsAndDrinks from '../services/servicesAPI';
 import DetailHeader from '../components/detailHeader';
 import IngredientCheckbox from '../components/ingredientCheckbox';
+import { getItemLocalStorage,
+  setItemLocalStorage } from '../services/servicesLocalStorage';
 
 export default function RecipeInProcess() {
   const { id } = useParams();
   const { pathname } = useLocation();
   const isFood = (pathname.split('/')[1] === 'comidas');
   const [recipe, setRecipe] = useState([]);
+  const startedRecipes = getItemLocalStorage('inProgressRecipes');
+  if (!startedRecipes) {
+    setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
+  }
   // const [disableBtn, setDisable] = useState(true);
 
   useEffect(() => {
@@ -30,7 +36,7 @@ export default function RecipeInProcess() {
           type="button"
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
-          // disabled={ disableBtn }
+          disabled={ disableBtn }
           onClick={ () => console.log('Finalizar!!') }
         >
           Finalizar Receita
