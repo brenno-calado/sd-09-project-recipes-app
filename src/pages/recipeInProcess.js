@@ -36,7 +36,7 @@ export default function RecipeInProcess() {
           type="button"
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
-          disabled={ disableBtn }
+          // disabled={ disableBtn }
           onClick={ () => console.log('Finalizar!!') }
         >
           Finalizar Receita
