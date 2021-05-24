@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useLocation, useParams } from 'react-router';
 import getFoodsAndDrinks from '../services/servicesAPI';
 import DetailHeader from '../components/detailHeader';
 import IngredientCheckbox from '../components/ingredientCheckbox';
+import finnishRecipe from '../components/finnishARecipe';
 import { getItemLocalStorage,
   setItemLocalStorage } from '../services/servicesLocalStorage';
 
@@ -12,6 +14,7 @@ export default function RecipeInProcess() {
   const isFood = (pathname.split('/')[1] === 'comidas');
   const [recipe, setRecipe] = useState([]);
   const [disableBtn, setDisable] = useState(true);
+  const [redirectPage, setRedirect] = useState(false);
   const startedRecipes = getItemLocalStorage('inProgressRecipes');
   if (!startedRecipes) {
     setItemLocalStorage('inProgressRecipes', { cocktails: {}, meals: {} });
@@ -26,9 +29,12 @@ export default function RecipeInProcess() {
   }, [isFood, id]);
 
   const enableBtnCallback = () => {
-    console.log('FOI');
     setDisable(false);
   };
+
+  if (redirectPage) {
+    return <Redirect to="/receitas-feitas" />;
+  }
 
   return (
     recipe.length > 0
@@ -46,7 +52,10 @@ export default function RecipeInProcess() {
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
           disabled={ disableBtn }
-          onClick={ () => console.log('Finalizar!!') }
+          onClick={ () => {
+            finnishRecipe(recipe[0], isFood);
+            setRedirect(true);
+          } }
         >
           Finalizar Receita
         </button>

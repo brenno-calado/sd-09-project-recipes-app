@@ -14,7 +14,7 @@ export default function IngredientCheckbox({ recipe, isFood, callBack }) {
   const allIngredients = ingredientFilter(recipe);
   const [completedItem, setCompletedItem] = useState([]);
 
-  const markAsCompleted = (item) => {
+  const markItemAsCompleted = (item) => {
     const updatedInProgress = {
       ...allInProgress,
       [type]: {
@@ -44,7 +44,7 @@ export default function IngredientCheckbox({ recipe, isFood, callBack }) {
         <input
           type="checkbox"
           id={ `${index}-checkbox` }
-          onChange={ () => markAsCompleted(ingString) }
+          onChange={ () => markItemAsCompleted(ingString) }
           checked={ itemDisable }
           disabled={ itemDisable }
           className={ itemDisable ? 'completed-item' : '' }
