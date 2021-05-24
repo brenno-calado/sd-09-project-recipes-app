@@ -6,25 +6,14 @@ export default function IngredientsList({ recipe }) {
   const allIngredients = ingredientFilter(recipe);
   return (
     <ul>
-      {allIngredients.map((ing, index) => {
-        if (ing.measure.length > 1) {
-          return (
-            <li
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${ing.measure} of ${ing.item}`}
-            </li>);
-        }
-        return (
-          <li
-            key={ index }
-            data-testid={ `${index}-ingredient-name-and-measure` }
-          >
-            {ing.item}
-          </li>
-        );
-      })}
+      {allIngredients.map((ing, index) => (
+        <li
+          key={ index }
+          data-testid={ `${index}-ingredient-name-and-measure` }
+        >
+          {ing.measure.length > 1 ? `${ing.measure} of ${ing.item}` : ing.item}
+        </li>
+      ))}
     </ul>);
 }
 

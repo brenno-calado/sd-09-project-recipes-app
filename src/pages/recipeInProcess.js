@@ -9,6 +9,7 @@ export default function RecipeInProcess() {
   const { pathname } = useLocation();
   const isFood = (pathname.split('/')[1] === 'comidas');
   const [recipe, setRecipe] = useState([]);
+  const [disableBtn, setDisable] = useState(true);
 
   useEffect(() => {
     async function getRecipe() {
@@ -29,6 +30,8 @@ export default function RecipeInProcess() {
           type="button"
           data-testid="finish-recipe-btn"
           className="btn btn-info fixed-btn"
+          disabled={ disableBtn }
+          onClick={ () => console.log('Finalizar!!') }
         >
           Finalizar Receita
         </button>
