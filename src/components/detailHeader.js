@@ -32,6 +32,7 @@ export default function DetailHeader({ recipe, isFood }) {
 
   const favRecipe = (item) => {
     setFavorite(!isFavorite);
+
     const favObject = {
       id,
       type: typeObject[type].favType,
@@ -41,10 +42,13 @@ export default function DetailHeader({ recipe, isFood }) {
       name: item[`str${type}`],
       image: item[`str${type}Thumb`],
     };
-    const removeFav = favList.filter((e) => e.id !== id);
+
+    const removeFav = favList ? favList.filter((e) => e.id !== id) : [];
+
     setItemLocalStorage('favoriteRecipes', [...removeFav]);
+
     if (!isFavorite) {
-      setItemLocalStorage('favoriteRecipes', [...favList, favObject]);
+      setItemLocalStorage('favoriteRecipes', [...(favList || []), favObject]);
     }
   };
 
@@ -63,8 +67,8 @@ export default function DetailHeader({ recipe, isFood }) {
     </Tooltip>);
 
   const btn = 'btn btn-light border m-1';
-
   const lastIndex = -1;
+  const imgPath = isFavorite ? blackHeart : whiteHeart;
 
   return (
     <header>
@@ -103,10 +107,10 @@ export default function DetailHeader({ recipe, isFood }) {
         type="button"
         className={ btn }
         data-testid="favorite-btn"
-        src={ isFavorite ? blackHeart : whiteHeart }
+        src={ imgPath }
         aria-label="fav-recipe"
       >
-        <img src={ isFavorite ? blackHeart : whiteHeart } alt="Fav Button" />
+        <img src={ imgPath } alt="Fav Button" />
       </button>
       <h3 data-testid="recipe-category">
         {isFood ? recipe.strCategory : recipe.strAlcoholic}
